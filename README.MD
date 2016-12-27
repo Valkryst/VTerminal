@@ -33,6 +33,7 @@ You can now use AsciiPanel in your project.
 
 ## How to Setup (JavaFX Application):
 
+```java
     import javafx.application.Application;
     import javafx.stage.Stage;
 
@@ -64,7 +65,7 @@ You can now use AsciiPanel in your project.
             }
         }
     }
-   
+```
 
 ## Notes:
 
