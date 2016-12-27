@@ -191,19 +191,6 @@ public class AsciiPanel extends Canvas {
     }
 
     /**
-     * Write the specified character.
-     *
-     * @param character
-     *         The character.
-     *
-     * @return
-     *         This.
-     */
-    public AsciiPanel write(final AsciiCharacter character) {
-        return write(character, asciiCursor.getColumnIndex(), asciiCursor.getRowIndex());
-    }
-
-    /**
      * Write the specified character to the specified position.
      *
      * @param character
@@ -226,19 +213,6 @@ public class AsciiPanel extends Canvas {
         }
 
         return this;
-    }
-
-    /**
-     * Write a string to the cursor's position and updates the cursor's position.
-     *
-     * @param string
-     *         The string.
-     *
-     * @return
-     *         This.
-     */
-    public AsciiPanel write(final AsciiString string) {
-        return write(string, asciiCursor.getColumnIndex(), asciiCursor.getRowIndex());
     }
 
     /**
