@@ -38,7 +38,7 @@ public class AsciiPanel extends Canvas {
     @Getter private final AsciiCursor asciiCursor = new AsciiCursor(this);
 
     /** An array of strings representing the character-rows of the terminal. */
-    private AsciiString[] characterStrings;
+    private AsciiString[] strings;
     
     /**
      * Constructs a new AsciiPanel.
@@ -73,16 +73,16 @@ public class AsciiPanel extends Canvas {
         this.setWidth(widthInCharacters * font.getWidth());
         this.setHeight(heightInCharacters * font.getHeight());
 
-        characterStrings = new AsciiString[heightInCharacters];
+        strings = new AsciiString[heightInCharacters];
 
-        for (int column = 0 ; column < heightInCharacters ; column++) {
+        for (int row = 0 ; row < heightInCharacters ; row++) {
             String s = "";
 
-            for (int row = 0 ; row < widthInCharacters ; row++) {
+            for (int column = 0 ; column < widthInCharacters ; column++) {
                 s += " ";
             }
 
-            characterStrings[column] = new AsciiString(s);
+            strings[row] = new AsciiString(s);
         }
     }
 
@@ -91,8 +91,8 @@ public class AsciiPanel extends Canvas {
         final GraphicsContext gc = this.getGraphicsContext2D();
         gc.setFont(font.getFont());
 
-        for (int row = 0 ; row < characterStrings.length ; row++) {
-            characterStrings[row].draw(gc, font, row);
+        for (int row = 0 ; row < strings.length ; row++) {
+            strings[row].draw(gc, font, row);
         }
     }
 
@@ -108,7 +108,7 @@ public class AsciiPanel extends Canvas {
      * @return
      *         Whether or not the specified position is within the bounds of the panel.
      */
-    public boolean isPositionValid(final int columnIndex, final int rowIndex) {
+    private boolean isPositionValid(final int columnIndex, final int rowIndex) {
         if (rowIndex < 0 || rowIndex >= heightInCharacters) {
             final Logger logger = LogManager.getLogger();
             logger.error("The specified column of " + columnIndex + " exceeds the maximum width of " + widthInCharacters + ".");
@@ -197,9 +197,7 @@ public class AsciiPanel extends Canvas {
     }
 
     /**
-     * Write the specified character to the cursor's position.
-     *
-     * This updates the cursor's position.
+     * Write the specified character.
      *
      * @param character
      *         The character.
@@ -212,9 +210,7 @@ public class AsciiPanel extends Canvas {
     }
 
     /**
-     * Write the specified character to the specified position and updates the cursor's position.
-     *
-     * Does nothing if the (columnIndex, rowIndex) points to invalid position.
+     * Write the specified character to the specified position.
      *
      * @param character
      *         The character.
@@ -232,9 +228,7 @@ public class AsciiPanel extends Canvas {
         boolean canProceed = isPositionValid(columnIndex, rowIndex);
 
         if (canProceed) {
-            characterStrings[rowIndex].replaceCharacter(columnIndex, character);
-            asciiCursor.setColumn(columnIndex + 1);
-            asciiCursor.setRow(rowIndex);
+            strings[rowIndex].replaceCharacter(columnIndex, character);
         }
 
         return this;
@@ -254,7 +248,7 @@ public class AsciiPanel extends Canvas {
     }
 
     /**
-     * Write a string to the specified position and updates the cursor's position.
+     * Write a string to the specified position.
      *
      * Does nothing if the (columnIndex, rowIndex) points to invalid position.
      *
@@ -285,7 +279,7 @@ public class AsciiPanel extends Canvas {
     }
 
     /**
-     * Write a string to the center of the panel beginning at the specified row and updates the cursor's position.
+     * Write a string to the center of the panel beginning at the specified row.
      *
      * Does nothing for any character where the (columnIndex, rowIndex) points to invalid position.
      *
