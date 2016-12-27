@@ -1,21 +1,23 @@
-package com.valkryst.AsciiPanel.component;
+package com.valkryst.AsciiPanel;
 
-import com.valkryst.AsciiPanel.AsciiCharacter;
-import com.valkryst.AsciiPanel.AsciiFont;
-import com.valkryst.AsciiPanel.AsciiString;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import lombok.Getter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
-public class AsciiScreen extends AsciiComponent {
+public class AsciiScreen {
+    /** The width, in characters. */
+    @Getter private int width;
+    /** The height, in characters. */
+    @Getter private int height;
+
+    /** The strings representing the character-rows of the screen. */
+    protected AsciiString[] strings;
+
     /**
      * Constructs a new AsciiScreen.
-     *
-     * @param columnIndex
-     *         The x-axis (column) coordinate of the top-left character.
-     *
-     * @param rowIndex
-     *         The y-axis (row) coordinate of the top-left character.
      *
      * @param width
      *         Thw width, in characters.
@@ -23,13 +25,9 @@ public class AsciiScreen extends AsciiComponent {
      * @param height
      *         The height, in characters.
      */
-    public AsciiScreen(final int columnIndex, final int rowIndex, final int width, final int height) {
-        super(columnIndex, rowIndex, width, height);
-    }
-
-    @Override
-    public void draw(final AsciiScreen screen) {
-        throw new UnsupportedOperationException("You must use the draw(canvas, font) method to draw an AsciiScreen.");
+    public AsciiScreen(final int width, final int height) {
+        this.width = width;
+        this.height = height;
     }
 
     /**
@@ -52,6 +50,34 @@ public class AsciiScreen extends AsciiComponent {
     }
 
     /**
+     * Determines whether or not the specified position is within the bounds of the component.
+     *
+     * @param columnIndex
+     *         The x-axis (column) coordinate.
+     *
+     * @param rowIndex
+     *         The y-axis (row) coordinate.
+     *
+     * @return
+     *         Whether or not the specified position is within the bounds of the component.
+     */
+    protected boolean isPositionValid(final int columnIndex, final int rowIndex) {
+        if (rowIndex < 0 || rowIndex >= height) {
+            final Logger logger = LogManager.getLogger();
+            logger.error("The specified column of " + columnIndex + " exceeds the maximum height of " + height + ".");
+            return false;
+        }
+
+        if (columnIndex < 0 || columnIndex >= width) {
+            final Logger logger = LogManager.getLogger();
+            logger.error("The specified row of " + rowIndex + " exceeds the maximum width of " + width + ".");
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Clears the entire screen.
      *
      * @param character
@@ -61,7 +87,7 @@ public class AsciiScreen extends AsciiComponent {
      *         If all characters within the screen were cleared.
      */
     public boolean clear(final AsciiCharacter character) {
-        return clear(character, 0, 0, super.getWidth(), super.getHeight());
+        return clear(character, 0, 0, width, height);
     }
 
     /**
@@ -154,7 +180,7 @@ public class AsciiScreen extends AsciiComponent {
         boolean writesSuccessful = true;
         final AsciiCharacter[] characters = string.getCharacters();
 
-        for (int i = 0 ; i < characters.length && i < super.getWidth(); i++) {
+        for (int i = 0 ; i < characters.length && i < width ; i++) {
             writesSuccessful &= write(characters[i], columnIndex + i, rowIndex);
         }
 
