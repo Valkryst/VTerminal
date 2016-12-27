@@ -10,6 +10,20 @@ public class AsciiString extends HBox {
     @Getter private AsciiCharacter[] characters;
 
     /**
+     * Constructs a new AsciiString of the specified length with all characters set to ' '.
+     *
+     * @param length
+     *         The length to make the string.
+     */
+    public AsciiString(final int length) {
+        characters = new AsciiCharacter[length];
+
+        for (int i = 0; i < characters.length; i++) {
+            characters[i] = new AsciiCharacter(' ');
+        }
+    }
+
+    /**
      * Constructs a new AsciiString.
      *
      * @param string
