@@ -27,6 +27,11 @@ public class AsciiScreen extends AsciiComponent {
         super(columnIndex, rowIndex, width, height);
     }
 
+    @Override
+    public void draw(final AsciiScreen screen) {
+        throw new UnsupportedOperationException("An AsciiScreen must be drawn using the draw(canvas, font) method.");
+    }
+
     /**
      * Draws the screen onto the specified canvas using the specified font.
      *
