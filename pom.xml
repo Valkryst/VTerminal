@@ -4,9 +4,9 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
  
-  <groupId>net.trystan</groupId>
-  <artifactId>ascii-panel</artifactId>
-  <version>1.1</version>
+  <groupId>com.valkryst</groupId>
+  <artifactId>AsciiPanel</artifactId>
+  <version>1.2</version>
 
     <build>
         <plugins>
