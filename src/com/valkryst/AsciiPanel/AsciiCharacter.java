@@ -3,6 +3,7 @@ package com.valkryst.AsciiPanel;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +15,8 @@ public class AsciiCharacter {
     @Getter private Paint backgroundColor = Color.BLACK;
 	/** The foreground color. Defaults to white. */
 	@Getter private Paint foregroundColor = Color.WHITE;
+	/** The bounding box of the character's area. */
+	@Getter private final Rectangle boundingBox = new Rectangle();
 
     /**
      * Constructs a new AsciiCharacter.
@@ -84,6 +87,11 @@ public class AsciiCharacter {
 	    gc.fillRect(columnIndex, rowIndex, columnIndex + fontWidth, rowIndex + fontHeight);
 	    gc.setFill(foregroundColor);
 	    gc.fillText(String.valueOf(character), columnIndex, rowIndex + fontHeight, fontWidth);
+
+        boundingBox.setX(columnIndex);
+        boundingBox.setY(rowIndex);
+        boundingBox.setWidth(fontWidth);
+        boundingBox.setHeight(fontHeight);
     }
 
     /**
