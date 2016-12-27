@@ -1,6 +1,5 @@
 package com.valkryst.AsciiPanel.component;
 
-import com.valkryst.AsciiPanel.AsciiScreen;
 import com.valkryst.AsciiPanel.AsciiString;
 import javafx.scene.shape.Rectangle;
 import lombok.Getter;
