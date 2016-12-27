@@ -12,7 +12,8 @@ Please refer to the LICENSE file for additional information.
 AsciiPanel simulates a Unicode terminal display. It supports arbitrary fore/background colors,  terminal sizes, and allows
 the use of any mono-space font.
 
-This should be useful to roguelike developers.
+This project is currently under active development and code-breaking changes are being committed as development progresses
+and code is refactored. This readme file will be updated to note when the project is in a usable state.
 
 ## How to Setup (Module):
 
