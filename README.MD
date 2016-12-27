@@ -1,32 +1,92 @@
+#### License: 
+
+Use this code however you wish. Modifications, improvements, additional lists of names, and new algorithms are welcome.
+
+Please refer to the LICENSE file for additional information.
+
+---
+
 # AsciiPanel
 
 
-AsciiPanel simulates a [code page 437](https://en.wikipedia.org/wiki/Code_page_437) ASCII terminal display. It supports all 256 characters of codepage 437, arbitrary foreground colors, arbitrary background colors, and arbitrary terminal sizes.
-
-The default terminal size is 80x24 characters and default colors matching the Windows Command Prompt are provided. The default font is 9x16 pixel CP437 (`CP437_9x16`.)
+AsciiPanel simulates a Unicode terminal display. It supports arbitrary fore/background colors,  terminal sizes, and allows
+the use of any mono-space font.
 
 This should be useful to roguelike developers.
 
-## Usage
+## How to Setup (Module):
 
-AsciiPanel supports the customization of fonts. The following system fonts are provided:
-- CP437_9x16 
-- CP437_8x8 
-- CP437_10x10 
-- CP437_12x12
-- CP437_16x16
+1. Clone the project from GitHub.
+2. Open your project in IntelliJ.
+3. Open the *Project Structure* menu. (S + ALT + CTRL + SHIFT)
+4. Enter the *Modules* subsection.
+5. Click the green "+" at the top of the window.
+6. Select *Import Module*.
+7. Navigate to the cloned project and double-click on *pom.xml*.
+8. Click on the name of your project in the *Modules* subsection.
+9. Enter the *Dependencies* tab of your project.
+10. Click on the green "+" at the right-edge of the window.
+11. Click *Module Dependency...*.
+12. Select *AsciiPanel*.
 
-In addition, the following fontsets from the [Dwarf Fortress Tileset](http://dwarffortresswiki.org/Tileset_repository) are also included:
-- DRAKE_10x10
-- QBICFEET_10x10 
-- TALRYTH_15x15 
+You can now use AsciiPanel in your project.
 
-The AsciiPanel class provides a special three-parameter constructor to support font customization. Simply pass the desired AsciiFont as the third parameter as follows.
+## How to Setup (JavaFX Application):
 
+    import javafx.application.Application;
+    import javafx.stage.Stage;
 
-    AsciiPanel myPanel = new AsciiPanel(80, 24, AsciiFont.DRAKE_10x10);
+    import java.io.IOException;
 
+    public class Driver extends Application {
+        public static void main(String[] args) throws IOException {
+            launch();
+        }
 
-## Notes
+        @Override
+        public void start(Stage primaryStage) throws Exception {
+            try {
+                final AsciiFont font = new AsciiFont("Fonts/Lucida Sans Unicode/lsansuni.ttf", 16);
 
-This project is built with Java 8. However the code itself does not *require* Java 8. If you are supporting a project running an earlier version of Java, you can change the pom file and rebuild the jar using your chosen version of Java without having to modify the code.
+                final AsciiPanel panel = new AsciiPanel(100, 50, font);
+                panel.setFocusTraversable(true);
+
+                final Group root = new Group();
+                root.getChildren().add(terminal);
+                
+                final Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+
+                // GAME LOOP GOES HERE
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+   
+
+## Notes:
+
+### Fonts:
+AsciiPanel supports the customization of fonts. The following mono-space fonts are provided:
+
+* [DejaVu](http://dejavu-fonts.org/wiki/Main_Page):
+    * DejaVuSansMono.ttf
+    * DejaVuSansMono-Bold.ttf
+    * DejaVuSansMono-BoldOblique.ttf
+    * DejaVuSansMono-Oblique.ttf
+* [GNU FreeFont](https://www.gnu.org/software/freefont/):
+    * FreeMono.ttf
+    * FreeMonoBold.ttf
+    * FreeMonoBoldOblique.ttf
+    * FreeMonoOblique.ttf
+* [Lucida Sans Unicode](http://www.ffonts.net/Lucida-Sans-Unicode.font.download):
+    * lsansuni.ttf
+    
+### Misc:
+
+* Calling the *draw()* function of the *AsciiPanel* will draw the stored arrays of *AsciiStrings* onto the *AsciiPanel*.
+   After calling *draw()*, the screen will remain as it was last drawn until the next call to *draw()* is made.
+   
+   You do not need to continuously call *draw()* to keep an image on the *AsciiPanel*.
