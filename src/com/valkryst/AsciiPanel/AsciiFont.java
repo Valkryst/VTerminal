@@ -23,11 +23,14 @@ public class AsciiFont {
      *
      * @param font
      *         The font to use.
+     *
+     * @param fontHeightOffset
+     *         The number of pixels to subtract from the fontHeight in order to correct any errors when drawing characters.
      */
-    public AsciiFont(final Font font) {
+    public AsciiFont(final Font font, final int fontHeightOffset) {
         this.font = font;
         width = calculateWidth();
-        height = (int) font.getSize();
+        height = ((int) font.getSize()) - fontHeightOffset;
     }
 
     /**
@@ -44,13 +47,16 @@ public class AsciiFont {
      *
      *         todo Find out whether this size defines the width or height of the font.
      *
+     * @param fontHeightOffset
+     *         The number of pixels to subtract from the fontHeight in order to correct any errors when drawing characters.
+     *
      * @throws IOException
      *          If an IOException occurs while loading the font.
      */
-    public AsciiFont(final String fontFilename, final int fontSize) throws IOException {
+    public AsciiFont(final String fontFilename, final int fontSize, final int fontHeightOffset) throws IOException {
         font = loadFont(fontFilename, fontSize);
         width = calculateWidth();
-        height = (int) font.getSize();
+        height = ((int) font.getSize()) - fontHeightOffset;
     }
 
     /**
