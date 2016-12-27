@@ -21,7 +21,7 @@ public class AsciiComponent {
     @Getter private Rectangle boundingBox = new Rectangle();
 
     /** The strings representing the character-rows of the component. */
-    protected AsciiString[] strings;
+    @Getter protected AsciiString[] strings;
 
     /**
      * Constructs a new AsciiComponent.
