@@ -113,26 +113,45 @@ public class AsciiString {
     }
 
     /**
-     * Sets the background color of all characters to the specified color.
+     * Sets all characters to either be hidden or visible.
+     *
+     * @param isHidden
+     *         Whether or not the characters are to be hidden.
+     */
+    public void setHidden(final boolean isHidden) {
+        for (final AsciiCharacter c : characters) {
+            c.setHidden(isHidden);
+        }
+    }
+
+    /** Swaps the background and foreground colors of every character. */
+    public void invertColors() {
+        for (final AsciiCharacter c : characters) {
+            c.invertColors();
+        }
+    }
+
+    /**
+     * Sets the background color of all characters.
      *
      * @param color
      *         The new background color.
      */
     public void setBackgroundColor(final Paint color) {
-        for (int i = 0 ; i < characters.length ; i++) {
-            characters[i].setBackgroundColor(color);
+        for (final AsciiCharacter c : characters) {
+            c.setBackgroundColor(color);
         }
     }
 
     /**
-     * Sets the foreground color of all characters to the specified color.
+     * Sets the foreground color of all characters.
      *
      * @param color
      *         The new foreground color.
      */
     public void setForegroundColor(final Paint color) {
-        for (int i = 0 ; i < characters.length ; i++) {
-            characters[i].setForegroundColor(color);
+        for (final AsciiCharacter c : characters) {
+            c.setForegroundColor(color);
         }
     }
 }
