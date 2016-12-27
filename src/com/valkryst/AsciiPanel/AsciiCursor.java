@@ -24,6 +24,14 @@ public class AsciiCursor {
         this.panel = panel;
     }
 
+    @Override
+    public String toString() {
+        String s = "AsciiCursor:\n";
+        s += "\tColumn Index: " + columnIndex + "\n";
+        s += "\tRow Index: " + rowIndex + "\n";
+        return s;
+    }
+
     /**
      * Sets the column index specifying which column the cursor is at.
      *
