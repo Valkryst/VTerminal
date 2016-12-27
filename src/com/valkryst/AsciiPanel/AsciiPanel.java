@@ -91,7 +91,7 @@ public class AsciiPanel extends Canvas {
                   .filter(component -> component instanceof AsciiScreen == false)
                   .forEach(component -> component.draw(currentScreen));
 
-        // Draw the current AsciiScreen component:
+        // Draw current screen:
         currentScreen.draw(this, font);
     }
 
