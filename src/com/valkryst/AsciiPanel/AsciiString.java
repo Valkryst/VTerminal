@@ -95,25 +95,6 @@ public class AsciiString {
     }
 
     /**
-     * Replaces the character at the specified position with the specified character.
-     *
-     * @param columnIndex
-     *         The x-axis (column) coordinate of the character to be replaced.
-     *
-     * @param character
-     *         The new character.
-     */
-    public void replaceCharacter(final int columnIndex, final AsciiCharacter character) {
-        boolean canProceed = columnIndex >= 0;
-        canProceed &= columnIndex < characters.length;
-        canProceed &= character != null;
-
-        if (canProceed) {
-            characters[columnIndex] = character;
-        }
-    }
-
-    /**
      * Applies a color gradient to the entire string.
      *
      * @param colorFrom
