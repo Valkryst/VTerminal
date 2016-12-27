@@ -91,3 +91,5 @@ AsciiPanel supports the customization of fonts. The following mono-space fonts a
    After calling *draw()*, the screen will remain as it was last drawn until the next call to *draw()* is made.
    
    You do not need to continuously call *draw()* to keep an image on the *AsciiPanel*.
+   
+* The use of non-mono-space fonts is not supported, but it not specifically prevented.
