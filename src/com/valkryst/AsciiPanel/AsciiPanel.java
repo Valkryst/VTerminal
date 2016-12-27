@@ -76,13 +76,7 @@ public class AsciiPanel extends Canvas {
         strings = new AsciiString[heightInCharacters];
 
         for (int row = 0 ; row < heightInCharacters ; row++) {
-            String s = "";
-
-            for (int column = 0 ; column < widthInCharacters ; column++) {
-                s += " ";
-            }
-
-            strings[row] = new AsciiString(s);
+            strings[row] = new AsciiString(widthInCharacters);
         }
     }
 
