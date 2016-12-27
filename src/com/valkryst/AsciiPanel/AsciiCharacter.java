@@ -11,6 +11,8 @@ import lombok.Setter;
 public class AsciiCharacter {
     /** The character. */
 	@Getter @Setter private char character;
+	/** Whether or not the foreground should be drawn using the background color. */
+	@Getter @Setter private boolean isHidden = false;
     /** The background color. Defaults to black. */
     @Getter private Paint backgroundColor = Color.BLACK;
 	/** The foreground color. Defaults to white. */
@@ -85,13 +87,20 @@ public class AsciiCharacter {
 
 	    gc.setFill(backgroundColor);
 	    gc.fillRect(columnIndex, rowIndex, columnIndex + fontWidth, rowIndex + fontHeight);
-	    gc.setFill(foregroundColor);
+	    gc.setFill((isHidden ? backgroundColor : foregroundColor));
 	    gc.fillText(String.valueOf(character), columnIndex, rowIndex + fontHeight, fontWidth);
 
         boundingBox.setX(columnIndex);
         boundingBox.setY(rowIndex);
         boundingBox.setWidth(fontWidth);
         boundingBox.setHeight(fontHeight);
+    }
+
+    /** Swaps the background and foreground colors. */
+    public void invertColors() {
+        final Paint temp = backgroundColor;
+        setBackgroundColor(foregroundColor);
+        setForegroundColor(temp);
     }
 
     /**
