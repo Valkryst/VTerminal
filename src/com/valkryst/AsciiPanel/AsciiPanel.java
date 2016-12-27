@@ -100,10 +100,10 @@ public class AsciiPanel extends Canvas {
      * Determines whether or not the specified position is within the bounds of the panel.
      *
      * @param columnIndex
-     *         The index of the column.
+     *         The x-axis (column) coordinate.
      *
      * @param rowIndex
-     *         The index of the row.
+     *         The y-axis (row) coordinate.
      *
      * @return
      *         Whether or not the specified position is within the bounds of the panel.
@@ -138,6 +138,27 @@ public class AsciiPanel extends Canvas {
     }
 
     /**
+     * Clears the specified cell of the screen.
+     *
+     * Does nothing if the (columnIndex, rowIndex) pair points to invalid position.
+     *
+     * @param character
+     *         The character to replace all characters being cleared with.
+     *
+     * @param columnIndex
+     *         The x-axis (column) coordinate of the cell to clear.
+     *
+     * @param rowIndex
+     *         The y-axis (row) coordinate of the cell to clear.
+     *
+     * @return
+     *         This.
+     */
+    public AsciiPanel clear(final AsciiCharacter character, final int columnIndex, final int rowIndex) {
+        return clear(character, columnIndex, rowIndex, columnIndex, rowIndex);
+    }
+
+    /**
      * Clears the specified section of the screen.
      *
      * Does nothing if the (columnIndex, rowIndex) or (width, height) pairs point to invalid positions.
@@ -146,16 +167,16 @@ public class AsciiPanel extends Canvas {
      *         The character to replace all characters being cleared with.
      *
      * @param columnIndex
-     *         The index of the column to begin writing from.
+     *         The x-axis (column) coordinate of the cell to clear.
      *
      * @param rowIndex
-     *         The index of the row to begin writing from.
+     *         The y-axis (row) coordinate of the cell to clear.
      *
      * @param width
-     *         The width of the section to clear.
+     *         The width of the area to clear.
      *
      * @param height
-     *         The height of the section to clear.
+     *         The height of the area to clear.
      *
      * @return
      *         This.
@@ -199,10 +220,10 @@ public class AsciiPanel extends Canvas {
      *         The character.
      *
      * @param columnIndex
-     *         The index of the column to begin writing from.
+     *         The x-axis (column) coordinate to write to.
      *
      * @param rowIndex
-     *         The index of the row to begin writing from.
+     *         The y-axis (row) coordinate to write to.
      *
      * @return
      *         This.
@@ -241,10 +262,10 @@ public class AsciiPanel extends Canvas {
      *         The string.
      *
      * @param columnIndex
-     *         The index of the column to begin writing from.
+     *         The x-axis (column) coordinate to begin writing from.
      *
      * @param rowIndex
-     *         The index of the row to begin writing from.
+     *         The y-axis (row) coordinate to begin writing from.
      *
      * @return
      *         This.
@@ -272,7 +293,7 @@ public class AsciiPanel extends Canvas {
      *         The string.
      *
      * @param rowIndex
-     *         The index of the row to begin writing from.
+     *         The y-axis (row) coordinate to begin writing from.
      *
      * @return
      *         This.
