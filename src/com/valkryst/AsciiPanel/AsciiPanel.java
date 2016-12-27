@@ -41,8 +41,6 @@ public class AsciiPanel extends Canvas {
     /** The cursor. */
     @Getter private final AsciiCursor asciiCursor = new AsciiCursor(this);
 
-    private AsciiComponent focusedComponent = null;
-
     @Getter private AsciiScreen currentScreen;
 
     private ArrayList<AsciiComponent> components = new ArrayList<>();
@@ -81,19 +79,6 @@ public class AsciiPanel extends Canvas {
         this.setHeight(heightInCharacters * font.getHeight());
 
         currentScreen = new AsciiScreen(0, 0, widthInCharacters, heightInCharacters);
-
-        this.setOnMouseMoved(event -> {
-            final int mouseX = (int) (event.getX() % font.getWidth());
-            final int mouseY = (int) (event.getY() % font.getHeight());
-
-            components.forEach(component -> {
-                boolean mouseIntersects = component.intersects(mouseX, mouseY);
-
-                if (mouseIntersects) {
-                    focusedComponent = component;
-                }
-            });
-        });
     }
 
     /** Draws every character of every row onto the canvas. */
