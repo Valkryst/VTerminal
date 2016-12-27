@@ -83,7 +83,7 @@ public class AsciiCharacter {
 	    gc.setFill(backgroundColor);
 	    gc.fillRect(columnIndex, rowIndex, columnIndex + fontWidth, rowIndex + fontHeight);
 	    gc.setFill(foregroundColor);
-	    gc.fillText(String.valueOf(character), columnIndex, rowIndex + fontHeight - 1, fontWidth);
+	    gc.fillText(String.valueOf(character), columnIndex, rowIndex + fontHeight, fontWidth);
     }
 
     /**
