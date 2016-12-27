@@ -1,11 +1,10 @@
 package com.valkryst.AsciiPanel;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import lombok.Getter;
 
-public class AsciiString extends HBox {
+public class AsciiString {
     /** The characters of the string. */
     @Getter private AsciiCharacter[] characters;
 
