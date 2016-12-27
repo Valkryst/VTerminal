@@ -1,6 +1,5 @@
 # AsciiPanel
 
-[![Build Status](https://travis-ci.org/roddy/MavenizedAsciiPanel.svg)](https://travis-ci.org/roddy/MavenizedAsciiPanel)
 
 AsciiPanel simulates a [code page 437](https://en.wikipedia.org/wiki/Code_page_437) ASCII terminal display. It supports all 256 characters of codepage 437, arbitrary foreground colors, arbitrary background colors, and arbitrary terminal sizes.
 
@@ -24,28 +23,9 @@ In addition, the following fontsets from the [Dwarf Fortress Tileset](http://dwa
 
 The AsciiPanel class provides a special three-parameter constructor to support font customization. Simply pass the desired AsciiFont as the third parameter as follows.
 
-```java
-AsciiPanel myPanel = new AsciiPanel(80, 24, AsciiFont.DRAKE_10x10);
 
-```
+    AsciiPanel myPanel = new AsciiPanel(80, 24, AsciiFont.DRAKE_10x10);
 
-## Build instructions
-
-AsciiPanel is a [Maven](https://maven.apache.org/) project, compatible with Maven 2 and Maven 3. It can be built using the following command:
-
-```
-mvn install
-```
-
-This will build the project, run the unit tests, and copy the resulting jar into your local Maven repository. Once the jar is deployed to your repository, you can include it in your projects by including the following dependency in your pom:
-
-```xml
-<dependency>
-  <groupId>net.trystan</groupId>
-  <artifactId>ascii-panel</artifactId>
-  <version>1.1</version>
-</dependency>
-```
 
 ## Notes
 
