@@ -59,6 +59,8 @@ public class AsciiComponent {
 
         this.columnIndex = columnIndex;
         this.rowIndex = rowIndex;
+        this.width = width;
+        this.height = height;
 
         boundingBox.setX(columnIndex);
         boundingBox.setY(rowIndex);
