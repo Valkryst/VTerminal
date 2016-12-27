@@ -39,7 +39,7 @@ public class AsciiPanel extends Canvas {
 
     /** An array of strings representing the character-rows of the terminal. */
     private AsciiString[] strings;
-    
+
     /**
      * Constructs a new AsciiPanel.
      *
@@ -129,27 +129,6 @@ public class AsciiPanel extends Canvas {
      */
     public AsciiPanel clear(final AsciiCharacter character) {
         return clear(character, 0, 0, widthInCharacters, heightInCharacters);
-    }
-
-    /**
-     * Clears the specified cell of the screen.
-     *
-     * Does nothing if the (columnIndex, rowIndex) pair points to invalid position.
-     *
-     * @param character
-     *         The character to replace all characters being cleared with.
-     *
-     * @param columnIndex
-     *         The x-axis (column) coordinate of the cell to clear.
-     *
-     * @param rowIndex
-     *         The y-axis (row) coordinate of the cell to clear.
-     *
-     * @return
-     *         This.
-     */
-    public AsciiPanel clear(final AsciiCharacter character, final int columnIndex, final int rowIndex) {
-        return clear(character, columnIndex, rowIndex, columnIndex, rowIndex);
     }
 
     /**
