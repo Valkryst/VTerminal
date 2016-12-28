@@ -88,13 +88,13 @@ No font will look correct at all font sizes. An example of this can be seen belo
 a font size of 17 in the first image and a font size of 20 in the second. You will need to experiment and decide on a font
 size to use for your project.
 
-<center>
+<div style="text-align:center">
 
 | Font Size 17 | Font Size 20 |
 | ------------ | ------------ |
 | ![Example of font spacing issue at 17pt.](https://github.com/Valkryst/AsciiPanel/blob/master/images/Font-Size%20Spacing%20(17pt).png) | ![Example of font spacing issue at 20pt.](https://github.com/Valkryst/AsciiPanel/blob/master/images/Font-Size%20Spacing%20(20pt).png) |
 
-</center>
+</div>
     
 ### Misc:
 
