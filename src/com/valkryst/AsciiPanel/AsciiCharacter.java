@@ -1,5 +1,6 @@
 package com.valkryst.AsciiPanel;
 
+import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -78,16 +79,18 @@ public class AsciiCharacter {
      *         The y-axis (row) coordinate where the character is to be drawn.
      */
     public void draw(final GraphicsContext gc, final AsciiFont font, double columnIndex, double rowIndex) {
-	    final double fontWidth = font.getWidth();
-	    final double fontHeight = font.getHeight();
+	    final int fontWidth = font.getWidth();
+	    final int fontHeight = font.getHeight();
 
 	    columnIndex *= fontWidth;
 	    rowIndex *= fontHeight;
 
+	    gc.setTextBaseline(VPos.TOP);
+
 	    gc.setFill(backgroundColor);
-	    gc.fillRect(columnIndex, rowIndex, columnIndex + fontWidth, rowIndex + fontHeight);
-	    gc.setFill((isHidden ? backgroundColor : foregroundColor));
-	    gc.fillText(String.valueOf(character), columnIndex, rowIndex + fontHeight, fontWidth);
+        gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
+        gc.setFill((isHidden ? backgroundColor : foregroundColor));
+        gc.fillText(String.valueOf(character), columnIndex, rowIndex, fontWidth);
 
         boundingBox.setX(columnIndex);
         boundingBox.setY(rowIndex);
