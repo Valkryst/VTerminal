@@ -29,8 +29,8 @@ public class AsciiFont {
         this.font = font;
 
         final FontMetrics metrics = Toolkit.getToolkit().getFontLoader().getFontMetrics(font);
-        width = (int) Math.ceil(metrics.computeStringWidth("@"));
-        height = (int) metrics.getLineHeight();
+        width = (int) metrics.computeStringWidth("═");
+        height = (int) font.getSize();
     }
 
     /**
@@ -54,8 +54,8 @@ public class AsciiFont {
         font = loadFont(fontFilename, fontSize);
 
         final FontMetrics metrics = Toolkit.getToolkit().getFontLoader().getFontMetrics(font);
-        width = (int) Math.ceil(metrics.computeStringWidth("@"));
-        height = (int) metrics.getLineHeight();
+        width = (int) metrics.computeStringWidth("═");
+        height = (int) font.getSize();
     }
 
     /**
