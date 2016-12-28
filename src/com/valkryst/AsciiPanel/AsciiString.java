@@ -5,6 +5,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import lombok.Getter;
 
+import java.util.Arrays;
+
 public class AsciiString {
     /** The characters of the string. */
     @Getter private AsciiCharacter[] characters;
@@ -17,10 +19,7 @@ public class AsciiString {
      */
     public AsciiString(final int length) {
         characters = new AsciiCharacter[length];
-
-        for (int i = 0; i < characters.length; i++) {
-            characters[i] = new AsciiCharacter(' ');
-        }
+        Arrays.fill(characters, new AsciiCharacter(' '));
     }
 
     /**
@@ -34,10 +33,7 @@ public class AsciiString {
             characters = new AsciiCharacter[0];
         } else {
             characters = new AsciiCharacter[string.length()];
-
-            for (int i = 0; i < characters.length; i++) {
-                characters[i] = new AsciiCharacter(string.charAt(i));
-            }
+            Arrays.fill(characters, new AsciiCharacter(' '));
         }
     }
 
@@ -91,6 +87,21 @@ public class AsciiString {
     public void draw(final GraphicsContext gc, final AsciiFont font, final int rowIndex) {
         for (int columnIndex = 0 ; columnIndex < characters.length ; columnIndex++) {
             characters[columnIndex].draw(gc, font, columnIndex, rowIndex);
+        }
+    }
+
+    /**
+     * Sets a new character in the specified position.
+     *
+     * @param columnIndex
+     *         The x-axis (column) coordinate to place the character at.
+     *
+     * @param character
+     *         The new character.
+     */
+    public void setCharacter(int columnIndex, final AsciiCharacter character) {
+        if (columnIndex >= 0 || columnIndex < characters.length) {
+            characters[columnIndex] = character;
         }
     }
 
