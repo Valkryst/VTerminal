@@ -17,7 +17,11 @@ public class AsciiString {
      * @param length
      *         The length to make the string.
      */
-    public AsciiString(final int length) {
+    public AsciiString(int length) {
+        if (length < 0) {
+            length = 0;
+        }
+
         characters = new AsciiCharacter[length];
         Arrays.fill(characters, new AsciiCharacter(' '));
     }
