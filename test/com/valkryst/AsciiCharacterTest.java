@@ -38,8 +38,8 @@ public class AsciiCharacterTest {
         character.setForegroundColor(Color.WHITE);
         character.invertColors();
 
-        boolean inversionSuccessful = character.getBackgroundColor().equals(Color.BLACK);
-        inversionSuccessful &= character.getForegroundColor().equals(Color.WHITE);
+        boolean inversionSuccessful = character.getBackgroundColor().equals(Color.WHITE);
+        inversionSuccessful &= character.getForegroundColor().equals(Color.BLACK);
 
         Assert.assertTrue(inversionSuccessful);
     }
