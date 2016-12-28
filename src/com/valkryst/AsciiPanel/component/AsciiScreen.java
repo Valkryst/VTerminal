@@ -123,7 +123,7 @@ public class AsciiScreen extends AsciiComponent {
         boolean canProceed = isPositionValid(columnIndex, rowIndex);
 
         if (canProceed) {
-            strings[rowIndex].replaceCharacter(columnIndex, character);
+            strings[rowIndex].setCharacter(columnIndex, character);
         }
 
         return canProceed;
