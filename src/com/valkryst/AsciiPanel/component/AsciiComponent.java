@@ -112,9 +112,9 @@ public class AsciiComponent {
      */
     public boolean intersects(final int pointX, final int pointY) {
         boolean intersects = pointX >= columnIndex;
-        intersects &= pointX < boundingBox.getWidth();
+        intersects &= pointX < (boundingBox.getWidth() + columnIndex);
         intersects &= pointY >= rowIndex;
-        intersects &= pointY < boundingBox.getHeight();
+        intersects &= pointY < (boundingBox.getHeight() + rowIndex);
 
         return intersects;
     }
