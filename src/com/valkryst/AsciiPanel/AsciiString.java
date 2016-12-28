@@ -172,18 +172,26 @@ public class AsciiString {
         double blueCurrent = colorFrom.getBlue() * 255;
 
         // Set the new color values:
+        final StringBuilder stringBuilder = new StringBuilder();
+
         for (int column = beginIndex ; column < endIndex ; column++) {
-            final String rgb = "rgb(" + (int) redCurrent + ", " + (int) greenCurrent + ", " + (int) blueCurrent + ")";
+            stringBuilder.append("rgb(")
+                         .append((int) redCurrent).append(",")
+                         .append((int) greenCurrent).append(",")
+                         .append((int) blueCurrent)
+                         .append(")");
 
             if (applyToBackground) {
-                characters[column].setBackgroundColor(Color.web(rgb));
+                characters[column].setBackgroundColor(Color.web(stringBuilder.toString()));
             } else {
-                characters[column].setForegroundColor(Color.web(rgb));
+                characters[column].setForegroundColor(Color.web(stringBuilder.toString()));
             }
 
             redCurrent += redChangePerColumn;
             greenCurrent += greenChangePerColumn;
             blueCurrent += blueChangePerColumn;
+
+            stringBuilder.setLength(0);
         }
     }
 
