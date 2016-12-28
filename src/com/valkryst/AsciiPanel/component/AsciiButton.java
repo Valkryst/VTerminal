@@ -1,5 +1,6 @@
 package com.valkryst.AsciiPanel.component;
 
+import com.valkryst.AsciiPanel.AsciiCharacter;
 import com.valkryst.AsciiPanel.AsciiFont;
 import com.valkryst.AsciiPanel.AsciiPanel;
 import com.valkryst.AsciiPanel.AsciiString;
@@ -14,6 +15,9 @@ public class AsciiButton extends AsciiComponent {
     private boolean isInHoveredState = false;
     /** Whether or not the button is in the pressed state. */
     private boolean isInPressedState = false;
+
+    private char startingCharacter = '<';
+    private char endingCharacter = '>';
 
     /** The background color for when the button is in the normal state. */
     private Paint backgroundColor_normal = Color.BLACK;
@@ -39,14 +43,23 @@ public class AsciiButton extends AsciiComponent {
      * @param rowIndex
      *         The y-axis (row) coordinate of the top-left character.
      *
-     * @param width
-     *         Thw width, in characters.
-     *
-     * @param height
-     *         The height, in characters.
+     * @param text
+     *         The text to display on the button.
      */
-    public AsciiButton(final int columnIndex, final int rowIndex, final int width, final int height) {
-        super(columnIndex, rowIndex, width, height);
+    public AsciiButton(final int columnIndex, final int rowIndex, final String text) {
+        // The width of the button is "text.length() + 2" because the button text is startingCharacter + text endingCharacter.
+        super(columnIndex, rowIndex, text.length() + 2, 1);
+
+        // Set the button's text:
+        final AsciiCharacter[] characters = super.getStrings()[0].getCharacters();
+        characters[0] = new AsciiCharacter(startingCharacter);
+        characters[characters.length - 1] = new AsciiCharacter(endingCharacter);
+
+        for (int column = 1 ; column < characters.length - 1 ; column++) {
+            characters[column] = new AsciiCharacter(text.charAt(column - 1));
+        }
+
+        // Set the button's colors (must be done after setting text):
         setColors(backgroundColor_normal, foregroundColor_normal);
     }
 
