@@ -113,7 +113,7 @@ public class AsciiString {
      */
     public void setCharacter(int columnIndex, final AsciiCharacter character) {
         if (character != null) {
-            if (columnIndex >= 0 || columnIndex < characters.length) {
+            if (columnIndex >= 0 && columnIndex < characters.length) {
                 characters[columnIndex] = character;
             }
         }
