@@ -3,6 +3,7 @@ package com.valkryst.AsciiPanel;
 import com.valkryst.AsciiPanel.component.AsciiButton;
 import com.valkryst.AsciiPanel.component.AsciiComponent;
 import com.valkryst.AsciiPanel.component.AsciiScreen;
+import com.valkryst.AsciiPanel.component.AsciiTextField;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import lombok.Getter;
@@ -64,6 +65,10 @@ public class AsciiPanel extends Canvas {
         final AsciiButton button = new AsciiButton(35, 5, "Click Me");
         button.registerEventHandlers(this);
         components.add(button);
+
+        final AsciiTextField textField = new AsciiTextField(37, 5, 10);
+        textField.registerEventHandlers(this);
+        components.add(textField);
     }
 
     /** Draws every character of every row onto the canvas. */
