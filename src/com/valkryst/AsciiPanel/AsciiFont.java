@@ -45,8 +45,6 @@ public class AsciiFont {
      * @param fontSize
      *         The size of the font.
      *
-     *         todo Find out whether this size defines the width or height of the font.
-     *
      * @throws IOException
      *          If an IOException occurs while loading the font.
      */
@@ -69,8 +67,6 @@ public class AsciiFont {
      *
      * @param fontSize
      *         The size of the font.
-     *
-     *         todo Find out whether this size defines the width or height of the font.
      *
      * @return
      *         The loaded font.
