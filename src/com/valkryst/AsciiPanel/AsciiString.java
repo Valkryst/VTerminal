@@ -37,7 +37,10 @@ public class AsciiString {
             characters = new AsciiCharacter[0];
         } else {
             characters = new AsciiCharacter[string.length()];
-            Arrays.fill(characters, new AsciiCharacter(' '));
+
+            for (int column = 0 ; column < string.length() ; column++) {
+                characters[column] = new AsciiCharacter(string.charAt(column));
+            }
         }
     }
 
@@ -63,6 +66,8 @@ public class AsciiString {
         if (characters.length != otherString.getCharacters().length) {
             return false;
         }
+
+        System.out.println(this.toString() + "----" + otherString.toString());
 
         for (int i = 0 ; i < characters.length ; i++) {
            final AsciiCharacter thisChar = characters[i];
