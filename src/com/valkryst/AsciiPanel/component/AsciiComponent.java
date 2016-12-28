@@ -1,5 +1,6 @@
 package com.valkryst.AsciiPanel.component;
 
+import com.valkryst.AsciiPanel.AsciiPanel;
 import com.valkryst.AsciiPanel.AsciiString;
 import javafx.scene.shape.Rectangle;
 import lombok.Getter;
@@ -72,6 +73,14 @@ public class AsciiComponent {
             strings[row] = new AsciiString(width);
         }
     }
+
+    /**
+     * Registers events, required by the component, with the specified panel.
+     *
+     * @param panel
+     *         The panel to register events with.
+     */
+    public void registerEventHandlers(final AsciiPanel panel) {}
 
     /**
      * Draws the component on the specified screen.
