@@ -25,7 +25,45 @@ public class AsciiCharacterTest {
     }
 
     @Test
-    public void equals() {
+    public void equalsA() {
+        final AsciiCharacter character = new AsciiCharacter('a');
+        final Object object = new Object();
+        Assert.assertFalse(character.equals(object));
+    }
+
+    @Test
+    public void equalsB() {
+        final AsciiCharacter characterA = new AsciiCharacter('a');
+        final AsciiCharacter characterB = new AsciiCharacter('a');
+
+        characterB.setCharacter('b');
+        Assert.assertFalse(characterA.equals(characterB));
+    }
+
+    @Test
+    public void equalsC() {
+        final AsciiCharacter characterA = new AsciiCharacter('a');
+        final AsciiCharacter characterB = new AsciiCharacter('a');
+        characterA.setBackgroundColor(Color.YELLOW);
+        characterB.setBackgroundColor(Color.YELLOW);
+
+        characterB.setBackgroundColor(Color.RED);
+        Assert.assertFalse(characterA.equals(characterB));
+    }
+
+    @Test
+    public void equalsD() {
+        final AsciiCharacter characterA = new AsciiCharacter('a');
+        final AsciiCharacter characterB = new AsciiCharacter('a');
+        characterA.setForegroundColor(Color.YELLOW);
+        characterB.setForegroundColor(Color.YELLOW);
+
+        characterA.setForegroundColor(Color.RED);
+        Assert.assertFalse(characterA.equals(characterB));
+    }
+
+    @Test
+    public void equalsE() {
         final AsciiCharacter characterA = new AsciiCharacter('a');
         final AsciiCharacter characterB = new AsciiCharacter('a');
         Assert.assertTrue(characterA.equals(characterB));
