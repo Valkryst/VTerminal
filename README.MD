@@ -89,9 +89,11 @@ a font size of 17 in the first image and a font size of 20 in the second. You wi
 size to use for your project.
 
 <center>
+
 | Font Size 17 | Font Size 20 |
 | ------------ | ------------ |
 | ![Example of font spacing issue at 17pt.](https://github.com/Valkryst/AsciiPanel/blob/master/images/Font-Size%20Spacing%20(17pt).png) | ![Example of font spacing issue at 20pt.](https://github.com/Valkryst/AsciiPanel/blob/master/images/Font-Size%20Spacing%20(20pt).png) |
+
 </center>
     
 ### Misc:
