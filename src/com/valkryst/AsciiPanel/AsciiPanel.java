@@ -81,7 +81,7 @@ public class AsciiPanel extends Canvas {
 
         currentScreen = new AsciiScreen(0, 0, widthInCharacters, heightInCharacters);
 
-        final AsciiButton button = new AsciiButton(35, 5, 10, 10);
+        final AsciiButton button = new AsciiButton(35, 5, "Click Me");
         button.registerEventHandlers(this);
         components.add(button);
     }
