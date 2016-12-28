@@ -1,7 +1,8 @@
 package com.valkryst.AsciiPanel;
 
+import com.sun.javafx.tk.FontMetrics;
+import com.sun.javafx.tk.Toolkit;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import lombok.Getter;
 
 import java.io.IOException;
@@ -23,14 +24,13 @@ public class AsciiFont {
      *
      * @param font
      *         The font to use.
-     *
-     * @param fontHeightOffset
-     *         The number of pixels to subtract from the fontHeight in order to correct any errors when drawing characters.
      */
-    public AsciiFont(final Font font, final int fontHeightOffset) {
+    public AsciiFont(final Font font) {
         this.font = font;
-        width = calculateWidth();
-        height = ((int) font.getSize()) - fontHeightOffset;
+
+        final FontMetrics metrics = Toolkit.getToolkit().getFontLoader().getFontMetrics(font);
+        width = (int) Math.ceil(metrics.computeStringWidth("@"));
+        height = (int) metrics.getLineHeight();
     }
 
     /**
@@ -47,16 +47,15 @@ public class AsciiFont {
      *
      *         todo Find out whether this size defines the width or height of the font.
      *
-     * @param fontHeightOffset
-     *         The number of pixels to subtract from the fontHeight in order to correct any errors when drawing characters.
-     *
      * @throws IOException
      *          If an IOException occurs while loading the font.
      */
-    public AsciiFont(final String fontFilename, final int fontSize, final int fontHeightOffset) throws IOException {
+    public AsciiFont(final String fontFilename, final int fontSize) throws IOException {
         font = loadFont(fontFilename, fontSize);
-        width = calculateWidth();
-        height = ((int) font.getSize()) - fontHeightOffset;
+
+        final FontMetrics metrics = Toolkit.getToolkit().getFontLoader().getFontMetrics(font);
+        width = (int) Math.ceil(metrics.computeStringWidth("@"));
+        height = (int) metrics.getLineHeight();
     }
 
     /**
@@ -153,13 +152,5 @@ public class AsciiFont {
         } catch (final IOException e) {
             return null;
         }
-    }
-
-    /** @return The width of the font. If the font is monospaced, then the result is correct, else the result is incorrect. */
-    private int calculateWidth() {
-        // See http://stackoverflow.com/a/41326161/1667096
-        final Text text = new Text("@");
-        text.setFont(font);
-        return (int) text.getLayoutBounds().getWidth();
     }
 }
