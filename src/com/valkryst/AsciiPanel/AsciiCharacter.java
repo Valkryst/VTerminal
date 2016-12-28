@@ -32,12 +32,11 @@ public class AsciiCharacter {
 
     @Override
     public String toString() {
-	    String string = "Character:\n";
-        string += "\tCharacter: '" + character + "'\n";
-        string += "\tBackground Color: " + backgroundColor + "\n";
-        string += "\tForeground Color: " + foregroundColor + "\n";
-
-        return string;
+	    final StringBuilder stringBuilder = new StringBuilder("Character:\n");
+	    stringBuilder.append("\tCharacter: '").append(character).append("\n");
+	    stringBuilder.append("\tBackground Color: ").append(backgroundColor).append("\n");
+        stringBuilder.append("\tForeground Color: ").append(foregroundColor).append("\n");
+        return stringBuilder.toString();
     }
 
     @Override
