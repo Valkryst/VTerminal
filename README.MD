@@ -83,8 +83,6 @@ AsciiPanel supports the customization of fonts. The following mono-space fonts a
     * FreeMonoBold.ttf
     * FreeMonoBoldOblique.ttf
     * FreeMonoOblique.ttf
-* [Lucida Sans Unicode](http://www.ffonts.net/Lucida-Sans-Unicode.font.download):
-    * lsansuni.ttf
     
 ### Misc:
 
