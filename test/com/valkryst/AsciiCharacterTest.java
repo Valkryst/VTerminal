@@ -32,6 +32,19 @@ public class AsciiCharacterTest {
     }
 
     @Test
+    public void invertColors() {
+        final AsciiCharacter character = new AsciiCharacter('a');
+        character.setBackgroundColor(Color.BLACK);
+        character.setForegroundColor(Color.WHITE);
+        character.invertColors();
+
+        boolean inversionSuccessful = character.getBackgroundColor().equals(Color.BLACK);
+        inversionSuccessful &= character.getForegroundColor().equals(Color.WHITE);
+
+        Assert.assertTrue(inversionSuccessful);
+    }
+
+    @Test
     public void setBackgroundColorA() {
         final AsciiCharacter character = new AsciiCharacter('a');
         character.setBackgroundColor(Color.RED);
