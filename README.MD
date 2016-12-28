@@ -84,6 +84,13 @@ AsciiPanel supports the customization of fonts. The following mono-space fonts a
     * FreeMonoBoldOblique.ttf
     * FreeMonoOblique.ttf
     
+No font will look correct at all font sizes. An example of this can be seen below where *DejaVuSansMono.ttf* is used with
+a font size of 17 in the first image and a font size of 20 in the second. You will need to experiment and decide on a font
+size to use for your project.
+
+![Example of font spacing issue at 17pt.](https://github.com/Valkryst/AsciiPanel/blob/master/images/Font-Size%20Spacing%20(17pt).png)
+![Example of font spacing issue at 20pt.](https://github.com/Valkryst/AsciiPanel/blob/master/images/Font-Size%20Spacing%20(20pt).png)
+    
 ### Misc:
 
 * Calling the *draw()* function of the *AsciiPanel* will draw the stored arrays of *AsciiStrings* onto the *AsciiPanel*.
