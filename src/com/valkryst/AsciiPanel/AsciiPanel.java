@@ -1,5 +1,6 @@
 package com.valkryst.AsciiPanel;
 
+import com.valkryst.AsciiPanel.component.AsciiButton;
 import com.valkryst.AsciiPanel.component.AsciiComponent;
 import com.valkryst.AsciiPanel.component.AsciiScreen;
 import javafx.scene.canvas.Canvas;
@@ -79,12 +80,17 @@ public class AsciiPanel extends Canvas {
         this.setHeight(heightInCharacters * font.getHeight());
 
         currentScreen = new AsciiScreen(0, 0, widthInCharacters, heightInCharacters);
+
+        final AsciiButton button = new AsciiButton(35, 5, 10, 10);
+        button.registerEventHandlers(this);
+        components.add(button);
     }
 
     /** Draws every character of every row onto the canvas. */
     public void draw() {
         final GraphicsContext gc = this.getGraphicsContext2D();
         gc.setFont(font.getFont());
+
 
         // Draw all non-AsciiScreen components:
         components.stream()
