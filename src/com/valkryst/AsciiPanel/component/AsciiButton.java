@@ -66,12 +66,7 @@ public class AsciiButton extends AsciiComponent {
         setColors(backgroundColor_normal, foregroundColor_normal);
     }
 
-    /**
-     * Registers events, required by the button, with the specified panel.
-     *
-     * @param panel
-     *         The panel to register events with.
-     */
+    @Override
     public void registerEventHandlers(final AsciiPanel panel) {
         final AsciiFont font = panel.getFont();
         final int fontWidth = font.getWidth();
