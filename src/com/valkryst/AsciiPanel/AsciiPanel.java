@@ -5,7 +5,6 @@ import com.valkryst.AsciiPanel.component.AsciiComponent;
 import com.valkryst.AsciiPanel.component.AsciiScreen;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,25 +12,6 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 
 public class AsciiPanel extends Canvas {
-	private static final long serialVersionUID = -4167851861147593092L; // todo Generate new value
-
-	public final static Color COLOR_BLACK = Color.valueOf("0x000000");
-	public final static Color COLOR_RED = Color.valueOf("0x800000");
-	public final static Color COLOR_GREEN = Color.valueOf("0x008000");
-    public final static Color COLOR_YELLOW = Color.valueOf("0x808000");
-    public final static Color COLOR_BLUE = Color.valueOf("0x000080");
-    public final static Color COLOR_MAGENTA = Color.valueOf("0x800080");
-    public final static Color COLOR_CYAN = Color.valueOf("0x008080");
-    public final static Color COLOR_WHITE = Color.valueOf("0xC0C0C0");
-    public final static Color COLOR_BRIGHT_BLACK = Color.valueOf("0x808080");
-    public final static Color COLOR_BRIGHT_RED = Color.valueOf("0xFF0000");
-    public final static Color COLOR_BRIGHT_GREEN = Color.valueOf("0x00FF00");
-    public final static Color COLOR_BRIGHT_YELLOW = Color.valueOf("0xFFFF00");
-    public final static Color COLOR_BRIGHT_BLUE = Color.valueOf("0x0000FF");
-    public final static Color COLOR_BRIGHT_MAGENTA = Color.valueOf("0xFF00FF");
-    public final static Color COLOR_BRIGHT_CYAN = Color.valueOf("0x00FFFF");
-    public final static Color COLOR_BRIGHT_WHITE = Color.valueOf("0xFFFFFF");
-
     /** The width of the panel, in characters. */
     @Getter private int widthInCharacters;
     /** The height of the panel, in characters. */
