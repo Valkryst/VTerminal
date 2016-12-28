@@ -88,7 +88,15 @@ public class AsciiString {
      * @param rowIndex
      *         The y-axis (row) coordinate where the characters are to be drawn.
      */
-    public void draw(final GraphicsContext gc, final AsciiFont font, final int rowIndex) {
+    public void draw(final GraphicsContext gc, final AsciiFont font, int rowIndex) {
+        if (gc == null || font == null) {
+            return;
+        }
+
+        if (rowIndex < 0) {
+            rowIndex = 0;
+        }
+
         for (int columnIndex = 0 ; columnIndex < characters.length ; columnIndex++) {
             characters[columnIndex].draw(gc, font, columnIndex, rowIndex);
         }
