@@ -104,8 +104,10 @@ public class AsciiString {
      *         The new character.
      */
     public void setCharacter(int columnIndex, final AsciiCharacter character) {
-        if (columnIndex >= 0 || columnIndex < characters.length) {
-            characters[columnIndex] = character;
+        if (character != null) {
+            if (columnIndex >= 0 || columnIndex < characters.length) {
+                characters[columnIndex] = character;
+            }
         }
     }
 
