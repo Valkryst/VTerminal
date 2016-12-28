@@ -8,7 +8,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import lombok.Getter;
-import lombok.Setter;
 
 public class AsciiButton extends AsciiComponent {
     /** Whether or not the button is in the normal state. */
@@ -18,23 +17,25 @@ public class AsciiButton extends AsciiComponent {
     /** Whether or not the button is in the pressed state. */
     private boolean isInPressedState = false;
 
-    @Getter @Setter private char startingCharacter = '<';
-    @Getter @Setter private char endingCharacter = '>';
+    /** The first character of the button's text. This is used to identify the text as a button. */
+    @Getter private char startingCharacter = '<';
+    /** The last character of the button's text. This is used to identify the text as a button. */
+    @Getter private char endingCharacter = '>';
 
     /** The background color for when the button is in the normal state. */
-    @Getter @Setter private Paint backgroundColor_normal = Color.BLACK;
+    @Getter private Paint backgroundColor_normal = Color.BLACK;
     /** The foreground color for when the button is in the normal state. */
-    @Getter @Setter private Paint foregroundColor_normal = Color.WHITE;
+    @Getter private Paint foregroundColor_normal = Color.WHITE;
 
     /** The background color for when the button is in the hover state. */
-    @Getter @Setter private Paint backgroundColor_hover = Color.YELLOW;
+    @Getter private Paint backgroundColor_hover = Color.YELLOW;
     /** The foreground color for when the button is in the hover state. */
-    @Getter @Setter private Paint foregroundColor_hover = Color.BLACK;
+    @Getter private Paint foregroundColor_hover = Color.BLACK;
 
     /** The background color for when the button is in the pressed state. */
-    @Getter @Setter private Paint backgroundColor_pressed = Color.WHITE;
+    @Getter private Paint backgroundColor_pressed = Color.WHITE;
     /** The foreground color for when the button is in the pressed state. */
-    @Getter @Setter private Paint foregroundColor_pressed = Color.BLACK;
+    @Getter private Paint foregroundColor_pressed = Color.BLACK;
 
     /**
      * Constructs a new AsciiButton.
@@ -193,6 +194,145 @@ public class AsciiButton extends AsciiComponent {
         for (final AsciiString s : super.getStrings()) {
             s.setBackgroundColor(backgroundColor);
             s.setForegroundColor(foregroundColor);
+        }
+    }
+
+    /**
+     * Sets the starting character of the button's text.
+     *
+     * @param startingCharacter
+     *         The new starting character.
+     */
+    public void setStartingCharacter(final char startingCharacter) {
+        this.startingCharacter = startingCharacter;
+
+        super.getStrings()[0].getCharacters()[0].setCharacter(startingCharacter);
+    }
+
+    /**
+     * Sets the ending character of the button's text.
+     *
+     * @param endingCharacter
+     *         The new ending character.
+     */
+    public void setEndingCharacter(final char endingCharacter) {
+        this.endingCharacter = endingCharacter;
+
+        final AsciiCharacter[] characters = super.getStrings()[0].getCharacters();
+        characters[characters.length - 1].setCharacter(endingCharacter);
+    }
+
+    /**
+     * Sets the normal background color.
+     *
+     * @param color
+     *         The new normal background color.
+     */
+    public void setBackgroundColor_normal(final Paint color) {
+        if (color == null) {
+            return;
+        }
+
+        backgroundColor_normal = color;
+
+        if (isInNormalState) {
+            setColors(backgroundColor_normal, foregroundColor_normal);
+            // todo Find a way to call panel.draw()
+        }
+    }
+
+    /**
+     * Sets the normal foreground color.
+     *
+     * @param color
+     *         The new normal foreground color.
+     */
+    public void setForegroundColor_normal(final Paint color) {
+        if (color == null) {
+            return;
+        }
+
+        foregroundColor_normal = color;
+
+        if (isInNormalState) {
+            setColors(backgroundColor_normal, foregroundColor_normal);
+            // todo Find a way to call panel.draw()
+        }
+    }
+
+    /**
+     * Sets the hovered background color.
+     *
+     * @param color
+     *         The new normal background color.
+     */
+    public void setBackgroundColor_hover(final Paint color) {
+        if (color == null) {
+            return;
+        }
+
+        backgroundColor_hover = color;
+
+        if (isInHoveredState) {
+            setColors(backgroundColor_normal, foregroundColor_normal);
+            // todo Find a way to call panel.draw()
+        }
+    }
+
+    /**
+     * Sets the hovered foreground color.
+     *
+     * @param color
+     *         The new hovered foreground color.
+     */
+    public void setForegroundColor_hover(final Paint color) {
+        if (color == null) {
+            return;
+        }
+
+        foregroundColor_hover = color;
+
+        if (isInHoveredState) {
+            setColors(backgroundColor_normal, foregroundColor_normal);
+            // todo Find a way to call panel.draw()
+        }
+    }
+
+    /**
+     * Sets the pressed background color.
+     *
+     * @param color
+     *         The new pressed background color.
+     */
+    public void setBackgroundColor_pressed(final Paint color) {
+        if (color == null) {
+            return;
+        }
+
+        backgroundColor_pressed = color;
+
+        if (isInPressedState) {
+            setColors(backgroundColor_normal, foregroundColor_normal);
+            // todo Find a way to call panel.draw()
+        }
+    }
+
+    /**
+     * Sets the pressed foreground color.
+     *
+     * @param color
+     *         The new pressed foreground color.
+     */
+    public void setForegroundColor_pressed(final Paint color) {
+        if (color == null) {
+            return;
+        }
+
+        foregroundColor_pressed = color;
+
+        if (isInPressedState) {
+            setColors(backgroundColor_normal, foregroundColor_normal);
+            // todo Find a way to call panel.draw()
         }
     }
 }
