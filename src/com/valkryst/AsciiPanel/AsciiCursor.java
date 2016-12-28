@@ -27,9 +27,9 @@ public class AsciiCursor {
 
     @Override
     public String toString() {
-        String s = "AsciiCursor:\n";
-        s += "\tColumn Index: " + columnIndex + "\n";
-        s += "\tRow Index: " + rowIndex + "\n";
-        return s;
+        final StringBuilder stringBuilder = new StringBuilder("AsciiCursor:\n");
+        stringBuilder.append("\tColumn Index: ").append(columnIndex).append("\n");
+        stringBuilder.append("\tRow Index: ").append(rowIndex).append("\n");
+        return stringBuilder.toString();
     }
 }
