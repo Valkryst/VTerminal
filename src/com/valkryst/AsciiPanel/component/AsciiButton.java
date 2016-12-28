@@ -74,23 +74,23 @@ public class AsciiButton extends AsciiComponent {
 
         panel.addEventFilter(MouseEvent.MOUSE_MOVED, event -> {
             if (intersects(event, fontWidth, fontHeight)) {
-                setStateHovered(panel);
+                setStateHovered();
             } else {
-                setStateNormal(panel);
+                setStateNormal();
             }
         });
 
         panel.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
             if (intersects(event, fontWidth, fontHeight)) {
-                setStatePressed(panel);
+                setStatePressed();
             }
         });
 
         panel.addEventFilter(MouseEvent.MOUSE_RELEASED, event -> {
             if (intersects(event, fontWidth, fontHeight)) {
-                setStateHovered(panel);
+                setStateHovered();
             } else {
-                setStateNormal(panel);
+                setStateNormal();
             }
         });
     }
@@ -116,13 +116,8 @@ public class AsciiButton extends AsciiComponent {
         return super.intersects(mouseX, mouseY);
     }
 
-    /**
-     * Sets the button state to normal if the current state allows for the normal state to be set.
-     *
-     * @param panel
-     *         todo JavaDoc
-     */
-    private void setStateNormal(final AsciiPanel panel) {
+    /** Sets the button state to normal if the current state allows for the normal state to be set. */
+    private void setStateNormal() {
         boolean canSetState = isInNormalState == false;
         canSetState &= isInHoveredState || isInPressedState;
 
@@ -132,17 +127,11 @@ public class AsciiButton extends AsciiComponent {
             isInPressedState = false;
 
             setColors(backgroundColor_normal, foregroundColor_normal);
-            panel.draw();
         }
     }
 
-    /**
-     * Sets the button state to hovered if the current state allows for the normal state to be set.
-     *
-     * @param panel
-     *         todo JavaDoc
-     */
-    private void setStateHovered(final AsciiPanel panel) {
+    /** Sets the button state to hovered if the current state allows for the normal state to be set. */
+    private void setStateHovered() {
         boolean canSetState = isInNormalState || isInPressedState;
         canSetState &= isInHoveredState == false;
 
@@ -152,17 +141,11 @@ public class AsciiButton extends AsciiComponent {
             isInPressedState = false;
 
             setColors(backgroundColor_hover, foregroundColor_hover);
-            panel.draw();
         }
     }
 
-    /**
-     * Sets the button state to pressed if the current state allows for the normal state to be set.
-     *
-     * @param panel
-     *         todo JavaDoc
-     */
-    private void setStatePressed(final AsciiPanel panel) {
+    /** Sets the button state to pressed if the current state allows for the normal state to be set. */
+    private void setStatePressed() {
         boolean canSetState = isInNormalState || isInHoveredState;
         canSetState &= isInPressedState == false;
 
@@ -172,7 +155,6 @@ public class AsciiButton extends AsciiComponent {
             isInPressedState = true;
 
             setColors(backgroundColor_pressed, foregroundColor_pressed);
-            panel.draw();
         }
     }
 
@@ -232,7 +214,6 @@ public class AsciiButton extends AsciiComponent {
 
         if (isInNormalState) {
             setColors(backgroundColor_normal, foregroundColor_normal);
-            // todo Find a way to call panel.draw()
         }
     }
 
@@ -251,7 +232,6 @@ public class AsciiButton extends AsciiComponent {
 
         if (isInNormalState) {
             setColors(backgroundColor_normal, foregroundColor_normal);
-            // todo Find a way to call panel.draw()
         }
     }
 
@@ -270,7 +250,6 @@ public class AsciiButton extends AsciiComponent {
 
         if (isInHoveredState) {
             setColors(backgroundColor_normal, foregroundColor_normal);
-            // todo Find a way to call panel.draw()
         }
     }
 
@@ -289,7 +268,6 @@ public class AsciiButton extends AsciiComponent {
 
         if (isInHoveredState) {
             setColors(backgroundColor_normal, foregroundColor_normal);
-            // todo Find a way to call panel.draw()
         }
     }
 
@@ -308,7 +286,6 @@ public class AsciiButton extends AsciiComponent {
 
         if (isInPressedState) {
             setColors(backgroundColor_normal, foregroundColor_normal);
-            // todo Find a way to call panel.draw()
         }
     }
 
@@ -327,7 +304,6 @@ public class AsciiButton extends AsciiComponent {
 
         if (isInPressedState) {
             setColors(backgroundColor_normal, foregroundColor_normal);
-            // todo Find a way to call panel.draw()
         }
     }
 }
