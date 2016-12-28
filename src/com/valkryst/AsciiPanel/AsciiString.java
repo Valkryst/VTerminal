@@ -67,8 +67,6 @@ public class AsciiString {
             return false;
         }
 
-        System.out.println(this.toString() + "----" + otherString.toString());
-
         for (int i = 0 ; i < characters.length ; i++) {
            final AsciiCharacter thisChar = characters[i];
            final AsciiCharacter otherChar = otherString.getCharacters()[i];
