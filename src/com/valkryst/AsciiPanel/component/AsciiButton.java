@@ -7,6 +7,8 @@ import com.valkryst.AsciiPanel.AsciiString;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import lombok.Getter;
+import lombok.Setter;
 
 public class AsciiButton extends AsciiComponent {
     /** Whether or not the button is in the normal state. */
@@ -16,23 +18,23 @@ public class AsciiButton extends AsciiComponent {
     /** Whether or not the button is in the pressed state. */
     private boolean isInPressedState = false;
 
-    private char startingCharacter = '<';
-    private char endingCharacter = '>';
+    @Getter @Setter private char startingCharacter = '<';
+    @Getter @Setter private char endingCharacter = '>';
 
     /** The background color for when the button is in the normal state. */
-    private Paint backgroundColor_normal = Color.BLACK;
+    @Getter @Setter private Paint backgroundColor_normal = Color.BLACK;
     /** The foreground color for when the button is in the normal state. */
-    private Paint foregroundColor_normal = Color.WHITE;
+    @Getter @Setter private Paint foregroundColor_normal = Color.WHITE;
 
     /** The background color for when the button is in the hover state. */
-    private Paint backgroundColor_hover = Color.YELLOW;
+    @Getter @Setter private Paint backgroundColor_hover = Color.YELLOW;
     /** The foreground color for when the button is in the hover state. */
-    private Paint foregroundColor_hover = Color.BLACK;
+    @Getter @Setter private Paint foregroundColor_hover = Color.BLACK;
 
     /** The background color for when the button is in the pressed state. */
-    private Paint backgroundColor_pressed = Color.WHITE;
+    @Getter @Setter private Paint backgroundColor_pressed = Color.WHITE;
     /** The foreground color for when the button is in the pressed state. */
-    private Paint foregroundColor_pressed = Color.BLACK;
+    @Getter @Setter private Paint foregroundColor_pressed = Color.BLACK;
 
     /**
      * Constructs a new AsciiButton.
