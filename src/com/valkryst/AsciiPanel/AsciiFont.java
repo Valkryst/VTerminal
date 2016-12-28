@@ -90,8 +90,8 @@ public class AsciiFont {
         }
 
         // Attempt to load font, first from the Jar and then from the file system.
-        Font fontFromJar = loadFromJar(fontFilename, fontSize);
-        Font fontFromFileSystem = loadFromFilesystem(fontFilename, fontSize);
+        final Font fontFromJar = loadFromJar(fontFilename, fontSize);
+        final Font fontFromFileSystem = loadFromFilesystem(fontFilename, fontSize);
 
         // Return whichever font was successfully loaded or throw an error if neither could be loaded:
         if (fontFromJar == null && fontFromFileSystem == null) {
