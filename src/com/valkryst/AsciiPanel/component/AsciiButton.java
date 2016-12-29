@@ -10,8 +10,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import lombok.Getter;
 
-import java.util.ArrayList;
-
 public class AsciiButton extends AsciiComponent {
     /** Whether or not the button is in the normal state. */
     private boolean isInNormalState = true;
@@ -69,12 +67,12 @@ public class AsciiButton extends AsciiComponent {
         this.onClickFunction = onClickFunction;
 
         // Set the button's text:
-        final ArrayList<AsciiCharacter> characters = super.getStrings()[0].getCharacters();
-        characters.set(0, new AsciiCharacter(startingCharacter));
-        characters.set(characters.size() - 1, new AsciiCharacter(endingCharacter));
+        final AsciiCharacter[] characters = super.getStrings()[0].getCharacters();
+        characters[0] = new AsciiCharacter(startingCharacter);
+        characters[characters.length - 1] = new AsciiCharacter(endingCharacter);
 
-        for (int column = 1 ; column < characters.size() - 1 ; column++) {
-            characters.set(column, new AsciiCharacter(text.charAt(column - 1)));
+        for (int column = 1 ; column < characters.length - 1 ; column++) {
+            characters[column] = new AsciiCharacter(text.charAt(column - 1));
         }
 
         // Set the button's colors (must be done after setting text):
@@ -185,7 +183,7 @@ public class AsciiButton extends AsciiComponent {
     public void setStartingCharacter(final char startingCharacter) {
         this.startingCharacter = startingCharacter;
 
-        super.getStrings()[0].getCharacters().get(0).setCharacter(startingCharacter);
+        super.getStrings()[0].getCharacters()[0].setCharacter(startingCharacter);
     }
 
     /**
@@ -197,8 +195,8 @@ public class AsciiButton extends AsciiComponent {
     public void setEndingCharacter(final char endingCharacter) {
         this.endingCharacter = endingCharacter;
 
-        final ArrayList<AsciiCharacter> characters = super.getStrings()[0].getCharacters();
-        characters.get(characters.size() - 1).setCharacter(endingCharacter);
+        final AsciiCharacter[] characters = super.getStrings()[0].getCharacters();
+        characters[characters.length - 1].setCharacter(endingCharacter);
     }
 
     /**
