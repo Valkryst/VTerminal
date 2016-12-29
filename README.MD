@@ -130,4 +130,7 @@ size to use for your project.
    
    You do not need to continuously call *draw()* to keep an image on the *AsciiPanel*.
    
+   Calling *draw()* too often will result in high CPU usage. A good strategy would be to call it only if a character on
+   the screen has actually been changed.
+   
 * The use of non-mono-space fonts is not supported, but it not specifically prevented.
