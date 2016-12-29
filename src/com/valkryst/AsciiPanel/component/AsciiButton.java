@@ -111,27 +111,6 @@ public class AsciiButton extends AsciiComponent {
         });
     }
 
-    /**
-     * Determines whether or not the specified mouse event is at a point that intersects this button.
-     *
-     * @param event
-     *         The event.
-     *
-     * @param fontWidth
-     *         The width of the font being used to draw the button's characters.
-     *
-     * @param fontHeight
-     *         The height of the font being used to draw the button's characters.
-     *
-     * @return
-     *         Whether or not the mouse event is at a point that intersects this button.
-     */
-    private boolean intersects(final MouseEvent event, final int fontWidth, final int fontHeight) {
-        final int mouseX = (int) (event.getX() / fontWidth);
-        final int mouseY = (int) (event.getY() / fontHeight);
-        return super.intersects(mouseX, mouseY);
-    }
-
     /** Sets the button state to normal if the current state allows for the normal state to be set. */
     private void setStateNormal() {
         boolean canSetState = isInNormalState == false;
