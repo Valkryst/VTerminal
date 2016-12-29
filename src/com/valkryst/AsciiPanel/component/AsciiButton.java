@@ -37,6 +37,9 @@ public class AsciiButton extends AsciiComponent {
     /** The foreground color for when the button is in the pressed state. */
     @Getter private Paint foregroundColor_pressed = Color.BLACK;
 
+    /** The function to run when the button is clicked. */
+    @Getter private final Runnable onClickFunction;
+
     /**
      * Constructs a new AsciiButton.
      *
@@ -48,10 +51,19 @@ public class AsciiButton extends AsciiComponent {
      *
      * @param text
      *         The text to display on the button.
+     *
+     * @param onClickFunction
+     *         The function to run when the button is clicked.
      */
-    public AsciiButton(final int columnIndex, final int rowIndex, final String text) {
+    public AsciiButton(final int columnIndex, final int rowIndex, final String text, final Runnable onClickFunction) {
         // The width of the button is "text.length() + 2" because the button text is startingCharacter + text endingCharacter.
         super(columnIndex, rowIndex, text.length() + 2, 1);
+
+        if (onClickFunction == null) {
+            throw new IllegalArgumentException("You must specify an instance of runnable when creating an AsciiButton.");
+        }
+
+        this.onClickFunction = onClickFunction;
 
         // Set the button's text:
         final AsciiCharacter[] characters = super.getStrings()[0].getCharacters();
@@ -87,10 +99,14 @@ public class AsciiButton extends AsciiComponent {
         });
 
         panel.addEventFilter(MouseEvent.MOUSE_RELEASED, event -> {
-            if (intersects(event, fontWidth, fontHeight)) {
-                setStateHovered();
+            if (isInPressedState) {
+                onClickFunction.run();
             } else {
-                setStateNormal();
+                if (intersects(event, fontWidth, fontHeight)) {
+                    setStateHovered();
+                } else {
+                    setStateNormal();
+                }
             }
         });
     }
