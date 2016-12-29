@@ -105,12 +105,12 @@ public class AsciiButton extends AsciiComponent {
             if (event.getButton().equals(MouseButton.PRIMARY)) {
                 if (isInPressedState) {
                     onClickFunction.run();
+                }
+
+                if (intersects(event, fontWidth, fontHeight)) {
+                    setStateHovered();
                 } else {
-                    if (intersects(event, fontWidth, fontHeight)) {
-                        setStateHovered();
-                    } else {
-                        setStateNormal();
-                    }
+                    setStateNormal();
                 }
             }
         });
