@@ -35,37 +35,67 @@ You can now use AsciiPanel in your project.
 ## How to Setup (JavaFX Application):
 
 ```java
-    import javafx.application.Application;
-    import javafx.stage.Stage;
+import com.valkryst.AsciiPanel.AsciiFont;
+import com.valkryst.AsciiPanel.AsciiPanel;
+import javafx.animation.AnimationTimer;
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-    import java.io.IOException;
+import java.io.IOException;
 
-    public class Driver extends Application {
-        public static void main(String[] args) throws IOException {
-            launch();
-        }
+public class Driver extends Application {
 
-        @Override
-        public void start(Stage primaryStage) throws Exception {
-            try {
-                final AsciiFont font = new AsciiFont("Fonts/Lucida Sans Unicode/lsansuni.ttf", 16);
+    public static void main(String[] args) throws IOException {
+        launch();
+    }
 
-                final AsciiPanel panel = new AsciiPanel(100, 50, font);
-                panel.setFocusTraversable(true);
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        try {
+            final AsciiFont font = new AsciiFont("Fonts/DejaVu/DejaVuSansMono.ttf", 16);
 
-                final Group root = new Group();
-                root.getChildren().add(terminal);
-                
-                final Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
+            final AsciiPanel terminal = new AsciiPanel(100, 50, font);
+            terminal.setFocusTraversable(true);
 
-                // GAME LOOP GOES HERE
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            final Group root = new Group();
+            root.getChildren().add(terminal);
+
+            final Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+            final Level level = new Level(terminal);
+            level.start();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+}
+
+public class Level extends AnimationTimer {
+    private long lastUpdateTime = -1;
+    private AsciiPanel terminal;
+
+    public Level(final AsciiPanel terminal) {
+        this.terminal = terminal;
+    }
+
+    @Override
+    public void handle(long now) {
+        if (lastUpdateTime != -1) {
+            // Get the time since the last update, in seconds:
+            final float deltaTime = (float) ((now - lastUpdateTime) / 1_000_000_000.0);
+
+            // Update things here.
+
+            terminal.draw();
+        } else {
+            lastUpdateTime = now;
+        }
+    }
+}
 ```
 
 ## Notes:
