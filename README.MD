@@ -87,6 +87,7 @@ public class Level extends AnimationTimer {
         if (lastUpdateTime != -1) {
             // Get the time since the last update, in seconds:
             final float deltaTime = (float) ((now - lastUpdateTime) / 1_000_000_000.0);
+            lastUpdateTime = now;
 
             // Update things here.
 
