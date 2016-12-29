@@ -5,11 +5,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import lombok.Getter;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class AsciiString {
     /** The characters of the string. */
-    @Getter private AsciiCharacter[] characters;
+    @Getter private ArrayList<AsciiCharacter> characters;
 
     /**
      * Constructs a new AsciiString of the specified length with all characters set to ' '.
@@ -22,8 +23,7 @@ public class AsciiString {
             length = 0;
         }
 
-        characters = new AsciiCharacter[length];
-        Arrays.fill(characters, new AsciiCharacter(' '));
+        characters = new ArrayList<>(Collections.nCopies(length, new AsciiCharacter(' ')));
     }
 
     /**
@@ -34,12 +34,12 @@ public class AsciiString {
      */
     public AsciiString(final String string) {
         if (string == null) {
-            characters = new AsciiCharacter[0];
+            characters = new ArrayList<>();
         } else {
-            characters = new AsciiCharacter[string.length()];
+            characters = new ArrayList<>(string.length());
 
-            for (int column = 0 ; column < string.length() ; column++) {
-                characters[column] = new AsciiCharacter(string.charAt(column));
+            for (final char c : string.toCharArray()) {
+                characters.add(new AsciiCharacter(c));
             }
         }
     }
@@ -48,8 +48,8 @@ public class AsciiString {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
 
-        for (int i = 0 ; i < characters.length ; i++) {
-            builder.append(characters[i].getCharacter());
+        for (int i = 0 ; i < characters.size() ; i++) {
+            builder.append(characters.get(i).getCharacter());
         }
 
         return builder.toString();
@@ -63,13 +63,13 @@ public class AsciiString {
 
         final AsciiString otherString = (AsciiString) object;
 
-        if (characters.length != otherString.getCharacters().length) {
+        if (characters.size() != otherString.getCharacters().size()) {
             return false;
         }
 
-        for (int i = 0 ; i < characters.length ; i++) {
-           final AsciiCharacter thisChar = characters[i];
-           final AsciiCharacter otherChar = otherString.getCharacters()[i];
+        for (int i = 0 ; i < characters.size() ; i++) {
+           final AsciiCharacter thisChar = characters.get(i);
+           final AsciiCharacter otherChar = otherString.getCharacters().get(i);
 
            if (thisChar.equals(otherChar) == false) {
                return false;
@@ -100,8 +100,8 @@ public class AsciiString {
             rowIndex = 0;
         }
 
-        for (int columnIndex = 0 ; columnIndex < characters.length ; columnIndex++) {
-            characters[columnIndex].draw(gc, font, columnIndex, rowIndex);
+        for (int columnIndex = 0 ; columnIndex < characters.size() ; columnIndex++) {
+            characters.get(columnIndex).draw(gc, font, columnIndex, rowIndex);
         }
     }
 
@@ -119,7 +119,7 @@ public class AsciiString {
      */
     private boolean isRangeValid(final int beginIndex, final int endIndex) {
         boolean isValid = beginIndex < 0 == false;
-        isValid &= endIndex > characters.length == false;
+        isValid &= endIndex > characters.size() == false;
         isValid &= beginIndex > endIndex == false;
 
         return isValid;
@@ -136,8 +136,8 @@ public class AsciiString {
      */
     public void setCharacter(int columnIndex, final AsciiCharacter character) {
         if (character != null) {
-            if (columnIndex >= 0 && columnIndex < characters.length) {
-                characters[columnIndex] = character;
+            if (columnIndex >= 0 && columnIndex < characters.size()) {
+                characters.set(columnIndex, character);
             }
         }
     }
@@ -155,7 +155,7 @@ public class AsciiString {
      *         Whether or not to apply the gradient to the background or foreground of the characters.
      */
     public void applyColorGradient(final Color colorFrom, final Color colorTo, final boolean applyToBackground) {
-        applyColorGradient(0, characters.length, colorFrom, colorTo, applyToBackground);
+        applyColorGradient(0, characters.size(), colorFrom, colorTo, applyToBackground);
     }
 
     /**
@@ -181,8 +181,8 @@ public class AsciiString {
             beginIndex = 0;
         }
 
-        if (endIndex > characters.length) {
-            endIndex = characters.length;
+        if (endIndex > characters.size()) {
+            endIndex = characters.size();
         }
 
         if (isRangeValid(beginIndex, endIndex) == false) {
@@ -203,9 +203,9 @@ public class AsciiString {
         final double blueDifference = colorTo.getBlue() - colorFrom.getBlue();
 
         // Determine the amount to increment the RGB values by and convert the values to the 0-255 scale:
-        final double redChangePerColumn = (redDifference / characters.length) * 255;
-        final double greenChangePerColumn = (greenDifference / characters.length) * 255;
-        final double blueChangePerColumn = (blueDifference / characters.length) * 255;
+        final double redChangePerColumn = (redDifference / characters.size()) * 255;
+        final double greenChangePerColumn = (greenDifference / characters.size()) * 255;
+        final double blueChangePerColumn = (blueDifference / characters.size()) * 255;
 
         // Set the starting RGB values and convert them to the 0-255 scale:
         double redCurrent = colorFrom.getRed() * 255;
@@ -223,9 +223,9 @@ public class AsciiString {
                          .append(")");
 
             if (applyToBackground) {
-                characters[column].setBackgroundColor(Color.web(stringBuilder.toString()));
+                characters.get(column).setBackgroundColor(Color.web(stringBuilder.toString()));
             } else {
-                characters[column].setForegroundColor(Color.web(stringBuilder.toString()));
+                characters.get(column).setForegroundColor(Color.web(stringBuilder.toString()));
             }
 
             redCurrent += redChangePerColumn;
@@ -238,7 +238,7 @@ public class AsciiString {
 
     /** Swaps the background and foreground colors of every character. */
     public void invertColors() {
-        invertColors(0, characters.length);
+        invertColors(0, characters.size());
     }
 
     /**
@@ -256,13 +256,13 @@ public class AsciiString {
             beginIndex = 0;
         }
 
-        if (endIndex > characters.length) {
-            endIndex = characters.length;
+        if (endIndex > characters.size()) {
+            endIndex = characters.size();
         }
 
         if (isRangeValid(beginIndex, endIndex)) {
             for (int column = beginIndex ; column < endIndex ; column++) {
-                characters[column].invertColors();
+                characters.get(column).invertColors();
             }
         }
     }
@@ -312,8 +312,8 @@ public class AsciiString {
             beginIndex = 0;
         }
 
-        if (endIndex > characters.length) {
-            endIndex = characters.length;
+        if (endIndex > characters.size()) {
+            endIndex = characters.size();
         }
 
         boolean canProceed = color != null;
@@ -321,7 +321,7 @@ public class AsciiString {
 
         if (canProceed) {
             for (int column = beginIndex ; column < endIndex ; column++) {
-                characters[column].setBackgroundColor(color);
+                characters.get(column).setBackgroundColor(color);
             }
         }
     }
@@ -343,8 +343,8 @@ public class AsciiString {
             beginIndex = 0;
         }
 
-        if (endIndex > characters.length) {
-            endIndex = characters.length;
+        if (endIndex > characters.size()) {
+            endIndex = characters.size();
         }
 
         boolean canProceed = color != null;
@@ -352,7 +352,7 @@ public class AsciiString {
 
         if (canProceed) {
             for (int column = beginIndex ; column < endIndex ; column++) {
-                characters[column].setForegroundColor(color);
+                characters.get(column).setForegroundColor(color);
             }
         }
     }

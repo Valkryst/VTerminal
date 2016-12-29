@@ -6,6 +6,8 @@ import com.valkryst.AsciiPanel.AsciiString;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
+import java.util.ArrayList;
+
 
 public class AsciiScreen extends AsciiComponent {
     /**
@@ -152,10 +154,10 @@ public class AsciiScreen extends AsciiComponent {
         }
 
         boolean writesSuccessful = true;
-        final AsciiCharacter[] characters = string.getCharacters();
+        final ArrayList<AsciiCharacter> characters = string.getCharacters();
 
-        for (int i = 0 ; i < characters.length && i < super.getWidth() ; i++) {
-            writesSuccessful &= write(characters[i], columnIndex + i, rowIndex);
+        for (int i = 0 ; i < characters.size() && i < super.getWidth() ; i++) {
+            writesSuccessful &= write(characters.get(i), columnIndex + i, rowIndex);
         }
 
         return writesSuccessful;
