@@ -1,7 +1,10 @@
 package com.valkryst.AsciiPanel.component;
 
+import com.valkryst.AsciiPanel.AsciiFont;
 import com.valkryst.AsciiPanel.AsciiPanel;
 import com.valkryst.AsciiPanel.AsciiString;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
@@ -83,7 +86,17 @@ public class AsciiComponent {
      * @param panel
      *         The panel to register events with.
      */
-    public void registerEventHandlers(final AsciiPanel panel) {}
+    public void registerEventHandlers(final AsciiPanel panel) {
+        final AsciiFont font = panel.getFont();
+        final int fontWidth = font.getWidth();
+        final int fontHeight = font.getHeight();
+
+        panel.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+            if (event.getButton().equals(MouseButton.PRIMARY)) {
+                isFocused = intersects(event, fontWidth, fontHeight);
+            }
+        });
+    }
 
     /**
      * Draws the component on the specified screen.
@@ -129,6 +142,27 @@ public class AsciiComponent {
         intersects &= pointY < (boundingBox.getHeight() + rowIndex);
 
         return intersects;
+    }
+
+    /**
+     * Determines whether or not the specified mouse event is at a point that intersects this component.
+     *
+     * @param event
+     *         The event.
+     *
+     * @param fontWidth
+     *         The width of the font being used to draw the component's characters.
+     *
+     * @param fontHeight
+     *         The height of the font being used to draw the component's characters.
+     *
+     * @return
+     *         Whether or not the mouse event is at a point that intersects this button.
+     */
+    public boolean intersects(final MouseEvent event, final int fontWidth, final int fontHeight) {
+        final int mouseX = (int) (event.getX() / fontWidth);
+        final int mouseY = (int) (event.getY() / fontHeight);
+        return intersects(mouseX, mouseY);
     }
 
     /**
