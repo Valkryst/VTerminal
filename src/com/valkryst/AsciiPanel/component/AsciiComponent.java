@@ -157,7 +157,7 @@ public class AsciiComponent {
      *         The height of the font being used to draw the component's characters.
      *
      * @return
-     *         Whether or not the mouse event is at a point that intersects this button.
+     *         Whether or not the mouse event is at a point that intersects this component.
      */
     public boolean intersects(final MouseEvent event, final int fontWidth, final int fontHeight) {
         final int mouseX = (int) (event.getX() / fontWidth);
