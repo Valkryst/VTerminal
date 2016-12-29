@@ -74,7 +74,7 @@ public class AsciiButton extends AsciiComponent {
         characters.set(characters.size() - 1, new AsciiCharacter(endingCharacter));
 
         for (int column = 1 ; column < characters.size() - 1 ; column++) {
-            characters.set(columnIndex, new AsciiCharacter(text.charAt(column - 1)));
+            characters.set(column, new AsciiCharacter(text.charAt(column - 1)));
         }
 
         // Set the button's colors (must be done after setting text):
