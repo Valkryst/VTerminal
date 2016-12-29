@@ -4,6 +4,7 @@ import com.valkryst.AsciiPanel.AsciiCharacter;
 import com.valkryst.AsciiPanel.AsciiFont;
 import com.valkryst.AsciiPanel.AsciiPanel;
 import com.valkryst.AsciiPanel.AsciiString;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -93,19 +94,23 @@ public class AsciiButton extends AsciiComponent {
         });
 
         panel.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-            if (intersects(event, fontWidth, fontHeight)) {
-                setStatePressed();
+            if (event.getButton().equals(MouseButton.PRIMARY)) {
+                if (intersects(event, fontWidth, fontHeight)) {
+                    setStatePressed();
+                }
             }
         });
 
         panel.addEventFilter(MouseEvent.MOUSE_RELEASED, event -> {
-            if (isInPressedState) {
-                onClickFunction.run();
-            } else {
-                if (intersects(event, fontWidth, fontHeight)) {
-                    setStateHovered();
+            if (event.getButton().equals(MouseButton.PRIMARY)) {
+                if (isInPressedState) {
+                    onClickFunction.run();
                 } else {
-                    setStateNormal();
+                    if (intersects(event, fontWidth, fontHeight)) {
+                        setStateHovered();
+                    } else {
+                        setStateNormal();
+                    }
                 }
             }
         });
