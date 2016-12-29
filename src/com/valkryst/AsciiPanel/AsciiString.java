@@ -106,6 +106,26 @@ public class AsciiString {
     }
 
     /**
+     * Determines whether or not the specified range is valid.
+     *
+     * @param beginIndex
+     *         The first index of the range.
+     *
+     * @param endIndex
+     *         The last index of the range.
+     *
+     * @return
+     *         Whether or not the specified range is valid.
+     */
+    private boolean isRangeValid(final int beginIndex, final int endIndex) {
+        boolean isValid = beginIndex < 0 == false;
+        isValid &= endIndex > characters.length == false;
+        isValid &= beginIndex > endIndex == false;
+
+        return isValid;
+    }
+
+    /**
      * Sets a new character in the specified position.
      *
      * @param columnIndex
@@ -145,7 +165,7 @@ public class AsciiString {
      *         The x-axis (column) coordinate of the character to begin the gradient at.
      *
      * @param endIndex
-     *         The x-axis (column) coordinate of the character to end the gradient at.
+     *         The x-axis (column) coordinate of the character to end the gradient before.
      *
      * @param colorFrom
      *         The color to begin the gradient with.
@@ -163,6 +183,10 @@ public class AsciiString {
 
         if (endIndex > characters.length) {
             endIndex = characters.length;
+        }
+
+        if (isRangeValid(beginIndex, endIndex) == false) {
+            return;
         }
 
         if (colorFrom == null) {
@@ -225,7 +249,7 @@ public class AsciiString {
      *         The x-axis (column) coordinate of the character to begin the inversion at.
      *
      * @param endIndex
-     *         The x-axis (column) coordinate of the character to end the inversion at.
+     *         The x-axis (column) coordinate of the character to end the inversion before.
      */
     public void invertColors(int beginIndex, int endIndex) {
         if (beginIndex < 0) {
@@ -236,8 +260,10 @@ public class AsciiString {
             endIndex = characters.length;
         }
 
-        for (int column = beginIndex ; column < endIndex ; column++) {
-            characters[column].invertColors();
+        if (isRangeValid(beginIndex, endIndex)) {
+            for (int column = beginIndex ; column < endIndex ; column++) {
+                characters[column].invertColors();
+            }
         }
     }
 
@@ -248,8 +274,10 @@ public class AsciiString {
      *         The new background color.
      */
     public void setBackgroundColor(final Paint color) {
-        for (final AsciiCharacter c : characters) {
-            c.setBackgroundColor(color);
+        if (color != null) {
+            for (final AsciiCharacter c : characters) {
+                c.setBackgroundColor(color);
+            }
         }
     }
 
@@ -260,8 +288,72 @@ public class AsciiString {
      *         The new foreground color.
      */
     public void setForegroundColor(final Paint color) {
-        for (final AsciiCharacter c : characters) {
-            c.setForegroundColor(color);
+        if (color != null) {
+            for (final AsciiCharacter c : characters) {
+                c.setForegroundColor(color);
+            }
+        }
+    }
+
+    /**
+     * Sets the background color of the specified range of characters.
+     *
+     * @param color
+     *         The new background color.
+     *
+     * @param beginIndex
+     *         The x-axis (column) coordinate of the character to begin the change at.
+     *
+     * @param endIndex
+     *         The x-axis (column) coordinate of the character to end the change before.
+     */
+    public void setBackgroundColor(final Paint color, int beginIndex, int endIndex) {
+        if (beginIndex < 0) {
+            beginIndex = 0;
+        }
+
+        if (endIndex > characters.length) {
+            endIndex = characters.length;
+        }
+
+        boolean canProceed = color != null;
+        canProceed &= isRangeValid(beginIndex, endIndex);
+
+        if (canProceed) {
+            for (int column = beginIndex ; column < endIndex ; column++) {
+                characters[column].setBackgroundColor(color);
+            }
+        }
+    }
+
+    /**
+     * Sets the foreground color of the specified range of characters.
+     *
+     * @param color
+     *         The new foreground color.
+     *
+     * @param beginIndex
+     *         The x-axis (column) coordinate of the character to begin the change at.
+     *
+     * @param endIndex
+     *         The x-axis (column) coordinate of the character to end the change before.
+     */
+    public void setForegroundColor(final Paint color, int beginIndex, int endIndex) {
+        if (beginIndex < 0) {
+            beginIndex = 0;
+        }
+
+        if (endIndex > characters.length) {
+            endIndex = characters.length;
+        }
+
+        boolean canProceed = color != null;
+        canProceed &= isRangeValid(beginIndex, endIndex);
+
+        if (canProceed) {
+            for (int column = beginIndex ; column < endIndex ; column++) {
+                characters[column].setForegroundColor(color);
+            }
         }
     }
 
