@@ -11,7 +11,7 @@ public class AsciiStringTest {
     @Test
     public void AsciiStringA() {
         final AsciiString asciiString = new AsciiString(0);
-        Assert.assertEquals(asciiString.getCharacters().length, 0);
+        Assert.assertEquals(asciiString.getCharacters().size(), 0);
     }
 
     @Test
@@ -21,7 +21,7 @@ public class AsciiStringTest {
 
         for (int i = 0 ; i < 10 ; i++) {
             asciiString = new AsciiString(i);
-            resultsCorrect &= asciiString.getCharacters().length == i;
+            resultsCorrect &= asciiString.getCharacters().size() == i;
         }
 
         Assert.assertTrue(resultsCorrect);
@@ -30,7 +30,7 @@ public class AsciiStringTest {
     @Test
     public void AsciiStringC() {
         final AsciiString asciiString = new AsciiString(null);
-        Assert.assertEquals(asciiString.getCharacters().length, 0);
+        Assert.assertEquals(asciiString.getCharacters().size(), 0);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class AsciiStringTest {
             boolean allCharactersCorrect = true;
 
             for (int j = 0 ; j < string.length() ; j++) {
-                allCharactersCorrect &= asciiString.getCharacters()[j].getCharacter() == string.charAt(j);
+                allCharactersCorrect &= asciiString.getCharacters().get(j).getCharacter() == string.charAt(j);
             }
 
             resultsCorrect &= allCharactersCorrect;
@@ -84,8 +84,8 @@ public class AsciiStringTest {
         final AsciiString asciiString = new AsciiString("123");
         asciiString.setCharacter(0, null);
 
-        System.out.println(asciiString.getCharacters()[0].getCharacter());
-        Assert.assertTrue(asciiString.getCharacters()[0].getCharacter() == '1');
+        System.out.println(asciiString.getCharacters().get(0).getCharacter());
+        Assert.assertTrue(asciiString.getCharacters().get(0).getCharacter() == '1');
     }
 
     @Test
