@@ -1,14 +1,11 @@
 package com.valkryst.AsciiPanel;
 
-import com.valkryst.AsciiPanel.component.AsciiComponent;
 import com.valkryst.AsciiPanel.component.AsciiScreen;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.ArrayList;
 
 public class AsciiPanel extends Canvas {
     /** The width of the panel, in characters. */
@@ -22,8 +19,6 @@ public class AsciiPanel extends Canvas {
     @Getter private final AsciiCursor asciiCursor = new AsciiCursor(this);
 
     @Getter private AsciiScreen currentScreen;
-
-    private ArrayList<AsciiComponent> components = new ArrayList<>();
 
     /**
      * Constructs a new AsciiPanel.
@@ -66,13 +61,6 @@ public class AsciiPanel extends Canvas {
         final GraphicsContext gc = this.getGraphicsContext2D();
         gc.setFont(font.getFont());
 
-
-        // Draw all non-AsciiScreen components:
-        components.stream()
-                  .filter(component -> component instanceof AsciiScreen == false)
-                  .forEach(component -> component.draw(currentScreen));
-
-        // Draw current screen:
         currentScreen.draw(this, font);
     }
 
