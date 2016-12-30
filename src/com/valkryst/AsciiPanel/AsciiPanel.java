@@ -69,6 +69,10 @@ public class AsciiPanel extends Canvas {
         final AsciiTextField textField = new AsciiTextField(35, 6, 10, 20);
         textField.registerEventHandlers(this);
         components.add(textField);
+
+        for (int i = 0 ; i < button.getStrings()[0].getCharacters().length ; i++) {
+            button.getStrings()[0].getCharacters()[i].enableBlinkEffect((short) 1000);
+        }
     }
 
     /** Draws every character of every row onto the canvas. */
