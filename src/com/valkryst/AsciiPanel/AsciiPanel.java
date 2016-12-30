@@ -66,7 +66,7 @@ public class AsciiPanel extends Canvas {
         button.registerEventHandlers(this);
         components.add(button);
 
-        final AsciiTextField textField = new AsciiTextField(35, 6, 10);
+        final AsciiTextField textField = new AsciiTextField(35, 6, 10, 20);
         textField.registerEventHandlers(this);
         components.add(textField);
     }
