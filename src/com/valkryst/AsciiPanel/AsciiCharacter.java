@@ -92,7 +92,6 @@ public class AsciiCharacter {
             final long timeSinceLastBlink = currentTime - timeOfLastBlink;
 
             if (timeSinceLastBlink >= millsBetweenBlinks) {
-                millsBetweenBlinks = 0;
                 timeOfLastBlink = currentTime;
 
                 isHidden = !isHidden;
