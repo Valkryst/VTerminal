@@ -236,6 +236,78 @@ public class AsciiString {
         }
     }
 
+    /**
+     * Enables the blink effect for every character.
+     *
+     * @param millsBetweenBlinks
+     *         The amount of time, in milliseconds, before the blink effect can occur.
+     */
+    public void enableBlinkEffect(final short millsBetweenBlinks) {
+        for (final AsciiCharacter c : characters) {
+            c.enableBlinkEffect(millsBetweenBlinks);
+        }
+    }
+
+    /** Disables the blink effect for every character. */
+    public void disableBlinkEffect() {
+        for (final AsciiCharacter c : characters) {
+            c.disableBlinkEffect();
+        }
+    }
+
+    /**
+     * Enables the blink effect for every character in the specified range.
+     *
+     * @param millsBetweenBlinks
+     *         The amount of time, in milliseconds, before the blink effect can occur.
+     *
+     * @param beginIndex
+     *         The x-axis (column) coordinate of the character to begin the change at.
+     *
+     * @param endIndex
+     *         The x-axis (column) coordinate of the character to end the change before.
+     */
+    public void enableBlinkEffect(final short millsBetweenBlinks, int beginIndex, int endIndex) {
+        if (beginIndex < 0) {
+            beginIndex = 0;
+        }
+
+        if (endIndex > characters.length) {
+            endIndex = characters.length;
+        }
+
+        if (isRangeValid(beginIndex, endIndex)) {
+            for (int column = beginIndex ; column < endIndex ; column++) {
+                characters[column].enableBlinkEffect(millsBetweenBlinks);
+            }
+        }
+    }
+
+    /**
+     * Disables the blink effect for every character in the specified range.
+     *
+     * @param beginIndex
+     *         The x-axis (column) coordinate of the character to begin the change at.
+     *
+     * @param endIndex
+     *         The x-axis (column) coordinate of the character to end the change before.
+     */
+    public void disableBlinkEffect(int beginIndex, int endIndex) {
+        if (beginIndex < 0) {
+            beginIndex = 0;
+        }
+
+        if (endIndex > characters.length) {
+            endIndex = characters.length;
+        }
+
+        if (isRangeValid(beginIndex, endIndex)) {
+            for (int column = beginIndex ; column < endIndex ; column++) {
+                characters[column].disableBlinkEffect();
+            }
+        }
+    }
+
     /** Swaps the background and foreground colors of every character. */
     public void invertColors() {
         invertColors(0, characters.length);
