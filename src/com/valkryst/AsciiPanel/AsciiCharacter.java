@@ -21,6 +21,13 @@ public class AsciiCharacter {
 	/** The bounding box of the character's area. */
 	@Getter private final Rectangle boundingBox = new Rectangle();
 
+	/** Whether or not the blink effect is enabled. */
+	private boolean blinkEffectEnabled = false;
+	/** The time, in milliseconds, of when the last blink occurred. */
+	private long timeOfLastBlink = 0;
+	/** The amount of time, in milliseconds, before the blink effect can occur. */
+	private short millsBetweenBlinks = 0;
+
     /**
      * Constructs a new AsciiCharacter.
      *
@@ -79,6 +86,20 @@ public class AsciiCharacter {
      *         The y-axis (row) coordinate where the character is to be drawn.
      */
     public void draw(final GraphicsContext gc, final AsciiFont font, double columnIndex, double rowIndex) {
+        // Handle Blink Effect:
+        if (blinkEffectEnabled) {
+            final long currentTime = System.currentTimeMillis();
+            final long timeSinceLastBlink = currentTime - timeOfLastBlink;
+
+            if (timeSinceLastBlink >= millsBetweenBlinks) {
+                millsBetweenBlinks = 0;
+                timeOfLastBlink = currentTime;
+
+                isHidden = !isHidden;
+            }
+        }
+
+        // Draw background & character:
 	    final int fontWidth = font.getWidth();
 	    final int fontHeight = font.getHeight();
 
@@ -103,6 +124,30 @@ public class AsciiCharacter {
         final Paint temp = backgroundColor;
         setBackgroundColor(foregroundColor);
         setForegroundColor(temp);
+    }
+
+    /**
+     * Enables the blink effect.
+     *
+     * @param millsBetweenBlinks
+     *         The amount of time, in milliseconds, before the blink effect can occur.
+     */
+    public void enableBlinkEffect(final short millsBetweenBlinks) {
+        blinkEffectEnabled = true;
+        this.timeOfLastBlink = 0;
+
+        if (millsBetweenBlinks <= 0) {
+            this.millsBetweenBlinks = 1000;
+        } else {
+            this.millsBetweenBlinks = millsBetweenBlinks;
+        }
+    }
+
+    /** Disables the blink effect. */
+    public void disableBlinkEffect() {
+        blinkEffectEnabled = false;
+        this.timeOfLastBlink = 0;
+        this.millsBetweenBlinks = 0;
     }
 
     /**
