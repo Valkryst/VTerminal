@@ -5,9 +5,15 @@ import com.valkryst.AsciiPanel.AsciiFont;
 import com.valkryst.AsciiPanel.AsciiString;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import lombok.Getter;
+
+import java.util.ArrayList;
 
 
 public class AsciiScreen extends AsciiComponent {
+    /** The components displayed on the screen. */
+    @Getter private final ArrayList<AsciiComponent> components = new ArrayList<>();
+
     /**
      * Constructs a new AsciiScreen.
      *
@@ -45,10 +51,13 @@ public class AsciiScreen extends AsciiComponent {
         final GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFont(font.getFont());
 
+        // Draw components onto the screen:
+        components.forEach(component -> component.draw(this));
+
+        // Draw the screen onto the canvas:
         for (int row = 0 ; row < strings.length ; row++) {
             strings[row].draw(gc, font, row);
         }
-
     }
 
     /**
