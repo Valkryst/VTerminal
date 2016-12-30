@@ -67,7 +67,7 @@ public class AsciiButton extends AsciiComponent {
         this.onClickFunction = onClickFunction;
 
         // Set the button's text:
-        final AsciiCharacter[] characters = super.getStrings()[0].getCharacters();
+        final AsciiCharacter[] characters = super.strings[0].getCharacters();
         characters[0] = new AsciiCharacter(startingCharacter);
         characters[characters.length - 1] = new AsciiCharacter(endingCharacter);
 
@@ -168,10 +168,22 @@ public class AsciiButton extends AsciiComponent {
      *         The new foreground color.
      */
     private void setColors(final Paint backgroundColor, final Paint foregroundColor) {
-        for (final AsciiString s : super.getStrings()) {
+        for (final AsciiString s : super.strings) {
             s.setBackgroundColor(backgroundColor);
             s.setForegroundColor(foregroundColor);
         }
+    }
+
+    /**
+     * Enables the blink effect on the button's text, but not on the starting and ending characters.
+     *
+     * @param millsBetweenBlinks
+     *         The amount of time, in milliseconds, before the blink effect can occur.
+     */
+    public void enableBlinkEffect(final short millsBetweenBlinks) {
+        final int beginIndex = 1;
+        final int endIndex = super.strings[0].getCharacters().length - 1;
+        super.strings[0].enableBlinkEffect(millsBetweenBlinks, beginIndex, endIndex);
     }
 
     /**
@@ -183,7 +195,7 @@ public class AsciiButton extends AsciiComponent {
     public void setStartingCharacter(final char startingCharacter) {
         this.startingCharacter = startingCharacter;
 
-        super.getStrings()[0].getCharacters()[0].setCharacter(startingCharacter);
+        super.strings[0].getCharacters()[0].setCharacter(startingCharacter);
     }
 
     /**
@@ -195,7 +207,7 @@ public class AsciiButton extends AsciiComponent {
     public void setEndingCharacter(final char endingCharacter) {
         this.endingCharacter = endingCharacter;
 
-        final AsciiCharacter[] characters = super.getStrings()[0].getCharacters();
+        final AsciiCharacter[] characters = super.strings[0].getCharacters();
         characters[characters.length - 1].setCharacter(endingCharacter);
     }
 
