@@ -118,13 +118,6 @@ public class AsciiCharacter {
         boundingBox.setHeight(fontHeight);
     }
 
-    /** Swaps the background and foreground colors. */
-    public void invertColors() {
-        final Paint temp = backgroundColor;
-        setBackgroundColor(foregroundColor);
-        setForegroundColor(temp);
-    }
-
     /**
      * Enables the blink effect.
      *
@@ -147,6 +140,13 @@ public class AsciiCharacter {
         blinkEffectEnabled = false;
         this.timeOfLastBlink = 0;
         this.millsBetweenBlinks = 0;
+    }
+
+    /** Swaps the background and foreground colors. */
+    public void invertColors() {
+        final Paint temp = backgroundColor;
+        setBackgroundColor(foregroundColor);
+        setForegroundColor(temp);
     }
 
     /**
