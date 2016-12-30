@@ -186,6 +186,13 @@ public class AsciiButton extends AsciiComponent {
         super.strings[0].enableBlinkEffect(millsBetweenBlinks, beginIndex, endIndex);
     }
 
+    /** Disables the blink effect on the button's text, but not on the starting and ending characters. */
+    public void disableBlinkEffect() {
+        final int beginIndex = 1;
+        final int endIndex = super.strings[0].getCharacters().length - 1;
+        super.strings[0].disableBlinkEffect(beginIndex, endIndex);
+    }
+
     /**
      * Sets the starting character of the button's text.
      *
