@@ -1,5 +1,6 @@
 package com.valkryst.AsciiPanel;
 
+import com.valkryst.AsciiPanel.font.AsciiFont;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;

@@ -1,6 +1,7 @@
 package com.valkryst.AsciiPanel;
 
 import com.valkryst.AsciiPanel.component.AsciiScreen;
+import com.valkryst.AsciiPanel.font.AsciiFont;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package com.valkryst.AsciiPanel.component;
 
 import com.valkryst.AsciiPanel.AsciiCharacter;
-import com.valkryst.AsciiPanel.AsciiFont;
+import com.valkryst.AsciiPanel.font.AsciiFont;
 import com.valkryst.AsciiPanel.AsciiPanel;
 import com.valkryst.AsciiPanel.AsciiString;
 import javafx.scene.input.MouseButton;
