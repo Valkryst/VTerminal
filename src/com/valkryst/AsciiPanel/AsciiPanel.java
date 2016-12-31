@@ -3,7 +3,6 @@ package com.valkryst.AsciiPanel;
 import com.valkryst.AsciiPanel.component.AsciiScreen;
 import com.valkryst.AsciiPanel.font.AsciiFont;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -59,9 +58,6 @@ public class AsciiPanel extends Canvas {
 
     /** Draws every character of every row onto the canvas. */
     public void draw() {
-        final GraphicsContext gc = this.getGraphicsContext2D();
-        gc.setFont(font.getFont());
-
         currentScreen.draw(this, font);
     }
 
