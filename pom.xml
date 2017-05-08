@@ -8,19 +8,11 @@
   <artifactId>AsciiPanel</artifactId>
   <version>1.2</version>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <lwjgl.version>3.1.1</lwjgl.version>
+    </properties>
 
   <dependencies>
     <dependency>
@@ -45,5 +37,5 @@
           <version>1.16.8</version>
           <scope>provided</scope>
       </dependency>
-  </dependencies>
+    </dependencies>
 </project>
