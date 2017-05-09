@@ -93,4 +93,20 @@ public class AsciiPanel extends Canvas implements Receiver<String> {
 
         return isWithinBounds;
     }
+
+    /**
+     * Swaps-out the current screen for the new screen.
+     *
+     * @param newScreen
+     *         The new screen to swap-in.
+     *
+     * @return
+     *         The swapped-out screen.
+     */
+    public AsciiScreen swapScreen(final AsciiScreen newScreen) {
+        final AsciiScreen oldScreen = currentScreen;
+        currentScreen = newScreen;
+        draw();
+        return oldScreen;
+    }
 }
