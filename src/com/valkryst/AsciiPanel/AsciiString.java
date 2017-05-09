@@ -1,16 +1,18 @@
 package com.valkryst.AsciiPanel;
 
 import com.valkryst.AsciiPanel.font.AsciiFont;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+import com.valkryst.radio.Radio;
 import lombok.Getter;
 
+import java.awt.*;
 import java.util.Arrays;
 
 public class AsciiString {
     /** The characters of the string. */
     @Getter private AsciiCharacter[] characters;
+
+    /** The characters that need to be redrawn. */
+    private boolean[] charactersToBeRedrawn;
 
     /**
      * Constructs a new AsciiString of the specified length with all characters set to ' '.
@@ -24,7 +26,9 @@ public class AsciiString {
         }
 
         characters = new AsciiCharacter[length];
+        charactersToBeRedrawn = new boolean[length];
         Arrays.fill(characters, new AsciiCharacter(' '));
+        Arrays.fill(charactersToBeRedrawn, true);
     }
 
     /**
@@ -39,8 +43,9 @@ public class AsciiString {
         } else {
             characters = new AsciiCharacter[string.length()];
 
-            for (int column = 0 ; column < string.length() ; column++) {
-                characters[column] = new AsciiCharacter(string.charAt(column));
+            for (int columnIndex = 0 ; columnIndex < string.length() ; columnIndex++) {
+                charactersToBeRedrawn[columnIndex] = false;
+                characters[columnIndex] = new AsciiCharacter(string.charAt(columnIndex));
             }
         }
     }
@@ -92,7 +97,7 @@ public class AsciiString {
      * @param rowIndex
      *         The y-axis (row) coordinate where the characters are to be drawn.
      */
-    public void draw(final GraphicsContext gc, final AsciiFont font, int rowIndex) {
+    public void draw(final Graphics gc, final AsciiFont font, int rowIndex) {
         if (gc == null || font == null) {
             return;
         }
@@ -101,8 +106,11 @@ public class AsciiString {
             rowIndex = 0;
         }
 
-        for (int columnIndex = 0 ; columnIndex < characters.length ; columnIndex++) {
-            characters[columnIndex].draw(gc, font, columnIndex, rowIndex);
+        for (int columnIndex = 0 ; columnIndex < charactersToBeRedrawn.length ; columnIndex++) {
+            if (charactersToBeRedrawn[columnIndex]) {
+                charactersToBeRedrawn[columnIndex] = false;
+                characters[columnIndex].draw(gc, font, columnIndex, rowIndex);
+            }
         }
     }
 
@@ -139,6 +147,7 @@ public class AsciiString {
         if (character != null) {
             if (columnIndex >= 0 && columnIndex < characters.length) {
                 characters[columnIndex] = character;
+                charactersToBeRedrawn[columnIndex] = true;
             }
         }
     }
@@ -199,34 +208,30 @@ public class AsciiString {
         }
 
         // Determine the difference between the RGB values of the colors:
-        final double redDifference = colorTo.getRed() - colorFrom.getRed();
-        final double greenDifference = colorTo.getGreen() - colorFrom.getGreen();
-        final double blueDifference = colorTo.getBlue() - colorFrom.getBlue();
+        final float redDifference = colorTo.getRed() - colorFrom.getRed();
+        final float greenDifference = colorTo.getGreen() - colorFrom.getGreen();
+        final float blueDifference = colorTo.getBlue() - colorFrom.getBlue();
 
         // Determine the amount to increment the RGB values by and convert the values to the 0-255 scale:
-        final double redChangePerColumn = (redDifference / characters.length) * 255;
-        final double greenChangePerColumn = (greenDifference / characters.length) * 255;
-        final double blueChangePerColumn = (blueDifference / characters.length) * 255;
+        final float redChangePerColumn = (redDifference / characters.length) * 255;
+        final float greenChangePerColumn = (greenDifference / characters.length) * 255;
+        final float blueChangePerColumn = (blueDifference / characters.length) * 255;
 
         // Set the starting RGB values and convert them to the 0-255 scale:
-        double redCurrent = colorFrom.getRed() * 255;
-        double greenCurrent = colorFrom.getGreen() * 255;
-        double blueCurrent = colorFrom.getBlue() * 255;
+        float redCurrent = colorFrom.getRed() * 255;
+        float greenCurrent = colorFrom.getGreen() * 255;
+        float blueCurrent = colorFrom.getBlue() * 255;
 
         // Set the new color values:
         final StringBuilder stringBuilder = new StringBuilder();
 
-        for (int column = beginIndex ; column < endIndex ; column++) {
-            stringBuilder.append("rgb(")
-                    .append((int) redCurrent).append(",")
-                    .append((int) greenCurrent).append(",")
-                    .append((int) blueCurrent)
-                    .append(")");
+        for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+            charactersToBeRedrawn[columnIndex] = true;
 
             if (applyToBackground) {
-                characters[column].setBackgroundColor(Color.web(stringBuilder.toString()));
+                characters[columnIndex].setBackgroundColor(new Color(redCurrent, greenCurrent, blueCurrent));
             } else {
-                characters[column].setForegroundColor(Color.web(stringBuilder.toString()));
+                characters[columnIndex].setForegroundColor(new Color(redCurrent, greenCurrent, blueCurrent));
             }
 
             redCurrent += redChangePerColumn;
@@ -242,10 +247,13 @@ public class AsciiString {
      *
      * @param millsBetweenBlinks
      *         The amount of time, in milliseconds, before the blink effect can occur.
+     *
+     * @param radio
+     *         todo JavaDoc.
      */
-    public void enableBlinkEffect(final short millsBetweenBlinks) {
+    public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio) {
         for (final AsciiCharacter c : characters) {
-            c.enableBlinkEffect(millsBetweenBlinks);
+            c.enableBlinkEffect(millsBetweenBlinks, radio);
         }
     }
 
@@ -262,13 +270,16 @@ public class AsciiString {
      * @param millsBetweenBlinks
      *         The amount of time, in milliseconds, before the blink effect can occur.
      *
+     * @param radio
+     *         todo JavaDoc
+     *
      * @param beginIndex
      *         The x-axis (column) coordinate of the character to begin the change at.
      *
      * @param endIndex
      *         The x-axis (column) coordinate of the character to end the change before.
      */
-    public void enableBlinkEffect(final short millsBetweenBlinks, int beginIndex, int endIndex) {
+    public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio, int beginIndex, int endIndex) {
         if (beginIndex < 0) {
             beginIndex = 0;
         }
@@ -278,8 +289,9 @@ public class AsciiString {
         }
 
         if (isRangeValid(beginIndex, endIndex)) {
-            for (int column = beginIndex ; column < endIndex ; column++) {
-                characters[column].enableBlinkEffect(millsBetweenBlinks);
+            for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+                charactersToBeRedrawn[columnIndex] = true;
+                characters[columnIndex].enableBlinkEffect(millsBetweenBlinks, radio);
             }
         }
     }
@@ -303,8 +315,9 @@ public class AsciiString {
         }
 
         if (isRangeValid(beginIndex, endIndex)) {
-            for (int column = beginIndex ; column < endIndex ; column++) {
-                characters[column].disableBlinkEffect();
+            for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+                charactersToBeRedrawn[columnIndex] = true;
+                characters[columnIndex].disableBlinkEffect();
             }
         }
     }
@@ -334,8 +347,9 @@ public class AsciiString {
         }
 
         if (isRangeValid(beginIndex, endIndex)) {
-            for (int column = beginIndex ; column < endIndex ; column++) {
-                characters[column].invertColors();
+            for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+                charactersToBeRedrawn[columnIndex] = true;
+                characters[columnIndex].invertColors();
             }
         }
     }
@@ -346,7 +360,7 @@ public class AsciiString {
      * @param color
      *         The new background color.
      */
-    public void setBackgroundColor(final Paint color) {
+    public void setBackgroundColor(final Color color) {
         if (color != null) {
             for (final AsciiCharacter c : characters) {
                 c.setBackgroundColor(color);
@@ -360,7 +374,7 @@ public class AsciiString {
      * @param color
      *         The new foreground color.
      */
-    public void setForegroundColor(final Paint color) {
+    public void setForegroundColor(final Color color) {
         if (color != null) {
             for (final AsciiCharacter c : characters) {
                 c.setForegroundColor(color);
@@ -380,7 +394,7 @@ public class AsciiString {
      * @param endIndex
      *         The x-axis (column) coordinate of the character to end the change before.
      */
-    public void setBackgroundColor(final Paint color, int beginIndex, int endIndex) {
+    public void setBackgroundColor(final Color color, int beginIndex, int endIndex) {
         if (beginIndex < 0) {
             beginIndex = 0;
         }
@@ -393,8 +407,9 @@ public class AsciiString {
         canProceed &= isRangeValid(beginIndex, endIndex);
 
         if (canProceed) {
-            for (int column = beginIndex ; column < endIndex ; column++) {
-                characters[column].setBackgroundColor(color);
+            for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+                charactersToBeRedrawn[columnIndex] = true;
+                characters[columnIndex].setBackgroundColor(color);
             }
         }
     }
@@ -411,7 +426,7 @@ public class AsciiString {
      * @param endIndex
      *         The x-axis (column) coordinate of the character to end the change before.
      */
-    public void setForegroundColor(final Paint color, int beginIndex, int endIndex) {
+    public void setForegroundColor(final Color color, int beginIndex, int endIndex) {
         if (beginIndex < 0) {
             beginIndex = 0;
         }
@@ -424,8 +439,9 @@ public class AsciiString {
         canProceed &= isRangeValid(beginIndex, endIndex);
 
         if (canProceed) {
-            for (int column = beginIndex ; column < endIndex ; column++) {
-                characters[column].setForegroundColor(color);
+            for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+                charactersToBeRedrawn[columnIndex] = true;
+                characters[columnIndex].setForegroundColor(color);
             }
         }
     }
