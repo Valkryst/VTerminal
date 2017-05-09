@@ -2,23 +2,27 @@ package com.valkryst.AsciiPanel;
 
 import com.valkryst.AsciiPanel.component.AsciiScreen;
 import com.valkryst.AsciiPanel.font.AsciiFont;
-import javafx.scene.canvas.Canvas;
+import com.valkryst.radio.Radio;
+import com.valkryst.radio.Receiver;
 import lombok.Getter;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-public class AsciiPanel extends Canvas {
+import java.awt.*;
+
+public class AsciiPanel extends Canvas implements Receiver<String> {
     /** The width of the panel, in characters. */
     @Getter private int widthInCharacters;
     /** The height of the panel, in characters. */
     @Getter private int heightInCharacters;
-    /** The font to draw with. */
-    @Getter private AsciiFont font;
+    /** The asciiFont to draw with. */
+    @Getter private AsciiFont asciiFont;
 
     /** The cursor. */
     @Getter private final AsciiCursor asciiCursor = new AsciiCursor(this);
 
+    /** The screen being displayed on the panel. */
     @Getter private AsciiScreen currentScreen;
+
+    @Getter private Radio<String> radio = new Radio<>();
 
     /**
      * Constructs a new AsciiPanel.
@@ -29,12 +33,12 @@ public class AsciiPanel extends Canvas {
      * @param heightInCharacters
      *         The height of the panel, in characters.
      *
-     * @param font
-     *         The font to use.
+     * @param asciiFont
+     *         The asciiFont to use.
      */
-    public AsciiPanel(int widthInCharacters, int heightInCharacters, final AsciiFont font) throws NullPointerException {
-        if (font == null) {
-            throw new NullPointerException("You must specify a font to use.");
+    public AsciiPanel(int widthInCharacters, int heightInCharacters, final AsciiFont asciiFont) throws NullPointerException {
+        if (asciiFont == null) {
+            throw new NullPointerException("You must specify an asciiFont to use.");
         }
 
         if (widthInCharacters < 1) {
@@ -45,20 +49,28 @@ public class AsciiPanel extends Canvas {
             heightInCharacters = 1;
         }
 
-        this.font = font;
+        this.asciiFont = asciiFont;
 
         this.widthInCharacters = widthInCharacters;
         this.heightInCharacters = heightInCharacters;
 
-        this.setWidth(widthInCharacters * font.getWidth());
-        this.setHeight(heightInCharacters * font.getHeight());
+        this.setSize(widthInCharacters * asciiFont.getWidth(), heightInCharacters * asciiFont.getHeight());
 
         currentScreen = new AsciiScreen(0, 0, widthInCharacters, heightInCharacters);
+
+        radio.addReceiver("DRAW", this);
+    }
+
+    @Override
+    public void receive(final String event, final String data) {
+        if (event.equals("DRAW")) {
+            draw();
+        }
     }
 
     /** Draws every character of every row onto the canvas. */
     public void draw() {
-        currentScreen.draw(this, font);
+        currentScreen.draw(this, asciiFont);
     }
 
     /**
@@ -73,19 +85,12 @@ public class AsciiPanel extends Canvas {
      * @return
      *         Whether or not the specified position is within the bounds of the panel.
      */
-    private boolean isPositionValid(final int columnIndex, final int rowIndex) {
-        if (rowIndex < 0 || rowIndex >= heightInCharacters) {
-            final Logger logger = LogManager.getLogger();
-            logger.error("The specified column of " + columnIndex + " exceeds the maximum width of " + widthInCharacters + ".");
-            return false;
-        }
+    public boolean isPositionValid(final int columnIndex, final int rowIndex) {
+        boolean isWithinBounds = rowIndex < 0;
+        isWithinBounds &= rowIndex >= heightInCharacters;
+        isWithinBounds &= columnIndex < 0;
+        isWithinBounds &= columnIndex >= widthInCharacters;
 
-        if (columnIndex < 0 || columnIndex >= widthInCharacters) {
-            final Logger logger = LogManager.getLogger();
-            logger.error("The specified row of " + rowIndex + " exceeds the maximum width of " + widthInCharacters + ".");
-            return false;
-        }
-
-        return true;
+        return isWithinBounds;
     }
 }
