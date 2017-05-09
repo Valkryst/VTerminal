@@ -28,9 +28,9 @@ public class AsciiPanelTest {
 
     @Test
     public void constructPanelWithPositiveWidth() {
-        for (int i = 0 ; i < 100 ; i++) {
+        for (int i = 1 ; i < 100 ; i++) {
             final AsciiPanel panel = new AsciiPanel(i, 10, font);
-            Assert.assertEquals(1, panel.getWidthInCharacters());
+            Assert.assertEquals(i, panel.getWidthInCharacters());
         }
     }
 
@@ -48,9 +48,9 @@ public class AsciiPanelTest {
 
     @Test
     public void constructPanelWithPositiveHeight() {
-        for (int i = 0 ; i < 100 ; i++) {
+        for (int i = 1 ; i < 100 ; i++) {
             final AsciiPanel panel = new AsciiPanel(1, i, font);
-            Assert.assertEquals(1, panel.getHeightInCharacters());
+            Assert.assertEquals(i, panel.getHeightInCharacters());
         }
     }
 
