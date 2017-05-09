@@ -1,9 +1,10 @@
 package com.valkryst;
 
 import com.valkryst.AsciiPanel.AsciiCharacter;
-import javafx.scene.paint.Color;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.awt.*;
 
 public class AsciiCharacterTest {
     @Test
