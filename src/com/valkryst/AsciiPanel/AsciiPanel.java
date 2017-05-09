@@ -86,10 +86,10 @@ public class AsciiPanel extends Canvas implements Receiver<String> {
      *         Whether or not the specified position is within the bounds of the panel.
      */
     public boolean isPositionValid(final int columnIndex, final int rowIndex) {
-        boolean isWithinBounds = rowIndex < 0;
-        isWithinBounds &= rowIndex >= heightInCharacters;
-        isWithinBounds &= columnIndex < 0;
-        isWithinBounds &= columnIndex >= widthInCharacters;
+        boolean isWithinBounds = rowIndex >= 0;
+        isWithinBounds &= rowIndex < heightInCharacters;
+        isWithinBounds &= columnIndex >= 0;
+        isWithinBounds &= columnIndex < widthInCharacters;
 
         return isWithinBounds;
     }
