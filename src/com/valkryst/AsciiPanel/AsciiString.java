@@ -271,7 +271,7 @@ public class AsciiString {
      *         The amount of time, in milliseconds, before the blink effect can occur.
      *
      * @param radio
-     *         todo JavaDoc
+     *         The Radio to transmit a DRAW event to whenever a blink occurs.
      *
      * @param beginIndex
      *         The x-axis (column) coordinate of the character to begin the change at.
