@@ -42,6 +42,7 @@ public class AsciiString {
             characters = new AsciiCharacter[0];
         } else {
             characters = new AsciiCharacter[string.length()];
+            charactersToBeRedrawn = new boolean[string.length()];
 
             for (int columnIndex = 0 ; columnIndex < string.length() ; columnIndex++) {
                 charactersToBeRedrawn[columnIndex] = false;
