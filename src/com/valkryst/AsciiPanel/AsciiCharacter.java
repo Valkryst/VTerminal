@@ -1,13 +1,15 @@
 package com.valkryst.AsciiPanel;
 
 import com.valkryst.AsciiPanel.font.AsciiFont;
-import javafx.geometry.VPos;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
+import com.valkryst.radio.Radio;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.FilteredImageSource;
+import java.awt.image.ImageFilter;
+import java.awt.image.RGBImageFilter;
 
 
 public class AsciiCharacter {
@@ -16,12 +18,13 @@ public class AsciiCharacter {
 	/** Whether or not the foreground should be drawn using the background color. */
 	@Getter @Setter private boolean isHidden = false;
     /** The background color. Defaults to black. */
-    @Getter private Paint backgroundColor = Color.BLACK;
+    @Getter private Color backgroundColor = Color.BLACK;
 	/** The foreground color. Defaults to white. */
-	@Getter private Paint foregroundColor = Color.WHITE;
+	@Getter private Color foregroundColor = Color.WHITE;
 	/** The bounding box of the character's area. */
 	@Getter private final Rectangle boundingBox = new Rectangle();
 
+	private Timer blinkTimer;
 	/** Whether or not the blink effect is enabled. */
 	private boolean blinkEffectEnabled = false;
 	/** The time, in milliseconds, of when the last blink occurred. */
@@ -41,11 +44,10 @@ public class AsciiCharacter {
 
     @Override
     public String toString() {
-	    final StringBuilder stringBuilder = new StringBuilder("Character:\n");
-	    stringBuilder.append("\tCharacter: '").append(character).append("\n");
-	    stringBuilder.append("\tBackground Color: ").append(backgroundColor).append("\n");
-        stringBuilder.append("\tForeground Color: ").append(foregroundColor).append("\n");
-        return stringBuilder.toString();
+        return "Character:\n" +
+                "\tCharacter: '" + character + "\n" +
+                "\tBackground Color: " + backgroundColor + "\n" +
+                "\tForeground Color: " + foregroundColor + "\n";
     }
 
     @Override
@@ -86,7 +88,7 @@ public class AsciiCharacter {
      * @param rowIndex
      *         The y-axis (row) coordinate where the character is to be drawn.
      */
-    public void draw(final GraphicsContext gc, final AsciiFont font, double columnIndex, double rowIndex) {
+    public void draw(final Graphics gc, final AsciiFont font, int columnIndex, int rowIndex) {
         // Handle Blink Effect:
         if (blinkEffectEnabled) {
             final long currentTime = System.currentTimeMillis();
@@ -99,24 +101,33 @@ public class AsciiCharacter {
             }
         }
 
-        // Draw background & character:
+        // Retrieve character image & set colors:
+        Image image = font.getCharacterImages().get(character);
+
+        final ImageFilter filter = new RGBImageFilter() {
+            @Override
+            public int filterRGB(int x, int y, int rgb) {
+                if (rgb == 0xFFFFFFFF) {
+                    return foregroundColor.getRGB();
+                } else {
+                    return backgroundColor.getRGB();
+                }
+            }
+        };
+
+        image = Toolkit.getDefaultToolkit().createImage(new FilteredImageSource(image.getSource(), filter));
+
+        // Draw character:
 	    final int fontWidth = font.getWidth();
 	    final int fontHeight = font.getHeight();
 
 	    columnIndex *= fontWidth;
 	    rowIndex *= fontHeight;
 
-	    gc.setTextBaseline(VPos.TOP);
+        gc.drawImage(image, columnIndex, rowIndex,null);
 
-	    gc.setFill(backgroundColor);
-        gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
-        gc.setFill((isHidden ? backgroundColor : foregroundColor));
-        gc.fillText(String.valueOf(character), columnIndex, rowIndex, fontWidth);
-
-        boundingBox.setX(columnIndex);
-        boundingBox.setY(rowIndex);
-        boundingBox.setWidth(fontWidth);
-        boundingBox.setHeight(fontHeight);
+        boundingBox.setLocation(columnIndex, rowIndex);
+        boundingBox.setSize(fontWidth, fontHeight);
     }
 
     /**
@@ -124,8 +135,11 @@ public class AsciiCharacter {
      *
      * @param millsBetweenBlinks
      *         The amount of time, in milliseconds, before the blink effect can occur.
+     *
+     * @param radio
+     *         todo JavaDoc
      */
-    public void enableBlinkEffect(final short millsBetweenBlinks) {
+    public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio) {
         blinkEffectEnabled = true;
         this.timeOfLastBlink = 0;
 
@@ -134,6 +148,14 @@ public class AsciiCharacter {
         } else {
             this.millsBetweenBlinks = millsBetweenBlinks;
         }
+
+        blinkTimer = new Timer(this.millsBetweenBlinks, e -> {
+            invertColors();
+            radio.transmit("DRAW");
+        });
+        blinkTimer.setInitialDelay(this.millsBetweenBlinks);
+        blinkTimer.setRepeats(true);
+        blinkTimer.start();
     }
 
     /** Disables the blink effect. */
@@ -141,11 +163,14 @@ public class AsciiCharacter {
         blinkEffectEnabled = false;
         this.timeOfLastBlink = 0;
         this.millsBetweenBlinks = 0;
+
+        blinkTimer.stop();
+        blinkTimer = null;
     }
 
     /** Swaps the background and foreground colors. */
     public void invertColors() {
-        final Paint temp = backgroundColor;
+        final Color temp = backgroundColor;
         setBackgroundColor(foregroundColor);
         setForegroundColor(temp);
     }
@@ -158,7 +183,7 @@ public class AsciiCharacter {
      * @param color
      *         The new background color.
      */
-    public void setBackgroundColor(final Paint color) {
+    public void setBackgroundColor(final Color color) {
 	    boolean canProceed = color != null;
 	    canProceed &= backgroundColor.equals(color) == false;
 
@@ -175,7 +200,7 @@ public class AsciiCharacter {
      * @param color
      *         The new foreground color.
      */
-    public void setForegroundColor(final Paint color) {
+    public void setForegroundColor(final Color color) {
 	    boolean canProceed = color != null;
 	    canProceed &= foregroundColor.equals(color) == false;
 
