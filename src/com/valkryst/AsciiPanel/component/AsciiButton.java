@@ -1,14 +1,17 @@
 package com.valkryst.AsciiPanel.component;
 
 import com.valkryst.AsciiPanel.AsciiCharacter;
-import com.valkryst.AsciiPanel.font.AsciiFont;
 import com.valkryst.AsciiPanel.AsciiPanel;
 import com.valkryst.AsciiPanel.AsciiString;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+import com.valkryst.AsciiPanel.font.AsciiFont;
+import com.valkryst.radio.Radio;
 import lombok.Getter;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+
 
 public class AsciiButton extends AsciiComponent {
     /** Whether or not the button is in the normal state. */
@@ -24,19 +27,19 @@ public class AsciiButton extends AsciiComponent {
     @Getter private char endingCharacter = '>';
 
     /** The background color for when the button is in the normal state. */
-    @Getter private Paint backgroundColor_normal = Color.BLACK;
+    @Getter private Color backgroundColor_normal = Color.BLACK;
     /** The foreground color for when the button is in the normal state. */
-    @Getter private Paint foregroundColor_normal = Color.WHITE;
+    @Getter private Color foregroundColor_normal = Color.WHITE;
 
     /** The background color for when the button is in the hover state. */
-    @Getter private Paint backgroundColor_hover = Color.YELLOW;
+    @Getter private Color backgroundColor_hover = Color.YELLOW;
     /** The foreground color for when the button is in the hover state. */
-    @Getter private Paint foregroundColor_hover = Color.BLACK;
+    @Getter private Color foregroundColor_hover = Color.BLACK;
 
     /** The background color for when the button is in the pressed state. */
-    @Getter private Paint backgroundColor_pressed = Color.WHITE;
+    @Getter private Color backgroundColor_pressed = Color.WHITE;
     /** The foreground color for when the button is in the pressed state. */
-    @Getter private Paint foregroundColor_pressed = Color.BLACK;
+    @Getter private Color foregroundColor_pressed = Color.BLACK;
 
     /** The function to run when the button is clicked. */
     @Getter private final Runnable onClickFunction;
@@ -81,33 +84,60 @@ public class AsciiButton extends AsciiComponent {
 
     @Override
     public void registerEventHandlers(final AsciiPanel panel) {
-        final AsciiFont font = panel.getFont();
+        final AsciiFont font = panel.getAsciiFont();
         final int fontWidth = font.getWidth();
         final int fontHeight = font.getHeight();
 
-        panel.addEventFilter(MouseEvent.MOUSE_MOVED, event -> {
-            if (intersects(event, fontWidth, fontHeight)) {
-                setStateHovered();
-            } else {
-                setStateNormal();
+        panel.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    if (intersects(e, fontWidth, fontHeight)) {
+                        setStatePressed();
+                    }
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    if (isInPressedState) {
+                        onClickFunction.run();
+                    }
+
+                    if (intersects(e, fontWidth, fontHeight)) {
+                        setStateHovered();
+                    } else {
+                        setStateNormal();
+                    }
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
             }
         });
 
-        panel.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-            if (event.getButton().equals(MouseButton.PRIMARY)) {
-                if (intersects(event, fontWidth, fontHeight)) {
-                    setStatePressed();
-                }
+        panel.addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+
             }
-        });
 
-        panel.addEventFilter(MouseEvent.MOUSE_RELEASED, event -> {
-            if (event.getButton().equals(MouseButton.PRIMARY)) {
-                if (isInPressedState) {
-                    onClickFunction.run();
-                }
-
-                if (intersects(event, fontWidth, fontHeight)) {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                if (intersects(e, fontWidth, fontHeight)) {
                     setStateHovered();
                 } else {
                     setStateNormal();
@@ -127,6 +157,7 @@ public class AsciiButton extends AsciiComponent {
             isInPressedState = false;
 
             setColors(backgroundColor_normal, foregroundColor_normal);
+            transmitDraw();
         }
     }
 
@@ -141,6 +172,7 @@ public class AsciiButton extends AsciiComponent {
             isInPressedState = false;
 
             setColors(backgroundColor_hover, foregroundColor_hover);
+            transmitDraw();
         }
     }
 
@@ -155,6 +187,7 @@ public class AsciiButton extends AsciiComponent {
             isInPressedState = true;
 
             setColors(backgroundColor_pressed, foregroundColor_pressed);
+            transmitDraw();
         }
     }
 
@@ -167,7 +200,7 @@ public class AsciiButton extends AsciiComponent {
      * @param foregroundColor
      *         The new foreground color.
      */
-    private void setColors(final Paint backgroundColor, final Paint foregroundColor) {
+    private void setColors(final Color backgroundColor, final Color foregroundColor) {
         for (final AsciiString s : super.strings) {
             s.setBackgroundColor(backgroundColor);
             s.setForegroundColor(foregroundColor);
@@ -179,11 +212,14 @@ public class AsciiButton extends AsciiComponent {
      *
      * @param millsBetweenBlinks
      *         The amount of time, in milliseconds, before the blink effect can occur.
+     *
+     * @param radio
+     *         The Radio to transmit a DRAW event to whenever a blink occurs.
      */
-    public void enableBlinkEffect(final short millsBetweenBlinks) {
+    public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio) {
         final int beginIndex = 1;
         final int endIndex = super.strings[0].getCharacters().length - 1;
-        super.strings[0].enableBlinkEffect(millsBetweenBlinks, beginIndex, endIndex);
+        super.strings[0].enableBlinkEffect(millsBetweenBlinks, radio, beginIndex, endIndex);
     }
 
     /** Disables the blink effect on the button's text, but not on the starting and ending characters. */
@@ -224,7 +260,7 @@ public class AsciiButton extends AsciiComponent {
      * @param color
      *         The new normal background color.
      */
-    public void setBackgroundColor_normal(final Paint color) {
+    public void setBackgroundColor_normal(final Color color) {
         if (color == null) {
             return;
         }
@@ -242,7 +278,7 @@ public class AsciiButton extends AsciiComponent {
      * @param color
      *         The new normal foreground color.
      */
-    public void setForegroundColor_normal(final Paint color) {
+    public void setForegroundColor_normal(final Color color) {
         if (color == null) {
             return;
         }
@@ -260,7 +296,7 @@ public class AsciiButton extends AsciiComponent {
      * @param color
      *         The new normal background color.
      */
-    public void setBackgroundColor_hover(final Paint color) {
+    public void setBackgroundColor_hover(final Color color) {
         if (color == null) {
             return;
         }
@@ -278,7 +314,7 @@ public class AsciiButton extends AsciiComponent {
      * @param color
      *         The new hovered foreground color.
      */
-    public void setForegroundColor_hover(final Paint color) {
+    public void setForegroundColor_hover(final Color color) {
         if (color == null) {
             return;
         }
@@ -296,7 +332,7 @@ public class AsciiButton extends AsciiComponent {
      * @param color
      *         The new pressed background color.
      */
-    public void setBackgroundColor_pressed(final Paint color) {
+    public void setBackgroundColor_pressed(final Color color) {
         if (color == null) {
             return;
         }
@@ -314,7 +350,7 @@ public class AsciiButton extends AsciiComponent {
      * @param color
      *         The new pressed foreground color.
      */
-    public void setForegroundColor_pressed(final Paint color) {
+    public void setForegroundColor_pressed(final Color color) {
         if (color == null) {
             return;
         }
