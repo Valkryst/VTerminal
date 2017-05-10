@@ -91,6 +91,10 @@ public class AsciiCharacter {
         final ImageFilter filter = new RGBImageFilter() {
             @Override
             public int filterRGB(int x, int y, int rgb) {
+                if (isHidden) {
+                    return backgroundColor.getRGB();
+                }
+
                 if (rgb == 0xFFFFFFFF) {
                     return foregroundColor.getRGB();
                 } else {
