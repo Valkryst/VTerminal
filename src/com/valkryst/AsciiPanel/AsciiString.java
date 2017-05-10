@@ -258,6 +258,20 @@ public class AsciiString {
         }
     }
 
+    /** Resumes the blink effect for every character. */
+    public void resumeBlinkEffect() {
+        for (final AsciiCharacter c : characters) {
+            c.resumeBlinkEffect();
+        }
+    }
+
+    /** Pauses the blink effect for every character. */
+    public void pauseBlinkEffect() {
+        for (final AsciiCharacter c : characters) {
+            c.pauseBlinkEffect();
+        }
+    }
+
     /** Disables the blink effect for every character. */
     public void disableBlinkEffect() {
         for (final AsciiCharacter c : characters) {
@@ -293,6 +307,57 @@ public class AsciiString {
             for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
                 charactersToBeRedrawn[columnIndex] = true;
                 characters[columnIndex].enableBlinkEffect(millsBetweenBlinks, radio);
+            }
+        }
+    }
+
+
+    /**
+     * Resumes the blink effect for every character in the specified range.
+     *
+     * @param beginIndex
+     *         The x-axis (column) coordinate of the character to begin the resume at.
+     *
+     * @param endIndex
+     *         The x-axis (column) coordinate of the character to end the resume before.
+     */
+    public void resumeBlinkEffect(int beginIndex, int endIndex) {
+        if (beginIndex < 0) {
+            beginIndex = 0;
+        }
+
+        if (endIndex > characters.length) {
+            endIndex = characters.length;
+        }
+
+        if (isRangeValid(beginIndex, endIndex)) {
+            for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+                characters[columnIndex].resumeBlinkEffect();
+            }
+        }
+    }
+
+    /**
+     * Pauses the blink effect for every character in the specified range.
+     *
+     * @param beginIndex
+     *         The x-axis (column) coordinate of the character to begin the pause at.
+     *
+     * @param endIndex
+     *         The x-axis (column) coordinate of the character to end the pause before.
+     */
+    public void pauseBlinkEffect(int beginIndex, int endIndex) {
+        if (beginIndex < 0) {
+            beginIndex = 0;
+        }
+
+        if (endIndex > characters.length) {
+            endIndex = characters.length;
+        }
+
+        if (isRangeValid(beginIndex, endIndex)) {
+            for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+                characters[columnIndex].pauseBlinkEffect();
             }
         }
     }
