@@ -28,8 +28,12 @@ public class AsciiString {
 
         characters = new AsciiCharacter[length];
         charactersToBeRedrawn = new boolean[length];
-        Arrays.fill(characters, new AsciiCharacter(' '));
         Arrays.fill(charactersToBeRedrawn, true);
+
+        // Cannot use Arrays.fill as it will use the same AsciiCharacter object to fill every element:
+        for (int columnIndex = 0 ; columnIndex < length ; columnIndex++) {
+            characters[columnIndex] = new AsciiCharacter(' ');
+        }
     }
 
     /**
