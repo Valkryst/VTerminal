@@ -155,6 +155,37 @@ public class AsciiString {
     }
 
     /**
+     * Sets every character in the specified range to the specified character.
+     *
+     * @param range
+     *         The x-axis (column) coordinates of the characters to begin/end the change between.
+     *
+     * @param character
+     *         The character to change to.
+     */
+    public void setCharacters(final IntRange range, final char character) {
+        if (range != null) {
+            range.clampValuesToRange(0, characters.length);
+
+            for (int columnIndex = range.getBegin() ; columnIndex < range.getEnd() ; columnIndex++) {
+                characters[columnIndex].setCharacter(character);
+            }
+        }
+    }
+
+    /**
+     * Sets every character to the specified character.
+     *
+     * @param character
+     *         The character to change to.
+     */
+    public void setAllCharacters(final char character) {
+        for (int columnIndex = 0 ; columnIndex < characters.length ; columnIndex++) {
+            characters[columnIndex].setCharacter(character);
+        }
+    }
+
+    /**
      * Applies a color gradient to the entire string.
      *
      * @param colorFrom
@@ -413,6 +444,26 @@ public class AsciiString {
     }
 
     /**
+     * Sets the background and foreground color of all characters.
+     *
+     * @param background
+     *         The new background color.
+     *
+     * @param foreground
+     *         The new foreground color.
+     */
+    public void setBackgroundAndForegroundColor(final Color background, final Color foreground) {
+        if (background == null || foreground == null) {
+            return;
+        }
+
+        for (final AsciiCharacter c : characters) {
+            c.setBackgroundColor(background);
+            c.setForegroundColor(foreground);
+        }
+    }
+
+    /**
      * Sets the background color of the specified range of characters.
      *
      * @param color
@@ -460,6 +511,37 @@ public class AsciiString {
             for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
                 charactersToBeRedrawn[columnIndex] = true;
                 characters[columnIndex].setForegroundColor(color);
+            }
+        }
+    }
+
+    /**
+     * Sets the foreground color of the specified range of characters.
+     *
+     * @param background
+     *         The new background color.
+     *
+     * @param foreground
+     *         The new foreground color.
+     *
+     * @param rangeIndices
+     *         The x-axis (column) coordinates of the characters to begin/end the change between.
+     */
+    public void setBackgroundAndForegroundColor(final Color background, final Color foreground, final IntRange rangeIndices) {
+        rangeIndices.clampValuesToRange(0, characters.length);
+
+        boolean canProceed = background != null;
+        canProceed &= foreground != null;
+        canProceed &= isRangeValid(rangeIndices);
+
+        if (canProceed) {
+            final int beginIndex = rangeIndices.getBegin();
+            final int endIndex = rangeIndices.getEnd();
+
+            for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+                charactersToBeRedrawn[columnIndex] = true;
+                characters[columnIndex].setBackgroundColor(background);
+                characters[columnIndex].setForegroundColor(foreground);
             }
         }
     }
