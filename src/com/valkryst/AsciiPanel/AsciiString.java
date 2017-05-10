@@ -250,7 +250,7 @@ public class AsciiString {
      *         The amount of time, in milliseconds, before the blink effect can occur.
      *
      * @param radio
-     *         todo JavaDoc.
+     *         The Radio to transmit a DRAW event to whenever a blink occurs.
      */
     public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio) {
         for (final AsciiCharacter c : characters) {
