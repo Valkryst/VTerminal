@@ -1,12 +1,11 @@
 package com.valkryst.AsciiPanel.component;
 
 import com.valkryst.AsciiPanel.AsciiCharacter;
-import com.valkryst.AsciiPanel.font.AsciiFont;
 import com.valkryst.AsciiPanel.AsciiString;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import com.valkryst.AsciiPanel.font.AsciiFont;
 import lombok.Getter;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 
@@ -48,8 +47,7 @@ public class AsciiScreen extends AsciiComponent {
      *         The font to draw with.
      */
     public void draw(final Canvas canvas, final AsciiFont font) {
-        final GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFont(font.getFont());
+        final Graphics gc = canvas.getGraphics();
 
         // Draw components onto the screen:
         components.forEach(component -> component.draw(this));
