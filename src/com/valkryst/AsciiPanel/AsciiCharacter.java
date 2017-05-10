@@ -25,10 +25,6 @@ public class AsciiCharacter {
 	@Getter private final Rectangle boundingBox = new Rectangle();
 
 	private Timer blinkTimer;
-	/** Whether or not the blink effect is enabled. */
-	private boolean blinkEffectEnabled = false;
-	/** The time, in milliseconds, of when the last blink occurred. */
-	private long timeOfLastBlink = 0;
 	/** The amount of time, in milliseconds, before the blink effect can occur. */
 	private short millsBetweenBlinks = 0;
 
@@ -89,18 +85,6 @@ public class AsciiCharacter {
      *         The y-axis (row) coordinate where the character is to be drawn.
      */
     public void draw(final Graphics gc, final AsciiFont font, int columnIndex, int rowIndex) {
-        // Handle Blink Effect:
-        if (blinkEffectEnabled) {
-            final long currentTime = System.currentTimeMillis();
-            final long timeSinceLastBlink = currentTime - timeOfLastBlink;
-
-            if (timeSinceLastBlink >= millsBetweenBlinks) {
-                timeOfLastBlink = currentTime;
-
-                isHidden = !isHidden;
-            }
-        }
-
         // Retrieve character image & set colors:
         Image image = font.getCharacterImages().get(character);
 
@@ -140,9 +124,6 @@ public class AsciiCharacter {
      *         The Radio to transmit a DRAW event to whenever a blink occurs.
      */
     public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio) {
-        blinkEffectEnabled = true;
-        this.timeOfLastBlink = 0;
-
         if (millsBetweenBlinks <= 0) {
             this.millsBetweenBlinks = 1000;
         } else {
@@ -150,7 +131,7 @@ public class AsciiCharacter {
         }
 
         blinkTimer = new Timer(this.millsBetweenBlinks, e -> {
-            invertColors();
+            isHidden = !isHidden;
             radio.transmit("DRAW");
         });
         blinkTimer.setInitialDelay(this.millsBetweenBlinks);
@@ -171,6 +152,7 @@ public class AsciiCharacter {
     public void pauseBlinkEffect() {
         if (blinkTimer != null) {
             if (blinkTimer.isRunning()) {
+                isHidden = false;
                 blinkTimer.stop();
             }
         }
@@ -178,8 +160,6 @@ public class AsciiCharacter {
 
     /** Disables the blink effect. */
     public void disableBlinkEffect() {
-        blinkEffectEnabled = false;
-        this.timeOfLastBlink = 0;
         this.millsBetweenBlinks = 0;
 
         blinkTimer.stop();
