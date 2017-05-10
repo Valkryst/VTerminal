@@ -20,21 +20,26 @@
         <version>4.12</version>
         <scope>test</scope>
     </dependency>
-      <dependency>
-          <groupId>org.apache.logging.log4j</groupId>
-          <artifactId>log4j-core</artifactId>
-          <version>2.5</version>
-      </dependency>
-      <dependency>
-          <groupId>org.apache.logging.log4j</groupId>
-          <artifactId>log4j-api</artifactId>
-          <version>2.5</version>
-      </dependency>
-      <dependency>
-          <groupId>org.projectlombok</groupId>
-          <artifactId>lombok</artifactId>
-          <version>1.16.8</version>
-          <scope>provided</scope>
-      </dependency>
-    </dependencies>
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>2.5</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>2.5</version>
+    </dependency>
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.16.8</version>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>com.valkryst.radio</groupId>
+        <artifactId>VRadio</artifactId>
+        <version>1.1</version>
+    </dependency>
+  </dependencies>
 </project>
