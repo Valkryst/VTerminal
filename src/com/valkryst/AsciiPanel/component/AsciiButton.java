@@ -4,6 +4,7 @@ import com.valkryst.AsciiPanel.AsciiCharacter;
 import com.valkryst.AsciiPanel.AsciiPanel;
 import com.valkryst.AsciiPanel.AsciiString;
 import com.valkryst.AsciiPanel.font.AsciiFont;
+import com.valkryst.AsciiPanel.misc.IntRange;
 import com.valkryst.radio.Radio;
 import lombok.Getter;
 
@@ -219,14 +220,18 @@ public class AsciiButton extends AsciiComponent {
     public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio) {
         final int beginIndex = 1;
         final int endIndex = super.strings[0].getCharacters().length - 1;
-        super.strings[0].enableBlinkEffect(millsBetweenBlinks, radio, beginIndex, endIndex);
+        final IntRange range = new IntRange(beginIndex, endIndex);
+
+        super.strings[0].enableBlinkEffect(millsBetweenBlinks, radio, range);
     }
 
     /** Disables the blink effect on the button's text, but not on the starting and ending characters. */
     public void disableBlinkEffect() {
         final int beginIndex = 1;
         final int endIndex = super.strings[0].getCharacters().length - 1;
-        super.strings[0].disableBlinkEffect(beginIndex, endIndex);
+        final IntRange range = new IntRange(beginIndex, endIndex);
+
+        super.strings[0].disableBlinkEffect(range);
     }
 
     /**
