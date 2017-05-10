@@ -3,7 +3,6 @@ package com.valkryst.AsciiPanel.component;
 import com.valkryst.AsciiPanel.AsciiCharacter;
 import com.valkryst.AsciiPanel.AsciiString;
 import com.valkryst.AsciiPanel.font.AsciiFont;
-import lombok.Getter;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 
 public class AsciiScreen extends AsciiComponent {
     /** The components displayed on the screen. */
-    @Getter private final ArrayList<AsciiComponent> components = new ArrayList<>();
+    private final ArrayList<AsciiComponent> components = new ArrayList<>();
 
     /**
      * Constructs a new AsciiScreen.
@@ -166,5 +165,33 @@ public class AsciiScreen extends AsciiComponent {
         }
 
         return writesSuccessful;
+    }
+
+    /**
+     * Adds a component to the AsciiScreen.
+     *
+     * @param component
+     *          The component.
+     */
+    public void addComponent(final AsciiComponent component) {
+        if (component == null) {
+            return;
+        }
+
+        if (components.contains(component)) {
+            return;
+        }
+
+        components.add(component);
+    }
+
+    /**
+     * Removes a component from the AsciiScreen.
+     *
+     * @param component
+     *          The component.
+     */
+    public void removeComponent(final AsciiComponent component) {
+        components.remove(component);
     }
 }
