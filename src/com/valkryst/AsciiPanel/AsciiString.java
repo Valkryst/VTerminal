@@ -255,7 +255,6 @@ public class AsciiString {
         final float redDifference = colorTo.getRed() - colorFrom.getRed();
         final float greenDifference = colorTo.getGreen() - colorFrom.getGreen();
         final float blueDifference = colorTo.getBlue() - colorFrom.getBlue();
-        System.out.println(colorTo.getBlue() + " " +  colorFrom.getBlue() + " " + blueDifference);
 
         // Determine the amount to increment the RGB values by and convert the values to the 0-1 scale:
         final float redChangePerColumn = (redDifference / characters.length) / 255f;
