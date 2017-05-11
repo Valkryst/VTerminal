@@ -54,7 +54,13 @@ public class AsciiPanel extends Canvas implements Receiver<String> {
         this.widthInCharacters = widthInCharacters;
         this.heightInCharacters = heightInCharacters;
 
-        this.setSize(widthInCharacters * asciiFont.getWidth(), heightInCharacters * asciiFont.getHeight());
+        int pixelWidth = widthInCharacters * asciiFont.getWidth();
+        pixelWidth -= asciiFont.getWidth() * 2; // todo Screen always appears to be 2 characters too large, this is a temp fix.
+
+        int pixelHeight = heightInCharacters * asciiFont.getHeight();
+        pixelHeight -= asciiFont.getHeight() * 1.5; // todo Screen always appears to be 1.5 characters too large, this is a temp fix.
+
+        this.setSize(pixelWidth, pixelHeight);
 
         currentScreen = new AsciiScreen(0, 0, widthInCharacters, heightInCharacters);
 
