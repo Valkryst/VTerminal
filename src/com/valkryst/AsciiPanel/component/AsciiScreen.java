@@ -66,7 +66,7 @@ public class AsciiScreen extends AsciiComponent {
      * @return
      *         If all characters within the screen were cleared.
      */
-    public boolean clear(final AsciiCharacter character) {
+    public boolean clear(final char character) {
         return clear(character, 0, 0, super.getWidth(), super.getHeight());
     }
 
@@ -93,7 +93,7 @@ public class AsciiScreen extends AsciiComponent {
      * @return
      *         If all characters within the specified area were cleared.
      */
-    public boolean clear(final AsciiCharacter character, final int columnIndex, final int rowIndex, final int width, final int height) {
+    public boolean clear(final char character, final int columnIndex, final int rowIndex, final int width, final int height) {
         boolean canProceed = isPositionValid(columnIndex, rowIndex);
         canProceed &= isPositionValid(width, height);
 
@@ -126,6 +126,31 @@ public class AsciiScreen extends AsciiComponent {
      *         If the write was successful.
      */
     public boolean write(final AsciiCharacter character, final int columnIndex, final int rowIndex) {
+        boolean canProceed = isPositionValid(columnIndex, rowIndex);
+
+        if (canProceed) {
+            strings[rowIndex].setCharacter(columnIndex, character);
+        }
+
+        return canProceed;
+    }
+
+    /**
+     * Write the specified character to the specified position.
+     *
+     * @param character
+     *         The character.
+     *
+     * @param columnIndex
+     *         The x-axis (column) coordinate to write to.
+     *
+     * @param rowIndex
+     *         The y-axis (row) coordinate to write to.
+     *
+     * @return
+     *         If the write was successful.
+     */
+    public boolean write(final char character, final int columnIndex, final int rowIndex) {
         boolean canProceed = isPositionValid(columnIndex, rowIndex);
 
         if (canProceed) {
