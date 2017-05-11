@@ -61,7 +61,7 @@ public class AsciiButton extends AsciiComponent {
      *         The function to run when the button is clicked.
      */
     public AsciiButton(final int columnIndex, final int rowIndex, final String text, final Runnable onClickFunction) {
-        // The width of the button is "text.length() + 2" because the button text is startingCharacter + text endingCharacter.
+        // The width of the button is "text.length() + 2" because the button text is startingCharacter + text + endingCharacter.
         super(columnIndex, rowIndex, text.length() + 2, 1);
 
         if (onClickFunction == null) {
