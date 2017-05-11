@@ -30,7 +30,7 @@ public class AsciiString {
         charactersToBeRedrawn = new boolean[length];
         Arrays.fill(charactersToBeRedrawn, true);
 
-        // Cannot use Arrays.fill as it will use the same AsciiCharacter object to fill every element:
+
         for (int columnIndex = 0 ; columnIndex < length ; columnIndex++) {
             characters[columnIndex] = new AsciiCharacter(' ');
         }
@@ -138,6 +138,24 @@ public class AsciiString {
         isValid &= beginIndex > endIndex == false;
 
         return isValid;
+    }
+
+    /**
+     * Sets a new character in the specified position.
+     *
+     * @param columnIndex
+     *         The x-axis (column) coordinate to place the character at.
+     *
+     * @param character
+     *         The new character.
+     */
+    public void setCharacter(final int columnIndex, final AsciiCharacter character) {
+        if (character != null) {
+            if (columnIndex >= 0 && columnIndex < characters.length) {
+                characters[columnIndex] = character;
+                charactersToBeRedrawn[columnIndex] = true;
+            }
+        }
     }
 
     /**
