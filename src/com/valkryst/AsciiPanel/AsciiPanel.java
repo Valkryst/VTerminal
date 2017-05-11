@@ -1,5 +1,6 @@
 package com.valkryst.AsciiPanel;
 
+import com.valkryst.AsciiPanel.component.AsciiComponent;
 import com.valkryst.AsciiPanel.component.AsciiScreen;
 import com.valkryst.AsciiPanel.font.AsciiFont;
 import com.valkryst.radio.Radio;
@@ -114,5 +115,25 @@ public class AsciiPanel extends Canvas implements Receiver<String> {
         currentScreen = newScreen;
         draw();
         return oldScreen;
+    }
+
+    /**
+     * Adds a component to the current screen.
+     *
+     * @param component
+     *          The component.
+     */
+    public void addComponent(final AsciiComponent component) {
+        currentScreen.addComponent(component);
+    }
+
+    /**
+     * Removes a component from the current screen.
+     *
+     * @param component
+     *          The component.
+     */
+    public void removeComponent(final AsciiComponent component) {
+        currentScreen.removeComponent(component);
     }
 }
