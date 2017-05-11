@@ -255,20 +255,19 @@ public class AsciiString {
         final float redDifference = colorTo.getRed() - colorFrom.getRed();
         final float greenDifference = colorTo.getGreen() - colorFrom.getGreen();
         final float blueDifference = colorTo.getBlue() - colorFrom.getBlue();
+        System.out.println(colorTo.getBlue() + " " +  colorFrom.getBlue() + " " + blueDifference);
 
-        // Determine the amount to increment the RGB values by and convert the values to the 0-255 scale:
-        final float redChangePerColumn = (redDifference / characters.length) * 255;
-        final float greenChangePerColumn = (greenDifference / characters.length) * 255;
-        final float blueChangePerColumn = (blueDifference / characters.length) * 255;
+        // Determine the amount to increment the RGB values by and convert the values to the 0-1 scale:
+        final float redChangePerColumn = (redDifference / characters.length) / 255f;
+        final float greenChangePerColumn = (greenDifference / characters.length) / 255f;
+        final float blueChangePerColumn = (blueDifference / characters.length) / 255f;
 
-        // Set the starting RGB values and convert them to the 0-255 scale:
-        float redCurrent = colorFrom.getRed() * 255;
-        float greenCurrent = colorFrom.getGreen() * 255;
-        float blueCurrent = colorFrom.getBlue() * 255;
+        // Set the starting RGB values and convert them to the 0-1 scale:
+        float redCurrent = colorFrom.getRed() / 255f;
+        float greenCurrent = colorFrom.getGreen() / 255f;
+        float blueCurrent = colorFrom.getBlue() / 255f;
 
         // Set the new color values:
-        final StringBuilder stringBuilder = new StringBuilder();
-
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
 
@@ -284,8 +283,6 @@ public class AsciiString {
             redCurrent += redChangePerColumn;
             greenCurrent += greenChangePerColumn;
             blueCurrent += blueChangePerColumn;
-
-            stringBuilder.setLength(0);
         }
     }
 
