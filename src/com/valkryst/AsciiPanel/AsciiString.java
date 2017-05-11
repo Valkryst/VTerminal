@@ -149,12 +149,10 @@ public class AsciiString {
      * @param character
      *         The new character.
      */
-    public void setCharacter(int columnIndex, final AsciiCharacter character) {
-        if (character != null) {
-            if (columnIndex >= 0 && columnIndex < characters.length) {
-                characters[columnIndex] = character;
-                charactersToBeRedrawn[columnIndex] = true;
-            }
+    public void setCharacter(final int columnIndex, final char character) {
+        if (columnIndex >= 0 && columnIndex < characters.length) {
+            characters[columnIndex].setCharacter(character);
+            charactersToBeRedrawn[columnIndex] = true;
         }
     }
 
