@@ -67,7 +67,7 @@ public class AsciiScreen extends AsciiComponent {
      *         If all characters within the screen were cleared.
      */
     public boolean clear(final char character) {
-        return clear(character, 0, 0, super.getWidth(), super.getHeight());
+        return clear(character, 0, 0, super.getWidth() - 1, super.getHeight() - 1);
     }
 
     /**
@@ -97,17 +97,15 @@ public class AsciiScreen extends AsciiComponent {
         boolean canProceed = isPositionValid(columnIndex, rowIndex);
         canProceed &= isPositionValid(width, height);
 
-        boolean clearsSuccessful = true;
-
         if (canProceed) {
             for (int column = columnIndex ; column < width ; column++) {
                 for (int row = rowIndex ; row < height ; row++) {
-                    clearsSuccessful &= write(character, column, row);
+                    canProceed &= write(character, column, row);
                 }
             }
         }
 
-        return canProceed & clearsSuccessful;
+        return canProceed;
     }
 
     /**
