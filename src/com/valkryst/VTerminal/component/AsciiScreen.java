@@ -239,7 +239,6 @@ public class AsciiScreen extends AsciiComponent {
             boolean showRow = row >= topRowIndex;
             showRow &= row < topRowIndex + parentPanel.getHeightInCharacters();
 
-            System.out.println((showRow ? "Showing:\t" : "Hiding:\t") + "Row #" + row);
             strings[row].setHidden(! showRow);
 
             if (! showRow) {
