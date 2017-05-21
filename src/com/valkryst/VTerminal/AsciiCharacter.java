@@ -151,11 +151,8 @@ public class AsciiCharacter {
         if (isUnderlined) {
             gc.setColor(foregroundColor);
 
-            final int x = columnIndex;
             final int y = rowIndex + fontHeight - underlineThickness;
-            final int width = fontWidth;
-            final int height = underlineThickness;
-            gc.fillRect(x, y ,width, height);
+            gc.fillRect(columnIndex, y, fontWidth, underlineThickness);
         }
     }
 
