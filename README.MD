@@ -52,16 +52,16 @@ To use a different font:
     * TrueType hinting: Enabled
     * Font smoothing: Disabled
     * Super sampling: Disabled
+* On the right-hand size of the screen, check every box.
 * Under *Options->Export Options* use the following settings:
     * All padding/spacing settings must be set to zero.
     * Force offsets to zero: Enabled
     * Width: 2048
+        * This may need to be adjusted based on the font size that you choose.
     * Height: 1024
-    * Bit depth: 32
+        * This may need to be adjusted based on the font size that you choose.
+    * Bit depth: 8
     * A: glyph
-    * R: one
-    * G: one
-    * B: one
     * Font descriptor: Text
     * Textures: png
 * Do *Options->Save bitmap font as...* and save your font. This will generate a png and txt file.
