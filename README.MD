@@ -1,136 +1,75 @@
 #### License: 
 
-Use this code however you wish. Modifications, improvements, additional lists of names, and new algorithms are welcome.
+Use this code however you wish. Modifications and improvements are welcome.
 
 Please refer to the LICENSE file for additional information.
 
 ---
 
-# AsciiPanel
+# VPanel
 
 
-AsciiPanel simulates a Unicode terminal display. It supports arbitrary fore/background colors,  terminal sizes, and allows
-the use of any mono-space font.
+VPanel simulates a Unicode terminal display. It supports arbitrary fore/background colors,  terminal sizes, and allows
+the use of any font.
 
-This project is currently under active development and code-breaking changes are being committed as development progresses
-and code is refactored. This readme file will be updated to note when the project is in a usable state.
+This project is currently under active development and code-breaking changes may committed as development progresses. This readme file will be updated to note when the project is in a usable state.
 
-## How to Setup (Module):
+## How to Setup (Development):
 
 1. Clone the project from GitHub.
-2. Open your project in IntelliJ.
+2. Clone [this](https://github.com/Valkryst/VRadio) project from GitHub as well.
+2. Open the VTerminal project in IntelliJ.
 3. Open the *Project Structure* menu. (S + ALT + CTRL + SHIFT)
 4. Enter the *Modules* subsection.
 5. Click the green "+" at the top of the window.
 6. Select *Import Module*.
-7. Navigate to the cloned project and double-click on *pom.xml*.
-8. Click on the name of your project in the *Modules* subsection.
+7. Navigate to the cloned VRadio project and double-click on *pom.xml*.
+8. Click on VTerminal in the *Modules* subsection.
 9. Enter the *Dependencies* tab of your project.
 10. Click on the green "+" at the right-edge of the window.
 11. Click *Module Dependency...*.
-12. Select *AsciiPanel*.
+12. Select *VRadio*.
 
-You can now use AsciiPanel in your project.
-
-## How to Setup (JavaFX Application):
-
-```java
-import com.valkryst.AsciiPanel.AsciiFont;
-import com.valkryst.AsciiPanel.AsciiPanel;
-import javafx.animation.AnimationTimer;
-import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-
-public class Driver extends Application {
-
-    public static void main(String[] args) throws IOException {
-        launch();
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        try {
-            final AsciiFont font = new AsciiFont("Fonts/DejaVu/DejaVuSansMono.ttf", 16);
-
-            final AsciiPanel terminal = new AsciiPanel(100, 50, font);
-            terminal.setFocusTraversable(true);
-
-            final Group root = new Group();
-            root.getChildren().add(terminal);
-
-            final Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-
-            final Level level = new Level(terminal);
-            level.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-}
-
-public class Level extends AnimationTimer {
-    private long lastUpdateTime = -1;
-    private AsciiPanel terminal;
-
-    public Level(final AsciiPanel terminal) {
-        this.terminal = terminal;
-    }
-
-    @Override
-    public void handle(long now) {
-        if (lastUpdateTime != -1) {
-            // Get the time since the last update, in seconds:
-            final float deltaTime = (float) ((now - lastUpdateTime) / 1_000_000_000.0);
-            lastUpdateTime = now;
-
-            // Update things here.
-
-            terminal.draw();
-        } else {
-            lastUpdateTime = now;
-        }
-    }
-}
-```
-
-## Notes:
+You can now work on the VTerminal project.
 
 ### Fonts:
-AsciiPanel supports the customization of fonts. The following mono-space fonts are provided:
+VTerminal supports the use of any bitmap font. The  [DejaVu](http://dejavu-fonts.org/wiki/Main_Page) and 
+[GNU FreeFont](https://www.gnu.org/software/freefont/) monospace fonts are supplied with this project in 16pt, 18pt, and 
+20pt sizes.
 
-* [DejaVu](http://dejavu-fonts.org/wiki/Main_Page):
-    * DejaVuSansMono.ttf
-    * DejaVuSansMono-Bold.ttf
-    * DejaVuSansMono-BoldOblique.ttf
-    * DejaVuSansMono-Oblique.ttf
-* [GNU FreeFont](https://www.gnu.org/software/freefont/):
-    * FreeMono.ttf
-    * FreeMonoBold.ttf
-    * FreeMonoBoldOblique.ttf
-    * FreeMonoOblique.ttf
-    
-No font will look correct at all font sizes. An example of this can be seen below where *DejaVuSansMono.ttf* is used with
-a font size of 17 in the first image and a font size of 20 in the second. You will need to experiment and decide on a font
-size to use for your project.
+To use a different font:
 
-| Font Size 17 | Font Size 20 |
-| ------------ | ------------ |
-| ![Example of font spacing issue at 17pt.](https://github.com/Valkryst/AsciiPanel/blob/master/images/Font-Size%20Spacing%20(17pt).png) | ![Example of font spacing issue at 20pt.](https://github.com/Valkryst/AsciiPanel/blob/master/images/Font-Size%20Spacing%20(20pt).png) |
-    
+* Download and install [BMFont](http://www.angelcode.com/products/bmfont/).
+* Under *Options->Font Settings* use the following settings:
+    * Font: Specify whichever font you want to use.
+    * Charset: Unicode
+    * Size (px): Set this to whichever size you desire.
+    * Match char height: Enabled
+    * Height %: 100
+    * Output invalid char glyph: Enabled
+    * Do not include kerning pairs: Enabled
+    * Render from TrueType outline: Enabled
+    * TrueType hinting: Enabled
+    * Font smoothing: Disabled
+    * Super sampling: Disabled
+* Under *Options->Export Options* use the following settings:
+    * All padding/spacing settings must be set to zero.
+    * Force offsets to zero: Enabled
+    * Width: 2048
+    * Height: 1024
+    * Bit depth: 32
+    * A: glyph
+    * R: one
+    * G: one
+    * B: one
+    * Font descriptor: Text
+    * Textures: png
+* Do *Options->Save bitmap font as...* and save your font. This will generate a png and txt file.
+* Run the following regex on the text file, then remove any blank lines.
+    * You can use [this](https://regex101.com/) site to perform the regex operation.
+    * `info.*|common.*|page.*|chars.*|char id=\d\d\d\d\d\d.*|char id=[7-9]\d\d\d\d.*|char id=6[6-9]\d\d\d.*|char id=65[6-9]\d\d.*|char id=655[4-9]\d.*|char id=6553[6-9].*|    xoff.*|char id=|x=|y=|width=|height=`
+  
 ### Misc:
 
-* Calling the *draw()* function of the *AsciiPanel* will draw the stored arrays of *AsciiStrings* onto the *AsciiPanel*.
-   After calling *draw()*, the screen will remain as it was last drawn until the next call to *draw()* is made.
-   
-   You do not need to continuously call *draw()* to keep an image on the *AsciiPanel*.
-   
-   Calling *draw()* too often will result in high CPU usage. A good strategy would be to call it only if a character on
-   the screen has actually been changed.
-   
 * The use of non-mono-space fonts is not supported, but it not specifically prevented.
+* Ensure the font png image does *not* use a transparent background. Using a transparent background increases redraw times by ~20-30ms.

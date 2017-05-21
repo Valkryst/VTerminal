@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/AsciiPanel.iml" filepath="$PROJECT_DIR$/.idea/AsciiPanel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../VRadio/VRadio.iml" filepath="$PROJECT_DIR$/../VRadio/VRadio.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/VTerminal.iml" filepath="$PROJECT_DIR$/.idea/VTerminal.iml" />
     </modules>
   </component>
 </project>
