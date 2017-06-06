@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class AsciiFont {
+public class Font {
     @Getter private final BufferedImage bitmapFont;
 
     @Getter private final HashMap<Character, BufferedImage> characterImages;
@@ -26,7 +26,7 @@ public class AsciiFont {
     @Getter private final int height;
 
 
-    public AsciiFont(final String bitmapFilename, final String dataFilename) throws IOException {
+    public Font(final String bitmapFilename, final String dataFilename) throws IOException {
         if (bitmapFilename == null || bitmapFilename.isEmpty()) {
             throw new IOException("You cannot use a null or empty filename.");
         }
