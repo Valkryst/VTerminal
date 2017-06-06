@@ -3,7 +3,7 @@ package com.valkryst.VTerminal;
 import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.component.Screen;
-import com.valkryst.VTerminal.font.AsciiFont;
+import com.valkryst.VTerminal.font.Font;
 import com.valkryst.radio.Radio;
 import com.valkryst.radio.Receiver;
 import lombok.Getter;
@@ -16,7 +16,7 @@ public class Panel extends Canvas implements Receiver<String> {
     /** The height of the panel, in characters. */
     @Getter private int heightInCharacters;
     /** The asciiFont to draw with. */
-    @Getter private AsciiFont asciiFont;
+    @Getter private Font asciiFont;
 
     /** The screen being displayed on the panel. */
     @Getter private Screen currentScreen;

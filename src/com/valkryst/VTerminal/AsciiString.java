@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal;
 
-import com.valkryst.VTerminal.font.AsciiFont;
+import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.IntRange;
 import com.valkryst.radio.Radio;
 import lombok.Getter;
@@ -104,7 +104,7 @@ public class AsciiString {
      *         The y-axis (row) coordinate where the characters are to be drawn.
      *         Includes the first index and excludes the last index.
      */
-    public void draw(final Graphics gc, final AsciiFont font, int rowIndex) {
+    public void draw(final Graphics gc, final Font font, int rowIndex) {
         if (gc == null || font == null) {
             return;
         }

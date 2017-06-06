@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal;
 
-import com.valkryst.VTerminal.font.AsciiFont;
+import com.valkryst.VTerminal.font.Font;
 import com.valkryst.radio.Radio;
 import lombok.Getter;
 import lombok.Setter;
@@ -93,7 +93,7 @@ public class AsciiCharacter {
      * @param rowIndex
      *         The y-axis (row) coordinate where the character is to be drawn.
      */
-    public void draw(final Graphics gc, final AsciiFont font, int columnIndex, int rowIndex) {
+    public void draw(final Graphics gc, final Font font, int columnIndex, int rowIndex) {
         BufferedImage bufferedImage = font.getCharacterImages().get(character);
 
         // Handle Horizontal/Vertical Flipping:
