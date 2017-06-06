@@ -1,25 +1,27 @@
-import com.valkryst.VTerminal.AsciiPanel;
-import com.valkryst.VTerminal.builder.AsciiPanelBuilder;
+import com.valkryst.VTerminal.Panel;
+import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.builder.component.*;
-import com.valkryst.VTerminal.component.AsciiLabel;
-import com.valkryst.VTerminal.component.AsciiRadioButtonGroup;
-import com.valkryst.VTerminal.component.AsciiScreen;
-import com.valkryst.VTerminal.font.AsciiFont;
+import com.valkryst.VTerminal.component.Label;
+import com.valkryst.VTerminal.component.RadioButtonGroup;
+import com.valkryst.VTerminal.component.Screen;
+import com.valkryst.VTerminal.font.Font;
+import com.valkryst.VTerminal.font.FontLoader;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Driver {
 
     public static void main(String[] args) throws IOException {
         try {
-            final AsciiFont font = new AsciiFont("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt");
+            final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt");
 
-            final AsciiScreen screen = new AsciiScreen(0, 0, 80, 48);
+            final Screen screen = new Screen(0, 0, 80, 48);
 
-            final AsciiPanel terminal = new AsciiPanelBuilder().setWidthInCharacters(80)
+            final Panel terminal = new PanelBuilder().setWidthInCharacters(80)
                                                                 .setHeightInCharacters(24)
                                                                 .setAsciiFont(font)
                                                                 .setCurrentScreen(screen)
@@ -53,7 +55,7 @@ public class Driver {
             screen.setParentPanel(terminal);
             terminal.getCurrentScreen().clear('X');
 
-            new AsciiTextFieldBuilder().setColumnIndex(0)
+            new TextFieldBuilder().setColumnIndex(0)
                                         .setRowIndex(4)
                                         .setWidth(10)
                                         .setRadio(terminal.getRadio())
@@ -61,13 +63,13 @@ public class Driver {
                                         .build();
 
 
-            final AsciiLabel label = new AsciiLabelBuilder().setColumnIndex(0)
+            final Label label = new LabelBuilder().setColumnIndex(0)
                                                             .setRowIndex(5)
                                                             .setText("This is a label.")
                                                             .setPanel(terminal)
                                                             .build();
 
-            new AsciiButtonBuilder().setColumnIndex(0)
+            new ButtonBuilder().setColumnIndex(0)
                                     .setRowIndex(6)
                                     .setText("Click Me")
                                     .setOnClickFunction(() -> label.getStrings()[0].invertColors())
@@ -76,14 +78,14 @@ public class Driver {
                                     .build()
                                     .enableBlinkEffect((short) 1000);
 
-            new AsciiCheckBoxBuilder().setColumnIndex(0)
+            new CheckBoxBuilder().setColumnIndex(0)
                                         .setRowIndex(7)
                                         .setText("Check box label.")
                                         .setRadio(terminal.getRadio())
                                         .setPanel(terminal)
                                         .build();
 
-            new AsciiLabelBuilder().setColumnIndex(0)
+            new LabelBuilder().setColumnIndex(0)
                                     .setRowIndex(8)
                                     .setText("This is a horizontally label.")
                                     .setPanel(terminal)
@@ -92,7 +94,7 @@ public class Driver {
                                     .flipCharactersHorizontally();
 
 
-            new AsciiLabelBuilder().setColumnIndex(0)
+            new LabelBuilder().setColumnIndex(0)
                                     .setRowIndex(9)
                                     .setText("This is a vertically label.")
                                     .setPanel(terminal)
@@ -100,7 +102,7 @@ public class Driver {
                                     .getStrings()[0]
                                     .flipCharactersVertically();
 
-            new AsciiLabelBuilder().setColumnIndex(0)
+            new LabelBuilder().setColumnIndex(0)
                                     .setRowIndex(10)
                                     .setText("This is label flipped both ways.")
                                     .setPanel(terminal)
@@ -108,7 +110,7 @@ public class Driver {
                                     .getStrings()[0]
                                     .flipCharactersHorizontallyAndVertically();
 
-            new AsciiLabelBuilder().setColumnIndex(0)
+            new LabelBuilder().setColumnIndex(0)
                                     .setRowIndex(11)
                                     .setText("This is an underlined label.")
                                     .setPanel(terminal)
@@ -117,9 +119,9 @@ public class Driver {
                                     .underlineCharacters();
 
 
-            final AsciiRadioButtonGroup radioButtonGroupOne = new AsciiRadioButtonGroup();
+            final RadioButtonGroup radioButtonGroupOne = new RadioButtonGroup();
 
-            new AsciiRadioButtonBuilder().setColumnIndex(0)
+            new RadioButtonBuilder().setColumnIndex(0)
                                         .setRowIndex(12)
                                         .setText("Radio Button, Option A, Group 1")
                                         .setRadio(terminal.getRadio())
@@ -127,7 +129,7 @@ public class Driver {
                                         .setRadioButtonGroup(radioButtonGroupOne)
                                         .build();
 
-            new AsciiRadioButtonBuilder().setColumnIndex(0)
+            new RadioButtonBuilder().setColumnIndex(0)
                                         .setRowIndex(13)
                                         .setText("Radio Button, Option B, Group 1")
                                         .setRadio(terminal.getRadio())
@@ -135,7 +137,7 @@ public class Driver {
                                         .setRadioButtonGroup(radioButtonGroupOne)
                                         .build();
 
-            new AsciiRadioButtonBuilder().setColumnIndex(0)
+            new RadioButtonBuilder().setColumnIndex(0)
                                         .setRowIndex(14)
                                         .setText("Radio Button, Option C, Group 1")
                                         .setRadio(terminal.getRadio())
@@ -143,9 +145,9 @@ public class Driver {
                                         .setRadioButtonGroup(radioButtonGroupOne)
                                         .build();
 
-            final AsciiRadioButtonGroup radioButtonGroupTwo = new AsciiRadioButtonGroup();
+            final RadioButtonGroup radioButtonGroupTwo = new RadioButtonGroup();
 
-            new AsciiRadioButtonBuilder().setColumnIndex(0)
+            new RadioButtonBuilder().setColumnIndex(0)
                     .setRowIndex(15)
                     .setText("Radio Button, Option A, Group 2")
                     .setRadio(terminal.getRadio())
@@ -153,7 +155,7 @@ public class Driver {
                     .setRadioButtonGroup(radioButtonGroupTwo)
                     .build();
 
-            new AsciiRadioButtonBuilder().setColumnIndex(0)
+            new RadioButtonBuilder().setColumnIndex(0)
                     .setRowIndex(16)
                     .setText("Radio Button, Option B, Group 2")
                     .setRadio(terminal.getRadio())
@@ -161,7 +163,7 @@ public class Driver {
                     .setRadioButtonGroup(radioButtonGroupTwo)
                     .build();
 
-            new AsciiRadioButtonBuilder().setColumnIndex(0)
+            new RadioButtonBuilder().setColumnIndex(0)
                     .setRowIndex(17)
                     .setText("Radio Button, Option C, Group 2")
                     .setRadio(terminal.getRadio())
@@ -180,7 +182,7 @@ public class Driver {
 
             // Add row markers:
             for (int i = 0 ; i < screen.getHeight() ; i++) {
-                new AsciiLabelBuilder().setColumnIndex(73)
+                new LabelBuilder().setColumnIndex(73)
                                         .setRowIndex(i)
                                         .setText("Row " + i)
                                         .setPanel(terminal)
@@ -188,7 +190,7 @@ public class Driver {
             }
 
             terminal.draw();
-        } catch (IOException e) {
+        } catch (final IOException | URISyntaxException e) {
             e.printStackTrace();
         }
     }
