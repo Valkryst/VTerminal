@@ -4,7 +4,7 @@ import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.builder.component.RadioButtonBuilder;
-import com.valkryst.VTerminal.font.AsciiFont;
+import com.valkryst.VTerminal.font.Font;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -88,7 +88,7 @@ public class RadioButton extends Component {
 
     @Override
     public void registerEventHandlers(final Panel panel) {
-        final AsciiFont font = panel.getAsciiFont();
+        final Font font = panel.getAsciiFont();
         final int fontWidth = font.getWidth();
         final int fontHeight = font.getHeight();
 

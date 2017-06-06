@@ -2,7 +2,7 @@ package com.valkryst.VTerminal.builder;
 
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Screen;
-import com.valkryst.VTerminal.font.AsciiFont;
+import com.valkryst.VTerminal.font.Font;
 import lombok.Getter;
 
 import javax.swing.*;
@@ -13,7 +13,7 @@ public class PanelBuilder {
     /** The height of the panel, in characters. */
     @Getter private int heightInCharacters = 50;
     /** The asciiFont to draw with. */
-    @Getter private AsciiFont asciiFont;
+    @Getter private Font asciiFont;
 
     /** The screen being displayed on the panel. */
     @Getter private Screen currentScreen;
@@ -97,7 +97,7 @@ public class PanelBuilder {
         return this;
     }
 
-    public PanelBuilder setAsciiFont(final AsciiFont asciiFont) {
+    public PanelBuilder setAsciiFont(final Font asciiFont) {
         if (asciiFont != null) {
             this.asciiFont = asciiFont;
         }
