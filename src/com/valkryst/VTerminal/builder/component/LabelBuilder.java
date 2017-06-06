@@ -1,11 +1,11 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.valkryst.VTerminal.component.AsciiLabel;
+import com.valkryst.VTerminal.component.Label;
 import lombok.Getter;
 
 import java.awt.*;
 
-public class AsciiLabelBuilder extends ComponentBuilder<AsciiLabel, AsciiLabelBuilder> {
+public class LabelBuilder extends ComponentBuilder<Label, LabelBuilder> {
     /** The text to display on the label. */
     @Getter private String text;
 
@@ -15,10 +15,10 @@ public class AsciiLabelBuilder extends ComponentBuilder<AsciiLabel, AsciiLabelBu
     @Getter private Color foregroundColor;
 
     @Override
-    public AsciiLabel build() throws IllegalStateException {
+    public Label build() throws IllegalStateException {
         checkState();
 
-        final AsciiLabel label = new AsciiLabel(this);
+        final Label label = new Label(this);
         super.panel.addComponent(label);
 
         return label;
@@ -34,7 +34,7 @@ public class AsciiLabelBuilder extends ComponentBuilder<AsciiLabel, AsciiLabelBu
         foregroundColor = new Color(0xFFCF0F);
     }
 
-    public AsciiLabelBuilder setText(final String text) {
+    public LabelBuilder setText(final String text) {
         if (text != null) {
             this.text = text;
         }
@@ -42,7 +42,7 @@ public class AsciiLabelBuilder extends ComponentBuilder<AsciiLabel, AsciiLabelBu
         return this;
     }
 
-    public AsciiLabelBuilder setBackgroundColor(final Color backgroundColor) {
+    public LabelBuilder setBackgroundColor(final Color backgroundColor) {
         if (backgroundColor != null) {
             this.backgroundColor = backgroundColor;
         }
@@ -50,7 +50,7 @@ public class AsciiLabelBuilder extends ComponentBuilder<AsciiLabel, AsciiLabelBu
         return this;
     }
 
-    public AsciiLabelBuilder setForegroundColor(final Color foregroundColor) {
+    public LabelBuilder setForegroundColor(final Color foregroundColor) {
         if (foregroundColor != null) {
             this.foregroundColor = foregroundColor;
         }

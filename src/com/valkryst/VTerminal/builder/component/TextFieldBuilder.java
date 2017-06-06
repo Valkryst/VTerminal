@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.valkryst.VTerminal.component.AsciiTextField;
+import com.valkryst.VTerminal.component.TextField;
 import com.valkryst.radio.Radio;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.awt.*;
 import java.util.regex.Pattern;
 
-public class AsciiTextFieldBuilder extends ComponentBuilder<AsciiTextField, AsciiTextFieldBuilder> {
+public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuilder> {
     /** The width of the text field, in characters. */
     @Getter private int width;
 
@@ -42,10 +42,10 @@ public class AsciiTextFieldBuilder extends ComponentBuilder<AsciiTextField, Asci
     @Getter @Setter private Pattern allowedCharacterPattern;
 
     @Override
-    public AsciiTextField build() throws IllegalStateException {
+    public TextField build() throws IllegalStateException {
         checkState();
 
-        final AsciiTextField textField = new AsciiTextField(this);
+        final TextField textField = new TextField(this);
         textField.registerEventHandlers(super.panel);
         super.panel.addComponent(textField);
 
@@ -90,7 +90,7 @@ public class AsciiTextFieldBuilder extends ComponentBuilder<AsciiTextField, Asci
         allowedCharacterPattern = Pattern.compile("^[a-zA-z0-9$-/:-?{-~!\"^_`\\[\\]@# ]$");
     }
 
-    public AsciiTextFieldBuilder setWidth(final int width) {
+    public TextFieldBuilder setWidth(final int width) {
         if (width >= 1) {
             this.width = width;
         }
@@ -98,7 +98,7 @@ public class AsciiTextFieldBuilder extends ComponentBuilder<AsciiTextField, Asci
         return this;
     }
 
-    public AsciiTextFieldBuilder setRadio(final Radio<String> radio) {
+    public TextFieldBuilder setRadio(final Radio<String> radio) {
         if (radio != null) {
             this.radio = radio;
         }
@@ -106,7 +106,7 @@ public class AsciiTextFieldBuilder extends ComponentBuilder<AsciiTextField, Asci
         return this;
     }
 
-    public AsciiTextFieldBuilder setCaretForegroundColor(final Color caretForegroundColor) {
+    public TextFieldBuilder setCaretForegroundColor(final Color caretForegroundColor) {
         if (caretForegroundColor != null) {
             this.caretForegroundColor = caretForegroundColor;
         }
@@ -114,7 +114,7 @@ public class AsciiTextFieldBuilder extends ComponentBuilder<AsciiTextField, Asci
         return this;
     }
 
-    public AsciiTextFieldBuilder setCaretBackgroundColor(final Color caretBackgroundColor) {
+    public TextFieldBuilder setCaretBackgroundColor(final Color caretBackgroundColor) {
         if (caretBackgroundColor != null) {
             this.caretBackgroundColor = caretBackgroundColor;
         }
@@ -122,7 +122,7 @@ public class AsciiTextFieldBuilder extends ComponentBuilder<AsciiTextField, Asci
         return this;
     }
 
-    public AsciiTextFieldBuilder setForegroundColor(final Color foregroundColor) {
+    public TextFieldBuilder setForegroundColor(final Color foregroundColor) {
         if (foregroundColor != null) {
             this.foregroundColor = foregroundColor;
         }
@@ -130,7 +130,7 @@ public class AsciiTextFieldBuilder extends ComponentBuilder<AsciiTextField, Asci
         return this;
     }
 
-    public AsciiTextFieldBuilder setBackgroundColor(final Color backgroundColor) {
+    public TextFieldBuilder setBackgroundColor(final Color backgroundColor) {
         if (backgroundColor != null) {
             this.backgroundColor = backgroundColor;
         }
@@ -138,37 +138,37 @@ public class AsciiTextFieldBuilder extends ComponentBuilder<AsciiTextField, Asci
         return this;
     }
 
-    public AsciiTextFieldBuilder setHomeKeyEnabled(final boolean homeKeyEnabled) {
+    public TextFieldBuilder setHomeKeyEnabled(final boolean homeKeyEnabled) {
         this.homeKeyEnabled = homeKeyEnabled;
         return this;
     }
 
-    public AsciiTextFieldBuilder setEndKeyEnabled(final boolean endKeyEnabled) {
+    public TextFieldBuilder setEndKeyEnabled(final boolean endKeyEnabled) {
         this.endKeyEnabled = endKeyEnabled;
         return this;
     }
 
-    public AsciiTextFieldBuilder setDeleteKeyEnabled(final boolean deleteKeyEnabled) {
+    public TextFieldBuilder setDeleteKeyEnabled(final boolean deleteKeyEnabled) {
         this.deleteKeyEnabled = deleteKeyEnabled;
         return this;
     }
 
-    public AsciiTextFieldBuilder setLeftArrowKeyEnabled(final boolean leftArrowKeyEnabled) {
+    public TextFieldBuilder setLeftArrowKeyEnabled(final boolean leftArrowKeyEnabled) {
         this.leftArrowKeyEnabled = leftArrowKeyEnabled;
         return this;
     }
 
-    public AsciiTextFieldBuilder setRightArrowKeyEnabled(final boolean rightArrowKeyEnabled) {
+    public TextFieldBuilder setRightArrowKeyEnabled(final boolean rightArrowKeyEnabled) {
         this.rightArrowKeyEnabled = rightArrowKeyEnabled;
         return this;
     }
 
-    public AsciiTextFieldBuilder setBackSpaceKeyEnabled(final boolean backSpaceKeyEnabled) {
+    public TextFieldBuilder setBackSpaceKeyEnabled(final boolean backSpaceKeyEnabled) {
         this.backSpaceKeyEnabled = backSpaceKeyEnabled;
         return this;
     }
 
-    public AsciiTextFieldBuilder setAllowedCharacterPattern(final Pattern allowedCharacterPattern) {
+    public TextFieldBuilder setAllowedCharacterPattern(final Pattern allowedCharacterPattern) {
         if (allowedCharacterPattern != null) {
             this.allowedCharacterPattern = allowedCharacterPattern;
         }

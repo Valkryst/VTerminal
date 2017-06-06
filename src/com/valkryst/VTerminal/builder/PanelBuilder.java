@@ -1,13 +1,13 @@
 package com.valkryst.VTerminal.builder;
 
-import com.valkryst.VTerminal.AsciiPanel;
-import com.valkryst.VTerminal.component.AsciiScreen;
+import com.valkryst.VTerminal.Panel;
+import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.font.AsciiFont;
 import lombok.Getter;
 
 import javax.swing.*;
 
-public class AsciiPanelBuilder {
+public class PanelBuilder {
     /** The width of the panel, in characters. */
     @Getter private int widthInCharacters = 80;
     /** The height of the panel, in characters. */
@@ -16,7 +16,7 @@ public class AsciiPanelBuilder {
     @Getter private AsciiFont asciiFont;
 
     /** The screen being displayed on the panel. */
-    @Getter private AsciiScreen currentScreen;
+    @Getter private Screen currentScreen;
 
     /** The frame in which the panel is to be placed. */
     @Getter private JFrame frame;
@@ -32,10 +32,10 @@ public class AsciiPanelBuilder {
      * @throws IllegalStateException
      *          If something is wrong with the builder's state.
      */
-    public AsciiPanel build() throws IllegalStateException {
+    public Panel build() throws IllegalStateException {
         checkState();
 
-        final AsciiPanel panel = new AsciiPanel(this);
+        final Panel panel = new Panel(this);
 
         if (frame == null) {
             frame = new JFrame();
@@ -72,12 +72,12 @@ public class AsciiPanelBuilder {
         frame = null;
     }
 
-    public AsciiPanelBuilder setJFrame(final JFrame frame) {
+    public PanelBuilder setJFrame(final JFrame frame) {
         this.frame = frame;
         return this;
     }
 
-    public AsciiPanelBuilder setWidthInCharacters(final int widthInCharacters) {
+    public PanelBuilder setWidthInCharacters(final int widthInCharacters) {
         if (widthInCharacters < 1) {
             this.widthInCharacters = 1;
         } else {
@@ -87,7 +87,7 @@ public class AsciiPanelBuilder {
         return this;
     }
 
-    public AsciiPanelBuilder setHeightInCharacters(final int heightInCharacters) {
+    public PanelBuilder setHeightInCharacters(final int heightInCharacters) {
         if (heightInCharacters < 1) {
             this.heightInCharacters = 1;
         } else {
@@ -97,7 +97,7 @@ public class AsciiPanelBuilder {
         return this;
     }
 
-    public AsciiPanelBuilder setAsciiFont(final AsciiFont asciiFont) {
+    public PanelBuilder setAsciiFont(final AsciiFont asciiFont) {
         if (asciiFont != null) {
             this.asciiFont = asciiFont;
         }
@@ -105,7 +105,7 @@ public class AsciiPanelBuilder {
         return this;
     }
 
-    public AsciiPanelBuilder setCurrentScreen(final AsciiScreen currentScreen) {
+    public PanelBuilder setCurrentScreen(final Screen currentScreen) {
         this.currentScreen = currentScreen;
         return this;
     }

@@ -1,7 +1,7 @@
 package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
-import com.valkryst.VTerminal.AsciiPanel;
+import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.font.AsciiFont;
 import com.valkryst.radio.Radio;
@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class AsciiComponent {
+public class Component {
     /** The x-axis (column) coordinate of the top-left character. */
     @Getter private int columnIndex;
     /** The y-axis (row) coordinate of the top-left character. */
@@ -48,7 +48,7 @@ public class AsciiComponent {
      * @param height
      *         The height, in characters.
      */
-    public AsciiComponent(final int columnIndex, final int rowIndex, final int width, final int height) {
+    public Component(final int columnIndex, final int rowIndex, final int width, final int height) {
         if (columnIndex < 0) {
             throw new IllegalArgumentException("You must specify a columnIndex of 0 or greater.");
         }
@@ -86,7 +86,7 @@ public class AsciiComponent {
      * @param panel
      *         The panel to register events with.
      */
-    public void registerEventHandlers(final AsciiPanel panel) {
+    public void registerEventHandlers(final Panel panel) {
         final AsciiFont font = panel.getAsciiFont();
         final int fontWidth = font.getWidth();
         final int fontHeight = font.getHeight();
@@ -119,7 +119,7 @@ public class AsciiComponent {
      * @param screen
      *         The screen to draw on.
      */
-    public void draw(final AsciiScreen screen) {
+    public void draw(final Screen screen) {
         for (int row = 0 ; row < strings.length ; row++) {
             screen.write(strings[row], columnIndex, rowIndex + row);
         }
@@ -141,7 +141,7 @@ public class AsciiComponent {
      * @return
      *         Whether or not the components intersect.
      */
-    public boolean intersects(final AsciiComponent otherComponent) {
+    public boolean intersects(final Component otherComponent) {
         return boundingBox.intersects(otherComponent.getBoundingBox());
     }
 

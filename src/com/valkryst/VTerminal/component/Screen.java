@@ -1,7 +1,7 @@
 package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
-import com.valkryst.VTerminal.AsciiPanel;
+import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.font.AsciiFont;
 import lombok.Getter;
@@ -11,12 +11,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 
-public class AsciiScreen extends AsciiComponent {
+public class Screen extends Component {
     /** The components displayed on the screen. */
-    private final ArrayList<AsciiComponent> components = new ArrayList<>();
+    private final ArrayList<Component> components = new ArrayList<>();
 
     @Getter private int topRowIndex = 0;
-    @Setter private AsciiPanel parentPanel;
+    @Setter private Panel parentPanel;
 
     /**
      * Constructs a new AsciiScreen.
@@ -33,12 +33,12 @@ public class AsciiScreen extends AsciiComponent {
      * @param height
      *         The height, in characters.
      */
-    public AsciiScreen(final int columnIndex, final int rowIndex, final int width, final int height) {
+    public Screen(final int columnIndex, final int rowIndex, final int width, final int height) {
         super(columnIndex, rowIndex, width, height);
     }
 
     @Override
-    public void draw(final AsciiScreen screen) {
+    public void draw(final Screen screen) {
         throw new UnsupportedOperationException("An AsciiScreen must be drawn using the draw(canvas, font) method.");
     }
 
@@ -202,7 +202,7 @@ public class AsciiScreen extends AsciiComponent {
      * @param component
      *          The component.
      */
-    public void addComponent(final AsciiComponent component) {
+    public void addComponent(final Component component) {
         if (component == null) {
             return;
         }
@@ -220,7 +220,7 @@ public class AsciiScreen extends AsciiComponent {
      * @param component
      *          The component.
      */
-    public void removeComponent(final AsciiComponent component) {
+    public void removeComponent(final Component component) {
         components.remove(component);
     }
 

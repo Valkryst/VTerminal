@@ -1,13 +1,13 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.valkryst.VTerminal.component.AsciiCheckBox;
+import com.valkryst.VTerminal.component.CheckBox;
 import com.valkryst.radio.Radio;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.awt.*;
 
-public class AsciiCheckBoxBuilder extends ComponentBuilder<AsciiCheckBox, AsciiCheckBoxBuilder> {
+public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder> {
     /** The radio to transmit events to. */
     @Getter private Radio<String> radio;
 
@@ -36,10 +36,10 @@ public class AsciiCheckBoxBuilder extends ComponentBuilder<AsciiCheckBox, AsciiC
     @Getter private Color foregroundColor_checked;
 
     @Override
-    public AsciiCheckBox build() throws IllegalStateException {
+    public CheckBox build() throws IllegalStateException {
         checkState();
 
-        final AsciiCheckBox checkBox = new AsciiCheckBox(this);
+        final CheckBox checkBox = new CheckBox(this);
         checkBox.registerEventHandlers(super.panel);
         super.panel.addComponent(checkBox);
 
@@ -83,7 +83,7 @@ public class AsciiCheckBoxBuilder extends ComponentBuilder<AsciiCheckBox, AsciiC
         foregroundColor_checked = new Color(0xFFFF66);
     }
 
-    public AsciiCheckBoxBuilder setText(final String text) {
+    public CheckBoxBuilder setText(final String text) {
         if (text != null) {
             this.text = text;
         }
@@ -91,7 +91,7 @@ public class AsciiCheckBoxBuilder extends ComponentBuilder<AsciiCheckBox, AsciiC
         return this;
     }
 
-    public AsciiCheckBoxBuilder setRadio(final Radio<String> radio) {
+    public CheckBoxBuilder setRadio(final Radio<String> radio) {
         if (radio != null) {
             this.radio = radio;
         }
@@ -99,17 +99,17 @@ public class AsciiCheckBoxBuilder extends ComponentBuilder<AsciiCheckBox, AsciiC
         return this;
     }
 
-    public AsciiCheckBoxBuilder setEmptyBoxChar(final char emptyBoxChar) {
+    public CheckBoxBuilder setEmptyBoxChar(final char emptyBoxChar) {
         this.emptyBoxChar = emptyBoxChar;
         return this;
     }
 
-    public AsciiCheckBoxBuilder setCheckedBoxChar(final char checkedBoxChar) {
+    public CheckBoxBuilder setCheckedBoxChar(final char checkedBoxChar) {
         this.checkedBoxChar = checkedBoxChar;
         return this;
     }
 
-    public AsciiCheckBoxBuilder setBackgroundColor_normal(final Color backgroundColor_normal) {
+    public CheckBoxBuilder setBackgroundColor_normal(final Color backgroundColor_normal) {
         if (backgroundColor_normal != null) {
             this.backgroundColor_normal = backgroundColor_normal;
         }
@@ -117,7 +117,7 @@ public class AsciiCheckBoxBuilder extends ComponentBuilder<AsciiCheckBox, AsciiC
         return this;
     }
 
-    public AsciiCheckBoxBuilder setForegroundColor_normal(final Color foregroundColor_normal) {
+    public CheckBoxBuilder setForegroundColor_normal(final Color foregroundColor_normal) {
         if (foregroundColor_normal != null) {
             this.foregroundColor_normal = foregroundColor_normal;
         }
@@ -125,7 +125,7 @@ public class AsciiCheckBoxBuilder extends ComponentBuilder<AsciiCheckBox, AsciiC
         return this;
     }
 
-    public AsciiCheckBoxBuilder setBackgroundColor_hover(final Color backgroundColor_hover) {
+    public CheckBoxBuilder setBackgroundColor_hover(final Color backgroundColor_hover) {
         if (backgroundColor_hover != null) {
             this.backgroundColor_hover = backgroundColor_hover;
         }
@@ -133,7 +133,7 @@ public class AsciiCheckBoxBuilder extends ComponentBuilder<AsciiCheckBox, AsciiC
         return this;
     }
 
-    public AsciiCheckBoxBuilder setForegroundColor_hover(final Color foregroundColor_hover) {
+    public CheckBoxBuilder setForegroundColor_hover(final Color foregroundColor_hover) {
         if (foregroundColor_hover != null) {
             this.foregroundColor_hover = foregroundColor_hover;
         }
@@ -141,7 +141,7 @@ public class AsciiCheckBoxBuilder extends ComponentBuilder<AsciiCheckBox, AsciiC
         return this;
     }
 
-    public AsciiCheckBoxBuilder setBackgroundColor_checked(final Color backgroundColor_checked) {
+    public CheckBoxBuilder setBackgroundColor_checked(final Color backgroundColor_checked) {
         if (backgroundColor_checked != null) {
             this.backgroundColor_checked = backgroundColor_checked;
         }
@@ -149,7 +149,7 @@ public class AsciiCheckBoxBuilder extends ComponentBuilder<AsciiCheckBox, AsciiC
         return this;
     }
 
-    public AsciiCheckBoxBuilder setForegroundColor_checked(final Color foregroundColor_checked) {
+    public CheckBoxBuilder setForegroundColor_checked(final Color foregroundColor_checked) {
         if (foregroundColor_checked != null) {
             this.foregroundColor_checked = foregroundColor_checked;
         }

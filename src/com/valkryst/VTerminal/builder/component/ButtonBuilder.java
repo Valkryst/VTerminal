@@ -1,12 +1,12 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.valkryst.VTerminal.component.AsciiButton;
+import com.valkryst.VTerminal.component.Button;
 import com.valkryst.radio.Radio;
 import lombok.Getter;
 
 import java.awt.*;
 
-public class AsciiButtonBuilder extends ComponentBuilder<AsciiButton, AsciiButtonBuilder> {
+public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
     /** The text to display on the button. */
     @Getter private String text;
 
@@ -38,10 +38,10 @@ public class AsciiButtonBuilder extends ComponentBuilder<AsciiButton, AsciiButto
     @Getter private Runnable onClickFunction;
 
     @Override
-    public AsciiButton build() throws IllegalStateException {
+    public Button build() throws IllegalStateException {
         checkState();
 
-        final AsciiButton button = new AsciiButton(this);
+        final Button button = new Button(this);
         button.registerEventHandlers(super.panel);
         super.panel.addComponent(button);
 
@@ -85,7 +85,7 @@ public class AsciiButtonBuilder extends ComponentBuilder<AsciiButton, AsciiButto
         onClickFunction = () -> {};
     }
 
-    public AsciiButtonBuilder setText(final String text) {
+    public ButtonBuilder setText(final String text) {
         if (text != null) {
             this.text = text;
         }
@@ -93,7 +93,7 @@ public class AsciiButtonBuilder extends ComponentBuilder<AsciiButton, AsciiButto
         return this;
     }
 
-    public AsciiButtonBuilder setRadio(final Radio<String> radio) {
+    public ButtonBuilder setRadio(final Radio<String> radio) {
         if (radio != null) {
             this.radio = radio;
         }
@@ -101,17 +101,17 @@ public class AsciiButtonBuilder extends ComponentBuilder<AsciiButton, AsciiButto
         return this;
     }
 
-    public AsciiButtonBuilder setStartingCharacter(final char startingCharacter) {
+    public ButtonBuilder setStartingCharacter(final char startingCharacter) {
         this.startingCharacter = startingCharacter;
         return this;
     }
 
-    public AsciiButtonBuilder setEndingCharacter(final char endingCharacter) {
+    public ButtonBuilder setEndingCharacter(final char endingCharacter) {
         this.endingCharacter = endingCharacter;
         return this;
     }
 
-    public AsciiButtonBuilder setBackgroundColor_normal(final Color backgroundColor_normal) {
+    public ButtonBuilder setBackgroundColor_normal(final Color backgroundColor_normal) {
         if (backgroundColor_normal != null) {
             this.backgroundColor_normal = backgroundColor_normal;
         }
@@ -119,7 +119,7 @@ public class AsciiButtonBuilder extends ComponentBuilder<AsciiButton, AsciiButto
         return this;
     }
 
-    public AsciiButtonBuilder setForegroundColor_normal(final Color foregroundColor_normal) {
+    public ButtonBuilder setForegroundColor_normal(final Color foregroundColor_normal) {
         if (foregroundColor_normal != null) {
             this.foregroundColor_normal = foregroundColor_normal;
         }
@@ -127,7 +127,7 @@ public class AsciiButtonBuilder extends ComponentBuilder<AsciiButton, AsciiButto
         return this;
     }
 
-    public AsciiButtonBuilder setBackgroundColor_hover(final Color backgroundColor_hover) {
+    public ButtonBuilder setBackgroundColor_hover(final Color backgroundColor_hover) {
         if (backgroundColor_hover != null) {
             this.backgroundColor_hover = backgroundColor_hover;
         }
@@ -135,7 +135,7 @@ public class AsciiButtonBuilder extends ComponentBuilder<AsciiButton, AsciiButto
         return this;
     }
 
-    public AsciiButtonBuilder setForegroundColor_hover(final Color foregroundColor_hover) {
+    public ButtonBuilder setForegroundColor_hover(final Color foregroundColor_hover) {
         if (foregroundColor_hover != null) {
             this.foregroundColor_hover = foregroundColor_hover;
         }
@@ -143,7 +143,7 @@ public class AsciiButtonBuilder extends ComponentBuilder<AsciiButton, AsciiButto
         return this;
     }
 
-    public AsciiButtonBuilder setBackgroundColor_pressed(final Color backgroundColor_pressed) {
+    public ButtonBuilder setBackgroundColor_pressed(final Color backgroundColor_pressed) {
         if (backgroundColor_pressed != null) {
             this.backgroundColor_pressed = backgroundColor_pressed;
         }
@@ -151,7 +151,7 @@ public class AsciiButtonBuilder extends ComponentBuilder<AsciiButton, AsciiButto
         return this;
     }
 
-    public AsciiButtonBuilder setForegroundColor_pressed(final Color foregroundColor_pressed) {
+    public ButtonBuilder setForegroundColor_pressed(final Color foregroundColor_pressed) {
         if (foregroundColor_pressed != null) {
             this.foregroundColor_pressed = foregroundColor_pressed;
         }
@@ -159,7 +159,7 @@ public class AsciiButtonBuilder extends ComponentBuilder<AsciiButton, AsciiButto
         return this;
     }
 
-    public AsciiButtonBuilder setOnClickFunction(final Runnable onClickFunction) {
+    public ButtonBuilder setOnClickFunction(final Runnable onClickFunction) {
         if (onClickFunction != null) {
             this.onClickFunction = onClickFunction;
         }

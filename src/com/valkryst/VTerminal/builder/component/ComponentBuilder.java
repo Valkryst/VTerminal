@@ -1,17 +1,17 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.valkryst.VTerminal.AsciiPanel;
-import com.valkryst.VTerminal.component.AsciiComponent;
+import com.valkryst.VTerminal.Panel;
+import com.valkryst.VTerminal.component.Component;
 import lombok.Getter;
 
-public class ComponentBuilder <C extends AsciiComponent, B extends ComponentBuilder<C, B>> {
+public class ComponentBuilder <C extends Component, B extends ComponentBuilder<C, B>> {
     /** The x-axis (column) coordinate of the top-left character. */
     @Getter protected int columnIndex;
     /** The y-axis (row) coordinate of the top-left character. */
     @Getter protected int rowIndex;
 
     /** The panel on which the button is to be placed. */
-    @Getter protected AsciiPanel panel;
+    @Getter protected Panel panel;
 
     public ComponentBuilder() {
         reset();
@@ -66,7 +66,7 @@ public class ComponentBuilder <C extends AsciiComponent, B extends ComponentBuil
         return (B)this;
     }
 
-    public B setPanel(final AsciiPanel panel) {
+    public B setPanel(final Panel panel) {
         if (panel != null) {
             this.panel = panel;
         }

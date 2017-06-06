@@ -1,14 +1,14 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.valkryst.VTerminal.component.AsciiRadioButton;
-import com.valkryst.VTerminal.component.AsciiRadioButtonGroup;
+import com.valkryst.VTerminal.component.RadioButton;
+import com.valkryst.VTerminal.component.RadioButtonGroup;
 import com.valkryst.radio.Radio;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.awt.*;
 
-public class AsciiRadioButtonBuilder extends ComponentBuilder<AsciiRadioButton, AsciiRadioButtonBuilder> {
+public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButtonBuilder> {
     /** The radio to transmit events to. */
     @Getter private Radio<String> radio;
 
@@ -19,7 +19,7 @@ public class AsciiRadioButtonBuilder extends ComponentBuilder<AsciiRadioButton, 
     @Getter @Setter private char checkedButtonChar;
 
     /** The radio button group that the radio button will belong to. */
-    @Getter private AsciiRadioButtonGroup group;
+    @Getter private RadioButtonGroup group;
 
     /** The background color for when the radio button is in the normal state. */
     @Getter private Color backgroundColor_normal;
@@ -37,10 +37,10 @@ public class AsciiRadioButtonBuilder extends ComponentBuilder<AsciiRadioButton, 
     @Getter private Color foregroundColor_checked;
 
     @Override
-    public AsciiRadioButton build() throws IllegalStateException {
+    public RadioButton build() throws IllegalStateException {
         checkState();
 
-        final AsciiRadioButton radioButton = new AsciiRadioButton(this);
+        final RadioButton radioButton = new RadioButton(this);
         radioButton.registerEventHandlers(super.panel);
         group.addRadioButton(radioButton);
         super.panel.addComponent(radioButton);
@@ -87,7 +87,7 @@ public class AsciiRadioButtonBuilder extends ComponentBuilder<AsciiRadioButton, 
         foregroundColor_checked = new Color(0xFFFF66);
     }
 
-    public AsciiRadioButtonBuilder setText(final String text) {
+    public RadioButtonBuilder setText(final String text) {
         if (text != null) {
             this.text = text;
         }
@@ -95,7 +95,7 @@ public class AsciiRadioButtonBuilder extends ComponentBuilder<AsciiRadioButton, 
         return this;
     }
 
-    public AsciiRadioButtonBuilder setRadio(final Radio<String> radio) {
+    public RadioButtonBuilder setRadio(final Radio<String> radio) {
         if (radio != null) {
             this.radio = radio;
         }
@@ -103,17 +103,17 @@ public class AsciiRadioButtonBuilder extends ComponentBuilder<AsciiRadioButton, 
         return this;
     }
 
-    public AsciiRadioButtonBuilder setEmptyBoxChar(final char emptyButtonChar) {
+    public RadioButtonBuilder setEmptyBoxChar(final char emptyButtonChar) {
         this.emptyButtonChar = emptyButtonChar;
         return this;
     }
 
-    public AsciiRadioButtonBuilder setCheckedBoxChar(final char checkedButtonChar) {
+    public RadioButtonBuilder setCheckedBoxChar(final char checkedButtonChar) {
         this.checkedButtonChar = checkedButtonChar;
         return this;
     }
 
-    public AsciiRadioButtonBuilder setRadioButtonGroup(final AsciiRadioButtonGroup group) {
+    public RadioButtonBuilder setRadioButtonGroup(final RadioButtonGroup group) {
         if (group != null) {
             this.group = group;
         }
@@ -121,7 +121,7 @@ public class AsciiRadioButtonBuilder extends ComponentBuilder<AsciiRadioButton, 
         return this;
     }
 
-    public AsciiRadioButtonBuilder setBackgroundColor_normal(final Color backgroundColor_normal) {
+    public RadioButtonBuilder setBackgroundColor_normal(final Color backgroundColor_normal) {
         if (backgroundColor_normal != null) {
             this.backgroundColor_normal = backgroundColor_normal;
         }
@@ -129,7 +129,7 @@ public class AsciiRadioButtonBuilder extends ComponentBuilder<AsciiRadioButton, 
         return this;
     }
 
-    public AsciiRadioButtonBuilder setForegroundColor_normal(final Color foregroundColor_normal) {
+    public RadioButtonBuilder setForegroundColor_normal(final Color foregroundColor_normal) {
         if (foregroundColor_normal != null) {
             this.foregroundColor_normal = foregroundColor_normal;
         }
@@ -137,7 +137,7 @@ public class AsciiRadioButtonBuilder extends ComponentBuilder<AsciiRadioButton, 
         return this;
     }
 
-    public AsciiRadioButtonBuilder setBackgroundColor_hover(final Color backgroundColor_hover) {
+    public RadioButtonBuilder setBackgroundColor_hover(final Color backgroundColor_hover) {
         if (backgroundColor_hover != null) {
             this.backgroundColor_hover = backgroundColor_hover;
         }
@@ -145,7 +145,7 @@ public class AsciiRadioButtonBuilder extends ComponentBuilder<AsciiRadioButton, 
         return this;
     }
 
-    public AsciiRadioButtonBuilder setForegroundColor_hover(final Color foregroundColor_hover) {
+    public RadioButtonBuilder setForegroundColor_hover(final Color foregroundColor_hover) {
         if (foregroundColor_hover != null) {
             this.foregroundColor_hover = foregroundColor_hover;
         }
@@ -153,7 +153,7 @@ public class AsciiRadioButtonBuilder extends ComponentBuilder<AsciiRadioButton, 
         return this;
     }
 
-    public AsciiRadioButtonBuilder setBackgroundColor_checked(final Color backgroundColor_checked) {
+    public RadioButtonBuilder setBackgroundColor_checked(final Color backgroundColor_checked) {
         if (backgroundColor_checked != null) {
             this.backgroundColor_checked = backgroundColor_checked;
         }
@@ -161,7 +161,7 @@ public class AsciiRadioButtonBuilder extends ComponentBuilder<AsciiRadioButton, 
         return this;
     }
 
-    public AsciiRadioButtonBuilder setForegroundColor_checked(final Color foregroundColor_checked) {
+    public RadioButtonBuilder setForegroundColor_checked(final Color foregroundColor_checked) {
         if (foregroundColor_checked != null) {
             this.foregroundColor_checked = foregroundColor_checked;
         }

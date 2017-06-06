@@ -1,9 +1,9 @@
 package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
-import com.valkryst.VTerminal.AsciiPanel;
+import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.AsciiString;
-import com.valkryst.VTerminal.builder.component.AsciiButtonBuilder;
+import com.valkryst.VTerminal.builder.component.ButtonBuilder;
 import com.valkryst.VTerminal.font.AsciiFont;
 import com.valkryst.VTerminal.misc.IntRange;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 
-public class AsciiButton extends AsciiComponent {
+public class Button extends Component {
     /** Whether or not the button is in the normal state. */
     private boolean isInNormalState = true;
     /** whether or not the button is in the hovered state. */
@@ -51,7 +51,7 @@ public class AsciiButton extends AsciiComponent {
      * @param builder
      *         The builder to use.
      */
-    public AsciiButton(final AsciiButtonBuilder builder) {
+    public Button(final ButtonBuilder builder) {
         // The width of the button is "text.length() + 2" because the button text is startingCharacter + text + endingCharacter.
         super(builder.getColumnIndex(), builder.getRowIndex(), builder.getText().length() + 2, 1);
 
@@ -87,7 +87,7 @@ public class AsciiButton extends AsciiComponent {
     }
 
     @Override
-    public void registerEventHandlers(final AsciiPanel panel) {
+    public void registerEventHandlers(final Panel panel) {
         final AsciiFont font = panel.getAsciiFont();
         final int fontWidth = font.getWidth();
         final int fontHeight = font.getHeight();

@@ -3,9 +3,9 @@ package com.valkryst.VTerminal.component;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AsciiRadioButtonGroup {
+public class RadioButtonGroup {
     /** The buttons in the group. */
-    private final List<AsciiRadioButton> buttons = new ArrayList<>();
+    private final List<RadioButton> buttons = new ArrayList<>();
 
     /**
      * Sets the specified button as checked and un-checks all other buttons.
@@ -13,7 +13,7 @@ public class AsciiRadioButtonGroup {
      * @param button
      *         The button.
      */
-    public void setCheckedButton(final AsciiRadioButton button) {
+    public void setCheckedButton(final RadioButton button) {
         if (button == null) {
             return;
         }
@@ -33,7 +33,7 @@ public class AsciiRadioButtonGroup {
      * @param button
      *         The button.
      */
-    public void addRadioButton(final AsciiRadioButton button) {
+    public void addRadioButton(final RadioButton button) {
         if (button == null) {
             return;
         }

@@ -2,9 +2,9 @@ package com.valkryst.VTerminal.component;
 
 
 import com.valkryst.VTerminal.AsciiCharacter;
-import com.valkryst.VTerminal.AsciiPanel;
+import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.AsciiString;
-import com.valkryst.VTerminal.builder.component.AsciiTextFieldBuilder;
+import com.valkryst.VTerminal.builder.component.TextFieldBuilder;
 import com.valkryst.radio.Radio;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class AsciiTextField extends AsciiComponent {
+public class TextField extends Component {
     /** The foreground color of the caret. */
     @Getter @Setter private Color caretForegroundColor;
     /** The background color of the caret. */
@@ -53,7 +53,7 @@ public class AsciiTextField extends AsciiComponent {
      * @param builder
      *         The builder to use.
      */
-    public AsciiTextField(final AsciiTextFieldBuilder builder) {
+    public TextField(final TextFieldBuilder builder) {
         super(builder.getColumnIndex(), builder.getRowIndex(), builder.getWidth(), 1);
 
         super.setRadio(builder.getRadio());
@@ -85,7 +85,7 @@ public class AsciiTextField extends AsciiComponent {
     }
 
     @Override
-    public void registerEventHandlers(final AsciiPanel panel) {
+    public void registerEventHandlers(final Panel panel) {
         super.registerEventHandlers(panel);
 
         panel.addKeyListener(new KeyListener() {
@@ -175,7 +175,7 @@ public class AsciiTextField extends AsciiComponent {
                             }
 
                             if (index_caret == maxCharacters - 1) {
-                                final AsciiCharacter currentChar = AsciiTextField.super.strings[0].getCharacters()[index_caret];
+                                final AsciiCharacter currentChar = TextField.super.strings[0].getCharacters()[index_caret];
 
                                 if (currentChar.getCharacter() != ' ') {
                                     changeCharacter(index_caret, ' ');

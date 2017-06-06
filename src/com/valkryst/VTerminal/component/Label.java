@@ -1,12 +1,12 @@
 package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiString;
-import com.valkryst.VTerminal.builder.component.AsciiLabelBuilder;
+import com.valkryst.VTerminal.builder.component.LabelBuilder;
 import lombok.Getter;
 
 import java.awt.*;
 
-public class AsciiLabel extends AsciiComponent {
+public class Label extends Component {
     /** The background color for when the label. */
     @Getter private Color backgroundColor;
     /** The foreground color for when the label. */
@@ -18,7 +18,7 @@ public class AsciiLabel extends AsciiComponent {
      * @param builder
      *         The builder to use.
      */
-    public AsciiLabel(final AsciiLabelBuilder builder) {
+    public Label(final LabelBuilder builder) {
         super(builder.getColumnIndex(), builder.getRowIndex(), builder.getText().length(), 1);
 
         this.backgroundColor = builder.getBackgroundColor();

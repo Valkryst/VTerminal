@@ -1,8 +1,8 @@
 package com.valkryst.VTerminal;
 
-import com.valkryst.VTerminal.builder.AsciiPanelBuilder;
-import com.valkryst.VTerminal.component.AsciiComponent;
-import com.valkryst.VTerminal.component.AsciiScreen;
+import com.valkryst.VTerminal.builder.PanelBuilder;
+import com.valkryst.VTerminal.component.Component;
+import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.font.AsciiFont;
 import com.valkryst.radio.Radio;
 import com.valkryst.radio.Receiver;
@@ -10,7 +10,7 @@ import lombok.Getter;
 
 import java.awt.*;
 
-public class AsciiPanel extends Canvas implements Receiver<String> {
+public class Panel extends Canvas implements Receiver<String> {
     /** The width of the panel, in characters. */
     @Getter private int widthInCharacters;
     /** The height of the panel, in characters. */
@@ -19,7 +19,7 @@ public class AsciiPanel extends Canvas implements Receiver<String> {
     @Getter private AsciiFont asciiFont;
 
     /** The screen being displayed on the panel. */
-    @Getter private AsciiScreen currentScreen;
+    @Getter private Screen currentScreen;
 
     @Getter private Radio<String> radio = new Radio<>();
 
@@ -29,7 +29,7 @@ public class AsciiPanel extends Canvas implements Receiver<String> {
      * @param builder
      *         The builder to use.
      */
-    public AsciiPanel(final AsciiPanelBuilder builder) {
+    public Panel(final PanelBuilder builder) {
         this.widthInCharacters = builder.getWidthInCharacters();
         this.heightInCharacters = builder.getHeightInCharacters();
 
@@ -44,7 +44,7 @@ public class AsciiPanel extends Canvas implements Receiver<String> {
         this.setSize(pixelWidth, pixelHeight);
 
         if (builder.getCurrentScreen() == null) {
-            currentScreen = new AsciiScreen(0, 0, widthInCharacters, heightInCharacters);
+            currentScreen = new Screen(0, 0, widthInCharacters, heightInCharacters);
         } else {
             currentScreen = builder.getCurrentScreen();
         }
@@ -73,8 +73,8 @@ public class AsciiPanel extends Canvas implements Receiver<String> {
      * @return
      *         The swapped-out screen.
      */
-    public AsciiScreen swapScreen(final AsciiScreen newScreen) {
-        final AsciiScreen oldScreen = currentScreen;
+    public Screen swapScreen(final Screen newScreen) {
+        final Screen oldScreen = currentScreen;
         currentScreen = newScreen;
         draw();
         return oldScreen;
@@ -86,7 +86,7 @@ public class AsciiPanel extends Canvas implements Receiver<String> {
      * @param component
      *          The component.
      */
-    public void addComponent(final AsciiComponent component) {
+    public void addComponent(final Component component) {
         currentScreen.addComponent(component);
     }
 
@@ -96,7 +96,7 @@ public class AsciiPanel extends Canvas implements Receiver<String> {
      * @param component
      *          The component.
      */
-    public void removeComponent(final AsciiComponent component) {
+    public void removeComponent(final Component component) {
         currentScreen.removeComponent(component);
     }
 }
