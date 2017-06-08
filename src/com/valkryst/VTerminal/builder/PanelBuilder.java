@@ -48,6 +48,7 @@ public class PanelBuilder {
 
         if (currentScreen == null) {
             currentScreen = new Screen(0, 0, widthInCharacters, heightInCharacters);
+            currentScreen.setParentPanel(panel);
         }
 
         panel.createBufferStrategy(2); // Reduces draw time by ~200%.
