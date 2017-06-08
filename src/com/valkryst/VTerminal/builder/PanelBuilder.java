@@ -46,11 +46,7 @@ public class PanelBuilder {
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         }
 
-        if (currentScreen == null) {
-            currentScreen = new Screen(0, 0, widthInCharacters, heightInCharacters);
-            currentScreen.setParentPanel(panel);
-        }
-
+        currentScreen.setParentPanel(panel);
         panel.createBufferStrategy(2); // Reduces draw time by ~200%.
         panel.setFocusable(true);
         return panel;
@@ -65,6 +61,10 @@ public class PanelBuilder {
     private void checkState() throws IllegalStateException {
         if (asciiFont == null) {
             throw new NullPointerException("The panel must have an AsciiFont to draw with.");
+        }
+
+        if (currentScreen == null) {
+            currentScreen = new Screen(0, 0, widthInCharacters, heightInCharacters);
         }
     }
 
