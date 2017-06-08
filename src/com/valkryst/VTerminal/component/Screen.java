@@ -39,7 +39,7 @@ public class Screen extends Component {
 
     @Override
     public void draw(final Screen screen) {
-        throw new UnsupportedOperationException("An AsciiScreen must be drawn using the draw(canvas, font) method.");
+        throw new UnsupportedOperationException("A Screen must be drawn using the draw(canvas, font) method.");
     }
 
     /**
