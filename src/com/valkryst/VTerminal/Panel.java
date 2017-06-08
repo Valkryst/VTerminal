@@ -43,11 +43,7 @@ public class Panel extends Canvas implements Receiver<String> {
 
         this.setSize(pixelWidth, pixelHeight);
 
-        if (builder.getCurrentScreen() == null) {
-            currentScreen = new Screen(0, 0, widthInCharacters, heightInCharacters);
-        } else {
-            currentScreen = builder.getCurrentScreen();
-        }
+        currentScreen = builder.getCurrentScreen();
 
         radio.addReceiver("DRAW", this);
     }
