@@ -49,6 +49,7 @@ public class PanelBuilder {
         currentScreen.setParentPanel(panel);
         panel.createBufferStrategy(2); // Reduces draw time by ~200%.
         panel.setFocusable(true);
+        panel.draw();
         return panel;
     }
 
