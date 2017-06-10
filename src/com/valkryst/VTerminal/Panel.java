@@ -8,9 +8,10 @@ import com.valkryst.radio.Radio;
 import com.valkryst.radio.Receiver;
 import lombok.Getter;
 
+import javax.swing.*;
 import java.awt.*;
 
-public class Panel extends Canvas implements Receiver<String> {
+public class Panel extends JPanel implements Receiver<String> {
     /** The width of the panel, in characters. */
     @Getter private int widthInCharacters;
     /** The height of the panel, in characters. */
@@ -41,7 +42,7 @@ public class Panel extends Canvas implements Receiver<String> {
         int pixelHeight = heightInCharacters * asciiFont.getHeight();
         pixelHeight -= asciiFont.getHeight() / 2; // todo Screen always appears to be 0.5 characters too large, this is a temp fix.
 
-        this.setSize(pixelWidth, pixelHeight);
+        this.setPreferredSize(new Dimension(pixelWidth, pixelHeight));
 
         currentScreen = builder.getCurrentScreen();
 
