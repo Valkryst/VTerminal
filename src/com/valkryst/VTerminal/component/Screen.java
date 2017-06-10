@@ -1,12 +1,13 @@
 package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
-import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.AsciiString;
+import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.font.Font;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -51,7 +52,7 @@ public class Screen extends Component {
      * @param font
      *         The font to draw with.
      */
-    public void draw(final Canvas canvas, final Font font) {
+    public void draw(final JPanel canvas, final Font font) {
         final Graphics gc = canvas.getGraphics();
 
         // Draw components onto the screen:
