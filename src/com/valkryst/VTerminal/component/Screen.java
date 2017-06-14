@@ -4,7 +4,6 @@ import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.font.Font;
-import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.*;
@@ -16,7 +15,6 @@ public class Screen extends Component {
     /** The components displayed on the screen. */
     private final ArrayList<Component> components = new ArrayList<>();
 
-    @Getter private int topRowIndex = 0;
     @Setter private Panel parentPanel;
 
     /**
@@ -59,8 +57,8 @@ public class Screen extends Component {
         components.forEach(component -> component.draw(this));
 
         // Draw the screen onto the canvas:
-        for (int row = topRowIndex ; row < topRowIndex + parentPanel.getHeightInCharacters() ; row++) {
-            strings[row].draw(gc, font, row - topRowIndex);
+        for (int row = 0 ; row < parentPanel.getHeightInCharacters() ; row++) {
+            strings[row].draw(gc, font, row);
         }
     }
 
@@ -223,30 +221,5 @@ public class Screen extends Component {
      */
     public void removeComponent(final Component component) {
         components.remove(component);
-    }
-
-    public void setTopRowIndex(final int topRowIndex) {
-        if (topRowIndex < 0) {
-            this.topRowIndex = 0;
-        } else if (super.strings.length < super.height) {
-            this.topRowIndex = 0;
-        } else if (topRowIndex + parentPanel.getHeightInCharacters() <= super.strings.length) {
-            this.topRowIndex = topRowIndex;
-        } else {
-            this.topRowIndex = super.strings.length - parentPanel.getHeightInCharacters();
-        }
-
-        for (int row = 0 ; row < super.strings.length ; row++) {
-            boolean showRow = row >= topRowIndex;
-            showRow &= row < topRowIndex + parentPanel.getHeightInCharacters();
-
-            strings[row].setHidden(! showRow);
-
-            if (! showRow) {
-                strings[row].pauseBlinkEffect();
-            } else {
-                strings[row].resumeBlinkEffect();
-            }
-        }
     }
 }
