@@ -95,7 +95,7 @@ public class AsciiString {
      * Draws the characters of the string onto the specified context.
      *
      * @param gc
-     *         The context on which to draw.
+     *         The graphics context to draw with.
      *
      * @param font
      *         The font to draw with.
@@ -104,7 +104,7 @@ public class AsciiString {
      *         The y-axis (row) coordinate where the characters are to be drawn.
      *         Includes the first index and excludes the last index.
      */
-    public void draw(final Graphics gc, final Font font, int rowIndex) {
+    public void draw(final Graphics2D gc, final Font font, int rowIndex) {
         if (gc == null || font == null) {
             return;
         }
