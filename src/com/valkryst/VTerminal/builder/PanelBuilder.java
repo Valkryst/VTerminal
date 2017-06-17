@@ -46,7 +46,8 @@ public class PanelBuilder {
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         }
 
-        frame.createBufferStrategy(2);
+        panel.createBufferStrategy(2);
+        panel.setIgnoreRepaint(true);
         panel.setFocusable(true);
         return panel;
     }
