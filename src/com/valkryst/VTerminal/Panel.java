@@ -8,10 +8,10 @@ import com.valkryst.radio.Radio;
 import com.valkryst.radio.Receiver;
 import lombok.Getter;
 
-import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferStrategy;
 
-public class Panel extends JPanel implements Receiver<String> {
+public class Panel extends Canvas implements Receiver<String> {
     /** The width of the panel, in characters. */
     @Getter private int widthInCharacters;
     /** The height of the panel, in characters. */
@@ -58,7 +58,10 @@ public class Panel extends JPanel implements Receiver<String> {
 
     /** Draws every character of every row onto the canvas. */
     public void draw() {
-        currentScreen.draw(this, asciiFont);
+        final BufferStrategy bufferStrategy = this.getBufferStrategy();
+        final Graphics2D gc = (Graphics2D) bufferStrategy.getDrawGraphics();
+        currentScreen.draw(gc, asciiFont);
+        bufferStrategy.show();
     }
 
     /**
