@@ -130,7 +130,7 @@ public class AsciiString {
      * @return
      *         Whether or not the specified range is valid.
      */
-    private boolean isRangeValid(final IntRange rangeIndices) {
+    public boolean isRangeValid(final IntRange rangeIndices) {
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
 
