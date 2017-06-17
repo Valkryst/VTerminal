@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class Font {
+    /** The sprite-images of every character provided by the Font. */
     @Getter private final HashMap<Character, BufferedImage> characterImages;
 
     /** The width of the font. */
