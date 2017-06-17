@@ -4,6 +4,9 @@ language: java
 jdk:
   - oraclejdk8
   
+before_install:
+  - git clone https://github.com/Valkryst/VRadio.git
+  
 script: "mvn cobertura:cobertura"
 
 after_success:
