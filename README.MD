@@ -32,6 +32,23 @@ This project is currently under active development and code-breaking changes may
 
 You can now work on the VTerminal project.
 
+### Example Test Code:
+
+```java
+try {
+    final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt");
+    final Panel panel = new PanelBuilder().setAsciiFont(font)
+                                          .setWidthInCharacters(48)
+                                          .setHeightInCharacters(36)
+                                          .build();
+
+    panel.getCurrentScreen().clear('X');
+    panel.draw();
+} catch (final IOException | URISyntaxException e) {
+    e.printStackTrace();
+}
+```
+
 ### Fonts:
 VTerminal supports the use of any bitmap font. The  [DejaVu](http://dejavu-fonts.org/wiki/Main_Page) and 
 [GNU FreeFont](https://www.gnu.org/software/freefont/) monospace fonts are supplied with this project in 16pt, 18pt, and 
