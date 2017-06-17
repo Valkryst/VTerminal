@@ -82,7 +82,7 @@ public class AsciiCharacter {
      * Draws the character onto the specified context.
      *
      * @param gc
-     *         The context on which to draw.
+     *         The graphics context to draw with.
      *
      * @param font
      *         The font to draw with.
@@ -93,7 +93,7 @@ public class AsciiCharacter {
      * @param rowIndex
      *         The y-axis (row) coordinate where the character is to be drawn.
      */
-    public void draw(final Graphics gc, final Font font, int columnIndex, int rowIndex) {
+    public void draw(final Graphics2D gc, final Font font, int columnIndex, int rowIndex) {
         BufferedImage bufferedImage = font.getCharacterImages().get(character);
 
         // Handle Horizontal/Vertical Flipping:
