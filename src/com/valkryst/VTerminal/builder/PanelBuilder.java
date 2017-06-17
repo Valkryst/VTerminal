@@ -46,7 +46,6 @@ public class PanelBuilder {
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         }
 
-        currentScreen.setParentPanel(panel);
         frame.createBufferStrategy(2);
         panel.setFocusable(true);
         return panel;
