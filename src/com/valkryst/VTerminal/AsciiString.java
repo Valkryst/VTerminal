@@ -131,6 +131,10 @@ public class AsciiString {
      *         Whether or not the specified range is valid.
      */
     public boolean isRangeValid(final IntRange rangeIndices) {
+        if (rangeIndices == null) {
+            return false;
+        }
+
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
 
