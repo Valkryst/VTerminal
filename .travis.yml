@@ -5,7 +5,7 @@ jdk:
   - oraclejdk8
   
 before_install:
-  - git clone https://github.com/Valkryst/VRadio.git
+  - mvn dependency:get -DrepoUrl=https://github.com/Valkryst/VRadio.git -Dartifact=com.valkryst.radio:VRadio:1.1
   
 script: "mvn cobertura:cobertura"
 
