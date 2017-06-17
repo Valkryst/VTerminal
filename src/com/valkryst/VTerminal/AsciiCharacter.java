@@ -50,7 +50,7 @@ public class AsciiCharacter {
     @Override
     public String toString() {
         return "Character:\n" +
-                "\tCharacter: '" + character + "\n" +
+                "\tCharacter: '" + character + "'\n" +
                 "\tBackground Color: " + backgroundColor + "\n" +
                 "\tForeground Color: " + foregroundColor + "\n";
     }
