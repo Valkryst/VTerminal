@@ -4,7 +4,6 @@ import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.font.Font;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -40,15 +39,13 @@ public class Screen extends Component {
     /**
      * Draws the screen onto the specified canvas using the specified font.
      *
-     * @param canvas
-     *         The canvas to draw on.
+     * @param gc
+     *         The graphics context to draw with.
      *
      * @param font
      *         The font to draw with.
      */
-    public void draw(final JPanel canvas, final Font font) {
-        final Graphics gc = canvas.getGraphics();
-
+    public void draw(final Graphics2D gc, final Font font) {
         // Draw components onto the screen:
         components.forEach(component -> component.draw(this));
 
