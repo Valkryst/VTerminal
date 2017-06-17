@@ -2,9 +2,7 @@ package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
-import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.font.Font;
-import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,8 +12,6 @@ import java.util.ArrayList;
 public class Screen extends Component {
     /** The components displayed on the screen. */
     private final ArrayList<Component> components = new ArrayList<>();
-
-    @Setter private Panel parentPanel;
 
     /**
      * Constructs a new AsciiScreen.
@@ -57,7 +53,7 @@ public class Screen extends Component {
         components.forEach(component -> component.draw(this));
 
         // Draw the screen onto the canvas:
-        for (int row = 0 ; row < parentPanel.getHeightInCharacters() ; row++) {
+        for (int row = 0 ; row < height ; row++) {
             strings[row].draw(gc, font, row);
         }
     }
