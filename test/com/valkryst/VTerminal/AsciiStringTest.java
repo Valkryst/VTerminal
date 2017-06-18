@@ -230,20 +230,22 @@ public class AsciiStringTest {
 
     @Test
     public void testApplyColorGradient_toBackgroundOfAllCharacters() {
-        string.setBackgroundColor(Color.BLACK);
+        string.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
         string.applyColorGradient(Color.RED, Color.BLUE, true);
 
         for (final AsciiCharacter character : string.getCharacters()) {
             Assert.assertNotEquals(Color.BLACK, character.getBackgroundColor());
+            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
         }
     }
 
     @Test
     public void testApplyColorGradient_toForegroundOfAllCharacters() {
-        string.setForegroundColor(Color.WHITE);
+        string.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
         string.applyColorGradient(Color.RED, Color.BLUE, false);
 
         for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
             Assert.assertNotEquals(Color.WHITE, character.getForegroundColor());
         }
     }
@@ -257,6 +259,7 @@ public class AsciiStringTest {
 
         for (final AsciiCharacter character : string.getCharacters()) {
             Assert.assertNotEquals(Color.BLACK, character.getBackgroundColor());
+            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
         }
     }
 
@@ -268,6 +271,7 @@ public class AsciiStringTest {
         string.applyColorGradient(range, Color.RED, Color.BLUE, false);
 
         for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
             Assert.assertNotEquals(Color.WHITE, character.getForegroundColor());
         }
     }
@@ -291,7 +295,7 @@ public class AsciiStringTest {
         string.applyColorGradient(range, Color.RED, Color.BLUE, true);
 
         for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
+            Assert.assertNotEquals(Color.BLACK, character.getBackgroundColor());
             Assert.assertEquals(Color.WHITE, character.getForegroundColor());
         }
     }
