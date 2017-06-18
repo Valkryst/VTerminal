@@ -22,6 +22,7 @@ public class FontLoaderTest {
 
     @Test
     public void loadFont_withStrings() throws IOException {
+        System.out.println(spriteSheetPath + "\n" + characterDataPath + "\n" + spriteSheetPath_inJar + "\n" + characterDataPath_inJar);
         FontLoader.loadFont(spriteSheetPath, characterDataPath, 1);
     }
 
