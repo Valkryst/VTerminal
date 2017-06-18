@@ -5,6 +5,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
+
 public class AsciiStringTest {
     private final String testString = "ABCDEFGHJIKLMNOP";
     private AsciiString string;
@@ -180,7 +182,7 @@ public class AsciiStringTest {
     }
 
     @Test
-    public void setCharacters() {
+    public void testSetCharacters() {
         for (int i  = 0 ; i < string.getCharacters().length ; i++) {
             string = new AsciiString(testString);
 
@@ -200,7 +202,7 @@ public class AsciiStringTest {
     }
 
     @Test
-    public void setCharacters_withNullRange() {
+    public void testSetCharacters_withNullRange() {
         string.setCharacters(null, 'Z');
 
         for (final AsciiCharacter character : string.getCharacters()) {
@@ -209,7 +211,7 @@ public class AsciiStringTest {
     }
 
     @Test
-    public void setCharacters_withInvalidRange() {
+    public void testSetCharacters_withInvalidRange() {
         string.setCharacters(new IntRange(-1, string.getCharacters().length), 'Z');
 
         for (final AsciiCharacter character : string.getCharacters()) {
@@ -218,11 +220,31 @@ public class AsciiStringTest {
     }
 
     @Test
-    public void setAllCharacters() {
+    public void testSetAllCharacters() {
         string.setAllCharacters('Z');
 
         for (final AsciiCharacter character : string.getCharacters()) {
             Assert.assertEquals('Z', character.getCharacter());
+        }
+    }
+
+    @Test
+    public void testApplyColorGradient_toBackgroundOfAllCharacters() {
+        string.setBackgroundColor(Color.BLACK);
+        string.applyColorGradient(Color.RED, Color.BLUE, true);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertNotEquals(Color.BLACK, character.getBackgroundColor());
+        }
+    }
+
+    @Test
+    public void testApplyColorGradient_toForegroundOfAllCharacters() {
+        string.setBackgroundColor(Color.BLACK);
+        string.applyColorGradient(Color.RED, Color.BLUE, false);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertNotEquals(Color.BLACK, character.getForegroundColor());
         }
     }
 }
