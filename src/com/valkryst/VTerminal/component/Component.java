@@ -142,7 +142,8 @@ public class Component {
      *         Whether or not the components intersect.
      */
     public boolean intersects(final Component otherComponent) {
-        return boundingBox.intersects(otherComponent.getBoundingBox());
+        return otherComponent != null && boundingBox.intersects(otherComponent.getBoundingBox());
+
     }
 
     /**
