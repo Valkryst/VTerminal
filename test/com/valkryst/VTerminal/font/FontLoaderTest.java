@@ -20,12 +20,6 @@ public class FontLoaderTest {
     private final String spriteSheetPath_inJar = "Fonts/DejaVu Sans Mono/20pt/bitmap.png";
     private final String characterDataPath_inJar = "Fonts/DejaVu Sans Mono/20pt/data.fnt";
 
-    @Test
-    public void loadFont_withStrings() throws IOException {
-        System.out.println(spriteSheetPath + "\n" + characterDataPath + "\n" + spriteSheetPath_inJar + "\n" + characterDataPath_inJar);
-        FontLoader.loadFont(spriteSheetPath, characterDataPath, 1);
-    }
-
     @Test(expected=FileNotFoundException.class)
     public void loadFont_withStrings_withEmptySpriteSheetPath() throws IOException {
         FontLoader.loadFont("", characterDataPath, 1);
@@ -46,14 +40,6 @@ public class FontLoaderTest {
         FontLoader.loadFont(spriteSheetPath, null, 1);
     }
 
-    @Test
-    public void loadFont_withStreamAndPath() throws IOException {
-        final InputStream inputStream = new FileInputStream(spriteSheetPath);
-        final Path path = Paths.get(characterDataPath);
-
-        FontLoader.loadFont(inputStream, path, 1);
-    }
-
     @Test(expected=IllegalArgumentException.class)
     public void loadFont_withStreamAndPath_withNullStream() throws IOException {
         final Path path = Paths.get(characterDataPath);
@@ -66,11 +52,6 @@ public class FontLoaderTest {
         final InputStream inputStream = new FileInputStream(spriteSheetPath);
 
         FontLoader.loadFont(inputStream, null, 1);
-    }
-
-    @Test
-    public void loadFontFromJar_withStrings() throws IOException, URISyntaxException {
-        FontLoader.loadFontFromJar(spriteSheetPath_inJar, characterDataPath_inJar, 1);
     }
 
     @Test(expected=NullPointerException.class)
