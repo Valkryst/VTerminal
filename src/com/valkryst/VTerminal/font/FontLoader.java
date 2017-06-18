@@ -24,6 +24,9 @@ public class FontLoader {
      * @param characterDataPath
      *         The path to the character data.
      *
+     * @param scale
+     *         The amount to scale the font by.
+     *
      * @return
      *         The font.
      *
@@ -33,8 +36,8 @@ public class FontLoader {
      * @throws URISyntaxException
      *         If a URISyntaxException occurs while loading the font.
      */
-    public static Font loadFont(final String spriteSheetPath, final String characterDataPath) throws IOException {
-        return loadFont(new FileInputStream(spriteSheetPath), Paths.get(characterDataPath));
+    public static Font loadFont(final String spriteSheetPath, final String characterDataPath, final int scale) throws IOException {
+        return loadFont(new FileInputStream(spriteSheetPath), Paths.get(characterDataPath), scale);
     }
 
     /**
@@ -46,6 +49,9 @@ public class FontLoader {
      * @param characterData
      *         The path to the character data.
      *
+     * @param scale
+     *         The amount to scale the font by.
+     *
      * @return
      *         The font.
      *
@@ -55,11 +61,11 @@ public class FontLoader {
      * @throws URISyntaxException
      *         If a URISyntaxException occurs while loading the font.
      */
-    public static Font loadFont(final InputStream spriteSheet, final Path characterData) throws IOException {
+    public static Font loadFont(final InputStream spriteSheet, final Path characterData, final int scale) throws IOException {
         final BufferedImage image = loadSpriteSheet(spriteSheet);
         final List<String> data = loadCharacterData(characterData);
 
-        return new Font(processFontData(image, data));
+        return new Font(processFontData(image, data), scale);
     }
 
     /**
@@ -71,6 +77,9 @@ public class FontLoader {
      * @param characterDataPath
      *         The path to the character data.
      *
+     * @param scale
+     *         The amount to scale the font by.
+     *
      * @return
      *         The font.
      *
@@ -80,13 +89,13 @@ public class FontLoader {
      * @throws URISyntaxException
      *         If a URISyntaxException occurs while loading the font.
      */
-    public static Font loadFontFromJar(final String spriteSheetPath, final String characterDataPath) throws IOException, URISyntaxException {
+    public static Font loadFontFromJar(final String spriteSheetPath, final String characterDataPath, final int scale) throws IOException, URISyntaxException {
         final ClassLoader classLoader = FontLoader.class.getClassLoader();
 
         final URI spriteSheetURI = classLoader.getResource(spriteSheetPath).toURI();
         final URI characterDataURI = classLoader.getResource(characterDataPath).toURI();
 
-        return loadFont(spriteSheetURI.toURL().openStream(), Paths.get(characterDataURI));
+        return loadFont(spriteSheetURI.toURL().openStream(), Paths.get(characterDataURI), scale);
     }
 
     /**
