@@ -261,10 +261,6 @@ public class AsciiString {
 
         rangeIndices.clampValuesToRange(0, characters.length);
 
-        if (isRangeValid(rangeIndices) == false) {
-            return;
-        }
-
         if (colorFrom == null) {
             throw new IllegalArgumentException("You must specify a color to begin the gradient with.");
         }
