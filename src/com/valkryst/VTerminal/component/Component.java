@@ -200,7 +200,7 @@ public class Component {
      * @return
      *         Whether or not the specified position is within the bounds of the component.
      */
-    protected boolean isPositionValid(final int columnIndex, final int rowIndex) {
+    public boolean isPositionValid(final int columnIndex, final int rowIndex) {
         if (rowIndex < 0 || rowIndex > boundingBox.getHeight()) {
             return false;
         }
