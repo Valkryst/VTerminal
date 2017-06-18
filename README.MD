@@ -38,7 +38,7 @@ You can now work on the VTerminal project.
 
 ```java
 try {
-    final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt");
+    final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1);
     final Panel panel = new PanelBuilder().setAsciiFont(font)
                                           .setWidthInCharacters(48)
                                           .setHeightInCharacters(36)
