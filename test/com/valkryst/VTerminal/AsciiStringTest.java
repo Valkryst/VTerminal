@@ -790,4 +790,85 @@ public class AsciiStringTest {
             Assert.assertFalse(character.isFlippedVertically());
         }
     }
+
+    @Test
+    public void testUnderLineCharacters_toAllCharacters() {
+        string.underlineCharacters();
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertTrue(character.isUnderlined());
+        }
+    }
+
+    @Test
+    public void testUnUnderLineCharacters_toAllCharacters() {
+        string.underlineCharacters();
+        string.unUnderlineCharacters();
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertFalse(character.isUnderlined());
+        }
+    }
+
+    @Test
+    public void testUnderLineCharacters_toRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.underlineCharacters(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertTrue(character.isUnderlined());
+        }
+    }
+
+    @Test
+    public void testUnderLineCharacters_toRange_withNullRange() {
+        string.underlineCharacters(null);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertFalse(character.isUnderlined());
+        }
+    }
+
+    @Test
+    public void testUnderLineCharacters_toRange_withInvalidRange() {
+        final IntRange range = new IntRange(-1, string.getCharacters().length);
+        string.underlineCharacters(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertTrue(character.isUnderlined());
+        }
+    }
+
+    @Test
+    public void testUnUnderLineCharacters_toRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.underlineCharacters(range);
+        string.unUnderlineCharacters(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertFalse(character.isUnderlined());
+        }
+    }
+
+    @Test
+    public void testUnUnderLineCharacters_toRange_withNullRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.underlineCharacters(range);
+        string.unUnderlineCharacters(null);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertTrue(character.isUnderlined());
+        }
+    }
+
+    @Test
+    public void testUnUnderLineCharacters_toRange_withInvalidRange() {
+        final IntRange range = new IntRange(-1, string.getCharacters().length);
+        string.underlineCharacters(range);
+        string.unUnderlineCharacters(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertFalse(character.isUnderlined());
+        }
+    }
 }
