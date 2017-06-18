@@ -539,4 +539,255 @@ public class AsciiStringTest {
             Assert.assertFalse(character.isHidden());
         }
     }
+
+    @Test
+    public void testFlipCharactersHorizontally_toAllCharacters() {
+        string.flipCharactersHorizontally();
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertTrue(character.isFlippedHorizontally());
+        }
+    }
+
+    @Test
+    public void testUnFlipCharactersHorizontally_toAllCharacters() {
+        string.flipCharactersHorizontally();
+        string.unFlipCharactersHorizontally();
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertFalse(character.isFlippedHorizontally());
+        }
+    }
+
+    @Test
+    public void testFlipCharactersVertically_toAllCharacters() {
+        string.flipCharactersVertically();
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertTrue(character.isFlippedVertically());
+        }
+    }
+
+    @Test
+    public void testUnFlipCharactersVertically_toAllCharacters() {
+        string.flipCharactersVertically();
+        string.unFlipCharactersVertically();
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertFalse(character.isFlippedVertically());
+        }
+    }
+
+    @Test
+    public void testFlipCharactersHorizontallyAndVertically_toAllCharacters() {
+        string.flipCharactersHorizontallyAndVertically();
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertTrue(character.isFlippedHorizontally());
+            Assert.assertTrue(character.isFlippedVertically());
+        }
+    }
+
+    @Test
+    public void testUnFlipCharactersHorizontallyAndVertically_toAllCharacters() {
+        string.flipCharactersHorizontallyAndVertically();
+        string.unFlipCharactersHorizontallyAndVertically();
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertFalse(character.isFlippedHorizontally());
+            Assert.assertFalse(character.isFlippedVertically());
+        }
+    }
+
+    @Test
+    public void testFlipCharactersHorizontally_toRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.flipCharactersHorizontally(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertTrue(character.isFlippedHorizontally());
+        }
+    }
+
+    @Test
+    public void testFlipCharactersHorizontally_toRange_withNullRange() {
+        string.flipCharactersHorizontally(null);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertFalse(character.isFlippedHorizontally());
+        }
+    }
+
+    @Test
+    public void testFlipCharactersHorizontally_toRange_withInvalidRange() {
+        final IntRange range = new IntRange(-1, string.getCharacters().length);
+        string.flipCharactersHorizontally(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertTrue(character.isFlippedHorizontally());
+        }
+    }
+
+    @Test
+    public void testUnFlipCharactersHorizontally_toRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.flipCharactersHorizontally(range);
+        string.unFlipCharactersHorizontally(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertFalse(character.isFlippedHorizontally());
+        }
+    }
+
+    @Test
+    public void testUnFlipCharactersHorizontally_toRange_withNullRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.flipCharactersHorizontally(range);
+        string.unFlipCharactersHorizontally(null);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertTrue(character.isFlippedHorizontally());
+        }
+    }
+
+    @Test
+    public void testUnFlipCharactersHorizontally_toRange_withInvalidRange() {
+        final IntRange range = new IntRange(-1, string.getCharacters().length);
+        string.flipCharactersHorizontally(range);
+        string.unFlipCharactersHorizontally(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertFalse(character.isFlippedHorizontally());
+        }
+    }
+
+    @Test
+    public void testFlipCharactersVertically_toRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.flipCharactersVertically(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertTrue(character.isFlippedVertically());
+        }
+    }
+
+    @Test
+    public void testFlipCharactersVertically_toRange_withNullRange() {
+        string.flipCharactersVertically(null);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertFalse(character.isFlippedVertically());
+        }
+    }
+
+    @Test
+    public void testFlipCharactersVertically_toRange_withInvalidRange() {
+        final IntRange range = new IntRange(-1, string.getCharacters().length);
+        string.flipCharactersVertically(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertTrue(character.isFlippedVertically());
+        }
+    }
+
+    @Test
+    public void testUnFlipCharactersVertically_toRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.flipCharactersVertically(range);
+        string.unFlipCharactersVertically(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertFalse(character.isFlippedVertically());
+        }
+    }
+
+    @Test
+    public void testUnFlipCharactersVertically_toRange_withNullRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.flipCharactersVertically(range);
+        string.unFlipCharactersVertically(null);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertTrue(character.isFlippedVertically());
+        }
+    }
+
+    @Test
+    public void testUnFlipCharactersVertically_toRange_withInvalidRange() {
+        final IntRange range = new IntRange(-1, string.getCharacters().length);
+        string.flipCharactersVertically(range);
+        string.unFlipCharactersVertically(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertFalse(character.isFlippedVertically());
+        }
+    }
+
+    @Test
+    public void testFlipCharactersHorizontallyAndVertically_toRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.flipCharactersHorizontallyAndVertically(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertTrue(character.isFlippedHorizontally());
+            Assert.assertTrue(character.isFlippedVertically());
+        }
+    }
+
+    @Test
+    public void testFlipCharactersHorizontallyAndVertically_toRange_withNullRange() {
+        string.flipCharactersHorizontallyAndVertically(null);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertFalse(character.isFlippedHorizontally());
+            Assert.assertFalse(character.isFlippedVertically());
+        }
+    }
+
+    @Test
+    public void testFlipCharactersHorizontallyAndVertically_toRange_withInvalidRange() {
+        final IntRange range = new IntRange(-1, string.getCharacters().length);
+        string.flipCharactersHorizontallyAndVertically(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertTrue(character.isFlippedHorizontally());
+            Assert.assertTrue(character.isFlippedVertically());
+        }
+    }
+
+    @Test
+    public void testUnFlipCharactersHorizontallyAndVertically_toRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.flipCharactersHorizontallyAndVertically(range);
+        string.unFlipCharactersHorizontallyAndVertically(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertFalse(character.isFlippedHorizontally());
+            Assert.assertFalse(character.isFlippedVertically());
+        }
+    }
+
+    @Test
+    public void testUnFlipCharactersHorizontallyAndVertically_toRange_withNullRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.flipCharactersHorizontallyAndVertically(range);
+        string.unFlipCharactersHorizontallyAndVertically(null);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertTrue(character.isFlippedHorizontally());
+            Assert.assertTrue(character.isFlippedVertically());
+        }
+    }
+
+    @Test
+    public void testUnFlipCharactersHorizontallyAndVertically_toRange_withInvalidRange() {
+        final IntRange range = new IntRange(-1, string.getCharacters().length);
+        string.flipCharactersHorizontallyAndVertically(range);
+        string.unFlipCharactersHorizontallyAndVertically(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertFalse(character.isFlippedHorizontally());
+            Assert.assertFalse(character.isFlippedVertically());
+        }
+    }
 }
