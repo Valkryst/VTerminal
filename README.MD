@@ -74,3 +74,4 @@ To use a different font:
 
 * The use of non-mono-space fonts is not supported, but it not specifically prevented.
 * Ensure the font png image does *not* use a transparent background. Using a transparent background increases redraw times by ~20-30ms.
+* Ensure the font png image uses black for the background and white for the foreground. An optimization in the AsciiCharacter's draw method requires this and the program may break otherwise.
