@@ -71,4 +71,47 @@ public class ComponentTest {
     public void testConstructor_withNegativeHeight() {
         new Component(0, 0, width, -1);
     }
+
+    @Test
+    public void testIntersects_withComponent() {
+        final Component componentA = new Component(0, 0, width, height);
+        final Component componentB = new Component(0, 0, width, height);
+
+        Assert.assertTrue(componentA.intersects(componentB));
+    }
+
+    @Test
+    public void testIntersects_withComponent_withSelf() {
+        final Component component = new Component(0, 0, width, height);
+        Assert.assertTrue(component.intersects(component));
+    }
+
+    @Test
+    public void testIntersects_withComponent_withNullParam() {
+        final Component component = new Component(0, 0, width, height);
+
+        Assert.assertFalse(component.intersects(null));
+    }
+
+    @Test
+    public void testIntersects_withCoords_withIntersectingCoords() {
+        final Component component = new Component(0, 0, width, height);
+
+        for (int x = 0 ; x < width ; x++) {
+            for (int y = 0; y < height; y++) {
+                Assert.assertTrue(component.intersects(x, y));
+            }
+        }
+    }
+
+    @Test
+    public void testIntersects_withCoords_withNonIntersectingCoords() {
+        final Component component = new Component(0, 0, width, height);
+        Assert.assertFalse(component.intersects(-1, 0));
+        Assert.assertFalse(component.intersects(0, -1));
+        Assert.assertFalse(component.intersects(-1, -1));
+        Assert.assertFalse(component.intersects(width + 1, 0));
+        Assert.assertFalse(component.intersects(0, height + 1));
+        Assert.assertFalse(component.intersects(width + 1, height + 1));
+    }
 }
