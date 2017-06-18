@@ -118,22 +118,24 @@ public class AsciiCharacter {
         // Retrieve character image & set colors:
         Image image = bufferedImage;
 
-        final ImageFilter filter = new RGBImageFilter() {
-            @Override
-            public int filterRGB(int x, int y, int rgb) {
-                if (isHidden) {
-                    return backgroundColor.getRGB();
-                }
+        if (backgroundColor != Color.BLACK || foregroundColor != Color.WHITE) {
+            final ImageFilter filter = new RGBImageFilter() {
+                @Override
+                public int filterRGB(int x, int y, int rgb) {
+                    if (isHidden) {
+                        return backgroundColor.getRGB();
+                    }
 
-                if (rgb == 0xFFFFFFFF) {
-                    return foregroundColor.getRGB();
-                } else {
-                    return backgroundColor.getRGB();
+                    if (rgb == 0xFFFFFFFF) {
+                        return foregroundColor.getRGB();
+                    } else {
+                        return backgroundColor.getRGB();
+                    }
                 }
-            }
-        };
+            };
 
-        image = Toolkit.getDefaultToolkit().createImage(new FilteredImageSource(image.getSource(), filter));
+            image = Toolkit.getDefaultToolkit().createImage(new FilteredImageSource(image.getSource(), filter));
+        }
 
         // Draw character:
 	    final int fontWidth = font.getWidth();
