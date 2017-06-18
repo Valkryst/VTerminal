@@ -62,6 +62,7 @@ public class Panel extends Canvas implements Receiver<String> {
         final Graphics2D gc = (Graphics2D) bufferStrategy.getDrawGraphics();
         currentScreen.draw(gc, asciiFont);
         bufferStrategy.show();
+        gc.dispose();
     }
 
     /**
