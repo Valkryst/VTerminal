@@ -350,4 +350,193 @@ public class AsciiStringTest {
             Assert.assertEquals(Color.BLACK, character.getForegroundColor());
         }
     }
+
+    @Test
+    public void testSetBackgroundColor_toAllCharacters() {
+        string.setBackgroundColor(Color.RED);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.RED, character.getBackgroundColor());
+            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testSetForegroundColor_toAllCharacters() {
+        string.setForegroundColor(Color.RED);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
+            Assert.assertEquals(Color.RED, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testSetBackgroundAndForegroundColor_toAllCharacters() {
+        string.setBackgroundAndForegroundColor(Color.RED, Color.BLUE);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.RED, character.getBackgroundColor());
+            Assert.assertEquals(Color.BLUE, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testSetBackgroundColor_toRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.setBackgroundColor(Color.RED, range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.RED, character.getBackgroundColor());
+            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testSetBackgroundColor_toRange_withNullColor() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.setBackgroundColor(null, range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
+            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testSetBackgroundColor_toRange_withNullRange() {
+        string.setBackgroundColor(Color.RED, null);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
+            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testSetBackgroundColor_toRange_withInvalidRange() {
+        final IntRange range = new IntRange(-1, string.getCharacters().length);
+        string.setBackgroundColor(Color.RED, range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.RED, character.getBackgroundColor());
+            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testSetForegroundColor_toRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.setForegroundColor(Color.RED, range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
+            Assert.assertEquals(Color.RED, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testSetForegroundColor_toRange_withNullColor() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.setForegroundColor(null, range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
+            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testSetForegroundColor_toRange_withNullRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.setForegroundColor(null, range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
+            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testSetForegroundColor_toRange_withInvalidRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.setForegroundColor(Color.RED, range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
+            Assert.assertEquals(Color.RED, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testSetBackgroundAndForegroundColor_toRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.setBackgroundAndForegroundColor(Color.RED, Color.BLUE, range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.RED, character.getBackgroundColor());
+            Assert.assertEquals(Color.BLUE, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testSetBackgroundAndForegroundColor_toRange_withNullBackgroundColor() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.setBackgroundAndForegroundColor(null, Color.BLUE, range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
+            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testSetBackgroundAndForegroundColor_toRange_withNullForegroundColor() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.setBackgroundAndForegroundColor(Color.RED, null, range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
+            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testSetBackgroundAndForegroundColor_toRange_withNullRange() {
+        string.setBackgroundAndForegroundColor(Color.RED, Color.BLUE, null);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
+            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testSetBackgroundAndForegroundColor_toRange_withInvalidRange() {
+        final IntRange range = new IntRange(-1, string.getCharacters().length);
+        string.setBackgroundAndForegroundColor(Color.RED, Color.BLUE, range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.RED, character.getBackgroundColor());
+            Assert.assertEquals(Color.BLUE, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testSetHidden_toAllCharacters_toHidden() {
+        string.setHidden(true);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertTrue(character.isHidden());
+        }
+    }
+
+    @Test
+    public void testSetHidden_toAllCharacters_toNotHidden() {
+        string.setHidden(false);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertFalse(character.isHidden());
+        }
+    }
 }
