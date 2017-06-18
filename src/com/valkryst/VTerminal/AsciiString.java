@@ -743,10 +743,6 @@ public class AsciiString {
 
         rangeIndices.clampValuesToRange(0, characters.length);
 
-        if (isRangeValid(rangeIndices) == false) {
-            return;
-        }
-
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
 
