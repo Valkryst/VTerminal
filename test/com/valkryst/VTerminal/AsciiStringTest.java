@@ -14,6 +14,7 @@ public class AsciiStringTest {
     @Before
     public void initializeString() {
         string = new AsciiString(testString);
+        string.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
     }
 
     @Test
@@ -230,7 +231,6 @@ public class AsciiStringTest {
 
     @Test
     public void testApplyColorGradient_toBackgroundOfAllCharacters() {
-        string.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
         string.applyColorGradient(Color.RED, Color.BLUE, true);
 
         for (final AsciiCharacter character : string.getCharacters()) {
@@ -241,7 +241,6 @@ public class AsciiStringTest {
 
     @Test
     public void testApplyColorGradient_toForegroundOfAllCharacters() {
-        string.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
         string.applyColorGradient(Color.RED, Color.BLUE, false);
 
         for (final AsciiCharacter character : string.getCharacters()) {
@@ -254,7 +253,6 @@ public class AsciiStringTest {
     public void testApplyColorGradient_toBackgroundOfRange() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
 
-        string.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
         string.applyColorGradient(range, Color.RED, Color.BLUE, true);
 
         for (final AsciiCharacter character : string.getCharacters()) {
@@ -267,7 +265,6 @@ public class AsciiStringTest {
     public void testApplyColorGradient_toForegroundOfRange() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
 
-        string.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
         string.applyColorGradient(range, Color.RED, Color.BLUE, false);
 
         for (final AsciiCharacter character : string.getCharacters()) {
@@ -278,7 +275,6 @@ public class AsciiStringTest {
 
     @Test
     public void testApplyColorGradient_toRange_withNullRange() {
-        string.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
         string.applyColorGradient(null, Color.RED, Color.BLUE, true);
 
         for (final AsciiCharacter character : string.getCharacters()) {
@@ -291,7 +287,6 @@ public class AsciiStringTest {
     public void testApplyColorGradient_toRange_withInvalidRange() {
         final IntRange range = new IntRange(-1, string.getCharacters().length);
 
-        string.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
         string.applyColorGradient(range, Color.RED, Color.BLUE, true);
 
         for (final AsciiCharacter character : string.getCharacters()) {
@@ -304,7 +299,6 @@ public class AsciiStringTest {
     public void testApplyColorGradient_toRange_withNullColorFrom() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
 
-        string.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
         string.applyColorGradient(range, null, Color.BLUE, true);
     }
 
@@ -312,7 +306,48 @@ public class AsciiStringTest {
     public void testApplyColorGradient_toRange_withNullColorTo() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
 
-        string.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
         string.applyColorGradient(range, Color.RED, null, true);
+    }
+
+    @Test
+    public void testInvertColors_toAllCharacters() {
+        string.invertColors();
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.WHITE, character.getBackgroundColor());
+            Assert.assertEquals(Color.BLACK, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testInvertColors_toRange() {
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.invertColors(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.WHITE, character.getBackgroundColor());
+            Assert.assertEquals(Color.BLACK, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testInvertColors_toRange_withNullRange() {
+        string.invertColors(null);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
+            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
+        }
+    }
+
+    @Test
+    public void testInvertColors_toRange_withInvalidRange() {
+        final IntRange range = new IntRange(-1, string.getCharacters().length);
+        string.invertColors(range);
+
+        for (final AsciiCharacter character : string.getCharacters()) {
+            Assert.assertEquals(Color.WHITE, character.getBackgroundColor());
+            Assert.assertEquals(Color.BLACK, character.getForegroundColor());
+        }
     }
 }
