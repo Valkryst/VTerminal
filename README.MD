@@ -16,24 +16,6 @@ the use of any font.
 
 This project is currently under active development and code-breaking changes may committed as development progresses. This readme file will be updated to note when the project is in a usable state.
 
-## How to Setup (Development):
-
-1. Clone the project from GitHub.
-2. Clone [this](https://github.com/Valkryst/VRadio) project from GitHub as well.
-2. Open the VTerminal project in IntelliJ.
-3. Open the *Project Structure* menu. (S + ALT + CTRL + SHIFT)
-4. Enter the *Modules* subsection.
-5. Click the green "+" at the top of the window.
-6. Select *Import Module*.
-7. Navigate to the cloned VRadio project and double-click on *pom.xml*.
-8. Click on VTerminal in the *Modules* subsection.
-9. Enter the *Dependencies* tab of your project.
-10. Click on the green "+" at the right-edge of the window.
-11. Click *Module Dependency...*.
-12. Select *VRadio*.
-
-You can now work on the VTerminal project.
-
 ### Example Test Code:
 
 ```java
