@@ -4,9 +4,6 @@ language: java
 jdk:
   - oraclejdk8
   
-before_install:
-  - mvn org.apache.maven.plugins:maven-dependency-plugin:2.8:get -DrepoUrl=https://github.com/Valkryst/VRadio -Dartifact=com.valkryst.radio:VRadio:1.1
-  
 script: "mvn cobertura:cobertura"
 
 after_success:
