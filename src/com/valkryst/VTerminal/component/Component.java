@@ -325,14 +325,13 @@ public class Component {
      * @return
      *         Whether or not the new value was set.
      */
-    public boolean setHeight(final int height) {
+    public void setHeight(final int height) {
         if (height < 0 || height < rowIndex) {
-            return false;
+            return;
         }
 
         this.height = height;
         boundingBox.setSize(width, height);
-        return true;
     }
 
     /**
