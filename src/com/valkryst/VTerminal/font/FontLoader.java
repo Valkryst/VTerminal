@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.font;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -144,7 +145,13 @@ public class FontLoader {
      *         If an IOException occurs while loading the sprite sheet.
      */
     private static BufferedImage loadSpriteSheet(final InputStream inputStream) throws IOException {
-        return ImageIO.read(inputStream);
+        final BufferedImage loadedImage = ImageIO.read(inputStream);
+        final BufferedImage argbImage = new BufferedImage(loadedImage.getWidth(), loadedImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+
+        final Graphics2D g2d= argbImage.createGraphics();
+        g2d.drawImage(loadedImage, 0, 0, null);
+        g2d.dispose();
+        return argbImage;
     }
 
     /**
