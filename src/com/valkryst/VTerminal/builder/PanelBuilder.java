@@ -11,7 +11,7 @@ public class PanelBuilder {
     /** The width of the panel, in characters. */
     @Getter private int widthInCharacters = 80;
     /** The height of the panel, in characters. */
-    @Getter private int heightInCharacters = 50;
+    @Getter private int heightInCharacters = 24;
     /** The asciiFont to draw with. */
     @Getter private Font asciiFont;
 
@@ -71,7 +71,7 @@ public class PanelBuilder {
     /** Resets the builder to it's default state. */
     public void reset() {
         widthInCharacters = 80;
-        heightInCharacters = 50;
+        heightInCharacters = 24;
         asciiFont = null;
         currentScreen = null;
         frame = null;
