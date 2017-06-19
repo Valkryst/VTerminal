@@ -170,4 +170,53 @@ public class ComponentTest {
 
         Assert.assertEquals(0, component.getRowIndex());
     }
+
+    @Test
+    public void testSetWidth() {
+        final Component component = new Component(0, 0, width, height);
+        component.setWidth(1);
+
+        Assert.assertEquals(1, component.getWidth());
+    }
+
+    @Test
+    public void testSetWidth_withNegativeWidth() {
+        final Component component = new Component(0, 0, width, height);
+        component.setWidth(-1);
+
+        Assert.assertEquals(width, component.getWidth());
+    }
+
+    @Test
+    public void testSetWidth_withWidthLessThanColumnIndex() {
+        final Component component = new Component(0, 0, width, height);
+        component.setWidth(component.getColumnIndex() - 1);
+
+        Assert.assertEquals(width, component.getWidth());
+    }
+
+
+    @Test
+    public void testSetHeight() {
+        final Component component = new Component(0, 0, width, height);
+        component.setHeight(1);
+
+        Assert.assertEquals(1, component.getHeight());
+    }
+
+    @Test
+    public void testSetHeight_withNegativeHeight() {
+        final Component component = new Component(0, 0, width, height);
+        component.setHeight(-1);
+
+        Assert.assertEquals(height, component.getHeight());
+    }
+
+    @Test
+    public void testSetHeight_withHeightLessThanRowIndex() {
+        final Component component = new Component(0, 0, width, height);
+        component.setHeight(component.getRowIndex() - 1);
+
+        Assert.assertEquals(height, component.getHeight());
+    }
 }
