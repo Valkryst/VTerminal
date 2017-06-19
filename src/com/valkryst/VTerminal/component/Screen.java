@@ -199,6 +199,10 @@ public class Screen extends Component {
             return;
         }
 
+        if (component == this) {
+            throw new IllegalArgumentException("A component cannot be added to itself.");
+        }
+
         if (components.contains(component)) {
             return;
         }
@@ -213,6 +217,14 @@ public class Screen extends Component {
      *          The component.
      */
     public void removeComponent(final Component component) {
+        if (component == null) {
+            return;
+        }
+
+        if (component == this) {
+            return;
+        }
+
         components.remove(component);
     }
 }
