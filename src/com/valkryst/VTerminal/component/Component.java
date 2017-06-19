@@ -305,14 +305,13 @@ public class Component {
      * @return
      *         Whether or not the new value was set.
      */
-    public boolean setWidth(final int width) {
+    public void setWidth(final int width) {
         if (width < 0 || width < columnIndex) {
-            return false;
+            return;
         }
 
         this.width = width;
         boundingBox.setSize(width, height);
-        return true;
     }
 
     /**
