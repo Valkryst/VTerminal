@@ -138,4 +138,36 @@ public class ComponentTest {
         Assert.assertFalse(component.isPositionValid(width, height + 1));
         Assert.assertFalse(component.isPositionValid(width + 1, height));
     }
+
+    @Test
+    public void testSetColumnIndex() {
+        final Component component = new Component(0, 0, width, height);
+        component.setColumnIndex(1);
+
+        Assert.assertEquals(1, component.getColumnIndex());
+    }
+
+    @Test
+    public void testSetColumnIndex_withNegativeIndex() {
+        final Component component = new Component(0, 0, width, height);
+        component.setColumnIndex(-1);
+
+        Assert.assertEquals(0, component.getColumnIndex());
+    }
+
+    @Test
+    public void testSetRowIndex() {
+        final Component component = new Component(0, 0, width, height);
+        component.setRowIndex(1);
+
+        Assert.assertEquals(1, component.getRowIndex());
+    }
+
+    @Test
+    public void testSetRowIndex_withNegativeIndex() {
+        final Component component = new Component(0, 0, width, height);
+        component.setRowIndex(-1);
+
+        Assert.assertEquals(0, component.getRowIndex());
+    }
 }
