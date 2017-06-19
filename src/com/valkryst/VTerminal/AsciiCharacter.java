@@ -119,22 +119,8 @@ public class AsciiCharacter {
         Image image = bufferedImage;
 
         if (backgroundColor != Color.BLACK || foregroundColor != Color.WHITE) {
-            final ImageFilter filter = new RGBImageFilter() {
-                @Override
-                public int filterRGB(int x, int y, int rgb) {
-                    if (isHidden) {
-                        return backgroundColor.getRGB();
-                    }
-
-                    if (rgb == 0xFFFFFFFF) {
-                        return foregroundColor.getRGB();
-                    } else {
-                        return backgroundColor.getRGB();
-                    }
-                }
-            };
-
-            image = Toolkit.getDefaultToolkit().createImage(new FilteredImageSource(image.getSource(), filter));
+            final  LookupOp op = createColorReplacementLookupOp(backgroundColor, foregroundColor);
+            image = op.filter(bufferedImage, null);
         }
 
         // Draw character:
@@ -156,6 +142,38 @@ public class AsciiCharacter {
             final int y = rowIndex + fontHeight - underlineThickness;
             gc.fillRect(columnIndex, y, fontWidth, underlineThickness);
         }
+    }
+
+    private LookupOp createColorReplacementLookupOp(final Color newBgColor, final Color newFgColor) {
+        short[] a = new short[256];
+        short[] r = new short[256];
+        short[] g = new short[256];
+        short[] b = new short[256];
+
+        byte bgr = (byte) (newBgColor.getRed());
+        byte bgg = (byte) (newBgColor.getGreen());
+        byte bgb = (byte) (newBgColor.getBlue());
+
+        byte fgr = (byte) (newFgColor.getRed());
+        byte fgg = (byte) (newFgColor.getGreen());
+        byte fgb = (byte) (newFgColor.getBlue());
+
+        for (int i = 0; i < 256; i++) {
+            if (i == 0) {
+                a[i] = (byte) 255;
+                r[i] = bgr;
+                g[i] = bgg;
+                b[i] = bgb;
+            } else {
+                a[i] = (byte) 255;
+                r[i] = fgr;
+                g[i] = fgg;
+                b[i] = fgb;
+            }
+        }
+
+        short[][] table = {r, g, b, a};
+        return new LookupOp(new ShortLookupTable(0, table), null);
     }
 
     /**
