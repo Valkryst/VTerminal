@@ -287,14 +287,11 @@ public class Component {
      * @return
      *         Whether or not the new value was set.
      */
-    public boolean setRowIndex(final int rowIndex) {
-        if (rowIndex < 0) {
-            return false;
+    public void setRowIndex(final int rowIndex) {
+        if (rowIndex >= 0) {
+            this.rowIndex = rowIndex;
+            boundingBox.setLocation(columnIndex, rowIndex);
         }
-
-        this.rowIndex = rowIndex;
-        boundingBox.setLocation(columnIndex, rowIndex);
-        return true;
     }
 
     /**
