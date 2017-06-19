@@ -114,4 +114,28 @@ public class ComponentTest {
         Assert.assertFalse(component.intersects(0, height + 1));
         Assert.assertFalse(component.intersects(width + 1, height + 1));
     }
+
+    @Test
+    public void testIsPositionValid() {
+        final Component component = new Component(0, 0, width, height);
+
+        for (int x = 0 ; x < width ; x++) {
+            for (int y = 0 ; y < height ; y++) {
+                Assert.assertTrue(component.isPositionValid(x, y));
+            }
+        }
+    }
+
+    @Test
+    public void testIsPositionValid_withInvalidPositions() {
+        final Component component = new Component(0, 0, width, height);
+
+        Assert.assertFalse(component.isPositionValid(-1, -1));
+        Assert.assertFalse(component.isPositionValid(-1, 0));
+        Assert.assertFalse(component.isPositionValid(0, -1));
+
+        Assert.assertFalse(component.isPositionValid(width + 1, height + 1));
+        Assert.assertFalse(component.isPositionValid(width, height + 1));
+        Assert.assertFalse(component.isPositionValid(width + 1, height));
+    }
 }
