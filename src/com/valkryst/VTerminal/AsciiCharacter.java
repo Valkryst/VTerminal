@@ -35,7 +35,7 @@ public class AsciiCharacter {
 
 	private Timer blinkTimer;
 	/** The amount of time, in milliseconds, before the blink effect can occur. */
-	private short millsBetweenBlinks = 0;
+	@Getter private short millsBetweenBlinks = 1000;
 
     /**
      * Constructs a new AsciiCharacter.
@@ -187,7 +187,7 @@ public class AsciiCharacter {
      */
     public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio) {
         if (radio == null) {
-            return;
+            throw new NullPointerException("You must specify a Radio when enabling a blink effect.");
         }
 
         if (millsBetweenBlinks <= 0) {
