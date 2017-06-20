@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal;
 
+import com.valkryst.radio.Radio;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -46,6 +47,36 @@ public class AsciiCharacterTest {
         final AsciiCharacter characterB = new AsciiCharacter('B');
 
         Assert.assertFalse(characterA.equals(characterB));
+    }
+
+    @Test
+    public void testEnableBlinkEffect() {
+        final AsciiCharacter character = new AsciiCharacter('A');
+        character.enableBlinkEffect((short) 666, new Radio<>());
+
+        Assert.assertEquals(666, character.getMillsBetweenBlinks());
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testEnableBlinkEffect_withNullRadio() {
+        final AsciiCharacter character = new AsciiCharacter('A');
+        character.enableBlinkEffect((short) 1000, null);
+    }
+
+    @Test
+    public void testEnableBlinkEffect_withMillsBetweenBlinksEqualToZero() {
+        final AsciiCharacter character = new AsciiCharacter('A');
+        character.enableBlinkEffect((short) 0, new Radio<>());
+
+        Assert.assertEquals(1000, character.getMillsBetweenBlinks());
+    }
+
+    @Test
+    public void testEnableBlinkEffect_withMillsBetweenBlinksLessThanZero() {
+        final AsciiCharacter character = new AsciiCharacter('A');
+        character.enableBlinkEffect((short) -1, new Radio<>());
+
+        Assert.assertEquals(1000, character.getMillsBetweenBlinks());
     }
 
     @Test
