@@ -226,8 +226,6 @@ public class AsciiCharacter {
 
     /** Disables the blink effect. */
     public void disableBlinkEffect() {
-        this.millsBetweenBlinks = 0;
-
         if (blinkTimer != null) {
             blinkTimer.stop();
             blinkTimer = null;
