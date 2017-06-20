@@ -93,4 +93,42 @@ public class AsciiCharacterTest {
 
         Assert.assertEquals(characterA.getForegroundColor(), Color.RED);
     }
+
+    @Test
+    public void testSetUnderlineThickness() {
+        final AsciiCharacter character = new AsciiCharacter('A');
+        character.getBoundingBox().setSize(2, 7);
+
+        character.setUnderlineThickness(6);
+        Assert.assertEquals(6, character.getUnderlineThickness());
+    }
+
+    @Test
+    public void testSetUnderlineThickness_withThicknessGreaterThanBoundingBoxHeight() {
+        final AsciiCharacter character = new AsciiCharacter('A');
+        character.getBoundingBox().setSize(2, 2);
+
+        int originalThickness = character.getUnderlineThickness();
+
+        character.setUnderlineThickness((int) character.getBoundingBox().getHeight() + 1);
+        Assert.assertEquals(originalThickness, character.getUnderlineThickness());
+    }
+
+    @Test
+    public void testSetUnderlineThickness_withThicknessEqualToZero() {
+        final AsciiCharacter character = new AsciiCharacter('A');
+        character.getBoundingBox().setSize(2, 2);
+
+        character.setUnderlineThickness(0);
+        Assert.assertEquals(1, character.getUnderlineThickness());
+    }
+
+    @Test
+    public void testSetUnderlineThickness_withThicknessLessThanZero() {
+        final AsciiCharacter character = new AsciiCharacter('A');
+        character.getBoundingBox().setSize(2, 2);
+
+        character.setUnderlineThickness(-1);
+        Assert.assertEquals(1, character.getUnderlineThickness());
+    }
 }
