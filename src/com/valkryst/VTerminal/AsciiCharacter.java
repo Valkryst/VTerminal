@@ -26,7 +26,7 @@ public class AsciiCharacter {
 	/** Whether or not to draw the character as underlined. */
 	@Getter @Setter private boolean isUnderlined = false;
     /** The thickness of the underline to draw beneath the character. */
-	@Getter private byte underlineThickness = 2;
+	@Getter private int underlineThickness = 2;
 
 	/** Whether or not the character should be flipped horizontally when drawn. */
 	@Getter @Setter private boolean isFlippedHorizontally = false;
@@ -281,14 +281,14 @@ public class AsciiCharacter {
      * @param underlineThickness
      *         The new underline thickness.
      */
-    public void setUnderlineThickness(final byte underlineThickness) {
+    public void setUnderlineThickness(final int underlineThickness) {
         if (underlineThickness > boundingBox.getHeight()) {
             final double maxHeight = boundingBox.getHeight();
 
             if (maxHeight > Byte.MAX_VALUE) {
                 this.underlineThickness = Byte.MAX_VALUE;
             } else {
-                this.underlineThickness = (byte) boundingBox.getHeight();
+                this.underlineThickness = (int) boundingBox.getHeight();
             }
         }
 
