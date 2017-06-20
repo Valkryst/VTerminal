@@ -283,16 +283,8 @@ public class AsciiCharacter {
      */
     public void setUnderlineThickness(final int underlineThickness) {
         if (underlineThickness > boundingBox.getHeight()) {
-            final double maxHeight = boundingBox.getHeight();
-
-            if (maxHeight > Byte.MAX_VALUE) {
-                this.underlineThickness = Byte.MAX_VALUE;
-            } else {
-                this.underlineThickness = (int) boundingBox.getHeight();
-            }
-        }
-
-        if (underlineThickness <= 0) {
+            this.underlineThickness = (int) boundingBox.getHeight();
+        } else if (underlineThickness <= 0) {
             this.underlineThickness = 1;
         } else {
             this.underlineThickness = underlineThickness;
