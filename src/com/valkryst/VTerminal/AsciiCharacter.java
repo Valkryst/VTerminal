@@ -186,6 +186,10 @@ public class AsciiCharacter {
      *         The Radio to transmit a DRAW event to whenever a blink occurs.
      */
     public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio) {
+        if (radio == null) {
+            return;
+        }
+
         if (millsBetweenBlinks <= 0) {
             this.millsBetweenBlinks = 1000;
         } else {
