@@ -281,7 +281,7 @@ public class AsciiCharacter {
      * @param underlineThickness
      *         The new underline thickness.
      */
-    private void setUnderlineThickness(final byte underlineThickness) {
+    public void setUnderlineThickness(final byte underlineThickness) {
         if (underlineThickness > boundingBox.getHeight()) {
             final double maxHeight = boundingBox.getHeight();
 
