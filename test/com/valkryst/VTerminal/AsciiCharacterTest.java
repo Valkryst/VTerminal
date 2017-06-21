@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal;
 
-import com.valkryst.radio.Radio;
+import com.valkryst.VRadio.Radio;
 import org.junit.Assert;
 import org.junit.Test;
 

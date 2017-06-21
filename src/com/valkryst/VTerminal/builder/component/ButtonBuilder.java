@@ -1,7 +1,7 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.Button;
-import com.valkryst.radio.Radio;
+import com.valkryst.VRadio.Radio;
 import lombok.Getter;
 
 import java.awt.*;

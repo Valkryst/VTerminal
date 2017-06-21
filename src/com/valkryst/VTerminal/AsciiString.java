@@ -2,7 +2,7 @@ package com.valkryst.VTerminal;
 
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.IntRange;
-import com.valkryst.radio.Radio;
+import com.valkryst.VRadio.Radio;
 import lombok.Getter;
 
 import java.awt.*;

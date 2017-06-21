@@ -4,7 +4,7 @@ import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.font.Font;
-import com.valkryst.radio.Radio;
+import com.valkryst.VRadio.Radio;
 import lombok.Getter;
 
 import java.awt.*;

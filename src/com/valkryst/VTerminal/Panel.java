@@ -4,8 +4,8 @@ import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.font.Font;
-import com.valkryst.radio.Radio;
-import com.valkryst.radio.Receiver;
+import com.valkryst.VRadio.Radio;
+import com.valkryst.VRadio.Receiver;
 import lombok.Getter;
 
 import java.awt.*;
