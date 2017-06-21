@@ -14,7 +14,7 @@ Please refer to the LICENSE file for additional information.
 VPanel simulates a Unicode terminal display. It supports arbitrary fore/background colors,  terminal sizes, and allows
 the use of any font.
 
-This project is currently under active development and code-breaking changes may be committed as development progresses. This readme file will be updated to note when the project is in a usable state.
+This project is currently under active development and code-breaking changes may be committed as development progresses.
 
 ### Example Test Code:
 
