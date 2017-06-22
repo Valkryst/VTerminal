@@ -29,6 +29,7 @@ if [ "$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal" ] &&
 
     cd $HOME
     git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/Valkryst/VTerminal gh-pages > /dev/null
+    git rm -r
 
     cd gh-pages
     git config user.name "Valkryst"
