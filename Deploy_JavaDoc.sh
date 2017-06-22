@@ -33,9 +33,7 @@ if [ "$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal" ] &&
     cd gh-pages
     git config user.name "Valkryst"
     git config user.email "valkryst@valkryst.com"
-    git rm -rf *
-    cp /home/travis/build/Valkryst/VTerminal/target/site/apidocs/* .
-    cp -R /home/travis/build/Valkryst/VTerminal/target/site/apidocs/com/valkryst/VTerminal/* .
+    cp -R /home/travis/build/Valkryst/VTerminal/target/site/apidocs/* .
     git add -f .
     git commit -m "Updates JavaDoc on successful Travis CI build. Build #$TRAVIS_BUILD_NUMBER auto-pushed to gh-pages."
     git push -fq origin gh-pages > /dev/null
