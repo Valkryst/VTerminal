@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo -e "Repo Slug:\t$TRAVIS_REPO_SLUG"
+echo -e "JDK Version:\t$TRAVIS_JDK_VERSION"
+echo -e "Pull Request:\t$TRAVIS_PULL_REQUEST"
+echo -e "Branch:\t$TRAVIS_BRANCH"
+
 if [ "$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal" ] && [ "$TRAVIS_JDK_VERSION" == "java-8-oracle" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
 
   echo -e "Publishing javadoc...\n"
