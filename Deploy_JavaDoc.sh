@@ -1,14 +1,29 @@
 #!/bin/bash
 
-echo -e "Repo Slug:\t$TRAVIS_REPO_SLUG"
-echo -e "JDK Version:\t$TRAVIS_JDK_VERSION"
-echo -e "Pull Request:\t$TRAVIS_PULL_REQUEST"
-echo -e "Branch:\t$TRAVIS_BRANCH"
+# Display Repo:
+echo -e "Repo Slug:"
+echo -e "\tExpected:Valkryst/VTerminal"
+echo -e "\tActual:$TRAVIS_REPO_SLUG"
 
-canBuild="$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal"
-canBuild&="$TRAVIS_JDK_VERSION" == "oraclejdk8"
-canBuild&="$TRAVIS_PULL_REQUEST" == "false"
-canBuild&="$TRAVIS_BRANCH" == "master"
+# Display JDK Version:
+echo -e "JDK Version:"
+echo -e "\tExpected:oraclejdk8"
+echo -e "\tActual:$TRAVIS_JDK_VERSION"
+
+# Display 'Is Pull Request':
+echo -e "Is Pull Request:"
+echo -e "\tExpected:false"
+echo -e "\tActual:$TRAVIS_PULL_REQUEST"
+
+# Display Branch:
+echo -e "Branch:"
+echo -e "\tExpected:false"
+echo -e "\tActual:$TRAVIS_BRANCH"
+
+canBuild=(("$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal"))
+canBuild&=(("$TRAVIS_JDK_VERSION" == "oraclejdk8"))
+canBuild&=(("$TRAVIS_PULL_REQUEST" == "false"))
+canBuild&=(("$TRAVIS_BRANCH" == "master"))
 
 if [canBuild == true]; then
   echo -e "Publishing JavaDoc...\n"
