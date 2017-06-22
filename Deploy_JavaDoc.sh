@@ -27,7 +27,7 @@ if [ "$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal" ] &&
    
     echo -e "Publishing JavaDoc...\n"
 
-    cp -R /home/travis/build/Valkryst/VTerminal/target/site/apidocs/ $HOME/javadoc-latest
+    cp -R /home/travis/build/Valkryst/VTerminal/target/site/apidocs/ $HOME/docs
 
     cd $HOME
     git config --global user.name "Valkryst"
@@ -35,8 +35,8 @@ if [ "$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal" ] &&
     git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/Valkryst/VTerminal gh-pages > /dev/null
 
     cd gh-pages
-    git rm -rf ./javadoc
-    cp -Rf /home/travis/build/Valkryst/VTerminal/target/site/apidocs/ ./javadoc
+    git rm -rf ./docs
+    cp -Rf /home/travis/build/Valkryst/VTerminal/target/site/apidocs/ ./docs
     git add -f .
     git commit -m "Updates JavaDoc on successful Travis CI build. Build #$TRAVIS_BUILD_NUMBER auto-pushed to gh-pages."
     git push -fq origin gh-pages > /dev/null
