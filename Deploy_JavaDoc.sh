@@ -2,28 +2,28 @@
 
 # Display Repo:
 echo -e "Repo Slug:"
-echo -e "\tExpected:Valkryst/VTerminal"
-echo -e "\tActual:$TRAVIS_REPO_SLUG\n"
+echo -e "\tExpected:\tValkryst/VTerminal"
+echo -e "\tActual:\t$TRAVIS_REPO_SLUG\n"
 
 # Display JDK Version:
 echo -e "JDK Version:"
-echo -e "\tExpected:oraclejdk8"
-echo -e "\tActual:$TRAVIS_JDK_VERSION\n"
+echo -e "\tExpected:\toraclejdk8"
+echo -e "\tActual:\t$TRAVIS_JDK_VERSION\n"
 
 # Display 'Is Pull Request':
 echo -e "Is Pull Request:"
-echo -e "\tExpected:false"
-echo -e "\tActual:$TRAVIS_PULL_REQUEST\n"
+echo -e "\tExpected:\tfalse"
+echo -e "\tActual:\t$TRAVIS_PULL_REQUEST\n"
 
 # Display Branch:
 echo -e "Branch:"
-echo -e "\tExpected:false"
-echo -e "\tActual:$TRAVIS_BRANCH\n"
+echo -e "\tExpected:\tfalse"
+echo -e "\tActual:\t$TRAVIS_BRANCH\n"
 
-if ["$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal"] &&
-   ["$TRAVIS_JDK_VERSION" == "oraclejdk8"] &&
-   ["$TRAVIS_PULL_REQUEST" == "false"] &&
-   ["$TRAVIS_BRANCH" == "master"]; then
+if [ "$TRAVIS_REPO_SLUG" -eq "Valkryst/VTerminal" ] &&
+   [ "$TRAVIS_JDK_VERSION" -eq "oraclejdk8" ] &&
+   [ "$TRAVIS_PULL_REQUEST" -eq "false" ] &&
+   [ "$TRAVIS_BRANCH" -eq "master" ]; then
    
     echo -e "Publishing JavaDoc...\n"
 
