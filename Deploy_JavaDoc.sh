@@ -5,9 +5,13 @@ echo -e "JDK Version:\t$TRAVIS_JDK_VERSION"
 echo -e "Pull Request:\t$TRAVIS_PULL_REQUEST"
 echo -e "Branch:\t$TRAVIS_BRANCH"
 
-if [ "$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal" ] && [ "$TRAVIS_JDK_VERSION" == "java-8-oracle" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
+canBuild = "$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal"
+canBuild &= "$TRAVIS_JDK_VERSION" == "oraclejdk8"
+canBuild &= "$TRAVIS_PULL_REQUEST" == "false"
+canBuild &= "$TRAVIS_BRANCH" == "master"
 
-  echo -e "Publishing javadoc...\n"
+if [canBuild == true]; then
+  echo -e "Publishing JavaDoc...\n"
 
   cp -R /home/travis/build/Valkryst/VTerminal/target/site/apidocs/ $HOME/javadoc-latest
 
@@ -20,9 +24,8 @@ if [ "$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal" ] && [ "$TRAVIS_JDK_VERSION" ==
   git rm -rf ./javadoc
   cp -Rf /home/travis/build/Valkryst/VTerminal/target/site/apidocs/ ./javadoc
   git add -f .
-  git commit -m "Latest javadoc on successful travis build $TRAVIS_BUILD_NUMBER auto-pushed to gh-pages"
+  git commit -m "Updates JavaDoc on successful Travis CI build. Build #$TRAVIS_BUILD_NUMBER auto-pushed to gh-pages."
   git push -fq origin gh-pages > /dev/null
 
-  echo -e "Published Javadoc to gh-pages.\n"
-  
+  echo -e "Published JavaDoc to gh-pages.\n"
 fi
