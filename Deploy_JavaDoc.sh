@@ -3,22 +3,22 @@
 # Display Repo:
 echo -e "Repo Slug:"
 echo -e "\tExpected:Valkryst/VTerminal"
-echo -e "\tActual:$TRAVIS_REPO_SLUG"
+echo -e "\tActual:$TRAVIS_REPO_SLUG\n"
 
 # Display JDK Version:
 echo -e "JDK Version:"
 echo -e "\tExpected:oraclejdk8"
-echo -e "\tActual:$TRAVIS_JDK_VERSION"
+echo -e "\tActual:$TRAVIS_JDK_VERSION\n"
 
 # Display 'Is Pull Request':
 echo -e "Is Pull Request:"
 echo -e "\tExpected:false"
-echo -e "\tActual:$TRAVIS_PULL_REQUEST"
+echo -e "\tActual:$TRAVIS_PULL_REQUEST\n"
 
 # Display Branch:
 echo -e "Branch:"
 echo -e "\tExpected:false"
-echo -e "\tActual:$TRAVIS_BRANCH"
+echo -e "\tActual:$TRAVIS_BRANCH\n"
 
 canBuild=$(expr "$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal")
 canBuild=$(expr $(expr "$TRAVIS_JDK_VERSION" == "oraclejdk8") && canBuild)
