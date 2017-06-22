@@ -10,7 +10,7 @@ fi
 
 rev=$(git rev-parse --short HEAD)
 
-cd stage/target/site/apidocs
+cd /home/travis/build/Valkryst/VTerminal/target/site/apidocs/
 
 git init
 git config user.name "Valkryst"
