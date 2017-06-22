@@ -20,10 +20,10 @@ echo -e "Branch:"
 echo -e "\tExpected:\tfalse"
 echo -e "\tActual:\t$TRAVIS_BRANCH\n"
 
-if [ "$TRAVIS_REPO_SLUG" -eq "Valkryst/VTerminal" ] &&
-   [ "$TRAVIS_JDK_VERSION" -eq "oraclejdk8" ] &&
-   [ "$TRAVIS_PULL_REQUEST" -eq "false" ] &&
-   [ "$TRAVIS_BRANCH" -eq "master" ]; then
+if [ "$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal" ] &&
+   [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ] &&
+   [ "$TRAVIS_PULL_REQUEST" == "false" ] &&
+   [ "$TRAVIS_BRANCH" == "master" ]; then
    
     echo -e "Publishing JavaDoc...\n"
 
