@@ -33,6 +33,12 @@ try {
 }
 ```
 
+### JavaDoc Documentation:
+
+Whenever a Travis CI build passes, the JavaDocs are auto-generated and made available at the following link.
+
+https://valkryst.github.io/VTerminal/
+
 ### Fonts:
 VTerminal supports the use of any bitmap font. The  [DejaVu](http://dejavu-fonts.org/wiki/Main_Page) and 
 [GNU FreeFont](https://www.gnu.org/software/freefont/) monospace fonts are supplied with this project in 16pt, 18pt, and 
