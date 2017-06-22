@@ -27,8 +27,6 @@ if [ "$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal" ] &&
    
     echo -e "Publishing JavaDoc...\n"
 
-    cp -R /home/travis/build/Valkryst/VTerminal/target/site/apidocs/ $HOME/docs
-
     cd $HOME
     git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/Valkryst/VTerminal gh-pages > /dev/null
 
