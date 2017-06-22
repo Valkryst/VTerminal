@@ -20,10 +20,10 @@ echo -e "Branch:"
 echo -e "\tExpected:false"
 echo -e "\tActual:$TRAVIS_BRANCH"
 
-canBuild=["$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal"]
-canBuild&=["$TRAVIS_JDK_VERSION" == "oraclejdk8"]
-canBuild&=["$TRAVIS_PULL_REQUEST" == "false"]
-canBuild&=["$TRAVIS_BRANCH" == "master"]
+canBuild=["$TRAVIS_REPO_SLUG" -eq "Valkryst/VTerminal"]
+canBuild&=["$TRAVIS_JDK_VERSION" -eq "oraclejdk8"]
+canBuild&=["$TRAVIS_PULL_REQUEST" -eq "false"]
+canBuild&=["$TRAVIS_BRANCH" -eq "master"]
 
 if [canBuild == true]; then
   echo -e "Publishing JavaDoc...\n"
