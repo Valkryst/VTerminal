@@ -21,6 +21,8 @@ echo -e "\tExpected:false"
 echo -e "\tActual:$TRAVIS_BRANCH\n"
 
 canBuild=$(expr "$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal")
+echo -e "canBuild:\t$canBuild"
+echo -e "otherShit:\t$(expr "$TRAVIS_JDK_VERSION" == "oraclejdk8")"
 canBuild=$(expr $(expr "$TRAVIS_JDK_VERSION" == "oraclejdk8") && $canBuild)
 canBuild=$(expr $(expr "$TRAVIS_PULL_REQUEST" == "false") && $canBuild)
 canBuild=$(expr $(expr "$TRAVIS_BRANCH" == "master") && $canBuild)
