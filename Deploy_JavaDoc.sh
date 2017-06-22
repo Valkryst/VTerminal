@@ -25,7 +25,7 @@ canBuild=$(expr $(expr "$TRAVIS_JDK_VERSION" = "oraclejdk8") & "$canBuild")
 canBuild=$(expr $(expr "$TRAVIS_PULL_REQUEST" = "false") & "$canBuild")
 canBuild=$(expr $(expr "$TRAVIS_BRANCH" = "master") & "$canBuild")
 
-if [$expr("$canBuild" == "1")]; then
+if ["$canBuild" == "1"]; then
   echo -e "Publishing JavaDoc...\n"
 
   cp -R /home/travis/build/Valkryst/VTerminal/target/site/apidocs/ $HOME/javadoc-latest
