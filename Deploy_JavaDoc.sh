@@ -21,9 +21,9 @@ echo -e "\tExpected:false"
 echo -e "\tActual:$TRAVIS_BRANCH"
 
 canBuild=$(expr "$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal")
-canBuild&=$(expr "$TRAVIS_JDK_VERSION" == "oraclejdk8")
-canBuild&=$(expr "$TRAVIS_PULL_REQUEST" == "false")
-canBuild&=$(expr "$TRAVIS_BRANCH" == "master")
+canBuild=$(expr $(expr "$TRAVIS_JDK_VERSION" == "oraclejdk8") && canBuild)
+canBuild=$(expr $(expr "$TRAVIS_PULL_REQUEST" == "false") && canBuild)
+canBuild=$(expr $(expr "$TRAVIS_BRANCH" == "master") && canBuild)
 
 if [canBuild == true]; then
   echo -e "Publishing JavaDoc...\n"
