@@ -1,27 +1,23 @@
 #!/bin/bash
 
-set -o errexit -o nounset
+if [ "$TRAVIS_REPO_SLUG" == "ReadyTalk/swt-bling" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk7" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
 
-if [ "$TRAVIS_BRANCH" != "master" ]
-then
-  echo "This commit was made against the $TRAVIS_BRANCH and not the master! No deploy!"
-  exit 0
+  echo -e "Publishing javadoc...\n"
+
+  cp -R /home/travis/build/Valkryst/VTerminal/target/site/apidocs/ $HOME/javadoc-latest
+
+  cd $HOME
+  git config --global user.name "Valkryst"
+  git config --global user.email "valkryst@valkryst.com"
+  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/Valkryst/VTerminal gh-pages > /dev/null
+
+  cd gh-pages
+  git rm -rf ./javadoc
+  cp -Rf /home/travis/build/Valkryst/VTerminal/target/site/apidocs/ ./javadoc
+  git add -f .
+  git commit -m "Latest javadoc on successful travis build $TRAVIS_BUILD_NUMBER auto-pushed to gh-pages"
+  git push -fq origin gh-pages > /dev/null
+
+  echo -e "Published Javadoc to gh-pages.\n"
+  
 fi
-
-rev=$(git rev-parse --short HEAD)
-
-cd /home/travis/build/Valkryst/VTerminal/target/site/apidocs/
-
-git init
-git config user.name "Valkryst"
-git config user.email "valkryst@valkryst.com"
-
-git remote add upstream "https://$GH_TOKEN@github.com/Valkryst/VTerminal.git"
-git fetch upstream
-git reset upstream/gh-pages
-
-touch .
-
-git add -A .
-git commit -m "Rebuilds JavaDoc pages at ${rev}."
-git push -q upstream HEAD:gh-pages
