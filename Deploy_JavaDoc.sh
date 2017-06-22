@@ -41,5 +41,5 @@ if [ "$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal" ] &&
     git commit -m "Updates JavaDoc on successful Travis CI build. Build #$TRAVIS_BUILD_NUMBER auto-pushed to gh-pages."
     git push -fq origin gh-pages > /dev/null
 
-    echo -e "Published JavaDoc to gh-pages.\n"
+    echo -e "Published JavaDoc to gh-pages branch.\n"
 fi
