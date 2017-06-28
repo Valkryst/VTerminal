@@ -33,6 +33,12 @@ try {
 }
 ```
 
+There is an issue with the above code that may sometimes appear.
+
+It's possible for the *draw()* call to execute before the *Panel* shows up on-screen. In this case it will display a blank screen.
+
+Making a call to the *draw()* function, after the Panel becomes visible, will properly render the *Panel*'s *Screen*.
+
 ### JavaDoc Documentation:
 
 Whenever a Travis CI build passes, the JavaDocs are auto-generated and made available at the following link.
