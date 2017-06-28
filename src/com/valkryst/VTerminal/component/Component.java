@@ -10,6 +10,7 @@ import lombok.Getter;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Optional;
 
 public class Component {
     /** The x-axis (column) coordinate of the top-left character. */
@@ -256,7 +257,26 @@ public class Component {
         }
     }
 
+    /**
+     * Retrieves the AsciiCharacter at a specific location.
+     *
+     * @param columnIndex
+     *        The x-axis (column) coordinate of the location.
+     *
+     * @param rowIndex
+     *        The y-axis (row) coordinate of the location.
+     *
+     * @return
+     *        The AsciiCharacter at the specified location or nothing
+     *        if the location is invalid.
+     */
+    public Optional<AsciiCharacter> getCharacterAt(final int columnIndex, final int rowIndex) {
+        if (isPositionValid(columnIndex, rowIndex)) {
+            return Optional.of(strings[rowIndex].getCharacters()[columnIndex]);
+        }
 
+        return Optional.empty();
+    }
 
     /**
      * Sets a new value for the columnIndex.
