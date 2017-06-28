@@ -1,8 +1,11 @@
 package com.valkryst.VTerminal.component;
 
+import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Optional;
 
 public class ComponentTest {
     private final int width = 48;
@@ -137,6 +140,26 @@ public class ComponentTest {
         Assert.assertFalse(component.isPositionValid(width + 1, height + 1));
         Assert.assertFalse(component.isPositionValid(width, height + 1));
         Assert.assertFalse(component.isPositionValid(width + 1, height));
+    }
+
+    @Test
+    public void testGetCharacterAt_withValidPosition() {
+        final Component component = new Component(0, 0, width, height);
+        component.getStrings()[5].getCharacters()[6].setCharacter('?');
+
+        final Optional<AsciiCharacter> res = component.getCharacterAt(6, 5);
+
+        Assert.assertTrue(res.isPresent());
+        Assert.assertEquals('?', res.get().getCharacter());
+    }
+
+    @Test
+    public void testGetCharacterAt_withInvalidPosition() {
+        final Component component = new Component(0, 0, width, height);
+
+        final Optional<AsciiCharacter> res = component.getCharacterAt(50, 50);
+
+        Assert.assertFalse(res.isPresent());
     }
 
     @Test
