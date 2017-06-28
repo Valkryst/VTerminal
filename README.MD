@@ -47,7 +47,7 @@ VTerminal supports the use of any bitmap font. The  [DejaVu](http://dejavu-fonts
 To use a different font:
 
 * Download and install [BMFont](http://www.angelcode.com/products/bmfont/).
-* Under *Options->Font Settings* use the following settings:
+* Under *Options->Font Settings*:
     * Font: Specify whichever font you want to use.
     * Charset: Unicode
     * Size (px): Set this to whichever size you desire.
@@ -60,7 +60,7 @@ To use a different font:
     * Font smoothing: Disabled
     * Super sampling: Disabled
 * On the right-hand size of the screen, check every box.
-* Under *Options->Export Options* use the following settings:
+* Under *Options->Export Options*:
     * All padding/spacing settings must be set to zero.
     * Force offsets to zero: Enabled
     * Width: 2048
