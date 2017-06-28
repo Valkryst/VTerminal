@@ -71,6 +71,7 @@ $RECYCLE.BIN/
 
 
 # Project Specific
+out/
 log/
 .idea/
 test/Driver.java
