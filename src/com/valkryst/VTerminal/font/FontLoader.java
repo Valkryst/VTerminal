@@ -3,17 +3,15 @@ package com.valkryst.VTerminal.font;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+import java.util.*;
 import java.util.List;
-import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FontLoader {
     /**
@@ -38,7 +36,7 @@ public class FontLoader {
      *         If a URISyntaxException occurs while loading the font.
      */
     public static Font loadFont(final String spriteSheetPath, final String characterDataPath, final int scale) throws IOException {
-        return loadFont(new FileInputStream(spriteSheetPath), Paths.get(characterDataPath), scale);
+        return loadFont(new FileInputStream(spriteSheetPath), new FileInputStream(characterDataPath), scale);
     }
 
     /**
@@ -48,7 +46,7 @@ public class FontLoader {
      *         The input stream to the sprite sheet.
      *
      * @param characterData
-     *         The path to the character data.
+     *         The input stream to the character data.
      *
      * @param scale
      *         The amount to scale the font by.
@@ -62,7 +60,7 @@ public class FontLoader {
      * @throws URISyntaxException
      *         If a URISyntaxException occurs while loading the font.
      */
-    public static Font loadFont(final InputStream spriteSheet, final Path characterData, final int scale) throws IOException {
+    public static Font loadFont(final InputStream spriteSheet, final InputStream characterData, final int scale) throws IOException {
         final BufferedImage image = loadSpriteSheet(spriteSheet);
         final List<String> data = loadCharacterData(characterData);
 
@@ -93,10 +91,10 @@ public class FontLoader {
     public static Font loadFontFromJar(final String spriteSheetPath, final String characterDataPath, final int scale) throws IOException, URISyntaxException {
         final ClassLoader classLoader = FontLoader.class.getClassLoader();
 
-        final URI spriteSheetURI = classLoader.getResource(spriteSheetPath).toURI();
-        final URI characterDataURI = classLoader.getResource(characterDataPath).toURI();
+        final InputStream spriteSheetStream = classLoader.getResourceAsStream(spriteSheetPath);
+        final InputStream characterDataStream = classLoader.getResourceAsStream(characterDataPath);
 
-        return loadFont(spriteSheetURI.toURL().openStream(), Paths.get(characterDataURI), scale);
+        return loadFont(spriteSheetStream, characterDataStream, scale);
     }
 
     /**
@@ -147,6 +145,7 @@ public class FontLoader {
     private static BufferedImage loadSpriteSheet(final InputStream inputStream) throws IOException {
         final BufferedImage loadedImage = ImageIO.read(inputStream);
         final BufferedImage argbImage = new BufferedImage(loadedImage.getWidth(), loadedImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        inputStream.close();
 
         final Graphics2D g2d= argbImage.createGraphics();
         g2d.drawImage(loadedImage, 0, 0, null);
@@ -157,8 +156,8 @@ public class FontLoader {
     /**
      * Loads character data from a path.
      *
-     * @param path
-     *         The path.
+     * @param inputStream
+     *         The input stream.
      *
      * @return
      *         The character data.
@@ -166,7 +165,9 @@ public class FontLoader {
      * @throws IOException
      *         If an IOException occurs while loading the character data.
      */
-    private static List<String> loadCharacterData(final Path path) throws IOException {
-        return Files.readAllLines(path);
+    private static List<String> loadCharacterData(final InputStream inputStream) throws IOException {
+        final InputStreamReader isr = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+        final BufferedReader br = new BufferedReader(isr);
+        return br.lines().collect(Collectors.toList());
     }
 }
