@@ -24,8 +24,8 @@ public class ComponentTest {
         // Ensure component's bounding box is at correct position with correct width/height:
         Assert.assertEquals(0, component.getBoundingBox().getLocation().getX(), 0.001);
         Assert.assertEquals(0, component.getBoundingBox().getLocation().getY(), 0.001);
-        Assert.assertEquals(width, component.getBoundingBox().getBounds().getWidth(), 0.001);
-        Assert.assertEquals(height, component.getBoundingBox().getBounds().getHeight(), 0.001);
+        Assert.assertEquals(width - 1, component.getBoundingBox().getBounds().getWidth(), 0.001);
+        Assert.assertEquals(height - 1, component.getBoundingBox().getBounds().getHeight(), 0.001);
 
         // Ensure component has enough strings and that strings are of the correct width:
         Assert.assertEquals(height, component.getStrings().length);
@@ -100,8 +100,8 @@ public class ComponentTest {
     public void testIntersects_withCoords_withIntersectingCoords() {
         final Component component = new Component(0, 0, width, height);
 
-        for (int x = 0 ; x < width ; x++) {
-            for (int y = 0; y < height; y++) {
+        for (int x = 0 ; x < width - 1 ; x++) {
+            for (int y = 0; y < height - 1 ; y++) {
                 Assert.assertTrue(component.intersects(x, y));
             }
         }

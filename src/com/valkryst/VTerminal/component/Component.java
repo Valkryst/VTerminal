@@ -72,7 +72,7 @@ public class Component {
         this.height = height;
 
         boundingBox.setLocation(columnIndex, rowIndex);
-        boundingBox.setSize(width, height);
+        boundingBox.setSize(width - 1, height - 1);
 
         strings = new AsciiString[height];
 
