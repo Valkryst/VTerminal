@@ -37,10 +37,7 @@ public class Panel extends Canvas implements Receiver<String> {
         this.asciiFont = builder.getAsciiFont();
 
         int pixelWidth = widthInCharacters * asciiFont.getWidth();
-        pixelWidth -= asciiFont.getWidth() * 2; // todo Screen always appears to be 2 characters too large, this is a temp fix.
-
         int pixelHeight = heightInCharacters * asciiFont.getHeight();
-        pixelHeight -= asciiFont.getHeight() / 2; // todo Screen always appears to be 0.5 characters too large, this is a temp fix.
 
         this.setPreferredSize(new Dimension(pixelWidth, pixelHeight));
 

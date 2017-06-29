@@ -189,6 +189,45 @@ public class Screen extends Component {
     }
 
     /**
+     * Sets the background color of all characters.
+     *
+     * @param color
+     *         The new background color.
+     */
+    public void setBackgroundColor(final Color color) {
+        for (final AsciiString string : strings) {
+            string.setBackgroundColor(color);
+        }
+    }
+
+    /**
+     * Sets the foreground color of all characters.
+     *
+     * @param color
+     *         The new foreground color.
+     */
+    public void setForegroundColor(final Color color) {
+        for (final AsciiString string : strings) {
+            string.setForegroundColor(color);
+        }
+    }
+
+    /**
+     * Sets the background and foreground color of all characters.
+     *
+     * @param background
+     *         The new background color.
+     *
+     * @param foreground
+     *         The new foreground color.
+     */
+    public void setBackgroundAndForegroundColor(final Color background, final Color foreground) {
+        for (final AsciiString string : strings) {
+            string.setBackgroundAndForegroundColor(background, foreground);
+        }
+    }
+
+    /**
      * Adds a component to the AsciiScreen.
      *
      * @param component

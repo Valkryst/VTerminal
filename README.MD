@@ -33,6 +33,12 @@ try {
 }
 ```
 
+There is an issue with the above code that may sometimes appear.
+
+It's possible for the *draw()* call to execute before the *Panel* shows up on-screen. In this case it will display a blank screen.
+
+Making a call to the *draw()* function, after the Panel becomes visible, will properly render the *Panel*'s *Screen*.
+
 ### JavaDoc Documentation:
 
 Whenever a Travis CI build passes, the JavaDocs are auto-generated and made available at the following link.
@@ -47,7 +53,7 @@ VTerminal supports the use of any bitmap font. The  [DejaVu](http://dejavu-fonts
 To use a different font:
 
 * Download and install [BMFont](http://www.angelcode.com/products/bmfont/).
-* Under *Options->Font Settings* use the following settings:
+* Under *Options->Font Settings*:
     * Font: Specify whichever font you want to use.
     * Charset: Unicode
     * Size (px): Set this to whichever size you desire.
@@ -60,7 +66,7 @@ To use a different font:
     * Font smoothing: Disabled
     * Super sampling: Disabled
 * On the right-hand size of the screen, check every box.
-* Under *Options->Export Options* use the following settings:
+* Under *Options->Export Options*:
     * All padding/spacing settings must be set to zero.
     * Force offsets to zero: Enabled
     * Width: 2048

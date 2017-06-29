@@ -1,8 +1,11 @@
 package com.valkryst.VTerminal.component;
 
+import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Optional;
 
 public class ComponentTest {
     private final int width = 48;
@@ -21,8 +24,8 @@ public class ComponentTest {
         // Ensure component's bounding box is at correct position with correct width/height:
         Assert.assertEquals(0, component.getBoundingBox().getLocation().getX(), 0.001);
         Assert.assertEquals(0, component.getBoundingBox().getLocation().getY(), 0.001);
-        Assert.assertEquals(width, component.getBoundingBox().getBounds().getWidth(), 0.001);
-        Assert.assertEquals(height, component.getBoundingBox().getBounds().getHeight(), 0.001);
+        Assert.assertEquals(width - 1, component.getBoundingBox().getBounds().getWidth(), 0.001);
+        Assert.assertEquals(height - 1, component.getBoundingBox().getBounds().getHeight(), 0.001);
 
         // Ensure component has enough strings and that strings are of the correct width:
         Assert.assertEquals(height, component.getStrings().length);
@@ -97,8 +100,8 @@ public class ComponentTest {
     public void testIntersects_withCoords_withIntersectingCoords() {
         final Component component = new Component(0, 0, width, height);
 
-        for (int x = 0 ; x < width ; x++) {
-            for (int y = 0; y < height; y++) {
+        for (int x = 0 ; x < width - 1 ; x++) {
+            for (int y = 0; y < height - 1 ; y++) {
                 Assert.assertTrue(component.intersects(x, y));
             }
         }
@@ -137,6 +140,26 @@ public class ComponentTest {
         Assert.assertFalse(component.isPositionValid(width + 1, height + 1));
         Assert.assertFalse(component.isPositionValid(width, height + 1));
         Assert.assertFalse(component.isPositionValid(width + 1, height));
+    }
+
+    @Test
+    public void testGetCharacterAt_withValidPosition() {
+        final Component component = new Component(0, 0, width, height);
+        component.getStrings()[5].getCharacters()[6].setCharacter('?');
+
+        final Optional<AsciiCharacter> res = component.getCharacterAt(6, 5);
+
+        Assert.assertTrue(res.isPresent());
+        Assert.assertEquals('?', res.get().getCharacter());
+    }
+
+    @Test
+    public void testGetCharacterAt_withInvalidPosition() {
+        final Component component = new Component(0, 0, width, height);
+
+        final Optional<AsciiCharacter> res = component.getCharacterAt(50, 50);
+
+        Assert.assertFalse(res.isPresent());
     }
 
     @Test
