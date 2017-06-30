@@ -111,7 +111,7 @@ public class AsciiCharacter {
                 tx.translate(0, -bufferedImage.getHeight());
             }
 
-            final AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
+            final BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
             bufferedImage = op.filter(bufferedImage, null);
         }
 
@@ -119,7 +119,7 @@ public class AsciiCharacter {
         Image image = bufferedImage;
 
         if (backgroundColor != Color.BLACK || foregroundColor != Color.WHITE) {
-            final  LookupOp op = createColorReplacementLookupOp(backgroundColor, foregroundColor);
+            final BufferedImageOp op = createColorReplacementLookupOp(backgroundColor, foregroundColor);
             image = op.filter(bufferedImage, null);
         }
 
@@ -145,10 +145,10 @@ public class AsciiCharacter {
     }
 
     private LookupOp createColorReplacementLookupOp(final Color newBgColor, final Color newFgColor) {
-        short[] a = new short[256];
-        short[] r = new short[256];
-        short[] g = new short[256];
-        short[] b = new short[256];
+        byte[] a = new byte[256];
+        byte[] r = new byte[256];
+        byte[] g = new byte[256];
+        byte[] b = new byte[256];
 
         byte bgr = (byte) (newBgColor.getRed());
         byte bgg = (byte) (newBgColor.getGreen());
@@ -172,8 +172,8 @@ public class AsciiCharacter {
             }
         }
 
-        short[][] table = {r, g, b, a};
-        return new LookupOp(new ShortLookupTable(0, table), null);
+        byte[][] table = {r, g, b, a};
+        return new LookupOp(new ByteLookupTable(0, table), null);
     }
 
     /**
