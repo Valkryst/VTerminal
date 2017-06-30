@@ -111,7 +111,7 @@ public class AsciiCharacter {
                 tx.translate(0, -bufferedImage.getHeight());
             }
 
-            final AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+            final AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
             bufferedImage = op.filter(bufferedImage, null);
         }
 
