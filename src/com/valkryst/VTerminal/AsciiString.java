@@ -158,6 +158,26 @@ public class AsciiString {
      * @param character
      *         The new character.
      */
+    public void setCharacter(final int columnIndex, final AsciiCharacter character) {
+        if (character == null) {
+            return;
+        }
+
+        if (columnIndex >= 0 && columnIndex < characters.length) {
+            characters[columnIndex] = character;
+            charactersToBeRedrawn[columnIndex] = true;
+        }
+    }
+
+    /**
+     * Sets a new character in the specified position.
+     *
+     * @param columnIndex
+     *         The x-axis (column) coordinate to place the character at.
+     *
+     * @param character
+     *         The new character.
+     */
     public void setCharacter(final int columnIndex, final char character) {
         if (columnIndex >= 0 && columnIndex < characters.length) {
             characters[columnIndex].setCharacter(character);
