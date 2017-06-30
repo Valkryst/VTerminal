@@ -65,7 +65,7 @@ public class Screen extends Component {
      *         If all characters within the screen were cleared.
      */
     public boolean clear(final char character) {
-        return clear(character, 0, 0, super.getWidth(), super.getHeight());
+        return clear(character, 0, 0, super.getWidth() - 1, super.getHeight() - 1);
     }
 
     /**
