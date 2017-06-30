@@ -138,33 +138,6 @@ public class AsciiStringTest {
     }
 
     @Test
-    public void testSetCharacter_objectChar() {
-        final AsciiCharacter newChar = new AsciiCharacter('Z');
-        string.setCharacter(0, newChar);
-
-        // Using == compares object references:
-        Assert.assertTrue(newChar == string.getCharacters()[0]);
-    }
-
-    @Test
-    public void testSetCharacter_objectChar_withNegativeColumnIndex() {
-        string.setCharacter(-1, new AsciiCharacter('Z'));
-        Assert.assertEquals('A', string.getCharacters()[0].getCharacter());
-    }
-
-    @Test
-    public void testSetCharacter_objectChar_withColumnIndexLargerThanStringLength() {
-        string.setCharacter(string.getCharacters().length + 1, new AsciiCharacter('Z'));
-        Assert.assertEquals('A', string.getCharacters()[0].getCharacter());
-    }
-
-    @Test
-    public void testSetCharacter_objectChar_withNullCharacter() {
-        string.setCharacter(0, null);
-        Assert.assertEquals('A', string.getCharacters()[0].getCharacter());
-    }
-
-    @Test
     public void testSetCharacter_primitiveChar() {
         string.setCharacter(0, 'Z');
         Assert.assertEquals('Z', string.getCharacters()[0].getCharacter());
