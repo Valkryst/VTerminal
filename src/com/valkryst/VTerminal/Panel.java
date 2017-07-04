@@ -10,6 +10,7 @@ import lombok.Getter;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 public class Panel extends Canvas implements Receiver<String> {
     /** The width of the panel, in characters. */
@@ -78,6 +79,25 @@ public class Panel extends Canvas implements Receiver<String> {
 
         bufferStrategy.show();
         gc.dispose();
+    }
+
+    /**
+     * Draws the canvas onto an image.
+     *
+     * This calls the current screen's draw function, so the
+     * screen may look a little different if there are blink
+     * effects or new updates to characters that haven't yet
+     * been drawn.
+     *
+     * This is an expensive operation as it essentially creates
+     * an in-memory screen and draws each AsciiCharacter onto
+     * that screen.
+     *
+     * @return
+     *        An image of the canvas.
+     */
+    public BufferedImage screenshot() {
+        return currentScreen.screenshot(asciiFont);
     }
 
     /**
