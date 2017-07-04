@@ -8,7 +8,7 @@ Please refer to the LICENSE file for additional information.
 
 ![](https://travis-ci.org/Valkryst/VTerminal.svg?branch=master) [![codecov](https://codecov.io/gh/Valkryst/VTerminal/branch/master/graph/badge.svg)](https://codecov.io/gh/Valkryst/VTerminal)
 
-# VPanel
+# VTerminal
 
 
 VPanel simulates a Unicode terminal display. It supports arbitrary fore/background colors,  terminal sizes, and allows
