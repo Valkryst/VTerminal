@@ -36,15 +36,10 @@ public class PanelBuilder {
         checkState();
 
         final Panel panel = new Panel(this);
-
-        if (frame == null) {
-            frame = new JFrame();
-            frame.add(panel);
-            frame.pack();
-            frame.setResizable(false);
-            frame.setVisible(true);
-            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        }
+        frame.add(panel);
+        frame.pack();
+        frame.setResizable(false);
+        frame.setVisible(true);
 
         panel.createBufferStrategy(2);
         panel.setIgnoreRepaint(true);
@@ -65,6 +60,11 @@ public class PanelBuilder {
 
         if (currentScreen == null) {
             currentScreen = new Screen(0, 0, widthInCharacters, heightInCharacters);
+        }
+
+        if (frame == null) {
+            frame = new JFrame();
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         }
     }
 
