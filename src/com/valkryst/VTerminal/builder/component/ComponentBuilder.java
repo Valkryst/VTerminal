@@ -27,6 +27,7 @@ public class ComponentBuilder<C extends Component, B extends ComponentBuilder<C,
      *          If something is wrong with the builder's state.
      */
     public C build() {
+        checkState();
         return null;
     }
 

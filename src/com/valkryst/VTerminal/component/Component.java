@@ -72,7 +72,7 @@ public class Component {
         this.height = height;
 
         boundingBox.setLocation(columnIndex, rowIndex);
-        boundingBox.setSize(width - 1, height - 1);
+        boundingBox.setSize(width, height);
 
         strings = new AsciiString[height];
 
@@ -202,11 +202,11 @@ public class Component {
      *         Whether or not the specified position is within the bounds of the component.
      */
     public boolean isPositionValid(final int columnIndex, final int rowIndex) {
-        if (rowIndex < 0 || rowIndex > boundingBox.getHeight()) {
+        if (rowIndex < 0 || rowIndex > boundingBox.getHeight() - 1) {
             return false;
         }
 
-        if (columnIndex < 0 || columnIndex > boundingBox.getWidth()) {
+        if (columnIndex < 0 || columnIndex > boundingBox.getWidth() - 1) {
             return false;
         }
 

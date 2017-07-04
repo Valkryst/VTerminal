@@ -111,4 +111,12 @@ public class IntRangeTest {
         Assert.assertEquals(1, range.getBegin());
         Assert.assertEquals(100, range.getEnd());
     }
+
+    @Test
+    public void testClampValuesToRange_withBeginGreaterThanEnd() {
+        final IntRange range = new IntRange(1, 100);
+        range.clampValuesToRange(5, 4);
+        Assert.assertEquals(4, range.getBegin());
+        Assert.assertEquals(4, range.getEnd());
+    }
 }

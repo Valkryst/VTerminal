@@ -50,6 +50,36 @@ public class AsciiCharacterTest {
     }
 
     @Test
+    public void testEquals_withNonAsciiCharacterObject() {
+        final AsciiCharacter character = new AsciiCharacter('A');
+        final Integer integer = 666;
+
+        Assert.assertFalse(character.equals(integer));
+    }
+
+    @Test
+    public void testEquals_withNonEqualBackgroundColors() {
+        final AsciiCharacter characterA = new AsciiCharacter('A');
+        final AsciiCharacter characterB = new AsciiCharacter('B');
+
+        characterA.setBackgroundColor(Color.BLUE);
+        characterB.setBackgroundColor(Color.RED);
+
+        Assert.assertFalse(characterA.equals(characterB));
+    }
+
+    @Test
+    public void testEquals_withNonEqualForegroundColors() {
+        final AsciiCharacter characterA = new AsciiCharacter('A');
+        final AsciiCharacter characterB = new AsciiCharacter('B');
+
+        characterA.setForegroundColor(Color.BLUE);
+        characterB.setForegroundColor(Color.RED);
+
+        Assert.assertFalse(characterA.equals(characterB));
+    }
+
+    @Test
     public void testEnableBlinkEffect() {
         final AsciiCharacter character = new AsciiCharacter('A');
         character.enableBlinkEffect((short) 666, new Radio<>());

@@ -18,9 +18,9 @@ public class ComponentBuilderTest {
         new ComponentBuilder<>();
     }
 
-    @Test
+    @Test(expected=IllegalStateException.class)
     public void testBuild() {
-        Assert.assertNull(componentBuilder.build());
+        componentBuilder.build();
     }
 
     @Test
