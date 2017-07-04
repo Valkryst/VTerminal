@@ -5,6 +5,7 @@ import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.font.Font;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 
@@ -186,6 +187,37 @@ public class Screen extends Component {
         }
 
         return writesSuccessful;
+    }
+
+    /**
+     * Draws the screen onto an image.
+     *
+     * This calls the draw function, so the screen may look a
+     * little different if there are blink effects or new updates
+     * to characters that haven't yet been drawn.
+     *
+     * This is an expensive operation as it essentially creates
+     * an in-memory screen and draws each AsciiCharacter onto
+     * that screen.
+     *
+     * @param asciiFont
+     *        The font to render the screen with.
+     *
+     * @return
+     *        An image of the screen.
+     */
+    public BufferedImage screenshot(final Font asciiFont) {
+        final BufferedImage img = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+        final Graphics2D gc = img.createGraphics();
+
+        for (final AsciiString string : strings) {
+            string.setAllCharactersToBeRedrawn();
+        }
+
+        draw(gc, asciiFont);
+        gc.dispose();
+
+        return img;
     }
 
     /**
