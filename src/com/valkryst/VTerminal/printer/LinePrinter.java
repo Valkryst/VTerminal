@@ -2,10 +2,15 @@ package com.valkryst.VTerminal.printer;
 
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Screen;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.*;
 
 public class LinePrinter {
+    /** The character to print the ellipse with. */
+    @Getter @Setter private char printChar = '█';
+
     /**
      * Prints a line on the screen of a panel.
      *
@@ -134,7 +139,7 @@ public class LinePrinter {
         int iy = fromY < toY ? 1 : -1;
 
         while (true) {
-            screen.write('█', fromX, fromY);
+            screen.write(printChar, fromX, fromY);
 
             if (dy <= dx) {
                 if (fromX == toX) {
