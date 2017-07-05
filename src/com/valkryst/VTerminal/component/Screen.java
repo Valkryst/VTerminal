@@ -145,7 +145,7 @@ public class Screen extends Component {
      *         The y-axis (row) coordinate to write to.
      */
     public void write(final char character, final int columnIndex, final int rowIndex) {
-        if (isPositionValid(columnIndex, rowIndex) == false) {
+        if (isPositionValid(columnIndex, rowIndex)) {
             strings[rowIndex].setCharacter(columnIndex, character);
         }
     }
@@ -165,7 +165,7 @@ public class Screen extends Component {
      *         The y-axis (row) coordinate to begin writing from.
      */
     public void write(final AsciiString string, final int columnIndex, final int rowIndex) {
-        if (isPositionValid(columnIndex, rowIndex) == false) {
+        if (isPositionValid(columnIndex, rowIndex)) {
             final AsciiCharacter[] characters = string.getCharacters();
 
             for (int i = 0; i < characters.length && i < super.getWidth(); i++) {
