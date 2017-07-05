@@ -165,7 +165,10 @@ public class Screen extends Component {
      *         The y-axis (row) coordinate to begin writing from.
      */
     public void write(final AsciiString string, final int columnIndex, final int rowIndex) {
-        if (isPositionValid(columnIndex, rowIndex)) {
+        boolean canProceed = isPositionValid(columnIndex, rowIndex);
+        canProceed &= string != null;
+
+        if (canProceed) {
             final AsciiCharacter[] characters = string.getCharacters();
 
             for (int i = 0; i < characters.length && i < super.getWidth(); i++) {
