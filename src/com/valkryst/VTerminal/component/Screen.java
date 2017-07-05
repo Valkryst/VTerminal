@@ -65,8 +65,8 @@ public class Screen extends Component {
      * @return
      *         If all characters within the screen were cleared.
      */
-    public boolean clear(final char character) {
-        return clear(character, 0, 0, super.getWidth(), super.getHeight());
+    public void clear(final char character) {
+        clear(character, 0, 0, super.getWidth(), super.getHeight());
     }
 
     /**
@@ -88,11 +88,8 @@ public class Screen extends Component {
      *
      * @param height
      *         The height of the area to clear.
-     *
-     * @return
-     *         If all characters within the specified area were cleared.
      */
-    public boolean clear(final char character, final int columnIndex, final int rowIndex, int width, int height) {
+    public void clear(final char character, final int columnIndex, final int rowIndex, int width, int height) {
         boolean canProceed = isPositionValid(columnIndex, rowIndex);
         canProceed &= width >= 0;
         canProceed &= height >= 0;
@@ -103,12 +100,10 @@ public class Screen extends Component {
 
             for (int column = columnIndex ; column < width ; column++) {
                 for (int row = rowIndex ; row < height ; row++) {
-                    canProceed &= write(character, column, row);
+                    write(character, column, row);
                 }
             }
         }
-
-        return canProceed;
     }
 
     /**
@@ -148,18 +143,11 @@ public class Screen extends Component {
      *
      * @param rowIndex
      *         The y-axis (row) coordinate to write to.
-     *
-     * @return
-     *         If the write was successful.
      */
-    public boolean write(final char character, final int columnIndex, final int rowIndex) {
-        boolean canProceed = isPositionValid(columnIndex, rowIndex);
-
-        if (canProceed) {
+    public void write(final char character, final int columnIndex, final int rowIndex) {
+        if (isPositionValid(columnIndex, rowIndex) == false) {
             strings[rowIndex].setCharacter(columnIndex, character);
         }
-
-        return canProceed;
     }
 
     /**
@@ -175,23 +163,15 @@ public class Screen extends Component {
      *
      * @param rowIndex
      *         The y-axis (row) coordinate to begin writing from.
-     *
-     * @return
-     *         If all writes were successful.
      */
-    public boolean write(final AsciiString string, final int columnIndex, final int rowIndex) {
+    public void write(final AsciiString string, final int columnIndex, final int rowIndex) {
         if (isPositionValid(columnIndex, rowIndex) == false) {
-            return false;
+            final AsciiCharacter[] characters = string.getCharacters();
+
+            for (int i = 0; i < characters.length && i < super.getWidth(); i++) {
+                write(characters[i], columnIndex + i, rowIndex);
+            }
         }
-
-        boolean writesSuccessful = true;
-        final AsciiCharacter[] characters = string.getCharacters();
-
-        for (int i = 0 ; i < characters.length && i < super.getWidth() ; i++) {
-            writesSuccessful &= write(characters[i], columnIndex + i, rowIndex);
-        }
-
-        return writesSuccessful;
     }
 
     /**
