@@ -11,13 +11,28 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 public class ImagePrinter {
+    /** The image to print. */
     private final BufferedImage image;
 
+    /** Whether or not to flip the image horizontally when printing. */
     @Getter @Setter private boolean flipHorizontally = false;
+    /** Whether or not to flip the image vertically when printing. */
     @Getter @Setter private boolean flipVertically = false;
+
+    /** The amount to scale the image by, horizontally, when printing. */
     @Getter private int scaleX = 1;
+    /** The amount to scale the image by, vertically, when printing. */
     @Getter private int scaleY = 1;
 
+    /** The character to print the ellipse with. */
+    @Getter @Setter private char printChar = '█';
+
+    /**
+     * Constructs a new ImagePrinter.
+     *
+     * @param image
+     *         The image to print.
+     */
     public ImagePrinter(final BufferedImage image) {
         if (image == null) {
             throw new IllegalArgumentException("An ImagePrinter requires a non-null image to print.");
@@ -26,16 +41,40 @@ public class ImagePrinter {
         this.image = image;
     }
 
+    /**
+     * Prints an image on the screen of a panel.
+     *
+     * @param panel
+     *         The panel.
+     *
+     * @param columnIndex
+     *         The x-axis (column) coordinate of the top-left character.
+     *
+     * @param rowIndex
+     *         The y-axis (row) coordinate of the top-left character.
+     */
     public void print(final Panel panel, final int columnIndex, final int rowIndex) {
         print(panel.getCurrentScreen(), columnIndex, rowIndex);
     }
 
+    /**
+     * Prints an image on a screen.
+     *
+     * @param screen
+     *         The screen.
+     *
+     * @param columnIndex
+     *         The x-axis (column) coordinate of the top-left character.
+     *
+     * @param rowIndex
+     *         The y-axis (row) coordinate of the top-left character.
+     */
     public void print(final Screen screen, final int columnIndex, final int rowIndex) {
         final BufferedImage temp = applyTransformations();
 
-        for (int y = 0 ; y < temp.getHeight() ; y++) {
-            for (int x = 0 ; x < temp.getWidth() ; x++) {
-                final int hexColor = image.getRGB(x,y);
+        for (int y = 0 ; y < temp.getHeight() && y < screen.getHeight() ; y++) {
+            for (int x = 0 ; x < temp.getWidth() && x < screen.getWidth() ; x++) {
+                final int hexColor = temp.getRGB(x,y);
                 final int red = (hexColor & 0x00ff0000) >> 16;
                 final int green = (hexColor & 0x0000ff00) >> 8;
                 final int blue =  hexColor & 0x000000ff;
@@ -43,13 +82,19 @@ public class ImagePrinter {
                 final int charX = x + columnIndex;
                 final int charY = y + rowIndex;
                 screen.getCharacterAt(charX, charY).ifPresent(asciiCharacter -> {
-                    asciiCharacter.setCharacter('█');
-                    asciiCharacter.setBackgroundColor(new Color(red, green, blue));
+                    asciiCharacter.setCharacter(printChar);
+                    asciiCharacter.setForegroundColor(new Color(red, green, blue));
                 });
             }
         }
     }
 
+    /**
+     * Flips and scales the image.
+     *
+     * @return
+     *         The flipped and scaled image.
+     */
     private BufferedImage applyTransformations() {
         final AffineTransform tx;
 
