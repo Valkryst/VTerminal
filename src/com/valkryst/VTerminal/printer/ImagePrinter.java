@@ -20,7 +20,7 @@ public class ImagePrinter {
     @Getter @Setter private boolean flipVertically = false;
 
     /** The amount to scale the image by, horizontally, when printing. */
-    @Getter private int scaleX = 1;
+    @Getter private int scaleX = 2;
     /** The amount to scale the image by, vertically, when printing. */
     @Getter private int scaleY = 1;
 
