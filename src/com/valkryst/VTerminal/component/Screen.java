@@ -92,11 +92,14 @@ public class Screen extends Component {
      * @return
      *         If all characters within the specified area were cleared.
      */
-    public boolean clear(final char character, final int columnIndex, final int rowIndex, final int width, final int height) {
+    public boolean clear(final char character, final int columnIndex, final int rowIndex, int width, int height) {
         boolean canProceed = isPositionValid(columnIndex, rowIndex);
         canProceed &= isPositionValid(width, height);
 
         if (canProceed) {
+            width += columnIndex + 1;
+            height += rowIndex + 1;
+
             for (int column = columnIndex ; column < width ; column++) {
                 for (int row = rowIndex ; row < height ; row++) {
                     canProceed &= write(character, column, row);
