@@ -10,6 +10,7 @@ public class EllipsePrinter {
     @Getter private int width = 2;
     /** The height of the ellipse to print. */
     @Getter private int height = 2;
+
     /** The character to print the ellipse with. */
     @Getter @Setter private char printChar = '█';
 
