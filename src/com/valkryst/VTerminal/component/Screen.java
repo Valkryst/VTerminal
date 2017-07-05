@@ -94,6 +94,8 @@ public class Screen extends Component {
      */
     public boolean clear(final char character, final int columnIndex, final int rowIndex, int width, int height) {
         boolean canProceed = isPositionValid(columnIndex, rowIndex);
+        canProceed &= width >= 0;
+        canProceed &= height >= 0;
 
         if (canProceed) {
             width += columnIndex;
@@ -126,6 +128,7 @@ public class Screen extends Component {
      */
     public boolean write(final AsciiCharacter character, final int columnIndex, final int rowIndex) {
         boolean canProceed = isPositionValid(columnIndex, rowIndex);
+        canProceed &= character != null;
 
         if (canProceed) {
             strings[rowIndex].setCharacter(columnIndex, character);
