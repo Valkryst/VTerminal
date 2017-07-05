@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Optional;
 
 public class ScreenTest {
@@ -46,6 +47,11 @@ public class ScreenTest {
     @Test(expected=IllegalArgumentException.class)
     public void testConstructor_withNegativeHeight() {
         new Screen(4, 6, 9, -1);
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void testDraw_screen() {
+        screen.draw(screen);
     }
 
     @Test
