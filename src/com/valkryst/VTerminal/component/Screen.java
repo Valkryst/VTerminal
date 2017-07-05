@@ -3,6 +3,7 @@ package com.valkryst.VTerminal.component;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.font.Font;
+import lombok.Getter;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 
 public class Screen extends Component {
     /** The components displayed on the screen. */
-    private final ArrayList<Component> components = new ArrayList<>();
+    @Getter private final ArrayList<Component> components = new ArrayList<>();
 
     /**
      * Constructs a new AsciiScreen.
@@ -271,7 +272,7 @@ public class Screen extends Component {
         }
 
         if (component == this) {
-            throw new IllegalArgumentException("A component cannot be added to itself.");
+            return;
         }
 
         if (components.contains(component)) {
