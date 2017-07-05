@@ -215,6 +215,10 @@ public class Screen extends Component {
      *         The new background color.
      */
     public void setBackgroundColor(final Color color) {
+        if (color == null) {
+            return;
+        }
+
         for (final AsciiString string : strings) {
             string.setBackgroundColor(color);
         }
@@ -227,6 +231,10 @@ public class Screen extends Component {
      *         The new foreground color.
      */
     public void setForegroundColor(final Color color) {
+        if (color == null) {
+            return;
+        }
+
         for (final AsciiString string : strings) {
             string.setForegroundColor(color);
         }
@@ -242,6 +250,10 @@ public class Screen extends Component {
      *         The new foreground color.
      */
     public void setBackgroundAndForegroundColor(final Color background, final Color foreground) {
+        if (background == null || foreground == null) {
+            return;
+        }
+
         for (final AsciiString string : strings) {
             string.setBackgroundAndForegroundColor(background, foreground);
         }
