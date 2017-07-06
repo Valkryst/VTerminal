@@ -48,13 +48,13 @@ public class Screen extends Component {
      *         The font to draw with.
      */
     public void draw(final Graphics2D gc, final Font font) {
+        // Draw components onto the screen:
+        components.forEach(component -> component.draw(this));
+
         // Draw the screen onto the canvas:
         for (int row = 0 ; row < height ; row++) {
             strings[row].draw(gc, font, row);
         }
-
-        // Draw components onto the screen:
-        components.forEach(component -> component.draw(this));
     }
 
     /**
