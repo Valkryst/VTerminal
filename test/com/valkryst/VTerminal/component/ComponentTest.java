@@ -24,8 +24,8 @@ public class ComponentTest {
         // Ensure component's bounding box is at correct position with correct width/height:
         Assert.assertEquals(0, component.getBoundingBox().getLocation().getX(), 0.001);
         Assert.assertEquals(0, component.getBoundingBox().getLocation().getY(), 0.001);
-        Assert.assertEquals(width - 1, component.getBoundingBox().getBounds().getWidth(), 0.001);
-        Assert.assertEquals(height - 1, component.getBoundingBox().getBounds().getHeight(), 0.001);
+        Assert.assertEquals(width, component.getBoundingBox().getBounds().getWidth(), 0.001);
+        Assert.assertEquals(height, component.getBoundingBox().getBounds().getHeight(), 0.001);
 
         // Ensure component has enough strings and that strings are of the correct width:
         Assert.assertEquals(height, component.getStrings().length);
