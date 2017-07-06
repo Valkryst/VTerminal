@@ -16,13 +16,13 @@ the use of any font.
 
 This project is currently under active development and code-breaking changes may be committed as development progresses.
 
-### Jar Files & Maven
+## Jar Files & Maven
 
 To use this project as a Maven dependency, click on the JitPack badge [![Release](https://jitpack.io/v/Valkryst/VTerminal.svg)](https://jitpack.io/#Valkryst/VTerminal), select a version, click the "Get it!" button, and then follow the instructions.
 
 If you would rather use a Jar file, then you can find the Jars on the [releases](https://github.com/Valkryst/VTerminal/releases) page.
 
-### Example Test Code
+## Example Test Code
 
 ```java
 try {
@@ -45,13 +45,13 @@ It's possible for the *draw()* call to execute before the *Panel* shows up on-sc
 
 Making a call to the *draw()* function, after the Panel becomes visible, will properly render the *Panel*'s *Screen*.
 
-### JavaDoc Documentation
+## JavaDoc Documentation
 
 Whenever a Travis CI build passes, the JavaDocs are auto-generated and made available at the following link.
 
 https://valkryst.github.io/VTerminal/
 
-### Fonts
+## Fonts
 VTerminal supports the use of any bitmap font. The  [DejaVu](http://dejavu-fonts.org/wiki/Main_Page) and 
 [GNU FreeFont](https://www.gnu.org/software/freefont/) monospace fonts are supplied with this project in 16pt, 18pt, and 
 20pt sizes.
@@ -88,7 +88,7 @@ To use a different font:
     * You can use [this](https://regex101.com/) site to perform the regex operation.
     * `info.*|common.*|page.*|chars.*|char id=\d\d\d\d\d\d.*|char id=[7-9]\d\d\d\d.*|char id=6[6-9]\d\d\d.*|char id=65[6-9]\d\d.*|char id=655[4-9]\d.*|char id=6553[6-9].*|    xoff.*|char id=|x=|y=|width=|height=`
   
-### Misc
+## Misc
 
 * The use of non-mono-space fonts is not supported, but it not specifically prevented.
 * Ensure the font png image does *not* use a transparent background. Using a transparent background increases redraw times by ~20-30ms.
