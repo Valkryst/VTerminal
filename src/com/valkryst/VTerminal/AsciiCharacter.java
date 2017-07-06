@@ -150,22 +150,24 @@ public class AsciiCharacter {
         byte[] g = new byte[256];
         byte[] b = new byte[256];
 
+        byte bga = (byte) (newBgColor.getAlpha());
         byte bgr = (byte) (newBgColor.getRed());
         byte bgg = (byte) (newBgColor.getGreen());
         byte bgb = (byte) (newBgColor.getBlue());
 
+        byte fga = (byte) (newFgColor.getAlpha());
         byte fgr = (byte) (newFgColor.getRed());
         byte fgg = (byte) (newFgColor.getGreen());
         byte fgb = (byte) (newFgColor.getBlue());
 
         for (int i = 0; i < 256; i++) {
             if (i == 0) {
-                a[i] = (byte) 255;
+                a[i] = bga;
                 r[i] = bgr;
                 g[i] = bgg;
                 b[i] = bgb;
             } else {
-                a[i] = (byte) 255;
+                a[i] = fga;
                 r[i] = fgr;
                 g[i] = fgg;
                 b[i] = fgb;
