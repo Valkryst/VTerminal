@@ -53,15 +53,8 @@ public class Screen extends Component {
             strings[row].draw(gc, font, row);
         }
 
-
         // Draw components onto the screen:
-        components.forEach(component -> {
-            if (component instanceof Screen) {
-                ((Screen) component).draw(gc, font);
-            } else {
-                component.draw(this);
-            }
-        });
+        components.forEach(component -> component.draw(this));
     }
 
     /**
@@ -282,6 +275,10 @@ public class Screen extends Component {
             return;
         }
 
+        if (component instanceof Screen) {
+            return;
+        }
+
         if (components.contains(component)) {
             return;
         }
@@ -301,6 +298,10 @@ public class Screen extends Component {
         }
 
         if (component == this) {
+            return;
+        }
+
+        if (component instanceof Screen) {
             return;
         }
 
