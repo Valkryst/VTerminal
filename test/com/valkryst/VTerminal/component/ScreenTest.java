@@ -346,10 +346,10 @@ public class ScreenTest {
 
     @Test
     public void testAddComponent_withValidComponent() {
-        final Screen otherScreen = new Screen(0, 0, 2, 2);
-        screen.addComponent(otherScreen);
+        final Layer otherComponent = new Layer(0, 0, 2, 2);
+        screen.addComponent(otherComponent);
 
-        Assert.assertTrue(screen.getComponents().contains(otherScreen));
+        Assert.assertTrue(screen.getComponents().contains(otherComponent));
     }
 
     @Test
@@ -366,50 +366,50 @@ public class ScreenTest {
 
     @Test
     public void testAddComponent_addSameComponentTwice() {
-        final Screen otherScreen = new Screen(0, 0, 2, 2);
-        screen.addComponent(otherScreen);
-        screen.addComponent(otherScreen);
+        final Layer otherComponent = new Layer(0, 0, 2, 2);
+        screen.addComponent(otherComponent);
+        screen.addComponent(otherComponent);
 
-        Assert.assertTrue(screen.getComponents().contains(otherScreen));
+        Assert.assertTrue(screen.getComponents().contains(otherComponent));
         Assert.assertEquals(1, screen.getComponents().size());
     }
 
     @Test
     public void testRemoveComponent_withValidComponent() {
-        final Screen otherScreen = new Screen(0, 0, 2, 2);
+        final Layer otherComponent = new Layer(0, 0, 2, 2);
 
-        screen.addComponent(otherScreen);
-        Assert.assertTrue(screen.getComponents().contains(otherScreen));
+        screen.addComponent(otherComponent);
+        Assert.assertTrue(screen.getComponents().contains(otherComponent));
         Assert.assertEquals(1, screen.getComponents().size());
 
-        screen.removeComponent(otherScreen);
-        Assert.assertFalse(screen.getComponents().contains(otherScreen));
+        screen.removeComponent(otherComponent);
+        Assert.assertFalse(screen.getComponents().contains(otherComponent));
         Assert.assertEquals(0, screen.getComponents().size());
     }
 
     @Test
     public void testRemoveComponent_withNullComponent() {
-        final Screen otherScreen = new Screen(0, 0, 2, 2);
+        final Layer otherComponent = new Layer(0, 0, 2, 2);
 
-        screen.addComponent(otherScreen);
-        Assert.assertTrue(screen.getComponents().contains(otherScreen));
+        screen.addComponent(otherComponent);
+        Assert.assertTrue(screen.getComponents().contains(otherComponent));
         Assert.assertEquals(1, screen.getComponents().size());
 
         screen.removeComponent(null);
-        Assert.assertTrue(screen.getComponents().contains(otherScreen));
+        Assert.assertTrue(screen.getComponents().contains(otherComponent));
         Assert.assertEquals(1, screen.getComponents().size());
     }
 
     @Test
     public void testRemoveComponent_withSelf() {
-        final Screen otherScreen = new Screen(0, 0, 2, 2);
+        final Layer otherComponent = new Layer(0, 0, 2, 2);
 
-        screen.addComponent(otherScreen);
-        Assert.assertTrue(screen.getComponents().contains(otherScreen));
+        screen.addComponent(otherComponent);
+        Assert.assertTrue(screen.getComponents().contains(otherComponent));
         Assert.assertEquals(1, screen.getComponents().size());
 
         screen.removeComponent(screen);
-        Assert.assertTrue(screen.getComponents().contains(otherScreen));
+        Assert.assertTrue(screen.getComponents().contains(otherComponent));
         Assert.assertEquals(1, screen.getComponents().size());
     }
 }
