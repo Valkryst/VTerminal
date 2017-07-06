@@ -67,7 +67,7 @@
             <version>1.16.16</version>
         </dependency>
         <dependency>
-            <groupId>com.valkryst</groupId>
+            <groupId>com.github.Valkryst</groupId>
             <artifactId>VRadio</artifactId>
             <version>1.0.0</version>
         </dependency>
