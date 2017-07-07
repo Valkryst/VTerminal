@@ -10,6 +10,7 @@ import lombok.Getter;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Arrays;
 import java.util.Optional;
 
 public class Component {
@@ -19,9 +20,9 @@ public class Component {
     @Getter private int rowIndex;
 
     /** The width, in characters. */
-    @Getter protected int width;
+    @Getter private int width;
     /** The height, in characters. */
-    @Getter protected int height;
+    @Getter private int height;
 
     /** Whether or not the component is currently the target of the user's input. */
     @Getter private boolean isFocused = false;
@@ -30,9 +31,9 @@ public class Component {
     @Getter private Rectangle boundingBox = new Rectangle();
 
     /** The strings representing the character-rows of the component. */
-    @Getter protected AsciiString[] strings;
+    @Getter private AsciiString[] strings;
 
-    @Getter protected Radio<String> radio;
+    @Getter private Radio<String> radio;
 
     /**
      * Constructs a new AsciiComponent.
@@ -79,6 +80,49 @@ public class Component {
         for (int row = 0 ; row < height ; row++) {
             strings[row] = new AsciiString(width);
         }
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (other instanceof Component == false) {
+            return false;
+        }
+
+        // Left out a check for isFocused since two components could be
+        // virtually identical other than their focus.
+        final Component otherComp = (Component) other;
+        boolean isEqual = columnIndex == otherComp.getColumnIndex();
+        isEqual &= rowIndex == otherComp.getRowIndex();
+        isEqual &= width == otherComp.getWidth();
+        isEqual &= height == otherComp.getHeight();
+        isEqual &= boundingBox.equals(otherComp.getBoundingBox());
+        isEqual &= Arrays.equals(strings, otherComp.getStrings());
+        isEqual &= radio.equals(otherComp.getRadio());
+        return isEqual;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("Component:");
+        sb.append("\n\tColumn Index:\t").append(columnIndex);
+        sb.append("\n\tRow Index:\t").append(rowIndex);
+        sb.append("\n\tWidth:\t").append(width);
+        sb.append("\n\tHeight:\t").append(height);
+        sb.append("\n\tIs Focused:\t").append(isFocused);
+        sb.append("\n\tBounding Box:\t" + boundingBox);
+        sb.append("\n\tStrings:\n");
+
+        for (final AsciiString string : strings) {
+            for (final AsciiCharacter character : string.getCharacters()) {
+                sb.append(character.getCharacter());
+            }
+            sb.append("\n\t\t");
+        }
+
+        sb.append("\n\tRadio:\t" + radio);
+
+        return sb.toString();
     }
 
     /**
