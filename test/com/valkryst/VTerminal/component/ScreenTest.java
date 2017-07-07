@@ -381,6 +381,15 @@ public class ScreenTest {
     }
 
     @Test
+    public void testAddComponent_withScreenContainingMainScreen() {
+        final Screen otherComponent = new Screen(0, 0, 2, 2);
+        otherComponent.addComponent(screen);
+        screen.addComponent(otherComponent);
+
+        Assert.assertFalse(screen.containsComponent(otherComponent));
+    }
+
+    @Test
     public void testAddComponent_addSameComponentTwice() {
         final Layer otherComponent = new Layer(0, 0, 2, 2);
         screen.addComponent(otherComponent);
@@ -490,5 +499,47 @@ public class ScreenTest {
     @Test
     public void testContainsComponent_withSelf() {
         Assert.assertFalse(screen.containsComponent(screen));
+    }
+
+    @Test
+    public void testRecursiveContainsComponent_withNullComponent() {
+        Assert.assertFalse(screen.recursiveContainsComponent(null));
+    }
+
+    @Test
+    public void testRecursiveContainsComponent_withSelf() {
+        Assert.assertFalse(screen.recursiveContainsComponent(screen));
+    }
+
+    @Test
+    public void testRecursiveContainsComponent_whereSelfContainsComponent() {
+        final Component otherComponent = new Component(0, 0, 2, 2);
+        screen.addComponent(otherComponent);
+        Assert.assertTrue(screen.recursiveContainsComponent(otherComponent));
+    }
+
+    @Test
+    public void testRecursiveContainsComponent_whereOtherComponentIsScreenThatContainsCallingScreen() {
+        final Screen otherComponent = new Screen(0, 0, 2, 2);
+        otherComponent.addComponent(screen);
+        screen.addComponent(otherComponent);
+        Assert.assertTrue(screen.recursiveContainsComponent(otherComponent));
+    }
+
+    @Test
+    public void testRecursiveContainsComponent_whereSubscreenContainsComponent() {
+        final Component otherComponent = new Component(0, 0, 2, 2);
+        final Screen otherScreen = new Screen(0, 0, 2, 2);
+        otherScreen.addComponent(otherComponent);
+
+        screen.addComponent(otherScreen);
+
+        Assert.assertTrue(screen.recursiveContainsComponent(otherComponent));
+    }
+
+    @Test
+    public void testRecursiveContainsComponent_withNonContainedComponent() {
+        final Component otherComponent = new Component(0, 0, 2, 2);
+        Assert.assertFalse(screen.recursiveContainsComponent(otherComponent));
     }
 }
