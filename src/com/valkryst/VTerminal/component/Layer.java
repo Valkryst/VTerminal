@@ -3,6 +3,7 @@ package com.valkryst.VTerminal.component;
 import com.valkryst.VTerminal.font.Font;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Layer extends Component {
     /**
@@ -39,9 +40,19 @@ public class Layer extends Component {
      *         The font to draw with.
      */
     public void draw(final Graphics2D gc, final Font font) {
-        // Draw the screen onto the canvas:
+        final int iWidth = width * font.getWidth();
+        final int iHeight = height * font.getHeight();
+        final BufferedImage image = new BufferedImage(iWidth, iHeight, BufferedImage.TYPE_INT_ARGB);
+
+        // Draw the layer onto the image:
         for (int row = 0 ; row < height ; row++) {
-            strings[row].draw(gc, font, row);
+            strings[row].draw((Graphics2D) image.getGraphics(), font, row);
         }
+
+        // Draw the image onto the canvas:
+        final int xPos = super.getColumnIndex() * font.getWidth();
+        final int yPos = super.getRowIndex() * font.getHeight();
+
+        gc.drawImage(image, xPos, yPos, null);
     }
 }
