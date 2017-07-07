@@ -56,12 +56,13 @@ public class Screen extends Component {
         // Draw non-layer components onto the screen:
         components.forEach(component -> component.draw(this));
 
-        // Draw layer components onto the screen:
-
         // Draw the screen onto the canvas:
         for (int row = 0 ; row < height ; row++) {
             strings[row].draw(gc, font, row);
         }
+
+        // Draw layer components onto the screen:
+        layerComponents.forEach(layer -> layer.draw(gc, font));
     }
 
     /**
