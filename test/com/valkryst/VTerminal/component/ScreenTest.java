@@ -542,4 +542,13 @@ public class ScreenTest {
         final Component otherComponent = new Component(0, 0, 2, 2);
         Assert.assertFalse(screen.recursiveContainsComponent(otherComponent));
     }
+
+    @Test
+    public void testTotalComponents() {
+        for (int i = 1 ; i < 10 ; i++) {
+            final Component component = new Component(0, 0, 2, 2);
+            screen.addComponent(component);
+            Assert.assertEquals(i, screen.totalComponents());
+        }
+    }
 }
