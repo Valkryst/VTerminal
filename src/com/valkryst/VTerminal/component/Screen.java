@@ -66,6 +66,9 @@ public class Screen extends Component {
 
         // Draw layer components onto the screen:
         layerComponents.forEach(layer -> layer.draw(gc, font));
+
+        // Draw screen components onto the screen:
+        screenComponents.forEach(screen -> screen.draw(gc, font));
     }
 
     /**
@@ -272,7 +275,7 @@ public class Screen extends Component {
     }
 
     /**
-     * Adds a component to the AsciiScreen.
+     * Adds a component to the screen.
      *
      * @param component
      *          The component.
@@ -289,14 +292,19 @@ public class Screen extends Component {
         if (component instanceof Layer) {
             layerComponents.add((Layer) component);
         } else if (component instanceof  Screen) {
-            screenComponents.add((Screen) component);
+            // Prevent an endless draw-loop by ensuring that
+            // a screen cannot be added if it's contained
+            // within any of this screen's sub-screens.
+            if (recursiveContainsComponent(component) == false) {
+                screenComponents.add((Screen) component);
+            }
         } else {
             components.add(component);
         }
     }
 
     /**
-     * Removes a component from the AsciiScreen.
+     * Removes a component from the screen.
      *
      * @param component
      *          The component.
@@ -317,5 +325,56 @@ public class Screen extends Component {
         } else{
             components.remove(component);
         }
+    }
+
+    /**
+     * Determines whether or not the screen contains a specific
+     * component.
+     *
+     * @param component
+     *        The component.
+     *
+     * @return
+     *        Whether or not the screen contains the component.
+     */
+    public boolean containsComponent(final Component component) {
+        if (components.contains(component)) {
+            return true;
+        }
+
+        if (layerComponents.contains(component)) {
+            return true;
+        }
+
+        if (screenComponents.contains(component)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Determines whether or not the screen, or any sub-screen of
+     * the screen, contains a specific component.
+     *
+     * @param component
+     *        The component.
+     *
+     * @return
+     *        Whether or not the component is contained within the
+     *        screen or any sub-screen.
+     */
+    public boolean recursiveContainsComponent(final Component component) {
+        if (containsComponent(component)) {
+            return true;
+        }
+
+        for (final Screen screen : screenComponents) {
+            if (screen.containsComponent(component)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
