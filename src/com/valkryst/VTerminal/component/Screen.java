@@ -286,12 +286,10 @@ public class Screen extends Component {
             return;
         }
 
-        if (component instanceof Screen) {
-            return;
-        }
-
         if (component instanceof Layer) {
             layerComponents.add((Layer) component);
+        } else if (component instanceof  Screen) {
+            screenComponents.add((Screen) component);
         } else {
             components.add(component);
         }
@@ -312,13 +310,11 @@ public class Screen extends Component {
             return;
         }
 
-        if (component instanceof Screen) {
-            return;
-        }
-
         if (component instanceof Layer) {
             layerComponents.remove(component);
-        } else {
+        } else if (component instanceof  Screen) {
+            screenComponents.remove(component);
+        } else{
             components.remove(component);
         }
     }
