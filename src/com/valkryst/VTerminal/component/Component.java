@@ -90,6 +90,7 @@ public class Component {
 
         // Left out a check for isFocused since two components could be
         // virtually identical other than their focus.
+        // Left out a check for radio.
         final Component otherComp = (Component) other;
         boolean isEqual = columnIndex == otherComp.getColumnIndex();
         isEqual &= rowIndex == otherComp.getRowIndex();
@@ -97,7 +98,7 @@ public class Component {
         isEqual &= height == otherComp.getHeight();
         isEqual &= boundingBox.equals(otherComp.getBoundingBox());
         isEqual &= Arrays.equals(strings, otherComp.getStrings());
-        isEqual &= radio.equals(otherComp.getRadio());
+
         return isEqual;
     }
 
