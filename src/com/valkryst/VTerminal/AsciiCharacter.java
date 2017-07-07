@@ -145,20 +145,20 @@ public class AsciiCharacter {
     }
 
     private LookupOp createColorReplacementLookupOp(final Color newBgColor, final Color newFgColor) {
-        byte[] a = new byte[256];
-        byte[] r = new byte[256];
-        byte[] g = new byte[256];
-        byte[] b = new byte[256];
+        short[] a = new short[256];
+        short[] r = new short[256];
+        short[] g = new short[256];
+        short[] b = new short[256];
 
-        byte bga = (byte) (newBgColor.getAlpha());
-        byte bgr = (byte) (newBgColor.getRed());
-        byte bgg = (byte) (newBgColor.getGreen());
-        byte bgb = (byte) (newBgColor.getBlue());
+        short bga = (byte) (newBgColor.getAlpha());
+        short bgr = (byte) (newBgColor.getRed());
+        short bgg = (byte) (newBgColor.getGreen());
+        short bgb = (byte) (newBgColor.getBlue());
 
-        byte fga = (byte) (newFgColor.getAlpha());
-        byte fgr = (byte) (newFgColor.getRed());
-        byte fgg = (byte) (newFgColor.getGreen());
-        byte fgb = (byte) (newFgColor.getBlue());
+        short fga = (byte) (newFgColor.getAlpha());
+        short fgr = (byte) (newFgColor.getRed());
+        short fgg = (byte) (newFgColor.getGreen());
+        short fgb = (byte) (newFgColor.getBlue());
 
         for (int i = 0; i < 256; i++) {
             if (i == 0) {
@@ -174,8 +174,8 @@ public class AsciiCharacter {
             }
         }
 
-        byte[][] table = {r, g, b, a};
-        return new LookupOp(new ByteLookupTable(0, table), null);
+        short[][] table = {r, g, b, a};
+        return new LookupOp(new ShortLookupTable(0, table), null);
     }
 
     /**
