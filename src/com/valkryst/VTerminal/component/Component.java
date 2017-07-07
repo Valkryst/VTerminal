@@ -302,6 +302,12 @@ public class Component {
         }
     }
 
+    public void setAllCharactersToBeRedrawn() {
+        for (final AsciiString string : strings) {
+            string.setAllCharactersToBeRedrawn();
+        }
+    }
+
     /**
      * Retrieves the AsciiCharacter at a specific location.
      *
@@ -338,6 +344,7 @@ public class Component {
         if (columnIndex >= 0) {
             this.columnIndex = columnIndex;
             boundingBox.setLocation(columnIndex, rowIndex);
+            setAllCharactersToBeRedrawn();
         }
     }
 
@@ -356,6 +363,7 @@ public class Component {
         if (rowIndex >= 0) {
             this.rowIndex = rowIndex;
             boundingBox.setLocation(columnIndex, rowIndex);
+            setAllCharactersToBeRedrawn();
         }
     }
 
@@ -377,6 +385,7 @@ public class Component {
 
         this.width = width;
         boundingBox.setSize(width, height);
+        setAllCharactersToBeRedrawn();
     }
 
     /**
@@ -397,6 +406,7 @@ public class Component {
 
         this.height = height;
         boundingBox.setSize(width, height);
+        setAllCharactersToBeRedrawn();
     }
 
     /**
