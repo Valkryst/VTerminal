@@ -346,15 +346,19 @@ public class Screen extends Component {
             return false;
         }
 
+        if (component instanceof Layer) {
+            if (layerComponents.contains(component)) {
+                return true;
+            }
+        }
+
+        if (component instanceof Screen) {
+            if (screenComponents.contains(component)) {
+                return true;
+            }
+        }
+
         if (components.contains(component)) {
-            return true;
-        }
-
-        if (layerComponents.contains(component)) {
-            return true;
-        }
-
-        if (screenComponents.contains(component)) {
             return true;
         }
 
