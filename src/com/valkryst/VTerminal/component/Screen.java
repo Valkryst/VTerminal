@@ -60,8 +60,8 @@ public class Screen extends Component {
         components.forEach(component -> component.draw(this));
 
         // Draw the screen onto the canvas:
-        for (int row = 0 ; row < height ; row++) {
-            strings[row].draw(gc, font, row);
+        for (int row = 0 ; row < getHeight() ; row++) {
+            getStrings()[row].draw(gc, font, row);
         }
 
         // Draw layer components onto the screen:
@@ -141,7 +141,7 @@ public class Screen extends Component {
         canProceed &= character != null;
 
         if (canProceed) {
-            strings[rowIndex].setCharacter(columnIndex, character);
+            getStrings()[rowIndex].setCharacter(columnIndex, character);
         }
 
         return canProceed;
@@ -161,7 +161,7 @@ public class Screen extends Component {
      */
     public void write(final char character, final int columnIndex, final int rowIndex) {
         if (isPositionValid(columnIndex, rowIndex)) {
-            strings[rowIndex].setCharacter(columnIndex, character);
+            getStrings()[rowIndex].setCharacter(columnIndex, character);
         }
     }
 
@@ -213,7 +213,7 @@ public class Screen extends Component {
         final BufferedImage img = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
         final Graphics2D gc = img.createGraphics();
 
-        for (final AsciiString string : strings) {
+        for (final AsciiString string : getStrings()) {
             string.setAllCharactersToBeRedrawn();
         }
 
@@ -234,7 +234,7 @@ public class Screen extends Component {
             return;
         }
 
-        for (final AsciiString string : strings) {
+        for (final AsciiString string : getStrings()) {
             string.setBackgroundColor(color);
         }
     }
@@ -250,7 +250,7 @@ public class Screen extends Component {
             return;
         }
 
-        for (final AsciiString string : strings) {
+        for (final AsciiString string : getStrings()) {
             string.setForegroundColor(color);
         }
     }
@@ -269,7 +269,7 @@ public class Screen extends Component {
             return;
         }
 
-        for (final AsciiString string : strings) {
+        for (final AsciiString string : getStrings()) {
             string.setBackgroundAndForegroundColor(background, foreground);
         }
     }
