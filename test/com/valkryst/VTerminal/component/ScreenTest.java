@@ -454,4 +454,41 @@ public class ScreenTest {
         Assert.assertTrue(screen.containsComponent(otherComponent));
         Assert.assertEquals(1, screen.totalComponents());
     }
+
+    @Test
+    public void testContainsComponent_withLayer() {
+        final Layer otherComponent = new Layer(0, 0, 2, 2);
+        screen.addComponent(otherComponent);
+        Assert.assertTrue(screen.containsComponent(otherComponent));
+    }
+
+    @Test
+    public void testContainsComponent_withScreen() {
+        final Screen otherComponent = new Screen(0, 0, 2, 2);
+        screen.addComponent(otherComponent);
+        Assert.assertTrue(screen.containsComponent(otherComponent));
+    }
+
+    @Test
+    public void testContainsComponent_withComponent() {
+        final Component otherComponent = new Component(0, 0, 2, 2);
+        screen.addComponent(otherComponent);
+        Assert.assertTrue(screen.containsComponent(otherComponent));
+    }
+
+    @Test
+    public void testContainsComponent_withComponentThatIsntContained() {
+        final Layer otherComponent = new Layer(0, 0, 2, 2);
+        Assert.assertFalse(screen.containsComponent(otherComponent));
+    }
+
+    @Test
+    public void testContainsComponent_withNullComponent() {
+        Assert.assertFalse(screen.containsComponent(null));
+    }
+
+    @Test
+    public void testContainsComponent_withSelf() {
+        Assert.assertFalse(screen.containsComponent(screen));
+    }
 }
