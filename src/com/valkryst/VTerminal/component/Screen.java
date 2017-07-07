@@ -14,13 +14,13 @@ import java.util.Set;
 
 public class Screen extends Component {
     /** The non-layer components displayed on the screen. */
-    @Getter private final Set<Component> components = new HashSet<>();
+    private final Set<Component> components = new HashSet<>();
 
     /** The layer components displayed on the screen. */
-    @Getter private final Set<Layer> layerComponents = new HashSet<>();
+    private final Set<Layer> layerComponents = new HashSet<>();
 
     /** The screen components displayed on the screen. */
-    @Getter private final Set<Screen> screenComponents = new HashSet<>();
+    private final Set<Screen> screenComponents = new HashSet<>();
 
     /**
      * Constructs a new AsciiScreen.
@@ -376,5 +376,19 @@ public class Screen extends Component {
         }
 
         return false;
+    }
+
+    /**
+     * Determines the total number of components.
+     *
+     * @return
+     *        The total number of components.
+     */
+    public int totalComponents() {
+        int sum = components.size();
+        sum += layerComponents.size();
+        sum += screenComponents.size();
+
+        return sum;
     }
 }
