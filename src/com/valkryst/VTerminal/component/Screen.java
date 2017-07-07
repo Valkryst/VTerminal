@@ -8,11 +8,16 @@ import lombok.Getter;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class Screen extends Component {
-    /** The components displayed on the screen. */
-    @Getter private final ArrayList<Component> components = new ArrayList<>();
+    /** The non-layer components displayed on the screen. */
+    @Getter private final Set<Component> components = new HashSet<>();
+
+    /** The layer components displayed on the screen. */
+    @Getter private final Set<Layer> layerComponents = new HashSet<>();
 
     /**
      * Constructs a new AsciiScreen.
@@ -48,8 +53,10 @@ public class Screen extends Component {
      *         The font to draw with.
      */
     public void draw(final Graphics2D gc, final Font font) {
-        // Draw components onto the screen:
+        // Draw non-layer components onto the screen:
         components.forEach(component -> component.draw(this));
+
+        // Draw layer components onto the screen:
 
         // Draw the screen onto the canvas:
         for (int row = 0 ; row < height ; row++) {
@@ -279,11 +286,11 @@ public class Screen extends Component {
             return;
         }
 
-        if (components.contains(component)) {
-            return;
+        if (component instanceof Layer) {
+            layerComponents.add((Layer) component);
+        } else {
+            components.add(component);
         }
-
-        components.add(component);
     }
 
     /**
@@ -305,6 +312,10 @@ public class Screen extends Component {
             return;
         }
 
-        components.remove(component);
+        if (component instanceof Layer) {
+            layerComponents.remove(component);
+        } else {
+            components.remove(component);
+        }
     }
 }
