@@ -93,3 +93,10 @@ To use a different font:
 * The use of non-mono-space fonts is not supported, but it not specifically prevented.
 * Ensure the font png image does *not* use a transparent background. Using a transparent background increases redraw times by ~20-30ms.
 * Ensure the font png image uses black for the background and white for the foreground. An optimization in the AsciiCharacter's draw method requires this and the program may break otherwise.
+
+### Screen Draw Process
+
+1. All components are drawn onto the Screen.
+2. The Screen is drawn onto the Panel.
+3. The Layers are drawn on top of the Screen on the Panel.
+4. The Sub-Screens are drawn on top of the Screen/Layers on the Panel.
