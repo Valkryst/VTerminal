@@ -40,13 +40,13 @@ public class Layer extends Component {
      *         The font to draw with.
      */
     public void draw(final Graphics2D gc, final Font font) {
-        final int iWidth = width * font.getWidth();
-        final int iHeight = height * font.getHeight();
+        final int iWidth = getWidth() * font.getWidth();
+        final int iHeight = getHeight() * font.getHeight();
         final BufferedImage image = new BufferedImage(iWidth, iHeight, BufferedImage.TYPE_INT_ARGB);
 
         // Draw the layer onto the image:
-        for (int row = 0 ; row < height ; row++) {
-            strings[row].draw((Graphics2D) image.getGraphics(), font, row);
+        for (int row = 0 ; row < getHeight() ; row++) {
+            getStrings()[row].draw((Graphics2D) image.getGraphics(), font, row);
         }
 
         // Draw the image onto the canvas:
