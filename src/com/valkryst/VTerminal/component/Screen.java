@@ -338,6 +338,14 @@ public class Screen extends Component {
      *        Whether or not the screen contains the component.
      */
     public boolean containsComponent(final Component component) {
+        if (component == null) {
+            return false;
+        }
+
+        if (component == this) {
+            return false;
+        }
+
         if (components.contains(component)) {
             return true;
         }
@@ -365,6 +373,14 @@ public class Screen extends Component {
      *        screen or any sub-screen.
      */
     public boolean recursiveContainsComponent(final Component component) {
+        if (component == null) {
+            return false;
+        }
+
+        if (component == this) {
+            return false;
+        }
+
         if (containsComponent(component)) {
             return true;
         }
