@@ -74,7 +74,7 @@ public class Button extends Component {
         // Set the button's text:
         final char[] text = builder.getText().toCharArray();
 
-        final AsciiCharacter[] characters = super.strings[0].getCharacters();
+        final AsciiCharacter[] characters = getStrings()[0].getCharacters();
         characters[0].setCharacter(startingCharacter);
         characters[characters.length - 1].setCharacter(endingCharacter);
 
@@ -205,7 +205,7 @@ public class Button extends Component {
      *         The new foreground color.
      */
     private void setColors(final Color backgroundColor, final Color foregroundColor) {
-        for (final AsciiString s : super.strings) {
+        for (final AsciiString s : getStrings()) {
             s.setBackgroundAndForegroundColor(backgroundColor, foregroundColor);
         }
     }
@@ -218,19 +218,19 @@ public class Button extends Component {
      */
     public void enableBlinkEffect(final short millsBetweenBlinks) {
         final int beginIndex = 1;
-        final int endIndex = super.strings[0].getCharacters().length - 1;
+        final int endIndex = getStrings()[0].getCharacters().length - 1;
         final IntRange range = new IntRange(beginIndex, endIndex);
 
-        super.strings[0].enableBlinkEffect(millsBetweenBlinks, super.radio, range);
+        getStrings()[0].enableBlinkEffect(millsBetweenBlinks, getRadio(), range);
     }
 
     /** Disables the blink effect on the button's text, but not on the starting and ending characters. */
     public void disableBlinkEffect() {
         final int beginIndex = 1;
-        final int endIndex = super.strings[0].getCharacters().length - 1;
+        final int endIndex = getStrings()[0].getCharacters().length - 1;
         final IntRange range = new IntRange(beginIndex, endIndex);
 
-        super.strings[0].disableBlinkEffect(range);
+        getStrings()[0].disableBlinkEffect(range);
     }
 
     /**
@@ -242,7 +242,7 @@ public class Button extends Component {
     public void setStartingCharacter(final char startingCharacter) {
         this.startingCharacter = startingCharacter;
 
-        super.strings[0].getCharacters()[0].setCharacter(startingCharacter);
+        getStrings()[0].getCharacters()[0].setCharacter(startingCharacter);
     }
 
     /**
@@ -254,8 +254,8 @@ public class Button extends Component {
     public void setEndingCharacter(final char endingCharacter) {
         this.endingCharacter = endingCharacter;
 
-        final AsciiCharacter[] characters = super.strings[0].getCharacters();
-        super.strings[0].setCharacter(characters.length - 1, endingCharacter);
+        final AsciiCharacter[] characters = getStrings()[0].getCharacters();
+        getStrings()[0].setCharacter(characters.length - 1, endingCharacter);
     }
 
     /**
