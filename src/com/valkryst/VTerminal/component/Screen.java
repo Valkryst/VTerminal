@@ -19,6 +19,9 @@ public class Screen extends Component {
     /** The layer components displayed on the screen. */
     @Getter private final Set<Layer> layerComponents = new HashSet<>();
 
+    /** The screen components displayed on the screen. */
+    @Getter private final Set<Screen> screenComponents = new HashSet<>();
+
     /**
      * Constructs a new AsciiScreen.
      *
