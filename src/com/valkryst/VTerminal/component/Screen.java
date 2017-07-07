@@ -389,6 +389,12 @@ public class Screen extends Component {
             return true;
         }
 
+        if (component instanceof Screen) {
+            if (((Screen) component).containsComponent(this)) {
+                return true;
+            }
+        }
+
         for (final Screen screen : screenComponents) {
             if (screen.containsComponent(component)) {
                 return true;
