@@ -12,6 +12,9 @@ import java.awt.image.*;
 
 
 public class AsciiCharacter {
+    /** The transparent color. */
+    public final static Color TRANSPARENT_COLOR = new Color(0, 0, 0, 0);
+
     /** The character. */
 	@Getter @Setter private char character;
 	/** Whether or not the foreground should be drawn using the background color. */
@@ -94,7 +97,7 @@ public class AsciiCharacter {
      *         The y-axis (row) coordinate where the character is to be drawn.
      */
     public void draw(final Graphics2D gc, final Font font, int columnIndex, int rowIndex) {
-        BufferedImage bufferedImage = font.getCharacterImages().get(character);
+        BufferedImage bufferedImage = font.getCharacterImage(character, backgroundColor != TRANSPARENT_COLOR);
 
         // Handle Horizontal/Vertical Flipping:
         if (isFlippedHorizontally || isFlippedVertically) {
@@ -118,7 +121,7 @@ public class AsciiCharacter {
         // Retrieve character image & set colors:
         Image image = bufferedImage;
 
-        if (backgroundColor != Color.BLACK || foregroundColor != Color.WHITE) {
+        if (backgroundColor != TRANSPARENT_COLOR && (foregroundColor != Color.WHITE || backgroundColor != Color.BLACK)) {
             final BufferedImageOp op = createColorReplacementLookupOp(backgroundColor, foregroundColor);
             image = op.filter(bufferedImage, null);
         }
