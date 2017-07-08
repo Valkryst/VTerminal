@@ -4,14 +4,13 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
-import java.util.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class FontLoader {
     /**
@@ -166,8 +165,17 @@ public class FontLoader {
      *         If an IOException occurs while loading the character data.
      */
     private static List<String> loadCharacterData(final InputStream inputStream) throws IOException {
+        // Load lines
         final InputStreamReader isr = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
         final BufferedReader br = new BufferedReader(isr);
-        return br.lines().collect(Collectors.toList());
+        List<String> lines = br.lines().collect(Collectors.toList());
+
+        // Remove unnecessary data:
+        final Pattern pattern = Pattern.compile("info.*|common.*|page.*|chars.*|char id=\\d\\d\\d\\d\\d\\d.*|char id=[7-9]\\d\\d\\d\\d.*|char id=6[6-9]\\d\\d\\d.*|char id=65[6-9]\\d\\d.*|char id=655[4-9]\\d.*|char id=6553[6-9].*| xoff.*|char id=|x=|y=|width=|height=");
+        lines.replaceAll(string -> pattern.matcher(string).replaceAll(""));
+        lines.removeIf(String::isEmpty);
+
+        System.out.println(lines);
+        return lines;
     }
 }
