@@ -73,7 +73,6 @@ public class Panel extends Canvas implements Receiver<String> {
 
         // If alpha is used in the character images, we want computations related to drawing them to be fast.
         gc.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
-        gc.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
 
         currentScreen.draw(gc, asciiFont);
 
