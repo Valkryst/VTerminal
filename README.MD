@@ -59,40 +59,39 @@ VTerminal supports the use of any bitmap font. The  [DejaVu](http://dejavu-fonts
 To use a different font:
 
 * Download and install [BMFont](http://www.angelcode.com/products/bmfont/).
-* Under *Options->Font Settings*:
+* Under *Options->Font Settings*
     * Font: Specify whichever font you want to use.
     * Charset: Unicode
     * Size (px): Set this to whichever size you desire.
     * Match char height: Enabled
     * Height %: 100
+    * Enable Bold and/or Italic if you want to.
     * Output invalid char glyph: Enabled
     * Do not include kerning pairs: Enabled
     * Render from TrueType outline: Enabled
     * TrueType hinting: Enabled
     * Font smoothing: Disabled
     * Super sampling: Disabled
-* On the right-hand size of the screen, check every box.
-* Under *Options->Export Options*:
+    * Outline Thickness: 0
+* On the right-hand size of the screen, check every box. They should all be solid green.
+* Under *Options->Export Options*
     * All padding/spacing settings must be set to zero.
     * Force offsets to zero: Enabled
     * Width: 2048
         * This may need to be adjusted based on the font size that you choose.
     * Height: 1024
         * This may need to be adjusted based on the font size that you choose.
-    * Bit depth: 8
-    * A: glyph
+    * Bit depth: 32
+    * Ignore the ARGB fields and their Invert checkboxes.
+    * Preset: White text with alpha
     * Font descriptor: Text
     * Textures: png
-* Do *Options->Save bitmap font as...* and save your font. This will generate a png and txt file.
-* Run the following regex on the text file, then remove any blank lines.
-    * You can use [this](https://regex101.com/) site to perform the regex operation.
-    * `info.*|common.*|page.*|chars.*|char id=\d\d\d\d\d\d.*|char id=[7-9]\d\d\d\d.*|char id=6[6-9]\d\d\d.*|char id=65[6-9]\d\d.*|char id=655[4-9]\d.*|char id=6553[6-9].*|    xoff.*|char id=|x=|y=|width=|height=`
-  
+* Do *Options->Save bitmap font as...* and save your font. This will generate a png and fnt file.
+
 ## Misc
 
 * The use of non-mono-space fonts is not supported, but it not specifically prevented.
-* Ensure the font png image does *not* use a transparent background. Using a transparent background increases redraw times by ~20-30ms.
-* Ensure the font png image uses black for the background and white for the foreground. An optimization in the AsciiCharacter's draw method requires this and the program may break otherwise.
+* Ensure the font png image uses a transparent background with white characters. The program relies on this and unintended behaviour could occur with any other settings.
 
 ### Screen Draw Process
 
