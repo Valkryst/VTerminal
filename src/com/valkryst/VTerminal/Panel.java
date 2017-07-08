@@ -84,9 +84,8 @@ public class Panel extends Canvas implements Receiver<String> {
      * Draws the canvas onto an image.
      *
      * This calls the current screen's draw function, so the
-     * screen may look a little different if there are blink
-     * effects or new updates to characters that haven't yet
-     * been drawn.
+     * screen may look a little different if there are new
+     * updates to characters that haven't yet been drawn.
      *
      * This is an expensive operation as it essentially creates
      * an in-memory screen and draws each AsciiCharacter onto
