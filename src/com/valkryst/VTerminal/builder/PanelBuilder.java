@@ -37,8 +37,8 @@ public class PanelBuilder {
 
         final Panel panel = new Panel(this);
         frame.add(panel);
-        frame.pack();
         frame.setResizable(false);
+        frame.pack();
         frame.setVisible(true);
 
         panel.createBufferStrategy(2);
