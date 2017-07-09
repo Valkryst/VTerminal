@@ -1,10 +1,11 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.valkryst.VTerminal.component.Button;
 import com.valkryst.VRadio.Radio;
+import com.valkryst.VTerminal.Panel;
+import com.valkryst.VTerminal.component.Button;
 import lombok.Getter;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
     /** The text to display on the button. */
@@ -96,6 +97,14 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
     public ButtonBuilder setRadio(final Radio<String> radio) {
         if (radio != null) {
             this.radio = radio;
+        }
+
+        return this;
+    }
+
+    public ButtonBuilder setRadio(final Panel panel) {
+        if (panel != null) {
+            setRadio(panel.getRadio());
         }
 
         return this;
