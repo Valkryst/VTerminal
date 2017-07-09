@@ -20,7 +20,9 @@ public class CheckBox extends Component {
     /** whether or not the check box is in the hovered state. */
     private boolean isInHoveredState = false;
 
+    /** The character to display when the checkbox is not checked. */
     @Getter @Setter private char emptyBoxChar;
+    /** The character to display when the checkbox is checked. */
     @Getter @Setter private char checkedBoxChar;
 
     /** Whether or not the check box is checked. */
