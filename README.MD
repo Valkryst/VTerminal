@@ -29,18 +29,18 @@ try {
     final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1);
     final Panel panel = new PanelBuilder().setAsciiFont(font).build();
 
+    Thread.sleep(50);
     panel.getCurrentScreen().clear('X');
     panel.draw();
-} catch (final IOException | URISyntaxException e) {
+} catch (final IOException | InterruptedException | URISyntaxException e) {
     e.printStackTrace();
 }
 ```
 
-There is an issue with the above code that may sometimes appear.
-
 It's possible for the *draw()* call to execute before the *Panel* shows up on-screen. In this case it will display a blank screen.
+To prevent this issue, we insert *Thread.sleep(50)* before the first draw of the Panel.
 
-Making a call to the *draw()* function, after the Panel becomes visible, will properly render the *Panel*'s *Screen*.
+You may not need to do this, but it's required for this example to display as intended.
 
 ## JavaDoc Documentation
 
