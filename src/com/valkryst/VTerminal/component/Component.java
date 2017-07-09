@@ -302,6 +302,7 @@ public class Component {
         }
     }
 
+    /** Sets all characters to be redrawn. */
     public void setAllCharactersToBeRedrawn() {
         for (final AsciiString string : strings) {
             string.setAllCharactersToBeRedrawn();
