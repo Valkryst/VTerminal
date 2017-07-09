@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VRadio.Radio;
+import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.RadioButton;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
 import lombok.Getter;
@@ -98,6 +99,14 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
     public RadioButtonBuilder setRadio(final Radio<String> radio) {
         if (radio != null) {
             this.radio = radio;
+        }
+
+        return this;
+    }
+
+    public RadioButtonBuilder setRadio(final Panel panel) {
+        if (panel != null) {
+            setRadio(panel.getRadio());
         }
 
         return this;

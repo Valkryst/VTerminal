@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VRadio.Radio;
+import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.CheckBox;
 import lombok.Getter;
 import lombok.Setter;
@@ -94,6 +95,14 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
     public CheckBoxBuilder setRadio(final Radio<String> radio) {
         if (radio != null) {
             this.radio = radio;
+        }
+
+        return this;
+    }
+
+    public CheckBoxBuilder setRadio(final Panel panel) {
+        if (panel != null) {
+            setRadio(panel.getRadio());
         }
 
         return this;

@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VRadio.Radio;
+import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.TextField;
 import lombok.Getter;
 import lombok.Setter;
@@ -105,6 +106,14 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
     public TextFieldBuilder setRadio(final Radio<String> radio) {
         if (radio != null) {
             this.radio = radio;
+        }
+
+        return this;
+    }
+
+    public TextFieldBuilder setRadio(final Panel panel) {
+        if (panel != null) {
+            setRadio(panel.getRadio());
         }
 
         return this;
