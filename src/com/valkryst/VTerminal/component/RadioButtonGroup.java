@@ -45,4 +45,17 @@ public class RadioButtonGroup {
             buttons.add(button);
         }
     }
+
+    /** Removes a button from the group.
+     *
+     * @param button
+     *         The button.
+     */
+    public void removeRadioButton(final RadioButton button) {
+        if (button == null) {
+            return;
+        }
+
+        buttons.remove(button);
+    }
 }
