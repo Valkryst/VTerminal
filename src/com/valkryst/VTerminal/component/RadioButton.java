@@ -19,7 +19,9 @@ public class RadioButton extends Component {
     /** whether or not the radio button is in the hovered state. */
     private boolean isInHoveredState = false;
 
+    /** The character to display when the radio button is not checked. */
     @Getter @Setter private char emptyButtonChar;
+    /** The character to display when the radio button is checked. */
     @Getter @Setter private char checkedButtonChar;
 
     /** Whether or not the radio button is checked. */
