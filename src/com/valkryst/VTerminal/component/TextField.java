@@ -41,10 +41,10 @@ public class TextField extends Component {
     @Getter @Setter private boolean backSpaceKeyEnabled;
 
     /** The current position of the caret. */
-    private int index_caret = 0;
+    @Getter private int index_caret = 0;
 
     /** The maximum number of characters that the field can contain. */
-    private int maxCharacters;
+    @Getter private int maxCharacters;
 
     /** The pattern used to determine which typed characters can be entered into the field. */
     @Getter @Setter private Pattern allowedCharacterPattern;
