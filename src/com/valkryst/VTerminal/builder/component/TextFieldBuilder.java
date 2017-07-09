@@ -95,6 +95,15 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
         allowedCharacterPattern = Pattern.compile("^[a-zA-z0-9$-/:-?{-~!\"^_`\\[\\]@# ]$");
     }
 
+    /**
+     * Sets the width of the text field, in characters.
+     *
+     * @param width
+     *         The new width.
+     *
+     * @return
+     *         This.
+     */
     public TextFieldBuilder setWidth(final int width) {
         if (width >= 1) {
             this.width = width;
@@ -103,6 +112,15 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
         return this;
     }
 
+    /**
+     * Sets the radio to transmit events to.
+     *
+     * @param radio
+     *         The radio.
+     *
+     * @return
+     *         This.
+     */
     public TextFieldBuilder setRadio(final Radio<String> radio) {
         if (radio != null) {
             this.radio = radio;
@@ -111,6 +129,15 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
         return this;
     }
 
+    /**
+     * Sets the radio to transmit to, to the radio of a panel.
+     *
+     * @param panel
+     *         The panel.
+     *
+     * @return
+     *         This.
+     */
     public TextFieldBuilder setRadio(final Panel panel) {
         if (panel != null) {
             setRadio(panel.getRadio());
@@ -119,6 +146,15 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
         return this;
     }
 
+    /**
+     * Sets the foreground color of the caret.
+     *
+     * @param caretForegroundColor
+     *         The color.
+     *
+     * @return
+     *         This.
+     */
     public TextFieldBuilder setCaretForegroundColor(final Color caretForegroundColor) {
         if (caretForegroundColor != null) {
             this.caretForegroundColor = caretForegroundColor;
@@ -127,6 +163,15 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
         return this;
     }
 
+    /**
+     * Sets the background color of the caret.
+     *
+     * @param caretBackgroundColor
+     *         The color.
+     *
+     * @return
+     *         This.
+     */
     public TextFieldBuilder setCaretBackgroundColor(final Color caretBackgroundColor) {
         if (caretBackgroundColor != null) {
             this.caretBackgroundColor = caretBackgroundColor;
@@ -135,6 +180,15 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
         return this;
     }
 
+    /**
+     * Sets the foreground color of non-caret characters.
+     *
+     * @param foregroundColor
+     *         The color.
+     *
+     * @return
+     *         This.
+     */
     public TextFieldBuilder setForegroundColor(final Color foregroundColor) {
         if (foregroundColor != null) {
             this.foregroundColor = foregroundColor;
@@ -143,6 +197,15 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
         return this;
     }
 
+    /**
+     * Sets the background color of non-caret characters.
+     *
+     * @param backgroundColor
+     *         The color.
+     *
+     * @return
+     *         This.
+     */
     public TextFieldBuilder setBackgroundColor(final Color backgroundColor) {
         if (backgroundColor != null) {
             this.backgroundColor = backgroundColor;
@@ -151,36 +214,99 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
         return this;
     }
 
+    /**
+     * Enables or disables use of the home key.
+     *
+     * @param homeKeyEnabled
+     *         Whether the home key is enabled or disabled.
+     *
+     * @return
+     *         This.
+     */
     public TextFieldBuilder setHomeKeyEnabled(final boolean homeKeyEnabled) {
         this.homeKeyEnabled = homeKeyEnabled;
         return this;
     }
 
+    /**
+     * Enables or disables use of the end key.
+     *
+     * @param endKeyEnabled
+     *         Whether the end key is enabled or disabled.
+     *
+     * @return
+     *         This.
+     */
     public TextFieldBuilder setEndKeyEnabled(final boolean endKeyEnabled) {
         this.endKeyEnabled = endKeyEnabled;
         return this;
     }
 
+    /**
+     * Enables or disables use of the delete key.
+     *
+     * @param deleteKeyEnabled
+     *         Whether the delete key is enabled or disabled.
+     *
+     * @return
+     *         This.
+     */
     public TextFieldBuilder setDeleteKeyEnabled(final boolean deleteKeyEnabled) {
         this.deleteKeyEnabled = deleteKeyEnabled;
         return this;
     }
 
+    /**
+     * Enables or disables use of the left arrow key.
+     *
+     * @param leftArrowKeyEnabled
+     *         Whether the left arrow key is enabled or disabled.
+     *
+     * @return
+     *         This.
+     */
     public TextFieldBuilder setLeftArrowKeyEnabled(final boolean leftArrowKeyEnabled) {
         this.leftArrowKeyEnabled = leftArrowKeyEnabled;
         return this;
     }
 
+    /**
+     * Enables or disables use of the right arrow key.
+     *
+     * @param rightArrowKeyEnabled
+     *         Whether the right arrow key is enabled or disabled.
+     *
+     * @return
+     *         This.
+     */
     public TextFieldBuilder setRightArrowKeyEnabled(final boolean rightArrowKeyEnabled) {
         this.rightArrowKeyEnabled = rightArrowKeyEnabled;
         return this;
     }
 
+    /**
+     * Enables or disables use of the backspace key.
+     *
+     * @param backSpaceKeyEnabled
+     *         Whether the backspace key is enabled or disabled.
+     *
+     * @return
+     *         This.
+     */
     public TextFieldBuilder setBackSpaceKeyEnabled(final boolean backSpaceKeyEnabled) {
         this.backSpaceKeyEnabled = backSpaceKeyEnabled;
         return this;
     }
 
+    /**
+     * Sets the pattern used to determine which typed characters can be entered into the field.
+     *
+     * @param allowedCharacterPattern
+     *         The pattern.
+     *
+     * @return
+     *         This.
+     */
     public TextFieldBuilder setAllowedCharacterPattern(final Pattern allowedCharacterPattern) {
         if (allowedCharacterPattern != null) {
             this.allowedCharacterPattern = allowedCharacterPattern;
