@@ -40,8 +40,10 @@ public class TextField extends Component {
     /** Whether or not the BACK SPACE key can be used to erase the character before the caret and move the caret backwards. */
     @Getter @Setter private boolean backSpaceKeyEnabled;
 
+    /** The current position of the caret. */
     private int index_caret = 0;
 
+    /** The maximum number of characters that the field can contain. */
     private int maxCharacters;
 
     /** The pattern used to determine which typed characters can be entered into the field. */
