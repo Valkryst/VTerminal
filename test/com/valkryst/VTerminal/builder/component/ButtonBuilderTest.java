@@ -1,11 +1,13 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VRadio.Radio;
+import com.valkryst.VTerminal.Panel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
+import java.awt.Color;
+
 
 public class ButtonBuilderTest {
     private ButtonBuilder builder;
@@ -66,7 +68,7 @@ public class ButtonBuilderTest {
     }
 
     @Test
-    public void testSetRadio() {
+    public void testSetRadio_radio() {
         final Radio<String> radio = new Radio<>();
 
         builder.setRadio(radio);
@@ -74,11 +76,20 @@ public class ButtonBuilderTest {
     }
 
     @Test
-    public void testSetRadio_withNullRadio() {
+    public void testSetRadio_radio_withNullRadio() {
         final Radio<String> radio = new Radio<>();
 
         builder.setRadio(radio);
         builder.setRadio((Radio<String>)null);
+        Assert.assertEquals(radio, builder.getRadio());
+    }
+
+    @Test
+    public void testSetRadio_panel_withNullPanel() {
+        final Radio<String> radio = new Radio<>();
+
+        builder.setRadio(radio);
+        builder.setRadio((Panel) null);
         Assert.assertEquals(radio, builder.getRadio());
     }
 
