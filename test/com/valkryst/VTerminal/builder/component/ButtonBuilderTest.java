@@ -78,7 +78,7 @@ public class ButtonBuilderTest {
         final Radio<String> radio = new Radio<>();
 
         builder.setRadio(radio);
-        builder.setRadio(null);
+        builder.setRadio((Radio<String>)null);
         Assert.assertEquals(radio, builder.getRadio());
     }
 
