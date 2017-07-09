@@ -27,10 +27,7 @@ If you would rather use a Jar file, then you can find the Jars on the [releases]
 ```java
 try {
     final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1);
-    final Panel panel = new PanelBuilder().setAsciiFont(font)
-                                          .setWidthInCharacters(48)
-                                          .setHeightInCharacters(36)
-                                          .build();
+    final Panel panel = new PanelBuilder().setAsciiFont(font).build();
 
     panel.getCurrentScreen().clear('X');
     panel.draw();
