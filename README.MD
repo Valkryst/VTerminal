@@ -89,6 +89,9 @@ To use a different font:
 
 * The use of non-mono-space fonts is not supported, but it not specifically prevented.
 * Ensure the font png image uses a transparent background with white characters. The program relies on this and unintended behaviour could occur with any other settings.
+* In an effort to achieve optimal draw performance, VTerminal makes use of an image cache. Any time an image is drawn with a unique fore/background color, a new image is created, the colors are applied, and then that image is saved in the cache until the process terminates. 
+     * This does require some amount of RAM, but it drastically reduces the amount of CPU time spent re-coloring images on every draw call.
+     * Assuming that this library is used for GUIs and text-based games, it's reasonable to say that the cache will eventually contain every possible fore/background color & character combination that's used. When this happens, there should be no cache misses and optimal draw times will be reached.
 
 ### Screen Draw Process
 
