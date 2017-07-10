@@ -6,7 +6,7 @@ Please refer to the LICENSE file for additional information.
 
 ---
 
-[![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg)](https://github.com/bubkoo/ascii-progress/blob/master/LICENSE)![](https://travis-ci.org/Valkryst/VTerminal.svg?branch=master) [![codecov](https://codecov.io/gh/Valkryst/VTerminal/branch/master/graph/badge.svg)](https://codecov.io/gh/Valkryst/VTerminal) [![Release](https://jitpack.io/v/Valkryst/VTerminal.svg)](https://jitpack.io/#Valkryst/VTerminal)
+[![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg)](https://github.com/bubkoo/ascii-progress/blob/master/LICENSE) ![](https://travis-ci.org/Valkryst/VTerminal.svg?branch=master) [![codecov](https://codecov.io/gh/Valkryst/VTerminal/branch/master/graph/badge.svg)](https://codecov.io/gh/Valkryst/VTerminal) [![Release](https://jitpack.io/v/Valkryst/VTerminal.svg)](https://jitpack.io/#Valkryst/VTerminal)
 
 # VTerminal
 
