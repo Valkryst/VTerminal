@@ -1,11 +1,12 @@
 package com.valkryst.VTerminal;
 
-import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.misc.IntRange;
 import com.valkryst.VRadio.Radio;
+import com.valkryst.VTerminal.misc.ColoredImageCache;
+import com.valkryst.VTerminal.misc.IntRange;
 import lombok.Getter;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.Arrays;
 
 public class AsciiString {
@@ -97,15 +98,15 @@ public class AsciiString {
      * @param gc
      *         The graphics context to draw with.
      *
-     * @param font
-     *         The font to draw with.
+     * @param imageCache
+     *         The image cache to retrieve the character image from.
      *
      * @param rowIndex
      *         The y-axis (row) coordinate where the characters are to be drawn.
      *         Includes the first index and excludes the last index.
      */
-    public void draw(final Graphics2D gc, final Font font, int rowIndex) {
-        if (gc == null || font == null) {
+    public void draw(final Graphics2D gc, final ColoredImageCache imageCache, int rowIndex) {
+        if (gc == null || imageCache == null) {
             return;
         }
 
@@ -116,7 +117,7 @@ public class AsciiString {
         for (int columnIndex = 0; columnIndex < charactersToBeRedrawn.length; columnIndex++) {
             if (charactersToBeRedrawn[columnIndex]) {
                 charactersToBeRedrawn[columnIndex] = false;
-                characters[columnIndex].draw(gc, font, columnIndex, rowIndex);
+                characters[columnIndex].draw(gc, imageCache, columnIndex, rowIndex);
             }
         }
     }
