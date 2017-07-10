@@ -28,7 +28,7 @@ public class RadioButton extends Component {
     @Getter private boolean isChecked = false;
 
     /** The radio button group that the radio button belongs to. */
-    @Getter private com.valkryst.VTerminal.component.RadioButtonGroup group;
+    @Getter private RadioButtonGroup group;
 
     /** The background color for when the radio button is in the normal state. */
     @Getter private Color backgroundColor_normal;
