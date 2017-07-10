@@ -6,6 +6,7 @@ import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VRadio.Radio;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -35,6 +36,9 @@ public class Component {
 
     /** The radio to transmit events to. */
     @Getter private Radio<String> radio;
+
+    /** The screen that the component is on. */
+    @Getter @Setter private Screen screen;
 
     /**
      * Constructs a new AsciiComponent.
