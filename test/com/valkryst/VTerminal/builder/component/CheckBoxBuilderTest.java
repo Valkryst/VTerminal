@@ -35,6 +35,8 @@ public class CheckBoxBuilderTest {
         builder.setBackgroundColor_checked(Color.RED);
         builder.setForegroundColor_checked(Color.RED);
 
+        builder.reset();
+
         Assert.assertEquals(null, builder.getRadio());
 
         Assert.assertEquals("", builder.getText());
@@ -49,7 +51,7 @@ public class CheckBoxBuilderTest {
         Assert.assertEquals(new Color(0x99E000), builder.getForegroundColor_hover());
 
         Assert.assertEquals(new Color(0x366C9F), builder.getBackgroundColor_checked());
-        Assert.assertEquals(new Color(0xFFFF66), builder.getForegroundColor_hover());
+        Assert.assertEquals(new Color(0xFFFF66), builder.getForegroundColor_checked());
     }
 
     @Test
