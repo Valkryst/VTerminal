@@ -121,7 +121,7 @@ public class AsciiCharacter {
         // Retrieve character image & set colors:
         Image image = bufferedImage;
 
-        if (backgroundColor.equals(TRANSPARENT_COLOR) == false && (foregroundColor.equals(Color.WHITE) == false || backgroundColor.equals(Color.BLACK) == false)) {
+        if (foregroundColor.equals(Color.WHITE) == false || (backgroundColor.equals(Color.BLACK) == false && backgroundColor.equals(TRANSPARENT_COLOR) == false)) {
             final BufferedImageOp op = createColorReplacementLookupOp(backgroundColor, foregroundColor);
             image = op.filter(bufferedImage, null);
         }
