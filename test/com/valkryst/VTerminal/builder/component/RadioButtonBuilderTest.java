@@ -89,6 +89,15 @@ public class RadioButtonBuilderTest {
     }
 
     @Test
+    public void testSetRadio_panel_withNullPanel() {
+        final Radio<String> radio = new Radio<>();
+
+        builder.setRadio(radio);
+        builder.setRadio((com.valkryst.VTerminal.Panel) null);
+        Assert.assertEquals(radio, builder.getRadio());
+    }
+
+    @Test
     public void setEmptyButtonChar() {
         builder.setEmptyButtonChar('?');
         Assert.assertEquals('?', builder.getEmptyButtonChar());
