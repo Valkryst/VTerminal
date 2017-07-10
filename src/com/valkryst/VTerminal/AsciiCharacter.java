@@ -122,11 +122,9 @@ public class AsciiCharacter {
         }
 
         // Retrieve character image & set colors:
-        Image image = bufferedImage;
-
         if (foregroundColor.equals(Color.WHITE) == false || (backgroundColor.equals(Color.BLACK) == false && backgroundColor.equals(TRANSPARENT_COLOR) == false)) {
             final BufferedImageOp op = COLOR_REPLACER.retrieveOperation(backgroundColor, foregroundColor);
-            image = op.filter(bufferedImage, null);
+            bufferedImage = op.filter(bufferedImage, null);
         }
 
         // Draw character:
@@ -136,7 +134,7 @@ public class AsciiCharacter {
 	    columnIndex *= fontWidth;
 	    rowIndex *= fontHeight;
 
-        gc.drawImage(image, columnIndex, rowIndex,null);
+        gc.drawImage(bufferedImage, columnIndex, rowIndex,null);
 
         boundingBox.setLocation(columnIndex, rowIndex);
         boundingBox.setSize(fontWidth, fontHeight);
