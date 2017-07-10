@@ -188,14 +188,14 @@ public class AsciiString {
     /**
      * Sets every character in the specified range to the specified character.
      *
+     * @param character
+     *         The character to change to.
+     *
      * @param rangeIndices
      *         The x-axis (column) coordinates of the characters to begin/end the change between.
      *         Includes the first index and excludes the last index.
-     *
-     * @param character
-     *         The character to change to.
      */
-    public void setCharacters(final IntRange rangeIndices, final char character) {
+    public void setCharacters(final char character, final IntRange rangeIndices) {
         if (rangeIndices == null) {
             return;
         }
