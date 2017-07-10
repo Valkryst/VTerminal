@@ -112,12 +112,12 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
         return this;
     }
 
-    public RadioButtonBuilder setEmptyBoxChar(final char emptyButtonChar) {
+    public RadioButtonBuilder setEmptyButtonChar(final char emptyButtonChar) {
         this.emptyButtonChar = emptyButtonChar;
         return this;
     }
 
-    public RadioButtonBuilder setCheckedBoxChar(final char checkedButtonChar) {
+    public RadioButtonBuilder setCheckedButtonChar(final char checkedButtonChar) {
         this.checkedButtonChar = checkedButtonChar;
         return this;
     }
