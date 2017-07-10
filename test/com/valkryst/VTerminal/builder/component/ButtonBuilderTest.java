@@ -19,9 +19,14 @@ public class ButtonBuilderTest {
 
     @Test
     public void testReset() {
+        final Radio<String> radio = new Radio<>();
+        final Thread function = new Thread();
+
         builder.setText("Test Text");
 
-        // Doesn't test the radio var.
+        builder.setRadio(radio);
+
+        builder.setOnClickFunction(function);
 
         builder.setStartingCharacter('A');
         builder.setEndingCharacter('B');
@@ -40,6 +45,8 @@ public class ButtonBuilderTest {
         builder.reset();
 
         Assert.assertEquals("", builder.getText());
+
+        Assert.assertEquals(null, builder.getRadio());
 
         Assert.assertEquals('<', builder.getStartingCharacter());
         Assert.assertEquals('>', builder.getEndingCharacter());
