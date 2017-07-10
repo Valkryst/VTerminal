@@ -163,14 +163,6 @@ public class ComponentTest {
     }
 
     @Test
-    public void testSetColumnIndex() {
-        final Component component = new Component(0, 0, width, height);
-        component.setColumnIndex(1);
-
-        Assert.assertEquals(1, component.getColumnIndex());
-    }
-
-    @Test
     public void testSetColumnIndex_withNegativeIndex() {
         final Component component = new Component(0, 0, width, height);
         component.setColumnIndex(-1);
@@ -179,27 +171,11 @@ public class ComponentTest {
     }
 
     @Test
-    public void testSetRowIndex() {
-        final Component component = new Component(0, 0, width, height);
-        component.setRowIndex(1);
-
-        Assert.assertEquals(1, component.getRowIndex());
-    }
-
-    @Test
     public void testSetRowIndex_withNegativeIndex() {
         final Component component = new Component(0, 0, width, height);
         component.setRowIndex(-1);
 
         Assert.assertEquals(0, component.getRowIndex());
-    }
-
-    @Test
-    public void testSetWidth() {
-        final Component component = new Component(0, 0, width, height);
-        component.setWidth(1);
-
-        Assert.assertEquals(1, component.getWidth());
     }
 
     @Test
@@ -216,15 +192,6 @@ public class ComponentTest {
         component.setWidth(component.getColumnIndex() - 1);
 
         Assert.assertEquals(width, component.getWidth());
-    }
-
-
-    @Test
-    public void testSetHeight() {
-        final Component component = new Component(0, 0, width, height);
-        component.setHeight(1);
-
-        Assert.assertEquals(1, component.getHeight());
     }
 
     @Test
