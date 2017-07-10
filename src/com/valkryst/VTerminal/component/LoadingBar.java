@@ -53,6 +53,13 @@ public class LoadingBar extends Component {
         }
     }
 
+    /**
+     * Sets the new percent complete and redraws the loading bar
+     * to reflect the changes.
+     *
+     * @param percentComplete
+     *        The new percent complete.
+     */
     public void setPercentComplete(final int percentComplete) {
         boolean isWithinRange = percentComplete >= 0;
         isWithinRange &= percentComplete <= 100;
