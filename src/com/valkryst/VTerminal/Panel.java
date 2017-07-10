@@ -25,8 +25,6 @@ public class Panel extends Canvas implements Receiver<String> {
 
     @Getter private Radio<String> radio = new Radio<>();
 
-    final BufferStrategy bufferStrategy = this.getBufferStrategy();
-
     /**
      * Constructs a new VTerminal.
      *
@@ -58,6 +56,7 @@ public class Panel extends Canvas implements Receiver<String> {
 
     /** Draws every character of every row onto the canvas. */
     public void draw() {
+        final BufferStrategy bufferStrategy = this.getBufferStrategy();
         final Graphics2D gc = (Graphics2D) bufferStrategy.getDrawGraphics();
 
         gc.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
