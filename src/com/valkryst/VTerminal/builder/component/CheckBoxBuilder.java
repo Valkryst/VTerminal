@@ -92,22 +92,6 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
         return this;
     }
 
-    public CheckBoxBuilder setRadio(final Radio<String> radio) {
-        if (radio != null) {
-            this.radio = radio;
-        }
-
-        return this;
-    }
-
-    public CheckBoxBuilder setRadio(final Panel panel) {
-        if (panel != null) {
-            setRadio(panel.getRadio());
-        }
-
-        return this;
-    }
-
     public CheckBoxBuilder setEmptyBoxChar(final char emptyBoxChar) {
         this.emptyBoxChar = emptyBoxChar;
         return this;

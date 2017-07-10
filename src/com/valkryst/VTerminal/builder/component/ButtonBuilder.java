@@ -94,22 +94,6 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
         return this;
     }
 
-    public ButtonBuilder setRadio(final Radio<String> radio) {
-        if (radio != null) {
-            this.radio = radio;
-        }
-
-        return this;
-    }
-
-    public ButtonBuilder setRadio(final Panel panel) {
-        if (panel != null) {
-            setRadio(panel.getRadio());
-        }
-
-        return this;
-    }
-
     public ButtonBuilder setStartingCharacter(final char startingCharacter) {
         this.startingCharacter = startingCharacter;
         return this;

@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal.builder.component;
 
+import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Component;
 import lombok.Getter;
@@ -11,7 +12,10 @@ public class ComponentBuilder<C extends Component, B extends ComponentBuilder<C,
     @Getter protected int rowIndex;
 
     /** The panel on which the button is to be placed. */
-    @Getter  protected Panel panel;
+    @Getter protected Panel panel;
+
+    /** The radio to transmit events to. */
+    @Getter protected Radio<String> radio;
 
     public ComponentBuilder() {
         reset();
@@ -70,6 +74,39 @@ public class ComponentBuilder<C extends Component, B extends ComponentBuilder<C,
     public B setPanel(final Panel panel) {
         if (panel != null) {
             this.panel = panel;
+        }
+
+        return (B)this;
+    }
+    /**
+     * Sets the radio to transmit events to.
+     *
+     * @param radio
+     *         The radio.
+     *
+     * @return
+     *         This.
+     */
+    public B setRadio(final Radio<String> radio) {
+        if (radio != null) {
+            this.radio = radio;
+        }
+
+        return (B)this;
+    }
+
+    /**
+     * Sets the radio to transmit to, to the radio of a panel.
+     *
+     * @param panel
+     *         The panel.
+     *
+     * @return
+     *         This.
+     */
+    public B setRadio(final Panel panel) {
+        if (panel != null) {
+            setRadio(panel.getRadio());
         }
 
         return (B)this;

@@ -113,40 +113,6 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
     }
 
     /**
-     * Sets the radio to transmit events to.
-     *
-     * @param radio
-     *         The radio.
-     *
-     * @return
-     *         This.
-     */
-    public TextFieldBuilder setRadio(final Radio<String> radio) {
-        if (radio != null) {
-            this.radio = radio;
-        }
-
-        return this;
-    }
-
-    /**
-     * Sets the radio to transmit to, to the radio of a panel.
-     *
-     * @param panel
-     *         The panel.
-     *
-     * @return
-     *         This.
-     */
-    public TextFieldBuilder setRadio(final Panel panel) {
-        if (panel != null) {
-            setRadio(panel.getRadio());
-        }
-
-        return this;
-    }
-
-    /**
      * Sets the foreground color of the caret.
      *
      * @param caretForegroundColor
