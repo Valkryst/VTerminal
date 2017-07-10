@@ -90,7 +90,7 @@ public class RadioButton extends Component {
 
     @Override
     public void registerEventHandlers(final Panel panel) {
-        final Font font = panel.getAsciiFont();
+        final Font font = panel.getImageCache().getFont();
         final int fontWidth = font.getWidth();
         final int fontHeight = font.getHeight();
 
