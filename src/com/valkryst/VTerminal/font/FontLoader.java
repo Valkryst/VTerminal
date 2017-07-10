@@ -143,13 +143,18 @@ public class FontLoader {
      */
     private static BufferedImage loadSpriteSheet(final InputStream inputStream) throws IOException {
         final BufferedImage loadedImage = ImageIO.read(inputStream);
-        final BufferedImage argbImage = new BufferedImage(loadedImage.getWidth(), loadedImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
         inputStream.close();
 
-        final Graphics2D g2d= argbImage.createGraphics();
+        final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        final GraphicsDevice gd = ge.getDefaultScreenDevice();
+        final GraphicsConfiguration gc = gd.getDefaultConfiguration();
+
+        final BufferedImage converedImage = gc.createCompatibleImage(loadedImage.getWidth(), loadedImage.getHeight(), loadedImage.getTransparency());
+
+        final Graphics2D g2d = converedImage.createGraphics();
         g2d.drawImage(loadedImage, 0, 0, null);
         g2d.dispose();
-        return argbImage;
+        return converedImage;
     }
 
     /**
