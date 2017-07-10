@@ -27,7 +27,7 @@ public class Panel extends Canvas implements Receiver<String> {
     @Getter private Radio<String> radio = new Radio<>();
 
     /** The image cache to retrieve character images from. */
-    private final ColoredImageCache imageCache;
+    @Getter private final ColoredImageCache imageCache;
 
     /**
      * Constructs a new VTerminal.
