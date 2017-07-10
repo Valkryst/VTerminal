@@ -258,4 +258,35 @@ public class TextField extends Component {
 
         return text;
     }
+
+    /**
+     * Sets the text contained within the field.
+     *
+     * @param text
+     *        The new text.
+     */
+    public void setText(String text) {
+        if (text == null || text.isEmpty()) {
+            clearText();
+            return;
+        }
+
+        if (text.length() > super.getWidth()) {
+            text = text.substring(0, super.getWidth());
+        }
+
+        final AsciiCharacter[] characters = super.getStrings()[0].getCharacters();
+        final char[] textCharacters = text.toCharArray();
+
+        for (int i = 0 ; i < text.length() ; i++) {
+            characters[i].setCharacter(textCharacters[i]);
+        }
+    }
+
+    /** Clears all text from the field. */
+    public void clearText() {
+        for (final AsciiCharacter character : super.getStrings()[0].getCharacters()) {
+            character.setCharacter(' ');
+        }
+    }
 }
