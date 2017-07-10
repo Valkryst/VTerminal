@@ -5,6 +5,7 @@ import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VRadio.Radio;
+import com.valkryst.VTerminal.misc.IntRange;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -315,6 +316,20 @@ public class Component {
     }
 
     /**
+     * Sets every character, on the Screen that the component
+     * resides on, at the component's current location to be
+     * redrawn.
+     *
+     * This should only be called when the component is moved
+     * on-screen or resized.
+     */
+    private void setLocationOnScreenToBeRedrawn() {
+        for (int y = rowIndex ; y <= height ; y++) {
+            screen.getStrings()[y].setCharacterRangeToBeRedrawn(new IntRange(columnIndex, columnIndex + width));
+        }
+    }
+
+    /**
      * Retrieves the AsciiCharacter at a specific location.
      *
      * @param columnIndex
@@ -348,6 +363,7 @@ public class Component {
      */
     public void setColumnIndex(final int columnIndex) {
         if (columnIndex >= 0) {
+            setLocationOnScreenToBeRedrawn();
             this.columnIndex = columnIndex;
             boundingBox.setLocation(columnIndex, rowIndex);
             setAllCharactersToBeRedrawn();
@@ -367,6 +383,7 @@ public class Component {
      */
     public void setRowIndex(final int rowIndex) {
         if (rowIndex >= 0) {
+            setLocationOnScreenToBeRedrawn();
             this.rowIndex = rowIndex;
             boundingBox.setLocation(columnIndex, rowIndex);
             setAllCharactersToBeRedrawn();
@@ -389,6 +406,7 @@ public class Component {
             return;
         }
 
+        setLocationOnScreenToBeRedrawn();
         this.width = width;
         boundingBox.setSize(width, height);
         setAllCharactersToBeRedrawn();
@@ -410,6 +428,7 @@ public class Component {
             return;
         }
 
+        setLocationOnScreenToBeRedrawn();
         this.height = height;
         boundingBox.setSize(width, height);
         setAllCharactersToBeRedrawn();
