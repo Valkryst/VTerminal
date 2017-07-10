@@ -275,11 +275,11 @@ public class TextField extends Component {
             text = text.substring(0, super.getWidth());
         }
 
-        final AsciiCharacter[] characters = super.getStrings()[0].getCharacters();
-        final char[] textCharacters = text.toCharArray();
+        final AsciiCharacter[] oldChars = super.getStrings()[0].getCharacters();
+        final char[] newChars = text.toCharArray();
 
         for (int i = 0 ; i < text.length() ; i++) {
-            characters[i].setCharacter(textCharacters[i]);
+            oldChars[i].setCharacter(newChars[i]);
         }
     }
 
