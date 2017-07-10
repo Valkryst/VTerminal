@@ -3,11 +3,9 @@ package com.valkryst.VTerminal.component;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.font.Font;
-import lombok.Getter;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -290,15 +288,18 @@ public class Screen extends Component {
         }
 
         if (component instanceof Layer) {
+            component.setScreen(this);
             layerComponents.add((Layer) component);
         } else if (component instanceof  Screen) {
             // Prevent an endless draw-loop by ensuring that
             // a screen cannot be added if it's contained
             // within any of this screen's sub-screens.
             if (recursiveContainsComponent(component) == false) {
+                component.setScreen(this);
                 screenComponents.add((Screen) component);
             }
         } else {
+            component.setScreen(this);
             components.add(component);
         }
     }
@@ -319,10 +320,13 @@ public class Screen extends Component {
         }
 
         if (component instanceof Layer) {
+            component.setScreen(null);
             layerComponents.remove(component);
-        } else if (component instanceof  Screen) {
+        } else if (component instanceof Screen) {
+            component.setScreen(null);
             screenComponents.remove(component);
         } else{
+            component.setScreen(null);
             components.remove(component);
         }
     }
