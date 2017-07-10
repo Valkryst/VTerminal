@@ -78,6 +78,8 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
         emptyButtonChar = '○';
         checkedButtonChar = '◉';
 
+        group = null;
+
         backgroundColor_normal = new Color(0x366C9F);
         foregroundColor_normal = new Color(0x66CCFF);
 
@@ -122,7 +124,7 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
         return this;
     }
 
-    public RadioButtonBuilder setRadioButtonGroup(final RadioButtonGroup group) {
+    public RadioButtonBuilder setGroup(final RadioButtonGroup group) {
         if (group != null) {
             this.group = group;
         }
