@@ -149,6 +149,19 @@ public class AsciiString {
         Arrays.fill(charactersToBeRedrawn, true);
     }
 
+    public void setCharacterRangeToBeRedrawn(final IntRange rangeIndices) {
+        if (isRangeValid(rangeIndices) == false) {
+            return;
+        }
+
+        final int beginIndex = rangeIndices.getBegin();
+        final int endIndex = rangeIndices.getEnd();
+
+        for (int col = beginIndex ; col < endIndex ; col++) {
+            charactersToBeRedrawn[col] = true;
+        }
+    }
+
     /**
      * Sets a new character in the specified position.
      *
