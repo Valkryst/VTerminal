@@ -247,4 +247,15 @@ public class TextField extends Component {
         final AsciiCharacter[] characters = super.getStrings()[0].getCharacters();
         characters[characterIndex].setCharacter(character);
     }
+
+    /** @return The text contained within the field. */
+    public String getText() {
+        String text = "";
+
+        for (final AsciiCharacter character : super.getStrings()[0].getCharacters()) {
+            text += character.getCharacter();
+        }
+
+        return text;
+    }
 }
