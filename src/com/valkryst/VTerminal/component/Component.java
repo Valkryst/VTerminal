@@ -33,6 +33,7 @@ public class Component {
     /** The strings representing the character-rows of the component. */
     @Getter private AsciiString[] strings;
 
+    /** The radio to transmit events to. */
     @Getter private Radio<String> radio;
 
     /**
