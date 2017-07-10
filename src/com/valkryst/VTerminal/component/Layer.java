@@ -1,8 +1,9 @@
 package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.font.Font;
+import com.valkryst.VTerminal.misc.ColoredImageCache;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class Layer extends Component {
@@ -36,17 +37,19 @@ public class Layer extends Component {
      * @param gc
      *         The graphics context to draw with.
      *
-     * @param font
-     *         The font to draw with.
+     * @param imageCache
+     *         The image cache to retrieve the character image from.
      */
-    public void draw(final Graphics2D gc, final Font font) {
+    public void draw(final Graphics2D gc, final ColoredImageCache imageCache) {
+        final Font font = imageCache.getFont();
+
         final int iWidth = getWidth() * font.getWidth();
         final int iHeight = getHeight() * font.getHeight();
         final BufferedImage image = new BufferedImage(iWidth, iHeight, BufferedImage.TYPE_INT_ARGB);
 
         // Draw the layer onto the image:
         for (int row = 0 ; row < getHeight() ; row++) {
-            getStrings()[row].draw((Graphics2D) image.getGraphics(), font, row);
+            getStrings()[row].draw((Graphics2D) image.getGraphics(), imageCache, row);
         }
 
         // Draw the image onto the canvas:
