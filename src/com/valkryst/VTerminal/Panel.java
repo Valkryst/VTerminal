@@ -1,14 +1,17 @@
 package com.valkryst.VTerminal;
 
+import com.valkryst.VRadio.Radio;
+import com.valkryst.VRadio.Receiver;
 import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.component.Screen;
-import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VRadio.Radio;
-import com.valkryst.VRadio.Receiver;
+import com.valkryst.VTerminal.misc.ColoredImageCache;
 import lombok.Getter;
 
-import java.awt.*;
+import java.awt.Canvas;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -17,13 +20,14 @@ public class Panel extends Canvas implements Receiver<String> {
     @Getter private int widthInCharacters;
     /** The height of the panel, in characters. */
     @Getter private int heightInCharacters;
-    /** The asciiFont to draw with. */
-    @Getter private Font asciiFont;
 
     /** The screen being displayed on the panel. */
     @Getter private Screen currentScreen;
 
     @Getter private Radio<String> radio = new Radio<>();
+
+    /** The image cache to retrieve character images from. */
+    private final ColoredImageCache imageCache;
 
     /**
      * Constructs a new VTerminal.
@@ -35,16 +39,16 @@ public class Panel extends Canvas implements Receiver<String> {
         this.widthInCharacters = builder.getWidthInCharacters();
         this.heightInCharacters = builder.getHeightInCharacters();
 
-        this.asciiFont = builder.getAsciiFont();
-
-        int pixelWidth = widthInCharacters * asciiFont.getWidth();
-        int pixelHeight = heightInCharacters * asciiFont.getHeight();
+        int pixelWidth = widthInCharacters * builder.getAsciiFont().getWidth();
+        int pixelHeight = heightInCharacters * builder.getAsciiFont().getHeight();
 
         this.setPreferredSize(new Dimension(pixelWidth, pixelHeight));
 
         currentScreen = builder.getCurrentScreen();
 
         radio.addReceiver("DRAW", this);
+
+        imageCache = new ColoredImageCache(builder.getAsciiFont());
     }
 
     @Override
@@ -74,7 +78,7 @@ public class Panel extends Canvas implements Receiver<String> {
         // If alpha is used in the character images, we want computations related to drawing them to be fast.
         gc.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
 
-        currentScreen.draw(gc, asciiFont);
+        currentScreen.draw(gc, imageCache);
         gc.dispose();
 
         bufferStrategy.show();
@@ -95,7 +99,7 @@ public class Panel extends Canvas implements Receiver<String> {
      *        An image of the canvas.
      */
     public BufferedImage screenshot() {
-        return currentScreen.screenshot(asciiFont);
+        return currentScreen.screenshot(imageCache);
     }
 
     /**
