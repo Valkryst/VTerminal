@@ -188,7 +188,7 @@ public class AsciiStringTest {
             string = new AsciiString(testString);
 
             final IntRange range = new IntRange(0, i);
-            string.setCharacters(range, 'Z');
+            string.setCharacters('Z', range);
 
             // Ensure that all characters in the range are set to 'Z' and that
             // all other characters were unchanged.
@@ -204,7 +204,7 @@ public class AsciiStringTest {
 
     @Test
     public void testSetCharacters_withNullRange() {
-        string.setCharacters(null, 'Z');
+        string.setCharacters('Z', null);
 
         for (final AsciiCharacter character : string.getCharacters()) {
             Assert.assertNotEquals('Z', character.getCharacter());
@@ -213,7 +213,7 @@ public class AsciiStringTest {
 
     @Test
     public void testSetCharacters_withInvalidRange() {
-        string.setCharacters(new IntRange(-1, string.getCharacters().length), 'Z');
+        string.setCharacters('Z', new IntRange(-1, string.getCharacters().length));
 
         for (final AsciiCharacter character : string.getCharacters()) {
             Assert.assertEquals('Z', character.getCharacter());
