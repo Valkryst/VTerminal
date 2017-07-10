@@ -6,17 +6,31 @@ import lombok.Getter;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
 public class ColoredImageCache {
-    private final Map<AsciiCharacterShell, BufferedImage> cachedImages = new HashMap<>();
+    private final LinkedHashMap<AsciiCharacterShell, BufferedImage> cachedImages;
 
     @Getter private final Font font;
 
     public ColoredImageCache(final Font font) {
         this.font = font;
+        cachedImages = new LinkedHashMap<AsciiCharacterShell, BufferedImage>()  {
+            protected boolean removeEldestEntry(final Map.Entry eldest) {
+                return this.size() >= 10000;
+            }
+        };
+    }
+
+    public ColoredImageCache(final Font font, final int maxCacheSize) {
+        this.font = font;
+        cachedImages = new LinkedHashMap<AsciiCharacterShell, BufferedImage>() {
+            protected boolean removeEldestEntry(final Map.Entry eldest) {
+                return this.size() >= maxCacheSize;
+            }
+        };
     }
 
     public BufferedImage retrieveFromCache(final AsciiCharacter character) {
