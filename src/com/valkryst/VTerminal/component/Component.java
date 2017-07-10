@@ -324,9 +324,10 @@ public class Component {
      * on-screen or resized.
      */
     private void setLocationOnScreenToBeRedrawn() {
-        for (int y = rowIndex ; y <= height ; y++) {
+        for (int y = rowIndex ; y <= rowIndex + height ; y++) {
             screen.getStrings()[y].setCharacterRangeToBeRedrawn(new IntRange(columnIndex, columnIndex + width));
         }
+        System.out.println();
     }
 
     /**
