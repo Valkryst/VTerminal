@@ -99,7 +99,7 @@ public class AsciiString {
      *         The graphics context to draw with.
      *
      * @param imageCache
-     *         The image cache to retrieve the character image from.
+     *         The image cache to retrieve character images from.
      *
      * @param rowIndex
      *         The y-axis (row) coordinate where the characters are to be drawn.

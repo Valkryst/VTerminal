@@ -89,7 +89,7 @@ public class AsciiCharacter {
      *         The graphics context to draw with.
      *
      * @param imageCache
-     *         The image cache to retrieve the character image from.
+     *         The image cache to retrieve character images from.
      *
      * @param columnIndex
      *         The x-axis (column) coordinate where the character is to be drawn.

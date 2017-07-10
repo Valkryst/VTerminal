@@ -2,9 +2,10 @@ package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
-import com.valkryst.VTerminal.font.Font;
+import com.valkryst.VTerminal.misc.ColoredImageCache;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.HashSet;
 import java.util.Set;
@@ -50,23 +51,23 @@ public class Screen extends Component {
      * @param gc
      *         The graphics context to draw with.
      *
-     * @param font
-     *         The font to draw with.
+     * @param imageCache
+     *         The image cache to retrieve character images from.
      */
-    public void draw(final Graphics2D gc, final Font font) {
+    public void draw(final Graphics2D gc, final ColoredImageCache imageCache) {
         // Draw non-layer components onto the screen:
         components.forEach(component -> component.draw(this));
 
         // Draw the screen onto the canvas:
         for (int row = 0 ; row < getHeight() ; row++) {
-            getStrings()[row].draw(gc, font, row);
+            getStrings()[row].draw(gc, imageCache, row);
         }
 
         // Draw layer components onto the screen:
-        layerComponents.forEach(layer -> layer.draw(gc, font));
+        layerComponents.forEach(layer -> layer.draw(gc, imageCache));
 
         // Draw screen components onto the screen:
-        screenComponents.forEach(screen -> screen.draw(gc, font));
+        screenComponents.forEach(screen -> screen.draw(gc, imageCache));
     }
 
     /**
@@ -201,13 +202,13 @@ public class Screen extends Component {
      * an in-memory screen and draws each AsciiCharacter onto
      * that screen.
      *
-     * @param asciiFont
-     *        The font to render the screen with.
+     * @param imageCache
+     *         The image cache to retrieve character images from.
      *
      * @return
      *        An image of the screen.
      */
-    public BufferedImage screenshot(final Font asciiFont) {
+    public BufferedImage screenshot(final ColoredImageCache imageCache) {
         final BufferedImage img = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
         final Graphics2D gc = img.createGraphics();
 
@@ -215,7 +216,7 @@ public class Screen extends Component {
             string.setAllCharactersToBeRedrawn();
         }
 
-        draw(gc, asciiFont);
+        draw(gc, imageCache);
         gc.dispose();
 
         return img;
