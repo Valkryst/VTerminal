@@ -2,6 +2,7 @@ package com.valkryst.VTerminal;
 
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VRadio.Radio;
+import com.valkryst.VTerminal.misc.ImageColorReplacer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,8 @@ import java.awt.image.*;
 
 
 public class AsciiCharacter {
+    private final static ImageColorReplacer COLOR_REPLACER = new ImageColorReplacer();
+
     /** The transparent color. */
     public final static Color TRANSPARENT_COLOR = new Color(0, 0, 0, 0);
 
@@ -122,7 +125,7 @@ public class AsciiCharacter {
         Image image = bufferedImage;
 
         if (foregroundColor.equals(Color.WHITE) == false || (backgroundColor.equals(Color.BLACK) == false && backgroundColor.equals(TRANSPARENT_COLOR) == false)) {
-            final BufferedImageOp op = createColorReplacementLookupOp(backgroundColor, foregroundColor);
+            final BufferedImageOp op = COLOR_REPLACER.retrieveOperation(backgroundColor, foregroundColor);
             image = op.filter(bufferedImage, null);
         }
 
@@ -145,40 +148,6 @@ public class AsciiCharacter {
             final int y = rowIndex + fontHeight - underlineThickness;
             gc.fillRect(columnIndex, y, fontWidth, underlineThickness);
         }
-    }
-
-    private LookupOp createColorReplacementLookupOp(final Color newBgColor, final Color newFgColor) {
-        short[] a = new short[256];
-        short[] r = new short[256];
-        short[] g = new short[256];
-        short[] b = new short[256];
-
-        short bga = (byte) (newBgColor.getAlpha());
-        short bgr = (byte) (newBgColor.getRed());
-        short bgg = (byte) (newBgColor.getGreen());
-        short bgb = (byte) (newBgColor.getBlue());
-
-        short fga = (byte) (newFgColor.getAlpha());
-        short fgr = (byte) (newFgColor.getRed());
-        short fgg = (byte) (newFgColor.getGreen());
-        short fgb = (byte) (newFgColor.getBlue());
-
-        for (int i = 0; i < 256; i++) {
-            if (i == 0) {
-                a[i] = bga;
-                r[i] = bgr;
-                g[i] = bgg;
-                b[i] = bgb;
-            } else {
-                a[i] = fga;
-                r[i] = fgr;
-                g[i] = fgg;
-                b[i] = fgb;
-            }
-        }
-
-        short[][] table = {r, g, b, a};
-        return new LookupOp(new ShortLookupTable(0, table), null);
     }
 
     /**
