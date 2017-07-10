@@ -60,7 +60,7 @@ public class LoadingBarBuilder extends ComponentBuilder<LoadingBar, LoadingBarBu
     public void reset() {
         super.reset();
 
-        width = 1;
+        width = 10;
         height = 1;
 
         radio = null;
