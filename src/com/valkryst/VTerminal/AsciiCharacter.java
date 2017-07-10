@@ -1,23 +1,21 @@
 package com.valkryst.VTerminal;
 
-import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VRadio.Radio;
-import com.valkryst.VTerminal.misc.ImageColorReplacer;
+import com.valkryst.VTerminal.misc.ColoredImageCache;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.Timer;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
-import java.awt.image.*;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 
 
 public class AsciiCharacter {
-    private final static ImageColorReplacer COLOR_REPLACER = new ImageColorReplacer();
-
-    /** The transparent color. */
-    public final static Color TRANSPARENT_COLOR = new Color(0, 0, 0, 0);
-
     /** The character. */
 	@Getter @Setter private char character;
 	/** Whether or not the foreground should be drawn using the background color. */
@@ -90,8 +88,8 @@ public class AsciiCharacter {
      * @param gc
      *         The graphics context to draw with.
      *
-     * @param font
-     *         The font to draw with.
+     * @param imageCache
+     *         The image cache to retrieve the character image from.
      *
      * @param columnIndex
      *         The x-axis (column) coordinate where the character is to be drawn.
@@ -99,8 +97,8 @@ public class AsciiCharacter {
      * @param rowIndex
      *         The y-axis (row) coordinate where the character is to be drawn.
      */
-    public void draw(final Graphics2D gc, final Font font, int columnIndex, int rowIndex) {
-        BufferedImage bufferedImage = font.getCharacterImage(character, backgroundColor != TRANSPARENT_COLOR);
+    public void draw(final Graphics2D gc, final ColoredImageCache imageCache, int columnIndex, int rowIndex) {
+        BufferedImage image = imageCache.retrieveFromCache(this);
 
         // Handle Horizontal/Vertical Flipping:
         if (isFlippedHorizontally || isFlippedVertically) {
@@ -108,33 +106,27 @@ public class AsciiCharacter {
 
             if (isFlippedHorizontally && isFlippedVertically) {
                 tx = AffineTransform.getScaleInstance(-1, -1);
-                tx.translate(-bufferedImage.getWidth(), -bufferedImage.getHeight());
+                tx.translate(-image.getWidth(), -image.getHeight());
             } else if (isFlippedHorizontally) {
                 tx = AffineTransform.getScaleInstance(-1, 1);
-                tx.translate(-bufferedImage.getWidth(), 0);
+                tx.translate(-image.getWidth(), 0);
             } else  {
                 tx = AffineTransform.getScaleInstance(1, -1);
-                tx.translate(0, -bufferedImage.getHeight());
+                tx.translate(0, -image.getHeight());
             }
 
             final BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
-            bufferedImage = op.filter(bufferedImage, null);
-        }
-
-        // Retrieve character image & set colors:
-        if (foregroundColor.equals(Color.WHITE) == false || (backgroundColor.equals(Color.BLACK) == false && backgroundColor.equals(TRANSPARENT_COLOR) == false)) {
-            final BufferedImageOp op = COLOR_REPLACER.retrieveOperation(backgroundColor, foregroundColor);
-            bufferedImage = op.filter(bufferedImage, null);
+            image = op.filter(image, null);
         }
 
         // Draw character:
-	    final int fontWidth = font.getWidth();
-	    final int fontHeight = font.getHeight();
+	    final int fontWidth = imageCache.getFont().getWidth();
+	    final int fontHeight = imageCache.getFont().getHeight();
 
 	    columnIndex *= fontWidth;
 	    rowIndex *= fontHeight;
 
-        gc.drawImage(bufferedImage, columnIndex, rowIndex,null);
+        gc.drawImage(image, columnIndex, rowIndex,null);
 
         boundingBox.setLocation(columnIndex, rowIndex);
         boundingBox.setSize(fontWidth, fontHeight);
