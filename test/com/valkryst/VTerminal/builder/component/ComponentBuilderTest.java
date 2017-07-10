@@ -1,5 +1,7 @@
 package com.valkryst.VTerminal.builder.component;
 
+import com.valkryst.VRadio.Radio;
+import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Button;
 import org.junit.Assert;
 import org.junit.Before;
@@ -73,5 +75,31 @@ public class ComponentBuilderTest {
     public void testSetRowIndex_withIndexLessThanZero() {
         componentBuilder.setRowIndex(-1);
         Assert.assertEquals(0, componentBuilder.getRowIndex());
+    }
+
+    @Test
+    public void testSetRadio_radio() {
+        final Radio<String> radio = new Radio<>();
+
+        componentBuilder.setRadio(radio);
+        Assert.assertEquals(radio, componentBuilder.getRadio());
+    }
+
+    @Test
+    public void testSetRadio_radio_withNullRadio() {
+        final Radio<String> radio = new Radio<>();
+
+        componentBuilder.setRadio(radio);
+        componentBuilder.setRadio((Radio<String>)null);
+        Assert.assertEquals(radio, componentBuilder.getRadio());
+    }
+
+    @Test
+    public void testSetRadio_panel_withNullPanel() {
+        final Radio<String> radio = new Radio<>();
+
+        componentBuilder.setRadio(radio);
+        componentBuilder.setRadio((Panel) null);
+        Assert.assertEquals(radio, componentBuilder.getRadio());
     }
 }

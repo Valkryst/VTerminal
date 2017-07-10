@@ -73,32 +73,6 @@ public class TextFieldBuilderTest {
     }
 
     @Test
-    public void testSetRadio_radio_withValidRadio() {
-        final Radio<String> radio = new Radio<>();
-
-        builder.setRadio(radio);
-        Assert.assertEquals(radio, builder.getRadio());
-    }
-
-    @Test
-    public void testSetRadio_radio_withNullRadio() {
-        final Radio<String> radio = new Radio<>();
-
-        builder.setRadio(radio);
-        builder.setRadio((Radio<String>)null);
-        Assert.assertEquals(radio, builder.getRadio());
-    }
-
-    @Test
-    public void testSetRadio_panel_withNullPanel() {
-        final Radio<String> radio = new Radio<>();
-
-        builder.setRadio(radio);
-        builder.setRadio((com.valkryst.VTerminal.Panel) null);
-        Assert.assertEquals(radio, builder.getRadio());
-    }
-
-    @Test
     public void testSetCaretForegroundColor_withValidColor() {
         builder.setCaretForegroundColor(Color.RED);
         Assert.assertEquals(Color.RED, builder.getCaretForegroundColor());

@@ -75,32 +75,6 @@ public class ButtonBuilderTest {
     }
 
     @Test
-    public void testSetRadio_radio() {
-        final Radio<String> radio = new Radio<>();
-
-        builder.setRadio(radio);
-        Assert.assertEquals(radio, builder.getRadio());
-    }
-
-    @Test
-    public void testSetRadio_radio_withNullRadio() {
-        final Radio<String> radio = new Radio<>();
-
-        builder.setRadio(radio);
-        builder.setRadio((Radio<String>)null);
-        Assert.assertEquals(radio, builder.getRadio());
-    }
-
-    @Test
-    public void testSetRadio_panel_withNullPanel() {
-        final Radio<String> radio = new Radio<>();
-
-        builder.setRadio(radio);
-        builder.setRadio((Panel) null);
-        Assert.assertEquals(radio, builder.getRadio());
-    }
-
-    @Test
     public void testSetStartingCharacter() {
         builder.setStartingCharacter('A');
         Assert.assertEquals('A', builder.getStartingCharacter());

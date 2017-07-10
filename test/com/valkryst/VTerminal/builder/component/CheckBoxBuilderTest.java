@@ -68,30 +68,6 @@ public class CheckBoxBuilderTest {
     }
 
     @Test
-    public void setRadio_radio_withValidRadio() {
-        final Radio<String> radio = new Radio<>();
-        builder.setRadio(radio);
-        Assert.assertEquals(radio, builder.getRadio());
-    }
-
-    @Test
-    public void setRadio_radio_withNullRadio() {
-        final Radio<String> radio = new Radio<>();
-        builder.setRadio(radio);
-        builder.setRadio((Radio<String>) null);
-        Assert.assertEquals(radio, builder.getRadio());
-    }
-
-    @Test
-    public void testSetRadio_panel_withNullPanel() {
-        final Radio<String> radio = new Radio<>();
-
-        builder.setRadio(radio);
-        builder.setRadio((com.valkryst.VTerminal.Panel) null);
-        Assert.assertEquals(radio, builder.getRadio());
-    }
-
-    @Test
     public void setEmptyBoxChar() {
         builder.setEmptyBoxChar('?');
         Assert.assertEquals('?', builder.getEmptyBoxChar());
