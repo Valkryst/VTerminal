@@ -250,13 +250,13 @@ public class TextField extends Component {
 
     /** @return The text contained within the field. */
     public String getText() {
-        String text = "";
+        final StringBuilder sb = new StringBuilder();
 
         for (final AsciiCharacter character : super.getStrings()[0].getCharacters()) {
-            text += character.getCharacter();
+            sb.append(character.getCharacter());
         }
 
-        return text;
+        return sb.toString();
     }
 
     /**
