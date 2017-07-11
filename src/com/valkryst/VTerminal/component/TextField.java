@@ -12,6 +12,7 @@ import lombok.Setter;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -84,6 +85,41 @@ public class TextField extends Component {
 
         // Set initial caret position:
         changeCaretPosition(index_caret);
+    }
+
+    @Override
+    public boolean equals(final Object otherObj) {
+        if (otherObj instanceof TextField == false) {
+            return false;
+        }
+
+        if (otherObj == this) {
+            return true;
+        }
+
+        final TextField otherField = (TextField) otherObj;
+        boolean isEqual = super.equals(otherObj);
+        isEqual &= caretForegroundColor.equals(otherField.getCaretForegroundColor());
+        isEqual &= caretBackgroundColor.equals(otherField.getCaretBackgroundColor());
+        isEqual &= foregroundColor.equals(otherField.getForegroundColor());
+        isEqual &= backgroundColor.equals(otherField.getBackgroundColor());
+        isEqual &= homeKeyEnabled == otherField.isHomeKeyEnabled();
+        isEqual &= endKeyEnabled == otherField.isEndKeyEnabled();
+        isEqual &= deleteKeyEnabled == otherField.isDeleteKeyEnabled();
+        isEqual &= leftArrowKeyEnabled == otherField.isLeftArrowKeyEnabled();
+        isEqual &= rightArrowKeyEnabled == otherField.isRightArrowKeyEnabled();
+        isEqual &= backSpaceKeyEnabled == otherField.isBackSpaceKeyEnabled();
+        isEqual &= index_caret == otherField.getIndex_caret();
+        isEqual &= maxCharacters == otherField.getMaxCharacters();
+        isEqual &= allowedCharacterPattern.equals(otherField.getAllowedCharacterPattern());
+        return isEqual;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), caretForegroundColor, caretBackgroundColor, foregroundColor,
+                            backgroundColor, homeKeyEnabled, endKeyEnabled, deleteKeyEnabled, leftArrowKeyEnabled,
+                            rightArrowKeyEnabled, backSpaceKeyEnabled, index_caret, maxCharacters, allowedCharacterPattern);
     }
 
     @Override
