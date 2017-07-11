@@ -54,18 +54,18 @@ public class AsciiCharacter {
 
     @Override
     public String toString() {
-        return "Character:\n" +
-                "\tCharacter: '" + character + "'\n" +
-                "\tBackground Color: " + backgroundColor + "\n" +
-                "\tForeground Color: " + foregroundColor + "\n" +
-                "\tIs Hidden: " + isHidden + "\n" +
-                "\tBounding Box: " + boundingBox + "\n" +
-                "\tIs Underlined: " + isUnderlined + "\n" +
-                "\tUnderline Thickness: " + underlineThickness + "\n" +
-                "\tIs Flipped Horizontally: " + isFlippedHorizontally + "\n" +
-                "\tIs Flipped Vertically: " + isFlippedVertically + "\n" +
-                "\tBlink Timer: " + blinkTimer + "\n" +
-                "\tMilliseconds Between Blinks: " + millsBetweenBlinks + "\n";
+        return "Character:" +
+                "\n\tCharacter:\t'" + character + "'" +
+                "\n\tBackground Color:\t" + backgroundColor +
+                "\n\tForeground Color:\t" + foregroundColor +
+                "\n\tIs Hidden:\t" + isHidden +
+                "\n\tBounding Box:\t" + boundingBox +
+                "\n\tIs Underlined:\t" + isUnderlined +
+                "\n\tUnderline Thickness:\t" + underlineThickness +
+                "\n\tIs Flipped Horizontally:\t" + isFlippedHorizontally +
+                "\n\tIs Flipped Vertically:\t" + isFlippedVertically +
+                "\n\tBlink Timer:\t" + blinkTimer +
+                "\n\tMilliseconds Between Blinks:\t" + millsBetweenBlinks;
     }
 
     @Override
@@ -80,19 +80,11 @@ public class AsciiCharacter {
 
         final AsciiCharacter otherCharacter = (AsciiCharacter) object;
 
-	    if (character != otherCharacter.character) {
-	        return false;
-        }
+	    boolean isEqual = Objects.equals(character, otherCharacter.getCharacter());
+	    isEqual &= Objects.equals(backgroundColor, otherCharacter.getBackgroundColor());
+	    isEqual &= Objects.equals(foregroundColor, otherCharacter.getForegroundColor());
 
-        if (backgroundColor.equals(otherCharacter.backgroundColor) == false) {
-            return false;
-        }
-
-        if (foregroundColor.equals(otherCharacter.foregroundColor) == false) {
-	        return false;
-        }
-
-        return true;
+        return isEqual;
     }
 
     @Override
