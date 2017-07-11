@@ -101,15 +101,15 @@ public class RadioButton extends Component {
 
         final RadioButton otherButton = (RadioButton) otherObj;
         boolean isEqual = super.equals(otherObj);
-        isEqual &= emptyButtonChar == otherButton.getEmptyButtonChar();
-        isEqual &= checkedButtonChar == otherButton.getCheckedButtonChar();
-        isEqual &= isChecked == otherButton.isChecked();
-        isEqual &= backgroundColor_normal.equals(otherButton.getBackgroundColor_normal());
-        isEqual &= foregroundColor_normal.equals(otherButton.getForegroundColor_normal());
-        isEqual &= backgroundColor_hover.equals(otherButton.getBackgroundColor_hover());
-        isEqual &= foregroundColor_hover.equals(otherButton.getForegroundColor_hover());
-        isEqual &= backgroundColor_checked.equals(otherButton.getBackgroundColor_checked());
-        isEqual &= foregroundColor_checked.equals(otherButton.getForegroundColor_checked());
+        isEqual &= Objects.equals(emptyButtonChar, otherButton.getEmptyButtonChar());
+        isEqual &= Objects.equals(checkedButtonChar, otherButton.getCheckedButtonChar());
+        isEqual &= Objects.equals(isChecked, otherButton.isChecked());
+        isEqual &= Objects.equals(backgroundColor_normal, otherButton.getBackgroundColor_normal());
+        isEqual &= Objects.equals(foregroundColor_normal, otherButton.getForegroundColor_normal());
+        isEqual &= Objects.equals(backgroundColor_hover, otherButton.getBackgroundColor_hover());
+        isEqual &= Objects.equals(foregroundColor_hover, otherButton.getForegroundColor_hover());
+        isEqual &= Objects.equals(backgroundColor_checked, otherButton.getBackgroundColor_checked());
+        isEqual &= Objects.equals(foregroundColor_checked, otherButton.getForegroundColor_checked());
         return isEqual;
     }
 

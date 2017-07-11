@@ -99,15 +99,15 @@ public class CheckBox extends Component {
 
         final CheckBox otherBox = (CheckBox) otherObj;
         boolean isEqual = super.equals(otherObj);
-        isEqual &= emptyBoxChar == otherBox.getEmptyBoxChar();
-        isEqual &= checkedBoxChar == otherBox.getCheckedBoxChar();
-        isEqual &= isChecked == otherBox.isChecked();
-        isEqual &= backgroundColor_normal.equals(otherBox.getBackgroundColor_normal());
-        isEqual &= foregroundColor_normal.equals(otherBox.getForegroundColor_normal());
-        isEqual &= backgroundColor_hover.equals(otherBox.getBackgroundColor_hover());
-        isEqual &= foregroundColor_hover.equals(otherBox.getForegroundColor_hover());
-        isEqual &= backgroundColor_checked.equals(otherBox.getBackgroundColor_checked());
-        isEqual &= foregroundColor_checked.equals(otherBox.getForegroundColor_checked());
+        isEqual &= Objects.equals(emptyBoxChar, otherBox.getEmptyBoxChar());
+        isEqual &= Objects.equals(checkedBoxChar, otherBox.getCheckedBoxChar());
+        isEqual &= Objects.equals(isChecked, otherBox.isChecked());
+        isEqual &= Objects.equals(backgroundColor_normal, otherBox.getBackgroundColor_normal());
+        isEqual &= Objects.equals(foregroundColor_normal, otherBox.getForegroundColor_normal());
+        isEqual &= Objects.equals(backgroundColor_hover, otherBox.getBackgroundColor_hover());
+        isEqual &= Objects.equals(foregroundColor_hover, otherBox.getForegroundColor_hover());
+        isEqual &= Objects.equals(backgroundColor_checked, otherBox.getBackgroundColor_checked());
+        isEqual &= Objects.equals(foregroundColor_checked, otherBox.getForegroundColor_checked());
         return isEqual;
     }
 

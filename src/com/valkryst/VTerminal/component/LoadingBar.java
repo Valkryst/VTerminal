@@ -66,13 +66,13 @@ public class LoadingBar extends Component {
 
         final LoadingBar otherBar = (LoadingBar) otherObj;
         boolean isEqual = super.equals(otherObj);
-        isEqual &= percentComplete == otherBar.getPercentComplete();
-        isEqual &= incompleteCharacter == otherBar.getIncompleteCharacter();
-        isEqual &= completeCharacter == otherBar.getCompleteCharacter();
-        isEqual &= backgroundColor_incomplete.equals(otherBar.getBackgroundColor_incomplete());
-        isEqual &= foregroundColor_incomplete.equals(otherBar.getForegroundColor_incomplete());
-        isEqual &= backgroundColor_complete.equals(otherBar.getBackgroundColor_complete());
-        isEqual &= foregroundColor_complete.equals(otherBar.getForegroundColor_complete());
+        isEqual &= Objects.equals(percentComplete, otherBar.getPercentComplete());
+        isEqual &= Objects.equals(incompleteCharacter, otherBar.getIncompleteCharacter());
+        isEqual &= Objects.equals(completeCharacter, otherBar.getCompleteCharacter());
+        isEqual &= Objects.equals(backgroundColor_incomplete, otherBar.getBackgroundColor_incomplete());
+        isEqual &= Objects.equals(foregroundColor_incomplete, otherBar.getForegroundColor_incomplete());
+        isEqual &= Objects.equals(backgroundColor_complete, otherBar.getBackgroundColor_complete());
+        isEqual &= Objects.equals(foregroundColor_complete, otherBar.getForegroundColor_complete());
         return isEqual;
     }
 

@@ -48,8 +48,8 @@ public class Label extends Component {
 
         final Label otherLabel = (Label) otherObj;
         boolean isEqual = super.equals(otherObj);
-        isEqual &= backgroundColor == otherLabel.getBackgroundColor();
-        isEqual &= foregroundColor == otherLabel.getForegroundColor();
+        isEqual &= Objects.equals(backgroundColor, otherLabel.getBackgroundColor());
+        isEqual &= Objects.equals(foregroundColor, otherLabel.getForegroundColor());
         return isEqual;
     }
 

@@ -90,20 +90,21 @@ public class Component {
     }
 
     @Override
-    public boolean equals(final Object other) {
-        if (other instanceof Component == false) {
+    public boolean equals(final Object otherObj) {
+        if (otherObj instanceof Component == false) {
             return false;
         }
 
         // Left out a check for isFocused since two components could be
         // virtually identical other than their focus.
         // Left out a check for radio.
-        final Component otherComp = (Component) other;
-        boolean isEqual = columnIndex == otherComp.getColumnIndex();
-        isEqual &= rowIndex == otherComp.getRowIndex();
-        isEqual &= width == otherComp.getWidth();
-        isEqual &= height == otherComp.getHeight();
-        isEqual &= boundingBox.equals(otherComp.getBoundingBox());
+        final Component otherComp = (Component) otherObj;
+        boolean isEqual = super.equals(otherObj);
+        isEqual &= Objects.equals(columnIndex, otherComp.getColumnIndex());
+        isEqual &= Objects.equals(rowIndex, otherComp.getRowIndex());
+        isEqual &= Objects.equals(width, otherComp.getWidth());
+        isEqual &= Objects.equals(height, otherComp.getHeight());
+        isEqual &= Objects.equals(boundingBox, otherComp.getBoundingBox());
         isEqual &= Arrays.equals(strings, otherComp.getStrings());
 
         return isEqual;

@@ -99,19 +99,19 @@ public class TextField extends Component {
 
         final TextField otherField = (TextField) otherObj;
         boolean isEqual = super.equals(otherObj);
-        isEqual &= caretForegroundColor.equals(otherField.getCaretForegroundColor());
-        isEqual &= caretBackgroundColor.equals(otherField.getCaretBackgroundColor());
-        isEqual &= foregroundColor.equals(otherField.getForegroundColor());
-        isEqual &= backgroundColor.equals(otherField.getBackgroundColor());
-        isEqual &= homeKeyEnabled == otherField.isHomeKeyEnabled();
-        isEqual &= endKeyEnabled == otherField.isEndKeyEnabled();
-        isEqual &= deleteKeyEnabled == otherField.isDeleteKeyEnabled();
-        isEqual &= leftArrowKeyEnabled == otherField.isLeftArrowKeyEnabled();
-        isEqual &= rightArrowKeyEnabled == otherField.isRightArrowKeyEnabled();
-        isEqual &= backSpaceKeyEnabled == otherField.isBackSpaceKeyEnabled();
-        isEqual &= index_caret == otherField.getIndex_caret();
-        isEqual &= maxCharacters == otherField.getMaxCharacters();
-        isEqual &= allowedCharacterPattern.equals(otherField.getAllowedCharacterPattern());
+        isEqual &= Objects.equals(caretForegroundColor, otherField.getCaretForegroundColor());
+        isEqual &= Objects.equals(caretBackgroundColor, otherField.getCaretBackgroundColor());
+        isEqual &= Objects.equals(foregroundColor, otherField.getForegroundColor());
+        isEqual &= Objects.equals(backgroundColor, otherField.getBackgroundColor());
+        isEqual &= Objects.equals(homeKeyEnabled, otherField.isHomeKeyEnabled());
+        isEqual &= Objects.equals(endKeyEnabled, otherField.isEndKeyEnabled());
+        isEqual &= Objects.equals(deleteKeyEnabled, otherField.isDeleteKeyEnabled());
+        isEqual &= Objects.equals(leftArrowKeyEnabled, otherField.isLeftArrowKeyEnabled());
+        isEqual &= Objects.equals(rightArrowKeyEnabled, otherField.isRightArrowKeyEnabled());
+        isEqual &= Objects.equals(backSpaceKeyEnabled, otherField.isBackSpaceKeyEnabled());
+        isEqual &= Objects.equals(index_caret, otherField.getIndex_caret());
+        isEqual &= Objects.equals(maxCharacters, otherField.getMaxCharacters());
+        isEqual &= Objects.equals(allowedCharacterPattern, otherField.getAllowedCharacterPattern());
         return isEqual;
     }
 
