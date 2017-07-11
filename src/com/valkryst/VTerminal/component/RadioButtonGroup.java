@@ -2,10 +2,16 @@ package com.valkryst.VTerminal.component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class RadioButtonGroup {
     /** The buttons in the group. */
     private final List<RadioButton> buttons = new ArrayList<>();
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), buttons);
+    }
 
     /**
      * Sets the specified button as checked and un-checks all other buttons.
