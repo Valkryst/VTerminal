@@ -1,18 +1,19 @@
 package com.valkryst.VTerminal.component;
 
-import com.valkryst.VTerminal.AsciiCharacter;
-import com.valkryst.VTerminal.Panel;
-import com.valkryst.VTerminal.AsciiString;
-import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VRadio.Radio;
+import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.AsciiString;
+import com.valkryst.VTerminal.Panel;
+import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.IntRange;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.awt.*;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 public class Component {
@@ -106,6 +107,11 @@ public class Component {
         isEqual &= Arrays.equals(strings, otherComp.getStrings());
 
         return isEqual;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(columnIndex, rowIndex, width, height, boundingBox, strings, screen);
     }
 
     @Override
