@@ -13,6 +13,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
+import java.util.Objects;
 
 
 public class AsciiCharacter {
@@ -80,6 +81,13 @@ public class AsciiCharacter {
         }
 
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+	    return Objects.hash(character, isHidden, backgroundColor, foregroundColor, boundingBox, isUnderlined,
+                            underlineThickness, isFlippedHorizontally, isFlippedVertically, blinkTimer,
+                            millsBetweenBlinks);
     }
 
     /**
