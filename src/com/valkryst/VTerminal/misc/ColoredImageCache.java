@@ -11,10 +11,18 @@ import java.util.Map;
 import java.util.Objects;
 
 public class ColoredImageCache {
+    /** The cache. */
     private final LinkedHashMap<AsciiCharacterShell, BufferedImage> cachedImages;
 
+    /** The font of the character images. */
     @Getter private final Font font;
 
+    /**
+     * Constructs a new ColoredImageCache.
+     *
+     * @param font
+     *         The font.
+     */
     public ColoredImageCache(final Font font) {
         this.font = font;
         cachedImages = new LinkedHashMap<AsciiCharacterShell, BufferedImage>()  {
@@ -26,6 +34,19 @@ public class ColoredImageCache {
         };
     }
 
+    /**
+     * Constructs a new ColoredImageCache.
+     *
+     * @param font
+     *         The font.
+     *
+     * @param maxCacheSize
+     *         The maximum number of images to save in the cache.
+     *
+     *         When this value is reached, or exceeded, then the cache
+     *         discards the eldest cache entry to make room for a new
+     *         entry.
+     */
     public ColoredImageCache(final Font font, final int maxCacheSize) {
         this.font = font;
         cachedImages = new LinkedHashMap<AsciiCharacterShell, BufferedImage>() {
@@ -37,11 +58,36 @@ public class ColoredImageCache {
         };
     }
 
+    /**
+     * Retrieves a character image from the cache.
+     *
+     * If no image could be found, then one is created, inserted into
+     * the cache, and then returned.
+     *
+     * @param character
+     *         The character.
+     *
+     * @return
+     *         The character image.
+     */
     public BufferedImage retrieveFromCache(final AsciiCharacter character) {
         final AsciiCharacterShell shell = new AsciiCharacterShell(character, font);
         return cachedImages.computeIfAbsent(shell, s -> applyColorSwap(s, font));
     }
 
+    /**
+     * Gets a character image for a character shell and applies the
+     * back/foreground colors to it.
+     *
+     * @param characterShell
+     *         The character shell.
+     *
+     * @param font
+     *         The font to retrieve the base character image from.
+     *
+     * @return
+     *         The character image.
+     */
     private static BufferedImage applyColorSwap(final AsciiCharacterShell characterShell, final Font font) {
         final BufferedImage image = font.getCharacterImage(characterShell.getCharacter());
         final int backgroundRGB = characterShell.getBackgroundColor().getRGB();
