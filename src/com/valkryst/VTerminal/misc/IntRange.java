@@ -2,6 +2,8 @@ package com.valkryst.VTerminal.misc;
 
 import lombok.Getter;
 
+import java.util.Objects;
+
 public class IntRange {
     /** The beginning value of the range. */
     @Getter private int begin;
@@ -21,6 +23,27 @@ public class IntRange {
         this.begin = begin;
         this.end = end;
         clampValuesToRange(begin, end);
+    }
+
+    @Override
+    public boolean equals(final Object otherObj) {
+        if (otherObj instanceof IntRange == false) {
+            return false;
+        }
+
+        if (otherObj == this) {
+            return true;
+        }
+
+        final IntRange otherRange = (IntRange) otherObj;
+        boolean isEqual = begin == otherRange.getBegin();
+        isEqual &= end == otherRange.getEnd();
+        return isEqual;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(begin, end);
     }
 
     /**
