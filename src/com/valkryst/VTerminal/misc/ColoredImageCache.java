@@ -39,11 +39,11 @@ public class ColoredImageCache {
 
     public BufferedImage retrieveFromCache(final AsciiCharacter character) {
         final AsciiCharacterShell shell = new AsciiCharacterShell(character, font);
-        return cachedImages.computeIfAbsent(shell, ColoredImageCache::applyColorSwap);
+        return cachedImages.computeIfAbsent(shell, s -> applyColorSwap(s, font));
     }
 
-    private static BufferedImage applyColorSwap(final AsciiCharacterShell characterShell) {
-        final BufferedImage image = characterShell.getImage();
+    private static BufferedImage applyColorSwap(final AsciiCharacterShell characterShell, final Font font) {
+        final BufferedImage image = font.getCharacterImage(characterShell.getCharacter());
         final int backgroundRGB = characterShell.getBackgroundColor().getRGB();
         final int foregroundRGB = characterShell.getForegroundColor().getRGB();
 
@@ -76,8 +76,6 @@ public class ColoredImageCache {
     }
 
     private class AsciiCharacterShell {
-        /** The font. */
-        @Getter private final Font font;
         /** The character. */
         @Getter private final char character;
         /** The background color. Defaults to black. */
@@ -94,14 +92,9 @@ public class ColoredImageCache {
                 throw new IllegalArgumentException("The AsciiCharacterShell cannot have a null font.");
             }
 
-            this.font = font;
             this.character = character.getCharacter();
             this.backgroundColor = character.getBackgroundColor();
             this.foregroundColor = character.getForegroundColor();
-        }
-
-        public BufferedImage getImage() {
-            return font.getCharacterImage(character);
         }
 
         @Override
@@ -115,8 +108,7 @@ public class ColoredImageCache {
             }
 
             final AsciiCharacterShell otherShell = (AsciiCharacterShell) otherObj;
-            boolean isEqual = font.equals(otherShell.getFont());
-            isEqual &= character == otherShell.getCharacter();
+            boolean isEqual = character == otherShell.getCharacter();
             isEqual &= backgroundColor.equals(otherShell.getBackgroundColor());
             isEqual &= foregroundColor.equals(otherShell.getForegroundColor());
             return isEqual;
@@ -124,7 +116,7 @@ public class ColoredImageCache {
 
         @Override
         public int hashCode() {
-            return Objects.hash(font, character, backgroundColor, foregroundColor);
+            return Objects.hash(character, backgroundColor, foregroundColor);
         }
     }
 }
