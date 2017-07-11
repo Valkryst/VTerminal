@@ -80,6 +80,22 @@ public class AsciiCharacterTest {
     }
 
     @Test
+    public void testHashCode_withEqualCharacters() {
+        final AsciiCharacter characterA = new AsciiCharacter('A');
+        final AsciiCharacter characterB = new AsciiCharacter('A');
+
+        Assert.assertEquals(characterA.hashCode(), characterB.hashCode());
+    }
+
+    @Test
+    public void testHashCode_withNonEqualCharacters() {
+        final AsciiCharacter characterA = new AsciiCharacter('A');
+        final AsciiCharacter characterB = new AsciiCharacter('B');
+
+        Assert.assertNotEquals(characterA.hashCode(), characterB.hashCode());
+    }
+
+    @Test
     public void testEnableBlinkEffect() {
         final AsciiCharacter character = new AsciiCharacter('A');
         character.enableBlinkEffect((short) 666, new Radio<>());
