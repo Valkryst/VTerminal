@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -38,6 +39,11 @@ public class Screen extends Component {
      */
     public Screen(final int columnIndex, final int rowIndex, final int width, final int height) {
         super(columnIndex, rowIndex, width, height);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), components, layerComponents, screenComponents);
     }
 
     @Override
