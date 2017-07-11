@@ -39,14 +39,7 @@ public class ColoredImageCache {
 
     public BufferedImage retrieveFromCache(final AsciiCharacter character) {
         final AsciiCharacterShell shell = new AsciiCharacterShell(character, font);
-
-        BufferedImage image = cachedImages.get(shell);
-
-        if (image == null) {
-            image = applyColorSwap(shell);
-            cachedImages.put(shell, image);
-        }
-        return image;
+        return cachedImages.computeIfAbsent(shell, ColoredImageCache::applyColorSwap);
     }
 
     private static BufferedImage applyColorSwap(final AsciiCharacterShell characterShell) {
