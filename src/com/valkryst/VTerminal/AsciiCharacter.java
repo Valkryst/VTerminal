@@ -74,6 +74,10 @@ public class AsciiCharacter {
 	        return false;
         }
 
+        if (object == this) {
+	        return true;
+        }
+
         final AsciiCharacter otherCharacter = (AsciiCharacter) object;
 
 	    if (character != otherCharacter.character) {
