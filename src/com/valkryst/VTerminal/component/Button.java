@@ -113,8 +113,8 @@ public class Button extends Component {
 
     @Override
     public int hashCode() {
-        return Objects.hash(startingCharacter, endingCharacter, backgroundColor_normal, foregroundColor_normal,
-                            backgroundColor_hover, foregroundColor_hover, backgroundColor_pressed,
+        return Objects.hash(super.hashCode(), startingCharacter, endingCharacter, backgroundColor_normal,
+                            foregroundColor_normal, backgroundColor_hover, foregroundColor_hover, backgroundColor_pressed,
                             foregroundColor_pressed, onClickFunction);
     }
 
