@@ -98,16 +98,17 @@ public class Button extends Component {
         }
 
         final Button otherButton = (Button) otherObj;
+
         boolean isEqual = super.equals(otherObj);
-        isEqual &= startingCharacter == otherButton.getStartingCharacter();
-        isEqual &= endingCharacter == otherButton.getEndingCharacter();
-        isEqual &= backgroundColor_normal.equals(otherButton.getBackgroundColor_normal());
-        isEqual &= foregroundColor_normal.equals(otherButton.getForegroundColor_normal());
-        isEqual &= backgroundColor_hover.equals(otherButton.getBackgroundColor_hover());
-        isEqual &= foregroundColor_hover.equals(otherButton.getForegroundColor_hover());
-        isEqual &= backgroundColor_pressed.equals(otherButton.getBackgroundColor_pressed());
-        isEqual &= foregroundColor_pressed.equals(otherButton.getForegroundColor_pressed());
-        isEqual &= onClickFunction.equals(otherButton.getOnClickFunction());
+        isEqual &= Objects.equals(startingCharacter, otherButton.getStartingCharacter());
+        isEqual &= Objects.equals(endingCharacter, otherButton.getEndingCharacter());
+        isEqual &= Objects.equals(backgroundColor_normal, otherButton.getBackgroundColor_normal());
+        isEqual &= Objects.equals(foregroundColor_normal, otherButton.getForegroundColor_normal());
+        isEqual &= Objects.equals(backgroundColor_hover, otherButton.getBackgroundColor_hover());
+        isEqual &= Objects.equals(foregroundColor_hover, otherButton.getForegroundColor_hover());
+        isEqual &= Objects.equals(backgroundColor_pressed, otherButton.getBackgroundColor_pressed());
+        isEqual &= Objects.equals(foregroundColor_pressed, otherButton.getForegroundColor_pressed());
+        isEqual &= Objects.equals(onClickFunction, otherButton.getOnClickFunction());
         return isEqual;
     }
 
