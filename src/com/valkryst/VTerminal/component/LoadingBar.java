@@ -5,7 +5,8 @@ import com.valkryst.VTerminal.builder.component.LoadingBarBuilder;
 import com.valkryst.VTerminal.misc.IntRange;
 import lombok.Getter;
 
-import java.awt.*;
+import java.awt.Color;
+import java.util.Objects;
 
 public class LoadingBar extends Component {
     /** The percent complete. */
@@ -51,6 +52,35 @@ public class LoadingBar extends Component {
             string.setAllCharacters(incompleteCharacter);
             string.setBackgroundAndForegroundColor(backgroundColor_incomplete, foregroundColor_incomplete);
         }
+    }
+
+    @Override
+    public boolean equals(final Object otherObj) {
+        if (otherObj instanceof LoadingBar == false) {
+            return false;
+        }
+
+        if (otherObj == this) {
+            return true;
+        }
+
+        final LoadingBar otherBar = (LoadingBar) otherObj;
+        boolean isEqual = super.equals(otherObj);
+        isEqual &= percentComplete == otherBar.getPercentComplete();
+        isEqual &= incompleteCharacter == otherBar.getIncompleteCharacter();
+        isEqual &= completeCharacter == otherBar.getCompleteCharacter();
+        isEqual &= backgroundColor_incomplete.equals(otherBar.getBackgroundColor_incomplete());
+        isEqual &= foregroundColor_incomplete.equals(otherBar.getForegroundColor_incomplete());
+        isEqual &= backgroundColor_complete.equals(otherBar.getBackgroundColor_complete());
+        isEqual &= foregroundColor_complete.equals(otherBar.getForegroundColor_complete());
+        return isEqual;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), percentComplete, incompleteCharacter, completeCharacter,
+                            backgroundColor_incomplete, foregroundColor_incomplete, backgroundColor_complete,
+                            foregroundColor_complete);
     }
 
     /**
