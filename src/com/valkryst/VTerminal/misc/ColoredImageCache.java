@@ -45,10 +45,8 @@ public class ColoredImageCache {
         if (image == null) {
             image = applyColorSwap(shell);
             cachedImages.put(shell, image);
-            return image;
-        } else {
-            return image;
         }
+        return image;
     }
 
     private static BufferedImage applyColorSwap(final AsciiCharacterShell characterShell) {
