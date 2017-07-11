@@ -57,7 +57,15 @@ public class AsciiCharacter {
         return "Character:\n" +
                 "\tCharacter: '" + character + "'\n" +
                 "\tBackground Color: " + backgroundColor + "\n" +
-                "\tForeground Color: " + foregroundColor + "\n";
+                "\tForeground Color: " + foregroundColor + "\n" +
+                "\tIs Hidden: " + isHidden + "\n" +
+                "\tBounding Box: " + boundingBox + "\n" +
+                "\tIs Underlined: " + isUnderlined + "\n" +
+                "\tUnderline Thickness: " + underlineThickness + "\n" +
+                "\tIs Flipped Horizontally: " + isFlippedHorizontally + "\n" +
+                "\tIs Flipped Vertically: " + isFlippedVertically + "\n" +
+                "\tBlink Timer: " + blinkTimer + "\n" +
+                "\tMilliseconds Between Blinks: " + millsBetweenBlinks + "\n";
     }
 
     @Override
