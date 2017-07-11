@@ -111,7 +111,7 @@ public class Component {
 
     @Override
     public int hashCode() {
-        return Objects.hash(columnIndex, rowIndex, width, height, boundingBox, strings, screen);
+        return Objects.hash(columnIndex, rowIndex, width, height, boundingBox, strings);
     }
 
     @Override
