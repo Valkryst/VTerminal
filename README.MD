@@ -107,7 +107,6 @@ To use a different font:
 final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
 final Panel panel = new PanelBuilder().setAsciiFont(font).build();
 
-panel.getCurrentScreen().setBackgroundColor(Color.RED);
 double smoothing = 0.9; // larger=more smoothing
 double measurement = 0.0;
 
@@ -116,6 +115,7 @@ int temp = 45;
 while(true) {
     panel.getCurrentScreen().clear((char)temp);
     panel.getCurrentScreen().setForegroundColor(new Color(255, 155, temp));
+    panel.getCurrentScreen().setBackgroundColor(new Color(temp, 155, 255));
 
     temp++;
 
@@ -123,10 +123,10 @@ while(true) {
         temp = 45;
     }
 
-    long bef = System.currentTimeMillis();
+    final long bef = System.currentTimeMillis();
     panel.draw();
 
-    double current = 1000 / Math.max((System.currentTimeMillis() - bef), 1);
+    final double current = 1000 / Math.max((System.currentTimeMillis() - bef), 1);
     measurement = (measurement * smoothing) + (current * (1.0-smoothing));
     System.out.println("Estimated FPS based on Past Render Times:\t" + measurement);
     Thread.sleep(100);
