@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Objects;
 
 
 public class Button extends Component {
@@ -25,7 +26,7 @@ public class Button extends Component {
     /** The first character of the button's text. This is used to identify the text as a button. */
     @Getter private char startingCharacter;
     /** The last character of the button's text. This is used to identify the text as a button. */
-    @Getter  private char endingCharacter;
+    @Getter private char endingCharacter;
 
     /** The background color for when the button is in the normal state. */
     @Getter private Color backgroundColor_normal;
@@ -84,6 +85,37 @@ public class Button extends Component {
 
         // Set the button's colors (must be done after setting text):
         setColors(backgroundColor_normal, foregroundColor_normal);
+    }
+
+    @Override
+    public boolean equals(final Object otherObj) {
+        if (otherObj instanceof Button == false) {
+            return false;
+        }
+
+        if (otherObj == this) {
+            return true;
+        }
+
+        final Button otherButton = (Button) otherObj;
+        boolean isEqual = super.equals(otherObj);
+        isEqual &= startingCharacter == otherButton.getStartingCharacter();
+        isEqual &= endingCharacter == otherButton.getEndingCharacter();
+        isEqual &= backgroundColor_normal.equals(otherButton.getBackgroundColor_normal());
+        isEqual &= foregroundColor_normal.equals(otherButton.getForegroundColor_normal());
+        isEqual &= backgroundColor_hover.equals(otherButton.getBackgroundColor_hover());
+        isEqual &= foregroundColor_hover.equals(otherButton.getForegroundColor_hover());
+        isEqual &= backgroundColor_pressed.equals(otherButton.getBackgroundColor_pressed());
+        isEqual &= foregroundColor_pressed.equals(otherButton.getForegroundColor_pressed());
+        isEqual &= onClickFunction.equals(otherButton.getOnClickFunction());
+        return isEqual;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(startingCharacter, endingCharacter, backgroundColor_normal, foregroundColor_normal,
+                            backgroundColor_hover, foregroundColor_hover, backgroundColor_pressed,
+                            foregroundColor_pressed, onClickFunction);
     }
 
     @Override
