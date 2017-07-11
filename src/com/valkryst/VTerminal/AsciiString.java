@@ -8,6 +8,7 @@ import lombok.Getter;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class AsciiString {
     /** The characters of the string. */
@@ -90,6 +91,11 @@ public class AsciiString {
         }
 
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(characters, charactersToBeRedrawn);
     }
 
     /**
