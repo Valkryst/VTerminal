@@ -1,10 +1,8 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VRadio.Radio;
-import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.TextField;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.awt.Color;
 import java.util.regex.Pattern;
@@ -40,7 +38,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
     @Getter private boolean backSpaceKeyEnabled;
 
     /** The pattern used to determine which typed characters can be entered into the field. */
-    @Getter @Setter private Pattern allowedCharacterPattern;
+    @Getter private Pattern allowedCharacterPattern;
 
     @Override
     public TextField build() throws IllegalStateException {
