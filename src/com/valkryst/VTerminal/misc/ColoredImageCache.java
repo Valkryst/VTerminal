@@ -18,7 +18,9 @@ public class ColoredImageCache {
     public ColoredImageCache(final Font font) {
         this.font = font;
         cachedImages = new LinkedHashMap<AsciiCharacterShell, BufferedImage>()  {
-            protected boolean removeEldestEntry(final Map.Entry eldest) {
+            private static final long serialVersionUID = 3550239335645856488L;
+
+            protected boolean removeEldestEntry(final Map.Entry<AsciiCharacterShell, BufferedImage> eldest) {
                 return this.size() >= 10000;
             }
         };
@@ -27,7 +29,9 @@ public class ColoredImageCache {
     public ColoredImageCache(final Font font, final int maxCacheSize) {
         this.font = font;
         cachedImages = new LinkedHashMap<AsciiCharacterShell, BufferedImage>() {
-            protected boolean removeEldestEntry(final Map.Entry eldest) {
+            private static final long serialVersionUID = 7940325226870365646L;
+
+            protected boolean removeEldestEntry(final Map.Entry<AsciiCharacterShell, BufferedImage> eldest) {
                 return this.size() >= maxCacheSize;
             }
         };
