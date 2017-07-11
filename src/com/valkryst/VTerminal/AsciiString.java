@@ -15,7 +15,7 @@ public class AsciiString {
     @Getter private AsciiCharacter[] characters;
 
     /** The characters that need to be redrawn. */
-    private boolean[] charactersToBeRedrawn;
+    @Getter private boolean[] charactersToBeRedrawn;
 
     /**
      * Constructs a new AsciiString of the specified length with all characters set to ' '.
@@ -69,28 +69,35 @@ public class AsciiString {
         return builder.toString();
     }
 
+    public String detailedToString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("String:");
+        builder.append("\n\tCharacters:\t").append(toString());
+        builder.append("\n\tCharacters to be Redrawn:\t").append(Arrays.toString(charactersToBeRedrawn)).append("\n");
+
+        for (final AsciiCharacter c : characters) {
+            builder.append("\t").append(c.toString().replace("\n\t", "\n\t\t"));
+        }
+
+        return builder.toString();
+    }
+
     @Override
     public boolean equals(final Object object) {
         if (object instanceof AsciiString == false) {
             return false;
         }
 
+        if (object == this) {
+            return true;
+        }
+
         final AsciiString otherString = (AsciiString) object;
 
-        if (characters.length != otherString.getCharacters().length) {
-            return false;
-        }
+        boolean isEqual = Arrays.equals(characters, otherString.getCharacters());
+        isEqual &= Arrays.equals(charactersToBeRedrawn, otherString.getCharactersToBeRedrawn());
 
-        for (int i = 0 ; i < characters.length ; i++) {
-            final AsciiCharacter thisChar = characters[i];
-            final AsciiCharacter otherChar = otherString.getCharacters()[i];
-
-            if (thisChar.equals(otherChar) == false) {
-                return false;
-            }
-        }
-
-        return true;
+        return isEqual;
     }
 
     @Override
