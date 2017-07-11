@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Objects;
 
 public class RadioButton extends Component {
     /** Whether or not the radio button is in the normal state. */
@@ -86,6 +87,37 @@ public class RadioButton extends Component {
 
         // Set the back/foreground colors:
         string.setBackgroundAndForegroundColor(backgroundColor_normal, foregroundColor_normal);
+    }
+
+    @Override
+    public boolean equals(final Object otherObj) {
+        if (otherObj instanceof RadioButton == false) {
+            return false;
+        }
+
+        if (otherObj == this) {
+            return true;
+        }
+
+        final RadioButton otherButton = (RadioButton) otherObj;
+        boolean isEqual = super.equals(otherObj);
+        isEqual &= emptyButtonChar == otherButton.getEmptyButtonChar();
+        isEqual &= checkedButtonChar == otherButton.getCheckedButtonChar();
+        isEqual &= isChecked == otherButton.isChecked();
+        isEqual &= backgroundColor_normal.equals(otherButton.getBackgroundColor_normal());
+        isEqual &= foregroundColor_normal.equals(otherButton.getForegroundColor_normal());
+        isEqual &= backgroundColor_hover.equals(otherButton.getBackgroundColor_hover());
+        isEqual &= foregroundColor_hover.equals(otherButton.getForegroundColor_hover());
+        isEqual &= backgroundColor_checked.equals(otherButton.getBackgroundColor_checked());
+        isEqual &= foregroundColor_checked.equals(otherButton.getForegroundColor_checked());
+        return isEqual;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), emptyButtonChar, checkedButtonChar, isChecked, backgroundColor_normal,
+                            foregroundColor_normal, backgroundColor_hover, foregroundColor_hover,
+                            backgroundColor_checked, foregroundColor_checked);
     }
 
     @Override
