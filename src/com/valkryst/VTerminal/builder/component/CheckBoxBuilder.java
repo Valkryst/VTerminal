@@ -1,10 +1,8 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VRadio.Radio;
-import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.CheckBox;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.awt.Color;
 
@@ -15,8 +13,8 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
     /** The text of the label to display to the right of the check box. */
     @Getter private String text;
 
-    @Getter @Setter private char emptyBoxChar;
-    @Getter @Setter private char checkedBoxChar;
+    @Getter private char emptyBoxChar;
+    @Getter private char checkedBoxChar;
 
     /** Whether or not the check box is checked. */
     @Getter private boolean isChecked;
