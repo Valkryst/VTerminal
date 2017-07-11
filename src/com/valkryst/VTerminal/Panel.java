@@ -16,6 +16,8 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 public class Panel extends Canvas implements Receiver<String> {
+    private static final long serialVersionUID = 1884786992301690151L;
+
     /** The width of the panel, in characters. */
     @Getter private int widthInCharacters;
     /** The height of the panel, in characters. */
