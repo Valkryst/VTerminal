@@ -1,11 +1,9 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VRadio.Radio;
-import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.RadioButton;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.awt.Color;
 
@@ -16,8 +14,8 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
     /** The text of the label to display to the right of the radio button. */
     @Getter private String text;
 
-    @Getter @Setter private char emptyButtonChar;
-    @Getter @Setter private char checkedButtonChar;
+    @Getter private char emptyButtonChar;
+    @Getter private char checkedButtonChar;
 
     /** The radio button group that the radio button will belong to. */
     @Getter private RadioButtonGroup group;
