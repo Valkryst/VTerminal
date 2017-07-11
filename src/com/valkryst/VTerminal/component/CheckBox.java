@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Objects;
 
 public class CheckBox extends Component {
     /** Whether or not the check box is in the normal state. */
@@ -84,6 +85,36 @@ public class CheckBox extends Component {
 
         // Set the back/foreground colors:
         string.setBackgroundAndForegroundColor(backgroundColor_normal, foregroundColor_normal);
+    }
+
+    @Override
+    public boolean equals(final Object otherObj) {
+        if (otherObj instanceof CheckBox == false) {
+            return false;
+        }
+
+        if (otherObj == this) {
+            return true;
+        }
+
+        final CheckBox otherBox = (CheckBox) otherObj;
+        boolean isEqual = super.equals(otherObj);
+        isEqual &= emptyBoxChar == otherBox.getEmptyBoxChar();
+        isEqual &= checkedBoxChar == otherBox.getCheckedBoxChar();
+        isEqual &= isChecked == otherBox.isChecked();
+        isEqual &= backgroundColor_normal.equals(otherBox.getBackgroundColor_normal());
+        isEqual &= foregroundColor_normal.equals(otherBox.getForegroundColor_normal());
+        isEqual &= backgroundColor_hover.equals(otherBox.getBackgroundColor_hover());
+        isEqual &= foregroundColor_hover.equals(otherBox.getForegroundColor_hover());
+        isEqual &= backgroundColor_checked.equals(otherBox.getBackgroundColor_checked());
+        isEqual &= foregroundColor_checked.equals(otherBox.getForegroundColor_checked());
+        return isEqual;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(emptyBoxChar, checkedBoxChar, isChecked, backgroundColor_normal, foregroundColor_normal,
+                backgroundColor_hover, foregroundColor_hover, backgroundColor_checked, foregroundColor_checked);
     }
 
     @Override
