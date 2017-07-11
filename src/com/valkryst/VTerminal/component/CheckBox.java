@@ -113,8 +113,9 @@ public class CheckBox extends Component {
 
     @Override
     public int hashCode() {
-        return Objects.hash(emptyBoxChar, checkedBoxChar, isChecked, backgroundColor_normal, foregroundColor_normal,
-                backgroundColor_hover, foregroundColor_hover, backgroundColor_checked, foregroundColor_checked);
+        return Objects.hash(super.hashCode(), emptyBoxChar, checkedBoxChar, isChecked, backgroundColor_normal,
+                            foregroundColor_normal, backgroundColor_hover, foregroundColor_hover,
+                            backgroundColor_checked, foregroundColor_checked);
     }
 
     @Override
