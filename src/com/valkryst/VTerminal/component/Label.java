@@ -5,6 +5,7 @@ import com.valkryst.VTerminal.builder.component.LabelBuilder;
 import lombok.Getter;
 
 import java.awt.Color;
+import java.util.Objects;
 
 public class Label extends Component {
     /** The background color for when the label. */
@@ -33,5 +34,27 @@ public class Label extends Component {
         }
 
         string.setBackgroundAndForegroundColor(backgroundColor, foregroundColor);
+    }
+
+    @Override
+    public boolean equals(final Object otherObj) {
+        if (otherObj instanceof Label == false) {
+            return false;
+        }
+
+        if (otherObj == this) {
+            return true;
+        }
+
+        final Label otherBox = (Label) otherObj;
+        boolean isEqual = super.equals(otherObj);
+        isEqual &= backgroundColor == otherBox.getBackgroundColor();
+        isEqual &= foregroundColor == otherBox.getForegroundColor();
+        return isEqual;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), backgroundColor, foregroundColor);
     }
 }
