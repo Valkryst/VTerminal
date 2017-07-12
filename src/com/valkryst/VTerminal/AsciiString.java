@@ -135,6 +135,11 @@ public class AsciiString {
         }
     }
 
+    /** @return The length of the string. */
+    public int length() {
+        return characters.length;
+    }
+
     /**
      * Determines whether or not the specified range is valid.
      *
