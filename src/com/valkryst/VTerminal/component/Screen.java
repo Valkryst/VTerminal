@@ -32,7 +32,7 @@ public class Screen extends Component {
      *         The y-axis (row) coordinate of the top-left character.
      *
      * @param width
-     *         Thw width, in characters.
+     *         The width, in characters.
      *
      * @param height
      *         The height, in characters.
