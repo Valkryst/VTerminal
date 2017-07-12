@@ -100,6 +100,14 @@ public class FontLoader {
      *         If a URISyntaxException occurs while loading the font.
      */
     public static Font loadFontFromJar(final String spriteSheetPath, final String characterDataPath, final int scale) throws IOException, URISyntaxException {
+        if (spriteSheetPath == null || spriteSheetPath.isEmpty()) {
+            throw new IllegalArgumentException("The sprite sheet path cannot be null or empty.");
+        }
+
+        if (characterDataPath == null || characterDataPath.isEmpty()) {
+            throw new IllegalArgumentException("The character data path cannot be null or empty.");
+        }
+
         final ClassLoader classLoader = FontLoader.class.getClassLoader();
 
         final InputStream spriteSheetStream = classLoader.getResourceAsStream(spriteSheetPath);
