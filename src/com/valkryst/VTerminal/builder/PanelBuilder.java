@@ -153,6 +153,7 @@ public class PanelBuilder {
      *        The new screen.
      *
      * @return
+     *        This.
      */
     public PanelBuilder setScreen(final Screen screen) {
         this.screen = screen;
