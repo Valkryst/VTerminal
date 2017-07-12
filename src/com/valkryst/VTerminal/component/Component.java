@@ -347,7 +347,6 @@ public class Component {
         for (int y = rowIndex ; y <= rowIndex + height ; y++) {
             screen.getString(y).setCharacterRangeToBeRedrawn(new IntRange(columnIndex, columnIndex + width));
         }
-        System.out.println();
     }
 
     /**
