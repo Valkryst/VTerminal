@@ -110,6 +110,20 @@ public class AsciiCharacter {
      *         The y-axis (row) coordinate where the character is to be drawn.
      */
     public void draw(final Graphics2D gc, final ColoredImageCache imageCache, int columnIndex, int rowIndex) {
+        final int fontWidth = imageCache.getFont().getWidth();
+        final int fontHeight = imageCache.getFont().getHeight();
+
+        columnIndex *= fontWidth;
+        rowIndex *= fontHeight;
+
+        // Handle hidden state:
+        if (isHidden) {
+            gc.setColor(backgroundColor);
+            gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
+            return;
+        }
+
+
         BufferedImage image = imageCache.retrieveFromCache(this);
 
         // Handle Horizontal/Vertical Flipping:
@@ -132,12 +146,6 @@ public class AsciiCharacter {
         }
 
         // Draw character:
-	    final int fontWidth = imageCache.getFont().getWidth();
-	    final int fontHeight = imageCache.getFont().getHeight();
-
-	    columnIndex *= fontWidth;
-	    rowIndex *= fontHeight;
-
         gc.drawImage(image, columnIndex, rowIndex,null);
 
         boundingBox.setLocation(columnIndex, rowIndex);
