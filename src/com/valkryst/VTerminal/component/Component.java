@@ -377,9 +377,6 @@ public class Component {
      *
      * @param columnIndex
      *         The new x-axis (column) coordinate of the top-left character of the component.
-     *
-     * @return
-     *         Whether or not the new value was set.
      */
     public void setColumnIndex(final int columnIndex) {
         if (columnIndex >= 0) {
@@ -397,9 +394,6 @@ public class Component {
      *
      * @param rowIndex
      *         The y-axis (row) coordinate of the top-left character of the component.
-     *
-     * @return
-     *         Whether or not the new value was set.
      */
     public void setRowIndex(final int rowIndex) {
         if (rowIndex >= 0) {
@@ -417,9 +411,6 @@ public class Component {
      *
      * @param width
      *         The new width, in characters, of the component.
-     *
-     * @return
-     *         Whether or not the new value was set.
      */
     public void setWidth(final int width) {
         if (width < 0 || width < columnIndex) {
@@ -439,9 +430,6 @@ public class Component {
      *
      * @param height
      *         The new height, in characters, of the component.
-     *
-     * @return
-     *         Whether or not the new value was set.
      */
     public void setHeight(final int height) {
         if (height < 0 || height < rowIndex) {
