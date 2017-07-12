@@ -130,16 +130,8 @@ public class AsciiCharacter {
         if (isFlippedHorizontally || isFlippedVertically) {
             AffineTransform tx;
 
-            if (isFlippedHorizontally && isFlippedVertically) {
-                tx = AffineTransform.getScaleInstance(-1, -1);
-                tx.translate(-fontWidth, -fontHeight);
-            } else if (isFlippedHorizontally) {
-                tx = AffineTransform.getScaleInstance(-1, 1);
-                tx.translate(-fontWidth, 0);
-            } else  {
-                tx = AffineTransform.getScaleInstance(1, -1);
-                tx.translate(0, -fontHeight);
-            }
+            tx = AffineTransform.getScaleInstance((isFlippedHorizontally ? -1 : 1), (isFlippedVertically ? -1 : 1));
+            tx.translate((isFlippedHorizontally ? -fontWidth : 0), (isFlippedVertically ? -fontHeight : 0));
 
             final BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
             image = op.filter(image, null);
