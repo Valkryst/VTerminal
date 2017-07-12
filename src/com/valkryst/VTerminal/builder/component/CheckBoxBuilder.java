@@ -13,7 +13,9 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
     /** The text of the label to display to the right of the check box. */
     @Getter private String text;
 
+    /** The character to display when the check box is not checked. */
     @Getter private char emptyBoxChar;
+    /** The character to display when the check box is checked. */
     @Getter private char checkedBoxChar;
 
     /** Whether or not the check box is checked. */
@@ -82,6 +84,15 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
         foregroundColor_checked = new Color(0xFFFF66);
     }
 
+    /**
+     * Sets the text.
+     *
+     * @param text
+     *        The new text.
+     *
+     * @return
+     *        This.
+     */
     public CheckBoxBuilder setText(final String text) {
         if (text != null) {
             this.text = text;
@@ -90,16 +101,43 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
         return this;
     }
 
+    /**
+     * Sets the empty box character.
+     *
+     * @param emptyBoxChar
+     *        The new empty box character.
+     *
+     * @return
+     *        This.
+     */
     public CheckBoxBuilder setEmptyBoxChar(final char emptyBoxChar) {
         this.emptyBoxChar = emptyBoxChar;
         return this;
     }
 
+    /**
+     * Sets the checked box character.
+     *
+     * @param checkedBoxChar
+     *        The new checked box character.
+     *
+     * @return
+     *        This.
+     */
     public CheckBoxBuilder setCheckedBoxChar(final char checkedBoxChar) {
         this.checkedBoxChar = checkedBoxChar;
         return this;
     }
 
+    /**
+     * Sets the normal-state's background color.
+     *
+     * @param backgroundColor_normal
+     *        The new background color.
+     *
+     * @return
+     *        This.
+     */
     public CheckBoxBuilder setBackgroundColor_normal(final Color backgroundColor_normal) {
         if (backgroundColor_normal != null) {
             this.backgroundColor_normal = backgroundColor_normal;
@@ -108,6 +146,15 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
         return this;
     }
 
+    /**
+     * Sets the normal-state's foreground color.
+     *
+     * @param foregroundColor_normal
+     *        The new foreground color.
+     *
+     * @return
+     *        This.
+     */
     public CheckBoxBuilder setForegroundColor_normal(final Color foregroundColor_normal) {
         if (foregroundColor_normal != null) {
             this.foregroundColor_normal = foregroundColor_normal;
@@ -116,6 +163,15 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
         return this;
     }
 
+    /**
+     * Sets the hover-state's background color.
+     *
+     * @param backgroundColor_hover
+     *        The new background color.
+     *
+     * @return
+     *        This.
+     */
     public CheckBoxBuilder setBackgroundColor_hover(final Color backgroundColor_hover) {
         if (backgroundColor_hover != null) {
             this.backgroundColor_hover = backgroundColor_hover;
@@ -124,6 +180,15 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
         return this;
     }
 
+    /**
+     * Sets the hover-state's foreground color.
+     *
+     * @param foregroundColor_hover
+     *        The new foreground color.
+     *
+     * @return
+     *        This.
+     */
     public CheckBoxBuilder setForegroundColor_hover(final Color foregroundColor_hover) {
         if (foregroundColor_hover != null) {
             this.foregroundColor_hover = foregroundColor_hover;
@@ -132,6 +197,15 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
         return this;
     }
 
+    /**
+     * Sets the checked-state's background color.
+     *
+     * @param backgroundColor_checked
+     *        The new background color.
+     *
+     * @return
+     *        This.
+     */
     public CheckBoxBuilder setBackgroundColor_checked(final Color backgroundColor_checked) {
         if (backgroundColor_checked != null) {
             this.backgroundColor_checked = backgroundColor_checked;
@@ -140,6 +214,15 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
         return this;
     }
 
+    /**
+     * Sets the checked-state's foreground color.
+     *
+     * @param foregroundColor_checked
+     *        The new foreground color.
+     *
+     * @return
+     *        This.
+     */
     public CheckBoxBuilder setForegroundColor_checked(final Color foregroundColor_checked) {
         if (foregroundColor_checked != null) {
             this.foregroundColor_checked = foregroundColor_checked;
