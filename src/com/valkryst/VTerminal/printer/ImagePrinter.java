@@ -54,7 +54,7 @@ public class ImagePrinter {
      *         The y-axis (row) coordinate of the top-left character.
      */
     public void print(final Panel panel, final int columnIndex, final int rowIndex) {
-        print(panel.getCurrentScreen(), columnIndex, rowIndex);
+        print(panel.getScreen(), columnIndex, rowIndex);
     }
 
     /**

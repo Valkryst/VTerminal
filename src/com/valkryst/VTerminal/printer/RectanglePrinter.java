@@ -27,7 +27,7 @@ public class RectanglePrinter {
      *         The x-axis (column) coordinate of the top-left character.
      */
     public void print(final Panel panel, final int row, final int column) {
-        print(panel.getCurrentScreen(), row, column);
+        print(panel.getScreen(), row, column);
     }
 
     /**
