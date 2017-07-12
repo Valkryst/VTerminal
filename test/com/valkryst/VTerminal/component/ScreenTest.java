@@ -69,7 +69,7 @@ public class ScreenTest {
         screen.clear('?', 2, 2, 2, 2);
 
         for (int y = 0 ; y < screen.getStrings().length ; y++) {
-            for (int x = 0 ; x < screen.getStrings()[y].getCharacters().length ; x++) {
+            for (int x = 0 ; x < screen.getString(y).length() ; x++) {
                 final Optional<AsciiCharacter> optChar = screen.getCharacterAt(x, y);
                 Assert.assertTrue(optChar.isPresent());
 
@@ -91,7 +91,7 @@ public class ScreenTest {
         screen.clear('?', -1, 2, 2, 2);
 
         for (int y = 0 ; y < screen.getStrings().length ; y++) {
-            for (int x = 0 ; x < screen.getStrings()[y].getCharacters().length ; x++) {
+            for (int x = 0 ; x < screen.getString(y).length() ; x++) {
                 final Optional<AsciiCharacter> optChar = screen.getCharacterAt(x, y);
                 Assert.assertTrue(optChar.isPresent());
                 Assert.assertNotEquals('?', optChar.get().getCharacter());
@@ -104,7 +104,7 @@ public class ScreenTest {
         screen.clear('?', 2, -1, 2, 2);
 
         for (int y = 0 ; y < screen.getStrings().length ; y++) {
-            for (int x = 0 ; x < screen.getStrings()[y].getCharacters().length ; x++) {
+            for (int x = 0 ; x < screen.getString(y).length() ; x++) {
                 final Optional<AsciiCharacter> optChar = screen.getCharacterAt(x, y);
                 Assert.assertTrue(optChar.isPresent());
                 Assert.assertNotEquals('?', optChar.get().getCharacter());
@@ -117,7 +117,7 @@ public class ScreenTest {
         screen.clear('?', 2, 2, -1, 2);
 
         for (int y = 0 ; y < screen.getStrings().length ; y++) {
-            for (int x = 0 ; x < screen.getStrings()[y].getCharacters().length ; x++) {
+            for (int x = 0 ; x < screen.getString(y).length() ; x++) {
                 final Optional<AsciiCharacter> optChar = screen.getCharacterAt(x, y);
                 Assert.assertTrue(optChar.isPresent());
                 Assert.assertNotEquals('?', optChar.get().getCharacter());
@@ -130,7 +130,7 @@ public class ScreenTest {
         screen.clear('?', 2, 2, 2, -1);
 
         for (int y = 0 ; y < screen.getStrings().length ; y++) {
-            for (int x = 0 ; x < screen.getStrings()[y].getCharacters().length ; x++) {
+            for (int x = 0 ; x < screen.getString(y).length() ; x++) {
                 final Optional<AsciiCharacter> optChar = screen.getCharacterAt(x, y);
                 Assert.assertTrue(optChar.isPresent());
                 Assert.assertNotEquals('?', optChar.get().getCharacter());
@@ -235,7 +235,7 @@ public class ScreenTest {
     public void testWrite_stringObj_withValidParams() {
         screen.write(string, 0, 0);
         string.setAllCharactersToBeRedrawn();
-        Assert.assertEquals(string, screen.getStrings()[0]);
+        Assert.assertEquals(string, screen.getString(0));
     }
 
     @Test
@@ -243,26 +243,26 @@ public class ScreenTest {
         for (int y = 0 ; y < screen.getHeight() ; y++) {
             screen.write(string, 0, y);
             string.setAllCharactersToBeRedrawn();
-            Assert.assertEquals(string, screen.getStrings()[y]);
+            Assert.assertEquals(string, screen.getString(y));
         }
     }
 
     @Test
     public void testWrite_stringObj_withNullString() {
         screen.write((AsciiString) null, 0, 0);
-        Assert.assertNotEquals(string, screen.getStrings()[0]);
+        Assert.assertNotEquals(string, screen.getString(0));
     }
 
     @Test
     public void testWrite_stringObj_withNegativeColumnIndex() {
         screen.write(string, -3, 3);
-        Assert.assertNotEquals(string, screen.getStrings()[0]);
+        Assert.assertNotEquals(string, screen.getString(0));
     }
 
     @Test
     public void testWrite_stringObj_withNegativeRowIndex() {
         screen.write(string, 3, -3);
-        Assert.assertNotEquals(string, screen.getStrings()[0]);
+        Assert.assertNotEquals(string, screen.getString(0));
     }
 
     @Test

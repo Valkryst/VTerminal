@@ -145,7 +145,7 @@ public class ComponentTest {
     @Test
     public void testGetCharacterAt_withValidPosition() {
         final Component component = new Component(0, 0, width, height);
-        component.getStrings()[5].getCharacters()[6].setCharacter('?');
+        component.getString(5).getCharacters()[6].setCharacter('?');
 
         final Optional<AsciiCharacter> res = component.getCharacterAt(6, 5);
 
