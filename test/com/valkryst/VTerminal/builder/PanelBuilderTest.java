@@ -43,8 +43,8 @@ public class PanelBuilderTest {
         Assert.assertNotEquals(builderDefault.getFrame(), builderAltered.getFrame());
         Assert.assertNotEquals(builderDefault.getWidthInCharacters(), builderAltered.getWidthInCharacters());
         Assert.assertNotEquals(builderDefault.getHeightInCharacters(), builderAltered.getHeightInCharacters());
-        Assert.assertNotEquals(builderDefault.getAsciiFont(), builderAltered.getAsciiFont());
-        Assert.assertNotEquals(builderDefault.getCurrentScreen(), builderAltered.getCurrentScreen());
+        Assert.assertNotEquals(builderDefault.getFont(), builderAltered.getFont());
+        Assert.assertNotEquals(builderDefault.getScreen(), builderAltered.getScreen());
     }
 
     @Test
@@ -113,7 +113,7 @@ public class PanelBuilderTest {
     public void testSetAsciiFont() {
         builder.setFont(font);
 
-        Assert.assertEquals(font, builder.getAsciiFont());
+        Assert.assertEquals(font, builder.getFont());
     }
 
     @Test
@@ -126,14 +126,14 @@ public class PanelBuilderTest {
         builder.setFont(font);
         builder.setFont(null);
 
-        Assert.assertEquals(font, builder.getAsciiFont());
+        Assert.assertEquals(font, builder.getFont());
     }
 
     @Test
     public void testSetCurrentScreen() {
         builder.setScreen(new Screen(0, 0, 1, 1));
 
-        Assert.assertNotEquals(null, builder.getCurrentScreen());
+        Assert.assertNotEquals(null, builder.getScreen());
     }
 
     @Test
@@ -145,6 +145,6 @@ public class PanelBuilderTest {
     public void testSetCurrentScreen_withNullScreen() {
         builder.setScreen(null);
 
-        Assert.assertEquals(null, builder.getCurrentScreen());
+        Assert.assertEquals(null, builder.getScreen());
     }
 }
