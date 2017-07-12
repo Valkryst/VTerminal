@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VRadio.Radio;
-import com.valkryst.VTerminal.Panel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +14,11 @@ public class ButtonBuilderTest {
     @Before
     public void initalizeBuilder() {
         builder = new ButtonBuilder();
+    }
+
+    @Test(expected=IllegalStateException.class)
+    public void testCheckState_withNoPanelSet() {
+        builder.checkState();
     }
 
     @Test

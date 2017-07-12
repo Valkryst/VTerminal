@@ -1,12 +1,11 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VRadio.Radio;
-import com.valkryst.VTerminal.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.regex.Pattern;
 
 public class TextFieldBuilderTest {
@@ -15,6 +14,11 @@ public class TextFieldBuilderTest {
     @Before
     public void initalizeBuilder() {
         builder = new TextFieldBuilder();
+    }
+
+    @Test(expected=IllegalStateException.class)
+    public void testCheckState_withNoPanelSet() {
+        builder.checkState();
     }
 
     @Test

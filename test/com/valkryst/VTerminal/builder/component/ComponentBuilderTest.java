@@ -8,11 +8,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ComponentBuilderTest {
-    private ComponentBuilder<Button, ButtonBuilder> componentBuilder;
+    private ComponentBuilder<Button, ButtonBuilder> builder;
 
     @Before
     public void initalizeBuilder() {
-        componentBuilder = new ComponentBuilder<>();
+        builder = new ComponentBuilder<>();
     }
 
     @Test
@@ -22,89 +22,89 @@ public class ComponentBuilderTest {
 
     @Test(expected=IllegalStateException.class)
     public void testBuild() {
-        componentBuilder.build();
+        builder.build();
     }
 
     @Test(expected=IllegalStateException.class)
-    public void testCheckState() {
-        componentBuilder.checkState();
+    public void testCheckState_withNoPanelSet() {
+        builder.checkState();
     }
 
     @Test
     public void testReset() {
-        componentBuilder.setColumnIndex(5);
-        componentBuilder.setRowIndex(6);
+        builder.setColumnIndex(5);
+        builder.setRowIndex(6);
 
         // Note that the panel variable isn't checked as it
         // would require the creation of a Panel which would
         // need to visibly open. I'm unsure if Travis CI can
         // do GUI-related tests.
 
-        componentBuilder.reset();
+        builder.reset();
 
-        Assert.assertEquals(0, componentBuilder.getColumnIndex());
-        Assert.assertEquals(0, componentBuilder.getRowIndex());
+        Assert.assertEquals(0, builder.getColumnIndex());
+        Assert.assertEquals(0, builder.getRowIndex());
     }
 
     @Test
     public void testSetColumnIndex() {
-        componentBuilder.setColumnIndex(6);
-        Assert.assertEquals(6, componentBuilder.getColumnIndex());
+        builder.setColumnIndex(6);
+        Assert.assertEquals(6, builder.getColumnIndex());
     }
 
     @Test
     public void testSetColumnIndex_withIndexEqualToZero() {
-        componentBuilder.setColumnIndex(0);
-        Assert.assertEquals(0, componentBuilder.getColumnIndex());
+        builder.setColumnIndex(0);
+        Assert.assertEquals(0, builder.getColumnIndex());
     }
 
     @Test
     public void testSetColumnIndex_withIndexLessThanZero() {
-        componentBuilder.setColumnIndex(-1);
-        Assert.assertEquals(0, componentBuilder.getColumnIndex());
+        builder.setColumnIndex(-1);
+        Assert.assertEquals(0, builder.getColumnIndex());
     }
 
     @Test
     public void testSetRowIndex() {
-        componentBuilder.setRowIndex(6);
-        Assert.assertEquals(6, componentBuilder.getRowIndex());
+        builder.setRowIndex(6);
+        Assert.assertEquals(6, builder.getRowIndex());
     }
 
     @Test
     public void testSetRowIndex_withIndexEqualToZero() {
-        componentBuilder.setRowIndex(0);
-        Assert.assertEquals(0, componentBuilder.getRowIndex());
+        builder.setRowIndex(0);
+        Assert.assertEquals(0, builder.getRowIndex());
     }
 
     @Test
     public void testSetRowIndex_withIndexLessThanZero() {
-        componentBuilder.setRowIndex(-1);
-        Assert.assertEquals(0, componentBuilder.getRowIndex());
+        builder.setRowIndex(-1);
+        Assert.assertEquals(0, builder.getRowIndex());
     }
 
     @Test
     public void testSetRadio_radio() {
         final Radio<String> radio = new Radio<>();
 
-        componentBuilder.setRadio(radio);
-        Assert.assertEquals(radio, componentBuilder.getRadio());
+        builder.setRadio(radio);
+        Assert.assertEquals(radio, builder.getRadio());
     }
 
     @Test
     public void testSetRadio_radio_withNullRadio() {
         final Radio<String> radio = new Radio<>();
 
-        componentBuilder.setRadio(radio);
-        componentBuilder.setRadio((Radio<String>)null);
-        Assert.assertEquals(radio, componentBuilder.getRadio());
+        builder.setRadio(radio);
+        builder.setRadio((Radio<String>)null);
+        Assert.assertEquals(radio, builder.getRadio());
     }
 
     @Test
     public void testSetRadio_panel_withNullPanel() {
         final Radio<String> radio = new Radio<>();
 
-        componentBuilder.setRadio(radio);
-        componentBuilder.setRadio((Panel) null);
-        Assert.assertEquals(radio, componentBuilder.getRadio());
+        builder.setRadio(radio);
+        builder.setRadio((Panel) null);
+        Assert.assertEquals(radio, builder.getRadio());
     }
 }

@@ -15,6 +15,11 @@ public class LoadingBarBuilderTest {
         builder = new LoadingBarBuilder();
     }
 
+    @Test(expected=IllegalStateException.class)
+    public void testCheckState_withNoPanelSet() {
+        builder.checkState();
+    }
+
     @Test
     public void testReset() {
         final Radio<String> radio = new Radio<>();
