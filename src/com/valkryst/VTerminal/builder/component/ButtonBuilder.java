@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VRadio.Radio;
-import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Button;
 import lombok.Getter;
 
@@ -86,6 +85,15 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
         onClickFunction = () -> {};
     }
 
+    /**
+     * Sets the text.
+     *
+     * @param text
+     *        The new text.
+     *
+     * @return
+     *        This.
+     */
     public ButtonBuilder setText(final String text) {
         if (text != null) {
             this.text = text;
@@ -94,16 +102,43 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
         return this;
     }
 
+    /**
+     * Sets the starting character.
+     *
+     * @param startingCharacter
+     *        The new starting character.
+     *
+     * @return
+     *        This.
+     */
     public ButtonBuilder setStartingCharacter(final char startingCharacter) {
         this.startingCharacter = startingCharacter;
         return this;
     }
 
+    /**
+     * Sets the ending character.
+     *
+     * @param endingCharacter
+     *        The new ending character.
+     *
+     * @return
+     *        This.
+     */
     public ButtonBuilder setEndingCharacter(final char endingCharacter) {
         this.endingCharacter = endingCharacter;
         return this;
     }
 
+    /**
+     * Sets the normal-state's background color.
+     *
+     * @param backgroundColor_normal
+     *        The new background color.
+     *
+     * @return
+     *        This.
+     */
     public ButtonBuilder setBackgroundColor_normal(final Color backgroundColor_normal) {
         if (backgroundColor_normal != null) {
             this.backgroundColor_normal = backgroundColor_normal;
@@ -112,6 +147,15 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
         return this;
     }
 
+    /**
+     * Sets the normal-state's foreground color.
+     *
+     * @param foregroundColor_normal
+     *        The new foreground color.
+     *
+     * @return
+     *        This.
+     */
     public ButtonBuilder setForegroundColor_normal(final Color foregroundColor_normal) {
         if (foregroundColor_normal != null) {
             this.foregroundColor_normal = foregroundColor_normal;
@@ -120,6 +164,15 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
         return this;
     }
 
+    /**
+     * Sets the hover-state's background color.
+     *
+     * @param backgroundColor_hover
+     *        The new background color.
+     *
+     * @return
+     *        This.
+     */
     public ButtonBuilder setBackgroundColor_hover(final Color backgroundColor_hover) {
         if (backgroundColor_hover != null) {
             this.backgroundColor_hover = backgroundColor_hover;
@@ -128,6 +181,15 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
         return this;
     }
 
+    /**
+     * Sets the hover-state's foreground color.
+     *
+     * @param foregroundColor_hover
+     *        The new foreground color.
+     *
+     * @return
+     *        This.
+     */
     public ButtonBuilder setForegroundColor_hover(final Color foregroundColor_hover) {
         if (foregroundColor_hover != null) {
             this.foregroundColor_hover = foregroundColor_hover;
@@ -136,6 +198,15 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
         return this;
     }
 
+    /**
+     * Sets the pressed-state's background color.
+     *
+     * @param backgroundColor_pressed
+     *        The new background color.
+     *
+     * @return
+     *        This.
+     */
     public ButtonBuilder setBackgroundColor_pressed(final Color backgroundColor_pressed) {
         if (backgroundColor_pressed != null) {
             this.backgroundColor_pressed = backgroundColor_pressed;
@@ -144,6 +215,15 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
         return this;
     }
 
+    /**
+     * Sets the pressed-state's foreground color.
+     *
+     * @param foregroundColor_pressed
+     *        The new foreground color.
+     *
+     * @return
+     *        This.
+     */
     public ButtonBuilder setForegroundColor_pressed(final Color foregroundColor_pressed) {
         if (foregroundColor_pressed != null) {
             this.foregroundColor_pressed = foregroundColor_pressed;
@@ -152,6 +232,15 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
         return this;
     }
 
+    /**
+     * Sets the on-click function.
+     *
+     * @param onClickFunction
+     *        The new on-click function.
+     *
+     * @return
+     *        This.
+     */
     public ButtonBuilder setOnClickFunction(final Runnable onClickFunction) {
         if (onClickFunction != null) {
             this.onClickFunction = onClickFunction;
