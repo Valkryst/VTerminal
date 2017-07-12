@@ -81,9 +81,6 @@ public class Screen extends Component {
      *
      * @param character
      *         The character to replace every character on the screen with.
-     *
-     * @return
-     *         If all characters within the screen were cleared.
      */
     public void clear(final char character) {
         clear(character, 0, 0, super.getWidth(), super.getHeight());
