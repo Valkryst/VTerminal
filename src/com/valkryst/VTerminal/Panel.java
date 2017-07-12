@@ -24,7 +24,7 @@ public class Panel extends Canvas implements Receiver<String> {
     @Getter private int heightInCharacters;
 
     /** The screen being displayed on the panel. */
-    @Getter private Screen currentScreen;
+    @Getter private Screen screen;
 
     @Getter private Radio<String> radio = new Radio<>();
 
@@ -41,16 +41,16 @@ public class Panel extends Canvas implements Receiver<String> {
         this.widthInCharacters = builder.getWidthInCharacters();
         this.heightInCharacters = builder.getHeightInCharacters();
 
-        int pixelWidth = widthInCharacters * builder.getAsciiFont().getWidth();
-        int pixelHeight = heightInCharacters * builder.getAsciiFont().getHeight();
+        int pixelWidth = widthInCharacters * builder.getFont().getWidth();
+        int pixelHeight = heightInCharacters * builder.getFont().getHeight();
 
         this.setPreferredSize(new Dimension(pixelWidth, pixelHeight));
 
-        currentScreen = builder.getCurrentScreen();
+        screen = builder.getScreen();
 
         radio.addReceiver("DRAW", this);
 
-        imageCache = new ColoredImageCache(builder.getAsciiFont());
+        imageCache = new ColoredImageCache(builder.getFont());
     }
 
     @Override
@@ -80,7 +80,7 @@ public class Panel extends Canvas implements Receiver<String> {
         // If alpha is used in the character images, we want computations related to drawing them to be fast.
         gc.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
 
-        currentScreen.draw(gc, imageCache);
+        screen.draw(gc, imageCache);
         gc.dispose();
 
         bufferStrategy.show();
@@ -101,7 +101,7 @@ public class Panel extends Canvas implements Receiver<String> {
      *        An image of the canvas.
      */
     public BufferedImage screenshot() {
-        return currentScreen.screenshot(imageCache);
+        return screen.screenshot(imageCache);
     }
 
     /**
@@ -114,8 +114,8 @@ public class Panel extends Canvas implements Receiver<String> {
      *         The swapped-out screen.
      */
     public Screen swapScreen(final Screen newScreen) {
-        final Screen oldScreen = currentScreen;
-        currentScreen = newScreen;
+        final Screen oldScreen = screen;
+        screen = newScreen;
         draw();
         return oldScreen;
     }
@@ -127,7 +127,7 @@ public class Panel extends Canvas implements Receiver<String> {
      *          The component.
      */
     public void addComponent(final Component component) {
-        currentScreen.addComponent(component);
+        screen.addComponent(component);
     }
 
     /**
@@ -137,6 +137,6 @@ public class Panel extends Canvas implements Receiver<String> {
      *          The component.
      */
     public void removeComponent(final Component component) {
-        currentScreen.removeComponent(component);
+        screen.removeComponent(component);
     }
 }
