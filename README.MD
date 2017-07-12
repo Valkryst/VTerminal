@@ -92,10 +92,10 @@ To use a different font:
 * In an effort to achieve optimal draw performance, VTerminal makes use of an image cache. Any time an image is drawn with a unique fore/background color, a new image is created, the colors are applied, and then that image is saved in the cache until the process terminates. 
      * This does require some amount of RAM, but it drastically reduces the amount of CPU time spent re-coloring images on every draw call.
      * Assuming that this library is used for GUIs and text-based games, it's reasonable to say that the cache will eventually contain every possible fore/background color & character combination that's used. When this happens, there should be no cache misses and optimal draw times will be reached.
-* The -Xmx JVM parameter can be used to reduce the maximum amount of memory that the program is allowed to use.
-     * VTerminal has been tested with, and performed well, with -Xmx32M, -Xmx64M, -Xmx128M, and -Xmx256M.
+* The -Xmx JVM parameter can be used to reduce the maximum amount of memory that VTerminal is allowed to use.
+     * Tests have been run with with -Xmx32M, -Xmx64M, -Xmx128M, and -Xmx256M without affecting performance.
      * Values lower than 32M are not recommended.
-     * CPU usage may increase with lower values as the garbage collector may run more frequently.
+     * CPU usage may slightly increase with lower values as the garbage collector may run more frequently.
      * Example Usage: *java -jar MyProgram.jar -Xmx256M*
 
 
