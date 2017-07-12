@@ -315,6 +315,19 @@ public class Component {
         }
     }
 
+    /**
+     * Retrieves the string corresponding to a row.
+     *
+     * @param rowIndex
+     *        The row index.
+     *
+     * @return
+     *        The string.
+     */
+    public AsciiString getString(final int rowIndex) {
+        return strings[rowIndex];
+    }
+
     /** Sets all characters to be redrawn. */
     public void setAllCharactersToBeRedrawn() {
         for (final AsciiString string : strings) {
