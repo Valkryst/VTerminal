@@ -25,6 +25,11 @@ public class ComponentBuilderTest {
         componentBuilder.build();
     }
 
+    @Test(expected=IllegalStateException.class)
+    public void testCheckState() {
+        componentBuilder.checkState();
+    }
+
     @Test
     public void testReset() {
         componentBuilder.setColumnIndex(5);
