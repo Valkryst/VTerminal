@@ -223,7 +223,7 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void setCharacters(final char character, final IntRange rangeIndices) {
-        if (rangeIndices == null) {
+        if (isRangeValid(rangeIndices) == false) {
             return;
         }
 
@@ -282,7 +282,7 @@ public class AsciiString {
      *         Whether or not to apply the gradient to the background or foreground of the characters.
      */
     public void applyColorGradient(final IntRange rangeIndices, final Color colorFrom, final Color colorTo, final boolean applyToBackground) {
-        if (rangeIndices == null) {
+        if (isRangeValid(rangeIndices) == false) {
             return;
         }
 
@@ -380,15 +380,11 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio, final IntRange rangeIndices) {
-        if (rangeIndices == null) {
+        if (isRangeValid(rangeIndices) == false) {
             return;
         }
 
         rangeIndices.clampValuesToRange(0, characters.length);
-
-        if (isRangeValid(rangeIndices) == false) {
-            return;
-        }
 
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
@@ -408,15 +404,11 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void resumeBlinkEffect(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
+        if (isRangeValid(rangeIndices) == false) {
             return;
         }
 
         rangeIndices.clampValuesToRange(0, characters.length);
-
-        if (isRangeValid(rangeIndices) == false) {
-            return;
-        }
 
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
@@ -434,15 +426,11 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void pauseBlinkEffect(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
+        if (isRangeValid(rangeIndices) == false) {
             return;
         }
 
         rangeIndices.clampValuesToRange(0, characters.length);
-
-        if (isRangeValid(rangeIndices) == false) {
-            return;
-        }
 
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
@@ -460,15 +448,11 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void disableBlinkEffect(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
+        if (isRangeValid(rangeIndices) == false) {
             return;
         }
 
         rangeIndices.clampValuesToRange(0, characters.length);
-
-        if (isRangeValid(rangeIndices) == false) {
-            return;
-        }
 
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
@@ -492,7 +476,7 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void invertColors(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
+        if (isRangeValid(rangeIndices) == false) {
             return;
         }
 
@@ -555,7 +539,7 @@ public class AsciiString {
             return;
         }
 
-        if (rangeIndices == null) {
+        if (isRangeValid(rangeIndices) == false) {
             return;
         }
 
@@ -585,7 +569,7 @@ public class AsciiString {
             return;
         }
 
-        if (rangeIndices == null) {
+        if (isRangeValid(rangeIndices) == false) {
             return;
         }
 
@@ -622,7 +606,7 @@ public class AsciiString {
             return;
         }
 
-        if (rangeIndices == null) {
+        if (isRangeValid(rangeIndices) == false) {
             return;
         }
 
@@ -689,7 +673,7 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void flipCharactersHorizontally(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
+        if (isRangeValid(rangeIndices) == false) {
             return;
         }
 
@@ -714,7 +698,7 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void unFlipCharactersHorizontally(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
+        if (isRangeValid(rangeIndices) == false) {
             return;
         }
 
@@ -739,7 +723,7 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void flipCharactersVertically(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
+        if (isRangeValid(rangeIndices) == false) {
             return;
         }
 
@@ -764,7 +748,7 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void unFlipCharactersVertically(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
+        if (isRangeValid(rangeIndices) == false) {
             return;
         }
 
@@ -823,7 +807,7 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void underlineCharacters(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
+        if (isRangeValid(rangeIndices) == false) {
             return;
         }
 
@@ -848,7 +832,7 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void unUnderlineCharacters(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
+        if (isRangeValid(rangeIndices) == false) {
             return;
         }
 
