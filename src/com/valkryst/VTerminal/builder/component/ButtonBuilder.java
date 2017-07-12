@@ -1,6 +1,5 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.component.Button;
 import lombok.Getter;
 
@@ -9,9 +8,6 @@ import java.awt.Color;
 public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
     /** The text to display on the button. */
     @Getter private String text;
-
-    /** The radio to transmit events to. */
-    @Getter private Radio<String> radio;
 
     /** The first character of the button's text. This is used to identify the text as a button. */
     @Getter private char startingCharacter;

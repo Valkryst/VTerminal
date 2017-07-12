@@ -1,21 +1,15 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.valkryst.VRadio.Radio;
-import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.LoadingBar;
 import lombok.Getter;
-import lombok.Setter;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class LoadingBarBuilder extends ComponentBuilder<LoadingBar, LoadingBarBuilder> {
     /** The width of the loading bar, in characters. */
     @Getter private int width;
     /** The height of the loading bar, in characters. */
     @Getter private int height;
-
-    /** The radio to transmit events to. */
-    @Getter private Radio<String> radio;
 
     /** The character that represents an incomplete cell. */
     @Getter private char incompleteCharacter;

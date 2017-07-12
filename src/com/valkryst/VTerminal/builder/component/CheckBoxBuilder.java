@@ -1,15 +1,11 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.component.CheckBox;
 import lombok.Getter;
 
 import java.awt.Color;
 
 public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder> {
-    /** The radio to transmit events to. */
-    @Getter private Radio<String> radio;
-
     /** The text of the label to display to the right of the check box. */
     @Getter private String text;
 
