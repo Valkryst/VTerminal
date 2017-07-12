@@ -37,7 +37,7 @@ public class PanelBuilderTest {
         builderAltered.setJFrame(new JFrame())
                       .setWidthInCharacters(1)
                       .setHeightInCharacters(2)
-                      .setAsciiFont(font)
+                      .setFont(font)
                       .setCurrentScreen(new Screen(0, 0, 1, 1));
 
         Assert.assertNotEquals(builderDefault.getFrame(), builderAltered.getFrame());
@@ -111,20 +111,20 @@ public class PanelBuilderTest {
 
     @Test
     public void testSetAsciiFont() {
-        builder.setAsciiFont(font);
+        builder.setFont(font);
 
         Assert.assertEquals(font, builder.getAsciiFont());
     }
 
     @Test
     public void testSetAsciiFont_returnValue() {
-        Assert.assertTrue(builder == builder.setAsciiFont(font));
+        Assert.assertTrue(builder == builder.setFont(font));
     }
 
     @Test
     public void testSetAsciiFont_withNullFont() {
-        builder.setAsciiFont(font);
-        builder.setAsciiFont(null);
+        builder.setFont(font);
+        builder.setFont(null);
 
         Assert.assertEquals(font, builder.getAsciiFont());
     }
