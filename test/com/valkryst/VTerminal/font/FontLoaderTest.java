@@ -16,6 +16,12 @@ public class FontLoaderTest {
         FontLoader.loadFont(spriteSheetPath, characterDataPath, 1);
     }
 
+
+    @Test(expected=FileNotFoundException.class)
+    public void loadFont_strings_withScaleBelowOne() throws IOException, URISyntaxException {
+        FontLoader.loadFont(spriteSheetPath, characterDataPath, 0);
+    }
+
     @Test(expected=IllegalArgumentException.class)
     public void loadFont_strings_withNullSpriteSheetPath() throws IOException, URISyntaxException {
         FontLoader.loadFont(null, characterDataPath, 1);
