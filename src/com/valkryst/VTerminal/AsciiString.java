@@ -223,6 +223,10 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void setCharacters(final char character, final IntRange rangeIndices) {
+        if (rangeIndices == null) {
+            return;
+        }
+
         if (isRangeValid(rangeIndices) == false) {
             rangeIndices.clampValuesToRange(0, characters.length);
         }
@@ -280,6 +284,10 @@ public class AsciiString {
      *         Whether or not to apply the gradient to the background or foreground of the characters.
      */
     public void applyColorGradient(final IntRange rangeIndices, final Color colorFrom, final Color colorTo, final boolean applyToBackground) {
+        if (rangeIndices == null) {
+            return;
+        }
+
         if (isRangeValid(rangeIndices) == false) {
             rangeIndices.clampValuesToRange(0, characters.length);
         }
@@ -464,6 +472,10 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void invertColors(final IntRange rangeIndices) {
+        if (rangeIndices == null) {
+            return;
+        }
+
         if (isRangeValid(rangeIndices) == false) {
             rangeIndices.clampValuesToRange(0, characters.length);
         }
@@ -522,6 +534,10 @@ public class AsciiString {
      */
     public void setBackgroundColor(final Color color, final IntRange rangeIndices) {
         if (color == null) {
+            return;
+        }
+
+        if (rangeIndices == null) {
             return;
         }
 
@@ -585,6 +601,10 @@ public class AsciiString {
         }
 
         if (foreground == null) {
+            return;
+        }
+
+        if (rangeIndices == null) {
             return;
         }
 
@@ -653,6 +673,10 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void flipCharactersHorizontally(final IntRange rangeIndices) {
+        if (rangeIndices == null) {
+            return;
+        }
+
         if (isRangeValid(rangeIndices) == false) {
             rangeIndices.clampValuesToRange(0, characters.length);
         }
@@ -676,6 +700,10 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void unFlipCharactersHorizontally(final IntRange rangeIndices) {
+        if (rangeIndices == null) {
+            return;
+        }
+
         if (isRangeValid(rangeIndices) == false) {
             rangeIndices.clampValuesToRange(0, characters.length);
         }
@@ -699,6 +727,10 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void flipCharactersVertically(final IntRange rangeIndices) {
+        if (rangeIndices == null) {
+            return;
+        }
+
         if (isRangeValid(rangeIndices) == false) {
             rangeIndices.clampValuesToRange(0, characters.length);
         }
@@ -722,6 +754,10 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void unFlipCharactersVertically(final IntRange rangeIndices) {
+        if (rangeIndices == null) {
+            return;
+        }
+
         if (isRangeValid(rangeIndices) == false) {
             rangeIndices.clampValuesToRange(0, characters.length);
         }
@@ -779,6 +815,10 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void underlineCharacters(final IntRange rangeIndices) {
+        if (rangeIndices == null) {
+            return;
+        }
+
         if (isRangeValid(rangeIndices) == false) {
             rangeIndices.clampValuesToRange(0, characters.length);
         }
@@ -802,6 +842,10 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void unUnderlineCharacters(final IntRange rangeIndices) {
+        if (rangeIndices == null) {
+            return;
+        }
+
         if (isRangeValid(rangeIndices) == false) {
             rangeIndices.clampValuesToRange(0, characters.length);
         }
