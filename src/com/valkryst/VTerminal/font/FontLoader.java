@@ -173,16 +173,22 @@ public class FontLoader {
         final BufferedImage loadedImage = ImageIO.read(inputStream);
         inputStream.close();
 
-        final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        final GraphicsDevice gd = ge.getDefaultScreenDevice();
-        final GraphicsConfiguration gc = gd.getDefaultConfiguration();
+        try {
+            final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            final GraphicsDevice gd = ge.getDefaultScreenDevice();
+            final GraphicsConfiguration gc = gd.getDefaultConfiguration();
 
-        final BufferedImage converedImage = gc.createCompatibleImage(loadedImage.getWidth(), loadedImage.getHeight(), loadedImage.getTransparency());
+            final BufferedImage converedImage = gc.createCompatibleImage(loadedImage.getWidth(), loadedImage.getHeight(), loadedImage.getTransparency());
 
-        final Graphics2D g2d = converedImage.createGraphics();
-        g2d.drawImage(loadedImage, 0, 0, null);
-        g2d.dispose();
-        return converedImage;
+            final Graphics2D g2d = converedImage.createGraphics();
+            g2d.drawImage(loadedImage, 0, 0, null);
+            g2d.dispose();
+            return converedImage;
+        } catch(final HeadlessException e) {
+            // Occurs when running FontLoader unit tests on Travis CI.
+            // Probably because there's no screen/graphics device.
+            return loadedImage;
+        }
     }
 
     /**
