@@ -5,7 +5,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
+import java.awt.Color;
+import java.util.Arrays;
 
 public class AsciiStringTest {
     private final String testString = "ABCDEFGHJIKLMNOP";
@@ -227,6 +228,69 @@ public class AsciiStringTest {
     @Test
     public void testIsRangeValid_withNullRange() {
         Assert.assertFalse(string.isRangeValid(null));
+    }
+
+    @Test
+    public void testSetAllCharactersToBeRedrawn() {
+        Arrays.fill(string.getCharactersToBeRedrawn(), false);
+
+        for (final boolean val : string.getCharactersToBeRedrawn()) {
+            Assert.assertFalse(val);
+        }
+
+        string.setAllCharactersToBeRedrawn();
+
+        for (final boolean val : string.getCharactersToBeRedrawn()) {
+            Assert.assertTrue(val);
+        }
+    }
+
+    @Test
+    public void testSetCharacterRangeToBeRedrawn_withNullRange() {
+        Arrays.fill(string.getCharactersToBeRedrawn(), false);
+
+        for (final boolean val : string.getCharactersToBeRedrawn()) {
+            Assert.assertFalse(val);
+        }
+
+        string.setCharacterRangeToBeRedrawn(null);
+
+        for (final boolean val : string.getCharactersToBeRedrawn()) {
+            Assert.assertFalse(val);
+        }
+    }
+
+    @Test
+    public void testSetCharacterRangeToBeRedrawn_withInvalidRange() {
+        Arrays.fill(string.getCharactersToBeRedrawn(), false);
+
+        for (final boolean val : string.getCharactersToBeRedrawn()) {
+            Assert.assertFalse(val);
+        }
+
+        final IntRange range = new IntRange(-1, string.getCharacters().length);
+        string.setCharacterRangeToBeRedrawn(range);
+
+        for (final boolean val : string.getCharactersToBeRedrawn()) {
+            Assert.assertFalse(val);
+        }
+    }
+
+
+    @Test
+    public void testSetCharacterRangeToBeRedrawn_withValidRange() {
+        Arrays.fill(string.getCharactersToBeRedrawn(), false);
+
+        for (final boolean val : string.getCharactersToBeRedrawn()) {
+            Assert.assertFalse(val);
+        }
+
+        final IntRange range = new IntRange(0, string.getCharacters().length);
+        string.setCharacterRangeToBeRedrawn(range);
+
+        for (final boolean val : string.getCharactersToBeRedrawn()) {
+            Assert.assertTrue(val);
+        }
     }
 
     @Test
