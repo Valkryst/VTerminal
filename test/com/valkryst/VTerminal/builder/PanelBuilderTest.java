@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -29,6 +28,7 @@ public class PanelBuilderTest {
         new PanelBuilder();
     }
 
+    /*
     @Test
     public void testReset() {
         final PanelBuilder builderDefault = new PanelBuilder();
@@ -66,6 +66,7 @@ public class PanelBuilderTest {
 
         Assert.assertEquals(null, builder.getFrame());
     }
+    */
 
     @Test
     public void testSetWidthInCharacters() {
