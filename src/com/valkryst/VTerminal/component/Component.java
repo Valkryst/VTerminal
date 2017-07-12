@@ -345,7 +345,7 @@ public class Component {
      */
     private void setLocationOnScreenToBeRedrawn() {
         for (int y = rowIndex ; y <= rowIndex + height ; y++) {
-            screen.getStrings()[y].setCharacterRangeToBeRedrawn(new IntRange(columnIndex, columnIndex + width));
+            screen.getString(y).setCharacterRangeToBeRedrawn(new IntRange(columnIndex, columnIndex + width));
         }
         System.out.println();
     }

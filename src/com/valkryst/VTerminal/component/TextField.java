@@ -79,7 +79,7 @@ public class TextField extends Component {
         allowedCharacterPattern = builder.getAllowedCharacterPattern();
 
         // Set the button's text:
-        final AsciiString string = super.getStrings()[0];
+        final AsciiString string = super.getString(0);
         string.setAllCharacters(' ');
         string.setBackgroundAndForegroundColor(backgroundColor, foregroundColor);
 
@@ -247,7 +247,7 @@ public class TextField extends Component {
             newIndex = 0;
         }
 
-        final AsciiCharacter[] characters = super.getStrings()[0].getCharacters();
+        final AsciiCharacter[] characters = super.getString(0).getCharacters();
 
         characters[index_caret].setForegroundColor(foregroundColor);
         characters[index_caret].setBackgroundColor(backgroundColor);
@@ -280,7 +280,7 @@ public class TextField extends Component {
             return;
         }
 
-        final AsciiCharacter[] characters = super.getStrings()[0].getCharacters();
+        final AsciiCharacter[] characters = super.getString(0).getCharacters();
         characters[characterIndex].setCharacter(character);
     }
 
@@ -288,7 +288,7 @@ public class TextField extends Component {
     public String getText() {
         final StringBuilder sb = new StringBuilder();
 
-        for (final AsciiCharacter character : super.getStrings()[0].getCharacters()) {
+        for (final AsciiCharacter character : super.getString(0).getCharacters()) {
             sb.append(character.getCharacter());
         }
 
@@ -311,7 +311,7 @@ public class TextField extends Component {
             text = text.substring(0, super.getWidth());
         }
 
-        final AsciiCharacter[] oldChars = super.getStrings()[0].getCharacters();
+        final AsciiCharacter[] oldChars = super.getString(0).getCharacters();
         final char[] newChars = text.toCharArray();
 
         for (int i = 0 ; i < text.length() ; i++) {
@@ -321,7 +321,7 @@ public class TextField extends Component {
 
     /** Clears all text from the field. */
     public void clearText() {
-        for (final AsciiCharacter character : super.getStrings()[0].getCharacters()) {
+        for (final AsciiCharacter character : super.getString(0).getCharacters()) {
             character.setCharacter(' ');
         }
     }

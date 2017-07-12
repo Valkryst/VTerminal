@@ -49,7 +49,7 @@ public class Layer extends Component {
 
         // Draw the layer onto the image:
         for (int row = 0 ; row < getHeight() ; row++) {
-            getStrings()[row].draw((Graphics2D) image.getGraphics(), imageCache, row);
+            super.getString(row).draw((Graphics2D) image.getGraphics(), imageCache, row);
         }
 
         // Draw the image onto the canvas:

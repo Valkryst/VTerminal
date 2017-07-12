@@ -66,7 +66,7 @@ public class Screen extends Component {
 
         // Draw the screen onto the canvas:
         for (int row = 0 ; row < getHeight() ; row++) {
-            getStrings()[row].draw(gc, imageCache, row);
+            super.getString(row).draw(gc, imageCache, row);
         }
 
         // Draw layer components onto the screen:
@@ -146,7 +146,7 @@ public class Screen extends Component {
         canProceed &= character != null;
 
         if (canProceed) {
-            getStrings()[rowIndex].setCharacter(columnIndex, character);
+            super.getString(rowIndex).setCharacter(columnIndex, character);
         }
 
         return canProceed;
@@ -166,7 +166,7 @@ public class Screen extends Component {
      */
     public void write(final char character, final int columnIndex, final int rowIndex) {
         if (isPositionValid(columnIndex, rowIndex)) {
-            getStrings()[rowIndex].setCharacter(columnIndex, character);
+            super.getString(rowIndex).setCharacter(columnIndex, character);
         }
     }
 

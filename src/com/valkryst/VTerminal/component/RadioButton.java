@@ -72,7 +72,7 @@ public class RadioButton extends Component {
         this.foregroundColor_checked = builder.getForegroundColor_checked();
 
         // Set the label's text:
-        final AsciiString string = super.getStrings()[0];
+        final AsciiString string = super.getString(0);
 
         // Set the radio button's text, place a space between the button and the label, then set the label
         string.setCharacter(0, emptyButtonChar);
@@ -238,7 +238,7 @@ public class RadioButton extends Component {
     public void setEmptyBoxCharacter(final char emptyButtonChar) {
         this.emptyButtonChar = emptyButtonChar;
 
-        super.getStrings()[0].getCharacters()[0].setCharacter(emptyButtonChar);
+        super.getString(0).getCharacters()[0].setCharacter(emptyButtonChar);
     }
 
     /**
@@ -250,8 +250,8 @@ public class RadioButton extends Component {
     public void setEndingCharacter(final char checkedButtonChar) {
         this.checkedButtonChar = checkedButtonChar;
 
-        final AsciiCharacter[] characters = super.getStrings()[0].getCharacters();
-        super.getStrings()[0].setCharacter(characters.length - 1, checkedButtonChar);
+        final AsciiCharacter[] characters = super.getString(0).getCharacters();
+        super.getString(0).setCharacter(characters.length - 1, checkedButtonChar);
     }
 
     /**
@@ -330,7 +330,7 @@ public class RadioButton extends Component {
     public void check() {
         setStateChecked();
         isChecked = true;
-        super.getStrings()[0].setCharacter(0, checkedButtonChar);
+        super.getString(0).setCharacter(0, checkedButtonChar);
 
         transmitDraw();
     }
@@ -339,7 +339,7 @@ public class RadioButton extends Component {
     public void uncheck() {
         setStateNormal();
         isChecked = false;
-        super.getStrings()[0].setCharacter(0, emptyButtonChar);
+        super.getString(0).setCharacter(0, emptyButtonChar);
 
         transmitDraw();
     }
