@@ -79,6 +79,31 @@ public class AsciiStringTest {
     }
 
     @Test
+    public void testConstructor_stringConstructor_withEmptyString() {
+        final AsciiString string = new AsciiString("");
+        Assert.assertEquals(0, string.getCharacters().length);
+    }
+
+    @Test
+    public void testConstructor_stringConstructor_withNullString() {
+        final AsciiString string = new AsciiString(null);
+        Assert.assertEquals(0, string.getCharacters().length);
+    }
+
+    @Test
+    public void testToString() {
+        final String actual_toString = string.toString();
+        final String expected_toString = testString;
+
+        Assert.assertEquals(expected_toString, actual_toString);
+    }
+
+    @Test
+    public void testDetailedToString() {
+        Assert.assertTrue(string.detailedToString().length() > 0);
+    }
+
+    @Test
     public void testEquals_withSelf() {
         Assert.assertEquals(string, string);
     }
@@ -163,26 +188,6 @@ public class AsciiStringTest {
         stringB.setBackgroundAndForegroundColor(Color.RED, Color.WHITE);
 
         Assert.assertNotEquals(stringA.hashCode(), stringB.hashCode());
-    }
-
-    @Test
-    public void testConstructor_stringConstructor_withEmptyString() {
-        final AsciiString string = new AsciiString("");
-        Assert.assertEquals(0, string.getCharacters().length);
-    }
-
-    @Test
-    public void testConstructor_stringConstructor_withNullString() {
-        final AsciiString string = new AsciiString(null);
-        Assert.assertEquals(0, string.getCharacters().length);
-    }
-
-    @Test
-    public void testToString() {
-        final String actual_toString = string.toString();
-        final String expected_toString = testString;
-
-        Assert.assertEquals(expected_toString, actual_toString);
     }
 
     @Test
