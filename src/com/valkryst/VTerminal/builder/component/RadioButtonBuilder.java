@@ -14,7 +14,9 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
     /** The text of the label to display to the right of the radio button. */
     @Getter private String text;
 
+    /** The character to display when the radio button is not checked. */
     @Getter private char emptyButtonChar;
+    /** The character to display when the radio button is checked. */
     @Getter private char checkedButtonChar;
 
     /** The radio button group that the radio button will belong to. */
