@@ -59,7 +59,19 @@ public class FontLoader {
      * @throws URISyntaxException
      *         If a URISyntaxException occurs while loading the font.
      */
-    public static Font loadFont(final InputStream spriteSheet, final InputStream characterData, final int scale) throws IOException {
+    public static Font loadFont(final InputStream spriteSheet, final InputStream characterData, int scale) throws IOException {
+        if (spriteSheet == null) {
+            throw new IllegalArgumentException("The sprite sheet input stream cannot be null.");
+        }
+
+        if (characterData == null) {
+            throw new IllegalArgumentException("The character data input stream cannot be null.");
+        }
+
+        if (scale < 1) {
+            scale = 1;
+        }
+
         final BufferedImage image = loadSpriteSheet(spriteSheet);
         final List<String> data = loadCharacterData(characterData);
 
