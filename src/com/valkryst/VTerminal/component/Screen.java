@@ -195,6 +195,24 @@ public class Screen extends Component {
     }
 
     /**
+     * Write a string to the specified position.
+     *
+     * Does nothing if the (columnIndex, rowIndex) points to invalid position.
+     *
+     * @param string
+     *         The string.
+     *
+     * @param columnIndex
+     *         The x-axis (column) coordinate to begin writing from.
+     *
+     * @param rowIndex
+     *         The y-axis (row) coordinate to begin writing from.
+     */
+    public void write(final String string, final int columnIndex, final int rowIndex) {
+        write(new AsciiString(string), columnIndex, rowIndex);
+    }
+
+    /**
      * Draws the screen onto an image.
      *
      * This calls the draw function, so the screen may look a
