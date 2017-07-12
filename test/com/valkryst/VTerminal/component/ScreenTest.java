@@ -6,8 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.awt.Color;
 import java.util.Optional;
 
 public class ScreenTest {
@@ -235,6 +234,7 @@ public class ScreenTest {
     @Test
     public void testWrite_stringObj_withValidParams() {
         screen.write(string, 0, 0);
+        string.setAllCharactersToBeRedrawn();
         Assert.assertEquals(string, screen.getStrings()[0]);
     }
 
@@ -242,6 +242,7 @@ public class ScreenTest {
     public void testWrite_stringObj_allCharPositions() {
         for (int y = 0 ; y < screen.getHeight() ; y++) {
             screen.write(string, 0, y);
+            string.setAllCharactersToBeRedrawn();
             Assert.assertEquals(string, screen.getStrings()[y]);
         }
     }
