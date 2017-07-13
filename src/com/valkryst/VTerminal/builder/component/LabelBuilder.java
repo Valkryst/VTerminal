@@ -31,8 +31,8 @@ public class LabelBuilder extends ComponentBuilder<Label, LabelBuilder> {
 
         text = "";
 
-        backgroundColor = new Color(0x366C9F, true);
-        foregroundColor = new Color(0xFFCF0F, true);
+        backgroundColor = new Color(0xFF366C9F, true);
+        foregroundColor = new Color(0xFFFFCF0F, true);
     }
 
     /**

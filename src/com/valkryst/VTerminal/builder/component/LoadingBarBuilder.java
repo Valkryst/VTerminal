@@ -63,10 +63,10 @@ public class LoadingBarBuilder extends ComponentBuilder<LoadingBar, LoadingBarBu
         incompleteCharacter = '█';
         completeCharacter = '█';
 
-        backgroundColor_incomplete = new Color(0x366C9F, true);
+        backgroundColor_incomplete = new Color(0xFF366C9F, true);
         foregroundColor_incomplete = new Color(255, 0, 0, 255);
 
-        backgroundColor_complete = new Color(0x366C9F, true);
+        backgroundColor_complete = new Color(0xFF366C9F, true);
         foregroundColor_complete = new Color(0, 255, 0, 255);
     }
 
