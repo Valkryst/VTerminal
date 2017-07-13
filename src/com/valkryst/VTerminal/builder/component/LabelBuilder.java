@@ -44,7 +44,7 @@ public class LabelBuilder extends ComponentBuilder<Label, LabelBuilder> {
 
     public LabelBuilder setBackgroundColor(final Color backgroundColor) {
         if (backgroundColor != null) {
-            this.backgroundColor = backgroundColor;
+            this.backgroundColor = super.enforceTransparentColor(backgroundColor);
         }
 
         return this;
@@ -52,7 +52,7 @@ public class LabelBuilder extends ComponentBuilder<Label, LabelBuilder> {
 
     public LabelBuilder setForegroundColor(final Color foregroundColor) {
         if (foregroundColor != null) {
-            this.foregroundColor = foregroundColor;
+            this.foregroundColor = super.enforceTransparentColor(foregroundColor);
         }
 
         return this;

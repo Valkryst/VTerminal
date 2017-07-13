@@ -121,7 +121,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
      */
     public TextFieldBuilder setCaretForegroundColor(final Color caretForegroundColor) {
         if (caretForegroundColor != null) {
-            this.caretForegroundColor = caretForegroundColor;
+            this.caretForegroundColor = super.enforceTransparentColor(caretForegroundColor);
         }
 
         return this;
@@ -138,7 +138,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
      */
     public TextFieldBuilder setCaretBackgroundColor(final Color caretBackgroundColor) {
         if (caretBackgroundColor != null) {
-            this.caretBackgroundColor = caretBackgroundColor;
+            this.caretBackgroundColor = super.enforceTransparentColor(caretBackgroundColor);
         }
 
         return this;
@@ -155,7 +155,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
      */
     public TextFieldBuilder setForegroundColor(final Color foregroundColor) {
         if (foregroundColor != null) {
-            this.foregroundColor = foregroundColor;
+            this.foregroundColor = super.enforceTransparentColor(foregroundColor);
         }
 
         return this;
@@ -172,7 +172,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
      */
     public TextFieldBuilder setBackgroundColor(final Color backgroundColor) {
         if (backgroundColor != null) {
-            this.backgroundColor = backgroundColor;
+            this.backgroundColor = super.enforceTransparentColor(backgroundColor);
         }
 
         return this;

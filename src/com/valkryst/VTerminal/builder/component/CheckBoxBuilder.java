@@ -102,7 +102,7 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
 
     public CheckBoxBuilder setBackgroundColor_normal(final Color backgroundColor_normal) {
         if (backgroundColor_normal != null) {
-            this.backgroundColor_normal = backgroundColor_normal;
+            this.backgroundColor_normal = super.enforceTransparentColor(backgroundColor_normal);
         }
 
         return this;
@@ -110,7 +110,7 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
 
     public CheckBoxBuilder setForegroundColor_normal(final Color foregroundColor_normal) {
         if (foregroundColor_normal != null) {
-            this.foregroundColor_normal = foregroundColor_normal;
+            this.foregroundColor_normal = super.enforceTransparentColor(foregroundColor_normal);
         }
 
         return this;
@@ -118,7 +118,7 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
 
     public CheckBoxBuilder setBackgroundColor_hover(final Color backgroundColor_hover) {
         if (backgroundColor_hover != null) {
-            this.backgroundColor_hover = backgroundColor_hover;
+            this.backgroundColor_hover = super.enforceTransparentColor(backgroundColor_hover);
         }
 
         return this;
@@ -126,7 +126,7 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
 
     public CheckBoxBuilder setForegroundColor_hover(final Color foregroundColor_hover) {
         if (foregroundColor_hover != null) {
-            this.foregroundColor_hover = foregroundColor_hover;
+            this.foregroundColor_hover = super.enforceTransparentColor(foregroundColor_hover);
         }
 
         return this;
@@ -134,7 +134,7 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
 
     public CheckBoxBuilder setBackgroundColor_checked(final Color backgroundColor_checked) {
         if (backgroundColor_checked != null) {
-            this.backgroundColor_checked = backgroundColor_checked;
+            this.backgroundColor_checked = super.enforceTransparentColor(backgroundColor_checked);
         }
 
         return this;
@@ -142,7 +142,7 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
 
     public CheckBoxBuilder setForegroundColor_checked(final Color foregroundColor_checked) {
         if (foregroundColor_checked != null) {
-            this.foregroundColor_checked = foregroundColor_checked;
+            this.foregroundColor_checked = super.enforceTransparentColor(foregroundColor_checked);
         }
 
         return this;
