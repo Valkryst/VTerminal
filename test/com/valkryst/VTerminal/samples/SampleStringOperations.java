@@ -17,8 +17,6 @@ public class SampleStringOperations {
         final Panel panel = new PanelBuilder().setFont(font).build();
         final Screen screen = panel.getScreen();
 
-        System.out.println(new Color(0, 155, 0).equals(new Color(0, 155, 0, 0)));
-
         Thread.sleep(100);
 
         screen.clear('X');
