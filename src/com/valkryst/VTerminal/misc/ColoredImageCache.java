@@ -101,17 +101,13 @@ public class ColoredImageCache {
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
                 int pixel = image.getRGB(x, y);
-                //int alpha = (pixel >> 24) & 0xff;
+                int alpha = (pixel >> 24) & 0xff;
                 int red = (pixel >> 16) & 0xff;
                 int green = (pixel >> 8) & 0xff;
                 int blue = (pixel) & 0xff;
 
-                // Note that all of the Colors that aren't constructed with new Color(rgb, true),
-                // or new Color(0, 0, 0, 0), will have an alpha value of 255. Because of this,
-                // I'm ignoring the alpha channel.
-                // All incoming images are expected to use a white character with alpha'd background,
-                // so we can assume that rgb(0,0,0) is alpha and rgb(255,255,255) is white.
-                boolean isTransparent = red == 0;
+                boolean isTransparent = alpha == 0;
+                isTransparent &= red == 0;
                 isTransparent &= green == 0;
                 isTransparent &= blue == 0;
 
