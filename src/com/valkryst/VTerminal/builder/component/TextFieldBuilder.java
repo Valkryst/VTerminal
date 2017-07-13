@@ -77,11 +77,11 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
 
         radio = null;
 
-        caretForegroundColor = new Color(0x21B6A8);
-        caretBackgroundColor = new Color(0x52F2EA);
+        caretForegroundColor = new Color(0x21B6A8, true);
+        caretBackgroundColor = new Color(0x52F2EA, true);
 
-        foregroundColor = new Color(0x52F2EA);
-        backgroundColor = new Color(0x21B6A8);
+        foregroundColor = new Color(0x52F2EA, true);
+        backgroundColor = new Color(0x21B6A8, true);
 
         homeKeyEnabled = true;
         endKeyEnabled = true;

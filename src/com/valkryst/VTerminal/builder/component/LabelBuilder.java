@@ -30,8 +30,8 @@ public class LabelBuilder extends ComponentBuilder<Label, LabelBuilder> {
 
         text = "";
 
-        backgroundColor = new Color(0x366C9F);
-        foregroundColor = new Color(0xFFCF0F);
+        backgroundColor = new Color(0x366C9F, true);
+        foregroundColor = new Color(0xFFCF0F, true);
     }
 
     public LabelBuilder setText(final String text) {

@@ -1,12 +1,10 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VRadio.Radio;
-import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.LoadingBar;
 import lombok.Getter;
-import lombok.Setter;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class LoadingBarBuilder extends ComponentBuilder<LoadingBar, LoadingBarBuilder> {
     /** The width of the loading bar, in characters. */
@@ -68,11 +66,11 @@ public class LoadingBarBuilder extends ComponentBuilder<LoadingBar, LoadingBarBu
         incompleteCharacter = '█';
         completeCharacter = '█';
 
-        backgroundColor_incomplete = new Color(0x366C9F);
-        foregroundColor_incomplete = Color.RED;
+        backgroundColor_incomplete = new Color(0x366C9F, true);
+        foregroundColor_incomplete = new Color(255, 0, 0, 255);
 
-        backgroundColor_complete = new Color(0x366C9F);
-        foregroundColor_complete = Color.GREEN;
+        backgroundColor_complete = new Color(0x366C9F, true);
+        foregroundColor_complete = new Color(0, 255, 0, 255);
     }
 
     /**

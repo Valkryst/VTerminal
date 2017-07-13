@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VRadio.Radio;
-import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Button;
 import lombok.Getter;
 
@@ -74,14 +73,14 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
         startingCharacter = '<';
         endingCharacter = '>';
 
-        backgroundColor_normal = new Color(0x366C9F);
-        foregroundColor_normal = new Color(0x66CCFF);
+        backgroundColor_normal = new Color(0x366C9F, true);
+        foregroundColor_normal = new Color(0x66CCFF, true);
 
-        backgroundColor_hover = new Color(0x71AB14);
-        foregroundColor_hover = new Color(0x99E000);
+        backgroundColor_hover = new Color(0x71AB14, true);
+        foregroundColor_hover = new Color(0x99E000, true);
 
-        backgroundColor_pressed = new Color(0x366C9F);
-        foregroundColor_pressed = new Color(0xFFFF66);
+        backgroundColor_pressed = new Color(0x366C9F, true);
+        foregroundColor_pressed = new Color(0xFFFF66, true);
 
         onClickFunction = () -> {};
     }

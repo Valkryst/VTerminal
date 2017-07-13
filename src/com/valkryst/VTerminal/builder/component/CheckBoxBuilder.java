@@ -72,14 +72,14 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
 
         isChecked = false;
 
-        backgroundColor_normal = new Color(0x366C9F);
-        foregroundColor_normal = new Color(0x66CCFF);
+        backgroundColor_normal = new Color(0x366C9F, true);
+        foregroundColor_normal = new Color(0x66CCFF, true);
 
-        backgroundColor_hover = new Color(0x71AB14);
-        foregroundColor_hover = new Color(0x99E000);
+        backgroundColor_hover = new Color(0x71AB14, true);
+        foregroundColor_hover = new Color(0x99E000, true);
 
-        backgroundColor_checked = new Color(0x366C9F);
-        foregroundColor_checked = new Color(0xFFFF66);
+        backgroundColor_checked = new Color(0x366C9F, true);
+        foregroundColor_checked = new Color(0xFFFF66, true);
     }
 
     public CheckBoxBuilder setText(final String text) {
