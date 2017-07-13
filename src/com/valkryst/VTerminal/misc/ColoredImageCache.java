@@ -120,8 +120,6 @@ public class ColoredImageCache {
             }
         }
 
-        System.out.println("\n\n");
-
         return image;
     }
 
