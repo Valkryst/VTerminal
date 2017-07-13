@@ -2,6 +2,7 @@ package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.component.TextField;
+import com.valkryst.VTerminal.misc.ColorFunctions;
 import lombok.Getter;
 
 import java.awt.Color;
@@ -121,7 +122,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
      */
     public TextFieldBuilder setCaretForegroundColor(final Color caretForegroundColor) {
         if (caretForegroundColor != null) {
-            this.caretForegroundColor = super.enforceTransparentColor(caretForegroundColor);
+            this.caretForegroundColor = ColorFunctions.enforceTransparentColor(caretForegroundColor);
         }
 
         return this;
@@ -138,7 +139,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
      */
     public TextFieldBuilder setCaretBackgroundColor(final Color caretBackgroundColor) {
         if (caretBackgroundColor != null) {
-            this.caretBackgroundColor = super.enforceTransparentColor(caretBackgroundColor);
+            this.caretBackgroundColor = ColorFunctions.enforceTransparentColor(caretBackgroundColor);
         }
 
         return this;
@@ -155,7 +156,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
      */
     public TextFieldBuilder setForegroundColor(final Color foregroundColor) {
         if (foregroundColor != null) {
-            this.foregroundColor = super.enforceTransparentColor(foregroundColor);
+            this.foregroundColor = ColorFunctions.enforceTransparentColor(foregroundColor);
         }
 
         return this;
@@ -172,7 +173,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
      */
     public TextFieldBuilder setBackgroundColor(final Color backgroundColor) {
         if (backgroundColor != null) {
-            this.backgroundColor = super.enforceTransparentColor(backgroundColor);
+            this.backgroundColor = ColorFunctions.enforceTransparentColor(backgroundColor);
         }
 
         return this;

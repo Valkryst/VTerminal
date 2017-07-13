@@ -3,6 +3,7 @@ package com.valkryst.VTerminal.builder.component;
 import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.component.RadioButton;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
+import com.valkryst.VTerminal.misc.ColorFunctions;
 import lombok.Getter;
 
 import java.awt.Color;
@@ -116,7 +117,7 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
 
     public RadioButtonBuilder setBackgroundColor_normal(final Color backgroundColor_normal) {
         if (backgroundColor_normal != null) {
-            this.backgroundColor_normal = super.enforceTransparentColor(backgroundColor_normal);
+            this.backgroundColor_normal = ColorFunctions.enforceTransparentColor(backgroundColor_normal);
         }
 
         return this;
@@ -124,7 +125,7 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
 
     public RadioButtonBuilder setForegroundColor_normal(final Color foregroundColor_normal) {
         if (foregroundColor_normal != null) {
-            this.foregroundColor_normal = super.enforceTransparentColor(foregroundColor_normal);
+            this.foregroundColor_normal = ColorFunctions.enforceTransparentColor(foregroundColor_normal);
         }
 
         return this;
@@ -132,7 +133,7 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
 
     public RadioButtonBuilder setBackgroundColor_hover(final Color backgroundColor_hover) {
         if (backgroundColor_hover != null) {
-            this.backgroundColor_hover = super.enforceTransparentColor(backgroundColor_hover);
+            this.backgroundColor_hover = ColorFunctions.enforceTransparentColor(backgroundColor_hover);
         }
 
         return this;
@@ -140,7 +141,7 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
 
     public RadioButtonBuilder setForegroundColor_hover(final Color foregroundColor_hover) {
         if (foregroundColor_hover != null) {
-            this.foregroundColor_hover = super.enforceTransparentColor(foregroundColor_hover);
+            this.foregroundColor_hover = ColorFunctions.enforceTransparentColor(foregroundColor_hover);
         }
 
         return this;
@@ -148,7 +149,7 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
 
     public RadioButtonBuilder setBackgroundColor_checked(final Color backgroundColor_checked) {
         if (backgroundColor_checked != null) {
-            this.backgroundColor_checked = super.enforceTransparentColor(backgroundColor_checked);
+            this.backgroundColor_checked = ColorFunctions.enforceTransparentColor(backgroundColor_checked);
         }
 
         return this;
@@ -156,7 +157,7 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
 
     public RadioButtonBuilder setForegroundColor_checked(final Color foregroundColor_checked) {
         if (foregroundColor_checked != null) {
-            this.foregroundColor_checked = super.enforceTransparentColor(foregroundColor_checked);
+            this.foregroundColor_checked = ColorFunctions.enforceTransparentColor(foregroundColor_checked);
         }
 
         return this;
