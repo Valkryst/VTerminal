@@ -41,7 +41,6 @@ public class PanelBuilder {
         frame.pack();
         frame.setVisible(true);
 
-        panel.createBufferStrategy(2);
         panel.setIgnoreRepaint(true);
         panel.setFocusable(true);
         return panel;
