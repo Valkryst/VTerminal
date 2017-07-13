@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal;
 
 import com.valkryst.VRadio.Radio;
+import com.valkryst.VTerminal.misc.ColorFunctions;
 import com.valkryst.VTerminal.misc.ColoredImageCache;
 import lombok.Getter;
 import lombok.Setter;
@@ -223,7 +224,9 @@ public class AsciiCharacter {
      * @param color
      *         The new background color.
      */
-    public void setBackgroundColor(final Color color) {
+    public void setBackgroundColor(Color color) {
+        color = ColorFunctions.enforceTransparentColor(color);
+
 	    boolean canProceed = color != null;
 	    canProceed &= backgroundColor.equals(color) == false;
 
@@ -240,7 +243,9 @@ public class AsciiCharacter {
      * @param color
      *         The new foreground color.
      */
-    public void setForegroundColor(final Color color) {
+    public void setForegroundColor(Color color) {
+        color = ColorFunctions.enforceTransparentColor(color);
+
 	    boolean canProceed = color != null;
 	    canProceed &= foregroundColor.equals(color) == false;
 
