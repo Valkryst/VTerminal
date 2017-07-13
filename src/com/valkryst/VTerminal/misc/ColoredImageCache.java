@@ -5,6 +5,7 @@ import com.valkryst.VTerminal.font.Font;
 import lombok.Getter;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -94,7 +95,7 @@ public class ColoredImageCache {
      *         The character image.
      */
     private static BufferedImage applyColorSwap(final AsciiCharacterShell characterShell, final Font font) {
-        final BufferedImage image = font.getCharacterImage(characterShell.getCharacter());
+        final BufferedImage image = cloneImage(font.getCharacterImage(characterShell.getCharacter()));
         final int backgroundRGB = characterShell.getBackgroundColor().getRGB();
         final int foregroundRGB = characterShell.getForegroundColor().getRGB();
 
@@ -106,7 +107,7 @@ public class ColoredImageCache {
                 int green = (pixel >> 8) & 0xff;
                 int blue = (pixel) & 0xff;
 
-                boolean isTransparent = alpha == 0;
+                boolean isTransparent = alpha != 255;
                 isTransparent &= red == 0;
                 isTransparent &= green == 0;
                 isTransparent &= blue == 0;
@@ -119,7 +120,26 @@ public class ColoredImageCache {
             }
         }
 
+        System.out.println("\n\n");
+
         return image;
+    }
+
+    /**
+     * Makes a clone of an image.
+     *
+     * @param image
+     *         The image.
+     *
+     * @return
+     *         The clone image.
+     */
+    private static BufferedImage cloneImage(final BufferedImage image) {
+        final BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+        final Graphics g = newImage.getGraphics();
+        g.drawImage(image, 0, 0, null);
+        g.dispose();
+        return newImage;
     }
 
     private class AsciiCharacterShell {
