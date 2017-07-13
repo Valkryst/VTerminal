@@ -149,6 +149,16 @@ public class ColoredImageCache {
         }
 
         @Override
+        public String toString() {
+            String res = "Color Shell:";
+            res += "\n\tCharacter:\t'" + character +"'";
+            res += "\n\tBackground Color:\t" + backgroundColor;
+            res += "\n\tForeground Color:\t" + foregroundColor;
+
+            return res;
+        }
+
+        @Override
         public boolean equals(final Object otherObj) {
             if (otherObj instanceof AsciiCharacterShell == false) {
                 return false;

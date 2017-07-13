@@ -35,6 +35,15 @@ public class LabelBuilder extends ComponentBuilder<Label, LabelBuilder> {
         foregroundColor = new Color(0xFFCF0F, true);
     }
 
+    /**
+     * Sets the text.
+     *
+     * @param text
+     *        The new text.
+     *
+     * @return
+     *        This.
+     */
     public LabelBuilder setText(final String text) {
         if (text != null) {
             this.text = text;
@@ -43,6 +52,15 @@ public class LabelBuilder extends ComponentBuilder<Label, LabelBuilder> {
         return this;
     }
 
+    /**
+     * Sets the background color.
+     *
+     * @param backgroundColor
+     *        The new background color.
+     *
+     * @return
+     *        This.
+     */
     public LabelBuilder setBackgroundColor(final Color backgroundColor) {
         if (backgroundColor != null) {
             this.backgroundColor = ColorFunctions.enforceTransparentColor(backgroundColor);
@@ -51,6 +69,15 @@ public class LabelBuilder extends ComponentBuilder<Label, LabelBuilder> {
         return this;
     }
 
+    /**
+     * Sets the foreground color.
+     *
+     * @param foregroundColor
+     *        The new foreground color.
+     *
+     * @return
+     *        This.
+     */
     public LabelBuilder setForegroundColor(final Color foregroundColor) {
         if (foregroundColor != null) {
             this.foregroundColor = ColorFunctions.enforceTransparentColor(foregroundColor);

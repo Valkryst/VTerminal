@@ -135,6 +135,11 @@ public class AsciiString {
         }
     }
 
+    /** @return The length of the string. */
+    public int length() {
+        return characters.length;
+    }
+
     /**
      * Determines whether or not the specified range is valid.
      *
@@ -227,7 +232,9 @@ public class AsciiString {
             return;
         }
 
-        rangeIndices.clampValuesToRange(0, characters.length);
+        if (isRangeValid(rangeIndices) == false) {
+            rangeIndices.clampValuesToRange(0, characters.length);
+        }
 
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
@@ -286,7 +293,9 @@ public class AsciiString {
             return;
         }
 
-        rangeIndices.clampValuesToRange(0, characters.length);
+        if (isRangeValid(rangeIndices) == false) {
+            rangeIndices.clampValuesToRange(0, characters.length);
+        }
 
         if (colorFrom == null) {
             throw new IllegalArgumentException("You must specify a color to begin the gradient with.");
@@ -380,14 +389,8 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio, final IntRange rangeIndices) {
-        if (rangeIndices == null) {
-            return;
-        }
-
-        rangeIndices.clampValuesToRange(0, characters.length);
-
         if (isRangeValid(rangeIndices) == false) {
-            return;
+            rangeIndices.clampValuesToRange(0, characters.length);
         }
 
         final int beginIndex = rangeIndices.getBegin();
@@ -408,14 +411,8 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void resumeBlinkEffect(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
-            return;
-        }
-
-        rangeIndices.clampValuesToRange(0, characters.length);
-
         if (isRangeValid(rangeIndices) == false) {
-            return;
+            rangeIndices.clampValuesToRange(0, characters.length);
         }
 
         final int beginIndex = rangeIndices.getBegin();
@@ -434,14 +431,8 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void pauseBlinkEffect(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
-            return;
-        }
-
-        rangeIndices.clampValuesToRange(0, characters.length);
-
         if (isRangeValid(rangeIndices) == false) {
-            return;
+            rangeIndices.clampValuesToRange(0, characters.length);
         }
 
         final int beginIndex = rangeIndices.getBegin();
@@ -460,14 +451,8 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      */
     public void disableBlinkEffect(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
-            return;
-        }
-
-        rangeIndices.clampValuesToRange(0, characters.length);
-
         if (isRangeValid(rangeIndices) == false) {
-            return;
+            rangeIndices.clampValuesToRange(0, characters.length);
         }
 
         final int beginIndex = rangeIndices.getBegin();
@@ -496,7 +481,9 @@ public class AsciiString {
             return;
         }
 
-        rangeIndices.clampValuesToRange(0, characters.length);
+        if (isRangeValid(rangeIndices) == false) {
+            rangeIndices.clampValuesToRange(0, characters.length);
+        }
 
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
@@ -559,7 +546,9 @@ public class AsciiString {
             return;
         }
 
-        rangeIndices.clampValuesToRange(0, characters.length);
+        if (isRangeValid(rangeIndices) == false) {
+            rangeIndices.clampValuesToRange(0, characters.length);
+        }
 
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
@@ -585,11 +574,9 @@ public class AsciiString {
             return;
         }
 
-        if (rangeIndices == null) {
-            return;
+        if (isRangeValid(rangeIndices) == false) {
+            rangeIndices.clampValuesToRange(0, characters.length);
         }
-
-        rangeIndices.clampValuesToRange(0, characters.length);
 
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
@@ -626,7 +613,9 @@ public class AsciiString {
             return;
         }
 
-        rangeIndices.clampValuesToRange(0, characters.length);
+        if (isRangeValid(rangeIndices) == false) {
+            rangeIndices.clampValuesToRange(0, characters.length);
+        }
 
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
@@ -693,7 +682,9 @@ public class AsciiString {
             return;
         }
 
-        rangeIndices.clampValuesToRange(0, characters.length);
+        if (isRangeValid(rangeIndices) == false) {
+            rangeIndices.clampValuesToRange(0, characters.length);
+        }
 
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
@@ -718,7 +709,9 @@ public class AsciiString {
             return;
         }
 
-        rangeIndices.clampValuesToRange(0, characters.length);
+        if (isRangeValid(rangeIndices) == false) {
+            rangeIndices.clampValuesToRange(0, characters.length);
+        }
 
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
@@ -743,7 +736,9 @@ public class AsciiString {
             return;
         }
 
-        rangeIndices.clampValuesToRange(0, characters.length);
+        if (isRangeValid(rangeIndices) == false) {
+            rangeIndices.clampValuesToRange(0, characters.length);
+        }
 
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
@@ -768,7 +763,9 @@ public class AsciiString {
             return;
         }
 
-        rangeIndices.clampValuesToRange(0, characters.length);
+        if (isRangeValid(rangeIndices) == false) {
+            rangeIndices.clampValuesToRange(0, characters.length);
+        }
 
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
@@ -827,7 +824,9 @@ public class AsciiString {
             return;
         }
 
-        rangeIndices.clampValuesToRange(0, characters.length);
+        if (isRangeValid(rangeIndices) == false) {
+            rangeIndices.clampValuesToRange(0, characters.length);
+        }
 
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();
@@ -852,7 +851,9 @@ public class AsciiString {
             return;
         }
 
-        rangeIndices.clampValuesToRange(0, characters.length);
+        if (isRangeValid(rangeIndices) == false) {
+            rangeIndices.clampValuesToRange(0, characters.length);
+        }
 
         final int beginIndex = rangeIndices.getBegin();
         final int endIndex = rangeIndices.getEnd();

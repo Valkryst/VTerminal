@@ -12,11 +12,11 @@ public class PanelBuilder {
     @Getter private int widthInCharacters = 80;
     /** The height of the panel, in characters. */
     @Getter private int heightInCharacters = 24;
-    /** The asciiFont to draw with. */
-    @Getter private Font asciiFont;
+    /** The font to draw with. */
+    @Getter private Font font;
 
     /** The screen being displayed on the panel. */
-    @Getter private Screen currentScreen;
+    @Getter private Screen screen;
 
     /** The frame in which the panel is to be placed. */
     @Getter private JFrame frame;
@@ -54,12 +54,12 @@ public class PanelBuilder {
      *          If something is wrong with the builder's state.
      */
     private void checkState() throws IllegalStateException {
-        if (asciiFont == null) {
+        if (font == null) {
             throw new NullPointerException("The panel must have an AsciiFont to draw with.");
         }
 
-        if (currentScreen == null) {
-            currentScreen = new Screen(0, 0, widthInCharacters, heightInCharacters);
+        if (screen == null) {
+            screen = new Screen(0, 0, widthInCharacters, heightInCharacters);
         }
 
         if (frame == null) {
@@ -72,16 +72,34 @@ public class PanelBuilder {
     public void reset() {
         widthInCharacters = 80;
         heightInCharacters = 24;
-        asciiFont = null;
-        currentScreen = null;
+        font = null;
+        screen = null;
         frame = null;
     }
 
+    /**
+     * Sets the frame.
+     *
+     * @param frame
+     *        The new frame.
+     *
+     * @return
+     *        This.
+     */
     public PanelBuilder setJFrame(final JFrame frame) {
         this.frame = frame;
         return this;
     }
 
+    /**
+     * Sets the width in characters.
+     *
+     * @param widthInCharacters
+     *        The new width in characters.
+     *
+     * @return
+     *        This.
+     */
     public PanelBuilder setWidthInCharacters(final int widthInCharacters) {
         if (widthInCharacters < 1) {
             this.widthInCharacters = 1;
@@ -92,6 +110,15 @@ public class PanelBuilder {
         return this;
     }
 
+    /**
+     * Sets the height in characters.
+     *
+     * @param heightInCharacters
+     *        The new height in characters.
+     *
+     * @return
+     *        This.
+     */
     public PanelBuilder setHeightInCharacters(final int heightInCharacters) {
         if (heightInCharacters < 1) {
             this.heightInCharacters = 1;
@@ -102,16 +129,34 @@ public class PanelBuilder {
         return this;
     }
 
-    public PanelBuilder setAsciiFont(final Font asciiFont) {
+    /**
+     * Sets the font.
+     *
+     * @param asciiFont
+     *        The new font.
+     *
+     * @return
+     *        This.
+     */
+    public PanelBuilder setFont(final Font asciiFont) {
         if (asciiFont != null) {
-            this.asciiFont = asciiFont;
+            this.font = asciiFont;
         }
 
         return this;
     }
 
-    public PanelBuilder setCurrentScreen(final Screen currentScreen) {
-        this.currentScreen = currentScreen;
+    /**
+     * Sets the screen.
+     *
+     * @param screen
+     *        The new screen.
+     *
+     * @return
+     *        This.
+     */
+    public PanelBuilder setScreen(final Screen screen) {
+        this.screen = screen;
         return this;
     }
 }

@@ -111,34 +111,34 @@ public class AsciiCharacter {
      *         The y-axis (row) coordinate where the character is to be drawn.
      */
     public void draw(final Graphics2D gc, final ColoredImageCache imageCache, int columnIndex, int rowIndex) {
+        final int fontWidth = imageCache.getFont().getWidth();
+        final int fontHeight = imageCache.getFont().getHeight();
+
+        columnIndex *= fontWidth;
+        rowIndex *= fontHeight;
+
+        // Handle hidden state:
+        if (isHidden) {
+            gc.setColor(backgroundColor);
+            gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
+            return;
+        }
+
+
         BufferedImage image = imageCache.retrieveFromCache(this);
 
         // Handle Horizontal/Vertical Flipping:
         if (isFlippedHorizontally || isFlippedVertically) {
             AffineTransform tx;
 
-            if (isFlippedHorizontally && isFlippedVertically) {
-                tx = AffineTransform.getScaleInstance(-1, -1);
-                tx.translate(-image.getWidth(), -image.getHeight());
-            } else if (isFlippedHorizontally) {
-                tx = AffineTransform.getScaleInstance(-1, 1);
-                tx.translate(-image.getWidth(), 0);
-            } else  {
-                tx = AffineTransform.getScaleInstance(1, -1);
-                tx.translate(0, -image.getHeight());
-            }
+            tx = AffineTransform.getScaleInstance((isFlippedHorizontally ? -1 : 1), (isFlippedVertically ? -1 : 1));
+            tx.translate((isFlippedHorizontally ? -fontWidth : 0), (isFlippedVertically ? -fontHeight : 0));
 
             final BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
             image = op.filter(image, null);
         }
 
         // Draw character:
-	    final int fontWidth = imageCache.getFont().getWidth();
-	    final int fontHeight = imageCache.getFont().getHeight();
-
-	    columnIndex *= fontWidth;
-	    rowIndex *= fontHeight;
-
         gc.drawImage(image, columnIndex, rowIndex,null);
 
         boundingBox.setLocation(columnIndex, rowIndex);

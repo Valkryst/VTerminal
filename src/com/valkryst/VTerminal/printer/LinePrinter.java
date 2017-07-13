@@ -30,7 +30,7 @@ public class LinePrinter {
      *         The y-axis (row) coordinate of the end point of the line.
      */
     public void print(final Panel panel, final int fromX, final int fromY, final int toX, final int toY) {
-        print(panel.getCurrentScreen(), fromX, fromY, toX, toY);
+        print(panel.getScreen(), fromX, fromY, toX, toY);
     }
 
 
@@ -74,7 +74,7 @@ public class LinePrinter {
      *         If there are fewer than two points.
      */
     public void print(final Panel panel, final Point[] points) {
-        print(panel.getCurrentScreen(), points);
+        print(panel.getScreen(), points);
     }
 
     /**

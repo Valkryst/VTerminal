@@ -70,7 +70,7 @@ public class CheckBox extends Component {
         this.foregroundColor_checked = builder.getForegroundColor_checked();
 
         // Set the label's text:
-        final AsciiString string = super.getStrings()[0];
+        final AsciiString string = super.getString(0);
 
         // Set the checkbox's text, place a space between the checkbox and the label, then set the label
         string.setCharacter(0, emptyBoxChar);
@@ -236,7 +236,7 @@ public class CheckBox extends Component {
     public void setEmptyBoxCharacter(final char emptyBoxChar) {
         this.emptyBoxChar = emptyBoxChar;
 
-        super.getStrings()[0].getCharacters()[0].setCharacter(emptyBoxChar);
+        super.getString(0).getCharacters()[0].setCharacter(emptyBoxChar);
     }
 
     /**
@@ -248,8 +248,8 @@ public class CheckBox extends Component {
     public void setEndingCharacter(final char checkedBoxChar) {
         this.checkedBoxChar = checkedBoxChar;
 
-        final AsciiCharacter[] characters = super.getStrings()[0].getCharacters();
-        super.getStrings()[0].setCharacter(characters.length - 1, checkedBoxChar);
+        final AsciiCharacter[] characters = super.getString(0).getCharacters();
+        super.getString(0).setCharacter(characters.length - 1, checkedBoxChar);
     }
 
     /**
@@ -327,7 +327,7 @@ public class CheckBox extends Component {
     /** Checks the check box. */
     public void check() {
         isChecked = true;
-        super.getStrings()[0].setCharacter(0, checkedBoxChar);
+        super.getString(0).setCharacter(0, checkedBoxChar);
 
         transmitDraw();
     }
@@ -335,7 +335,7 @@ public class CheckBox extends Component {
     /** Unchecks the check box. */
     public void uncheck() {
         isChecked = false;
-        super.getStrings()[0].setCharacter(0, emptyBoxChar);
+        super.getString(0).setCharacter(0, emptyBoxChar);
 
         transmitDraw();
     }

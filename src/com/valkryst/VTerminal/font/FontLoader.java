@@ -35,6 +35,14 @@ public class FontLoader {
      *         If a URISyntaxException occurs while loading the font.
      */
     public static Font loadFont(final String spriteSheetPath, final String characterDataPath, final int scale) throws IOException {
+        if (spriteSheetPath == null || spriteSheetPath.isEmpty()) {
+            throw new IllegalArgumentException("The sprite sheet path cannot be null or empty.");
+        }
+
+        if (characterDataPath == null || characterDataPath.isEmpty()) {
+            throw new IllegalArgumentException("The character data path cannot be null or empty.");
+        }
+
         return loadFont(new FileInputStream(spriteSheetPath), new FileInputStream(characterDataPath), scale);
     }
 
@@ -59,7 +67,19 @@ public class FontLoader {
      * @throws URISyntaxException
      *         If a URISyntaxException occurs while loading the font.
      */
-    public static Font loadFont(final InputStream spriteSheet, final InputStream characterData, final int scale) throws IOException {
+    public static Font loadFont(final InputStream spriteSheet, final InputStream characterData, int scale) throws IOException {
+        if (spriteSheet == null) {
+            throw new IllegalArgumentException("The sprite sheet input stream cannot be null.");
+        }
+
+        if (characterData == null) {
+            throw new IllegalArgumentException("The character data input stream cannot be null.");
+        }
+
+        if (scale < 1) {
+            scale = 1;
+        }
+
         final BufferedImage image = loadSpriteSheet(spriteSheet);
         final List<String> data = loadCharacterData(characterData);
 
@@ -88,6 +108,14 @@ public class FontLoader {
      *         If a URISyntaxException occurs while loading the font.
      */
     public static Font loadFontFromJar(final String spriteSheetPath, final String characterDataPath, final int scale) throws IOException, URISyntaxException {
+        if (spriteSheetPath == null || spriteSheetPath.isEmpty()) {
+            throw new IllegalArgumentException("The sprite sheet path cannot be null or empty.");
+        }
+
+        if (characterDataPath == null || characterDataPath.isEmpty()) {
+            throw new IllegalArgumentException("The character data path cannot be null or empty.");
+        }
+
         final ClassLoader classLoader = FontLoader.class.getClassLoader();
 
         final InputStream spriteSheetStream = classLoader.getResourceAsStream(spriteSheetPath);
@@ -145,16 +173,22 @@ public class FontLoader {
         final BufferedImage loadedImage = ImageIO.read(inputStream);
         inputStream.close();
 
-        final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        final GraphicsDevice gd = ge.getDefaultScreenDevice();
-        final GraphicsConfiguration gc = gd.getDefaultConfiguration();
+        try {
+            final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            final GraphicsDevice gd = ge.getDefaultScreenDevice();
+            final GraphicsConfiguration gc = gd.getDefaultConfiguration();
 
-        final BufferedImage converedImage = gc.createCompatibleImage(loadedImage.getWidth(), loadedImage.getHeight(), loadedImage.getTransparency());
+            final BufferedImage converedImage = gc.createCompatibleImage(loadedImage.getWidth(), loadedImage.getHeight(), loadedImage.getTransparency());
 
-        final Graphics2D g2d = converedImage.createGraphics();
-        g2d.drawImage(loadedImage, 0, 0, null);
-        g2d.dispose();
-        return converedImage;
+            final Graphics2D g2d = converedImage.createGraphics();
+            g2d.drawImage(loadedImage, 0, 0, null);
+            g2d.dispose();
+            return converedImage;
+        } catch(final HeadlessException e) {
+            // Occurs when running FontLoader unit tests on Travis CI.
+            // Probably because there's no screen/graphics device.
+            return loadedImage;
+        }
     }
 
     /**

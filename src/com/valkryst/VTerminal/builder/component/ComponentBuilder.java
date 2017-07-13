@@ -17,6 +17,7 @@ public class ComponentBuilder<C extends Component, B extends ComponentBuilder<C,
     /** The radio to transmit events to. */
     @Getter protected Radio<String> radio;
 
+    /** Constructs a new ComponentBuilder. */
     public ComponentBuilder() {
         reset();
     }
@@ -55,6 +56,15 @@ public class ComponentBuilder<C extends Component, B extends ComponentBuilder<C,
         panel = null;
     }
 
+    /**
+     * Sets the column index.
+     *
+     * @param columnIndex
+     *        The new column index.
+     *
+     * @return
+     *        This.
+     */
     public B setColumnIndex(final int columnIndex) {
         if (columnIndex >= 0) {
             this.columnIndex = columnIndex;
@@ -63,6 +73,15 @@ public class ComponentBuilder<C extends Component, B extends ComponentBuilder<C,
         return (B)this;
     }
 
+    /**
+     * Sets the row index.
+     *
+     * @param rowIndex
+     *        The new row index.
+     *
+     * @return
+     *        This.
+     */
     public B setRowIndex(final int rowIndex) {
         if (rowIndex >= 0) {
             this.rowIndex = rowIndex;
@@ -71,9 +90,25 @@ public class ComponentBuilder<C extends Component, B extends ComponentBuilder<C,
         return (B)this;
     }
 
+    /**
+     * Sets the panel.
+     *
+     * If the radio is null and the Panel's radio is not null,
+     * then the radio is also set to the Panel's radio.
+     *
+     * @param panel
+     *        The panel.
+     *
+     * @return
+     *        This.
+     */
     public B setPanel(final Panel panel) {
         if (panel != null) {
             this.panel = panel;
+
+            if (radio == null) {
+                setRadio(panel);
+            }
         }
 
         return (B)this;

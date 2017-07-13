@@ -1,6 +1,5 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.component.TextField;
 import com.valkryst.VTerminal.misc.ColorFunctions;
 import lombok.Getter;
@@ -11,9 +10,6 @@ import java.util.regex.Pattern;
 public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuilder> {
     /** The width of the text field, in characters. */
     @Getter private int width;
-
-    /** The radio to transmit events to. */
-    @Getter private Radio<String> radio;
 
     /** The foreground color of the caret. */
     @Getter private Color caretForegroundColor;

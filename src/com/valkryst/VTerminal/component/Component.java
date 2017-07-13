@@ -315,6 +315,19 @@ public class Component {
         }
     }
 
+    /**
+     * Retrieves the string corresponding to a row.
+     *
+     * @param rowIndex
+     *        The row index.
+     *
+     * @return
+     *        The string.
+     */
+    public AsciiString getString(final int rowIndex) {
+        return strings[rowIndex];
+    }
+
     /** Sets all characters to be redrawn. */
     public void setAllCharactersToBeRedrawn() {
         for (final AsciiString string : strings) {
@@ -332,9 +345,8 @@ public class Component {
      */
     private void setLocationOnScreenToBeRedrawn() {
         for (int y = rowIndex ; y <= rowIndex + height ; y++) {
-            screen.getStrings()[y].setCharacterRangeToBeRedrawn(new IntRange(columnIndex, columnIndex + width));
+            screen.getString(y).setCharacterRangeToBeRedrawn(new IntRange(columnIndex, columnIndex + width));
         }
-        System.out.println();
     }
 
     /**
@@ -365,9 +377,6 @@ public class Component {
      *
      * @param columnIndex
      *         The new x-axis (column) coordinate of the top-left character of the component.
-     *
-     * @return
-     *         Whether or not the new value was set.
      */
     public void setColumnIndex(final int columnIndex) {
         if (columnIndex >= 0) {
@@ -385,9 +394,6 @@ public class Component {
      *
      * @param rowIndex
      *         The y-axis (row) coordinate of the top-left character of the component.
-     *
-     * @return
-     *         Whether or not the new value was set.
      */
     public void setRowIndex(final int rowIndex) {
         if (rowIndex >= 0) {
@@ -405,9 +411,6 @@ public class Component {
      *
      * @param width
      *         The new width, in characters, of the component.
-     *
-     * @return
-     *         Whether or not the new value was set.
      */
     public void setWidth(final int width) {
         if (width < 0 || width < columnIndex) {
@@ -427,9 +430,6 @@ public class Component {
      *
      * @param height
      *         The new height, in characters, of the component.
-     *
-     * @return
-     *         Whether or not the new value was set.
      */
     public void setHeight(final int height) {
         if (height < 0 || height < rowIndex) {

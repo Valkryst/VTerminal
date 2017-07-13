@@ -32,7 +32,7 @@ public class Screen extends Component {
      *         The y-axis (row) coordinate of the top-left character.
      *
      * @param width
-     *         Thw width, in characters.
+     *         The width, in characters.
      *
      * @param height
      *         The height, in characters.
@@ -66,7 +66,7 @@ public class Screen extends Component {
 
         // Draw the screen onto the canvas:
         for (int row = 0 ; row < getHeight() ; row++) {
-            getStrings()[row].draw(gc, imageCache, row);
+            super.getString(row).draw(gc, imageCache, row);
         }
 
         // Draw layer components onto the screen:
@@ -81,9 +81,6 @@ public class Screen extends Component {
      *
      * @param character
      *         The character to replace every character on the screen with.
-     *
-     * @return
-     *         If all characters within the screen were cleared.
      */
     public void clear(final char character) {
         clear(character, 0, 0, super.getWidth(), super.getHeight());
@@ -146,7 +143,7 @@ public class Screen extends Component {
         canProceed &= character != null;
 
         if (canProceed) {
-            getStrings()[rowIndex].setCharacter(columnIndex, character);
+            super.getString(rowIndex).setCharacter(columnIndex, character);
         }
 
         return canProceed;
@@ -166,7 +163,7 @@ public class Screen extends Component {
      */
     public void write(final char character, final int columnIndex, final int rowIndex) {
         if (isPositionValid(columnIndex, rowIndex)) {
-            getStrings()[rowIndex].setCharacter(columnIndex, character);
+            super.getString(rowIndex).setCharacter(columnIndex, character);
         }
     }
 
@@ -195,6 +192,24 @@ public class Screen extends Component {
                 write(characters[i], columnIndex + i, rowIndex);
             }
         }
+    }
+
+    /**
+     * Write a string to the specified position.
+     *
+     * Does nothing if the (columnIndex, rowIndex) points to invalid position.
+     *
+     * @param string
+     *         The string.
+     *
+     * @param columnIndex
+     *         The x-axis (column) coordinate to begin writing from.
+     *
+     * @param rowIndex
+     *         The y-axis (row) coordinate to begin writing from.
+     */
+    public void write(final String string, final int columnIndex, final int rowIndex) {
+        write(new AsciiString(string), columnIndex, rowIndex);
     }
 
     /**

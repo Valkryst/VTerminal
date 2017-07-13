@@ -27,7 +27,7 @@ public class Label extends Component {
 
         // Set the label's text:
         final char[] text = builder.getText().toCharArray();
-        final AsciiString string = getStrings()[0];
+        final AsciiString string = super.getString(0);
 
         for (int column = 0 ; column < text.length ; column++) {
             string.setCharacter(column, text[column]);

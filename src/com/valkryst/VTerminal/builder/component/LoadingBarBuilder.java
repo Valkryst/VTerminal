@@ -1,6 +1,5 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.component.LoadingBar;
 import com.valkryst.VTerminal.misc.ColorFunctions;
 import lombok.Getter;
@@ -12,9 +11,6 @@ public class LoadingBarBuilder extends ComponentBuilder<LoadingBar, LoadingBarBu
     @Getter private int width;
     /** The height of the loading bar, in characters. */
     @Getter private int height;
-
-    /** The radio to transmit events to. */
-    @Getter private Radio<String> radio;
 
     /** The character that represents an incomplete cell. */
     @Getter private char incompleteCharacter;

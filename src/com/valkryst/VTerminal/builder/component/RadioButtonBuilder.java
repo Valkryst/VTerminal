@@ -1,6 +1,5 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.component.RadioButton;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
 import com.valkryst.VTerminal.misc.ColorFunctions;
@@ -9,13 +8,12 @@ import lombok.Getter;
 import java.awt.Color;
 
 public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButtonBuilder> {
-    /** The radio to transmit events to. */
-    @Getter private Radio<String> radio;
-
     /** The text of the label to display to the right of the radio button. */
     @Getter private String text;
 
+    /** The character to display when the radio button is not checked. */
     @Getter private char emptyButtonChar;
+    /** The character to display when the radio button is checked. */
     @Getter private char checkedButtonChar;
 
     /** The radio button group that the radio button will belong to. */
@@ -89,6 +87,15 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
         foregroundColor_checked = new Color(0xFFFF66, true);
     }
 
+    /**
+     * Sets the text.
+     *
+     * @param text
+     *        The new text.
+     *
+     * @return
+     *        This.
+     */
     public RadioButtonBuilder setText(final String text) {
         if (text != null) {
             this.text = text;
@@ -97,16 +104,43 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
         return this;
     }
 
+    /**
+     * Sets the empty button character.
+     *
+     * @param emptyButtonChar
+     *        The new empty button character.
+     *
+     * @return
+     *        This.
+     */
     public RadioButtonBuilder setEmptyButtonChar(final char emptyButtonChar) {
         this.emptyButtonChar = emptyButtonChar;
         return this;
     }
 
+    /**
+     * Sets the checked button character.
+     *
+     * @param checkedButtonChar
+     *        The new checked button character.
+     *
+     * @return
+     *        This.
+     */
     public RadioButtonBuilder setCheckedButtonChar(final char checkedButtonChar) {
         this.checkedButtonChar = checkedButtonChar;
         return this;
     }
 
+    /**
+     * Sets the radio button group.
+     *
+     * param group
+     *       The new radio button group.
+     *
+     * @return
+     *        This.
+     */
     public RadioButtonBuilder setGroup(final RadioButtonGroup group) {
         if (group != null) {
             this.group = group;
@@ -115,6 +149,15 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
         return this;
     }
 
+    /**
+     * Sets the normal-state's background color.
+     *
+     * @param backgroundColor_normal
+     *        The new background color.
+     *
+     * @return
+     *        This.
+     */
     public RadioButtonBuilder setBackgroundColor_normal(final Color backgroundColor_normal) {
         if (backgroundColor_normal != null) {
             this.backgroundColor_normal = ColorFunctions.enforceTransparentColor(backgroundColor_normal);
@@ -123,6 +166,15 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
         return this;
     }
 
+    /**
+     * Sets the normal-state's foreground color.
+     *
+     * @param foregroundColor_normal
+     *        The new foreground color.
+     *
+     * @return
+     *        This.
+     */
     public RadioButtonBuilder setForegroundColor_normal(final Color foregroundColor_normal) {
         if (foregroundColor_normal != null) {
             this.foregroundColor_normal = ColorFunctions.enforceTransparentColor(foregroundColor_normal);
@@ -131,6 +183,15 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
         return this;
     }
 
+    /**
+     * Sets the hover-state's background color.
+     *
+     * @param backgroundColor_hover
+     *        The new background color.
+     *
+     * @return
+     *        This.
+     */
     public RadioButtonBuilder setBackgroundColor_hover(final Color backgroundColor_hover) {
         if (backgroundColor_hover != null) {
             this.backgroundColor_hover = ColorFunctions.enforceTransparentColor(backgroundColor_hover);
@@ -139,6 +200,15 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
         return this;
     }
 
+    /**
+     * Sets the hover-state's foreground color.
+     *
+     * @param foregroundColor_hover
+     *        The new foreground color.
+     *
+     * @return
+     *        This.
+     */
     public RadioButtonBuilder setForegroundColor_hover(final Color foregroundColor_hover) {
         if (foregroundColor_hover != null) {
             this.foregroundColor_hover = ColorFunctions.enforceTransparentColor(foregroundColor_hover);
@@ -147,6 +217,15 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
         return this;
     }
 
+    /**
+     * Sets the checked-state's background color.
+     *
+     * @param backgroundColor_checked
+     *        The new background color.
+     *
+     * @return
+     *        This.
+     */
     public RadioButtonBuilder setBackgroundColor_checked(final Color backgroundColor_checked) {
         if (backgroundColor_checked != null) {
             this.backgroundColor_checked = ColorFunctions.enforceTransparentColor(backgroundColor_checked);
@@ -155,6 +234,15 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
         return this;
     }
 
+    /**
+     * Sets the checked-state's foreground color.
+     *
+     * @param foregroundColor_checked
+     *        The new foreground color.
+     *
+     * @return
+     *        This.
+     */
     public RadioButtonBuilder setForegroundColor_checked(final Color foregroundColor_checked) {
         if (foregroundColor_checked != null) {
             this.foregroundColor_checked = ColorFunctions.enforceTransparentColor(foregroundColor_checked);
