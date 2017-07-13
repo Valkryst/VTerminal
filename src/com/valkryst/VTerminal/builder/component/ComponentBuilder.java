@@ -5,6 +5,9 @@ import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Component;
 import lombok.Getter;
 
+import java.awt.Color;
+import java.awt.Transparency;
+
 public class ComponentBuilder<C extends Component, B extends ComponentBuilder<C, B>> {
     /** The x-axis (column) coordinate of the top-left character. */
     @Getter protected int columnIndex;
@@ -53,6 +56,25 @@ public class ComponentBuilder<C extends Component, B extends ComponentBuilder<C,
         rowIndex = 0;
 
         panel = null;
+    }
+
+    /**
+     * Ensures that a color supports transparency.
+     *
+     * @param color
+     *         The color.
+     *
+     * @return
+     *         Either the input color, if it supports transparency,
+     *         or a new copy of the input color which supports
+     *         transparency.
+     */
+    public Color enforceTransparentColor(final Color color) {
+        if (color.getTransparency() != Transparency.TRANSLUCENT) {
+            return new Color(color.getRGB(), true);
+        }
+
+        return color;
     }
 
     public B setColumnIndex(final int columnIndex) {
