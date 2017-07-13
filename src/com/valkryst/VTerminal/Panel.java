@@ -8,14 +8,13 @@ import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.misc.ColoredImageCache;
 import lombok.Getter;
 
-import java.awt.Canvas;
+import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-public class Panel extends Canvas implements Receiver<String> {
+public class Panel extends JPanel implements Receiver<String> {
     private static final long serialVersionUID = 1884786992301690151L;
 
     /** The width of the panel, in characters. */
@@ -62,8 +61,7 @@ public class Panel extends Canvas implements Receiver<String> {
 
     /** Draws every character of every row onto the canvas. */
     public void draw() {
-        final BufferStrategy bufferStrategy = this.getBufferStrategy();
-        final Graphics2D gc = (Graphics2D) bufferStrategy.getDrawGraphics();
+        final Graphics2D gc = (Graphics2D) this.getGraphics();
 
         gc.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
         gc.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
@@ -82,8 +80,6 @@ public class Panel extends Canvas implements Receiver<String> {
 
         screen.draw(gc, imageCache);
         gc.dispose();
-
-        bufferStrategy.show();
     }
 
     /**
