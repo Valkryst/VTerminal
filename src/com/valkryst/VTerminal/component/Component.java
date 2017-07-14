@@ -129,7 +129,7 @@ public class Component {
 
         for (final AsciiString string : strings) {
             for (final AsciiCharacter character : string.getCharacters()) {
-                sb.append(character.getCharacter());
+                sb.append("\t").append(character.getCharacter());
             }
             sb.append("\n\t\t");
         }
