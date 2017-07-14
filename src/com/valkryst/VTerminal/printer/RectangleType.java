@@ -3,8 +3,7 @@ package com.valkryst.VTerminal.printer;
 import com.valkryst.VTerminal.AsciiCharacter;
 import lombok.Getter;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.Optional;
 
 public enum RectangleType {
@@ -46,8 +45,6 @@ public enum RectangleType {
     /** The set of characters that can appear to the right of a RectangleType character. */
     @Getter private final char[] validRightCharacters;
 
-    @Getter private Map<Boolean[], Character> characterNeighbourPatterns = new HashMap<>();
-
     /**
      * Constructs a new RectangleType.
      *
@@ -83,18 +80,6 @@ public enum RectangleType {
         System.out.println("HORIZONTAL FOR " + this.name() + " IS " + horizontal);
         validRightCharacters = new char[]{horizontal, connectorCross, connectorLeft, connnectorDown, connectorUp,
                                           topRight, bottomRight};
-
-        characterNeighbourPatterns.put(new Boolean[]{false, false, true, true}, topRight);
-        characterNeighbourPatterns.put(new Boolean[]{false, true, false, true}, vertical);
-        characterNeighbourPatterns.put(new Boolean[]{false, true, true, false}, bottomRight);
-        characterNeighbourPatterns.put(new Boolean[]{false, true, true, true}, connectorLeft);
-        characterNeighbourPatterns.put(new Boolean[]{true, false, false, true}, topLeft);
-        characterNeighbourPatterns.put(new Boolean[]{true, false, true, false}, horizontal);
-        characterNeighbourPatterns.put(new Boolean[]{true, false, true, true}, connnectorDown);
-        characterNeighbourPatterns.put(new Boolean[]{true, true, false, false}, bottomLeft);
-        characterNeighbourPatterns.put(new Boolean[]{true, true, false, true}, connectorRight);
-        characterNeighbourPatterns.put(new Boolean[]{true, true, true, false}, connectorUp);
-        characterNeighbourPatterns.put(new Boolean[]{true, true, true, true}, connectorCross);
     }
 
     /**
@@ -188,7 +173,51 @@ public enum RectangleType {
      * @return
      *        The character.
      */
-    public Optional<Character> getCharacterByNeighbourPattern(final Boolean[] pattern) {
-        return Optional.ofNullable(characterNeighbourPatterns.get(pattern));
+    public Optional<Character> getCharacterByNeighbourPattern(final boolean[] pattern) {
+        if (Arrays.equals(pattern, new boolean[]{false, false, true, true})) {
+            return Optional.of(topRight);
+        }
+
+        if (Arrays.equals(pattern, new boolean[]{false, true, false, true})) {
+            return Optional.of(vertical);
+        }
+
+        if (Arrays.equals(pattern, new boolean[]{false, true, true, false})) {
+            return Optional.of(bottomRight);
+        }
+
+        if (Arrays.equals(pattern, new boolean[]{false, true, true, true})) {
+            return Optional.of(connectorLeft);
+        }
+
+        if (Arrays.equals(pattern, new boolean[]{true, false, false, true})) {
+            return Optional.of(topLeft);
+        }
+
+        if (Arrays.equals(pattern, new boolean[]{true, false, true, false})) {
+            return Optional.of(horizontal);
+        }
+
+        if (Arrays.equals(pattern, new boolean[]{true, false, true, true})) {
+            return Optional.of(connnectorDown);
+        }
+
+        if (Arrays.equals(pattern, new boolean[]{true, true, false, false})) {
+            return Optional.of(bottomLeft);
+        }
+
+        if (Arrays.equals(pattern, new boolean[]{true, true, false, true})) {
+            return Optional.of(connectorRight);
+        }
+
+        if (Arrays.equals(pattern, new boolean[]{true, true, true, false})) {
+            return Optional.of(connectorUp);
+        }
+
+        if (Arrays.equals(pattern, new boolean[]{true, true, true, true})) {
+            return Optional.of(connectorCross);
+        }
+
+        return Optional.empty();
     }
 }
