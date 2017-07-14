@@ -87,7 +87,6 @@ To use a different font:
 
 ## Misc
 
-* The use of non-mono-space fonts is not supported, but it not specifically prevented.
 * Ensure the font png image uses a transparent background with white characters. The program relies on this and unintended behaviour could occur with any other settings.
 * In an effort to achieve optimal draw performance, VTerminal makes use of an image cache. Any time an image is drawn with a unique fore/background color, a new image is created, the colors are applied, and then that image is saved in the cache until the process terminates. 
      * This does require some amount of RAM, but it drastically reduces the amount of CPU time spent re-coloring images on every draw call.
