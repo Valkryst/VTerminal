@@ -5,6 +5,7 @@ import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public enum RectangleType {
     SIMPLE(new char[]{'+', '+', '+', '+', '|', '-', '+', '+', '+', '+', '+'}),
@@ -186,7 +187,7 @@ public enum RectangleType {
      * @return
      *        The character.
      */
-    public char getCharacterByNeighbourPattern(final Boolean[] pattern) {
-        return characterNeighbourPatterns.get(pattern);
+    public Optional<Character> getCharacterByNeighbourPattern(final Boolean[] pattern) {
+        return Optional.of(characterNeighbourPatterns.get(pattern));
     }
 }
