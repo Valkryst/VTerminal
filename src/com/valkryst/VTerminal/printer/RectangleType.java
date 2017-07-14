@@ -55,8 +55,8 @@ public enum RectangleType {
      *         The characters of a rectangle.
      */
     RectangleType(char[] boxCharacters) {
-        if (boxCharacters.length != 6) {
-            boxCharacters = new char[]{'?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '"'};
+        if (boxCharacters.length != 11) {
+            throw new IllegalArgumentException("A RectangleType requires exactly 11 characters.");
         }
 
         topLeft = boxCharacters[0];
@@ -80,6 +80,7 @@ public enum RectangleType {
         validLeftCharacters = new char[]{horizontal, connectorCross, connectorRight, connnectorDown, connectorUp,
                                          topLeft, bottomLeft};
 
+        System.out.println("HORIZONTAL FOR " + this.name() + " IS " + horizontal);
         validRightCharacters = new char[]{horizontal, connectorCross, connectorLeft, connnectorDown, connectorUp,
                                           topRight, bottomRight};
 
@@ -188,6 +189,6 @@ public enum RectangleType {
      *        The character.
      */
     public Optional<Character> getCharacterByNeighbourPattern(final Boolean[] pattern) {
-        return Optional.of(characterNeighbourPatterns.get(pattern));
+        return Optional.ofNullable(characterNeighbourPatterns.get(pattern));
     }
 }
