@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal.printer;
 
+import com.valkryst.VTerminal.AsciiCharacter;
 import lombok.Getter;
 
 public enum RectangleType {
@@ -32,6 +33,15 @@ public enum RectangleType {
     /** The upwards connector character of a rectangle. */
     @Getter private final char connectorUp;
 
+    /** The set of characters that can appear above a RectangleType character. */
+    @Getter private final char[] validTopCharacters;
+    /** The set of characters that can appear below a RectangleType character. */
+    @Getter private final char[] validBottomCharacters;
+    /** The set of characters that can appear to the left of a RectangleType character. */
+    @Getter private final char[] validLeftCharacters;
+    /** The set of characters that can appear to the right of a RectangleType character. */
+    @Getter private final char[] validRightCharacters;
+
     /**
      * Constructs a new RectangleType.
      *
@@ -54,5 +64,99 @@ public enum RectangleType {
         connectorRight = boxCharacters[8];
         connnectorDown = boxCharacters[9];
         connectorUp = boxCharacters[10];
+
+        validTopCharacters = new char[]{vertical, connectorCross, connectorLeft, connectorRight, connnectorDown,
+                                        topLeft, topRight};
+
+        validBottomCharacters = new char[]{vertical, connectorCross, connectorLeft, connectorRight, connectorUp,
+                                           bottomLeft, bottomRight};
+
+        validLeftCharacters = new char[]{horizontal, connectorCross, connectorRight, connnectorDown, connectorUp,
+                                         topLeft, bottomLeft};
+
+        validRightCharacters = new char[]{horizontal, connectorCross, connectorLeft, connnectorDown, connectorUp,
+                                          topRight, bottomRight};
+    }
+
+    /**
+     * Determines if a character is in the set of characters that can
+     * appear above a RectangleType character.
+     *
+     * @param asciiCharacter
+     *        The character.
+     *
+     * @return
+     *        If the character is in the set.
+     */
+    public boolean isValidTopCharacter(final AsciiCharacter asciiCharacter) {
+        return asciiCharacter != null && isValidCharacter(asciiCharacter.getCharacter(), validTopCharacters);
+
+    }
+
+    /**
+     * Determines if a character is in the set of characters that can
+     * appear below a RectangleType character.
+     *
+     * @param asciiCharacter
+     *        The character.
+     *
+     * @return
+     *        If the character is in the set.
+     */
+    public boolean isValidBottomCharacter(final AsciiCharacter asciiCharacter) {
+        return asciiCharacter != null && isValidCharacter(asciiCharacter.getCharacter(), validBottomCharacters);
+
+    }
+
+    /**
+     * Determines if a character is in the set of characters that can
+     * appear to the left of a RectangleType character.
+     *
+     * @param asciiCharacter
+     *        The character.
+     *
+     * @return
+     *        If the character is in the set.
+     */
+    public boolean isValidLeftCharacter(final AsciiCharacter asciiCharacter) {
+        return asciiCharacter != null && isValidCharacter(asciiCharacter.getCharacter(), validLeftCharacters);
+
+    }
+
+    /**
+     * Determines if a character is in the set of characters that can
+     * appear to the right of a RectangleType character.
+     *
+     * @param asciiCharacter
+     *        The character.
+     *
+     * @return
+     *        If the character is in the set.
+     */
+    public boolean isValidRightCharacter(final AsciiCharacter asciiCharacter) {
+        return asciiCharacter != null && isValidCharacter(asciiCharacter.getCharacter(), validRightCharacters);
+
+    }
+
+    /**
+     * Determines if a character is in a set of characters.
+     *
+     * @param character
+     *        The character.
+     *
+     * @param validCharacters
+     *        The set.
+     *
+     * @return
+     *        If the character is in the set.
+     */
+    private boolean isValidCharacter(final char character, final char[] validCharacters) {
+        for (final char validCharacter : validCharacters) {
+            if (character == validCharacter) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
