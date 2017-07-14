@@ -24,7 +24,7 @@ public class SampleStringOperations {
         screen.write("Writing a String on Line #2", 0, 1);
 
         screen.write("Applying a Color Gradient on Line #3", 0, 2);
-        screen.getString(2).applyColorGradient(Color.PINK, Color.CYAN, true);
+        screen.getString(2).applyShadeGradient(Color.CYAN, true);
 
         screen.write("Horizontally Flipping a String on Line #4", 0, 3);
         screen.getString(3).flipCharactersHorizontally();
