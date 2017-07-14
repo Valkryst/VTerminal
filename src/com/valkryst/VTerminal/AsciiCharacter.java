@@ -217,6 +217,87 @@ public class AsciiCharacter {
     }
 
     /**
+     * Shades the background color by some factor, where a higher factor results
+     * in a darker shade.
+     *
+     * @param tintFactor
+     *        The factor.
+     *
+     *        Values should range from 0.0 to 1.0.
+     */
+    public void tintBackgroundColor(final double tintFactor) {
+        backgroundColor = ColorFunctions.tint(backgroundColor, tintFactor);
+    }
+
+
+    /**
+     * Shades the foreground color by some factor, where a higher factor results
+     * in a darker shade.
+     *
+     * @param tintFactor
+     *        The factor.
+     *
+     *        Values should range from 0.0 to 1.0.
+     */
+    public void tintForegroundColor(final double tintFactor) {
+        foregroundColor = ColorFunctions.tint(foregroundColor, tintFactor);
+    }
+
+    /**
+     * Shades the background and foreground color by some factor, where a higher
+     * factor results in a darker shade.
+     *
+     * @param tintFactor
+     *        The factor.
+     *
+     *        Values should range from 0.0 to 1.0.
+     */
+    public void tintBackgroundAndForegroundColor(final double tintFactor) {
+        tintBackgroundColor(tintFactor);
+        tintForegroundColor(tintFactor);
+    }
+
+    /**
+     * Tints the background color by some factor, where a higher factor results
+     * in a lighter tint.
+     *
+     * @param shadeFactor
+     *        The factor.
+     *
+     *        Values should range from 0.0 to 1.0.
+     */
+    public void shadeBackgroundColor(final double shadeFactor) {
+        backgroundColor = ColorFunctions.shade(backgroundColor, shadeFactor);
+    }
+
+    /**
+     * Tints the foreground color by some factor, where a higher factor results
+     * in a lighter tint.
+     *
+     * @param shadeFactor
+     *        The factor.
+     *
+     *        Values should range from 0.0 to 1.0.
+     */
+    public void shadeForegroundColor(final double shadeFactor) {
+        foregroundColor = ColorFunctions.shade(foregroundColor, shadeFactor);
+    }
+
+    /**
+     * Tints the background and foreground color by some factor, where a higher
+     * factor results in a lighter tint.
+     *
+     * @param shadeFactor
+     *        The factor.
+     *
+     *        Values should range from 0.0 to 1.0.
+     */
+    public void shadeBackgroundAndForegroundColor(final double shadeFactor) {
+        shadeBackgroundColor(shadeFactor);
+        shadeForegroundColor(shadeFactor);
+    }
+
+    /**
      * Sets the new background color.
      *
      * Does nothing if the specified color is null.
