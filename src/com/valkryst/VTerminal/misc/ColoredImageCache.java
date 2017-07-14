@@ -183,9 +183,9 @@ public class ColoredImageCache {
             }
 
             final AsciiCharacterShell otherShell = (AsciiCharacterShell) otherObj;
-            boolean isEqual = character == otherShell.getCharacter();
-            isEqual &= backgroundColor.equals(otherShell.getBackgroundColor());
-            isEqual &= foregroundColor.equals(otherShell.getForegroundColor());
+            boolean isEqual = Objects.equals(character, otherShell.getCharacter());
+            isEqual &= Objects.equals(backgroundColor, otherShell.getBackgroundColor());
+            isEqual &= Objects.equals(foregroundColor, otherShell.getForegroundColor());
             return isEqual;
         }
 
