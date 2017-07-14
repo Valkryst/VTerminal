@@ -3,6 +3,9 @@ package com.valkryst.VTerminal.printer;
 import com.valkryst.VTerminal.AsciiCharacter;
 import lombok.Getter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum RectangleType {
     SIMPLE(new char[]{'+', '+', '+', '+', '|', '-', '+', '+', '+', '+', '+'}),
     THIN(new char[]{'┌', '┐', '└', '┘', '│', '─', '┼', '┤', '├', '┬', '┴'}),
@@ -42,6 +45,8 @@ public enum RectangleType {
     /** The set of characters that can appear to the right of a RectangleType character. */
     @Getter private final char[] validRightCharacters;
 
+    @Getter private Map<Boolean[], Character> characterNeighbourPatterns = new HashMap<>();
+
     /**
      * Constructs a new RectangleType.
      *
@@ -76,6 +81,18 @@ public enum RectangleType {
 
         validRightCharacters = new char[]{horizontal, connectorCross, connectorLeft, connnectorDown, connectorUp,
                                           topRight, bottomRight};
+
+        characterNeighbourPatterns.put(new Boolean[]{false, false, true, true}, topRight);
+        characterNeighbourPatterns.put(new Boolean[]{false, true, false, true}, vertical);
+        characterNeighbourPatterns.put(new Boolean[]{false, true, true, false}, bottomRight);
+        characterNeighbourPatterns.put(new Boolean[]{false, true, true, true}, connectorLeft);
+        characterNeighbourPatterns.put(new Boolean[]{true, false, false, true}, topLeft);
+        characterNeighbourPatterns.put(new Boolean[]{true, false, true, false}, horizontal);
+        characterNeighbourPatterns.put(new Boolean[]{true, false, true, true}, connnectorDown);
+        characterNeighbourPatterns.put(new Boolean[]{true, true, false, false}, bottomLeft);
+        characterNeighbourPatterns.put(new Boolean[]{true, true, false, true}, connectorRight);
+        characterNeighbourPatterns.put(new Boolean[]{true, true, true, false}, connectorUp);
+        characterNeighbourPatterns.put(new Boolean[]{true, true, true, true}, connectorCross);
     }
 
     /**
@@ -158,5 +175,18 @@ public enum RectangleType {
         }
 
         return false;
+    }
+
+    /**
+     * Retrieves a character by it's neighbour pattern.
+     *
+     * @param pattern
+     *        The pattern.
+     *
+     * @return
+     *        The character.
+     */
+    public char getCharacterByNeighbourPattern(final Boolean[] pattern) {
+        return characterNeighbourPatterns.get(pattern);
     }
 }
