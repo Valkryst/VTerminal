@@ -3,10 +3,13 @@ package com.valkryst.VTerminal.samples;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.builder.component.*;
-import com.valkryst.VTerminal.component.*;
+import com.valkryst.VTerminal.component.LoadingBar;
+import com.valkryst.VTerminal.component.RadioButtonGroup;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 
+import javax.swing.Timer;
+import java.awt.Color;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -18,34 +21,85 @@ public class SampleComponents {
 
         Thread.sleep(100);
 
-        panel.getScreen().clear('X');
+        panel.getScreen().setBackgroundColor(new Color(0xFF366C9F, true));
 
-        // Buttons
-        final Button button_printout = new ButtonBuilder().setText("Printout Button").setPanel(panel).setColumnIndex(0).setRowIndex(0)
-                                                          .setOnClickFunction(() -> System.out.println("You clicked a button.")).build();
+        // Title
+        new LabelBuilder().setColumnAndRowIndices(1, 1)
+                            .setPanel(panel)
+                            .setText("Component Library Test")
+                            .build()
+                            .getString(0)
+                            .underlineCharacters();
 
-        new ButtonBuilder().setText("Printout Button").setPanel(panel).setColumnIndex(0).setRowIndex(1)
-                           .setOnClickFunction(() -> button_printout.getString(0).invertColors()).build();
+        // Button
+        new ButtonBuilder().setColumnAndRowIndices(1, 3)
+                            .setPanel(panel)
+                            .setText("Click")
+                            .setOnClickFunction(() -> System.out.println("Clicked!"))
+                            .build();
 
-        // Checkboxes:
-        new CheckBoxBuilder().setText("Checkbox A").setPanel(panel).setColumnIndex(0).setRowIndex(2).build();
-        new CheckBoxBuilder().setText("Checkbox B").setPanel(panel).setColumnIndex(0).setRowIndex(3).build();
+        // First Radio Button Group
+        final RadioButtonGroup groupA = new RadioButtonGroup();
 
-        // Labels:
-        new LabelBuilder().setText("Label A").setPanel(panel).setColumnIndex(0).setRowIndex(4).build();
-        new LabelBuilder().setText("Label B").setPanel(panel).setColumnIndex(0).setRowIndex(5).build();
+        new RadioButtonBuilder().setColumnAndRowIndices(1, 5)
+                                .setPanel(panel)
+                                .setGroup(groupA)
+                                .setText("Group A, Option 1")
+                                .build();
 
-        // Loading Bar:
-        final LoadingBar loadingBar = new LoadingBarBuilder().setPanel(panel).setColumnIndex(0).setRowIndex(6).build();
+        new RadioButtonBuilder().setColumnAndRowIndices(1, 6)
+                                .setPanel(panel)
+                                .setGroup(groupA)
+                                .setText("Group A, Option 2")
+                                .build();
 
-        // Radio Buttons:
-        final RadioButtonGroup group = new RadioButtonGroup();
-        new RadioButtonBuilder().setText("Radio Button A").setPanel(panel).setGroup(group).setColumnIndex(0).setRowIndex(7).build();
-        new RadioButtonBuilder().setText("Radio Button A").setPanel(panel).setGroup(group).setColumnIndex(0).setRowIndex(8).build();
 
-        // Text Fields:
-        new TextFieldBuilder().setPanel(panel).setColumnIndex(0).setRowIndex(9).setWidth(6).build();
-        new TextFieldBuilder().setPanel(panel).setColumnIndex(0).setRowIndex(10).setWidth(12).build();
+        // Second Radio Button Group
+        final RadioButtonGroup groupB = new RadioButtonGroup();
+
+        new RadioButtonBuilder().setColumnAndRowIndices(1, 8)
+                                .setPanel(panel)
+                                .setGroup(groupB)
+                                .setText("Group B, Option 1")
+                                .build();
+
+        new RadioButtonBuilder().setColumnAndRowIndices(1, 9)
+                                .setPanel(panel)
+                                .setGroup(groupB)
+                                .setText("Group B, Option 2")
+                                .build();
+
+        // Check Boxes
+        new CheckBoxBuilder().setColumnAndRowIndices(1, 11)
+                            .setPanel(panel)
+                            .setText("Checkbox A")
+                            .build();
+
+        new CheckBoxBuilder().setColumnAndRowIndices(1, 12)
+                            .setPanel(panel)
+                            .setText("Checkbox B")
+                            .build();
+
+        // Text Field
+        new TextFieldBuilder().setColumnAndRowIndices(1, 14)
+                                .setPanel(panel)
+                                .setWidth(20)
+                                .build();
+
+        // Loading Bar
+        final LoadingBar loadingBar = new LoadingBarBuilder().setColumnAndRowIndices(1, 16)
+                                                                .setPanel(panel)
+                                                                .setWidth(20)
+                                                                .build();
+
+        Timer timer = new Timer(1000, e -> {
+            int pct = loadingBar.getPercentComplete();
+
+            if (pct < 100) {
+                loadingBar.setPercentComplete(pct + 5);
+            }
+        });
+        timer.start();
 
         panel.draw();
     }
