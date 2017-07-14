@@ -610,8 +610,8 @@ public class AsciiString {
     }
 
     /**
-     * Tints the background color, of every character, by some factor, where a higher factor results
-     * in a lighter tint.
+     * Tints the either the foreground or background color, of every character, by some factor,
+     * where a higher factor results in a lighter tint.
      *
      * @param tintFactor
      *        The factor.
@@ -626,8 +626,8 @@ public class AsciiString {
     }
 
     /**
-     * Tints the background color, of every character in the specified range, by some factor, where
-     * a higher factor results in a lighter tint.
+     * Tints either the foreground or background  color, of every character in the specified
+     * range, by some factor, where a higher factor results in a lighter tint.
      *
      * @param rangeIndices
      *         The x-axis (column) coordinates of the characters to begin/end the tint between.
@@ -698,8 +698,8 @@ public class AsciiString {
     }
 
     /**
-     * Shades the background color, of every character, by some factor, where a higher factor results
-     * in a darker shade.
+     * Shades either the foreground or background  color, of every character, by some factor, where
+     * a higher factor results in a darker shade.
      *
      * @param shadeFactor
      *        The factor.
@@ -714,8 +714,8 @@ public class AsciiString {
     }
 
     /**
-     * Shades the background color, of every character in the specified range, by some factor, where
-     * a higher factor results in a darker shade.
+     * Shades either the foreground or background  color, of every character in the specified range,
+     * by some factor, where a higher factor results in a darker shade.
      *
      * @param rangeIndices
      *         The x-axis (column) coordinates of the characters to begin/end the shade between.
