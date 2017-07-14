@@ -96,8 +96,12 @@ public class SampleComponents {
             int pct = loadingBar.getPercentComplete();
 
             if (pct < 100) {
-                loadingBar.setPercentComplete(pct + 5);
+                pct += 5;
+            } else {
+                pct = 0;
             }
+
+            loadingBar.setPercentComplete(pct);
         });
         timer.start();
 
