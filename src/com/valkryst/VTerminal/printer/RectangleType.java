@@ -77,7 +77,6 @@ public enum RectangleType {
         validLeftCharacters = new char[]{horizontal, connectorCross, connectorRight, connnectorDown, connectorUp,
                                          topLeft, bottomLeft};
 
-        System.out.println("HORIZONTAL FOR " + this.name() + " IS " + horizontal);
         validRightCharacters = new char[]{horizontal, connectorCross, connectorLeft, connnectorDown, connectorUp,
                                           topRight, bottomRight};
     }
