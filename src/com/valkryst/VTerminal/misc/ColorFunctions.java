@@ -16,6 +16,10 @@ public class ColorFunctions {
      *         transparency.
      */
     public static Color enforceTransparentColor(final Color color) {
+        if (color == null) {
+            return null;
+        }
+
         if (color.getTransparency() != Transparency.TRANSLUCENT) {
             return new Color(color.getRGB(), true);
         }
