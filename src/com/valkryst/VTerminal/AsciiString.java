@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal;
 
 import com.valkryst.VRadio.Radio;
+import com.valkryst.VTerminal.misc.ColorFunctions;
 import com.valkryst.VTerminal.misc.ColoredImageCache;
 import com.valkryst.VTerminal.misc.IntRange;
 import lombok.Getter;
@@ -340,6 +341,120 @@ public class AsciiString {
     }
 
     /**
+     * Applies a shade gradient to the entire string.
+     *
+     * @param color
+     *         The color to start the gradient with.
+     *
+     * @param applyToBackground
+     *         Whether or not to apply the gradient to the background or foreground of the characters.
+     */
+    public void applyShadeGradient(final Color color, final boolean applyToBackground) {
+        applyShadeGradient(new IntRange(0, characters.length), color, applyToBackground);
+    }
+
+    /**
+     * Applies a shade gradient to a portion of the string.
+     *
+     * @param rangeIndices
+     *         The x-axis (column) coordinates of the characters to begin/end the gradient between.
+     *         Includes the first index and excludes the last index.
+     *
+     * @param color
+     *         The color to start the gradient with.
+     *
+     * @param applyToBackground
+     *         Whether or not to apply the gradient to the background or foreground of the characters.
+     */
+    public void applyShadeGradient(final IntRange rangeIndices, Color color, final boolean applyToBackground) {
+        if (rangeIndices == null) {
+            return;
+        }
+
+        if (isRangeValid(rangeIndices) == false) {
+            rangeIndices.clampValuesToRange(0, characters.length);
+        }
+
+        if (color == null) {
+            throw new IllegalArgumentException("You must specify a color to create the shade gradient with.");
+        }
+
+        // Set the new color values:
+        final int beginIndex = rangeIndices.getBegin();
+        final int endIndex = rangeIndices.getEnd();
+        final double shadeFactor = 1 / (double) endIndex;
+
+        for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+            charactersToBeRedrawn[columnIndex] = true;
+
+            if (applyToBackground) {
+                characters[columnIndex].setBackgroundColor(color);
+            } else {
+                characters[columnIndex].setForegroundColor(color);
+            }
+
+            color = ColorFunctions.shade(color, shadeFactor);
+        }
+    }
+
+    /**
+     * Applies a tint gradient to the entire string.
+     *
+     * @param color
+     *         The color to start the gradient with.
+     *
+     * @param applyToBackground
+     *         Whether or not to apply the gradient to the background or foreground of the characters.
+     */
+    public void applyTintGradient(final Color color, final boolean applyToBackground) {
+        applyTintGradient(new IntRange(0, characters.length), color, applyToBackground);
+    }
+
+    /**
+     * Applies a tint gradient to a portion of the string.
+     *
+     * @param rangeIndices
+     *         The x-axis (column) coordinates of the characters to begin/end the gradient between.
+     *         Includes the first index and excludes the last index.
+     *
+     * @param color
+     *         The color to start the gradient with.
+     *
+     * @param applyToBackground
+     *         Whether or not to apply the gradient to the background or foreground of the characters.
+     */
+    public void applyTintGradient(final IntRange rangeIndices, Color color, final boolean applyToBackground) {
+        if (rangeIndices == null) {
+            return;
+        }
+
+        if (isRangeValid(rangeIndices) == false) {
+            rangeIndices.clampValuesToRange(0, characters.length);
+        }
+
+        if (color == null) {
+            throw new IllegalArgumentException("You must specify a color to create the tint gradient with.");
+        }
+
+        // Set the new color values:
+        final int beginIndex = rangeIndices.getBegin();
+        final int endIndex = rangeIndices.getEnd();
+        final double tintFactor = 1 / (double) endIndex;
+
+        for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+            charactersToBeRedrawn[columnIndex] = true;
+
+            if (applyToBackground) {
+                characters[columnIndex].setBackgroundColor(color);
+            } else {
+                characters[columnIndex].setForegroundColor(color);
+            }
+
+            color = ColorFunctions.tint(color, tintFactor);
+        }
+    }
+
+    /**
      * Enables the blink effect for every character.
      *
      * @param millsBetweenBlinks
@@ -492,6 +607,182 @@ public class AsciiString {
             charactersToBeRedrawn[columnIndex] = true;
             characters[columnIndex].invertColors();
         }
+    }
+
+    /**
+     * Tints the background color, of every character, by some factor, where a higher factor results
+     * in a lighter tint.
+     *
+     * @param tintFactor
+     *        The factor.
+     *
+     *        Values should range from 0.0 to 1.0.
+     *
+     * @param applyToBackground
+     *         Whether or not to apply the tint to the background or foreground of the characters.
+     */
+    public void tintColors(final double tintFactor, final boolean applyToBackground) {
+        tintColors(new IntRange(0, characters.length), tintFactor, applyToBackground);
+    }
+
+    /**
+     * Tints the background color, of every character in the specified range, by some factor, where
+     * a higher factor results in a lighter tint.
+     *
+     * @param rangeIndices
+     *         The x-axis (column) coordinates of the characters to begin/end the tint between.
+     *         Includes the first index and excludes the last index.
+     *
+     * @param tintFactor
+     *        The factor.
+     *
+     *        Values should range from 0.0 to 1.0.
+     *
+     * @param applyToBackground
+     *         Whether or not to apply the tint to the background or foreground of the characters.
+     */
+    public void tintColors(final IntRange rangeIndices, final double tintFactor, final boolean applyToBackground) {
+        if (rangeIndices == null) {
+            return;
+        }
+
+        if (isRangeValid(rangeIndices) == false) {
+            rangeIndices.clampValuesToRange(0, characters.length);
+        }
+
+        final int beginIndex = rangeIndices.getBegin();
+        final int endIndex = rangeIndices.getEnd();
+
+        for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+            charactersToBeRedrawn[columnIndex] = true;
+
+            if (applyToBackground) {
+                characters[columnIndex].tintBackgroundColor(tintFactor);
+            } else {
+                characters[columnIndex].tintForegroundColor(tintFactor);
+            }
+        }
+    }
+
+    /**
+     * Tints the background and foreground color, of every character, by some factor, where a higher
+     * factor results in a lighter tint.
+     *
+     * @param tintFactor
+     *        The factor.
+     *
+     *        Values should range from 0.0 to 1.0.
+     */
+    public void tintBackgroundAndForegroundColors(final double tintFactor) {
+        final IntRange rangeIndices = new IntRange(0, characters.length);
+        tintColors(rangeIndices, tintFactor, false);
+        tintColors(rangeIndices, tintFactor, true);
+    }
+
+    /**
+     * Tints the background and foreground color, of every character in the specified range, by some
+     * factor, where a higher factor results in a lighter tint.
+     *
+     * @param rangeIndices
+     *         The x-axis (column) coordinates of the characters to begin/end the tint between.
+     *         Includes the first index and excludes the last index.
+     *
+     * @param tintFactor
+     *        The factor.
+     *
+     *        Values should range from 0.0 to 1.0.
+     */
+    public void tintBackgroundAndForegroundColors(final IntRange rangeIndices, final double tintFactor) {
+        tintColors(rangeIndices, tintFactor, false);
+        tintColors(rangeIndices, tintFactor, true);
+    }
+
+    /**
+     * Shades the background color, of every character, by some factor, where a higher factor results
+     * in a darker shade.
+     *
+     * @param shadeFactor
+     *        The factor.
+     *
+     *        Values should range from 0.0 to 1.0.
+     *
+     * @param applyToBackground
+     *         Whether or not to apply the shade to the background or foreground of the characters.
+     */
+    public void shadeColors(final double shadeFactor, final boolean applyToBackground) {
+        shadeColors(new IntRange(0, characters.length), shadeFactor, applyToBackground);
+    }
+
+    /**
+     * Shades the background color, of every character in the specified range, by some factor, where
+     * a higher factor results in a darker shade.
+     *
+     * @param rangeIndices
+     *         The x-axis (column) coordinates of the characters to begin/end the shade between.
+     *         Includes the first index and excludes the last index.
+     *
+     * @param tintFactor
+     *        The factor.
+     *
+     *        Values should range from 0.0 to 1.0.
+     *
+     * @param applyToBackground
+     *         Whether or not to apply the shade to the background or foreground of the characters.
+     */
+    public void shadeColors(final IntRange rangeIndices, final double tintFactor, final boolean applyToBackground) {
+        if (rangeIndices == null) {
+            return;
+        }
+
+        if (isRangeValid(rangeIndices) == false) {
+            rangeIndices.clampValuesToRange(0, characters.length);
+        }
+
+        final int beginIndex = rangeIndices.getBegin();
+        final int endIndex = rangeIndices.getEnd();
+
+        for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+            charactersToBeRedrawn[columnIndex] = true;
+
+            if (applyToBackground) {
+                characters[columnIndex].shadeBackgroundColor(tintFactor);
+            } else {
+                characters[columnIndex].shadeForegroundColor(tintFactor);
+            }
+        }
+    }
+
+    /**
+     * Shades the background and foreground color, of every character, by some factor, where a higher
+     * factor results in a darker shade.
+     *
+     * @param shadeFactor
+     *        The factor.
+     *
+     *        Values should range from 0.0 to 1.0.
+     */
+    public void shadeBackgroundAndForegroundColors(final double shadeFactor) {
+        final IntRange rangeIndices = new IntRange(0, characters.length);
+        shadeColors(rangeIndices, shadeFactor, false);
+        shadeColors(rangeIndices, shadeFactor, true);
+    }
+
+    /**
+     * Shades the background and foreground color, of every character in the specified range, by some
+     * factor, where a higher factor results in a darker shade.
+     *
+     * @param rangeIndices
+     *         The x-axis (column) coordinates of the characters to begin/end the shade between.
+     *         Includes the first index and excludes the last index.
+     *
+     * @param shadeFactor
+     *        The factor.
+     *
+     *        Values should range from 0.0 to 1.0.
+     */
+    public void shadeBackgroundAndForegroundColors(final IntRange rangeIndices, final double shadeFactor) {
+        shadeColors(rangeIndices, shadeFactor, false);
+        shadeColors(rangeIndices, shadeFactor, true);
     }
 
     /**
