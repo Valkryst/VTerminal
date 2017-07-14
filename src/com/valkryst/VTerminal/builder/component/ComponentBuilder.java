@@ -91,6 +91,24 @@ public class ComponentBuilder<C extends Component, B extends ComponentBuilder<C,
     }
 
     /**
+     * Sets the column and row indices.
+     *
+     * @param columnIndex
+     *        The new column index.
+     *
+     * @param rowIndex
+     *        The new row index.
+     *
+     * @return
+     *        This.
+     */
+    public B setColumnAndRowIndices(final int columnIndex, final int rowIndex) {
+        setColumnIndex(columnIndex);
+        setRowIndex(rowIndex);
+        return (B)this;
+    }
+
+    /**
      * Sets the panel.
      *
      * If the radio is null and the Panel's radio is not null,
