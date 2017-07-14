@@ -125,7 +125,7 @@ public class Component {
         sb.append("\n\tHeight:\t").append(height);
         sb.append("\n\tIs Focused:\t").append(isFocused);
         sb.append("\n\tBounding Box:\t" + boundingBox);
-        sb.append("\n\tStrings:\n");
+        sb.append("\n\tStrings:\n\t\t");
 
         for (final AsciiString string : strings) {
             for (final AsciiCharacter character : string.getCharacters()) {
