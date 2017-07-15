@@ -15,7 +15,7 @@ public class RectanglePrinter {
     @Getter private int height = 2;
 
     /** The type of rectangle to print. */
-    @Getter @Setter private RectangleType rectangleType = RectangleType.HEAVY;
+    @Getter @Setter private com.valkryst.VTerminal.printer.RectangleType rectangleType = com.valkryst.VTerminal.printer.RectangleType.HEAVY;
 
     /**
      * Prints a rectangle on the screen of a panel.
@@ -110,7 +110,6 @@ public class RectanglePrinter {
      *         The y-axis (row) coordinate of the top-left character.
      */
     private void setConnectors(final Screen screen, final int column, final int row) {
-        System.out.println(column + " " + row + " " + width + " " + height + "\n\n\n\n");
         final int lastRow = row + height - 1;
         final int lastColumn = column + width - 1;
 
