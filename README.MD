@@ -7,6 +7,7 @@ Please refer to the LICENSE file for additional information.
 ---
 
 [![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg)](https://github.com/Valkryst/VTerminal/blob/master/LICENSE.md) ![](https://travis-ci.org/Valkryst/VTerminal.svg?branch=master) [![codecov](https://codecov.io/gh/Valkryst/VTerminal/branch/master/graph/badge.svg)](https://codecov.io/gh/Valkryst/VTerminal) [![Release](https://jitpack.io/v/Valkryst/VTerminal.svg)](https://jitpack.io/#Valkryst/VTerminal)
+[![Dependency Status](https://www.versioneye.com/user/projects/596d059e368b0800554f1c18/badge.svg)](https://www.versioneye.com/user/projects/596d059e368b0800554f1c18)
 
 # VTerminal
 
