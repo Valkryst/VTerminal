@@ -98,8 +98,8 @@ public class RectanglePrinter {
         if (title != null && title.isEmpty() == false) {
             final char[] titleChars = title.toCharArray();
 
-            for (int i = 2; i < width - 1 && i <= titleChars.length + 1; i++) {
-                screen.write(titleChars[i - 2], column + i, row);
+            for (int i = 1; i < width - 1 && i <= titleChars.length; i++) {
+                screen.write(titleChars[i - 1], column + i, row);
             }
         }
 
