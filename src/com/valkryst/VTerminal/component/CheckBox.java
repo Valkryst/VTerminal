@@ -180,7 +180,7 @@ public class CheckBox extends Component {
             isInHoveredState = false;
 
             setColors(backgroundColor_normal, foregroundColor_normal);
-            transmitDraw();
+            super.transmitDraw();
         }
     }
 
@@ -194,7 +194,7 @@ public class CheckBox extends Component {
             isInHoveredState = true;
 
             setColors(backgroundColor_hover, foregroundColor_hover);
-            transmitDraw();
+            super.transmitDraw();
         }
     }
 
@@ -208,7 +208,7 @@ public class CheckBox extends Component {
             isInHoveredState = false;
 
             setColors(backgroundColor_checked, foregroundColor_checked);
-            transmitDraw();
+            super.transmitDraw();
         }
     }
 
@@ -329,7 +329,7 @@ public class CheckBox extends Component {
         isChecked = true;
         super.getString(0).setCharacter(0, checkedBoxChar);
 
-        transmitDraw();
+        super.transmitDraw();
     }
 
     /** Unchecks the check box. */
@@ -337,6 +337,6 @@ public class CheckBox extends Component {
         isChecked = false;
         super.getString(0).setCharacter(0, emptyBoxChar);
 
-        transmitDraw();
+        super.transmitDraw();
     }
 }
