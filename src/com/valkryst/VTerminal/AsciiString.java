@@ -242,6 +242,7 @@ public class AsciiString {
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             characters[columnIndex].setCharacter(character);
+            charactersToBeRedrawn[columnIndex] = true;
         }
     }
 
