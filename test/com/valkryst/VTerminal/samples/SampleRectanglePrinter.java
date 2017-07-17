@@ -29,6 +29,10 @@ public class SampleRectanglePrinter {
         printer.print(panel, 1, 1);
         printer.print(panel, 3, 10);
 
+        printer.setWidth(20);
+        printer.setTitle("Test Title");
+        printer.print(panel, 20, 10);
+
 
         panel.draw();
     }
