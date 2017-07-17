@@ -135,19 +135,14 @@ public class Screen extends Component {
      *
      * @param rowIndex
      *         The y-axis (row) coordinate to write to.
-     *
-     * @return
-     *         If the write was successful.
      */
-    public boolean write(final AsciiCharacter character, final int columnIndex, final int rowIndex) {
+    public void write(final AsciiCharacter character, final int columnIndex, final int rowIndex) {
         boolean canProceed = isPositionValid(columnIndex, rowIndex);
         canProceed &= character != null;
 
         if (canProceed) {
             super.getString(rowIndex).setCharacter(columnIndex, character);
         }
-
-        return canProceed;
     }
 
     /**
