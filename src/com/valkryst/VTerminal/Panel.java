@@ -8,11 +8,14 @@ import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.misc.ColoredImageCache;
 import lombok.Getter;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Panel extends JPanel implements Receiver<String> {
     private static final long serialVersionUID = 1884786992301690151L;
@@ -98,6 +101,48 @@ public class Panel extends JPanel implements Receiver<String> {
      */
     public BufferedImage screenshot() {
         return screen.screenshot(imageCache);
+    }
+
+    /**
+     * Saves a screenshot of the canvas to a PNG file.
+     *
+     * @param filename
+     *        The name of the file.
+     *
+     * @throws IOException
+     *         If an I/O error occurred.
+     */
+    public void screenshotToFile(final String filename) throws IOException {
+        final File file = new File(filename + ".png");
+
+        if (file.exists() == false) {
+            if (file.createNewFile()) {
+                screenshotToFile(file, "PNG");
+            } else {
+                throw new IOException("Could not create the file " + filename + ".png.");
+            }
+        } else {
+            screenshotToFile(file, "PNG");
+        }
+    }
+
+    /**
+     * Saves a screenshot of the canvas to a file.
+     *
+     * @param file
+     *        The file.
+     *
+     * @param extension
+     *        The extension of the file, the file should have a
+     *        matching extension.
+     *
+     *        Ex: PNG or JPG
+     *
+     * @throws IOException
+     *         If an error occurs during writing.
+     */
+    public void screenshotToFile(final File file, final String extension) throws IOException {
+        ImageIO.write(screenshot(), extension, file);
     }
 
     /**
