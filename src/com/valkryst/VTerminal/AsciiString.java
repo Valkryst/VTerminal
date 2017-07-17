@@ -256,6 +256,8 @@ public class AsciiString {
         for (final AsciiCharacter c : characters) {
             c.setCharacter(character);
         }
+
+        setAllCharactersToBeRedrawn();
     }
 
     /**
