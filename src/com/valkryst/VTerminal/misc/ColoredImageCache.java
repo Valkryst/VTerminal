@@ -1,5 +1,7 @@
 package com.valkryst.VTerminal.misc;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.font.Font;
 import lombok.Getter;
@@ -7,13 +9,12 @@ import lombok.Getter;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class ColoredImageCache {
     /** The cache. */
-    private final LinkedHashMap<AsciiCharacterShell, BufferedImage> cachedImages;
+    private final Cache<AsciiCharacterShell, BufferedImage> cachedImages;
 
     /** The font of the character images. */
     @Getter private final Font font;
@@ -26,13 +27,11 @@ public class ColoredImageCache {
      */
     public ColoredImageCache(final Font font) {
         this.font = font;
-        cachedImages = new LinkedHashMap<AsciiCharacterShell, BufferedImage>()  {
-            private static final long serialVersionUID = 3550239335645856488L;
-
-            protected boolean removeEldestEntry(final Map.Entry<AsciiCharacterShell, BufferedImage> eldest) {
-                return this.size() >= 10000;
-            }
-        };
+        cachedImages = Caffeine.newBuilder()
+                                .initialCapacity(100)
+                                .maximumSize(10_000)
+                                .expireAfterAccess(5, TimeUnit.MINUTES)
+                                .build();
     }
 
     /**
@@ -43,20 +42,14 @@ public class ColoredImageCache {
      *
      * @param maxCacheSize
      *         The maximum number of images to save in the cache.
-     *
-     *         When this value is reached, or exceeded, then the cache
-     *         discards the eldest cache entry to make room for a new
-     *         entry.
      */
     public ColoredImageCache(final Font font, final int maxCacheSize) {
         this.font = font;
-        cachedImages = new LinkedHashMap<AsciiCharacterShell, BufferedImage>() {
-            private static final long serialVersionUID = 7940325226870365646L;
-
-            protected boolean removeEldestEntry(final Map.Entry<AsciiCharacterShell, BufferedImage> eldest) {
-                return this.size() >= maxCacheSize;
-            }
-        };
+        cachedImages = Caffeine.newBuilder()
+                .initialCapacity(100)
+                .maximumSize(maxCacheSize)
+                .expireAfterAccess(5, TimeUnit.MINUTES)
+                .build();
     }
 
     @Override
@@ -78,7 +71,7 @@ public class ColoredImageCache {
      */
     public BufferedImage retrieveFromCache(final AsciiCharacter character) {
         final AsciiCharacterShell shell = new AsciiCharacterShell(character, font);
-        return cachedImages.computeIfAbsent(shell, s -> applyColorSwap(s, font));
+        return cachedImages.get(shell, s -> applyColorSwap(s, font));
     }
 
     /**
