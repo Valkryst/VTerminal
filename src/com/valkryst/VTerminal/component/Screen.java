@@ -2,6 +2,7 @@ package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
+import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ColoredImageCache;
 
 import java.awt.Color;
@@ -230,7 +231,11 @@ public class Screen extends Component {
      *        An image of the screen.
      */
     public BufferedImage screenshot(final ColoredImageCache imageCache) {
-        final BufferedImage img = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+        final Font font = imageCache.getFont();
+        final int width = this.getWidth() * font.getWidth();
+        final int height = this.getHeight() * font.getHeight();
+
+        final BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         final Graphics2D gc = img.createGraphics();
 
         for (final AsciiString string : getStrings()) {
