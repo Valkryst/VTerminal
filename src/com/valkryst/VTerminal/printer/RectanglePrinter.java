@@ -14,8 +14,11 @@ public class RectanglePrinter {
     /** The height of the rectangle to print. */
     @Getter private int height = 2;
 
+    /** The title string. */
+    @Getter @Setter private String title;
+
     /** The type of rectangle to print. */
-    @Getter @Setter private com.valkryst.VTerminal.printer.RectangleType rectangleType = com.valkryst.VTerminal.printer.RectangleType.HEAVY;
+    @Getter @Setter private RectangleType rectangleType = RectangleType.HEAVY;
 
     /**
      * Prints a rectangle on the screen of a panel.
@@ -91,6 +94,16 @@ public class RectanglePrinter {
             screen.write(rectangleType.getHorizontal(), column + i, lastRow);
         }
 
+        // Draw title on Top Side:
+        if (title != null && title.isEmpty() == false) {
+            final char[] titleChars = title.toCharArray();
+
+            for (int i = 2; i < width - 1 && i <= titleChars.length + 1; i++) {
+                screen.write(titleChars[i - 2], column + i, row);
+            }
+        }
+
+        // Handle Connectors:
         if (performConnections) {
             setConnectors(screen, column, row);
         }
