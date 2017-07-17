@@ -6,7 +6,6 @@ import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.font.Font;
 import lombok.Getter;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
@@ -14,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ColoredImageCache {
     /** The cache. */
-    private final Cache<AsciiCharacterShell, BufferedImage> cachedImages;
+    private final Cache<Integer, BufferedImage> cachedImages;
 
     /** The font of the character images. */
     @Getter private final Font font;
@@ -28,10 +27,10 @@ public class ColoredImageCache {
     public ColoredImageCache(final Font font) {
         this.font = font;
         cachedImages = Caffeine.newBuilder()
-                                .initialCapacity(100)
-                                .maximumSize(10_000)
-                                .expireAfterAccess(5, TimeUnit.MINUTES)
-                                .build();
+                .initialCapacity(100)
+                .maximumSize(10_000)
+                .expireAfterAccess(5, TimeUnit.MINUTES)
+                .build();
     }
 
     /**
@@ -64,33 +63,40 @@ public class ColoredImageCache {
      * the cache, and then returned.
      *
      * @param character
-     *         The character.
+     *        The character.
      *
      * @return
-     *         The character image.
+     *        The character image.
      */
     public BufferedImage retrieveFromCache(final AsciiCharacter character) {
-        final AsciiCharacterShell shell = new AsciiCharacterShell(character, font);
-        return cachedImages.get(shell, s -> applyColorSwap(s, font));
+        final int hashCode = Objects.hash(character.getCharacter(),
+                                          character.getBackgroundColor(),
+                                          character.getForegroundColor());
+
+        BufferedImage image = cachedImages.getIfPresent(hashCode);
+
+        if (image == null) {
+            image = applyColorSwap(character, font);
+            cachedImages.put(hashCode, image);
+        }
+
+        return image;
     }
 
     /**
-     * Gets a character image for a character shell and applies the
-     * back/foreground colors to it.
-     *
-     * @param characterShell
-     *         The character shell.
+     * Gets a character image for a character  and applies the back/foreground
+     * colors to it.
      *
      * @param font
-     *         The font to retrieve the base character image from.
+     *        The font to retrieve the base character image from.
      *
      * @return
-     *         The character image.
+     *        The character image.
      */
-    private static BufferedImage applyColorSwap(final AsciiCharacterShell characterShell, final Font font) {
-        final BufferedImage image = cloneImage(font.getCharacterImage(characterShell.getCharacter()));
-        final int backgroundRGB = characterShell.getBackgroundColor().getRGB();
-        final int foregroundRGB = characterShell.getForegroundColor().getRGB();
+    private static BufferedImage applyColorSwap(final AsciiCharacter character, final Font font) {
+        final BufferedImage image = cloneImage(font.getCharacterImage(character.getCharacter()));
+        final int backgroundRGB = character.getBackgroundColor().getRGB();
+        final int foregroundRGB = character.getForegroundColor().getRGB();
 
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
@@ -120,10 +126,10 @@ public class ColoredImageCache {
      * Makes a clone of an image.
      *
      * @param image
-     *         The image.
+     *        The image.
      *
      * @return
-     *         The clone image.
+     *        The clone image.
      */
     private static BufferedImage cloneImage(final BufferedImage image) {
         final BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
@@ -131,60 +137,5 @@ public class ColoredImageCache {
         g.drawImage(image, 0, 0, null);
         g.dispose();
         return newImage;
-    }
-
-    private class AsciiCharacterShell {
-        /** The character. */
-        @Getter private final char character;
-        /** The background color. Defaults to black. */
-        @Getter private final Color backgroundColor;
-        /** The foreground color. Defaults to white. */
-        @Getter private final Color foregroundColor;
-
-        public AsciiCharacterShell(final AsciiCharacter character, final Font font) {
-            if (character == null) {
-                throw new IllegalArgumentException("The AsciiCharacterShell cannot use a null character");
-            }
-
-            if (font == null) {
-                throw new IllegalArgumentException("The AsciiCharacterShell cannot have a null font.");
-            }
-
-            this.character = character.getCharacter();
-            this.backgroundColor = character.getBackgroundColor();
-            this.foregroundColor = character.getForegroundColor();
-        }
-
-        @Override
-        public String toString() {
-            String res = "Color Shell:";
-            res += "\n\tCharacter:\t'" + character +"'";
-            res += "\n\tBackground Color:\t" + backgroundColor;
-            res += "\n\tForeground Color:\t" + foregroundColor;
-
-            return res;
-        }
-
-        @Override
-        public boolean equals(final Object otherObj) {
-            if (otherObj instanceof AsciiCharacterShell == false) {
-                return false;
-            }
-
-            if (otherObj == this) {
-                return true;
-            }
-
-            final AsciiCharacterShell otherShell = (AsciiCharacterShell) otherObj;
-            boolean isEqual = Objects.equals(character, otherShell.getCharacter());
-            isEqual &= Objects.equals(backgroundColor, otherShell.getBackgroundColor());
-            isEqual &= Objects.equals(foregroundColor, otherShell.getForegroundColor());
-            return isEqual;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(character, backgroundColor, foregroundColor);
-        }
     }
 }
