@@ -117,15 +117,19 @@ public class AsciiCharacter {
         columnIndex *= fontWidth;
         rowIndex *= fontHeight;
 
+        BufferedImage image;
+
         // Handle hidden state:
         if (isHidden) {
-            gc.setColor(backgroundColor);
-            gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
-            return;
+            final Color color = foregroundColor;
+            foregroundColor = backgroundColor;
+
+            image = imageCache.retrieveFromCache(this);
+
+            foregroundColor = color;
+        } else {
+            image = imageCache.retrieveFromCache(this);
         }
-
-
-        BufferedImage image = imageCache.retrieveFromCache(this);
 
         // Handle Horizontal/Vertical Flipping:
         if (isFlippedHorizontally || isFlippedVertically) {
