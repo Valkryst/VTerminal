@@ -74,37 +74,37 @@ public class PanelBuilderTest {
     */
 
     @Property
-    public void testSetWidthInCharacters(@InRange(minInt = 1) final int width) {
+    public void testSetWidthInCharacters_withValidInput(@InRange(minInt=1) final int width) {
         builder.setWidthInCharacters(width);
         Assert.assertEquals(width, builder.getWidthInCharacters());
     }
 
     @Property(trials=5)
-    public void testSetWidthInCharacters_returnValue(@InRange(minInt = 1) final int width) {
-        Assert.assertTrue(builder == builder.setWidthInCharacters(width));
-    }
-
-    @Property(trials=5)
-    public void testSetWidthInCharacters_withWidthBelowOne(@InRange(maxInt = 0) final int width) {
+    public void testSetWidthInCharacters_withInvalidInput(@InRange(maxInt=0) final int width) {
         builder.setWidthInCharacters(width);
         Assert.assertEquals(1, builder.getWidthInCharacters());
     }
 
     @Property(trials=5)
-    public void testSetHeightInCharacters(@InRange(minInt = 0) final int height) {
+    public void testSetWidthInCharacters_returnValue(@InRange(minInt=1) final int width) {
+        Assert.assertTrue(builder == builder.setWidthInCharacters(width));
+    }
+
+    @Property(trials=5)
+    public void testSetHeightInCharacters_withValidHeight(@InRange(minInt=0) final int height) {
         builder.setHeightInCharacters(height);
         Assert.assertEquals(height, builder.getHeightInCharacters());
+    }
+
+    @Property(trials=5)
+    public void testSetHeightInCharacters_withInvalidHeight(@InRange(maxInt=0) final int height) {
+        builder.setHeightInCharacters(height);
+        Assert.assertEquals(1, builder.getHeightInCharacters());
     }
 
     @Test
     public void testSetHeightInCharacters_returnValue() {
         Assert.assertTrue(builder == builder.setHeightInCharacters(10));
-    }
-
-    @Property(trials=5)
-    public void testSetHeightInCharacters_withHeightBelowOne(@InRange(maxInt = 0) final int height) {
-        builder.setHeightInCharacters(height);
-        Assert.assertEquals(1, builder.getHeightInCharacters());
     }
 
     @Test
