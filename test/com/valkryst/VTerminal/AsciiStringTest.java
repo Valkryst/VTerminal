@@ -245,7 +245,7 @@ public class AsciiStringTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testSetCharacterRangeToBeRedrawn_withNullRange() {
         Arrays.fill(string.getCharactersToBeRedrawn(), false);
 
@@ -254,10 +254,6 @@ public class AsciiStringTest {
         }
 
         string.setCharacterRangeToBeRedrawn(null);
-
-        for (final boolean val : string.getCharactersToBeRedrawn()) {
-            Assert.assertFalse(val);
-        }
     }
 
     @Test
@@ -272,7 +268,7 @@ public class AsciiStringTest {
         string.setCharacterRangeToBeRedrawn(range);
 
         for (final boolean val : string.getCharactersToBeRedrawn()) {
-            Assert.assertFalse(val);
+            Assert.assertTrue(val);
         }
     }
 
@@ -314,10 +310,9 @@ public class AsciiStringTest {
         Assert.assertEquals('A', string.getCharacters()[0].getCharacter());
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testSetCharacter_objectChar_withNullCharacter() {
         string.setCharacter(0, null);
-        Assert.assertEquals('A', string.getCharacters()[0].getCharacter());
     }
 
     @Test
@@ -358,13 +353,9 @@ public class AsciiStringTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testSetCharacters_withNullRange() {
         string.setCharacters('Z', null);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertNotEquals('Z', character.getCharacter());
-        }
     }
 
     @Test
@@ -429,14 +420,9 @@ public class AsciiStringTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testApplyColorGradient_toRange_withNullRange() {
         string.applyColorGradient(null, Color.RED, Color.BLUE, true);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
-            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
-        }
     }
 
     @Test
@@ -451,14 +437,14 @@ public class AsciiStringTest {
         }
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected=NullPointerException.class)
     public void testApplyColorGradient_toRange_withNullColorFrom() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
 
         string.applyColorGradient(range, null, Color.BLUE, true);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected=NullPointerException.class)
     public void testApplyColorGradient_toRange_withNullColorTo() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
 
@@ -486,14 +472,9 @@ public class AsciiStringTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testInvertColors_toRange_withNullRange() {
         string.invertColors(null);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
-            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
-        }
     }
 
     @Test
@@ -548,25 +529,15 @@ public class AsciiStringTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testSetBackgroundColor_toRange_withNullColor() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
         string.setBackgroundColor(null, range);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
-            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
-        }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testSetBackgroundColor_toRange_withNullRange() {
         string.setBackgroundColor(Color.RED, null);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
-            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
-        }
     }
 
     @Test
@@ -591,26 +562,16 @@ public class AsciiStringTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testSetForegroundColor_toRange_withNullColor() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
         string.setForegroundColor(null, range);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
-            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
-        }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testSetForegroundColor_toRange_withNullRange() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
         string.setForegroundColor(null, range);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
-            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
-        }
     }
 
     @Test
@@ -635,36 +596,21 @@ public class AsciiStringTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testSetBackgroundAndForegroundColor_toRange_withNullBackgroundColor() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
         string.setBackgroundAndForegroundColor(null, Color.BLUE, range);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
-            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
-        }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testSetBackgroundAndForegroundColor_toRange_withNullForegroundColor() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
         string.setBackgroundAndForegroundColor(Color.RED, null, range);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
-            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
-        }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testSetBackgroundAndForegroundColor_toRange_withNullRange() {
         string.setBackgroundAndForegroundColor(Color.RED, Color.BLUE, null);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertEquals(Color.BLACK, character.getBackgroundColor());
-            Assert.assertEquals(Color.WHITE, character.getForegroundColor());
-        }
     }
 
     @Test
@@ -765,13 +711,9 @@ public class AsciiStringTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testFlipCharactersHorizontally_toRange_withNullRange() {
         string.flipCharactersHorizontally(null);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertFalse(character.isFlippedHorizontally());
-        }
     }
 
     @Test
@@ -795,15 +737,11 @@ public class AsciiStringTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testUnFlipCharactersHorizontally_toRange_withNullRange() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
         string.flipCharactersHorizontally(range);
         string.unFlipCharactersHorizontally(null);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertTrue(character.isFlippedHorizontally());
-        }
     }
 
     @Test
@@ -827,13 +765,9 @@ public class AsciiStringTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testFlipCharactersVertically_toRange_withNullRange() {
         string.flipCharactersVertically(null);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertFalse(character.isFlippedVertically());
-        }
     }
 
     @Test
@@ -857,15 +791,11 @@ public class AsciiStringTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testUnFlipCharactersVertically_toRange_withNullRange() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
         string.flipCharactersVertically(range);
         string.unFlipCharactersVertically(null);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertTrue(character.isFlippedVertically());
-        }
     }
 
     @Test
@@ -890,14 +820,9 @@ public class AsciiStringTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testFlipCharactersHorizontallyAndVertically_toRange_withNullRange() {
         string.flipCharactersHorizontallyAndVertically(null);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertFalse(character.isFlippedHorizontally());
-            Assert.assertFalse(character.isFlippedVertically());
-        }
     }
 
     @Test
@@ -923,16 +848,11 @@ public class AsciiStringTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testUnFlipCharactersHorizontallyAndVertically_toRange_withNullRange() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
         string.flipCharactersHorizontallyAndVertically(range);
         string.unFlipCharactersHorizontallyAndVertically(null);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertTrue(character.isFlippedHorizontally());
-            Assert.assertTrue(character.isFlippedVertically());
-        }
     }
 
     @Test
@@ -976,13 +896,9 @@ public class AsciiStringTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testUnderLineCharacters_toRange_withNullRange() {
         string.underlineCharacters(null);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertFalse(character.isUnderlined());
-        }
     }
 
     @Test
@@ -1006,15 +922,11 @@ public class AsciiStringTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testUnUnderLineCharacters_toRange_withNullRange() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
         string.underlineCharacters(range);
         string.unUnderlineCharacters(null);
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertTrue(character.isUnderlined());
-        }
     }
 
     @Test
