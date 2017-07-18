@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -28,6 +29,12 @@ public class FontLoader {
      * @return
      *         The font.
      *
+     * @throws NullPointerException
+     *         If the sprite sheet or character data paths are null.
+     *
+     * @throws IllegalArgumentException
+     *         If the sprite sheet or character data paths are empty.
+     *
      * @throws IOException
      *         If an IOException occurs while loading the font.
      *
@@ -35,11 +42,14 @@ public class FontLoader {
      *         If a URISyntaxException occurs while loading the font.
      */
     public static Font loadFont(final String spriteSheetPath, final String characterDataPath, final int scale) throws IOException {
-        if (spriteSheetPath == null || spriteSheetPath.isEmpty()) {
+        Objects.requireNonNull(spriteSheetPath);
+        Objects.requireNonNull(characterDataPath);
+
+        if (spriteSheetPath.isEmpty()) {
             throw new IllegalArgumentException("The sprite sheet path cannot be null or empty.");
         }
 
-        if (characterDataPath == null || characterDataPath.isEmpty()) {
+        if (characterDataPath.isEmpty()) {
             throw new IllegalArgumentException("The character data path cannot be null or empty.");
         }
 
@@ -61,6 +71,9 @@ public class FontLoader {
      * @return
      *         The font.
      *
+     * @throws NullPointerException
+     *         If the sprite sheet or character data streams are null.
+     *
      * @throws IOException
      *         If an IOException occurs while loading the font.
      *
@@ -68,13 +81,8 @@ public class FontLoader {
      *         If a URISyntaxException occurs while loading the font.
      */
     public static Font loadFont(final InputStream spriteSheet, final InputStream characterData, int scale) throws IOException {
-        if (spriteSheet == null) {
-            throw new IllegalArgumentException("The sprite sheet input stream cannot be null.");
-        }
-
-        if (characterData == null) {
-            throw new IllegalArgumentException("The character data input stream cannot be null.");
-        }
+        Objects.requireNonNull(spriteSheet);
+        Objects.requireNonNull(characterData);
 
         if (scale < 1) {
             scale = 1;
@@ -101,6 +109,12 @@ public class FontLoader {
      * @return
      *         The font.
      *
+     * @throws NullPointerException
+     *         If the sprite sheet or character data paths are null.
+     *
+     * @throws IllegalArgumentException
+     *         If the sprite sheet or character data paths are empty.
+     *
      * @throws IOException
      *         If an IOException occurs while loading the font.
      *
@@ -108,11 +122,14 @@ public class FontLoader {
      *         If a URISyntaxException occurs while loading the font.
      */
     public static Font loadFontFromJar(final String spriteSheetPath, final String characterDataPath, final int scale) throws IOException, URISyntaxException {
-        if (spriteSheetPath == null || spriteSheetPath.isEmpty()) {
+        Objects.requireNonNull(spriteSheetPath);
+        Objects.requireNonNull(characterDataPath);
+
+        if (spriteSheetPath.isEmpty()) {
             throw new IllegalArgumentException("The sprite sheet path cannot be null or empty.");
         }
 
-        if (characterDataPath == null || characterDataPath.isEmpty()) {
+        if (characterDataPath.isEmpty()) {
             throw new IllegalArgumentException("The character data path cannot be null or empty.");
         }
 
@@ -135,8 +152,14 @@ public class FontLoader {
      *
      * @return
      *         The HashMap of character sprites.
+     *
+     * @throws NullPointerException
+     *         If the sprite sheet or character data is null.
      */
     private static HashMap<Character, BufferedImage> processFontData(final BufferedImage spriteSheet, final List<String> characterData) {
+        Objects.requireNonNull(spriteSheet);
+        Objects.requireNonNull(characterData);
+
         final HashMap<Character, BufferedImage> hashMap = new HashMap<>(characterData.size());
 
         for (final String string : characterData) {
@@ -166,10 +189,15 @@ public class FontLoader {
      * @return
      *         The sprite sheet.
      *
+     * @throws NullPointerException
+     *         If the input stream is null.
+     *
      * @throws IOException
      *         If an IOException occurs while loading the sprite sheet.
      */
     private static BufferedImage loadSpriteSheet(final InputStream inputStream) throws IOException {
+        Objects.requireNonNull(inputStream);
+
         final BufferedImage loadedImage = ImageIO.read(inputStream);
         inputStream.close();
 
@@ -200,10 +228,15 @@ public class FontLoader {
      * @return
      *         The character data.
      *
+     * @throws NullPointerException
+     *         If the input stream is null.
+     *
      * @throws IOException
      *         If an IOException occurs while loading the character data.
      */
     private static List<String> loadCharacterData(final InputStream inputStream) throws IOException {
+        Objects.requireNonNull(inputStream);
+
         // Load lines
         final InputStreamReader isr = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
         final BufferedReader br = new BufferedReader(isr);
