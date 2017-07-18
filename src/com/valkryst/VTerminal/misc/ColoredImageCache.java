@@ -23,8 +23,13 @@ public class ColoredImageCache {
      *
      * @param font
      *         The font.
+     *
+     * @throws NullPointerException
+     *         If the font is null.
      */
     public ColoredImageCache(final Font font) {
+        Objects.requireNonNull(font);
+
         this.font = font;
         cachedImages = Caffeine.newBuilder()
                 .initialCapacity(100)
@@ -41,8 +46,13 @@ public class ColoredImageCache {
      *
      * @param maxCacheSize
      *         The maximum number of images to save in the cache.
+     *
+     * @throws NullPointerException
+     *         If the font is null.
      */
     public ColoredImageCache(final Font font, final int maxCacheSize) {
+        Objects.requireNonNull(font);
+
         this.font = font;
         cachedImages = Caffeine.newBuilder()
                 .initialCapacity(100)
@@ -67,8 +77,13 @@ public class ColoredImageCache {
      *
      * @return
      *        The character image.
+     *
+     * @throws NullPointerException
+     *         If the character is null.
      */
     public BufferedImage retrieveFromCache(final AsciiCharacter character) {
+        Objects.requireNonNull(character);
+
         final int hashCode = Objects.hash(character.getCharacter(),
                                           character.getBackgroundColor(),
                                           character.getForegroundColor());
@@ -92,8 +107,13 @@ public class ColoredImageCache {
      *
      * @return
      *        The character image.
+     *
+     * @throws NullPointerException
+     *         If the character is null.
      */
     private static BufferedImage applyColorSwap(final AsciiCharacter character, final Font font) {
+        Objects.requireNonNull(character);
+
         final BufferedImage image = cloneImage(font.getCharacterImage(character.getCharacter()));
         final int backgroundRGB = character.getBackgroundColor().getRGB();
         final int foregroundRGB = character.getForegroundColor().getRGB();
@@ -130,8 +150,13 @@ public class ColoredImageCache {
      *
      * @return
      *        The clone image.
+     *
+     * @throws NullPointerException
+     *         If the image is null.
      */
     private static BufferedImage cloneImage(final BufferedImage image) {
+        Objects.requireNonNull(image);
+
         final BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
         final Graphics g = newImage.getGraphics();
         g.drawImage(image, 0, 0, null);
