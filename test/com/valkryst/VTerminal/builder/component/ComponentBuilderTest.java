@@ -1,17 +1,22 @@
 package com.valkryst.VTerminal.builder.component;
 
+import com.pholser.junit.quickcheck.Property;
+import com.pholser.junit.quickcheck.generator.InRange;
+import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Button;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+@RunWith(JUnitQuickcheck.class)
 public class ComponentBuilderTest {
     private ComponentBuilder<Button, ButtonBuilder> builder;
 
     @Before
-    public void initalizeBuilder() {
+    public void initializeBuilder() {
         builder = new ComponentBuilder<>();
     }
 
@@ -46,39 +51,27 @@ public class ComponentBuilderTest {
         Assert.assertEquals(0, builder.getRowIndex());
     }
 
-    @Test
-    public void testSetColumnIndex() {
-        builder.setColumnIndex(6);
-        Assert.assertEquals(6, builder.getColumnIndex());
+    @Property
+    public void testSetColumnIndex_withValidInput(@InRange(minInt = 1) final int column) {
+        builder.setColumnIndex(column);
+        Assert.assertEquals(column, builder.getColumnIndex());
     }
 
-    @Test
-    public void testSetColumnIndex_withIndexEqualToZero() {
-        builder.setColumnIndex(0);
+    @Property
+    public void testSetColumnIndex_withInvalidInput(@InRange(maxInt = 0) final int column) {
+        builder.setColumnIndex(column);
         Assert.assertEquals(0, builder.getColumnIndex());
     }
 
-    @Test
-    public void testSetColumnIndex_withIndexLessThanZero() {
-        builder.setColumnIndex(-1);
-        Assert.assertEquals(0, builder.getColumnIndex());
+    @Property
+    public void testSetRowIndex_withValidInput(@InRange(minInt = 1) final int row) {
+        builder.setRowIndex(row);
+        Assert.assertEquals(row, builder.getRowIndex());
     }
 
-    @Test
-    public void testSetRowIndex() {
-        builder.setRowIndex(6);
-        Assert.assertEquals(6, builder.getRowIndex());
-    }
-
-    @Test
-    public void testSetRowIndex_withIndexEqualToZero() {
-        builder.setRowIndex(0);
-        Assert.assertEquals(0, builder.getRowIndex());
-    }
-
-    @Test
-    public void testSetRowIndex_withIndexLessThanZero() {
-        builder.setRowIndex(-1);
+    @Property
+    public void testSetRowIndex_withInvalidInput(@InRange(maxInt = 0) final int row) {
+        builder.setRowIndex(row);
         Assert.assertEquals(0, builder.getRowIndex());
     }
 
