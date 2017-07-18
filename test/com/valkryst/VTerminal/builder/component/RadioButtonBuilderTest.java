@@ -1,18 +1,22 @@
 package com.valkryst.VTerminal.builder.component;
 
+import com.pholser.junit.quickcheck.Property;
+import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import java.awt.*;
+import java.awt.Color;
 
+@RunWith(JUnitQuickcheck.class)
 public class RadioButtonBuilderTest {
     private RadioButtonBuilder builder;
 
     @Before
-    public void initalizeBuilder() {
+    public void initializeBuilder() {
         builder = new RadioButtonBuilder();
     }
 
@@ -65,29 +69,29 @@ public class RadioButtonBuilderTest {
         Assert.assertEquals(new Color(0xFFFF66), builder.getForegroundColor_checked());
     }
 
-    @Test
-    public void setText_withValidText() {
-        builder.setText("Testing");
-        Assert.assertEquals("Testing", builder.getText());
+    @Property
+    public void setText_withValidText(final String text) {
+        builder.setText(text);
+        Assert.assertEquals(text, builder.getText());
     }
 
-    @Test
-    public void setText_withNullText() {
-        builder.setText("Testing");
+    @Property
+    public void setText_withNullText(final String text) {
+        builder.setText(text);
         builder.setText(null);
-        Assert.assertEquals("Testing", builder.getText());
+        Assert.assertEquals(text, builder.getText());
     }
 
-    @Test
-    public void setEmptyButtonChar() {
-        builder.setEmptyButtonChar('?');
-        Assert.assertEquals('?', builder.getEmptyButtonChar());
+    @Property
+    public void setEmptyButtonChar(final char character) {
+        builder.setEmptyButtonChar(character);
+        Assert.assertEquals(character, builder.getEmptyButtonChar());
     }
 
-    @Test
-    public void setCheckedButtonChar() {
-        builder.setCheckedButtonChar('?');
-        Assert.assertEquals('?', builder.getCheckedButtonChar());
+    @Property
+    public void setCheckedButtonChar(final char character) {
+        builder.setCheckedButtonChar(character);
+        Assert.assertEquals(character, builder.getCheckedButtonChar());
     }
 
     @Test
