@@ -106,36 +106,3 @@ To use a different font:
 2. The Screen is drawn onto the Panel.
 3. The Layers are drawn on top of the Screen on the Panel.
 4. The Sub-Screens are drawn on top of the Screen/Layers on the Panel.
-
-
-### FPS Testing
-
-```java
-final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
-final Panel panel = new PanelBuilder().setAsciiFont(font).build();
-
-double smoothing = 0.9; // larger=more smoothing
-double measurement = 0.0;
-
-int temp = 45;
-
-while(true) {
-    panel.getCurrentScreen().clear((char)temp);
-    panel.getCurrentScreen().setForegroundColor(new Color(255, 155, temp));
-    panel.getCurrentScreen().setBackgroundColor(new Color(temp, 155, 255));
-
-    temp++;
-
-    if (temp > 55) {
-        temp = 45;
-    }
-
-    final long bef = System.currentTimeMillis();
-    panel.draw();
-
-    final double current = 1000 / Math.max((System.currentTimeMillis() - bef), 1);
-    measurement = (measurement * smoothing) + (current * (1.0-smoothing));
-    System.out.println("Estimated FPS based on Past Render Times:\t" + measurement);
-    Thread.sleep(100);
-}
-```
