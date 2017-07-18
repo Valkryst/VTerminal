@@ -158,15 +158,15 @@ public class ComponentTest {
         Assert.assertFalse(component.isPositionValid(width + 1, height));
     }
 
-    @Test
-    public void testGetCharacterAt_withValidPosition() {
+    @Property
+    public void testGetCharacterAt_withValidPosition(final char character) {
         final Component component = new Component(0, 0, width, height);
-        component.getString(5).getCharacters()[6].setCharacter('?');
+        component.getString(5).getCharacters()[6].setCharacter(character);
 
         final Optional<AsciiCharacter> res = component.getCharacterAt(6, 5);
 
         Assert.assertTrue(res.isPresent());
-        Assert.assertEquals('?', res.get().getCharacter());
+        Assert.assertEquals(character, res.get().getCharacter());
     }
 
     @Test
@@ -178,28 +178,29 @@ public class ComponentTest {
         Assert.assertFalse(res.isPresent());
     }
 
-    @Test
-    public void testSetColumnIndex_withNegativeIndex() {
+    @Property
+    public void testSetColumnIndex_withNegativeIndex(@InRange(minInt=-10000,maxInt=-1) final int column) {
         final Component component = new Component(0, 0, width, height);
-        component.setColumnIndex(-1);
+        component.setColumnIndex(column);
 
         Assert.assertEquals(0, component.getColumnIndex());
     }
 
-    @Test
-    public void testSetRowIndex_withNegativeIndex() {
+    @Property
+    public void testSetRowIndex_withNegativeIndex(@InRange(minInt=-10000,maxInt=-1) final int row) {
         final Component component = new Component(0, 0, width, height);
         component.setRowIndex(-1);
 
         Assert.assertEquals(0, component.getRowIndex());
     }
 
-    @Test
-    public void testSetWidth_withNegativeWidth() {
-        final Component component = new Component(0, 0, width, height);
-        component.setWidth(-1);
-
-        Assert.assertEquals(width, component.getWidth());
+    @Property
+    public void testSetWidth_withNegativeWidth(@InRange(minInt=-10000,maxInt=-1) final int width) {
+        try {
+            final Component component = new Component(0, 0, width, height);
+            component.setWidth(this.width);
+            Assert.fail();
+        } catch(final IllegalArgumentException e) {}
     }
 
     @Test
@@ -210,12 +211,13 @@ public class ComponentTest {
         Assert.assertEquals(width, component.getWidth());
     }
 
-    @Test
-    public void testSetHeight_withNegativeHeight() {
-        final Component component = new Component(0, 0, width, height);
-        component.setHeight(-1);
-
-        Assert.assertEquals(height, component.getHeight());
+    @Property
+    public void testSetHeight_withNegativeHeight(@InRange(minInt=-10000,maxInt=-1) final int height) {
+        try {
+            final Component component = new Component(0, 0, width, height);
+            component.setHeight(this.height);
+            Assert.fail();
+        } catch(final IllegalArgumentException e) {}
     }
 
     @Test
