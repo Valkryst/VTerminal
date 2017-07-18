@@ -118,11 +118,13 @@ public class AsciiString {
      * @param rowIndex
      *         The y-axis (row) coordinate where the characters are to be drawn.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the gc or image cache is null.
      */
     public void draw(final Graphics2D gc, final ColoredImageCache imageCache, int rowIndex) {
-        if (gc == null || imageCache == null) {
-            return;
-        }
+        Objects.requireNonNull(gc);
+        Objects.requireNonNull(imageCache);
 
         if (rowIndex < 0) {
             rowIndex = 0;
@@ -144,19 +146,19 @@ public class AsciiString {
     /**
      * Determines whether or not the specified range is valid.
      *
-     * @param rangeIndices
+     * @param range
      *         The range.
      *
      * @return
      *         Whether or not the specified range is valid.
      */
-    public boolean isRangeValid(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
+    public boolean isRangeValid(final IntRange range) {
+        if (range == null) {
             return false;
         }
 
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         boolean isValid = beginIndex < 0 == false;
         isValid &= endIndex > characters.length == false;
@@ -169,13 +171,15 @@ public class AsciiString {
         Arrays.fill(charactersToBeRedrawn, true);
     }
 
-    public void setCharacterRangeToBeRedrawn(final IntRange rangeIndices) {
-        if (isRangeValid(rangeIndices) == false) {
-            return;
+    public void setCharacterRangeToBeRedrawn(final IntRange range) {
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int col = beginIndex ; col < endIndex ; col++) {
             charactersToBeRedrawn[col] = true;
@@ -190,11 +194,12 @@ public class AsciiString {
      *
      * @param character
      *         The new character.
+     *
+     * @throws NullPointerException
+     *         If the character is null.
      */
     public void setCharacter(final int columnIndex, final AsciiCharacter character) {
-        if (character == null) {
-            return;
-        }
+        Objects.requireNonNull(character);
 
         if (columnIndex >= 0 && columnIndex < characters.length) {
             characters[columnIndex] = character;
@@ -224,21 +229,22 @@ public class AsciiString {
      * @param character
      *         The character to change to.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the change between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void setCharacters(final char character, final IntRange rangeIndices) {
-        if (rangeIndices == null) {
-            return;
+    public void setCharacters(final char character, final IntRange range) {
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
-        }
-
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             characters[columnIndex].setCharacter(character);
@@ -279,7 +285,7 @@ public class AsciiString {
     /**
      * Applies a color gradient to a portion of the string.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the gradient between.
      *         Includes the first index and excludes the last index.
      *
@@ -291,22 +297,17 @@ public class AsciiString {
      *
      * @param applyToBackground
      *         Whether or not to apply the gradient to the background or foreground of the characters.
+     *
+     * @throws NullPointerException
+     *         If the range, colorFrom, or colorTo is null.
      */
-    public void applyColorGradient(final IntRange rangeIndices, final Color colorFrom, final Color colorTo, final boolean applyToBackground) {
-        if (rangeIndices == null) {
-            return;
-        }
+    public void applyColorGradient(final IntRange range, final Color colorFrom, final Color colorTo, final boolean applyToBackground) {
+        Objects.requireNonNull(range);
+        Objects.requireNonNull(colorFrom);
+        Objects.requireNonNull(colorTo);
 
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
-        }
-
-        if (colorFrom == null) {
-            throw new IllegalArgumentException("You must specify a color to begin the gradient with.");
-        }
-
-        if (colorTo == null) {
-            throw new IllegalArgumentException("You must specify a color to end the gradient with.");
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
         // Determine the difference between the RGB values of the colors:
@@ -325,8 +326,8 @@ public class AsciiString {
         float blueCurrent = colorFrom.getBlue() / 255f;
 
         // Set the new color values:
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             charactersToBeRedrawn[columnIndex] = true;
@@ -359,7 +360,7 @@ public class AsciiString {
     /**
      * Applies a shade gradient to a portion of the string.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the gradient between.
      *         Includes the first index and excludes the last index.
      *
@@ -368,23 +369,21 @@ public class AsciiString {
      *
      * @param applyToBackground
      *         Whether or not to apply the gradient to the background or foreground of the characters.
+     *
+     * @throws NullPointerException
+     *         If the range or color is null.
      */
-    public void applyShadeGradient(final IntRange rangeIndices, Color color, final boolean applyToBackground) {
-        if (rangeIndices == null) {
-            return;
-        }
+    public void applyShadeGradient(final IntRange range, Color color, final boolean applyToBackground) {
+        Objects.requireNonNull(range);
+        Objects.requireNonNull(color);
 
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
-        }
-
-        if (color == null) {
-            throw new IllegalArgumentException("You must specify a color to create the shade gradient with.");
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
         // Set the new color values:
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
         final double shadeFactor = 1 / (double) endIndex;
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
@@ -416,7 +415,7 @@ public class AsciiString {
     /**
      * Applies a tint gradient to a portion of the string.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the gradient between.
      *         Includes the first index and excludes the last index.
      *
@@ -425,23 +424,21 @@ public class AsciiString {
      *
      * @param applyToBackground
      *         Whether or not to apply the gradient to the background or foreground of the characters.
+     *
+     * @throws NullPointerException
+     *         If the range or color is null.
      */
-    public void applyTintGradient(final IntRange rangeIndices, Color color, final boolean applyToBackground) {
-        if (rangeIndices == null) {
-            return;
-        }
+    public void applyTintGradient(final IntRange range, Color color, final boolean applyToBackground) {
+        Objects.requireNonNull(range);
+        Objects.requireNonNull(color);
 
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
-        }
-
-        if (color == null) {
-            throw new IllegalArgumentException("You must specify a color to create the tint gradient with.");
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
         // Set the new color values:
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
         final double tintFactor = 1 / (double) endIndex;
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
@@ -465,8 +462,13 @@ public class AsciiString {
      *
      * @param radio
      *         The Radio to transmit a DRAW event to whenever a blink occurs.
+     *
+     * @throws NullPointerException
+     *         If the radio is null.
      */
     public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio) {
+        Objects.requireNonNull(radio);
+
         for (final AsciiCharacter c : characters) {
             c.enableBlinkEffect(millsBetweenBlinks, radio);
         }
@@ -502,17 +504,23 @@ public class AsciiString {
      * @param radio
      *         The Radio to transmit a DRAW event to whenever a blink occurs.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the change between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the radio or range is null.
      */
-    public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio, final IntRange rangeIndices) {
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
+    public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio, final IntRange range) {
+        Objects.requireNonNull(radio);
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             charactersToBeRedrawn[columnIndex] = true;
@@ -524,17 +532,22 @@ public class AsciiString {
     /**
      * Resumes the blink effect for every character in the specified range.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the resume between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void resumeBlinkEffect(final IntRange rangeIndices) {
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
+    public void resumeBlinkEffect(final IntRange range) {
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             characters[columnIndex].resumeBlinkEffect();
@@ -544,17 +557,22 @@ public class AsciiString {
     /**
      * Pauses the blink effect for every character in the specified range.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the pause between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void pauseBlinkEffect(final IntRange rangeIndices) {
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
+    public void pauseBlinkEffect(final IntRange range) {
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             characters[columnIndex].pauseBlinkEffect();
@@ -564,17 +582,22 @@ public class AsciiString {
     /**
      * Disables the blink effect for every character in the specified range.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the change between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void disableBlinkEffect(final IntRange rangeIndices) {
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
+    public void disableBlinkEffect(final IntRange range) {
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             charactersToBeRedrawn[columnIndex] = true;
@@ -590,21 +613,22 @@ public class AsciiString {
     /**
      * Swaps the background and foreground colors of every character in the specified range.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the inversion between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void invertColors(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
-            return;
+    public void invertColors(final IntRange range) {
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
-        }
-
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             charactersToBeRedrawn[columnIndex] = true;
@@ -632,7 +656,7 @@ public class AsciiString {
      * Tints either the foreground or background  color, of every character in the specified
      * range, by some factor, where a higher factor results in a lighter tint.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the tint between.
      *         Includes the first index and excludes the last index.
      *
@@ -643,18 +667,19 @@ public class AsciiString {
      *
      * @param applyToBackground
      *         Whether or not to apply the tint to the background or foreground of the characters.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void tintColors(final IntRange rangeIndices, final double tintFactor, final boolean applyToBackground) {
-        if (rangeIndices == null) {
-            return;
+    public void tintColors(final IntRange range, final double tintFactor, final boolean applyToBackground) {
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
-        }
-
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             charactersToBeRedrawn[columnIndex] = true;
@@ -720,7 +745,7 @@ public class AsciiString {
      * Shades either the foreground or background  color, of every character in the specified range,
      * by some factor, where a higher factor results in a darker shade.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the shade between.
      *         Includes the first index and excludes the last index.
      *
@@ -731,18 +756,19 @@ public class AsciiString {
      *
      * @param applyToBackground
      *         Whether or not to apply the shade to the background or foreground of the characters.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void shadeColors(final IntRange rangeIndices, final double tintFactor, final boolean applyToBackground) {
-        if (rangeIndices == null) {
-            return;
+    public void shadeColors(final IntRange range, final double tintFactor, final boolean applyToBackground) {
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
-        }
-
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             charactersToBeRedrawn[columnIndex] = true;
@@ -827,25 +853,23 @@ public class AsciiString {
      * @param color
      *         The new background color.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the change between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the color or range is null.
      */
-    public void setBackgroundColor(final Color color, final IntRange rangeIndices) {
-        if (color == null) {
-            return;
+    public void setBackgroundColor(final Color color, final IntRange range) {
+        Objects.requireNonNull(color);
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        if (rangeIndices == null) {
-            return;
-        }
-
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
-        }
-
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             charactersToBeRedrawn[columnIndex] = true;
@@ -859,21 +883,23 @@ public class AsciiString {
      * @param color
      *         The new foreground color.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the change between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the color or range is null.
      */
-    public void setForegroundColor(final Color color, final IntRange rangeIndices) {
-        if (color == null) {
-            return;
+    public void setForegroundColor(final Color color, final IntRange range) {
+        Objects.requireNonNull(color);
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
-        }
-
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             charactersToBeRedrawn[columnIndex] = true;
@@ -890,29 +916,24 @@ public class AsciiString {
      * @param foreground
      *         The new foreground color.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the change between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the background/foreground color or range is null.
      */
-    public void setBackgroundAndForegroundColor(final Color background, final Color foreground, final IntRange rangeIndices) {
-        if (background == null) {
-            return;
+    public void setBackgroundAndForegroundColor(final Color background, final Color foreground, final IntRange range) {
+        Objects.requireNonNull(background);
+        Objects.requireNonNull(foreground);
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        if (foreground == null) {
-            return;
-        }
-
-        if (rangeIndices == null) {
-            return;
-        }
-
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
-        }
-
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             charactersToBeRedrawn[columnIndex] = true;
@@ -967,21 +988,22 @@ public class AsciiString {
     /**
      * Sets the specified range of characters to be flipped horizontally when being drawn.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the change between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void flipCharactersHorizontally(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
-            return;
+    public void flipCharactersHorizontally(final IntRange range) {
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
-        }
-
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             if (characters[columnIndex].isFlippedHorizontally() == false) {
@@ -994,21 +1016,22 @@ public class AsciiString {
     /**
      * Sets the specified range of characters to not be flipped horizontally when being drawn.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the change between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void unFlipCharactersHorizontally(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
-            return;
+    public void unFlipCharactersHorizontally(final IntRange range) {
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
-        }
-
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             if (characters[columnIndex].isFlippedHorizontally() == true) {
@@ -1021,21 +1044,22 @@ public class AsciiString {
     /**
      * Sets the specified range of characters to be flipped vertically when being drawn.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the change between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void flipCharactersVertically(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
-            return;
+    public void flipCharactersVertically(final IntRange range) {
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
-        }
-
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             if (characters[columnIndex].isFlippedVertically() == false) {
@@ -1048,21 +1072,22 @@ public class AsciiString {
     /**
      * Sets the specified range of characters to not be flipped vertically when being drawn.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the change between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void unFlipCharactersVertically(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
-            return;
+    public void unFlipCharactersVertically(final IntRange range) {
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
-        }
-
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             if (characters[columnIndex].isFlippedVertically() == true) {
@@ -1109,21 +1134,22 @@ public class AsciiString {
     /**
      * Sets the specified range of characters to be underlined when being drawn.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the change between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void underlineCharacters(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
-            return;
+    public void underlineCharacters(final IntRange range) {
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
-        }
-
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             if (characters[columnIndex].isUnderlined() == false) {
@@ -1136,21 +1162,22 @@ public class AsciiString {
     /**
      * Sets the specified range of characters to not be underlined when being drawn.
      *
-     * @param rangeIndices
+     * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the change between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void unUnderlineCharacters(final IntRange rangeIndices) {
-        if (rangeIndices == null) {
-            return;
+    public void unUnderlineCharacters(final IntRange range) {
+        Objects.requireNonNull(range);
+
+        if (isRangeValid(range) == false) {
+            range.clampValuesToRange(0, characters.length);
         }
 
-        if (isRangeValid(rangeIndices) == false) {
-            rangeIndices.clampValuesToRange(0, characters.length);
-        }
-
-        final int beginIndex = rangeIndices.getBegin();
-        final int endIndex = rangeIndices.getEnd();
+        final int beginIndex = range.getBegin();
+        final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             if (characters[columnIndex].isUnderlined() == true) {
