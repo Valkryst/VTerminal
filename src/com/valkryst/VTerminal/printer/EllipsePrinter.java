@@ -5,6 +5,8 @@ import com.valkryst.VTerminal.component.Screen;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
+
 public class EllipsePrinter {
     /** The width of the ellipse to print. */
     @Getter private int width = 2;
@@ -25,8 +27,12 @@ public class EllipsePrinter {
      *
      * @param column
      *         The x-axis (column) coordinate of the top-left character.
+     *
+     * @throws NullPointerException
+     *         If the panel is null.
      */
     public void print(final Panel panel, final int row, final int column) {
+        Objects.requireNonNull(panel);
         print(panel.getScreen(), row, column);
     }
 
@@ -41,8 +47,13 @@ public class EllipsePrinter {
      *
      * @param column
      *         The x-axis (column) coordinate of the top-left character.
+     *
+     * @throws NullPointerException
+     *         If the panel is screen.
      */
     public void print(final Screen screen, final int row, final int column) {
+        Objects.requireNonNull(screen);
+
         int a2 = width * width;
         int b2 = height * height;
         int fa2 = 4 * a2;
