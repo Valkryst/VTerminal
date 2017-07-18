@@ -240,8 +240,13 @@ public class Component {
      *
      * @return
      *         Whether or not the mouse event is at a point that intersects this component.
+     *
+     * @throws NullPointerException
+     *         If the event is null.
      */
     public boolean intersects(final MouseEvent event, final int fontWidth, final int fontHeight) {
+        Objects.requireNonNull(event);
+
         final int mouseX = event.getX() / fontWidth;
         final int mouseY = event.getY() / fontHeight;
         return intersects(mouseX, mouseY);
@@ -447,10 +452,12 @@ public class Component {
      *
      * @param radio
      *         The new radio.
+     *
+     * @throws NullPointerException
+     *         If the radio is null.
      */
     public void setRadio(final Radio<String> radio) {
-        if (radio != null) {
-            this.radio = radio;
-        }
+        Objects.requireNonNull(radio);
+        this.radio = radio;
     }
 }
