@@ -1,13 +1,16 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.pholser.junit.quickcheck.Property;
+import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import com.valkryst.VRadio.Radio;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import java.awt.*;
+import java.awt.Color;
 
+@RunWith(JUnitQuickcheck.class)
 public class CheckBoxBuilderTest {
     private CheckBoxBuilder builder;
 
