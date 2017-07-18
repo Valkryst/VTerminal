@@ -139,13 +139,11 @@ public class AsciiCharacterTest {
         Assert.assertEquals(characterA.getBackgroundColor(), Color.RED);
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testSetBackgroundColor_withNullColor() {
         final AsciiCharacter characterA = new AsciiCharacter('A');
         characterA.setBackgroundColor(Color.RED);
         characterA.setBackgroundColor(null);
-
-        Assert.assertEquals(characterA.getBackgroundColor(), Color.RED);
     }
 
     @Test
@@ -156,13 +154,11 @@ public class AsciiCharacterTest {
         Assert.assertEquals(characterA.getForegroundColor(), Color.RED);
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testSetForegroundColor_withNullColor() {
         final AsciiCharacter characterA = new AsciiCharacter('A');
         characterA.setForegroundColor(Color.RED);
         characterA.setForegroundColor(null);
-
-        Assert.assertEquals(characterA.getForegroundColor(), Color.RED);
     }
 
     @Test
