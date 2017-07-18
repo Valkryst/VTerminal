@@ -1,11 +1,15 @@
 package com.valkryst.VTerminal.builder.component;
 
+import com.pholser.junit.quickcheck.Property;
+import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import java.awt.*;
+import java.awt.Color;
 
+@RunWith(JUnitQuickcheck.class)
 public class LabelBuilderTest {
     private LabelBuilder builder;
 
@@ -32,17 +36,17 @@ public class LabelBuilderTest {
         Assert.assertEquals(new Color(0xFFCF0F), builder.getForegroundColor());
     }
 
-    @Test
-    public void setText_withValidText() {
-        builder.setText("Testing");
-        Assert.assertEquals("Testing", builder.getText());
+    @Property
+    public void setText_withValidText(final String text) {
+        builder.setText(text);
+        Assert.assertEquals(text, builder.getText());
     }
 
-    @Test
-    public void setText_withNullText() {
-        builder.setText("Testing");
+    @Property
+    public void setText_withNullText(final String text) {
+        builder.setText(text);
         builder.setText(null);
-        Assert.assertEquals("Testing", builder.getText());
+        Assert.assertEquals(text, builder.getText());
     }
 
     @Test
