@@ -22,12 +22,12 @@ public class FontLoaderTest {
         FontLoader.loadFont(spriteSheetPath, characterDataPath, 0);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected=NullPointerException.class)
     public void loadFont_strings_withNullSpriteSheetPath() throws IOException, URISyntaxException {
         FontLoader.loadFont(null, characterDataPath, 1);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected=NullPointerException.class)
     public void loadFont_strings_withNullCharacterDataPath() throws IOException, URISyntaxException {
         FontLoader.loadFont(spriteSheetPath, null, 1);
     }
@@ -52,7 +52,7 @@ public class FontLoaderTest {
         FontLoader.loadFont(spriteSheetStream, characterDataStream, 1);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected=NullPointerException.class)
     public void loadFont_streams_withNullSpriteSheetInputStream() throws IOException, URISyntaxException {
         final ClassLoader classLoader = FontLoader.class.getClassLoader();
 
@@ -61,7 +61,7 @@ public class FontLoaderTest {
         FontLoader.loadFont(null, characterDataStream, 1);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected=NullPointerException.class)
     public void loadFont_streams_withNullCharacterDataInputStream() throws IOException, URISyntaxException {
         final ClassLoader classLoader = FontLoader.class.getClassLoader();
 
@@ -75,12 +75,12 @@ public class FontLoaderTest {
         FontLoader.loadFontFromJar(spriteSheetPath, characterDataPath, 1);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected=NullPointerException.class)
     public void loadFontFromJar_withNullSpriteSheetPath() throws IOException, URISyntaxException {
         FontLoader.loadFontFromJar(null, characterDataPath, 1);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected=NullPointerException.class)
     public void loadFontFromJar_withNullCharacterDataPath() throws IOException, URISyntaxException {
         FontLoader.loadFontFromJar(spriteSheetPath, null, 1);
     }

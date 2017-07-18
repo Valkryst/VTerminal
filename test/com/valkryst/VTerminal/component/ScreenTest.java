@@ -325,10 +325,11 @@ public class ScreenTest {
         screen.addComponent(screen);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
     public void testAddComponent_withLayer() {
         final Layer otherComponent = new Layer(0, 0, 2, 2);
         screen.addComponent(otherComponent);
+        Assert.assertEquals(1, screen.totalComponents());
     }
 
     @Test
