@@ -26,6 +26,11 @@ public class IntRange {
     }
 
     @Override
+    public String toString() {
+        return "IntRange(" + begin + ", " + end + ")";
+    }
+
+    @Override
     public boolean equals(final Object otherObj) {
         if (otherObj instanceof IntRange == false) {
             return false;
