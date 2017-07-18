@@ -162,13 +162,9 @@ public class ScreenTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testWrite_charObj_withNullCharacter() {
         screen.write((AsciiCharacter) null, 3, 3);
-
-        final Optional<AsciiCharacter> optChar = screen.getCharacterAt(3, 3);
-        Assert.assertTrue(optChar.isPresent());
-        Assert.assertNotEquals('?', optChar.get().getCharacter());
     }
 
     @Test
@@ -247,10 +243,9 @@ public class ScreenTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testWrite_stringObj_withNullString() {
         screen.write((AsciiString) null, 0, 0);
-        Assert.assertNotEquals(string, screen.getString(0));
     }
 
     @Test
@@ -276,15 +271,9 @@ public class ScreenTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testSetBackgroundColor_withNullColor() {
         screen.setBackgroundColor(null);
-
-        for (final AsciiString string : screen.getStrings()) {
-            for (final AsciiCharacter character : string.getCharacters()) {
-                Assert.assertNotEquals(Color.PINK, character.getBackgroundColor());
-            }
-        }
     }
 
     @Test
@@ -298,15 +287,9 @@ public class ScreenTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testSetForegroundColor_withNullColor() {
         screen.setForegroundColor(null);
-
-        for (final AsciiString string : screen.getStrings()) {
-            for (final AsciiCharacter character : string.getCharacters()) {
-                Assert.assertNotEquals(Color.PINK, character.getForegroundColor());
-            }
-        }
     }
 
     @Test
@@ -321,48 +304,31 @@ public class ScreenTest {
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testSetBackgroundAndForegroundColor_withNullBackgroundColor() {
         screen.setBackgroundAndForegroundColor(null, Color.GREEN);
-
-        for (final AsciiString string : screen.getStrings()) {
-            for (final AsciiCharacter character : string.getCharacters()) {
-                Assert.assertNotEquals(Color.PINK, character.getBackgroundColor());
-                Assert.assertNotEquals(Color.GREEN, character.getForegroundColor());
-            }
-        }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testSetBackgroundAndForegroundColor_withNullForegroundColor() {
         screen.setBackgroundAndForegroundColor(Color.PINK, null);
-
-        for (final AsciiString string : screen.getStrings()) {
-            for (final AsciiCharacter character : string.getCharacters()) {
-                Assert.assertNotEquals(Color.PINK, character.getBackgroundColor());
-                Assert.assertNotEquals(Color.GREEN, character.getForegroundColor());
-            }
-        }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testAddComponent_withNullComponent() {
         screen.addComponent(null);
         Assert.assertEquals(0, screen.totalComponents());
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testAddComponent_withSelf() {
         screen.addComponent(screen);
-        Assert.assertEquals(0, screen.totalComponents());
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testAddComponent_withLayer() {
         final Layer otherComponent = new Layer(0, 0, 2, 2);
         screen.addComponent(otherComponent);
-
-        Assert.assertTrue(screen.containsComponent(otherComponent));
     }
 
     @Test
@@ -439,30 +405,14 @@ public class ScreenTest {
         Assert.assertEquals(0, screen.totalComponents());
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testRemoveComponent_withNullComponent() {
-        final Layer otherComponent = new Layer(0, 0, 2, 2);
-
-        screen.addComponent(otherComponent);
-        Assert.assertTrue(screen.containsComponent(otherComponent));
-        Assert.assertEquals(1, screen.totalComponents());
-
         screen.removeComponent(null);
-        Assert.assertTrue(screen.containsComponent(otherComponent));
-        Assert.assertEquals(1, screen.totalComponents());
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testRemoveComponent_withSelf() {
-        final Layer otherComponent = new Layer(0, 0, 2, 2);
-
-        screen.addComponent(otherComponent);
-        Assert.assertTrue(screen.containsComponent(otherComponent));
-        Assert.assertEquals(1, screen.totalComponents());
-
         screen.removeComponent(screen);
-        Assert.assertTrue(screen.containsComponent(otherComponent));
-        Assert.assertEquals(1, screen.totalComponents());
     }
 
     @Test
@@ -492,9 +442,9 @@ public class ScreenTest {
         Assert.assertFalse(screen.containsComponent(otherComponent));
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testContainsComponent_withNullComponent() {
-        Assert.assertFalse(screen.containsComponent(null));
+        screen.containsComponent(null);
     }
 
     @Test
@@ -502,9 +452,9 @@ public class ScreenTest {
         Assert.assertFalse(screen.containsComponent(screen));
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testRecursiveContainsComponent_withNullComponent() {
-        Assert.assertFalse(screen.recursiveContainsComponent(null));
+        screen.recursiveContainsComponent(null);
     }
 
     @Test
