@@ -16,10 +16,9 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Panel extends JPanel implements Receiver<String> {
-    private static final long serialVersionUID = 1884786992301690151L;
-
     /** The width of the panel, in characters. */
     @Getter private int widthInCharacters;
     /** The height of the panel, in characters. */
@@ -38,8 +37,13 @@ public class Panel extends JPanel implements Receiver<String> {
      *
      * @param builder
      *         The builder to use.
+     *
+     * @throws NullPointerException
+     *         If the builder is null.
      */
     public Panel(final PanelBuilder builder) {
+        Objects.requireNonNull(builder);
+
         this.widthInCharacters = builder.getWidthInCharacters();
         this.heightInCharacters = builder.getHeightInCharacters();
 
@@ -109,10 +113,22 @@ public class Panel extends JPanel implements Receiver<String> {
      * @param filename
      *        The name of the file.
      *
+     * @throws NullPointerException
+     *         If the filename is null.
+     *
+     * @throws IllegalArgumentException
+     *         If the filename is empty.
+     *
      * @throws IOException
      *         If an I/O error occurred.
      */
     public void screenshotToFile(final String filename) throws IOException {
+        Objects.requireNonNull(filename);
+
+        if (filename.isEmpty()) {
+            throw new IllegalArgumentException("The filename cannot be null.");
+        }
+
         final File file = new File(filename + ".png");
 
         if (file.exists() == false) {
@@ -138,10 +154,23 @@ public class Panel extends JPanel implements Receiver<String> {
      *
      *        Ex: PNG or JPG
      *
+     * @throws NullPointerException
+     *         If the file or extension is null.
+     *
+     * @throws IllegalArgumentException
+     *         If the filename is empty.
+     *
      * @throws IOException
      *         If an error occurs during writing.
      */
     public void screenshotToFile(final File file, final String extension) throws IOException {
+        Objects.requireNonNull(file);
+        Objects.requireNonNull(extension);
+
+        if (extension.isEmpty()) {
+            throw new IllegalArgumentException("The extension cannot be null.");
+        }
+
         ImageIO.write(screenshot(), extension, file);
     }
 
@@ -153,8 +182,13 @@ public class Panel extends JPanel implements Receiver<String> {
      *
      * @return
      *         The swapped-out screen.
+     *
+     * @throws NullPointerException
+     *         If the new screen is null.
      */
     public Screen swapScreen(final Screen newScreen) {
+        Objects.requireNonNull(newScreen);
+
         final Screen oldScreen = screen;
         screen = newScreen;
         draw();
