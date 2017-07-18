@@ -109,8 +109,14 @@ public class AsciiCharacter {
      *
      * @param rowIndex
      *         The y-axis (row) coordinate where the character is to be drawn.
+     *
+     * @throws NullPointerException
+     *         If the gc or image cache are null.
      */
     public void draw(final Graphics2D gc, final ColoredImageCache imageCache, int columnIndex, int rowIndex) {
+        Objects.requireNonNull(gc);
+        Objects.requireNonNull(imageCache);
+
         final int fontWidth = imageCache.getFont().getWidth();
         final int fontHeight = imageCache.getFont().getHeight();
 
@@ -304,15 +310,15 @@ public class AsciiCharacter {
      *
      * @param color
      *         The new background color.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
      */
     public void setBackgroundColor(Color color) {
-        color = ColorFunctions.enforceTransparentColor(color);
+        Objects.requireNonNull(color);
 
-	    boolean canProceed = color != null;
-	    canProceed &= backgroundColor.equals(color) == false;
-
-	    if (canProceed) {
-            this.backgroundColor = color;
+	    if (backgroundColor.equals(color) == false) {
+            this.backgroundColor = ColorFunctions.enforceTransparentColor(color);
         }
     }
 
@@ -323,15 +329,15 @@ public class AsciiCharacter {
      *
      * @param color
      *         The new foreground color.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
      */
     public void setForegroundColor(Color color) {
-        color = ColorFunctions.enforceTransparentColor(color);
+        Objects.requireNonNull(color);
 
-	    boolean canProceed = color != null;
-	    canProceed &= foregroundColor.equals(color) == false;
-
-	    if (canProceed) {
-	        this.foregroundColor = color;
+	    if (foregroundColor.equals(color) == false) {
+	        this.foregroundColor = ColorFunctions.enforceTransparentColor(color);
         }
     }
 
