@@ -1,15 +1,20 @@
 package com.valkryst.VTerminal.builder;
 
+import com.pholser.junit.quickcheck.Property;
+import com.pholser.junit.quickcheck.generator.InRange;
+import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+@RunWith(JUnitQuickcheck.class)
 public class PanelBuilderTest {
     private final Font font;
     private final PanelBuilder builder = new PanelBuilder();
@@ -68,32 +73,27 @@ public class PanelBuilderTest {
     }
     */
 
-    @Test
-    public void testSetWidthInCharacters() {
-        builder.setWidthInCharacters(10);
-
-        Assert.assertEquals(10, builder.getWidthInCharacters());
+    @Property
+    public void testSetWidthInCharacters(@InRange(minInt = 1) final int width) {
+        builder.setWidthInCharacters(width);
+        Assert.assertEquals(width, builder.getWidthInCharacters());
     }
 
-    @Test
-    public void testSetWidthInCharacters_returnValue() {
-        Assert.assertTrue(builder == builder.setWidthInCharacters(10));
+    @Property(trials=5)
+    public void testSetWidthInCharacters_returnValue(@InRange(minInt = 1) final int width) {
+        Assert.assertTrue(builder == builder.setWidthInCharacters(width));
     }
 
-    @Test
-    public void testSetWidthInCharacters_withWidthBelowOne() {
-        for (int i = 0 ; i < 10 ; i++) {
-            builder.setWidthInCharacters(-i);
-
-            Assert.assertEquals(1, builder.getWidthInCharacters());
-        }
+    @Property(trials=5)
+    public void testSetWidthInCharacters_withWidthBelowOne(@InRange(maxInt = 0) final int width) {
+        builder.setWidthInCharacters(width);
+        Assert.assertEquals(1, builder.getWidthInCharacters());
     }
 
-    @Test
-    public void testSetHeightInCharacters() {
-        builder.setHeightInCharacters(10);
-
-        Assert.assertEquals(10, builder.getHeightInCharacters());
+    @Property(trials=5)
+    public void testSetHeightInCharacters(@InRange(minInt = 0) final int height) {
+        builder.setHeightInCharacters(height);
+        Assert.assertEquals(height, builder.getHeightInCharacters());
     }
 
     @Test
@@ -101,13 +101,10 @@ public class PanelBuilderTest {
         Assert.assertTrue(builder == builder.setHeightInCharacters(10));
     }
 
-    @Test
-    public void testSetHeightInCharacters_withHeightBelowOne() {
-        for (int i = 0 ; i < 10 ; i++) {
-            builder.setHeightInCharacters(-i);
-
-            Assert.assertEquals(1, builder.getHeightInCharacters());
-        }
+    @Property(trials=5)
+    public void testSetHeightInCharacters_withHeightBelowOne(@InRange(maxInt = 0) final int height) {
+        builder.setHeightInCharacters(height);
+        Assert.assertEquals(1, builder.getHeightInCharacters());
     }
 
     @Test
