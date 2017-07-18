@@ -51,9 +51,14 @@ public class RadioButton extends Component {
      *
      * @param builder
      *         The builder to use.
+     *
+     * @throws NullPointerException
+     *         If the builder is null.
      */
     public RadioButton(final RadioButtonBuilder builder) {
         super(builder.getColumnIndex(), builder.getRowIndex(), builder.getText().length() + 2, 1);
+
+        Objects.requireNonNull(builder);
 
         super.setRadio(builder.getRadio());
 
@@ -122,6 +127,8 @@ public class RadioButton extends Component {
 
     @Override
     public void registerEventHandlers(final Panel panel) {
+        Objects.requireNonNull(panel);
+
         final Font font = panel.getImageCache().getFont();
         final int fontWidth = font.getWidth();
         final int fontHeight = font.getHeight();
@@ -222,8 +229,14 @@ public class RadioButton extends Component {
      *
      * @param foregroundColor
      *         The new foreground color.
+     *
+     * @throws NullPointerException
+     *         If the background or foreground color is null.
      */
     private void setColors(final Color backgroundColor, final Color foregroundColor) {
+        Objects.requireNonNull(backgroundColor);
+        Objects.requireNonNull(foregroundColor);
+
         for (final AsciiString s : super.getStrings()) {
             s.setBackgroundAndForegroundColor(backgroundColor, foregroundColor);
         }
@@ -259,11 +272,12 @@ public class RadioButton extends Component {
      *
      * @param color
      *         The new normal background color.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
      */
     public void setBackgroundColor_normal(final Color color) {
-        if (color == null) {
-            return;
-        }
+        Objects.requireNonNull(color);
 
         backgroundColor_normal = color;
 
@@ -277,11 +291,12 @@ public class RadioButton extends Component {
      *
      * @param color
      *         The new normal foreground color.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
      */
     public void setForegroundColor_normal(final Color color) {
-        if (color == null) {
-            return;
-        }
+        Objects.requireNonNull(color);
 
         foregroundColor_normal = color;
 
@@ -295,11 +310,12 @@ public class RadioButton extends Component {
      *
      * @param color
      *         The new normal background color.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
      */
     public void setBackgroundColor_hover(final Color color) {
-        if (color == null) {
-            return;
-        }
+        Objects.requireNonNull(color);
 
         backgroundColor_hover = color;
 
@@ -313,11 +329,12 @@ public class RadioButton extends Component {
      *
      * @param color
      *         The new hovered foreground color.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
      */
     public void setForegroundColor_hover(final Color color) {
-        if (color == null) {
-            return;
-        }
+        Objects.requireNonNull(color);
 
         foregroundColor_hover = color;
 

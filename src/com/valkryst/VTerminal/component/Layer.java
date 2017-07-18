@@ -5,6 +5,7 @@ import com.valkryst.VTerminal.misc.ColoredImageCache;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 public class Layer extends Component {
     /**
@@ -39,8 +40,14 @@ public class Layer extends Component {
      *
      * @param imageCache
      *         The image cache to retrieve the character image from.
+     *
+     * @throws NullPointerException
+     *         If the gc or image cache is null.
      */
     public void draw(final Graphics2D gc, final ColoredImageCache imageCache) {
+        Objects.requireNonNull(gc);
+        Objects.requireNonNull(imageCache);
+
         final Font font = imageCache.getFont();
 
         final int iWidth = getWidth() * font.getWidth();

@@ -55,9 +55,14 @@ public class TextField extends Component {
      *
      * @param builder
      *         The builder to use.
+     *
+     * @throws NullPointerException
+     *         If the builder is null.
      */
     public TextField(final TextFieldBuilder builder) {
         super(builder.getColumnIndex(), builder.getRowIndex(), builder.getWidth(), 1);
+
+        Objects.requireNonNull(builder);
 
         super.setRadio(builder.getRadio());
 
@@ -124,6 +129,8 @@ public class TextField extends Component {
 
     @Override
     public void registerEventHandlers(final Panel panel) {
+        Objects.requireNonNull(panel);
+
         super.registerEventHandlers(panel);
 
         panel.addKeyListener(new KeyListener() {

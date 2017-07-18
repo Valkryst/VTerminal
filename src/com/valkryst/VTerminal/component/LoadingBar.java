@@ -32,9 +32,14 @@ public class LoadingBar extends Component {
      *
      * @param builder
      *        The builder to use.
+     *
+     * @throws NullPointerException
+     *         If the builder is null.
      */
     public LoadingBar(final LoadingBarBuilder builder) {
         super(builder.getColumnIndex(), builder.getRowIndex(), builder.getWidth(), builder.getHeight());
+
+        Objects.requireNonNull(builder);
 
         super.setRadio(builder.getRadio());
 
