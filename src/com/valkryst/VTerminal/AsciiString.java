@@ -863,14 +863,15 @@ public class AsciiString {
         }
     }
 
-    /** Sets all characters to be underlined when being drawn. */
+    /**
+     * Sets all characters to either be underlined or not underlined when
+     * being drawn.
+     *
+     * @param underline
+     *        Whether or not the characters should be underlined.
+     */
     public void setUnderlined(final boolean underline) {
-        setUnderlined(new IntRange(0, characters.length));
-    }
-
-    /** Sets all characters to not be underlined when being drawn. */
-    public void unUnderlineCharacters() {
-        unUnderlineCharacters(new IntRange(0, characters.length));
+        setUnderlined(new IntRange(0, characters.length), underline);
     }
 
     /**
@@ -879,39 +880,19 @@ public class AsciiString {
      * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the change between.
      *         Includes the first index and excludes the last index.
-     */
-    public void setUnderlined(final IntRange range) {
-        checkRangeValidity(range);
-
-        final int beginIndex = range.getStart();
-        final int endIndex = range.getEnd();
-
-        for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            if (characters[columnIndex].isUnderlined() == false) {
-                charactersToBeRedrawn[columnIndex] = true;
-                characters[columnIndex].setUnderlined(true);
-            }
-        }
-    }
-
-    /**
-     * Sets the specified range of characters to not be underlined when being drawn.
      *
-     * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the change between.
-     *         Includes the first index and excludes the last index.
+     * @param underline
+     *        Whether or not the characters should be underlined.
      */
-    public void unUnderlineCharacters(final IntRange range) {
+    public void setUnderlined(final IntRange range, final boolean underline) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            if (characters[columnIndex].isUnderlined() == true) {
-                charactersToBeRedrawn[columnIndex] = true;
-                characters[columnIndex].setUnderlined(false);
-            }
+            charactersToBeRedrawn[columnIndex] = true;
+            characters[columnIndex].setUnderlined(underline);
         }
     }
 }
