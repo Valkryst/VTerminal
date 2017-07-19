@@ -18,10 +18,18 @@ public class IntRange {
      *
      * @param end
      *          The ending value of the range.
+     *
+     * @throws IllegalArgumentException
+     *         If the begin value is larger than the end value.
      */
     public IntRange(final int begin, final int end) {
         this.begin = begin;
         this.end = end;
+
+        if (begin > end) {
+            throw new IllegalArgumentException("The begin value (" + begin + ") is larger than the end value ("
+                                               + end + ").");
+        }
     }
 
     @Override
