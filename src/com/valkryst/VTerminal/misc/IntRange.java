@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.util.Objects;
 
 public class IntRange {
-    /** The beginning value of the range. */
+    /** The starting value of the range. */
     @Getter private int begin;
     /** The ending value of the range. */
     @Getter private int end;
@@ -14,7 +14,7 @@ public class IntRange {
      * Constructs a new IntRange.
      *
      * @param begin
-     *          The beginning value of the range.
+     *          The starting value of the range.
      *
      * @param end
      *          The ending value of the range.
