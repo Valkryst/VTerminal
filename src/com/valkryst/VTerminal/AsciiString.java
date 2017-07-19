@@ -790,12 +790,24 @@ public class AsciiString {
         }
     }
 
-    /** Sets all characters to be flipped horizontally when being drawn. */
+    /**
+     * Sets all characters to either be flipped horizontally or not flipped
+     * horizontally when being drawn.
+     *
+     * @param flipHorizontally
+     *        Whether or not the characters should be flipped horizontally.
+     */
     public void setFlippedHorizontally(final boolean flipHorizontally) {
         setFlippedHorizontally(new IntRange(0, characters.length), flipHorizontally);
     }
 
-    /** Sets all characters to be flipped vertically when being drawn. */
+    /**
+     * Sets all characters to either be flipped vertically or not flipped
+     * vertically when being drawn.
+     *
+     * @param flipVertically
+     *        Whether or not the characters should be flipped vertically.
+     */
     public void setFlippedVertically(final boolean flipVertically) {
         setFlippedVertically(new IntRange(0, characters.length), flipVertically);
     }
@@ -852,8 +864,8 @@ public class AsciiString {
     }
 
     /** Sets all characters to be underlined when being drawn. */
-    public void underlineCharacters() {
-        underlineCharacters(new IntRange(0, characters.length));
+    public void setUnderlined(final boolean underline) {
+        setUnderlined(new IntRange(0, characters.length));
     }
 
     /** Sets all characters to not be underlined when being drawn. */
@@ -868,7 +880,7 @@ public class AsciiString {
      *         The x-axis (column) coordinates of the characters to begin/end the change between.
      *         Includes the first index and excludes the last index.
      */
-    public void underlineCharacters(final IntRange range) {
+    public void setUnderlined(final IntRange range) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
