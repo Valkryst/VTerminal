@@ -1,6 +1,5 @@
 package com.valkryst.VTerminal.AsciiStringTest;
 
-import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.misc.IntRange;
 import org.junit.Assert;
@@ -37,20 +36,6 @@ public class SetCharactersTest {
                     Assert.assertNotEquals('Z', string.getCharacters()[j].getCharacter());
                 }
             }
-        }
-    }
-
-    @Test(expected=NullPointerException.class)
-    public void withNullRange() {
-        string.setCharacters('Z', null);
-    }
-
-    @Test(expected=IllegalArgumentException.class)
-    public void withInvalidRange() {
-        string.setCharacters('Z', new IntRange(-1, string.getCharacters().length));
-
-        for (final AsciiCharacter character : string.getCharacters()) {
-            Assert.assertEquals('Z', character.getCharacter());
         }
     }
 }

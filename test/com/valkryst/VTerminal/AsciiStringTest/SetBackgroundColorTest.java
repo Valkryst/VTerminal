@@ -45,9 +45,4 @@ public class SetBackgroundColorTest {
         final IntRange range = new IntRange(0, string.getCharacters().length);
         string.setBackgroundColor(null, range);
     }
-
-    @Test(expected=NullPointerException.class)
-    public void toRange_withNullRange() {
-        string.setBackgroundColor(Color.RED, null);
-    }
 }

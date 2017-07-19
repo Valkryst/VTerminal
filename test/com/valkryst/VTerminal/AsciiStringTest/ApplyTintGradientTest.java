@@ -64,11 +64,6 @@ public class ApplyTintGradientTest {
     }
 
     @Test(expected=NullPointerException.class)
-    public void toRange_withNullRange() {
-        string.applyTintGradient(null, Color.RED, true);
-    }
-
-    @Test(expected=NullPointerException.class)
     public void toRange_withNullColor() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
 

@@ -39,9 +39,4 @@ public class InvertColorsTest {
             Assert.assertEquals(Color.BLACK, character.getForegroundColor());
         }
     }
-
-    @Test(expected=NullPointerException.class)
-    public void toRange_withNullRange() {
-        string.invertColors(null);
-    }
 }

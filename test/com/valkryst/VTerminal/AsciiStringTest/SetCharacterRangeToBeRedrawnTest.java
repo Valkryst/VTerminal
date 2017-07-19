@@ -20,34 +20,6 @@ public class SetCharacterRangeToBeRedrawnTest {
         string.setForegroundColor(Color.WHITE);
     }
 
-    @Test(expected=NullPointerException.class)
-    public void withNullRange() {
-        Arrays.fill(string.getCharactersToBeRedrawn(), false);
-
-        for (final boolean val : string.getCharactersToBeRedrawn()) {
-            Assert.assertFalse(val);
-        }
-
-        string.setCharacterRangeToBeRedrawn(null);
-    }
-
-    @Test(expected=IllegalArgumentException.class)
-    public void withInvalidRange() {
-        Arrays.fill(string.getCharactersToBeRedrawn(), false);
-
-        for (final boolean val : string.getCharactersToBeRedrawn()) {
-            Assert.assertFalse(val);
-        }
-
-        final IntRange range = new IntRange(-1, string.getCharacters().length);
-        string.setCharacterRangeToBeRedrawn(range);
-
-        for (final boolean val : string.getCharactersToBeRedrawn()) {
-            Assert.assertTrue(val);
-        }
-    }
-
-
     @Test
     public void withValidRange() {
         Arrays.fill(string.getCharactersToBeRedrawn(), false);
