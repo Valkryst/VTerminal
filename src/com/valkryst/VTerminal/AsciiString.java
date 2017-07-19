@@ -791,33 +791,29 @@ public class AsciiString {
     }
 
     /** Sets all characters to be flipped horizontally when being drawn. */
-    public void flipCharactersHorizontally() {
-        flipCharactersHorizontally(new IntRange(0, characters.length));
-    }
-
-    /** Sets all characters to not be flipped horizontally when being drawn. */
-    public void unFlipCharactersHorizontally() {
-        unFlipCharactersHorizontally(new IntRange(0, characters.length));
+    public void setFlippedHorizontally(final boolean flipHorizontally) {
+        setFlippedHorizontally(new IntRange(0, characters.length), flipHorizontally);
     }
 
     /** Sets all characters to be flipped vertically when being drawn. */
-    public void flipCharactersVertically() {
-        flipCharactersVertically(new IntRange(0, characters.length));
-    }
-
-    /** Sets all characters not to be flipped vertically when being drawn. */
-    public void unFlipCharactersVertically() {
-        unFlipCharactersVertically(new IntRange(0, characters.length));
+    public void setFlippedVertically(final boolean flipVertically) {
+        setFlippedVertically(new IntRange(0, characters.length), flipVertically);
     }
 
     /**
-     * Sets the specified range of characters to be flipped horizontally when being drawn.
+     * Sets the specified range of characters to either be flipped horizontally
+     * or not flipped horizontally when being drawn.
      *
      * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the change between.
+     *         The x-axis (column) coordinates of the characters to begin/end
+     *         the change between.
+     *
      *         Includes the first index and excludes the last index.
+     *
+     * @param flipHorizontally
+     *        Whether or not the characters should be flipped horizontally.
      */
-    public void flipCharactersHorizontally(final IntRange range) {
+    public void setFlippedHorizontally(final IntRange range, final boolean flipHorizontally) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
@@ -826,43 +822,22 @@ public class AsciiString {
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             if (characters[columnIndex].isFlippedHorizontally() == false) {
                 charactersToBeRedrawn[columnIndex] = true;
-                characters[columnIndex].setFlippedHorizontally(true);
+                characters[columnIndex].setFlippedHorizontally(flipHorizontally);
             }
         }
     }
 
     /**
-     * Sets the specified range of characters to not be flipped horizontally when being drawn.
+     * Sets the specified range of characters to either be flipped vertically
+     * or not flipped vertically when being drawn.
      *
      * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the change between.
+     *         The x-axis (column) coordinates of the characters to begin/end
+     *         the change between.
+     *
      *         Includes the first index and excludes the last index.
      */
-    public void unFlipCharactersHorizontally(final IntRange range) {
-        checkRangeValidity(range);
-
-        final int beginIndex = range.getStart();
-        final int endIndex = range.getEnd();
-
-        for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            if (characters[columnIndex].isFlippedHorizontally() == true) {
-                charactersToBeRedrawn[columnIndex] = true;
-                characters[columnIndex].setFlippedHorizontally(false);
-            }
-        }
-    }
-
-    /**
-     * Sets the specified range of characters to be flipped vertically when being drawn.
-     *
-     * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the change between.
-     *         Includes the first index and excludes the last index.
-     *
-     * @throws NullPointerException
-     *         If the range is null.
-     */
-    public void flipCharactersVertically(final IntRange range) {
+    public void setFlippedVertically(final IntRange range, final boolean flipVertically) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
@@ -870,32 +845,8 @@ public class AsciiString {
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             if (characters[columnIndex].isFlippedVertically() == false) {
-                charactersToBeRedrawn[columnIndex] = true;
+                charactersToBeRedrawn[columnIndex] = flipVertically;
                 characters[columnIndex].setFlippedVertically(true);
-            }
-        }
-    }
-
-    /**
-     * Sets the specified range of characters to not be flipped vertically when being drawn.
-     *
-     * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the change between.
-     *         Includes the first index and excludes the last index.
-     *
-     * @throws NullPointerException
-     *         If the range is null.
-     */
-    public void unFlipCharactersVertically(final IntRange range) {
-        checkRangeValidity(range);
-
-        final int beginIndex = range.getStart();
-        final int endIndex = range.getEnd();
-
-        for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            if (characters[columnIndex].isFlippedVertically() == true) {
-                charactersToBeRedrawn[columnIndex] = true;
-                characters[columnIndex].setFlippedVertically(false);
             }
         }
     }
