@@ -190,7 +190,7 @@ public class AsciiString {
     /**
      * Sets a new character in the specified position.
      *
-     * @param columnIndex
+     * @param column
      *         The x-axis (column) coordinate to place the character at.
      *
      * @param character
@@ -198,30 +198,52 @@ public class AsciiString {
      *
      * @throws NullPointerException
      *         If the character is null.
+     *
+     * @throws IllegalArgumentException
+     *         If the column is less than 0.
+     *         If the column is greater than the length of the string.
      */
-    public void setCharacter(final int columnIndex, final AsciiCharacter character) {
+    public void setCharacter(final int column, final AsciiCharacter character) {
         Objects.requireNonNull(character);
 
-        if (columnIndex >= 0 && columnIndex < characters.length) {
-            characters[columnIndex] = character;
-            charactersToBeRedrawn[columnIndex] = true;
+        if (column < 0) {
+            throw new IllegalArgumentException("The column index " + column + " cannot be below 0.");
         }
+
+        if (column >= characters.length) {
+            throw new IllegalArgumentException("The column index " + column + " cannot be greater than or equal to "
+                                               + characters.length + ".");
+        }
+
+        characters[column] = character;
+        charactersToBeRedrawn[column] = true;
     }
 
     /**
      * Sets a new character in the specified position.
      *
-     * @param columnIndex
+     * @param column
      *         The x-axis (column) coordinate to place the character at.
      *
      * @param character
      *         The new character.
+     *
+     * @throws IllegalArgumentException
+     *         If the column is less than 0.
+     *         If the column is greater than the length of the string.
      */
-    public void setCharacter(final int columnIndex, final char character) {
-        if (columnIndex >= 0 && columnIndex < characters.length) {
-            characters[columnIndex].setCharacter(character);
-            charactersToBeRedrawn[columnIndex] = true;
+    public void setCharacter(final int column, final char character) {
+        if (column < 0) {
+            throw new IllegalArgumentException("The column index " + column + " cannot be below 0.");
         }
+
+        if (column >= characters.length) {
+            throw new IllegalArgumentException("The column index " + column + " cannot be greater than or equal to "
+                                               + characters.length + ".");
+        }
+
+        characters[column].setCharacter(character);
+        charactersToBeRedrawn[column] = true;
     }
 
     /**
