@@ -25,7 +25,7 @@ public class EnableBlinkEffectTest {
 
     @Test(expected=NullPointerException.class)
     public void toAll_withNullRadio() {
-        string.enableBlinkEffect((short) 1000, new Radio<>());
+        string.enableBlinkEffect((short) 1000, null);
     }
 
     @Test
@@ -34,7 +34,7 @@ public class EnableBlinkEffectTest {
         string.enableBlinkEffect((short) 1000, new Radio<>(), range);
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void toRange_withNullRadio() {
         final IntRange range = new IntRange(0, 3);
         string.enableBlinkEffect((short) 1000, null, range);
