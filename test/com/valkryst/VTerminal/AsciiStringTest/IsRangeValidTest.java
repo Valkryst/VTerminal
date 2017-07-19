@@ -2,7 +2,6 @@ package com.valkryst.VTerminal.AsciiStringTest;
 
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.misc.IntRange;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

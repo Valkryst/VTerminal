@@ -44,7 +44,7 @@ public class SetCharactersTest {
         string.setCharacters('Z', null);
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void withInvalidRange() {
         string.setCharacters('Z', new IntRange(-1, string.getCharacters().length));
 

@@ -30,7 +30,7 @@ public class SetCharacterRangeToBeRedrawnTest {
         string.setCharacterRangeToBeRedrawn(null);
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void withInvalidRange() {
         Arrays.fill(string.getCharactersToBeRedrawn(), false);
 
