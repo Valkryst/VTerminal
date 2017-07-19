@@ -5,7 +5,8 @@ import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.font.Font;
 import lombok.Getter;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 public class PanelBuilder {
     /** The width of the panel, in characters. */
@@ -42,6 +43,7 @@ public class PanelBuilder {
         frame.setVisible(true);
 
         panel.setIgnoreRepaint(true);
+        panel.createBufferStrategy(2);
         panel.setFocusable(true);
         return panel;
     }

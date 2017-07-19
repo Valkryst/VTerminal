@@ -9,16 +9,17 @@ import com.valkryst.VTerminal.misc.ColoredImageCache;
 import lombok.Getter;
 
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
+import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Panel extends JPanel implements Receiver<String> {
+public class Panel extends Canvas implements Receiver<String> {
     /** The width of the panel, in characters. */
     @Getter private int widthInCharacters;
     /** The height of the panel, in characters. */
@@ -68,7 +69,8 @@ public class Panel extends JPanel implements Receiver<String> {
 
     /** Draws every character of every row onto the canvas. */
     public void draw() {
-        final Graphics2D gc = (Graphics2D) this.getGraphics();
+        final BufferStrategy bs = this.getBufferStrategy();
+        final Graphics2D gc = (Graphics2D) bs.getDrawGraphics();
 
         gc.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
         gc.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
@@ -87,6 +89,7 @@ public class Panel extends JPanel implements Receiver<String> {
 
         screen.draw(gc, imageCache);
         gc.dispose();
+        bs.show();
     }
 
     /**
