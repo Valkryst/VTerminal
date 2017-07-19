@@ -657,39 +657,6 @@ public class AsciiString {
     }
 
     /**
-     * Tints the background and foreground color, of every character, by some factor, where a higher
-     * factor results in a lighter tint.
-     *
-     * @param tintFactor
-     *        The factor.
-     *
-     *        Values should range from 0.0 to 1.0.
-     */
-    public void tintBackgroundAndForegroundColors(final double tintFactor) {
-        final IntRange rangeIndices = new IntRange(0, characters.length);
-        tintColors(rangeIndices, tintFactor, false);
-        tintColors(rangeIndices, tintFactor, true);
-    }
-
-    /**
-     * Tints the background and foreground color, of every character in the specified range, by some
-     * factor, where a higher factor results in a lighter tint.
-     *
-     * @param rangeIndices
-     *         The x-axis (column) coordinates of the characters to begin/end the tint between.
-     *         Includes the first index and excludes the last index.
-     *
-     * @param tintFactor
-     *        The factor.
-     *
-     *        Values should range from 0.0 to 1.0.
-     */
-    public void tintBackgroundAndForegroundColors(final IntRange rangeIndices, final double tintFactor) {
-        tintColors(rangeIndices, tintFactor, false);
-        tintColors(rangeIndices, tintFactor, true);
-    }
-
-    /**
      * Shades either the foreground or background  color, of every character, by some factor, where
      * a higher factor results in a darker shade.
      *
@@ -739,39 +706,6 @@ public class AsciiString {
     }
 
     /**
-     * Shades the background and foreground color, of every character, by some factor, where a higher
-     * factor results in a darker shade.
-     *
-     * @param shadeFactor
-     *        The factor.
-     *
-     *        Values should range from 0.0 to 1.0.
-     */
-    public void shadeBackgroundAndForegroundColors(final double shadeFactor) {
-        final IntRange rangeIndices = new IntRange(0, characters.length);
-        shadeColors(rangeIndices, shadeFactor, false);
-        shadeColors(rangeIndices, shadeFactor, true);
-    }
-
-    /**
-     * Shades the background and foreground color, of every character in the specified range, by some
-     * factor, where a higher factor results in a darker shade.
-     *
-     * @param rangeIndices
-     *         The x-axis (column) coordinates of the characters to begin/end the shade between.
-     *         Includes the first index and excludes the last index.
-     *
-     * @param shadeFactor
-     *        The factor.
-     *
-     *        Values should range from 0.0 to 1.0.
-     */
-    public void shadeBackgroundAndForegroundColors(final IntRange rangeIndices, final double shadeFactor) {
-        shadeColors(rangeIndices, shadeFactor, false);
-        shadeColors(rangeIndices, shadeFactor, true);
-    }
-
-    /**
      * Sets the background color of all characters.
      *
      * @param color
@@ -789,19 +723,6 @@ public class AsciiString {
      */
     public void setForegroundColor(final Color color) {
         setForegroundColor(color, new IntRange(0, characters.length));
-    }
-
-    /**
-     * Sets the background and foreground color of all characters.
-     *
-     * @param background
-     *         The new background color.
-     *
-     * @param foreground
-     *         The new foreground color.
-     */
-    public void setBackgroundAndForegroundColor(final Color background, final Color foreground) {
-        setBackgroundAndForegroundColor(background, foreground, new IntRange(0, characters.length));
     }
 
     /**
@@ -857,37 +778,6 @@ public class AsciiString {
     }
 
     /**
-     * Sets the foreground color of the specified range of characters.
-     *
-     * @param background
-     *         The new background color.
-     *
-     * @param foreground
-     *         The new foreground color.
-     *
-     * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the change between.
-     *         Includes the first index and excludes the last index.
-     *
-     * @throws NullPointerException
-     *         If the background or foreground color is null.
-     */
-    public void setBackgroundAndForegroundColor(final Color background, final Color foreground, final IntRange range) {
-        Objects.requireNonNull(background);
-        Objects.requireNonNull(foreground);
-        checkRangeValidity(range);
-
-        final int beginIndex = range.getStart();
-        final int endIndex = range.getEnd();
-
-        for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            charactersToBeRedrawn[columnIndex] = true;
-            characters[columnIndex].setBackgroundColor(background);
-            characters[columnIndex].setForegroundColor(foreground);
-        }
-    }
-
-    /**
      * Sets all characters to either be hidden or visible.
      *
      * @param isHidden
@@ -918,16 +808,6 @@ public class AsciiString {
     /** Sets all characters not to be flipped vertically when being drawn. */
     public void unFlipCharactersVertically() {
         unFlipCharactersVertically(new IntRange(0, characters.length));
-    }
-
-    /** Sets all characters to be flipped both horizontally and vertically when being drawn. */
-    public void flipCharactersHorizontallyAndVertically() {
-        flipCharactersHorizontallyAndVertically(new IntRange(0, characters.length));
-    }
-
-    /** Sets all characters to not be flipped both horizontally and vertically when being drawn. */
-    public void unFlipCharactersHorizontallyAndVertically() {
-        unFlipCharactersHorizontallyAndVertically(new IntRange(0, characters.length));
     }
 
     /**
@@ -1018,30 +898,6 @@ public class AsciiString {
                 characters[columnIndex].setFlippedVertically(false);
             }
         }
-    }
-
-    /**
-     * Sets the specified range of characters to be flipped both horizontally and vertically when being drawn.
-     *
-     * @param rangeIndices
-     *         The x-axis (column) coordinates of the characters to begin/end the change between.
-     *         Includes the first index and excludes the last index.
-     */
-    public void flipCharactersHorizontallyAndVertically(final IntRange rangeIndices) {
-        flipCharactersHorizontally(rangeIndices);
-        flipCharactersVertically(rangeIndices);
-    }
-
-    /**
-     * Sets the specified range of characters to not be flipped both horizontally and vertically when being drawn.
-     *
-     * @param rangeIndices
-     *         The x-axis (column) coordinates of the characters to begin/end the change between.
-     *         Includes the first index and excludes the last index.
-     */
-    public void unFlipCharactersHorizontallyAndVertically(final IntRange rangeIndices) {
-        unFlipCharactersHorizontally(rangeIndices);
-        unFlipCharactersVertically(rangeIndices);
     }
 
     /** Sets all characters to be underlined when being drawn. */
