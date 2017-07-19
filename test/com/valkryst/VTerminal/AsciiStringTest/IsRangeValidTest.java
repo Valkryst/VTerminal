@@ -34,8 +34,8 @@ public class IsRangeValidTest {
     }
 
     @Test
-    public void withBeginLessThanOrEqualToZero() {
-        for (int i = 0 ; i > -10 ; i--) {
+    public void withBeginLessThanZero() {
+        for (int i = -1 ; i > -11 ; i--) {
             final IntRange range = new IntRange(i, 3);
             Assert.assertFalse(string.isRangeValid(range));
         }
@@ -43,7 +43,7 @@ public class IsRangeValidTest {
 
     @Test
     public void withEndGreaterThanStringLength() {
-        for (int i = 0 ; i < 10 ; i++) {
+        for (int i = 1 ; i < 10 ; i++) {
             final int end = string.getCharacters().length + i;
 
             final IntRange range = new IntRange(0, end);
@@ -51,13 +51,13 @@ public class IsRangeValidTest {
         }
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void withBeginGreaterThanEnd() {
         final IntRange range = new IntRange(3, 1);
         Assert.assertFalse(string.isRangeValid(range));
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void withNegativeEnd() {
         final IntRange range = new IntRange(0, -3);
         Assert.assertFalse(string.isRangeValid(range));
