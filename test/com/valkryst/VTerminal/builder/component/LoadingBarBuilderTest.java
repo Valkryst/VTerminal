@@ -1,22 +1,17 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.pholser.junit.quickcheck.Property;
-import com.pholser.junit.quickcheck.generator.InRange;
-import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import com.valkryst.VRadio.Radio;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import java.awt.Color;
+import java.awt.*;
 
-@RunWith(JUnitQuickcheck.class)
 public class LoadingBarBuilderTest {
     private LoadingBarBuilder builder;
 
     @Before
-    public void initializeBuilder() {
+    public void initalizeBuilder() {
         builder = new LoadingBarBuilder();
     }
 
@@ -60,42 +55,40 @@ public class LoadingBarBuilderTest {
         Assert.assertEquals(Color.GREEN, builder.getForegroundColor_complete());
     }
 
-    @Property
-    public void testSetWidth_withValidInput(@InRange(minInt=1) final int width) {
-        builder.setWidth(width);
-        Assert.assertEquals(width, builder.getWidth());
+    @Test
+    public void testSetWidth_withWidthAboveZero() {
+        builder.setWidth(66);
+        Assert.assertEquals(66, builder.getWidth());
     }
 
-    @Property
-    public void testSetWidth_withWidthInvalidInput(@InRange(maxInt=0) final int width) {
-        builder.setWidth(10);
-        builder.setWidth(width);
+    @Test
+    public void testSetWidth_withWidthBelowOne() {
+        builder.setWidth(0);
         Assert.assertEquals(10, builder.getWidth());
     }
 
-    @Property
-    public void testSetHeight_withValidHeight(@InRange(minInt=1) final int height) {
-        builder.setHeight(height);
-        Assert.assertEquals(height, builder.getHeight());
+    @Test
+    public void testSetHeight_withHeightAboveZero() {
+        builder.setHeight(66);
+        Assert.assertEquals(66, builder.getHeight());
     }
 
-    @Property
-    public void testSetHeight_withInvalidHeight(@InRange(maxInt=0) final int height) {
-        builder.setHeight(10);
-        builder.setHeight(height);
-        Assert.assertEquals(10, builder.getHeight());
+    @Test
+    public void testSetHeight_withHeightBelowOne() {
+        builder.setHeight(0);
+        Assert.assertEquals(1, builder.getHeight());
     }
 
-    @Property
-    public void testSetIncompleteCharacter(final char character) {
-        builder.setIncompleteCharacter(character);
-        Assert.assertEquals(character, builder.getIncompleteCharacter());
+    @Test
+    public void testSetIncompleteCharacter() {
+        builder.setIncompleteCharacter('?');
+        Assert.assertEquals('?', builder.getIncompleteCharacter());
     }
 
-    @Property
-    public void testSetCompleteCharacter(final char character) {
-        builder.setCompleteCharacter(character);
-        Assert.assertEquals(character, builder.getCompleteCharacter());
+    @Test
+    public void testSetCompleteCharacter() {
+        builder.setCompleteCharacter('?');
+        Assert.assertEquals('?', builder.getCompleteCharacter());
     }
 
     @Test

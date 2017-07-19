@@ -1,16 +1,12 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.pholser.junit.quickcheck.Property;
-import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import com.valkryst.VRadio.Radio;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import java.awt.Color;
+import java.awt.*;
 
-@RunWith(JUnitQuickcheck.class)
 public class CheckBoxBuilderTest {
     private CheckBoxBuilder builder;
 
@@ -63,29 +59,29 @@ public class CheckBoxBuilderTest {
         Assert.assertEquals(new Color(0xFFFF66), builder.getForegroundColor_checked());
     }
 
-    @Property
-    public void setText_withValidText(final String text) {
-        builder.setText(text);
-        Assert.assertEquals(text, builder.getText());
+    @Test
+    public void setText_withValidText() {
+        builder.setText("Testing");
+        Assert.assertEquals("Testing", builder.getText());
     }
 
-    @Property
-    public void setText_withNullText(final String text) {
-        builder.setText(text);
+    @Test
+    public void setText_withNullText() {
+        builder.setText("Testing");
         builder.setText(null);
-        Assert.assertEquals(text, builder.getText());
+        Assert.assertEquals("Testing", builder.getText());
     }
 
-    @Property
-    public void setEmptyBoxChar(final char character) {
-        builder.setEmptyBoxChar(character);
-        Assert.assertEquals(character, builder.getEmptyBoxChar());
+    @Test
+    public void setEmptyBoxChar() {
+        builder.setEmptyBoxChar('?');
+        Assert.assertEquals('?', builder.getEmptyBoxChar());
     }
 
-    @Property
-    public void setCheckedBoxChar(final char character) {
-        builder.setCheckedBoxChar(character);
-        Assert.assertEquals(character, builder.getCheckedBoxChar());
+    @Test
+    public void setCheckedBoxChar() {
+        builder.setCheckedBoxChar('?');
+        Assert.assertEquals('?', builder.getCheckedBoxChar());
     }
 
     @Test

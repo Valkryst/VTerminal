@@ -1,16 +1,13 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.pholser.junit.quickcheck.Property;
-import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import com.valkryst.VRadio.Radio;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.awt.Color;
 
-@RunWith(JUnitQuickcheck.class)
+
 public class ButtonBuilderTest {
     private ButtonBuilder builder;
 
@@ -68,29 +65,29 @@ public class ButtonBuilderTest {
         Assert.assertEquals(new Color(0xFFFF66), builder.getForegroundColor_pressed());
     }
 
-    @Property
-    public void testSetTest(final String text) {
-        builder.setText(text);
-        Assert.assertEquals(text, builder.getText());
+    @Test
+    public void testSetTest() {
+        builder.setText("Test Text");
+        Assert.assertEquals("Test Text", builder.getText());
     }
 
-    @Property
-    public void testSetTest_withNullText(final String text) {
-        builder.setText(text);
+    @Test
+    public void testSetTest_withNullText() {
+        builder.setText("Test Text");
         builder.setText(null);
-        Assert.assertEquals(text, builder.getText());
+        Assert.assertEquals("Test Text", builder.getText());
     }
 
-    @Property
-    public void testSetStartingCharacter(final char character) {
-        builder.setStartingCharacter(character);
-        Assert.assertEquals(character, builder.getStartingCharacter());
+    @Test
+    public void testSetStartingCharacter() {
+        builder.setStartingCharacter('A');
+        Assert.assertEquals('A', builder.getStartingCharacter());
     }
 
-    @Property
-    public void testSetEndingCharacter(final char character) {
-        builder.setEndingCharacter(character);
-        Assert.assertEquals(character, builder.getEndingCharacter());
+    @Test
+    public void testSetEndingCharacter() {
+        builder.setEndingCharacter('A');
+        Assert.assertEquals('A', builder.getEndingCharacter());
     }
 
     @Test

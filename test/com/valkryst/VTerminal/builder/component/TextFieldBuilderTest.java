@@ -1,23 +1,18 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.pholser.junit.quickcheck.Property;
-import com.pholser.junit.quickcheck.generator.InRange;
-import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import com.valkryst.VRadio.Radio;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.awt.Color;
 import java.util.regex.Pattern;
 
-@RunWith(JUnitQuickcheck.class)
 public class TextFieldBuilderTest {
     private TextFieldBuilder builder;
 
     @Before
-    public void initializeBuilder() {
+    public void initalizeBuilder() {
         builder = new TextFieldBuilder();
     }
 
@@ -69,15 +64,15 @@ public class TextFieldBuilderTest {
         Assert.assertTrue(builder.isBackSpaceKeyEnabled());
     }
 
-    @Property
-    public void testSetWidth_withValidWidth(@InRange(minInt=1) final int width) {
-        builder.setWidth(width);
-        Assert.assertEquals(width, builder.getWidth());
+    @Test
+    public void testSetWidth_withWidthAboveZero() {
+        builder.setWidth(66);
+        Assert.assertEquals(66, builder.getWidth());
     }
 
-    @Property
-    public void testSetWidth_withInvalidWidth(@InRange(maxInt=0) final int width) {
-        builder.setWidth(width);
+    @Test
+    public void testSetWidth_withWidthBelowOne() {
+        builder.setWidth(0);
         Assert.assertEquals(1, builder.getWidth());
     }
 
@@ -133,40 +128,40 @@ public class TextFieldBuilderTest {
         Assert.assertEquals(Color.RED, builder.getBackgroundColor());
     }
 
-    @Property
-    public void testSetHomeKeyEnabled(final boolean isEnabled) {
-        builder.setHomeKeyEnabled(isEnabled);
-        Assert.assertEquals(isEnabled, builder.isHomeKeyEnabled());
+    @Test
+    public void testSetHomeKeyEnabled() {
+        builder.setHomeKeyEnabled(false);
+        Assert.assertFalse(builder.isHomeKeyEnabled());
     }
 
-    @Property
-    public void testSetEndKeyEnabled(final boolean isEnabled) {
-        builder.setEndKeyEnabled(isEnabled);
-        Assert.assertEquals(isEnabled, builder.isEndKeyEnabled());
+    @Test
+    public void testSetEndKeyEnabled() {
+        builder.setEndKeyEnabled(false);
+        Assert.assertFalse(builder.isEndKeyEnabled());
     }
 
-    @Property
-    public void testSetDeleteKeyEnabled(final boolean isEnabled) {
-        builder.setDeleteKeyEnabled(isEnabled);
-        Assert.assertEquals(isEnabled, builder.isDeleteKeyEnabled());
+    @Test
+    public void testSetDeleteKeyEnabled() {
+        builder.setDeleteKeyEnabled(false);
+        Assert.assertFalse(builder.isDeleteKeyEnabled());
     }
 
-    @Property
-    public void testSetLeftArrowKeyEnabled(final boolean isEnabled) {
-        builder.setLeftArrowKeyEnabled(isEnabled);
-        Assert.assertEquals(isEnabled, builder.isLeftArrowKeyEnabled());
+    @Test
+    public void testSetLeftArrowKeyEnabled() {
+        builder.setLeftArrowKeyEnabled(false);
+        Assert.assertFalse(builder.isLeftArrowKeyEnabled());
     }
 
-    @Property
-    public void testSetRightArrowKeyEnabled(final boolean isEnabled) {
-        builder.setRightArrowKeyEnabled(isEnabled);
-        Assert.assertEquals(isEnabled, builder.isRightArrowKeyEnabled());
+    @Test
+    public void testSetRightArrowKeyEnabled() {
+        builder.setRightArrowKeyEnabled(false);
+        Assert.assertFalse(builder.isRightArrowKeyEnabled());
     }
 
-    @Property
-    public void testSetBackSpaceKeyEnabled(final boolean isEnabled) {
-        builder.setBackSpaceKeyEnabled(isEnabled);
-        Assert.assertEquals(isEnabled, builder.isBackSpaceKeyEnabled());
+    @Test
+    public void testSetBackSpaceKeyEnabled() {
+        builder.setBackSpaceKeyEnabled(false);
+        Assert.assertFalse(builder.isBackSpaceKeyEnabled());
     }
 
     @Test
