@@ -680,7 +680,7 @@ public class AsciiString {
      *         The x-axis (column) coordinates of the characters to begin/end the shade between.
      *         Includes the first index and excludes the last index.
      *
-     * @param tintFactor
+     * @param shadeFactor
      *        The factor.
      *
      *        Values should range from 0.0 to 1.0.
@@ -688,7 +688,7 @@ public class AsciiString {
      * @param applyToBackground
      *         Whether or not to apply the shade to the background or foreground of the characters.
      */
-    public void shadeColors(final IntRange range, final double tintFactor, final boolean applyToBackground) {
+    public void shadeColors(final IntRange range, final double shadeFactor, final boolean applyToBackground) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
@@ -698,9 +698,9 @@ public class AsciiString {
             charactersToBeRedrawn[columnIndex] = true;
 
             if (applyToBackground) {
-                characters[columnIndex].shadeBackgroundColor(tintFactor);
+                characters[columnIndex].shadeBackgroundColor(shadeFactor);
             } else {
-                characters[columnIndex].shadeForegroundColor(tintFactor);
+                characters[columnIndex].shadeForegroundColor(shadeFactor);
             }
         }
     }
