@@ -832,10 +832,8 @@ public class AsciiString {
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            if (characters[columnIndex].isFlippedHorizontally() == false) {
-                charactersToBeRedrawn[columnIndex] = true;
-                characters[columnIndex].setFlippedHorizontally(flipHorizontally);
-            }
+            charactersToBeRedrawn[columnIndex] = true;
+            characters[columnIndex].setFlippedHorizontally(flipHorizontally);
         }
     }
 
@@ -856,10 +854,8 @@ public class AsciiString {
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            if (characters[columnIndex].isFlippedVertically() == false) {
-                charactersToBeRedrawn[columnIndex] = flipVertically;
-                characters[columnIndex].setFlippedVertically(true);
-            }
+            charactersToBeRedrawn[columnIndex] = flipVertically;
+            characters[columnIndex].setFlippedVertically(true);
         }
     }
 
