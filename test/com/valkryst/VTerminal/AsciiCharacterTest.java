@@ -120,6 +120,61 @@ public class AsciiCharacterTest {
     }
 
     @Test
+    public void testResumeBlinkEffect_withPausedBlinkEffect() {
+        final AsciiCharacter character = new AsciiCharacter('A');
+        character.enableBlinkEffect((short) 666, new Radio<>());
+        character.pauseBlinkEffect();
+        character.resumeBlinkEffect();
+    }
+
+    @Test
+    public void testResumeBlinkEffect_withNonPausedBlinkEffect() {
+        final AsciiCharacter character = new AsciiCharacter('A');
+        character.enableBlinkEffect((short) 666, new Radio<>());
+        character.resumeBlinkEffect();
+    }
+
+    @Test
+    public void testResumeBlinkEffect_withNullBlinkTimer() {
+        final AsciiCharacter character = new AsciiCharacter('A');
+        character.resumeBlinkEffect();
+    }
+
+    @Test
+    public void testPauseBlinkEffect_withPausedBlinkEffect() {
+        final AsciiCharacter character = new AsciiCharacter('A');
+        character.enableBlinkEffect((short) 666, new Radio<>());
+        character.pauseBlinkEffect();
+        character.pauseBlinkEffect();
+    }
+
+    @Test
+    public void testPauseBlinkEffect_withNonPausedBlinkEffect() {
+        final AsciiCharacter character = new AsciiCharacter('A');
+        character.enableBlinkEffect((short) 666, new Radio<>());
+        character.pauseBlinkEffect();
+    }
+
+    @Test
+    public void testPauseBlinkEffect_withNullBlinkEffect() {
+        final AsciiCharacter character = new AsciiCharacter('A');
+        character.pauseBlinkEffect();
+    }
+
+    @Test
+    public void testDisableBlinkEffect() {
+        final AsciiCharacter character = new AsciiCharacter('A');
+        character.enableBlinkEffect((short) 666, new Radio<>());
+        character.disableBlinkEffect();
+    }
+
+    @Test
+    public void testDisableBlinkEffect_withNullBlinkEffect() {
+        final AsciiCharacter character = new AsciiCharacter('A');
+        character.disableBlinkEffect();
+    }
+
+    @Test
     public void testInvertColors() {
         final AsciiCharacter characterA = new AsciiCharacter('A');
         characterA.setBackgroundColor(Color.BLACK);
