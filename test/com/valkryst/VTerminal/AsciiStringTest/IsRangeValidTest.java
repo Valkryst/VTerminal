@@ -24,48 +24,44 @@ public class IsRangeValidTest {
 
         for (int i = 0 ; i < string.getCharacters().length ; i++) {
             final IntRange range = new IntRange(0, i);
-            Assert.assertTrue(string.isRangeValid(range));
+            string.checkRangeValidity(range);
         }
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void withNullRange() {
-        Assert.assertFalse(string.isRangeValid(null));
+        string.checkRangeValidity(null);
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void withBeginLessThanZero() {
-        for (int i = -1 ; i > -11 ; i--) {
-            final IntRange range = new IntRange(i, 3);
-            Assert.assertFalse(string.isRangeValid(range));
-        }
+        final IntRange range = new IntRange(-1, 3);
+        string.checkRangeValidity(range);
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void withEndGreaterThanStringLength() {
-        for (int i = 1 ; i < 10 ; i++) {
-            final int end = string.getCharacters().length + i;
+        final int end = string.getCharacters().length + 1;
 
-            final IntRange range = new IntRange(0, end);
-            Assert.assertFalse(string.isRangeValid(range));
-        }
+        final IntRange range = new IntRange(0, end);
+        string.checkRangeValidity(range);
     }
 
     @Test(expected=IllegalArgumentException.class)
     public void withBeginGreaterThanEnd() {
         final IntRange range = new IntRange(3, 1);
-        Assert.assertFalse(string.isRangeValid(range));
+        string.checkRangeValidity(range);
     }
 
     @Test(expected=IllegalArgumentException.class)
     public void withNegativeEnd() {
         final IntRange range = new IntRange(0, -3);
-        Assert.assertFalse(string.isRangeValid(range));
+        string.checkRangeValidity(range);
     }
 
     @Test
     public void withBeginAndEndEqual() {
         final IntRange range = new IntRange(0, 0);
-        Assert.assertTrue(string.isRangeValid(range));
+        string.checkRangeValidity(range);
     }
 }
