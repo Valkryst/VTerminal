@@ -167,6 +167,7 @@ public class AsciiString {
         return isValid;
     }
 
+    /** Sets all characters to be redrawn on the next draw call. */
     public void setAllCharactersToBeRedrawn() {
         Arrays.fill(charactersToBeRedrawn, true);
     }
