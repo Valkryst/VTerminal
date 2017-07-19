@@ -105,7 +105,6 @@ public class LoadingBar extends Component {
             percentComplete = 100;
         }
 
-
         final int numberOfCompleteChars = (int) (super.getWidth() * (percentComplete / 100f));
         final IntRange range = new IntRange(0, numberOfCompleteChars);
 
@@ -114,8 +113,8 @@ public class LoadingBar extends Component {
             string.setForegroundColor(foregroundColor_incomplete);
             string.setAllCharacters(incompleteCharacter);
 
-            string.setBackgroundColor(backgroundColor_complete);
-            string.setForegroundColor(foregroundColor_complete);
+            string.setBackgroundColor(backgroundColor_complete, range);
+            string.setForegroundColor(foregroundColor_complete, range);
             string.setCharacters(completeCharacter, range);
         }
 
