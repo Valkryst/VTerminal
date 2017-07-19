@@ -32,7 +32,7 @@ public enum RectangleType {
     /** The right connector character of a rectangle. */
     @Getter private final char connectorRight;
     /** The downwards connector character of a rectangle. */
-    @Getter private final char connnectorDown;
+    @Getter private final char connectorDown;
     /** The upwards connector character of a rectangle. */
     @Getter private final char connectorUp;
 
@@ -65,19 +65,19 @@ public enum RectangleType {
         connectorCross = boxCharacters[6];
         connectorLeft = boxCharacters[7];
         connectorRight = boxCharacters[8];
-        connnectorDown = boxCharacters[9];
+        connectorDown = boxCharacters[9];
         connectorUp = boxCharacters[10];
 
-        validTopCharacters = new char[]{vertical, connectorCross, connectorLeft, connectorRight, connnectorDown,
+        validTopCharacters = new char[]{vertical, connectorCross, connectorLeft, connectorRight, connectorDown,
                                         topLeft, topRight};
 
         validBottomCharacters = new char[]{vertical, connectorCross, connectorLeft, connectorRight, connectorUp,
                                            bottomLeft, bottomRight};
 
-        validLeftCharacters = new char[]{horizontal, connectorCross, connectorRight, connnectorDown, connectorUp,
+        validLeftCharacters = new char[]{horizontal, connectorCross, connectorRight, connectorDown, connectorUp,
                                          topLeft, bottomLeft};
 
-        validRightCharacters = new char[]{horizontal, connectorCross, connectorLeft, connnectorDown, connectorUp,
+        validRightCharacters = new char[]{horizontal, connectorCross, connectorLeft, connectorDown, connectorUp,
                                           topRight, bottomRight};
     }
 
@@ -198,7 +198,7 @@ public enum RectangleType {
         }
 
         if (Arrays.equals(pattern, new boolean[]{true, false, true, true})) {
-            return Optional.of(connnectorDown);
+            return Optional.of(connectorDown);
         }
 
         if (Arrays.equals(pattern, new boolean[]{true, true, false, false})) {
