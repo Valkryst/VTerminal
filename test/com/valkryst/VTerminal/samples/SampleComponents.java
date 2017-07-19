@@ -7,6 +7,8 @@ import com.valkryst.VTerminal.component.LoadingBar;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
+import com.valkryst.VTerminal.printer.RectanglePrinter;
+import com.valkryst.VTerminal.printer.RectangleType;
 
 import javax.swing.Timer;
 import java.awt.Color;
@@ -22,6 +24,16 @@ public class SampleComponents {
         Thread.sleep(100);
 
         panel.getScreen().setBackgroundColor(new Color(0xFF366C9F, true));
+
+        // Border
+        final RectanglePrinter printer = new RectanglePrinter();
+        printer.setRectangleType(RectangleType.HEAVY);
+        printer.setWidth(80);
+        printer.setHeight(24);
+        printer.print(panel, 0, 0);
+
+        printer.setWidth(24);
+        printer.print(panel, 0, 0);
 
         // Title
         new LabelBuilder().setColumnAndRowIndices(1, 1)
