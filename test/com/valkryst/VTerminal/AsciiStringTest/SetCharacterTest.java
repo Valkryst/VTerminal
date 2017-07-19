@@ -15,7 +15,8 @@ public class SetCharacterTest {
     @Before
     public void initializeString() {
         string = new AsciiString(testString);
-        string.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
+        string.setBackgroundColor(Color.BLACK);
+        string.setForegroundColor(Color.WHITE);
     }
 
     @Test

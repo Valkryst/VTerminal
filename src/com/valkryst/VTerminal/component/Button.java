@@ -252,7 +252,8 @@ public class Button extends Component {
         Objects.requireNonNull(foregroundColor);
 
         for (final AsciiString s : getStrings()) {
-            s.setBackgroundAndForegroundColor(backgroundColor, foregroundColor);
+            s.setBackgroundColor(backgroundColor);
+            s.setForegroundColor(foregroundColor);
         }
     }
 

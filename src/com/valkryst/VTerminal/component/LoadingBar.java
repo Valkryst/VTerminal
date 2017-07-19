@@ -55,7 +55,8 @@ public class LoadingBar extends Component {
         // Set all chars to incomplete state:
         for (final AsciiString string : super.getStrings()) {
             string.setAllCharacters(incompleteCharacter);
-            string.setBackgroundAndForegroundColor(backgroundColor_incomplete, foregroundColor_incomplete);
+            string.setBackgroundColor(backgroundColor_incomplete);
+            string.setForegroundColor(foregroundColor_incomplete);
         }
     }
 
@@ -109,10 +110,12 @@ public class LoadingBar extends Component {
         final IntRange range = new IntRange(0, numberOfCompleteChars);
 
         for (final AsciiString string : super.getStrings()) {
-            string.setBackgroundAndForegroundColor(backgroundColor_incomplete, foregroundColor_incomplete);
+            string.setBackgroundColor(backgroundColor_incomplete);
+            string.setForegroundColor(foregroundColor_incomplete);
             string.setAllCharacters(incompleteCharacter);
 
-            string.setBackgroundAndForegroundColor(backgroundColor_complete, foregroundColor_complete, range);
+            string.setBackgroundColor(backgroundColor_complete);
+            string.setForegroundColor(foregroundColor_complete);
             string.setCharacters(completeCharacter, range);
         }
 

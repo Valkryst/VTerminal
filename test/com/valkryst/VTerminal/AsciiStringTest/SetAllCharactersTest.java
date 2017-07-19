@@ -14,7 +14,8 @@ public class SetAllCharactersTest {
     @Before
     public void initializeString() {
         string = new AsciiString("ABCDEFGHJIKLMNOP");
-        string.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
+        string.setBackgroundColor(Color.BLACK);
+        string.setForegroundColor(Color.WHITE);
     }
 
     @Test

@@ -86,7 +86,8 @@ public class TextField extends Component {
         // Set the button's text:
         final AsciiString string = super.getString(0);
         string.setAllCharacters(' ');
-        string.setBackgroundAndForegroundColor(backgroundColor, foregroundColor);
+        string.setBackgroundColor(backgroundColor);
+        string.setForegroundColor(foregroundColor);
 
         // Set initial caret position:
         changeCaretPosition(index_caret);

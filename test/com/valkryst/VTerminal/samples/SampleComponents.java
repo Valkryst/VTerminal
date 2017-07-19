@@ -29,7 +29,7 @@ public class SampleComponents {
                             .setText("Component Library Test")
                             .build()
                             .getString(0)
-                            .underlineCharacters();
+                            .setUnderlined(true);
 
         // Button
         new ButtonBuilder().setColumnAndRowIndices(1, 3)

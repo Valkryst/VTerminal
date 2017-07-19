@@ -314,7 +314,8 @@ public class Screen extends Component {
         Objects.requireNonNull(foreground);
 
         for (final AsciiString string : getStrings()) {
-            string.setBackgroundAndForegroundColor(background, foreground);
+            string.setBackgroundColor(background);
+            string.setForegroundColor(foreground);
         }
     }
 

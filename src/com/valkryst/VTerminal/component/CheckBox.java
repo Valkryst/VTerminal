@@ -89,7 +89,8 @@ public class CheckBox extends Component {
         }
 
         // Set the back/foreground colors:
-        string.setBackgroundAndForegroundColor(backgroundColor_normal, foregroundColor_normal);
+        string.setBackgroundColor(backgroundColor_normal);
+        string.setForegroundColor(foregroundColor_normal);
     }
 
     @Override
@@ -236,7 +237,8 @@ public class CheckBox extends Component {
         Objects.requireNonNull(foregroundColor);
 
         for (final AsciiString s : super.getStrings()) {
-            s.setBackgroundAndForegroundColor(backgroundColor, foregroundColor);
+            s.setBackgroundColor(backgroundColor);
+            s.setForegroundColor(foregroundColor);
         }
     }
 

@@ -14,13 +14,15 @@ public class EqualsTest {
     @Before
     public void initializeString() {
         string = new AsciiString(testString);
-        string.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
+        string.setBackgroundColor(Color.BLACK);
+        string.setForegroundColor(Color.WHITE);
     }
 
     @Test
     public void withNonAsciiStringObject() {
         final AsciiString stringA = new AsciiString(testString);
-        stringA.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
+        stringA.setBackgroundColor(Color.BLACK);
+        stringA.setForegroundColor(Color.WHITE);
 
         final Integer integer = 666;
 
@@ -35,10 +37,12 @@ public class EqualsTest {
     @Test
     public void withEqualStrings() {
         final AsciiString stringA = new AsciiString(testString);
-        stringA.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
+        stringA.setBackgroundColor(Color.BLACK);
+        stringA.setForegroundColor(Color.WHITE);
 
         final AsciiString stringB = new AsciiString(testString);
-        stringB.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
+        stringB.setBackgroundColor(Color.BLACK);
+        stringB.setForegroundColor(Color.WHITE);
 
         Assert.assertEquals(stringA, stringB);
     }
@@ -46,10 +50,12 @@ public class EqualsTest {
     @Test
     public void withNonEqualStrings() {
         final AsciiString stringA = new AsciiString(testString);
-        stringA.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
+        stringA.setBackgroundColor(Color.BLACK);
+        stringA.setForegroundColor(Color.WHITE);
 
         final AsciiString stringB = new AsciiString("Xfgcgfytf");
-        stringB.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
+        stringB.setBackgroundColor(Color.BLACK);
+        stringB.setForegroundColor(Color.WHITE);
 
         Assert.assertNotEquals(stringA, stringB);
     }
@@ -57,10 +63,12 @@ public class EqualsTest {
     @Test
     public void withNonEqualBackgroundColors() {
         final AsciiString stringA = new AsciiString(testString);
-        stringA.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
+        stringA.setBackgroundColor(Color.BLACK);
+        stringA.setForegroundColor(Color.WHITE);
 
         final AsciiString stringB = new AsciiString(testString);
-        stringB.setBackgroundAndForegroundColor(Color.BLACK, Color.RED);
+        stringB.setBackgroundColor(Color.BLACK);
+        stringB.setForegroundColor(Color.RED);
 
         Assert.assertNotEquals(stringA, stringB);
     }
@@ -68,10 +76,12 @@ public class EqualsTest {
     @Test
     public void withNonEqualForegroundColors() {
         final AsciiString stringA = new AsciiString(testString);
-        stringA.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
+        stringA.setBackgroundColor(Color.BLACK);
+        stringA.setForegroundColor(Color.WHITE);
 
         final AsciiString stringB = new AsciiString(testString);
-        stringB.setBackgroundAndForegroundColor(Color.RED, Color.WHITE);
+        stringB.setBackgroundColor(Color.RED);
+        stringB.setForegroundColor(Color.WHITE);
 
         Assert.assertNotEquals(stringA, stringB);
     }

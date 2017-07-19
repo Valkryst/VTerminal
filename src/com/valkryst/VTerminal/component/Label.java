@@ -38,7 +38,8 @@ public class Label extends Component {
             string.setCharacter(column, text[column]);
         }
 
-        string.setBackgroundAndForegroundColor(backgroundColor, foregroundColor);
+        string.setBackgroundColor(backgroundColor);
+        string.setForegroundColor(foregroundColor);
     }
 
     @Override

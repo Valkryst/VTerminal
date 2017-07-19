@@ -24,10 +24,12 @@ public class HashCodeTest {
     @Test
     public void withNonEqualStrings() {
         final AsciiString stringA = new AsciiString("AAA");
-        stringA.setBackgroundAndForegroundColor(Color.BLACK, Color.WHITE);
+        stringA.setBackgroundColor(Color.BLACK);
+        stringA.setForegroundColor(Color.WHITE);
 
         final AsciiString stringB = new AsciiString("BBB");
-        stringB.setBackgroundAndForegroundColor(Color.RED, Color.WHITE);
+        stringA.setBackgroundColor(Color.RED);
+        stringA.setForegroundColor(Color.WHITE);
 
         Assert.assertNotEquals(stringA.hashCode(), stringB.hashCode());
     }
