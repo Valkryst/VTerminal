@@ -6,35 +6,35 @@ import java.util.Objects;
 
 public class IntRange {
     /** The starting value of the range. */
-    @Getter private int begin;
+    @Getter private int start;
     /** The ending value of the range. */
     @Getter private int end;
 
     /**
      * Constructs a new IntRange.
      *
-     * @param begin
-     *          The starting value of the range.
+     * @param start
+     *        The starting value of the range.
      *
      * @param end
-     *          The ending value of the range.
+     *        The ending value of the range.
      *
      * @throws IllegalArgumentException
-     *         If the begin value is larger than the end value.
+     *        If the begin value is larger than the end value.
      */
-    public IntRange(final int begin, final int end) {
-        this.begin = begin;
+    public IntRange(final int start, final int end) {
+        this.start = start;
         this.end = end;
 
-        if (begin > end) {
-            throw new IllegalArgumentException("The begin value (" + begin + ") is larger than the end value ("
+        if (start > end) {
+            throw new IllegalArgumentException("The start value (" + start + ") is larger than the end value ("
                                                + end + ").");
         }
     }
 
     @Override
     public String toString() {
-        return "IntRange(" + begin + ", " + end + ")";
+        return "IntRange(" + start + ", " + end + ")";
     }
 
     @Override
@@ -48,13 +48,13 @@ public class IntRange {
         }
 
         final IntRange otherRange = (IntRange) otherObj;
-        boolean isEqual = begin == otherRange.getBegin();
+        boolean isEqual = start == otherRange.getStart();
         isEqual &= end == otherRange.getEnd();
         return isEqual;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(begin, end);
+        return Objects.hash(start, end);
     }
 }
