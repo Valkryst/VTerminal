@@ -57,40 +57,4 @@ public class IntRange {
     public int hashCode() {
         return Objects.hash(begin, end);
     }
-
-    /**
-     * Ensures that the begin and end values are within the specified minimum and maximum values.
-     *
-     * If the begin or end values are below the minimum, then they are set to the minimum.
-     * If the begin or end values are above the maximum, then they are set to the maximum.
-     * If begin is greater than end, then begin is set to equal end.
-     * If end is less than begin, then end is set to equal begin.
-     *
-     * @param minimum
-     *         The minimum value.
-     *
-     * @param maximum
-     *         The maximum value.
-     */
-    public void clampValuesToRange(final int minimum, final int maximum) {
-        if (begin < minimum) {
-            begin = minimum;
-        }
-
-        if (begin > maximum) {
-            begin = maximum;
-        }
-
-        if (end < minimum) {
-            end = minimum;
-        }
-
-        if (end > maximum) {
-            end = maximum;
-        }
-
-        if (begin > end) {
-            begin = end;
-        }
-    }
 }
