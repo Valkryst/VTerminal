@@ -22,7 +22,6 @@ public class IntRange {
     public IntRange(final int begin, final int end) {
         this.begin = begin;
         this.end = end;
-        clampValuesToRange(begin, end);
     }
 
     @Override
