@@ -15,21 +15,21 @@ public class IntRangeTest {
     @Test
     public void testConstructor() {
         final IntRange range = new IntRange(1, 2);
-        Assert.assertEquals(1, range.getBegin());
+        Assert.assertEquals(1, range.getStart());
         Assert.assertEquals(2, range.getEnd());
     }
 
     @Test
     public void testConstructor_withNegativeBegin() {
         final IntRange range = new IntRange(-1, 2);
-        Assert.assertEquals(-1, range.getBegin());
+        Assert.assertEquals(-1, range.getStart());
         Assert.assertEquals(2, range.getEnd());
     }
 
     @Test
     public void testConstructor_withNegativeEnd() {
         final IntRange range = new IntRange(-3, -2);
-        Assert.assertEquals(-3, range.getBegin());
+        Assert.assertEquals(-3, range.getStart());
         Assert.assertEquals(-2, range.getEnd());
     }
 
