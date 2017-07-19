@@ -2,11 +2,21 @@ package com.valkryst.VTerminal;
 
 import com.valkryst.VRadio.Radio;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.*;
 
 public class AsciiCharacterTest {
+    private AsciiCharacter characterA;
+    private AsciiCharacter characterB;
+
+    @Before
+    public void initializeCharacters() {
+        characterA = new AsciiCharacter('A');
+        characterB = new AsciiCharacter('B');
+    }
+
     @Test
     public void testConstructor_withAllAsciiCharacters() {
         for (byte i = 0 ; i < Byte.MAX_VALUE ; i++) {
@@ -16,46 +26,33 @@ public class AsciiCharacterTest {
 
     @Test
     public void testToString() {
-        final AsciiCharacter character = new AsciiCharacter('A');
-        Assert.assertTrue(character.toString().length() > 0);
+        Assert.assertTrue(characterA.toString().length() > 0);
     }
+
+    ////////////////////////////////////// Equals Tests
 
     @Test
     public void testEquals_withSelf() {
-        final AsciiCharacter character = new AsciiCharacter('A');
-
-        Assert.assertTrue(character.equals(character));
+        Assert.assertTrue(characterA.equals(characterA));
     }
 
     @Test
     public void testEquals_withEqualCharacters() {
-        final AsciiCharacter characterA = new AsciiCharacter('A');
-        final AsciiCharacter characterB = new AsciiCharacter('A');
-
         Assert.assertTrue(characterA.equals(characterB));
     }
 
     @Test
     public void testEquals_withNonEqualCharacters() {
-        final AsciiCharacter characterA = new AsciiCharacter('A');
-        final AsciiCharacter characterB = new AsciiCharacter('B');
-
         Assert.assertFalse(characterA.equals(characterB));
     }
 
     @Test
     public void testEquals_withNonAsciiCharacterObject() {
-        final AsciiCharacter character = new AsciiCharacter('A');
-        final Integer integer = 666;
-
-        Assert.assertFalse(character.equals(integer));
+        Assert.assertFalse(characterA.equals(666));
     }
 
     @Test
     public void testEquals_withNonEqualBackgroundColors() {
-        final AsciiCharacter characterA = new AsciiCharacter('A');
-        final AsciiCharacter characterB = new AsciiCharacter('B');
-
         characterA.setBackgroundColor(Color.BLUE);
         characterB.setBackgroundColor(Color.RED);
 
@@ -64,9 +61,6 @@ public class AsciiCharacterTest {
 
     @Test
     public void testEquals_withNonEqualForegroundColors() {
-        final AsciiCharacter characterA = new AsciiCharacter('A');
-        final AsciiCharacter characterB = new AsciiCharacter('B');
-
         characterA.setForegroundColor(Color.BLUE);
         characterB.setForegroundColor(Color.RED);
 
@@ -75,17 +69,11 @@ public class AsciiCharacterTest {
 
     @Test
     public void testHashCode_withEqualCharacters() {
-        final AsciiCharacter characterA = new AsciiCharacter('A');
-        final AsciiCharacter characterB = new AsciiCharacter('A');
-
         Assert.assertEquals(characterA.hashCode(), characterB.hashCode());
     }
 
     @Test
     public void testHashCode_withNonEqualCharacters() {
-        final AsciiCharacter characterA = new AsciiCharacter('A');
-        final AsciiCharacter characterB = new AsciiCharacter('B');
-
         Assert.assertNotEquals(characterA.hashCode(), characterB.hashCode());
     }
 
@@ -121,62 +109,53 @@ public class AsciiCharacterTest {
 
     @Test
     public void testResumeBlinkEffect_withPausedBlinkEffect() {
-        final AsciiCharacter character = new AsciiCharacter('A');
-        character.enableBlinkEffect((short) 666, new Radio<>());
-        character.pauseBlinkEffect();
-        character.resumeBlinkEffect();
+        characterA.enableBlinkEffect((short) 666, new Radio<>());
+        characterA.pauseBlinkEffect();
+        characterA.resumeBlinkEffect();
     }
 
     @Test
     public void testResumeBlinkEffect_withNonPausedBlinkEffect() {
-        final AsciiCharacter character = new AsciiCharacter('A');
-        character.enableBlinkEffect((short) 666, new Radio<>());
-        character.resumeBlinkEffect();
+        characterA.enableBlinkEffect((short) 666, new Radio<>());
+        characterA.resumeBlinkEffect();
     }
 
     @Test
     public void testResumeBlinkEffect_withNullBlinkTimer() {
-        final AsciiCharacter character = new AsciiCharacter('A');
-        character.resumeBlinkEffect();
+        characterA.resumeBlinkEffect();
     }
 
     @Test
     public void testPauseBlinkEffect_withPausedBlinkEffect() {
-        final AsciiCharacter character = new AsciiCharacter('A');
-        character.enableBlinkEffect((short) 666, new Radio<>());
-        character.pauseBlinkEffect();
-        character.pauseBlinkEffect();
+        characterA.enableBlinkEffect((short) 666, new Radio<>());
+        characterA.pauseBlinkEffect();
+        characterA.pauseBlinkEffect();
     }
 
     @Test
     public void testPauseBlinkEffect_withNonPausedBlinkEffect() {
-        final AsciiCharacter character = new AsciiCharacter('A');
-        character.enableBlinkEffect((short) 666, new Radio<>());
-        character.pauseBlinkEffect();
+        characterA.enableBlinkEffect((short) 666, new Radio<>());
+        characterA.pauseBlinkEffect();
     }
 
     @Test
     public void testPauseBlinkEffect_withNullBlinkEffect() {
-        final AsciiCharacter character = new AsciiCharacter('A');
-        character.pauseBlinkEffect();
+        characterA.pauseBlinkEffect();
     }
 
     @Test
     public void testDisableBlinkEffect() {
-        final AsciiCharacter character = new AsciiCharacter('A');
-        character.enableBlinkEffect((short) 666, new Radio<>());
-        character.disableBlinkEffect();
+        characterA.enableBlinkEffect((short) 666, new Radio<>());
+        characterA.disableBlinkEffect();
     }
 
     @Test
     public void testDisableBlinkEffect_withNullBlinkEffect() {
-        final AsciiCharacter character = new AsciiCharacter('A');
-        character.disableBlinkEffect();
+        characterA.disableBlinkEffect();
     }
 
     @Test
     public void testInvertColors() {
-        final AsciiCharacter characterA = new AsciiCharacter('A');
         characterA.setBackgroundColor(Color.BLACK);
         characterA.setForegroundColor(Color.WHITE);
 
@@ -187,70 +166,73 @@ public class AsciiCharacterTest {
     }
 
     @Test
-    public void testSetBackgroundColor() {
-        final AsciiCharacter characterA = new AsciiCharacter('A');
+    public void testTintBackgroundColor() {
         characterA.setBackgroundColor(Color.RED);
+        characterA.tintBackgroundColor(1.0);
+        Assert.assertEquals(Color.WHITE, characterA.getBackgroundColor());
+    }
 
+    @Test
+    public void testTintForegroundColor() {
+        characterA.setForegroundColor(Color.RED);
+        characterA.tintForegroundColor(1.0);
+        Assert.assertEquals(Color.WHITE, characterA.getForegroundColor());
+    }
+
+    @Test
+    public void testSetBackgroundColor() {
+        characterA.setBackgroundColor(Color.RED);
         Assert.assertEquals(characterA.getBackgroundColor(), Color.RED);
     }
 
     @Test(expected=NullPointerException.class)
     public void testSetBackgroundColor_withNullColor() {
-        final AsciiCharacter characterA = new AsciiCharacter('A');
         characterA.setBackgroundColor(Color.RED);
         characterA.setBackgroundColor(null);
     }
 
     @Test
     public void testSetForegroundColor() {
-        final AsciiCharacter characterA = new AsciiCharacter('A');
         characterA.setForegroundColor(Color.RED);
-
         Assert.assertEquals(characterA.getForegroundColor(), Color.RED);
     }
 
     @Test(expected=NullPointerException.class)
     public void testSetForegroundColor_withNullColor() {
-        final AsciiCharacter characterA = new AsciiCharacter('A');
         characterA.setForegroundColor(Color.RED);
         characterA.setForegroundColor(null);
     }
 
     @Test
     public void testSetUnderlineThickness() {
-        final AsciiCharacter character = new AsciiCharacter('A');
-        character.getBoundingBox().setSize(2, 7);
-
-        character.setUnderlineThickness(6);
-        Assert.assertEquals(6, character.getUnderlineThickness());
+        characterA.getBoundingBox().setSize(2, 7);
+        characterA.setUnderlineThickness(6);
+        Assert.assertEquals(6, characterA.getUnderlineThickness());
     }
 
     @Test
     public void testSetUnderlineThickness_withThicknessGreaterThanBoundingBoxHeight() {
-        final AsciiCharacter character = new AsciiCharacter('A');
-        character.getBoundingBox().setSize(2, 2);
+        characterA.getBoundingBox().setSize(2, 2);
 
-        int originalThickness = character.getUnderlineThickness();
+        int originalThickness = characterA.getUnderlineThickness();
 
-        character.setUnderlineThickness((int) character.getBoundingBox().getHeight() + 1);
-        Assert.assertEquals(originalThickness, character.getUnderlineThickness());
+        characterA.setUnderlineThickness((int) characterA.getBoundingBox().getHeight() + 1);
+        Assert.assertEquals(originalThickness, characterA.getUnderlineThickness());
     }
 
     @Test
     public void testSetUnderlineThickness_withThicknessEqualToZero() {
-        final AsciiCharacter character = new AsciiCharacter('A');
-        character.getBoundingBox().setSize(2, 2);
+        characterA.getBoundingBox().setSize(2, 2);
 
-        character.setUnderlineThickness(0);
-        Assert.assertEquals(1, character.getUnderlineThickness());
+        characterA.setUnderlineThickness(0);
+        Assert.assertEquals(1, characterA.getUnderlineThickness());
     }
 
     @Test
     public void testSetUnderlineThickness_withThicknessLessThanZero() {
-        final AsciiCharacter character = new AsciiCharacter('A');
-        character.getBoundingBox().setSize(2, 2);
+        characterA.getBoundingBox().setSize(2, 2);
 
-        character.setUnderlineThickness(-1);
-        Assert.assertEquals(1, character.getUnderlineThickness());
+        characterA.setUnderlineThickness(-1);
+        Assert.assertEquals(1, characterA.getUnderlineThickness());
     }
 }
