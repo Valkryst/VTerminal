@@ -47,7 +47,7 @@ public class ComponentBuilderTest {
     }
 
     @Test
-    public void testSetColumnIndex() {
+    public void testSetColumnIndex_withValidInput() {
         builder.setColumnIndex(6);
         Assert.assertEquals(6, builder.getColumnIndex());
     }
@@ -65,7 +65,7 @@ public class ComponentBuilderTest {
     }
 
     @Test
-    public void testSetRowIndex() {
+    public void testSetRowIndex_withValidInput() {
         builder.setRowIndex(6);
         Assert.assertEquals(6, builder.getRowIndex());
     }
@@ -79,6 +79,27 @@ public class ComponentBuilderTest {
     @Test
     public void testSetRowIndex_withIndexLessThanZero() {
         builder.setRowIndex(-1);
+        Assert.assertEquals(0, builder.getRowIndex());
+    }
+
+    @Test
+    public void testSetColumnAndRowIndices_withValidInput() {
+        builder.setColumnAndRowIndices(6, 7);
+        Assert.assertEquals(6, builder.getColumnIndex());
+        Assert.assertEquals(7, builder.getRowIndex());
+    }
+
+    @Test
+    public void testSetColumnAndRowIndices_withInvalidColumnIndex() {
+        builder.setColumnAndRowIndices(-1, 7);
+        Assert.assertEquals(0, builder.getColumnIndex());
+        Assert.assertEquals(7, builder.getRowIndex());
+    }
+
+    @Test
+    public void testSetColumnAndRowIndices_withInvalidRowIndex() {
+        builder.setColumnAndRowIndices(6, -1);
+        Assert.assertEquals(6, builder.getColumnIndex());
         Assert.assertEquals(0, builder.getRowIndex());
     }
 
