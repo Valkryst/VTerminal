@@ -34,7 +34,7 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
     @Getter private Color foregroundColor_checked;
 
     @Override
-    public CheckBox build() throws IllegalStateException {
+    public CheckBox build() {
         checkState();
 
         final CheckBox checkBox = new CheckBox(this);
@@ -47,14 +47,14 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
     /**
      * Checks the current state of the builder.
      *
-     * @throws IllegalStateException
-     *          If something is wrong with the builder's state.
+     * @throws NullPointerException
+     *          If the radio is null.
      */
-    protected void checkState() throws IllegalStateException {
+    protected void checkState() throws NullPointerException {
         super.checkState();
 
         if (radio == null) {
-            throw new IllegalStateException("The box must have a radio to transmit to.");
+            throw new NullPointerException("The box must have a radio to transmit to.");
         }
     }
 

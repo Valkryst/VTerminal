@@ -35,7 +35,7 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
     @Getter private Runnable onClickFunction;
 
     @Override
-    public Button build() throws IllegalStateException {
+    public Button build() {
         checkState();
 
         final Button button = new Button(this);
@@ -48,14 +48,14 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
     /**
      * Checks the current state of the builder.
      *
-     * @throws IllegalStateException
-     *          If something is wrong with the builder's state.
+     * @throws NullPointerException
+     *          If the radio is null.
      */
-    protected void checkState() throws IllegalStateException {
+    protected void checkState() throws NullPointerException {
         super.checkState();
 
         if (radio == null) {
-            throw new IllegalStateException("The button must have a radio to transmit to.");
+            throw new NullPointerException("The button must have a radio to transmit to.");
         }
     }
 

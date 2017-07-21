@@ -28,7 +28,7 @@ public class LoadingBarBuilder extends ComponentBuilder<LoadingBar, LoadingBarBu
     @Getter private Color foregroundColor_complete;
 
     @Override
-    public LoadingBar build() throws IllegalStateException {
+    public LoadingBar build() {
         checkState();
 
         final LoadingBar loadingBar = new LoadingBar(this);
@@ -41,13 +41,13 @@ public class LoadingBarBuilder extends ComponentBuilder<LoadingBar, LoadingBarBu
      * Checks the current state of the builder.
      *
      * @throws IllegalStateException
-     *          If something is wrong with the builder's state.
+     *          If the radio is null.
      */
     protected void checkState() throws IllegalStateException {
         super.checkState();
 
         if (radio == null) {
-            throw new IllegalStateException("The box must have a radio to transmit to.");
+            throw new NullPointerException("The box must have a radio to transmit to.");
         }
     }
 

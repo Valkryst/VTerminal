@@ -29,11 +29,8 @@ public class PanelBuilder {
      *
      * @return
      *         The new VTerminal.
-     *
-     * @throws IllegalStateException
-     *          If something is wrong with the builder's state.
      */
-    public Panel build() throws IllegalStateException {
+    public Panel build() {
         checkState();
 
         final Panel panel = new Panel(this);
@@ -51,10 +48,10 @@ public class PanelBuilder {
     /**
      * Checks the current state of the builder.
      *
-     * @throws IllegalStateException
-     *          If something is wrong with the builder's state.
+     * @throws NullPointerException
+     *          If the font is null.
      */
-    private void checkState() throws IllegalStateException {
+    private void checkState() throws NullPointerException {
         if (font == null) {
             throw new NullPointerException("The panel must have an AsciiFont to draw with.");
         }

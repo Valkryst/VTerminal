@@ -39,12 +39,12 @@ public class ComponentBuilder<C extends Component, B extends ComponentBuilder<C,
     /**
      * Checks the current state of the builder.
      *
-     * @throws IllegalStateException
-     *          If something is wrong with the builder's state.
+     * @throws NullPointerException
+     *          If the panel is null.
      */
-    protected void checkState() throws IllegalStateException {
+    protected void checkState() throws NullPointerException {
         if (panel == null) {
-            throw new IllegalStateException("The component must have a panel to be placed on.");
+            throw new NullPointerException("The component must have a panel to be placed on.");
         }
     }
 

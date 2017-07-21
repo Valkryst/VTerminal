@@ -35,7 +35,7 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
     @Getter private Color foregroundColor_checked;
 
     @Override
-    public RadioButton build() throws IllegalStateException {
+    public RadioButton build() {
         checkState();
 
         final RadioButton radioButton = new RadioButton(this);
@@ -49,18 +49,18 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton, RadioButto
     /**
      * Checks the current state of the builder.
      *
-     * @throws IllegalStateException
-     *          If something is wrong with the builder's state.
+     * @throws NullPointerException
+     *          If the radio or group are null.
      */
-    protected void checkState() throws IllegalStateException {
+    protected void checkState() throws NullPointerException {
         super.checkState();
 
         if (radio == null) {
-            throw new IllegalStateException("The button must have a radio to transmit to.");
+            throw new NullPointerException("The button must have a radio to transmit to.");
         }
 
         if (group == null) {
-            throw new IllegalStateException("The button must belong to a radio button group.");
+            throw new NullPointerException("The button must belong to a radio button group.");
         }
     }
 
