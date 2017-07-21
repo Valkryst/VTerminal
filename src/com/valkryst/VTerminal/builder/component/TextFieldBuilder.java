@@ -125,7 +125,9 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
      *        This.
      */
     public TextFieldBuilder setMaxCharacters(final int maxCharacters) {
-        this.maxCharacters = maxCharacters;
+        if (maxCharacters >= 1) {
+            this.maxCharacters = maxCharacters;
+        }
 
         return this;
     }
