@@ -39,6 +39,11 @@ public class IntRangeTest {
     }
 
     @Test
+    public void testToString() {
+        Assert.assertFalse(new IntRange(1, 2).toString().isEmpty());
+    }
+
+    @Test
     public void testEquals_withSelf() {
         Assert.assertEquals(range, range);
     }
