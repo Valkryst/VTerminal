@@ -78,6 +78,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
         super.reset();
 
         width = 4;
+        maxCharacters = 4;
 
         radio = null;
 
