@@ -77,6 +77,18 @@ public class TextFieldBuilderTest {
     }
 
     @Test
+    public void testSetMaxCharacters_withMaxCharactersAboveZero() {
+        builder.setMaxCharacters(66);
+        Assert.assertEquals(66, builder.getWidth());
+    }
+
+    @Test
+    public void testSetMaxCharacters_withMaxCharactersBelowOne() {
+        builder.setMaxCharacters(0);
+        Assert.assertEquals(1, builder.getWidth());
+    }
+
+    @Test
     public void testSetCaretForegroundColor_withValidColor() {
         builder.setCaretForegroundColor(Color.RED);
         Assert.assertEquals(Color.RED, builder.getCaretForegroundColor());
