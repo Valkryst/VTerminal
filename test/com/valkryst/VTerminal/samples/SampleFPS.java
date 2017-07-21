@@ -35,7 +35,10 @@ public class SampleFPS {
 
             final double current = 1000 / Math.max((System.currentTimeMillis() - bef), 1);
             measurement = (measurement * smoothing) + (current * (1.0-smoothing));
-            System.out.println("Estimated FPS based on Past Render Times:\t" + measurement);
+
+            if (temp == 45) {
+                System.out.println("Estimated FPS based on Past Render Times:\t" + measurement);
+            }
             Thread.sleep(100);
         }
     }
