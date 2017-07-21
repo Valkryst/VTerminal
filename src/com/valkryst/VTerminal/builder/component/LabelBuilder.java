@@ -15,7 +15,7 @@ public class LabelBuilder extends ComponentBuilder<Label, LabelBuilder> {
     @Getter private Color foregroundColor;
 
     @Override
-    public Label build() throws IllegalStateException {
+    public Label build() {
         checkState();
 
         final Label label = new Label(this);
