@@ -16,7 +16,7 @@ public class RadioButtonBuilderTest {
         builder = new RadioButtonBuilder();
     }
 
-    @Test(expected=IllegalStateException.class)
+    @Test(expected=NullPointerException.class)
     public void testCheckState_withNoPanelSet() {
         builder.checkState();
     }
@@ -63,6 +63,17 @@ public class RadioButtonBuilderTest {
 
         Assert.assertEquals(new Color(0x366C9F), builder.getBackgroundColor_checked());
         Assert.assertEquals(new Color(0xFFFF66), builder.getForegroundColor_checked());
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testCheckState_withNullRadio() {
+        builder.build();
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testCheckState_withNullGroup() {
+        builder.setRadio(new Radio<>());
+        builder.build();
     }
 
     @Test
