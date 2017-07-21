@@ -28,6 +28,6 @@ public class DisableBlinkEffectTest {
     public void toRange_withValidInput() {
         final IntRange range = new IntRange(0, 3);
         string.enableBlinkEffect((short) 1000, new Radio<>(), range);
-        string.disableBlinkEffect();
+        string.disableBlinkEffect(range);
     }
 }
