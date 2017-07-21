@@ -14,6 +14,12 @@ public class FontTest {
     }
 
     @Test
+    public void testConstructor_withZeroScale() throws IOException, URISyntaxException {
+        FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 0);
+        Assert.assertTrue(true);
+    }
+
+    @Test
     public void testGetCharacterImage_withAllSymbolAlphabeticAndNumberAsciiCharacters() {
         for (byte i = 33 ; i < 127 ; i++) {
             Assert.assertNotNull(font.getCharacterImage((char) i));
