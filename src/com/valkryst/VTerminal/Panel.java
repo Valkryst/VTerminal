@@ -28,6 +28,7 @@ public class Panel extends Canvas implements Receiver<String> {
     /** The screen being displayed on the panel. */
     @Getter private Screen screen;
 
+    /** The radio being listened to. */
     @Getter private Radio<String> radio = new Radio<>();
 
     /** The image cache to retrieve character images from. */
