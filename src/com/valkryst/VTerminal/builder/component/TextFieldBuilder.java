@@ -11,6 +11,9 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
     /** The width of the text field, in characters. */
     @Getter private int width;
 
+    /** The maximum number of characters that the text field can contain. */
+    @Getter private int maxCharacters;
+
     /** The foreground color of the caret. */
     @Getter private Color caretForegroundColor;
     /** The background color of the caret. */
@@ -57,6 +60,10 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
     protected void checkState() throws IllegalStateException {
         super.checkState();
 
+        if (maxCharacters < width) {
+            maxCharacters = width;
+        }
+
         if (radio == null) {
             radio = panel.getRadio();
 
@@ -70,7 +77,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
     public void reset() {
         super.reset();
 
-        width = 1;
+        width = 4;
 
         radio = null;
 
@@ -103,6 +110,22 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
         if (width >= 1) {
             this.width = width;
         }
+
+        return this;
+    }
+
+    /**
+     * Sets the maximum amount of characters that the text field
+     * can contain.
+     *
+     * @param maxCharacters
+     *        The maximum number of characters.
+     *
+     * @return
+     *        This.
+     */
+    public TextFieldBuilder setMaxCharacters(final int maxCharacters) {
+        this.maxCharacters = maxCharacters;
 
         return this;
     }
