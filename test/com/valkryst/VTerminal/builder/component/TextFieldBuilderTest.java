@@ -12,11 +12,11 @@ public class TextFieldBuilderTest {
     private TextFieldBuilder builder;
 
     @Before
-    public void initalizeBuilder() {
+    public void initializeBuilder() {
         builder = new TextFieldBuilder();
     }
 
-    @Test(expected=IllegalStateException.class)
+    @Test(expected=NullPointerException.class)
     public void testCheckState_withNoPanelSet() {
         builder.checkState();
     }
@@ -46,7 +46,7 @@ public class TextFieldBuilderTest {
 
         builder.reset();
 
-        Assert.assertEquals(1, builder.getWidth());
+        Assert.assertEquals(4, builder.getWidth());
 
         Assert.assertEquals(null, builder.getRadio());
 
@@ -73,19 +73,19 @@ public class TextFieldBuilderTest {
     @Test
     public void testSetWidth_withWidthBelowOne() {
         builder.setWidth(0);
-        Assert.assertEquals(1, builder.getWidth());
+        Assert.assertEquals(4, builder.getWidth());
     }
 
     @Test
     public void testSetMaxCharacters_withMaxCharactersAboveZero() {
         builder.setMaxCharacters(66);
-        Assert.assertEquals(66, builder.getWidth());
+        Assert.assertEquals(66, builder.getMaxCharacters());
     }
 
     @Test
     public void testSetMaxCharacters_withMaxCharactersBelowOne() {
         builder.setMaxCharacters(0);
-        Assert.assertEquals(1, builder.getWidth());
+        Assert.assertEquals(4, builder.getMaxCharacters());
     }
 
     @Test

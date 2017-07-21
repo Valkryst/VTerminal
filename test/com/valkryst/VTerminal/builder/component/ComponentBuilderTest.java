@@ -20,12 +20,12 @@ public class ComponentBuilderTest {
         new ComponentBuilder<>();
     }
 
-    @Test(expected=IllegalStateException.class)
+    @Test(expected=NullPointerException.class)
     public void testBuild() {
         builder.build();
     }
 
-    @Test(expected=IllegalStateException.class)
+    @Test(expected=NullPointerException.class)
     public void testCheckState_withNoPanelSet() {
         builder.checkState();
     }
