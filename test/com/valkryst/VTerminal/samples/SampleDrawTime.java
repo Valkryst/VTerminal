@@ -35,7 +35,10 @@ public class SampleDrawTime {
             final long res = System.currentTimeMillis() - bef;
             counter++;
             total += res;
-            System.out.println("Draw Took:\t" + res + "ms\t\tAvg Is:\t" + (total / counter) + "ms");
+
+            if (temp == 45) {
+                System.out.println("Draw Took:\t" + res + "ms\t\tAvg Is:\t" + (total / counter) + "ms");
+            }
 
             Thread.sleep(100);
         }
