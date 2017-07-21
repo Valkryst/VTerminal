@@ -1,34 +1,9 @@
 package com.valkryst.VTerminal.misc;
 
 import java.awt.Color;
-import java.awt.Transparency;
 import java.util.Objects;
 
 public class ColorFunctions {
-    /**
-     * Ensures that a color supports transparency.
-     *
-     * @param color
-     *         The color.
-     *
-     * @return
-     *         Either the input color, if it supports transparency,
-     *         or a new copy of the input color which supports
-     *         transparency.
-     *
-     * @throws NullPointerException
-     *         If the color is null.
-     */
-    public static Color enforceTransparentColor(final Color color) {
-        Objects.requireNonNull(color);
-
-        if (color.getTransparency() != Transparency.TRANSLUCENT) {
-            return new Color(color.getRGB(), true);
-        }
-
-        return color;
-    }
-
     /**
      * Shades a color by some factor, where a higher factor results
      * in a darker shade.

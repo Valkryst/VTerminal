@@ -318,7 +318,7 @@ public class AsciiCharacter {
         Objects.requireNonNull(color);
 
 	    if (backgroundColor.equals(color) == false) {
-            this.backgroundColor = ColorFunctions.enforceTransparentColor(color);
+            this.backgroundColor = color;
         }
     }
 
@@ -337,7 +337,7 @@ public class AsciiCharacter {
         Objects.requireNonNull(color);
 
 	    if (foregroundColor.equals(color) == false) {
-	        this.foregroundColor = ColorFunctions.enforceTransparentColor(color);
+	        this.foregroundColor = color;
         }
     }
 

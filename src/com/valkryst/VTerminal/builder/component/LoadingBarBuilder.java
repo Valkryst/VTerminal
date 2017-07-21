@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.LoadingBar;
-import com.valkryst.VTerminal.misc.ColorFunctions;
 import lombok.Getter;
 
 import java.awt.Color;
@@ -143,7 +142,7 @@ public class LoadingBarBuilder extends ComponentBuilder<LoadingBar, LoadingBarBu
      */
     public LoadingBarBuilder setBackgroundColor_incomplete(final Color backgroundColor_incomplete) {
         if (backgroundColor_incomplete != null) {
-            this.backgroundColor_incomplete = ColorFunctions.enforceTransparentColor(backgroundColor_incomplete);
+            this.backgroundColor_incomplete = backgroundColor_incomplete;
         }
 
         return this;
@@ -160,7 +159,7 @@ public class LoadingBarBuilder extends ComponentBuilder<LoadingBar, LoadingBarBu
      */
     public LoadingBarBuilder setForegroundColor_incomplete(final Color foregroundColor_incomplete) {
         if (foregroundColor_incomplete != null) {
-            this.foregroundColor_incomplete = ColorFunctions.enforceTransparentColor(foregroundColor_incomplete);
+            this.foregroundColor_incomplete = foregroundColor_incomplete;
         }
 
         return this;
@@ -177,7 +176,7 @@ public class LoadingBarBuilder extends ComponentBuilder<LoadingBar, LoadingBarBu
      */
     public LoadingBarBuilder setBackgroundColor_complete(final Color backgroundColor_complete) {
         if (backgroundColor_complete != null) {
-            this.backgroundColor_complete = ColorFunctions.enforceTransparentColor(backgroundColor_complete);
+            this.backgroundColor_complete = backgroundColor_complete;
         }
 
         return this;
@@ -194,7 +193,7 @@ public class LoadingBarBuilder extends ComponentBuilder<LoadingBar, LoadingBarBu
      */
     public LoadingBarBuilder setForegroundColor_complete(final Color foregroundColor_complete) {
         if (foregroundColor_complete != null) {
-            this.foregroundColor_complete = ColorFunctions.enforceTransparentColor(foregroundColor_complete);
+            this.foregroundColor_complete = foregroundColor_complete;
         }
 
         return this;
