@@ -52,6 +52,16 @@ public class FontLoaderTest {
         FontLoader.loadFont(spriteSheetStream, characterDataStream, 1);
     }
 
+    @Test
+    public void loadFont_streams_withScaleBelowOne() throws IOException, URISyntaxException {
+        final ClassLoader classLoader = FontLoader.class.getClassLoader();
+
+        final InputStream spriteSheetStream = classLoader.getResourceAsStream(spriteSheetPath);
+        final InputStream characterDataStream = classLoader.getResourceAsStream(characterDataPath);
+
+        FontLoader.loadFont(spriteSheetStream, characterDataStream, 0);
+    }
+
     @Test(expected=NullPointerException.class)
     public void loadFont_streams_withNullSpriteSheetInputStream() throws IOException, URISyntaxException {
         final ClassLoader classLoader = FontLoader.class.getClassLoader();
