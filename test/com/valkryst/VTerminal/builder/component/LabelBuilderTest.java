@@ -14,7 +14,7 @@ public class LabelBuilderTest {
         builder = new LabelBuilder();
     }
 
-    @Test(expected=IllegalStateException.class)
+    @Test(expected=NullPointerException.class)
     public void testCheckState_withNoPanelSet() {
         builder.checkState();
     }

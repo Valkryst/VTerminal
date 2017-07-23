@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.Label;
-import com.valkryst.VTerminal.misc.ColorFunctions;
 import lombok.Getter;
 
 import java.awt.Color;
@@ -16,7 +15,7 @@ public class LabelBuilder extends ComponentBuilder<Label, LabelBuilder> {
     @Getter private Color foregroundColor;
 
     @Override
-    public Label build() throws IllegalStateException {
+    public Label build() {
         checkState();
 
         final Label label = new Label(this);
@@ -63,7 +62,7 @@ public class LabelBuilder extends ComponentBuilder<Label, LabelBuilder> {
      */
     public LabelBuilder setBackgroundColor(final Color backgroundColor) {
         if (backgroundColor != null) {
-            this.backgroundColor = ColorFunctions.enforceTransparentColor(backgroundColor);
+            this.backgroundColor = backgroundColor;
         }
 
         return this;
@@ -80,7 +79,7 @@ public class LabelBuilder extends ComponentBuilder<Label, LabelBuilder> {
      */
     public LabelBuilder setForegroundColor(final Color foregroundColor) {
         if (foregroundColor != null) {
-            this.foregroundColor = ColorFunctions.enforceTransparentColor(foregroundColor);
+            this.foregroundColor = foregroundColor;
         }
 
         return this;

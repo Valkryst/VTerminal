@@ -15,7 +15,7 @@ public class CheckBoxBuilderTest {
         builder = new CheckBoxBuilder();
     }
 
-    @Test(expected=IllegalStateException.class)
+    @Test(expected=NullPointerException.class)
     public void testCheckState_withNoPanelSet() {
         builder.checkState();
     }

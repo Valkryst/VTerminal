@@ -8,6 +8,8 @@ Please refer to the LICENSE file for additional information.
 
 [![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg)](https://github.com/Valkryst/VTerminal/blob/master/LICENSE.md) ![](https://travis-ci.org/Valkryst/VTerminal.svg?branch=master) [![codecov](https://codecov.io/gh/Valkryst/VTerminal/branch/master/graph/badge.svg)](https://codecov.io/gh/Valkryst/VTerminal) [![Release](https://jitpack.io/v/Valkryst/VTerminal.svg)](https://jitpack.io/#Valkryst/VTerminal)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/935164ad165841f9871665cde7975eaf)](https://www.codacy.com/app/Valkryst/VTerminal?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Valkryst/VTerminal&amp;utm_campaign=Badge_Grade)
+
 # VTerminal
 
 
@@ -88,9 +90,6 @@ To use a different font:
 ## Misc
 
 * Ensure the font png image uses a transparent background with white characters. The program relies on this and unintended behaviour could occur with any other settings.
-* In an effort to achieve optimal draw performance, VTerminal makes use of an image cache. Any time an image is drawn with a unique fore/background color, a new image is created, the colors are applied, and then that image is saved in the cache until the process terminates. 
-     * This does require some amount of RAM, but it drastically reduces the amount of CPU time spent re-coloring images on every draw call.
-     * Assuming that this library is used for GUIs and text-based games, it's reasonable to say that the cache will eventually contain every possible fore/background color & character combination that's used. When this happens, there should be no cache misses and optimal draw times will be reached.
 * The -Xmx JVM parameter can be used to reduce the maximum amount of memory that VTerminal is allowed to use.
      * Tests have been run with with -Xmx32M, -Xmx64M, -Xmx128M, and -Xmx256M without affecting performance.
      * Values lower than 32M are not recommended.
@@ -107,36 +106,3 @@ To use a different font:
 2. The Screen is drawn onto the Panel.
 3. The Layers are drawn on top of the Screen on the Panel.
 4. The Sub-Screens are drawn on top of the Screen/Layers on the Panel.
-
-
-### FPS Testing
-
-```java
-final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
-final Panel panel = new PanelBuilder().setAsciiFont(font).build();
-
-double smoothing = 0.9; // larger=more smoothing
-double measurement = 0.0;
-
-int temp = 45;
-
-while(true) {
-    panel.getCurrentScreen().clear((char)temp);
-    panel.getCurrentScreen().setForegroundColor(new Color(255, 155, temp));
-    panel.getCurrentScreen().setBackgroundColor(new Color(temp, 155, 255));
-
-    temp++;
-
-    if (temp > 55) {
-        temp = 45;
-    }
-
-    final long bef = System.currentTimeMillis();
-    panel.draw();
-
-    final double current = 1000 / Math.max((System.currentTimeMillis() - bef), 1);
-    measurement = (measurement * smoothing) + (current * (1.0-smoothing));
-    System.out.println("Estimated FPS based on Past Render Times:\t" + measurement);
-    Thread.sleep(100);
-}
-```

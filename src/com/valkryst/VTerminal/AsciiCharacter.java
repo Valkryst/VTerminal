@@ -109,23 +109,33 @@ public class AsciiCharacter {
      *
      * @param rowIndex
      *         The y-axis (row) coordinate where the character is to be drawn.
+     *
+     * @throws NullPointerException
+     *         If the gc or image cache are null.
      */
     public void draw(final Graphics2D gc, final ColoredImageCache imageCache, int columnIndex, int rowIndex) {
+        Objects.requireNonNull(gc);
+        Objects.requireNonNull(imageCache);
+
         final int fontWidth = imageCache.getFont().getWidth();
         final int fontHeight = imageCache.getFont().getHeight();
 
         columnIndex *= fontWidth;
         rowIndex *= fontHeight;
 
+        BufferedImage image;
+
         // Handle hidden state:
         if (isHidden) {
-            gc.setColor(backgroundColor);
-            gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
-            return;
+            final Color color = foregroundColor;
+            foregroundColor = backgroundColor;
+
+            image = imageCache.retrieveFromCache(this);
+
+            foregroundColor = color;
+        } else {
+            image = imageCache.retrieveFromCache(this);
         }
-
-
-        BufferedImage image = imageCache.retrieveFromCache(this);
 
         // Handle Horizontal/Vertical Flipping:
         if (isFlippedHorizontally || isFlippedVertically) {
@@ -184,20 +194,16 @@ public class AsciiCharacter {
 
     /** Resumes the blink effect. */
     public void resumeBlinkEffect() {
-        if (blinkTimer != null) {
-            if (blinkTimer.isRunning() == false) {
-                blinkTimer.start();
-            }
+        if (blinkTimer != null && blinkTimer.isRunning() == false) {
+            blinkTimer.start();
         }
     }
 
     /** Pauses the blink effect. */
     public void pauseBlinkEffect() {
-        if (blinkTimer != null) {
-            if (blinkTimer.isRunning()) {
-                isHidden = false;
-                blinkTimer.stop();
-            }
+        if (blinkTimer != null && blinkTimer.isRunning()) {
+            isHidden = false;
+            blinkTimer.stop();
         }
     }
 
@@ -304,14 +310,14 @@ public class AsciiCharacter {
      *
      * @param color
      *         The new background color.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
      */
     public void setBackgroundColor(Color color) {
-        color = ColorFunctions.enforceTransparentColor(color);
+        Objects.requireNonNull(color);
 
-	    boolean canProceed = color != null;
-	    canProceed &= backgroundColor.equals(color) == false;
-
-	    if (canProceed) {
+	    if (backgroundColor.equals(color) == false) {
             this.backgroundColor = color;
         }
     }
@@ -323,14 +329,14 @@ public class AsciiCharacter {
      *
      * @param color
      *         The new foreground color.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
      */
     public void setForegroundColor(Color color) {
-        color = ColorFunctions.enforceTransparentColor(color);
+        Objects.requireNonNull(color);
 
-	    boolean canProceed = color != null;
-	    canProceed &= foregroundColor.equals(color) == false;
-
-	    if (canProceed) {
+	    if (foregroundColor.equals(color) == false) {
 	        this.foregroundColor = color;
         }
     }

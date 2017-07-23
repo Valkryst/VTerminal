@@ -49,9 +49,14 @@ public class CheckBox extends Component {
      *
      * @param builder
      *         The builder to use.
+     *
+     * @throws NullPointerException
+     *         If the builder is null.
      */
     public CheckBox(final CheckBoxBuilder builder) {
         super(builder.getColumnIndex(), builder.getRowIndex(), builder.getText().length() + 2, 1);
+
+        Objects.requireNonNull(builder);
 
         super.setRadio(builder.getRadio());
 
@@ -84,7 +89,8 @@ public class CheckBox extends Component {
         }
 
         // Set the back/foreground colors:
-        string.setBackgroundAndForegroundColor(backgroundColor_normal, foregroundColor_normal);
+        string.setBackgroundColor(backgroundColor_normal);
+        string.setForegroundColor(foregroundColor_normal);
     }
 
     @Override
@@ -120,6 +126,8 @@ public class CheckBox extends Component {
 
     @Override
     public void registerEventHandlers(final Panel panel) {
+        Objects.requireNonNull(panel);
+
         final Font font = panel.getImageCache().getFont();
         final int fontWidth = font.getWidth();
         final int fontHeight = font.getHeight();
@@ -180,7 +188,7 @@ public class CheckBox extends Component {
             isInHoveredState = false;
 
             setColors(backgroundColor_normal, foregroundColor_normal);
-            transmitDraw();
+            super.transmitDraw();
         }
     }
 
@@ -194,7 +202,7 @@ public class CheckBox extends Component {
             isInHoveredState = true;
 
             setColors(backgroundColor_hover, foregroundColor_hover);
-            transmitDraw();
+            super.transmitDraw();
         }
     }
 
@@ -208,7 +216,7 @@ public class CheckBox extends Component {
             isInHoveredState = false;
 
             setColors(backgroundColor_checked, foregroundColor_checked);
-            transmitDraw();
+            super.transmitDraw();
         }
     }
 
@@ -220,10 +228,17 @@ public class CheckBox extends Component {
      *
      * @param foregroundColor
      *         The new foreground color.
+     *
+     * @throws NullPointerException
+     *         If the background or foreground color is null.
      */
     private void setColors(final Color backgroundColor, final Color foregroundColor) {
+        Objects.requireNonNull(backgroundColor);
+        Objects.requireNonNull(foregroundColor);
+
         for (final AsciiString s : super.getStrings()) {
-            s.setBackgroundAndForegroundColor(backgroundColor, foregroundColor);
+            s.setBackgroundColor(backgroundColor);
+            s.setForegroundColor(foregroundColor);
         }
     }
 
@@ -244,6 +259,9 @@ public class CheckBox extends Component {
      *
      * @param checkedBoxChar
      *         The new checked box character.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
      */
     public void setEndingCharacter(final char checkedBoxChar) {
         this.checkedBoxChar = checkedBoxChar;
@@ -257,11 +275,12 @@ public class CheckBox extends Component {
      *
      * @param color
      *         The new normal background color.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
      */
     public void setBackgroundColor_normal(final Color color) {
-        if (color == null) {
-            return;
-        }
+        Objects.requireNonNull(color);
 
         backgroundColor_normal = color;
 
@@ -275,11 +294,12 @@ public class CheckBox extends Component {
      *
      * @param color
      *         The new normal foreground color.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
      */
     public void setForegroundColor_normal(final Color color) {
-        if (color == null) {
-            return;
-        }
+        Objects.requireNonNull(color);
 
         foregroundColor_normal = color;
 
@@ -293,11 +313,12 @@ public class CheckBox extends Component {
      *
      * @param color
      *         The new normal background color.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
      */
     public void setBackgroundColor_hover(final Color color) {
-        if (color == null) {
-            return;
-        }
+        Objects.requireNonNull(color);
 
         backgroundColor_hover = color;
 
@@ -311,11 +332,12 @@ public class CheckBox extends Component {
      *
      * @param color
      *         The new hovered foreground color.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
      */
     public void setForegroundColor_hover(final Color color) {
-        if (color == null) {
-            return;
-        }
+        Objects.requireNonNull(color);
 
         foregroundColor_hover = color;
 
@@ -329,7 +351,7 @@ public class CheckBox extends Component {
         isChecked = true;
         super.getString(0).setCharacter(0, checkedBoxChar);
 
-        transmitDraw();
+        super.transmitDraw();
     }
 
     /** Unchecks the check box. */
@@ -337,6 +359,6 @@ public class CheckBox extends Component {
         isChecked = false;
         super.getString(0).setCharacter(0, emptyBoxChar);
 
-        transmitDraw();
+        super.transmitDraw();
     }
 }

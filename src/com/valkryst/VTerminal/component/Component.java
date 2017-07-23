@@ -144,8 +144,13 @@ public class Component {
      *
      * @param panel
      *         The panel to register events with.
+     *
+     * @throws NullPointerException
+     *         If the panel is null.
      */
     public void registerEventHandlers(final Panel panel) {
+        Objects.requireNonNull(panel);
+
         final Font font = panel.getImageCache().getFont();
         final int fontWidth = font.getWidth();
         final int fontHeight = font.getHeight();
@@ -177,8 +182,13 @@ public class Component {
      *
      * @param screen
      *         The screen to draw on.
+     *
+     * @throws NullPointerException
+     *         If the screen is null.
      */
     public void draw(final Screen screen) {
+        Objects.requireNonNull(screen);
+
         for (int row = 0 ; row < strings.length ; row++) {
             screen.write(strings[row], columnIndex, rowIndex + row);
         }
@@ -199,9 +209,14 @@ public class Component {
      *
      * @return
      *         Whether or not the components intersect.
+     *
+     * @throws NullPointerException
+     *         If the other component is null.
      */
     public boolean intersects(final Component otherComponent) {
-        return otherComponent != null && boundingBox.intersects(otherComponent.getBoundingBox());
+        Objects.requireNonNull(otherComponent);
+
+        return boundingBox.intersects(otherComponent.getBoundingBox());
 
     }
 
@@ -240,8 +255,13 @@ public class Component {
      *
      * @return
      *         Whether or not the mouse event is at a point that intersects this component.
+     *
+     * @throws NullPointerException
+     *         If the event is null.
      */
     public boolean intersects(final MouseEvent event, final int fontWidth, final int fontHeight) {
+        Objects.requireNonNull(event);
+
         final int mouseX = event.getX() / fontWidth;
         final int mouseY = event.getY() / fontHeight;
         return intersects(mouseX, mouseY);
@@ -447,10 +467,12 @@ public class Component {
      *
      * @param radio
      *         The new radio.
+     *
+     * @throws NullPointerException
+     *         If the radio is null.
      */
     public void setRadio(final Radio<String> radio) {
-        if (radio != null) {
-            this.radio = radio;
-        }
+        Objects.requireNonNull(radio);
+        this.radio = radio;
     }
 }

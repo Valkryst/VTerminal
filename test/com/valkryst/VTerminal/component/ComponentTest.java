@@ -89,11 +89,10 @@ public class ComponentTest {
         Assert.assertTrue(component.intersects(component));
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void testIntersects_withComponent_withNullParam() {
         final Component component = new Component(0, 0, width, height);
-
-        Assert.assertFalse(component.intersects(null));
+        component.intersects(null);
     }
 
     @Test

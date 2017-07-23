@@ -7,6 +7,8 @@ import com.valkryst.VTerminal.component.LoadingBar;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
+import com.valkryst.VTerminal.printer.RectanglePrinter;
+import com.valkryst.VTerminal.printer.RectangleType;
 
 import javax.swing.Timer;
 import java.awt.Color;
@@ -23,20 +25,30 @@ public class SampleComponents {
 
         panel.getScreen().setBackgroundColor(new Color(0xFF366C9F, true));
 
+        // Border
+        final RectanglePrinter printer = new RectanglePrinter();
+        printer.setRectangleType(RectangleType.HEAVY);
+        printer.setWidth(80);
+        printer.setHeight(24);
+        printer.print(panel, 0, 0);
+
+        printer.setWidth(24);
+        printer.print(panel, 0, 0);
+
         // Title
         new LabelBuilder().setColumnAndRowIndices(1, 1)
-                            .setPanel(panel)
-                            .setText("Component Library Test")
-                            .build()
-                            .getString(0)
-                            .underlineCharacters();
+                          .setPanel(panel)
+                          .setText("Component Library Test")
+                          .build()
+                          .getString(0)
+                          .setUnderlined(true);
 
         // Button
         new ButtonBuilder().setColumnAndRowIndices(1, 3)
-                            .setPanel(panel)
-                            .setText("Click")
-                            .setOnClickFunction(() -> System.out.println("Clicked!"))
-                            .build();
+                           .setPanel(panel)
+                           .setText("Click")
+                           .setOnClickFunction(() -> System.out.println("Clicked!"))
+                           .build();
 
         // First Radio Button Group
         final RadioButtonGroup groupA = new RadioButtonGroup();
@@ -71,23 +83,30 @@ public class SampleComponents {
 
         // Check Boxes
         new CheckBoxBuilder().setColumnAndRowIndices(1, 11)
-                            .setPanel(panel)
-                            .setText("Checkbox A")
-                            .build();
+                             .setPanel(panel)
+                             .setText("Checkbox A")
+                             .build();
 
         new CheckBoxBuilder().setColumnAndRowIndices(1, 12)
                             .setPanel(panel)
                             .setText("Checkbox B")
                             .build();
 
-        // Text Field
+        // Fixed Width Text Field
         new TextFieldBuilder().setColumnAndRowIndices(1, 14)
-                                .setPanel(panel)
-                                .setWidth(20)
-                                .build();
+                              .setPanel(panel)
+                              .setWidth(20)
+                              .build();
+
+        // Variable Width Text Field
+        new TextFieldBuilder().setColumnAndRowIndices(1, 16)
+                              .setPanel(panel)
+                              .setWidth(20)
+                              .setMaxCharacters(40)
+                              .build();
 
         // Loading Bar
-        final LoadingBar loadingBar = new LoadingBarBuilder().setColumnAndRowIndices(1, 16)
+        final LoadingBar loadingBar = new LoadingBarBuilder().setColumnAndRowIndices(1, 19)
                                                                 .setPanel(panel)
                                                                 .setWidth(20)
                                                                 .build();

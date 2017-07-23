@@ -5,7 +5,8 @@ import com.valkryst.VTerminal.component.Screen;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.awt.*;
+import java.awt.Point;
+import java.util.Objects;
 
 public class LinePrinter {
     /** The character to print the ellipse with. */
@@ -28,8 +29,12 @@ public class LinePrinter {
      *
      * @param toY
      *         The y-axis (row) coordinate of the end point of the line.
+     *
+     * @throws NullPointerException
+     *         If the panel is null.
      */
     public void print(final Panel panel, final int fromX, final int fromY, final int toX, final int toY) {
+        Objects.requireNonNull(panel);
         print(panel.getScreen(), fromX, fromY, toX, toY);
     }
 
@@ -51,8 +56,12 @@ public class LinePrinter {
      *
      * @param toY
      *         The y-axis (row) coordinate of the end point of the line.
+     *
+     * @throws NullPointerException
+     *         If the panel is null.
      */
     public void print(final Screen screen, int fromX, int fromY, final int toX, final int toY) {
+        Objects.requireNonNull(screen);
         printLine(screen, fromX, fromY, toX, toY);
     }
 
@@ -72,8 +81,14 @@ public class LinePrinter {
      *
      * @throws IllegalArgumentException
      *         If there are fewer than two points.
+     *
+     * @throws NullPointerException
+     *         If the panel or points array is null.
      */
     public void print(final Panel panel, final Point[] points) {
+        Objects.requireNonNull(panel);
+        Objects.requireNonNull(points);
+
         print(panel.getScreen(), points);
     }
 
@@ -93,8 +108,14 @@ public class LinePrinter {
      *
      * @throws IllegalArgumentException
      *         If there are fewer than two points.
+     *
+     * @throws NullPointerException
+     *         If the screen or points array is null.
      */
     public void print(final Screen screen, final Point[] points) {
+        Objects.requireNonNull(screen);
+        Objects.requireNonNull(points);
+
         if (points.length < 2) {
             throw new IllegalArgumentException("A line requires at-least two points to be drawn.");
         }
@@ -124,8 +145,13 @@ public class LinePrinter {
      *
      * @param toY
      *         The y-axis (row) coordinate of the end point of the line.
+     *
+     * @throws NullPointerException
+     *         If the screen is null.
      */
     private void printLine(final Screen screen, int fromX, int fromY, final int toX, final int toY) {
+        Objects.requireNonNull(screen);
+
         // delta of exact value and rounded value of the dependant variable
         int d = 0;
 

@@ -6,7 +6,7 @@
 
     <groupId>com.github.Valkryst</groupId>
     <artifactId>VTerminal</artifactId>
-    <version>1.5.1-SNAPSHOT</version>
+    <version>1.7.1-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -43,9 +43,14 @@
             <version>1.16.16</version>
         </dependency>
         <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>2.5.3</version>
+        </dependency>
+        <dependency>
             <groupId>com.github.Valkryst</groupId>
             <artifactId>VRadio</artifactId>
-            <version>b368789</version>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 

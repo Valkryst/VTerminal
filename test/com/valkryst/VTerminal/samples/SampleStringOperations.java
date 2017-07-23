@@ -22,13 +22,14 @@ public class SampleStringOperations {
         screen.write("Writing a String on Line #2", 0, 1);
 
         screen.write("Horizontally Flipping a String on Line #4", 0, 3);
-        screen.getString(3).flipCharactersHorizontally();
+        screen.getString(3).setFlippedHorizontally(true);
 
         screen.write("Vertically Flipping a String on Line #5", 0, 4);
-        screen.getString(4).flipCharactersVertically();
+        screen.getString(4).setFlippedVertically(true);
 
         screen.write("Vertically & Horizontally Flipping a String on Line #6", 0, 5);
-        screen.getString(5).flipCharactersHorizontallyAndVertically();
+        screen.getString(5).setFlippedHorizontally(true);
+        screen.getString(5).setFlippedVertically(true);
 
         screen.write("Applying a Tint Gradient on Line #7", 0, 6);
         screen.getString(6).applyTintGradient(Color.CYAN, true);
@@ -53,10 +54,11 @@ public class SampleStringOperations {
         screen.getString(12).setForegroundColor(Color.RED);
 
         screen.write("Changing Back/Foreground Color on Line #14", 0, 13);
-        screen.getString(13).setBackgroundAndForegroundColor(Color.RED, Color.BLUE);
+        screen.getString(13).setBackgroundColor(Color.RED);
+        screen.getString(13).setForegroundColor(Color.BLUE);
 
-        screen.write("Applying Underline on Line #15", 0, 14);
-        screen.getString(14).underlineCharacters();
+        screen.write("Applying Underline on Line #15", 0, 15);
+        screen.getString(15).setUnderlined(true);
 
         panel.draw();
     }

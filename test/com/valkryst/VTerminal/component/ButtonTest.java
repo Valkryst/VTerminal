@@ -16,7 +16,7 @@ public class ButtonTest {
         button.enableBlinkEffect((short) 666);
 
         for (final AsciiString string : button.getStrings()) {
-            for (final AsciiCharacter character : string.getCharacters()) {
+            for (final AsciiCharacterTest character : string.getCharacters()) {
                 Assert.assertEquals(666, character.getMillsBetweenBlinks());
             }
         }
@@ -28,7 +28,7 @@ public class ButtonTest {
         button.disableBlinkEffect();
 
         for (final AsciiString string : button.getStrings()) {
-            for (final AsciiCharacter character : string.getCharacters()) {
+            for (final AsciiCharacterTest character : string.getCharacters()) {
                 Assert.assertEquals(666, character.getMillsBetweenBlinks());
             }
         }

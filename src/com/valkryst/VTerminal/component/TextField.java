@@ -12,6 +12,7 @@ import lombok.Setter;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,11 +42,17 @@ public class TextField extends Component {
     /** Whether or not the BACK SPACE key can be used to erase the character before the caret and move the caret backwards. */
     @Getter @Setter private boolean backSpaceKeyEnabled;
 
-    /** The current position of the caret. */
-    @Getter private int index_caret = 0;
+    /** The current position of the visual caret. */
+    @Getter private int index_caret_visual = 0;
+
+    /** The current position of the caret in the enteredText array. */
+    @Getter private int index_caret_actual = 0;
 
     /** The maximum number of characters that the field can contain. */
     @Getter private int maxCharacters;
+
+    /** The text entered by the user. */
+    @Getter private char[] enteredText;
 
     /** The pattern used to determine which typed characters can be entered into the field. */
     @Getter @Setter private Pattern allowedCharacterPattern;
@@ -55,9 +62,14 @@ public class TextField extends Component {
      *
      * @param builder
      *         The builder to use.
+     *
+     * @throws NullPointerException
+     *         If the builder is null.
      */
     public TextField(final TextFieldBuilder builder) {
         super(builder.getColumnIndex(), builder.getRowIndex(), builder.getWidth(), 1);
+
+        Objects.requireNonNull(builder);
 
         super.setRadio(builder.getRadio());
 
@@ -74,17 +86,22 @@ public class TextField extends Component {
         rightArrowKeyEnabled = builder.isRightArrowKeyEnabled();
         backSpaceKeyEnabled = builder.isBackSpaceKeyEnabled();
 
-        maxCharacters = builder.getWidth();
+        maxCharacters = builder.getMaxCharacters();
+
+        enteredText = new char[maxCharacters];
+        Arrays.fill(enteredText, ' ');
 
         allowedCharacterPattern = builder.getAllowedCharacterPattern();
 
         // Set the button's text:
         final AsciiString string = super.getString(0);
         string.setAllCharacters(' ');
-        string.setBackgroundAndForegroundColor(backgroundColor, foregroundColor);
+        string.setBackgroundColor(backgroundColor);
+        string.setForegroundColor(foregroundColor);
 
         // Set initial caret position:
-        changeCaretPosition(index_caret);
+        changeVisualCaretPosition(index_caret_visual);
+        changeActualCaretPosition(index_caret_actual);
     }
 
     @Override
@@ -109,7 +126,7 @@ public class TextField extends Component {
         isEqual &= Objects.equals(leftArrowKeyEnabled, otherField.isLeftArrowKeyEnabled());
         isEqual &= Objects.equals(rightArrowKeyEnabled, otherField.isRightArrowKeyEnabled());
         isEqual &= Objects.equals(backSpaceKeyEnabled, otherField.isBackSpaceKeyEnabled());
-        isEqual &= Objects.equals(index_caret, otherField.getIndex_caret());
+        isEqual &= Objects.equals(index_caret_visual, otherField.getIndex_caret_visual());
         isEqual &= Objects.equals(maxCharacters, otherField.getMaxCharacters());
         isEqual &= Objects.equals(allowedCharacterPattern, otherField.getAllowedCharacterPattern());
         return isEqual;
@@ -119,12 +136,16 @@ public class TextField extends Component {
     public int hashCode() {
         return Objects.hash(super.hashCode(), caretForegroundColor, caretBackgroundColor, foregroundColor,
                             backgroundColor, homeKeyEnabled, endKeyEnabled, deleteKeyEnabled, leftArrowKeyEnabled,
-                            rightArrowKeyEnabled, backSpaceKeyEnabled, index_caret, maxCharacters, allowedCharacterPattern);
+                            rightArrowKeyEnabled, backSpaceKeyEnabled, index_caret_visual, maxCharacters, allowedCharacterPattern);
     }
 
     @Override
     public void registerEventHandlers(final Panel panel) {
+        Objects.requireNonNull(panel);
+
         super.registerEventHandlers(panel);
+
+        final int width = super.getWidth();
 
         panel.addKeyListener(new KeyListener() {
             @Override
@@ -134,8 +155,11 @@ public class TextField extends Component {
                     final Matcher matcher = allowedCharacterPattern.matcher(character + "");
 
                     if (matcher.matches()) {
-                        changeCharacter(index_caret, character);
-                        changeCaretPosition(index_caret + 1);
+                        changeVisualCharacter(index_caret_visual, character);
+                        changeActualCharacter(index_caret_actual, character);
+                        changeVisualCaretPosition(index_caret_visual + 1);
+                        changeActualCaretPosition(index_caret_actual + 1);
+                        updateDisplayedCharacters();
                         transmitDraw();
                     }
                 }
@@ -155,7 +179,9 @@ public class TextField extends Component {
                         // Move the caret to the first position on the left:
                         case KeyEvent.VK_HOME: {
                             if (homeKeyEnabled) {
-                                changeCaretPosition(0);
+                                changeVisualCaretPosition(0);
+                                changeActualCaretPosition(0);
+                                updateDisplayedCharacters();
                                 transmitDraw();
                             }
                             break;
@@ -164,7 +190,9 @@ public class TextField extends Component {
                         // Move the caret to the last position on the right:
                         case KeyEvent.VK_END: {
                             if (endKeyEnabled) {
-                                changeCaretPosition(maxCharacters);
+                                changeVisualCaretPosition(width);
+                                changeActualCaretPosition(maxCharacters);
+                                updateDisplayedCharacters();
                                 transmitDraw();
                             }
                             break;
@@ -173,7 +201,9 @@ public class TextField extends Component {
                         // Erase the current character:
                         case KeyEvent.VK_DELETE: {
                             if (deleteKeyEnabled) {
-                                changeCharacter(index_caret, ' ');
+                                changeVisualCharacter(index_caret_visual, ' ');
+                                changeActualCharacter(index_caret_actual, ' ');
+                                updateDisplayedCharacters();
                                 transmitDraw();
                             }
                             break;
@@ -182,10 +212,12 @@ public class TextField extends Component {
                         // Move the caret one position to the left:
                         case KeyEvent.VK_LEFT: {
                             boolean canWork = leftArrowKeyEnabled;
-                            canWork &= index_caret > 0;
+                            canWork &= index_caret_visual > 0;
 
                             if (canWork) {
-                                changeCaretPosition(index_caret - 1);
+                                changeVisualCaretPosition(index_caret_visual - 1);
+                                changeActualCaretPosition(index_caret_actual - 1);
+                                updateDisplayedCharacters();
                                 transmitDraw();
                             }
                             break;
@@ -194,10 +226,12 @@ public class TextField extends Component {
                         // Move the caret one position to the right:
                         case KeyEvent.VK_RIGHT: {
                             boolean canWork = rightArrowKeyEnabled;
-                            canWork &= index_caret < maxCharacters;
+                            canWork &= index_caret_visual < maxCharacters;
 
                             if (canWork) {
-                                changeCaretPosition(index_caret + 1);
+                                changeVisualCaretPosition(index_caret_visual + 1);
+                                changeActualCaretPosition(index_caret_actual + 1);
+                                updateDisplayedCharacters();
                                 transmitDraw();
                             }
                             break;
@@ -206,23 +240,28 @@ public class TextField extends Component {
                         // Delete the character to the left of the caret, then move the caret one position left:
                         case KeyEvent.VK_BACK_SPACE: {
                             boolean canWork = backSpaceKeyEnabled;
-                            canWork &= index_caret > 0;
+                            canWork &= index_caret_visual > 0;
 
                             if (! canWork) {
                                 break;
                             }
 
-                            if (index_caret == maxCharacters - 1) {
-                                final AsciiCharacter currentChar = TextField.super.getStrings()[0].getCharacters()[index_caret];
+                            if (index_caret_visual == maxCharacters - 1) {
+                                final AsciiCharacter currentChar = TextField.super.getStrings()[0].getCharacters()[index_caret_visual];
 
                                 if (currentChar.getCharacter() != ' ') {
-                                    changeCharacter(index_caret, ' ');
+                                    changeVisualCharacter(index_caret_visual, ' ');
+                                    changeActualCharacter(index_caret_actual, ' ');
                                     break;
                                 }
                             }
 
-                            changeCharacter(index_caret - 1, ' ');
-                            changeCaretPosition(index_caret - 1);
+                            changeVisualCharacter(index_caret_visual - 1, ' ');
+                            changeActualCharacter(index_caret_actual - 1, ' ');
+
+                            changeVisualCaretPosition(index_caret_visual - 1);
+                            changeActualCaretPosition(index_caret_actual - 1);
+                            updateDisplayedCharacters();
                             transmitDraw();
                             break;
                         }
@@ -233,14 +272,14 @@ public class TextField extends Component {
     }
 
     /**
-     * Moves the caret to the specified index.
+     * Moves the visual caret to the specified index.
      *
      * @param newIndex
      *         The new index for the caret.
      */
-    private void changeCaretPosition(int newIndex) {
-        if (newIndex >= maxCharacters) {
-            newIndex = maxCharacters - 1;
+    private void changeVisualCaretPosition(int newIndex) {
+        if (newIndex >= super.getWidth()) {
+            newIndex = super.getWidth() - 1;
         }
 
         if (newIndex < 0) {
@@ -249,8 +288,8 @@ public class TextField extends Component {
 
         final AsciiCharacter[] characters = super.getString(0).getCharacters();
 
-        characters[index_caret].setForegroundColor(foregroundColor);
-        characters[index_caret].setBackgroundColor(backgroundColor);
+        characters[index_caret_visual].setForegroundColor(foregroundColor);
+        characters[index_caret_visual].setBackgroundColor(backgroundColor);
 
         characters[newIndex].setForegroundColor(caretForegroundColor);
         characters[newIndex].setBackgroundColor(caretBackgroundColor);
@@ -258,16 +297,34 @@ public class TextField extends Component {
         final Radio<String> radio = super.getRadio();
 
         if (radio != null) {
-            characters[index_caret].disableBlinkEffect();
-            characters[index_caret].setHidden(false);
+            characters[index_caret_visual].disableBlinkEffect();
+            characters[index_caret_visual].setHidden(false);
             characters[newIndex].enableBlinkEffect((short) 1000, radio);
         }
 
-        index_caret = newIndex;
+        index_caret_visual = newIndex;
     }
 
     /**
-     * Changes the character at the specified index to the specified character.
+     * Moves the actual caret to the specified index.
+     *
+     * @param newIndex
+     *        The new index for the caret.
+     */
+    private void changeActualCaretPosition(int newIndex) {
+        if (newIndex >= maxCharacters) {
+            newIndex = maxCharacters - 1;
+        }
+
+        if (newIndex < 0) {
+            newIndex = 0;
+        }
+
+        index_caret_actual = newIndex;
+    }
+
+    /**
+     * Changes the visual character at the specified index.
      *
      * @param characterIndex
      *         The index.
@@ -275,7 +332,7 @@ public class TextField extends Component {
      * @param character
      *         The new character.
      */
-    private void changeCharacter(final int characterIndex, final char character) {
+    private void changeVisualCharacter(final int characterIndex, final char character) {
         if (characterIndex < 0 || characterIndex > maxCharacters) {
             return;
         }
@@ -284,12 +341,37 @@ public class TextField extends Component {
         characters[characterIndex].setCharacter(character);
     }
 
+    /**
+     * Changes the actual character at the specified index.
+     *
+     * @param characterIndex
+     *        The index.
+     *
+     * @param character
+     *        The new character.
+     */
+    private void changeActualCharacter(final int characterIndex, final char character) {
+        if (characterIndex < 0 || characterIndex > maxCharacters) {
+            return;
+        }
+
+        enteredText[characterIndex] = character;
+    }
+
+    private void updateDisplayedCharacters() {
+        final int caretPositionDifference = index_caret_actual - index_caret_visual;
+
+        for (int i = caretPositionDifference ; i < super.getWidth() + caretPositionDifference ; i++) {
+            super.getString(0).getCharacters()[i - caretPositionDifference].setCharacter(enteredText[i]);
+        }
+    }
+
     /** @return The text contained within the field. */
     public String getText() {
         final StringBuilder sb = new StringBuilder();
 
-        for (final AsciiCharacter character : super.getString(0).getCharacters()) {
-            sb.append(character.getCharacter());
+        for (final char c : enteredText) {
+            sb.append(c);
         }
 
         return sb.toString();
@@ -307,20 +389,17 @@ public class TextField extends Component {
             return;
         }
 
-        if (text.length() > super.getWidth()) {
-            text = text.substring(0, super.getWidth());
+        if (text.length() > maxCharacters) {
+            text = text.substring(0, maxCharacters);
         }
 
-        final AsciiCharacter[] oldChars = super.getString(0).getCharacters();
-        final char[] newChars = text.toCharArray();
-
-        for (int i = 0 ; i < text.length() ; i++) {
-            oldChars[i].setCharacter(newChars[i]);
-        }
+        System.arraycopy(text.toCharArray(), 0, enteredText, 0, text.length());
     }
 
     /** Clears all text from the field. */
     public void clearText() {
+        Arrays.fill(enteredText, ' ');
+
         for (final AsciiCharacter character : super.getString(0).getCharacters()) {
             character.setCharacter(' ');
         }

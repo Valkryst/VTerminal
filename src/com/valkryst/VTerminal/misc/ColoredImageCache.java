@@ -1,19 +1,19 @@
 package com.valkryst.VTerminal.misc;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.font.Font;
 import lombok.Getter;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class ColoredImageCache {
     /** The cache. */
-    private final LinkedHashMap<AsciiCharacterShell, BufferedImage> cachedImages;
+    private final Cache<Integer, BufferedImage> cachedImages;
 
     /** The font of the character images. */
     @Getter private final Font font;
@@ -23,16 +23,19 @@ public class ColoredImageCache {
      *
      * @param font
      *         The font.
+     *
+     * @throws NullPointerException
+     *         If the font is null.
      */
     public ColoredImageCache(final Font font) {
-        this.font = font;
-        cachedImages = new LinkedHashMap<AsciiCharacterShell, BufferedImage>()  {
-            private static final long serialVersionUID = 3550239335645856488L;
+        Objects.requireNonNull(font);
 
-            protected boolean removeEldestEntry(final Map.Entry<AsciiCharacterShell, BufferedImage> eldest) {
-                return this.size() >= 10000;
-            }
-        };
+        this.font = font;
+        cachedImages = Caffeine.newBuilder()
+                .initialCapacity(100)
+                .maximumSize(10_000)
+                .expireAfterAccess(5, TimeUnit.MINUTES)
+                .build();
     }
 
     /**
@@ -44,19 +47,18 @@ public class ColoredImageCache {
      * @param maxCacheSize
      *         The maximum number of images to save in the cache.
      *
-     *         When this value is reached, or exceeded, then the cache
-     *         discards the eldest cache entry to make room for a new
-     *         entry.
+     * @throws NullPointerException
+     *         If the font is null.
      */
     public ColoredImageCache(final Font font, final int maxCacheSize) {
-        this.font = font;
-        cachedImages = new LinkedHashMap<AsciiCharacterShell, BufferedImage>() {
-            private static final long serialVersionUID = 7940325226870365646L;
+        Objects.requireNonNull(font);
 
-            protected boolean removeEldestEntry(final Map.Entry<AsciiCharacterShell, BufferedImage> eldest) {
-                return this.size() >= maxCacheSize;
-            }
-        };
+        this.font = font;
+        cachedImages = Caffeine.newBuilder()
+                .initialCapacity(100)
+                .maximumSize(maxCacheSize)
+                .expireAfterAccess(5, TimeUnit.MINUTES)
+                .build();
     }
 
     @Override
@@ -71,33 +73,50 @@ public class ColoredImageCache {
      * the cache, and then returned.
      *
      * @param character
-     *         The character.
+     *        The character.
      *
      * @return
-     *         The character image.
+     *        The character image.
+     *
+     * @throws NullPointerException
+     *         If the character is null.
      */
     public BufferedImage retrieveFromCache(final AsciiCharacter character) {
-        final AsciiCharacterShell shell = new AsciiCharacterShell(character, font);
-        return cachedImages.computeIfAbsent(shell, s -> applyColorSwap(s, font));
+        Objects.requireNonNull(character);
+
+        final int hashCode = Objects.hash(character.getCharacter(),
+                                          character.getBackgroundColor(),
+                                          character.getForegroundColor());
+
+        BufferedImage image = cachedImages.getIfPresent(hashCode);
+
+        if (image == null) {
+            image = applyColorSwap(character, font);
+            cachedImages.put(hashCode, image);
+        }
+
+        return image;
     }
 
     /**
-     * Gets a character image for a character shell and applies the
-     * back/foreground colors to it.
-     *
-     * @param characterShell
-     *         The character shell.
+     * Gets a character image for a character  and applies the back/foreground
+     * colors to it.
      *
      * @param font
-     *         The font to retrieve the base character image from.
+     *        The font to retrieve the base character image from.
      *
      * @return
-     *         The character image.
+     *        The character image.
+     *
+     * @throws NullPointerException
+     *         If the character is null.
      */
-    private static BufferedImage applyColorSwap(final AsciiCharacterShell characterShell, final Font font) {
-        final BufferedImage image = cloneImage(font.getCharacterImage(characterShell.getCharacter()));
-        final int backgroundRGB = characterShell.getBackgroundColor().getRGB();
-        final int foregroundRGB = characterShell.getForegroundColor().getRGB();
+    private static BufferedImage applyColorSwap(final AsciiCharacter character, final Font font) {
+        Objects.requireNonNull(character);
+
+        final BufferedImage image = cloneImage(font.getCharacterImage(character.getCharacter()));
+        final int backgroundRGB = character.getBackgroundColor().getRGB();
+        final int foregroundRGB = character.getForegroundColor().getRGB();
 
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
@@ -127,71 +146,21 @@ public class ColoredImageCache {
      * Makes a clone of an image.
      *
      * @param image
-     *         The image.
+     *        The image.
      *
      * @return
-     *         The clone image.
+     *        The clone image.
+     *
+     * @throws NullPointerException
+     *         If the image is null.
      */
     private static BufferedImage cloneImage(final BufferedImage image) {
+        Objects.requireNonNull(image);
+
         final BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
         final Graphics g = newImage.getGraphics();
         g.drawImage(image, 0, 0, null);
         g.dispose();
         return newImage;
-    }
-
-    private class AsciiCharacterShell {
-        /** The character. */
-        @Getter private final char character;
-        /** The background color. Defaults to black. */
-        @Getter private final Color backgroundColor;
-        /** The foreground color. Defaults to white. */
-        @Getter private final Color foregroundColor;
-
-        public AsciiCharacterShell(final AsciiCharacter character, final Font font) {
-            if (character == null) {
-                throw new IllegalArgumentException("The AsciiCharacterShell cannot use a null character");
-            }
-
-            if (font == null) {
-                throw new IllegalArgumentException("The AsciiCharacterShell cannot have a null font.");
-            }
-
-            this.character = character.getCharacter();
-            this.backgroundColor = character.getBackgroundColor();
-            this.foregroundColor = character.getForegroundColor();
-        }
-
-        @Override
-        public String toString() {
-            String res = "Color Shell:";
-            res += "\n\tCharacter:\t'" + character +"'";
-            res += "\n\tBackground Color:\t" + backgroundColor;
-            res += "\n\tForeground Color:\t" + foregroundColor;
-
-            return res;
-        }
-
-        @Override
-        public boolean equals(final Object otherObj) {
-            if (otherObj instanceof AsciiCharacterShell == false) {
-                return false;
-            }
-
-            if (otherObj == this) {
-                return true;
-            }
-
-            final AsciiCharacterShell otherShell = (AsciiCharacterShell) otherObj;
-            boolean isEqual = Objects.equals(character, otherShell.getCharacter());
-            isEqual &= Objects.equals(backgroundColor, otherShell.getBackgroundColor());
-            isEqual &= Objects.equals(foregroundColor, otherShell.getForegroundColor());
-            return isEqual;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(character, backgroundColor, foregroundColor);
-        }
     }
 }

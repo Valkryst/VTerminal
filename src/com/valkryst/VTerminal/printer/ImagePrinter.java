@@ -5,10 +5,11 @@ import com.valkryst.VTerminal.component.Screen;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 public class ImagePrinter {
     /** The image to print. */
@@ -32,11 +33,12 @@ public class ImagePrinter {
      *
      * @param image
      *         The image to print.
+     *
+     * @throws NullPointerException
+     *         If the image is null.
      */
     public ImagePrinter(final BufferedImage image) {
-        if (image == null) {
-            throw new IllegalArgumentException("An ImagePrinter requires a non-null image to print.");
-        }
+        Objects.requireNonNull(image);
 
         this.image = image;
     }
@@ -52,8 +54,12 @@ public class ImagePrinter {
      *
      * @param rowIndex
      *         The y-axis (row) coordinate of the top-left character.
+     *
+     * @throws NullPointerException
+     *         If the panel is null.
      */
     public void print(final Panel panel, final int columnIndex, final int rowIndex) {
+        Objects.requireNonNull(panel);
         print(panel.getScreen(), columnIndex, rowIndex);
     }
 
@@ -68,8 +74,13 @@ public class ImagePrinter {
      *
      * @param rowIndex
      *         The y-axis (row) coordinate of the top-left character.
+     *
+     * @throws NullPointerException
+     *         If the screen is null.
      */
     public void print(final Screen screen, final int columnIndex, final int rowIndex) {
+        Objects.requireNonNull(screen);
+
         final BufferedImage temp = applyTransformations();
 
         for (int y = 0 ; y < temp.getHeight() && y < screen.getHeight() ; y++) {

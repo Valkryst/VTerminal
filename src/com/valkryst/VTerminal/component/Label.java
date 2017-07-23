@@ -18,9 +18,14 @@ public class Label extends Component {
      *
      * @param builder
      *         The builder to use.
+     *
+     * @throws NullPointerException
+     *         If the builder is null.
      */
     public Label(final LabelBuilder builder) {
         super(builder.getColumnIndex(), builder.getRowIndex(), builder.getText().length(), 1);
+
+        Objects.requireNonNull(builder);
 
         this.backgroundColor = builder.getBackgroundColor();
         this.foregroundColor = builder.getForegroundColor();
@@ -33,7 +38,8 @@ public class Label extends Component {
             string.setCharacter(column, text[column]);
         }
 
-        string.setBackgroundAndForegroundColor(backgroundColor, foregroundColor);
+        string.setBackgroundColor(backgroundColor);
+        string.setForegroundColor(foregroundColor);
     }
 
     @Override

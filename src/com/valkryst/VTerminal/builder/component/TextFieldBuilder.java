@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.TextField;
-import com.valkryst.VTerminal.misc.ColorFunctions;
 import lombok.Getter;
 
 import java.awt.Color;
@@ -10,6 +9,9 @@ import java.util.regex.Pattern;
 public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuilder> {
     /** The width of the text field, in characters. */
     @Getter private int width;
+
+    /** The maximum number of characters that the text field can contain. */
+    @Getter private int maxCharacters;
 
     /** The foreground color of the caret. */
     @Getter private Color caretForegroundColor;
@@ -38,7 +40,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
     @Getter private Pattern allowedCharacterPattern;
 
     @Override
-    public TextField build() throws IllegalStateException {
+    public TextField build() {
         checkState();
 
         final TextField textField = new TextField(this);
@@ -51,17 +53,21 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
     /**
      * Checks the current state of the builder.
      *
-     * @throws IllegalStateException
-     *          If something is wrong with the builder's state.
+     * @throws NullPointerException
+     *          If the radio is null.
      */
-    protected void checkState() throws IllegalStateException {
+    protected void checkState() throws NullPointerException {
         super.checkState();
+
+        if (maxCharacters < width) {
+            maxCharacters = width;
+        }
 
         if (radio == null) {
             radio = panel.getRadio();
 
             if (radio == null) {
-                throw new IllegalStateException("The text field must have a radio to transmit to.");
+                throw new NullPointerException("The text field must have a radio to transmit to.");
             }
         }
     }
@@ -70,7 +76,8 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
     public void reset() {
         super.reset();
 
-        width = 1;
+        width = 4;
+        maxCharacters = 4;
 
         radio = null;
 
@@ -108,6 +115,24 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
     }
 
     /**
+     * Sets the maximum amount of characters that the text field
+     * can contain.
+     *
+     * @param maxCharacters
+     *        The maximum number of characters.
+     *
+     * @return
+     *        This.
+     */
+    public TextFieldBuilder setMaxCharacters(final int maxCharacters) {
+        if (maxCharacters >= 1) {
+            this.maxCharacters = maxCharacters;
+        }
+
+        return this;
+    }
+
+    /**
      * Sets the foreground color of the caret.
      *
      * @param caretForegroundColor
@@ -118,7 +143,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
      */
     public TextFieldBuilder setCaretForegroundColor(final Color caretForegroundColor) {
         if (caretForegroundColor != null) {
-            this.caretForegroundColor = ColorFunctions.enforceTransparentColor(caretForegroundColor);
+            this.caretForegroundColor = caretForegroundColor;
         }
 
         return this;
@@ -135,7 +160,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
      */
     public TextFieldBuilder setCaretBackgroundColor(final Color caretBackgroundColor) {
         if (caretBackgroundColor != null) {
-            this.caretBackgroundColor = ColorFunctions.enforceTransparentColor(caretBackgroundColor);
+            this.caretBackgroundColor = caretBackgroundColor;
         }
 
         return this;
@@ -152,7 +177,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
      */
     public TextFieldBuilder setForegroundColor(final Color foregroundColor) {
         if (foregroundColor != null) {
-            this.foregroundColor = ColorFunctions.enforceTransparentColor(foregroundColor);
+            this.foregroundColor = foregroundColor;
         }
 
         return this;
@@ -169,7 +194,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
      */
     public TextFieldBuilder setBackgroundColor(final Color backgroundColor) {
         if (backgroundColor != null) {
-            this.backgroundColor = ColorFunctions.enforceTransparentColor(backgroundColor);
+            this.backgroundColor = backgroundColor;
         }
 
         return this;

@@ -18,11 +18,12 @@ public class RadioButtonGroup {
      *
      * @param button
      *         The button.
+     *
+     * @throws NullPointerException
+     *         If the button is null.
      */
     public void setCheckedButton(final RadioButton button) {
-        if (button == null) {
-            return;
-        }
+        Objects.requireNonNull(button);
 
         for (int i = 0 ; i < buttons.size() ; i++) {
             if (buttons.get(i).equals(button)) {
@@ -38,11 +39,12 @@ public class RadioButtonGroup {
      *
      * @param button
      *         The button.
+     *
+     * @throws NullPointerException
+     *         If the button is null.
      */
     public void addRadioButton(final RadioButton button) {
-        if (button == null) {
-            return;
-        }
+        Objects.requireNonNull(button);
 
         if (buttons.size() == 0) {
             buttons.add(button);
@@ -56,11 +58,12 @@ public class RadioButtonGroup {
      *
      * @param button
      *         The button.
+     *
+     * @throws NullPointerException
+     *         If the button is null.
      */
     public void removeRadioButton(final RadioButton button) {
-        if (button == null) {
-            return;
-        }
+        Objects.requireNonNull(button);
 
         buttons.remove(button);
     }

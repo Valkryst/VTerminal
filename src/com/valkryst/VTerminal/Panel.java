@@ -8,15 +8,18 @@ import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.misc.ColoredImageCache;
 import lombok.Getter;
 
-import javax.swing.JPanel;
+import javax.imageio.ImageIO;
+import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 
-public class Panel extends JPanel implements Receiver<String> {
-    private static final long serialVersionUID = 1884786992301690151L;
-
+public class Panel extends Canvas implements Receiver<String> {
     /** The width of the panel, in characters. */
     @Getter private int widthInCharacters;
     /** The height of the panel, in characters. */
@@ -25,6 +28,7 @@ public class Panel extends JPanel implements Receiver<String> {
     /** The screen being displayed on the panel. */
     @Getter private Screen screen;
 
+    /** The radio being listened to. */
     @Getter private Radio<String> radio = new Radio<>();
 
     /** The image cache to retrieve character images from. */
@@ -35,8 +39,13 @@ public class Panel extends JPanel implements Receiver<String> {
      *
      * @param builder
      *         The builder to use.
+     *
+     * @throws NullPointerException
+     *         If the builder is null.
      */
     public Panel(final PanelBuilder builder) {
+        Objects.requireNonNull(builder);
+
         this.widthInCharacters = builder.getWidthInCharacters();
         this.heightInCharacters = builder.getHeightInCharacters();
 
@@ -61,7 +70,8 @@ public class Panel extends JPanel implements Receiver<String> {
 
     /** Draws every character of every row onto the canvas. */
     public void draw() {
-        final Graphics2D gc = (Graphics2D) this.getGraphics();
+        final BufferStrategy bs = this.getBufferStrategy();
+        final Graphics2D gc = (Graphics2D) bs.getDrawGraphics();
 
         gc.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
         gc.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
@@ -80,6 +90,7 @@ public class Panel extends JPanel implements Receiver<String> {
 
         screen.draw(gc, imageCache);
         gc.dispose();
+        bs.show();
     }
 
     /**
@@ -101,6 +112,73 @@ public class Panel extends JPanel implements Receiver<String> {
     }
 
     /**
+     * Saves a screenshot of the canvas to a PNG file.
+     *
+     * @param filename
+     *        The name of the file.
+     *
+     * @throws NullPointerException
+     *         If the filename is null.
+     *
+     * @throws IllegalArgumentException
+     *         If the filename is empty.
+     *
+     * @throws IOException
+     *         If an I/O error occurred.
+     */
+    public void screenshotToFile(final String filename) throws IOException {
+        Objects.requireNonNull(filename);
+
+        if (filename.isEmpty()) {
+            throw new IllegalArgumentException("The filename cannot be null.");
+        }
+
+        final File file = new File(filename + ".png");
+
+        if (file.exists() == false) {
+            if (file.createNewFile()) {
+                screenshotToFile(file, "PNG");
+            } else {
+                throw new IOException("Could not create the file " + filename + ".png.");
+            }
+        } else {
+            screenshotToFile(file, "PNG");
+        }
+    }
+
+    /**
+     * Saves a screenshot of the canvas to a file.
+     *
+     * @param file
+     *        The file.
+     *
+     * @param extension
+     *        The extension of the file, the file should have a
+     *        matching extension.
+     *
+     *        Ex: PNG or JPG
+     *
+     * @throws NullPointerException
+     *         If the file or extension is null.
+     *
+     * @throws IllegalArgumentException
+     *         If the filename is empty.
+     *
+     * @throws IOException
+     *         If an error occurs during writing.
+     */
+    public void screenshotToFile(final File file, final String extension) throws IOException {
+        Objects.requireNonNull(file);
+        Objects.requireNonNull(extension);
+
+        if (extension.isEmpty()) {
+            throw new IllegalArgumentException("The extension cannot be null.");
+        }
+
+        ImageIO.write(screenshot(), extension, file);
+    }
+
+    /**
      * Swaps-out the current screen for the new screen.
      *
      * @param newScreen
@@ -108,8 +186,13 @@ public class Panel extends JPanel implements Receiver<String> {
      *
      * @return
      *         The swapped-out screen.
+     *
+     * @throws NullPointerException
+     *         If the new screen is null.
      */
     public Screen swapScreen(final Screen newScreen) {
+        Objects.requireNonNull(newScreen);
+
         final Screen oldScreen = screen;
         screen = newScreen;
         draw();

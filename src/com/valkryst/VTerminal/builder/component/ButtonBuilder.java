@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.Button;
-import com.valkryst.VTerminal.misc.ColorFunctions;
 import lombok.Getter;
 
 import java.awt.Color;
@@ -35,7 +34,7 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
     @Getter private Runnable onClickFunction;
 
     @Override
-    public Button build() throws IllegalStateException {
+    public Button build() {
         checkState();
 
         final Button button = new Button(this);
@@ -48,14 +47,14 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
     /**
      * Checks the current state of the builder.
      *
-     * @throws IllegalStateException
-     *          If something is wrong with the builder's state.
+     * @throws NullPointerException
+     *          If the radio is null.
      */
-    protected void checkState() throws IllegalStateException {
+    protected void checkState() throws NullPointerException {
         super.checkState();
 
         if (radio == null) {
-            throw new IllegalStateException("The button must have a radio to transmit to.");
+            throw new NullPointerException("The button must have a radio to transmit to.");
         }
     }
 
@@ -138,7 +137,7 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
      */
     public ButtonBuilder setBackgroundColor_normal(final Color backgroundColor_normal) {
         if (backgroundColor_normal != null) {
-            this.backgroundColor_normal = ColorFunctions.enforceTransparentColor(backgroundColor_normal);
+            this.backgroundColor_normal = backgroundColor_normal;
         }
 
         return this;
@@ -155,7 +154,7 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
      */
     public ButtonBuilder setForegroundColor_normal(final Color foregroundColor_normal) {
         if (foregroundColor_normal != null) {
-            this.foregroundColor_normal = ColorFunctions.enforceTransparentColor(foregroundColor_normal);
+            this.foregroundColor_normal = foregroundColor_normal;
         }
 
         return this;
@@ -172,7 +171,7 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
      */
     public ButtonBuilder setBackgroundColor_hover(final Color backgroundColor_hover) {
         if (backgroundColor_hover != null) {
-            this.backgroundColor_hover = ColorFunctions.enforceTransparentColor(backgroundColor_hover);
+            this.backgroundColor_hover = backgroundColor_hover;
         }
 
         return this;
@@ -189,7 +188,7 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
      */
     public ButtonBuilder setForegroundColor_hover(final Color foregroundColor_hover) {
         if (foregroundColor_hover != null) {
-            this.foregroundColor_hover = ColorFunctions.enforceTransparentColor(foregroundColor_hover);
+            this.foregroundColor_hover = foregroundColor_hover;
         }
 
         return this;
@@ -206,7 +205,7 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
      */
     public ButtonBuilder setBackgroundColor_pressed(final Color backgroundColor_pressed) {
         if (backgroundColor_pressed != null) {
-            this.backgroundColor_pressed = ColorFunctions.enforceTransparentColor(backgroundColor_pressed);
+            this.backgroundColor_pressed = backgroundColor_pressed;
         }
 
         return this;
@@ -223,7 +222,7 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
      */
     public ButtonBuilder setForegroundColor_pressed(final Color foregroundColor_pressed) {
         if (foregroundColor_pressed != null) {
-            this.foregroundColor_pressed = ColorFunctions.enforceTransparentColor(foregroundColor_pressed);
+            this.foregroundColor_pressed = foregroundColor_pressed;
         }
 
         return this;

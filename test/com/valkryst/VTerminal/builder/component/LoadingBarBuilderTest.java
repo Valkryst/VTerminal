@@ -15,7 +15,7 @@ public class LoadingBarBuilderTest {
         builder = new LoadingBarBuilder();
     }
 
-    @Test(expected=IllegalStateException.class)
+    @Test(expected=NullPointerException.class)
     public void testCheckState_withNoPanelSet() {
         builder.checkState();
     }

@@ -32,9 +32,14 @@ public class LoadingBar extends Component {
      *
      * @param builder
      *        The builder to use.
+     *
+     * @throws NullPointerException
+     *         If the builder is null.
      */
     public LoadingBar(final LoadingBarBuilder builder) {
         super(builder.getColumnIndex(), builder.getRowIndex(), builder.getWidth(), builder.getHeight());
+
+        Objects.requireNonNull(builder);
 
         super.setRadio(builder.getRadio());
 
@@ -50,7 +55,8 @@ public class LoadingBar extends Component {
         // Set all chars to incomplete state:
         for (final AsciiString string : super.getStrings()) {
             string.setAllCharacters(incompleteCharacter);
-            string.setBackgroundAndForegroundColor(backgroundColor_incomplete, foregroundColor_incomplete);
+            string.setBackgroundColor(backgroundColor_incomplete);
+            string.setForegroundColor(foregroundColor_incomplete);
         }
     }
 
@@ -90,35 +96,29 @@ public class LoadingBar extends Component {
      * @param percentComplete
      *        The new percent complete.
      */
-    public void setPercentComplete(final int percentComplete) {
-        boolean isWithinRange = percentComplete >= 0;
-        isWithinRange &= percentComplete <= 100;
-
-        if (isWithinRange == false || this.percentComplete == percentComplete) {
-            return;
+    public void setPercentComplete(int percentComplete) {
+        if (percentComplete < 0) {
+            percentComplete = 0;
         }
 
-        final boolean increased = this.percentComplete < percentComplete;
+        if (percentComplete > 100) {
+            percentComplete = 100;
+        }
 
-        final int totalCompleteChars_prev = (int) (getWidth() * (percentComplete / 100f));
-        final int totalCompleteChars_curr = (int) (getWidth() * (this.percentComplete / 100f));
+        final int numberOfCompleteChars = (int) (super.getWidth() * (percentComplete / 100f));
+        final IntRange range = new IntRange(0, numberOfCompleteChars);
 
         for (final AsciiString string : super.getStrings()) {
-            IntRange range;
-
-            if (increased) {
-                range = new IntRange(totalCompleteChars_curr, totalCompleteChars_prev);
-                string.setCharacters(completeCharacter, range);
-            } else {
-                range = new IntRange(totalCompleteChars_prev, totalCompleteChars_curr);
-                string.setCharacters(incompleteCharacter, range);
-            }
+            string.setBackgroundColor(backgroundColor_incomplete);
+            string.setForegroundColor(foregroundColor_incomplete);
+            string.setAllCharacters(incompleteCharacter);
 
             string.setBackgroundColor(backgroundColor_complete, range);
             string.setForegroundColor(foregroundColor_complete, range);
+            string.setCharacters(completeCharacter, range);
         }
 
         this.percentComplete = percentComplete;
-        super.getRadio().transmit("DRAW");
+        super.transmitDraw();
     }
 }
