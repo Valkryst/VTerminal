@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.printer;
 
 import com.valkryst.VTerminal.Panel;
+import com.valkryst.VTerminal.component.Image;
 import com.valkryst.VTerminal.component.Screen;
 import lombok.Getter;
 import lombok.Setter;
@@ -98,6 +99,40 @@ public class ImagePrinter {
                 });
             }
         }
+    }
+
+    /**
+     * Prints an image onto an image component.
+     *
+     * @param columnIndex
+     *         The x-axis (column) coordinate of the top-left character
+     *         of the image component when drawn on a screen.
+     *
+     * @param rowIndex
+     *         The y-axis (row) coordinate of the top-left character
+     *         of the image component when drawn on a screen.
+     */
+    public Image print(final int columnIndex, final int rowIndex) {
+        final BufferedImage temp = applyTransformations();
+        final Image imageComponent = new Image(columnIndex, rowIndex, temp.getWidth(), temp.getHeight());
+
+        for (int y = 0 ; y < temp.getHeight() && y < imageComponent.getHeight() ; y++) {
+            for (int x = 0 ; x < temp.getWidth() && x < imageComponent.getWidth() ; x++) {
+                final int hexColor = temp.getRGB(x,y);
+                final int red = (hexColor & 0x00ff0000) >> 16;
+                final int green = (hexColor & 0x0000ff00) >> 8;
+                final int blue =  hexColor & 0x000000ff;
+
+                final int charX = x + columnIndex;
+                final int charY = y + rowIndex;
+                imageComponent.getCharacterAt(charX, charY).ifPresent(asciiCharacter -> {
+                    asciiCharacter.setCharacter(printChar);
+                    asciiCharacter.setForegroundColor(new Color(red, green, blue));
+                });
+            }
+        }
+
+        return imageComponent;
     }
 
     /**
