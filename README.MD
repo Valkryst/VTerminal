@@ -20,7 +20,13 @@ This project is currently under active development and code-breaking changes may
 
 ## Jar Files & Maven
 
-To use this project as a Maven dependency, click on the JitPack badge [![Release](https://jitpack.io/v/Valkryst/VTerminal.svg)](https://jitpack.io/#Valkryst/VTerminal), select a version, click the "Get it!" button, and then follow the instructions.
+To use this project as a Maven dependency:
+
+    <dependency>
+        <groupId>com.github.Valkryst</groupId>
+        <artifactId>VTerminal</artifactId>
+        <version>1.0.0-ALPHA</version>
+    </dependency>
 
 If you would rather use a Jar file, then you can find the Jars on the [releases](https://github.com/Valkryst/VTerminal/releases) page.
 
