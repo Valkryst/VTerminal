@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.printer;
 
 import com.valkryst.VTerminal.Panel;
+import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.component.Image;
 import com.valkryst.VTerminal.component.Screen;
 import lombok.Getter;
@@ -80,25 +81,7 @@ public class ImagePrinter {
      *         If the screen is null.
      */
     public void print(final Screen screen, final int columnIndex, final int rowIndex) {
-        Objects.requireNonNull(screen);
-
-        final BufferedImage temp = applyTransformations();
-
-        for (int y = 0 ; y < temp.getHeight() && y < screen.getHeight() ; y++) {
-            for (int x = 0 ; x < temp.getWidth() && x < screen.getWidth() ; x++) {
-                final int hexColor = temp.getRGB(x,y);
-                final int red = (hexColor & 0x00ff0000) >> 16;
-                final int green = (hexColor & 0x0000ff00) >> 8;
-                final int blue =  hexColor & 0x000000ff;
-
-                final int charX = x + columnIndex;
-                final int charY = y + rowIndex;
-                screen.getCharacterAt(charX, charY).ifPresent(asciiCharacter -> {
-                    asciiCharacter.setCharacter(printChar);
-                    asciiCharacter.setForegroundColor(new Color(red, green, blue));
-                });
-            }
-        }
+        print(screen, columnIndex, rowIndex);
     }
 
     /**
@@ -113,11 +96,34 @@ public class ImagePrinter {
      *         of the image component when drawn on a screen.
      */
     public Image print(final int columnIndex, final int rowIndex) {
-        final BufferedImage temp = applyTransformations();
-        final Image imageComponent = new Image(columnIndex, rowIndex, temp.getWidth(), temp.getHeight());
+        final Image imageComponent = new Image(columnIndex, rowIndex, image.getWidth(), image.getHeight());
+        print(imageComponent, columnIndex, rowIndex);
 
-        for (int y = 0 ; y < temp.getHeight() && y < imageComponent.getHeight() ; y++) {
-            for (int x = 0 ; x < temp.getWidth() && x < imageComponent.getWidth() ; x++) {
+        return imageComponent;
+    }
+
+    /**
+     * Prints an image on a component.
+     *
+     * @param component
+     *         The component.
+     *
+     * @param columnIndex
+     *         The x-axis (column) coordinate of the top-left character.
+     *
+     * @param rowIndex
+     *         The y-axis (row) coordinate of the top-left character.
+     *
+     * @throws NullPointerException
+     *         If the screen is null.
+     */
+    private void print(final Component component, final int columnIndex, final int rowIndex) {
+        Objects.requireNonNull(component);
+
+        final BufferedImage temp = applyTransformations();
+
+        for (int y = 0 ; y < temp.getHeight() && y < component.getHeight() ; y++) {
+            for (int x = 0 ; x < temp.getWidth() && x < component.getWidth() ; x++) {
                 final int hexColor = temp.getRGB(x,y);
                 final int red = (hexColor & 0x00ff0000) >> 16;
                 final int green = (hexColor & 0x0000ff00) >> 8;
@@ -125,14 +131,12 @@ public class ImagePrinter {
 
                 final int charX = x + columnIndex;
                 final int charY = y + rowIndex;
-                imageComponent.getCharacterAt(charX, charY).ifPresent(asciiCharacter -> {
+                component.getCharacterAt(charX, charY).ifPresent(asciiCharacter -> {
                     asciiCharacter.setCharacter(printChar);
                     asciiCharacter.setForegroundColor(new Color(red, green, blue));
                 });
             }
         }
-
-        return imageComponent;
     }
 
     /**
