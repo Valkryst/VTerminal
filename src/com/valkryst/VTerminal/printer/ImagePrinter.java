@@ -96,6 +96,8 @@ public class ImagePrinter {
      *         of the image component when drawn on a screen.
      */
     public Image print(final int columnIndex, final int rowIndex) {
+        // Redundant method call to applyTransformations(), but it's required to get the correct
+        // width/height of the resulting image.
         final BufferedImage temp = applyTransformations();
         final Image imageComponent = new Image(columnIndex, rowIndex, temp.getWidth(), temp.getHeight());
         print(imageComponent, columnIndex, rowIndex);
