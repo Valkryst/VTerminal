@@ -67,10 +67,7 @@ public class TrianglePrinter {
             throw new IllegalArgumentException("A triangle requires three points to be drawn.");
         }
 
-        if (points.length > 3) {
-            points = new Point[]{points[0], points[1], points[2]};
-        }
-
+        points = new Point[]{points[0], points[1], points[2], points[0]};
         linePrinter.print(screen, points);
     }
 
