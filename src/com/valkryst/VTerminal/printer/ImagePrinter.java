@@ -62,7 +62,7 @@ public class ImagePrinter {
      */
     public void print(final Panel panel, final int columnIndex, final int rowIndex) {
         Objects.requireNonNull(panel);
-        print(panel.getScreen(), columnIndex, rowIndex);
+        print((Component) panel.getScreen(), columnIndex, rowIndex);
     }
 
     /**
@@ -81,7 +81,7 @@ public class ImagePrinter {
      *         If the screen is null.
      */
     public void print(final Screen screen, final int columnIndex, final int rowIndex) {
-        print(screen, columnIndex, rowIndex);
+        print((Component) screen, columnIndex, rowIndex);
     }
 
     /**
@@ -96,7 +96,8 @@ public class ImagePrinter {
      *         of the image component when drawn on a screen.
      */
     public Image print(final int columnIndex, final int rowIndex) {
-        final Image imageComponent = new Image(columnIndex, rowIndex, image.getWidth(), image.getHeight());
+        final BufferedImage temp = applyTransformations();
+        final Image imageComponent = new Image(columnIndex, rowIndex, temp.getWidth(), temp.getHeight());
         print(imageComponent, columnIndex, rowIndex);
 
         return imageComponent;
