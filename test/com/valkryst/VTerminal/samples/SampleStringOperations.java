@@ -57,8 +57,8 @@ public class SampleStringOperations {
         screen.getString(13).setBackgroundColor(Color.RED);
         screen.getString(13).setForegroundColor(Color.BLUE);
 
-        screen.write("Applying Underline on Line #15", 0, 15);
-        screen.getString(15).setUnderlined(true);
+        screen.write("Applying Underline on Line #15", 0, 14);
+        screen.getString(14).setUnderlined(true);
 
         panel.draw();
     }
