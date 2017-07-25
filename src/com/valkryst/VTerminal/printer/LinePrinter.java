@@ -9,7 +9,7 @@ import java.awt.Point;
 import java.util.Objects;
 
 public class LinePrinter {
-    /** The character to print the ellipse with. */
+    /** The character to print the line with. */
     @Getter @Setter private char printChar = '█';
 
     /**

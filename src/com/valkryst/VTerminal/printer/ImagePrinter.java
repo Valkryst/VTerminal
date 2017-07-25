@@ -1,6 +1,8 @@
 package com.valkryst.VTerminal.printer;
 
 import com.valkryst.VTerminal.Panel;
+import com.valkryst.VTerminal.component.Component;
+import com.valkryst.VTerminal.component.Image;
 import com.valkryst.VTerminal.component.Screen;
 import lombok.Getter;
 import lombok.Setter;
@@ -60,7 +62,7 @@ public class ImagePrinter {
      */
     public void print(final Panel panel, final int columnIndex, final int rowIndex) {
         Objects.requireNonNull(panel);
-        print(panel.getScreen(), columnIndex, rowIndex);
+        print((Component) panel.getScreen(), columnIndex, rowIndex);
     }
 
     /**
@@ -79,12 +81,52 @@ public class ImagePrinter {
      *         If the screen is null.
      */
     public void print(final Screen screen, final int columnIndex, final int rowIndex) {
-        Objects.requireNonNull(screen);
+        print((Component) screen, columnIndex, rowIndex);
+    }
+
+    /**
+     * Prints an image onto an image component.
+     *
+     * @param columnIndex
+     *         The x-axis (column) coordinate of the top-left character
+     *         of the image component when drawn on a screen.
+     *
+     * @param rowIndex
+     *         The y-axis (row) coordinate of the top-left character
+     *         of the image component when drawn on a screen.
+     */
+    public Image print(final int columnIndex, final int rowIndex) {
+        // Redundant method call to applyTransformations(), but it's required to get the correct
+        // width/height of the resulting image.
+        final BufferedImage temp = applyTransformations();
+        final Image imageComponent = new Image(columnIndex, rowIndex, temp.getWidth(), temp.getHeight());
+        print(imageComponent, columnIndex, rowIndex);
+
+        return imageComponent;
+    }
+
+    /**
+     * Prints an image on a component.
+     *
+     * @param component
+     *         The component.
+     *
+     * @param columnIndex
+     *         The x-axis (column) coordinate of the top-left character.
+     *
+     * @param rowIndex
+     *         The y-axis (row) coordinate of the top-left character.
+     *
+     * @throws NullPointerException
+     *         If the screen is null.
+     */
+    private void print(final Component component, final int columnIndex, final int rowIndex) {
+        Objects.requireNonNull(component);
 
         final BufferedImage temp = applyTransformations();
 
-        for (int y = 0 ; y < temp.getHeight() && y < screen.getHeight() ; y++) {
-            for (int x = 0 ; x < temp.getWidth() && x < screen.getWidth() ; x++) {
+        for (int y = 0 ; y < temp.getHeight() && y < component.getHeight() ; y++) {
+            for (int x = 0 ; x < temp.getWidth() && x < component.getWidth() ; x++) {
                 final int hexColor = temp.getRGB(x,y);
                 final int red = (hexColor & 0x00ff0000) >> 16;
                 final int green = (hexColor & 0x0000ff00) >> 8;
@@ -92,7 +134,7 @@ public class ImagePrinter {
 
                 final int charX = x + columnIndex;
                 final int charY = y + rowIndex;
-                screen.getCharacterAt(charX, charY).ifPresent(asciiCharacter -> {
+                component.getCharacterAt(charX, charY).ifPresent(asciiCharacter -> {
                     asciiCharacter.setCharacter(printChar);
                     asciiCharacter.setForegroundColor(new Color(red, green, blue));
                 });

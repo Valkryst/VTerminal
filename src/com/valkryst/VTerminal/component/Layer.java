@@ -23,7 +23,7 @@ public class Layer extends Component {
      * @param height
      *        The height, in characters.
      */
-    public Layer(int columnIndex, int rowIndex, int width, int height) {
+    public Layer(final int columnIndex, final int rowIndex, final int width, final int height) {
         super(columnIndex, rowIndex, width, height);
     }
 
