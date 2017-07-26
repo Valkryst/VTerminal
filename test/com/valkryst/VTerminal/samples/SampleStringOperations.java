@@ -12,7 +12,6 @@ import java.net.URISyntaxException;
 
 public class SampleStringOperations {
     public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
-        System.setProperty("sun.java2d.opengl", "true");
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
         final Panel panel = new PanelBuilder().setFont(font).build();
         final Screen screen = panel.getScreen();
