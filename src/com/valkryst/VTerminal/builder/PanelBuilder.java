@@ -63,6 +63,7 @@ public class PanelBuilder {
         if (frame == null) {
             frame = new JFrame();
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            frame.setLocationRelativeTo(null);
         }
     }
 
