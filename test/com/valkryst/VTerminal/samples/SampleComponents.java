@@ -184,7 +184,7 @@ public class SampleComponents {
                                                                 .setWidth(20)
                                                                 .build();
 
-        Timer timer = new Timer(1000, e -> {
+        final Timer timer = new Timer(1000, e -> {
             int pct = loadingBar.getPercentComplete();
 
             if (pct < 100) {
