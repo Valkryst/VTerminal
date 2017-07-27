@@ -34,7 +34,7 @@ public class SampleComponents {
         printer.setWidth(24);
         printer.print(panel, 0, 0);
 
-        // Title
+        // Title #1
         new LabelBuilder().setColumnAndRowIndices(1, 1)
                           .setPanel(panel)
                           .setText("Component Library Test")
@@ -103,6 +103,66 @@ public class SampleComponents {
                               .setWidth(20)
                               .setMaxCharacters(40)
                               .build();
+
+        // Fixed Width & Height Text Area:
+        new LabelBuilder().setColumnAndRowIndices(25, 2)
+                          .setPanel(panel)
+                          .setText("Fixed Width & Height")
+                          .build()
+                          .getString(0)
+                          .setUnderlined(true);
+
+        new TextAreaBuilder().setColumnAndRowIndices(25, 3)
+                             .setPanel(panel)
+                             .setWidth(20)
+                             .setHeight(3)
+                             .build();
+
+        // Variable Width Text Area:
+        new LabelBuilder().setColumnAndRowIndices(25, 7)
+                          .setPanel(panel)
+                          .setText("Variable Width Only")
+                          .build()
+                          .getString(0)
+                          .setUnderlined(true);
+
+        new TextAreaBuilder().setColumnAndRowIndices(25, 8)
+                             .setPanel(panel)
+                             .setWidth(20)
+                             .setHeight(3)
+                             .setMaxHorizontalCharacters(40)
+                             .build();
+
+        // Variable Height Text Area:
+        new LabelBuilder().setColumnAndRowIndices(25, 12)
+                          .setPanel(panel)
+                          .setText("Variable Height Only")
+                          .build()
+                          .getString(0)
+                          .setUnderlined(true);
+
+        new TextAreaBuilder().setColumnAndRowIndices(25, 13)
+                             .setPanel(panel)
+                             .setWidth(20)
+                             .setHeight(3)
+                             .setMaxVerticalCharacters(6)
+                             .build();
+
+        // Variable Width & HeightText Area:
+        new LabelBuilder().setColumnAndRowIndices(25, 17)
+                          .setPanel(panel)
+                          .setText("Variable Width & Height")
+                          .build()
+                          .getString(0)
+                          .setUnderlined(true);
+
+        new TextAreaBuilder().setColumnAndRowIndices(25, 18)
+                             .setPanel(panel)
+                             .setWidth(20)
+                             .setHeight(3)
+                             .setMaxHorizontalCharacters(40)
+                             .setMaxVerticalCharacters(6)
+                             .build();
 
         // Loading Bar
         final LoadingBar loadingBar = new LoadingBarBuilder().setColumnAndRowIndices(1, 19)
