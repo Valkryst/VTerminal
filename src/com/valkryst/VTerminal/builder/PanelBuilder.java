@@ -37,6 +37,7 @@ public class PanelBuilder {
         frame.add(panel);
         frame.setResizable(false);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
         panel.setIgnoreRepaint(true);
@@ -63,7 +64,6 @@ public class PanelBuilder {
         if (frame == null) {
             frame = new JFrame();
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            frame.setLocationRelativeTo(null);
         }
     }
 
