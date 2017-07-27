@@ -25,7 +25,7 @@ To use this project as a Maven dependency:
     <dependency>
         <groupId>com.github.Valkryst</groupId>
         <artifactId>VTerminal</artifactId>
-        <version>1.0.0-ALPHA</version>
+        <version>1.1.0-ALPHA</version>
     </dependency>
 
 If you would rather use a Jar file, then you can find the Jars on the [releases](https://github.com/Valkryst/VTerminal/releases) page.
