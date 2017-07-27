@@ -77,10 +77,16 @@ public class Screen extends Component {
         }
 
         // Draw layer components onto the screen:
-        layerComponents.forEach(layer -> layer.draw(gc, imageCache));
+        layerComponents.forEach(layer -> {
+            layer.setAllCharactersToBeRedrawn();
+            layer.draw(gc, imageCache);
+        });
 
         // Draw screen components onto the screen:
-        screenComponents.forEach(screen -> screen.draw(gc, imageCache));
+        screenComponents.forEach(screen -> {
+            screen.setAllCharactersToBeRedrawn();
+            screen.draw(gc, imageCache);
+        });
     }
 
     /**
