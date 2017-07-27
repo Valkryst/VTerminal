@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -464,6 +465,44 @@ public class TextArea extends Component {
         }
     }
 
+    /**
+     * Sets the text contained within a row of the area.
+     *
+     * @param rowIndex
+     *        The row index.
+     *
+     * @param text
+     *        The text.
+     */
+    public void setText(final int rowIndex, String text) {
+        if (text == null || text.isEmpty()) {
+            clearText(rowIndex);
+            return;
+        }
+
+        if (text.length() > maxHorizontalCharacters) {
+            text = text.substring(0, maxHorizontalCharacters);
+        }
+
+        System.arraycopy(text.toCharArray(), 0, enteredText[rowIndex], 0, text.length());
+    }
+
+    /**
+     * Sets the text contained within the area.
+     *
+     * Clears the field before setting.
+     *
+     * @param text
+     *        The list of text.
+     */
+    public void setText(final List<String> text) {
+        clearText();
+
+        for (int i = 0 ; i < text.size() && i < maxVerticalCharacters ; i++) {
+            setText(i, text.get(i));
+        }
+    }
+
     /** @return The text contained within the area. */
     public String getText() {
         final StringBuilder sb = new StringBuilder();
@@ -476,6 +515,22 @@ public class TextArea extends Component {
         }
 
         return sb.toString();
+    }
+
+    /**
+     * Clears text from a row.
+     *
+     * @param rowIndex
+     *        The row index,
+     */
+    public void clearText(final int rowIndex) {
+        Arrays.fill(enteredText[rowIndex], ' ');
+
+        if (y_index_caret_actual == y_index_caret_visual && y_index_caret_actual == rowIndex) {
+            for (final AsciiCharacter character : super.getString(rowIndex).getCharacters()) {
+                character.setCharacter(' ');
+            }
+        }
     }
 
     /** Clears all text from the field. */
