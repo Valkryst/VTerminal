@@ -126,6 +126,7 @@ public class TextField extends Component {
         isEqual &= Objects.equals(leftArrowKeyEnabled, otherField.isLeftArrowKeyEnabled());
         isEqual &= Objects.equals(rightArrowKeyEnabled, otherField.isRightArrowKeyEnabled());
         isEqual &= Objects.equals(backSpaceKeyEnabled, otherField.isBackSpaceKeyEnabled());
+        isEqual &= Objects.equals(index_caret_actual, otherField.getIndex_caret_actual());
         isEqual &= Objects.equals(index_caret_visual, otherField.getIndex_caret_visual());
         isEqual &= Objects.equals(maxCharacters, otherField.getMaxCharacters());
         isEqual &= Objects.equals(allowedCharacterPattern, otherField.getAllowedCharacterPattern());
@@ -136,7 +137,8 @@ public class TextField extends Component {
     public int hashCode() {
         return Objects.hash(super.hashCode(), caretForegroundColor, caretBackgroundColor, foregroundColor,
                             backgroundColor, homeKeyEnabled, endKeyEnabled, deleteKeyEnabled, leftArrowKeyEnabled,
-                            rightArrowKeyEnabled, backSpaceKeyEnabled, index_caret_visual, maxCharacters, allowedCharacterPattern);
+                            rightArrowKeyEnabled, backSpaceKeyEnabled, index_caret_actual, index_caret_visual,
+                            maxCharacters, allowedCharacterPattern);
     }
 
     @Override
