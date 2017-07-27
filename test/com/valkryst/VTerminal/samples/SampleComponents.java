@@ -116,6 +116,7 @@ public class SampleComponents {
                              .setPanel(panel)
                              .setWidth(20)
                              .setHeight(3)
+                             .setMaxVerticalCharacters(3)
                              .build();
 
         // Variable Width Text Area:
@@ -130,6 +131,7 @@ public class SampleComponents {
                              .setPanel(panel)
                              .setWidth(20)
                              .setHeight(3)
+                             .setMaxVerticalCharacters(3)
                              .setMaxHorizontalCharacters(40)
                              .build();
 
@@ -145,6 +147,7 @@ public class SampleComponents {
                              .setPanel(panel)
                              .setWidth(20)
                              .setHeight(3)
+                             .setMaxVerticalCharacters(3)
                              .setMaxVerticalCharacters(6)
                              .build();
 
