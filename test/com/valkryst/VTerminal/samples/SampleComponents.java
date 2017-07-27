@@ -34,6 +34,9 @@ public class SampleComponents {
         printer.setWidth(24);
         printer.print(panel, 0, 0);
 
+        printer.setWidth(48);
+        printer.print(panel, 0, 0);
+
         // Title #1
         new LabelBuilder().setColumnAndRowIndices(1, 1)
                           .setPanel(panel)
@@ -104,64 +107,72 @@ public class SampleComponents {
                               .setMaxCharacters(40)
                               .build();
 
+
+
+
+        // Title #2
+        new LabelBuilder().setColumnAndRowIndices(24, 1)
+                .setPanel(panel)
+                .setText("TextArea Tests")
+                .build()
+                .getString(0)
+                .setUnderlined(true);
+
+
         // Fixed Width & Height Text Area:
-        new LabelBuilder().setColumnAndRowIndices(25, 2)
+        new LabelBuilder().setColumnAndRowIndices(24, 3)
                           .setPanel(panel)
                           .setText("Fixed Width & Height")
                           .build()
-                          .getString(0)
-                          .setUnderlined(true);
+                          .getString(0);
 
-        new TextAreaBuilder().setColumnAndRowIndices(25, 3)
+        new TextAreaBuilder().setColumnAndRowIndices(24, 4)
                              .setPanel(panel)
-                             .setWidth(20)
+                             .setWidth(23)
                              .setHeight(3)
                              .setMaxVerticalCharacters(3)
                              .build();
 
         // Variable Width Text Area:
-        new LabelBuilder().setColumnAndRowIndices(25, 7)
+        new LabelBuilder().setColumnAndRowIndices(24, 8)
                           .setPanel(panel)
                           .setText("Variable Width Only")
                           .build()
-                          .getString(0)
-                          .setUnderlined(true);
+                          .getString(0);
 
-        new TextAreaBuilder().setColumnAndRowIndices(25, 8)
+        new TextAreaBuilder().setColumnAndRowIndices(24, 9)
                              .setPanel(panel)
-                             .setWidth(20)
+                             .setWidth(23)
                              .setHeight(3)
                              .setMaxVerticalCharacters(3)
                              .setMaxHorizontalCharacters(40)
                              .build();
 
         // Variable Height Text Area:
-        new LabelBuilder().setColumnAndRowIndices(25, 12)
+        new LabelBuilder().setColumnAndRowIndices(24, 13)
                           .setPanel(panel)
                           .setText("Variable Height Only")
                           .build()
-                          .getString(0)
-                          .setUnderlined(true);
+                          .getString(0);
 
-        new TextAreaBuilder().setColumnAndRowIndices(25, 13)
+        new TextAreaBuilder().setColumnAndRowIndices(24, 14)
                              .setPanel(panel)
-                             .setWidth(20)
+                             .setWidth(23)
                              .setHeight(3)
                              .setMaxVerticalCharacters(3)
                              .setMaxVerticalCharacters(6)
                              .build();
 
         // Variable Width & HeightText Area:
-        new LabelBuilder().setColumnAndRowIndices(25, 17)
+        new LabelBuilder().setColumnAndRowIndices(24, 18)
                           .setPanel(panel)
                           .setText("Variable Width & Height")
                           .build()
-                          .getString(0)
-                          .setUnderlined(true);
+                          .getString(0);
 
-        new TextAreaBuilder().setColumnAndRowIndices(25, 18)
+        new TextAreaBuilder().setColumnAndRowIndices(24, 19)
                              .setPanel(panel)
-                             .setWidth(20)
+                             .setWidth(23)
                              .setHeight(3)
                              .setMaxHorizontalCharacters(40)
                              .setMaxVerticalCharacters(6)
