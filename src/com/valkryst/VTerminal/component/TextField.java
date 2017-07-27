@@ -93,9 +93,8 @@ public class TextField extends Component {
 
         allowedCharacterPattern = builder.getAllowedCharacterPattern();
 
-        // Set the button's text:
+        // Set the fields's initial colors:
         final AsciiString string = super.getString(0);
-        string.setAllCharacters(' ');
         string.setBackgroundColor(backgroundColor);
         string.setForegroundColor(foregroundColor);
 
