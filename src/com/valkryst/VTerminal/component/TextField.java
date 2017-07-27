@@ -89,7 +89,7 @@ public class TextField extends Component {
         maxCharacters = builder.getMaxCharacters();
 
         enteredText = new char[maxCharacters];
-        Arrays.fill(enteredText, ' ');
+        clearText();
 
         allowedCharacterPattern = builder.getAllowedCharacterPattern();
 
