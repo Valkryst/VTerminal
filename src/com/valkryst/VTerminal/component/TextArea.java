@@ -231,29 +231,49 @@ public class TextArea extends Component {
 
                         // Move the caret one position to the left:
                         case KeyEvent.VK_LEFT: {
-                            boolean canWork = leftArrowKeyEnabled;
-                            canWork &= x_index_caret_visual > 0;
+                            boolean canMoveLeft = leftArrowKeyEnabled;
+                            canMoveLeft &= x_index_caret_visual > 0;
 
-                            if (canWork) {
+                            boolean canMoveUp = leftArrowKeyEnabled;
+                            canMoveUp &= x_index_caret_visual == 0;
+                            canMoveUp &= y_index_caret_actual > 0;
+
+                            if (canMoveLeft) {
                                 changeVisualCaretPosition(x_index_caret_visual - 1, y_index_caret_visual);
                                 changeActualCaretPosition(x_index_caret_actual - 1, y_index_caret_actual);
-                                updateDisplayedCharacters();
-                                transmitDraw();
                             }
+
+                            if (canMoveUp) {
+                                changeVisualCaretPosition(maxHorizontalCharacters - 1, y_index_caret_visual - 1);
+                                changeActualCaretPosition(maxHorizontalCharacters - 1, y_index_caret_actual - 1);
+                            }
+
+                            updateDisplayedCharacters();
+                            transmitDraw();
                             break;
                         }
 
                         // Move the caret one position to the right:
                         case KeyEvent.VK_RIGHT: {
-                            boolean canWork = rightArrowKeyEnabled;
-                            canWork &= x_index_caret_visual < maxHorizontalCharacters;
+                            boolean canMoveRight = rightArrowKeyEnabled;
+                            canMoveRight &= x_index_caret_visual < maxHorizontalCharacters - 1;
 
-                            if (canWork) {
+                            boolean canMoveDown = rightArrowKeyEnabled;
+                            canMoveDown &= x_index_caret_visual == maxHorizontalCharacters - 1;
+                            canMoveDown &= y_index_caret_actual < maxVerticalCharacters - 1;
+
+                            if (canMoveRight) {
                                 changeVisualCaretPosition(x_index_caret_visual + 1, y_index_caret_visual);
                                 changeActualCaretPosition(x_index_caret_actual + 1, y_index_caret_actual);
-                                updateDisplayedCharacters();
-                                transmitDraw();
                             }
+
+                            if (canMoveDown) {
+                                changeVisualCaretPosition(0, y_index_caret_visual + 1);
+                                changeActualCaretPosition(0, y_index_caret_actual + 1);
+                            }
+
+                            updateDisplayedCharacters();
+                            transmitDraw();
                             break;
                         }
 
