@@ -8,20 +8,20 @@ import com.valkryst.VTerminal.misc.ColoredImageCache;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
 
 public class Screen extends Component {
     /** The non-layer components displayed on the screen. */
-    private final Set<Component> components = new HashSet<>();
+    private final Set<Component> components = new LinkedHashSet<>();
 
     /** The layer components displayed on the screen. */
-    private final Set<Layer> layerComponents = new HashSet<>();
+    private final Set<Layer> layerComponents = new LinkedHashSet<>();
 
     /** The screen components displayed on the screen. */
-    private final Set<Screen> screenComponents = new HashSet<>();
+    private final Set<Screen> screenComponents = new LinkedHashSet<>();
 
     /**
      * Constructs a new AsciiScreen.
