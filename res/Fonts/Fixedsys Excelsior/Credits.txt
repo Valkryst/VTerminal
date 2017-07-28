@@ -1,5 +1,0 @@
-Source:
-	http://www.fixedsysexcelsior.com/
-
-License:
-	None?
