@@ -183,6 +183,22 @@ public class TextArea extends Component {
                         changeActualCharacter(x_index_caret_actual, y_index_caret_actual, character);
                         changeVisualCaretPosition(x_index_caret_visual + 1, y_index_caret_visual);
                         changeActualCaretPosition(x_index_caret_actual + 1, y_index_caret_actual);
+
+                        // Move caret to beginning of next line:
+                        if (x_index_caret_actual == maxHorizontalCharacters - 1) {
+                            final AsciiCharacter currentChar = TextArea.super.getStrings()[y_index_caret_visual].getCharacters()[x_index_caret_visual];
+
+                            if (currentChar.getCharacter() != ' ') {
+                                boolean canMoveDown = rightArrowKeyEnabled;
+                                canMoveDown &= y_index_caret_actual < maxVerticalCharacters - 1;
+
+                                if (canMoveDown) {
+                                    changeVisualCaretPosition(0, y_index_caret_visual + 1);
+                                    changeActualCaretPosition(0, y_index_caret_actual + 1);
+                                }
+                            }
+                        }
+
                         updateDisplayedCharacters();
                         transmitDraw();
                     }
