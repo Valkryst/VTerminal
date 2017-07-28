@@ -42,6 +42,8 @@ public class TextFieldBuilderTest {
         builder.setRightArrowKeyEnabled(false);
         builder.setBackSpaceKeyEnabled(false);
 
+        builder.setAllowedCharacterPattern(null);
+
         // Doesn't test the AllowedCharacterPattern
 
         builder.reset();
@@ -62,6 +64,8 @@ public class TextFieldBuilderTest {
         Assert.assertTrue(builder.isLeftArrowKeyEnabled());
         Assert.assertTrue(builder.isRightArrowKeyEnabled());
         Assert.assertTrue(builder.isBackSpaceKeyEnabled());
+
+        Assert.assertNotEquals(null, builder.getAllowedCharacterPattern());
     }
 
     @Test
