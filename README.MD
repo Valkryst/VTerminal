@@ -59,7 +59,7 @@ https://valkryst.github.io/VTerminal/
 ## Fonts
 VTerminal supports the use of any bitmap font. There are a number of fonts, ranging in sizes from 12pt-20pt, supplied with this project.
 
-You *will* want to manually delete any unused font files, supplied by VTerminal, from your project, when generating a Jar file.
+When generating a Jar file for a project that uses VTerminal, you *will* want to manually delete any unused font files as they could add over 20MB to the output size.
 
 To use a different font:
 
