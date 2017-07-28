@@ -482,11 +482,11 @@ public class TextArea extends Component {
      *         The new character.
      */
     private void changeVisualCharacter(final int columnIndex, final int rowIndex, final char character) {
-        if (columnIndex < 0 || columnIndex > maxHorizontalCharacters) {
+        if (columnIndex < 0 || columnIndex >= maxHorizontalCharacters) {
             return;
         }
 
-        if (rowIndex < 0 || rowIndex > maxVerticalCharacters) {
+        if (rowIndex < 0 || rowIndex >= maxVerticalCharacters) {
             return;
         }
 
