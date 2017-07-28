@@ -57,9 +57,9 @@ Whenever a Travis CI build passes, the JavaDocs are auto-generated and made avai
 https://valkryst.github.io/VTerminal/
 
 ## Fonts
-VTerminal supports the use of any bitmap font. The  [DejaVu](http://dejavu-fonts.org/wiki/Main_Page) and 
-[GNU FreeFont](https://www.gnu.org/software/freefont/) monospace fonts are supplied with this project in 16pt, 18pt, and 
-20pt sizes.
+VTerminal supports the use of any bitmap font. There are a number of fonts, ranging in sizes from 12pt-20pt, supplied with this project.
+
+You *will* want to manually delete any unused font files, supplied by VTerminal, from your project, when generating a Jar file.
 
 To use a different font:
 
