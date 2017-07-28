@@ -59,6 +59,22 @@ public class Font {
     }
 
     /**
+     * Determines if a character is supported by the font.
+     *
+     * A character is supported if there exists an image
+     * for it.
+     *
+     * @param character
+     *         The character.
+     *
+     * @return
+     *         Whether or not the character is supported.
+     */
+    public boolean isCharacterSupported(final char character) {
+        return characterImages.containsKey(character);
+    }
+
+    /**
      * Retrieves the image associated with a character.
      *
      * @param character
