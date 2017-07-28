@@ -57,9 +57,9 @@ Whenever a Travis CI build passes, the JavaDocs are auto-generated and made avai
 https://valkryst.github.io/VTerminal/
 
 ## Fonts
-VTerminal supports the use of any bitmap font. There are a number of fonts, ranging in sizes from 12pt-20pt, supplied with this project.
+VTerminal supports the use of any bitmap font. There are two fonts, ranging in sizes from 16pt-20pt, supplied with this project.
 
-When generating a Jar file for a project that uses VTerminal, you *will* want to manually delete any unused font files as they could add over 20MB to the output size.
+Non-monospace/square fonts are not supported and they will *not* display correctly.
 
 To use a different font:
 
