@@ -41,6 +41,8 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea, TextAreaBuilder>
     @Getter private boolean upArrowKeyEnabled;
     /** Whether or not the DOWN ARROW key can be used to move the caret one index up. */
     @Getter private boolean downArrowKeyEnabled;
+    /** Whether or not the ENTER key can be used to advance the caret to the first position of the next line. */
+    @Getter private boolean enterKeyEnabled;
     /** Whether or not the BACK SPACE key can be used to erase the character before the caret and move the caret backwards. */
     @Getter private boolean backSpaceKeyEnabled;
 
@@ -108,6 +110,7 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea, TextAreaBuilder>
         rightArrowKeyEnabled = true;
         upArrowKeyEnabled = true;
         downArrowKeyEnabled = true;
+        enterKeyEnabled = true;
         backSpaceKeyEnabled = true;
 
         allowedCharacterPattern = Pattern.compile("^[a-zA-z0-9$-/:-?{-~!\"^_`\\[\\]@# ]$");
@@ -318,6 +321,20 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea, TextAreaBuilder>
      */
     public TextAreaBuilder setRightArrowKeyEnabled(final boolean rightArrowKeyEnabled) {
         this.rightArrowKeyEnabled = rightArrowKeyEnabled;
+        return this;
+    }
+
+    /**
+     * Enables or disables use of the enter key.
+     *
+     * @param enterKeyEnabled
+     *         Whether the enter key is enabled or disabled.
+     *
+     * @return
+     *         This.
+     */
+    public TextAreaBuilder setEnterKeyEnabled(final boolean enterKeyEnabled) {
+        this.enterKeyEnabled = enterKeyEnabled;
         return this;
     }
 
