@@ -114,7 +114,20 @@ public class ColoredImageCache {
     private static BufferedImage applyColorSwap(final AsciiCharacter character, final Font font) {
         Objects.requireNonNull(character);
 
-        final BufferedImage image = cloneImage(font.getCharacterImage(character.getCharacter()));
+        BufferedImage image;
+
+        try {
+            image = cloneImage(font.getCharacterImage(character.getCharacter()));
+        } catch (final NullPointerException e) {
+            System.err.println("Couldn't display '" + character.getCharacter() + "', represented by the decimal #"
+                               + (int) character.getCharacter() +". This is because there is no character sprite"
+                               + " for the character.");
+            System.err.println("Defaulting to '?' sprite.\n");
+
+            image = cloneImage(font.getCharacterImage('?'));
+        }
+
+
         final int backgroundRGB = character.getBackgroundColor().getRGB();
         final int foregroundRGB = character.getForegroundColor().getRGB();
 
