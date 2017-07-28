@@ -35,6 +35,12 @@ public class ComponentTest {
         }
     }
 
+    @Test
+    public void testToString() {
+        final Component component = new Component(0, 0, width, height);
+        Assert.assertNotEquals(0, component.toString());
+    }
+
     @Test(expected=IllegalArgumentException.class)
     public void testConstructor_withNegativeColumnIndex() {
         new Component(-1, 0, width, height);
