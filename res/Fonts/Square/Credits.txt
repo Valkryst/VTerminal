@@ -1,8 +1,0 @@
-Author:
-	Wouter Van Oortmerssen
-
-Source:
-	http://strlen.com/square/
-
-License:
-	https://creativecommons.org/licenses/by/3.0/deed.en_US
