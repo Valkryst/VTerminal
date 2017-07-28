@@ -1,5 +1,0 @@
-Source:
-	https://fonts.google.com/specimen/Press+Start+2P?selection.family=Press+Start+2P
-
-License:
-	http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL_web
