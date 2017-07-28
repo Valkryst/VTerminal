@@ -104,6 +104,17 @@ public class ComponentBuilderTest {
     }
 
     @Test
+    public void testSetPanel_returnValue() {
+        Assert.assertTrue(builder == builder.setPanel(null));
+    }
+
+    @Test
+    public void testSetPanel_withNullPanel() {
+        builder.setPanel(null);
+        Assert.assertEquals(null, builder.getPanel());
+    }
+
+    @Test
     public void testSetRadio_radio() {
         final Radio<String> radio = new Radio<>();
 
