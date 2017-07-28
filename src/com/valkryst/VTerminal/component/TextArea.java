@@ -44,6 +44,8 @@ public class TextArea extends Component {
     @Getter @Setter private boolean upArrowKeyEnabled;
     /** Whether or not the DOWN ARROW key can be used to move the caret one index up. */
     @Getter @Setter private boolean downArrowKeyEnabled;
+    /** Whether or not the ENTER key can be used to advance the caret to the first position of the next line. */
+    @Getter @Setter private boolean enterKeyEnabled;
     /** Whether or not the BACK SPACE key can be used to erase the character before the caret and move the caret backwards. */
     @Getter @Setter private boolean backSpaceKeyEnabled;
 
@@ -97,6 +99,7 @@ public class TextArea extends Component {
         rightArrowKeyEnabled = builder.isRightArrowKeyEnabled();
         upArrowKeyEnabled = builder.isUpArrowKeyEnabled();
         downArrowKeyEnabled = builder.isDownArrowKeyEnabled();
+        enterKeyEnabled = builder.isEnterKeyEnabled();
         backSpaceKeyEnabled = builder.isBackSpaceKeyEnabled();
 
         maxHorizontalCharacters = builder.getMaxHorizontalCharacters();
@@ -139,6 +142,7 @@ public class TextArea extends Component {
         isEqual &= Objects.equals(deleteKeyEnabled, otherArea.isDeleteKeyEnabled());
         isEqual &= Objects.equals(leftArrowKeyEnabled, otherArea.isLeftArrowKeyEnabled());
         isEqual &= Objects.equals(rightArrowKeyEnabled, otherArea.isRightArrowKeyEnabled());
+        isEqual &= Objects.equals(enterKeyEnabled, otherArea.isEnterKeyEnabled());
         isEqual &= Objects.equals(backSpaceKeyEnabled, otherArea.isBackSpaceKeyEnabled());
         isEqual &= Objects.equals(x_index_caret_actual, otherArea.getX_index_caret_actual());
         isEqual &= Objects.equals(y_index_caret_actual, otherArea.getY_index_caret_actual());
@@ -154,9 +158,9 @@ public class TextArea extends Component {
     public int hashCode() {
         return Objects.hash(super.hashCode(), caretForegroundColor, caretBackgroundColor, foregroundColor,
                             backgroundColor, homeKeyEnabled, endKeyEnabled, deleteKeyEnabled, leftArrowKeyEnabled,
-                            rightArrowKeyEnabled, backSpaceKeyEnabled, x_index_caret_actual, y_index_caret_actual,
-                            x_index_caret_visual, y_index_caret_visual, maxHorizontalCharacters, maxVerticalCharacters,
-                            allowedCharacterPattern);
+                            rightArrowKeyEnabled, enterKeyEnabled, backSpaceKeyEnabled, x_index_caret_actual,
+                            y_index_caret_actual, x_index_caret_visual, y_index_caret_visual, maxHorizontalCharacters,
+                            maxVerticalCharacters, allowedCharacterPattern);
     }
 
     @Override
@@ -305,23 +309,50 @@ public class TextArea extends Component {
                             break;
                         }
 
+                        // Move the caret to the first position of the next row:
+                        case KeyEvent.VK_ENTER: {
+                            boolean canWork = enterKeyEnabled;
+                            canWork &= y_index_caret_actual < maxVerticalCharacters - 1;
+
+                            if (canWork) {
+                                changeVisualCaretPosition(0, y_index_caret_visual + 1);
+                                changeActualCaretPosition(0, y_index_caret_actual + 1);
+                                updateDisplayedCharacters();
+                                transmitDraw();
+                            }
+                            break;
+                        }
+
                         // Delete the character to the left of the caret, then move the caret one position left:
                         case KeyEvent.VK_BACK_SPACE: {
-                            boolean canWork = backSpaceKeyEnabled;
-                            canWork &= x_index_caret_visual > 0;
-
-                            if (! canWork) {
+                            if (! backSpaceKeyEnabled) {
                                 break;
                             }
 
-                            if (x_index_caret_visual == maxHorizontalCharacters - 1) {
-                                final AsciiCharacter currentChar = TextArea.super.getStrings()[0].getCharacters()[x_index_caret_visual];
+                            final boolean caretAtStartOfLine = x_index_caret_visual == 0;
+                            final boolean caretAtEndOfLine = x_index_caret_visual == maxHorizontalCharacters - 1;
+
+                            if (caretAtStartOfLine || caretAtEndOfLine) {
+                                final AsciiCharacter currentChar = TextArea.super.getStrings()[y_index_caret_visual].getCharacters()[x_index_caret_visual];
 
                                 if (currentChar.getCharacter() != ' ') {
                                     changeVisualCharacter(x_index_caret_visual, y_index_caret_visual, ' ');
                                     changeActualCharacter(x_index_caret_actual, y_index_caret_actual, ' ');
-                                    break;
+
+                                    if (caretAtEndOfLine) {
+                                        break;
+                                    }
                                 }
+
+                            }
+
+                            if (caretAtStartOfLine) {
+                                if (y_index_caret_actual > 0) {
+                                    changeVisualCaretPosition(maxHorizontalCharacters - 1, y_index_caret_visual - 1);
+                                    changeActualCaretPosition(maxHorizontalCharacters - 1, y_index_caret_actual - 1);
+                                }
+
+                                break;
                             }
 
                             changeVisualCharacter(x_index_caret_visual - 1, y_index_caret_visual, ' ');
