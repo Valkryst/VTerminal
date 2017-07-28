@@ -98,12 +98,9 @@ To use a different font:
 * Ensure the font png image uses a transparent background with white characters. The program relies on this and unintended behaviour could occur with any other settings.
 * The -Xmx JVM parameter can be used to reduce the maximum amount of memory that VTerminal is allowed to use.
      * Tests have been run with with -Xmx32M, -Xmx64M, -Xmx128M, and -Xmx256M without affecting performance.
-     * Values lower than 32M are not recommended.
+     * Values lower than 128M are not recommended.
      * CPU usage may slightly increase with lower values as the garbage collector may run more frequently.
      * Example Usage: *java -jar MyProgram.jar -Xmx256M*
-* All Color objects used with VTerminal must support transparency (the alpha channel).
-     * Ensure that you use the *new Color(r, g, b, a)* or *new Color(rgbVal, true)* constructors to save a few CPU cycles when altering/setting fore/background colors.
-     * If you prefer to use *new Color(r, g, b)* or *new Color(rgbVal)*, then your Color objects will be re-created with the correct constructors before being applied to any Components or AsciiCharacters.
 
 
 ### Screen Draw Process
