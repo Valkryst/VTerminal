@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal.samples;
 
 import com.valkryst.VTerminal.AsciiString;
-import com.valkryst.VTerminal.AsciiTile;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.font.Font;
@@ -19,6 +18,8 @@ public class SampleTileSheet {
 
         char counter = 32;
 
+        /* This is the original way to get tiles on the screen:
+
         for (int y = 0 ; y < panel.getHeightInCharacters() ; y++) {
             final AsciiString string = panel.getScreen().getString(y);
 
@@ -27,6 +28,18 @@ public class SampleTileSheet {
                 counter++;
             }
         }
+        */
+        for (int y = 0 ; y < panel.getHeightInCharacters() ; y++) {
+            final AsciiString string = panel.getScreen().getString(y);
+
+            for (int x = 0 ; x < panel.getWidthInCharacters() ; x++) {
+                string.setCharacter(x, counter);
+                counter++;
+            }
+        }
+
+        panel.getScreen().convertAsciiCharactersToAsciiTiles();
+
 
         panel.draw();
     }
