@@ -27,7 +27,7 @@ public class AsciiCharacter {
 	/** The foreground color. Defaults to white. */
 	@Getter private Color foregroundColor = Color.WHITE;
 	/** The bounding box of the character's area. */
-	@Getter private final Rectangle boundingBox = new Rectangle();
+	@Getter private final Rectangle boundingBox;
 
 	/** Whether or not to draw the character as underlined. */
 	@Getter @Setter private boolean isUnderlined = false;
@@ -51,6 +51,33 @@ public class AsciiCharacter {
      */
 	public AsciiCharacter(final char character) {
 	    this.character = character;
+        boundingBox = new Rectangle();
+    }
+
+    /**
+     * Constructs a new AsciiCharacter by copying the data
+     * of an AsciiTile.
+     *
+     * Does not copy the blinkTimer.
+     *
+     * @param tile
+     *         The AsciiTile.
+     */
+    public AsciiCharacter(final AsciiTile tile) {
+        character = tile.getCharacter();
+
+        isHidden = tile.isHidden();
+
+        backgroundColor = tile.getBackgroundColor();
+        foregroundColor = tile.getForegroundColor();
+
+        boundingBox = tile.getBoundingBox();
+
+        isUnderlined = tile.isUnderlined();
+        underlineThickness = tile.getUnderlineThickness();
+
+        isFlippedHorizontally = tile.isFlippedHorizontally();
+        isFlippedVertically = tile.isFlippedVertically();
     }
 
     @Override
