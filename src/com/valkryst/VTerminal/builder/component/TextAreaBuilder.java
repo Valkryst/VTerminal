@@ -325,6 +325,34 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea, TextAreaBuilder>
     }
 
     /**
+     * Enables or disables use of the up arrow key.
+     *
+     * @param upArrowKeyEnabled
+     *         Whether the up key is enabled or disabled.
+     *
+     * @return
+     *         This.
+     */
+    public TextAreaBuilder setUpArrowKeyEnabled(final boolean upArrowKeyEnabled) {
+        this.upArrowKeyEnabled = upArrowKeyEnabled;
+        return this;
+    }
+
+    /**
+     * Enables or disables use of the down arrow key.
+     *
+     * @param downArrowKeyEnabled
+     *         Whether the down key is enabled or disabled.
+     *
+     * @return
+     *         This.
+     */
+    public TextAreaBuilder setDownArrowKeyEnabled(final boolean downArrowKeyEnabled) {
+        this.downArrowKeyEnabled = downArrowKeyEnabled;
+        return this;
+    }
+
+    /**
      * Enables or disables use of the enter key.
      *
      * @param enterKeyEnabled
