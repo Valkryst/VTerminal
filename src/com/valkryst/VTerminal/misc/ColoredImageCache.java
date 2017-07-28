@@ -3,6 +3,7 @@ package com.valkryst.VTerminal.misc;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.AsciiTile;
 import com.valkryst.VTerminal.font.Font;
 import lombok.Getter;
 
@@ -133,6 +134,7 @@ public class ColoredImageCache {
 
         final int backgroundRGB = character.getBackgroundColor().getRGB();
         final int foregroundRGB = character.getForegroundColor().getRGB();
+        final boolean isTile = character instanceof AsciiTile;
 
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
@@ -149,7 +151,7 @@ public class ColoredImageCache {
 
                 if (isTransparent) {
                     image.setRGB(x, y, backgroundRGB);
-                } else {
+                } else if (isTile == false) {
                     image.setRGB(x, y, foregroundRGB);
                 }
             }
