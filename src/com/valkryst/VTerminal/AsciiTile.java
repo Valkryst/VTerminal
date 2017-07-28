@@ -1,0 +1,90 @@
+package com.valkryst.VTerminal;
+
+import com.valkryst.VTerminal.misc.ColoredImageCache;
+
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.util.Objects;
+
+
+public class AsciiTile extends AsciiCharacter {
+    /**
+     * Constructs a new AsciiTile.
+     *
+     * @param character
+     *         The character.
+     */
+	public AsciiTile(final char character) {
+	    super(character);
+    }
+
+    /**
+     * Draws the tile onto the specified context.
+     *
+     * @param gc
+     *         The graphics context to draw with.
+     *
+     * @param imageCache
+     *         The image cache to retrieve character images from.
+     *
+     * @param columnIndex
+     *         The x-axis (column) coordinate where the character is to be drawn.
+     *
+     * @param rowIndex
+     *         The y-axis (row) coordinate where the character is to be drawn.
+     *
+     * @throws NullPointerException
+     *         If the gc or image cache are null.
+     */
+    @Override
+    public void draw(final Graphics2D gc, final ColoredImageCache imageCache, int columnIndex, int rowIndex) {
+        Objects.requireNonNull(gc);
+        Objects.requireNonNull(imageCache);
+
+        final int fontWidth = imageCache.getFont().getWidth();
+        final int fontHeight = imageCache.getFont().getHeight();
+
+        columnIndex *= fontWidth;
+        rowIndex *= fontHeight;
+
+        BufferedImage image = null;
+
+        // Handle hidden state:
+        if (super.isHidden()) {
+            gc.setColor(super.getBackgroundColor());
+            gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
+        } else {
+            image = imageCache.retrieveFromCache(this);
+        }
+
+        if (image != null) {
+            // Handle Horizontal/Vertical Flipping:
+            if (super.isFlippedHorizontally() || super.isFlippedVertically()) {
+                AffineTransform tx;
+
+                tx = AffineTransform.getScaleInstance((super.isFlippedHorizontally() ? -1 : 1), (super.isFlippedVertically() ? -1 : 1));
+                tx.translate((super.isFlippedHorizontally() ? -fontWidth : 0), (super.isFlippedVertically() ? -fontHeight : 0));
+
+                final BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
+                image = op.filter(image, null);
+            }
+
+            // Draw character:
+            gc.drawImage(image, columnIndex, rowIndex, null);
+        }
+
+        super.getBoundingBox().setLocation(columnIndex, rowIndex);
+        super.getBoundingBox().setSize(fontWidth, fontHeight);
+
+        // Draw underline:
+        if (super.isUnderlined()) {
+            gc.setColor(super.getForegroundColor());
+
+            final int y = rowIndex + fontHeight - super.getUnderlineThickness();
+            gc.fillRect(columnIndex, y, fontWidth, super.getUnderlineThickness());
+        }
+    }
+}

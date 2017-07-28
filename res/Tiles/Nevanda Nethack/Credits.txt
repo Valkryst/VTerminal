@@ -1,0 +1,8 @@
+Source:
+	http://nevanda.deviantart.com/art/nethack-tiles-32x32px-416691316?catpath=art%2Fnethack-tiles-32x32px-416691316%2F
+
+License:
+	None?
+
+Edits:
+	Manually removed most of the blueish background colors. Definitely missed a few pixels.
