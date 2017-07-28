@@ -3,6 +3,7 @@ package com.valkryst.VTerminal;
 import com.valkryst.VTerminal.misc.ColoredImageCache;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -19,6 +20,34 @@ public class AsciiTile extends AsciiCharacter {
      */
 	public AsciiTile(final char character) {
 	    super(character);
+    }
+
+    /**
+     * Constructs a new AsciiTile by copying the data
+     * of an AsciiCharacter.
+     *
+     * Does not copy the blinkTimer.
+     *
+     * @param character
+     *         The AsciiCharacter.
+     */
+    public AsciiTile(final AsciiCharacter character) {
+	    super(character.getCharacter());
+
+	    super.setHidden(character.isHidden());
+
+	    super.setBackgroundColor(character.getBackgroundColor());
+	    super.setForegroundColor(character.getForegroundColor());
+
+	    final Rectangle boundingBox = character.getBoundingBox();
+	    super.getBoundingBox().setSize(boundingBox.width, boundingBox.height);
+	    super.getBoundingBox().setLocation(boundingBox.x, boundingBox.y);
+
+        super.setUnderlined(character.isUnderlined());
+        super.setUnderlineThickness(character.getUnderlineThickness());
+
+        super.setFlippedHorizontally(character.isFlippedHorizontally());
+        super.setFlippedVertically(character.isFlippedVertically());
     }
 
     /**
