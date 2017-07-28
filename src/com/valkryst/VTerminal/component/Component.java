@@ -3,6 +3,7 @@ package com.valkryst.VTerminal.component;
 import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
+import com.valkryst.VTerminal.AsciiTile;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.IntRange;
@@ -198,6 +199,30 @@ public class Component {
     public void transmitDraw() {
         if (radio != null) {
             radio.transmit("DRAW");
+        }
+    }
+
+    /** Converts every AsciiCharacter of every AsciiString into an AsciiTile. */
+    public void convertAsciiCharactersToAsciiTiles() {
+        for (final AsciiString string : strings) {
+            final AsciiCharacter[] characters = string.getCharacters();
+
+            for (int i = 0 ; i < characters.length ; i++) {
+                string.setCharacter(i, new AsciiTile(characters[i]));
+            }
+        }
+    }
+
+    /** Converts every AsciiTile of every AsciiString into an AsciiCharacter. */
+    public void convertAsciiTilesToAsciiCharacters() {
+        for (final AsciiString string : strings) {
+            final AsciiCharacter[] characters = string.getCharacters();
+
+            for (int i = 0 ; i < characters.length ; i++) {
+                if (characters[i] instanceof AsciiTile) {
+                    string.setCharacter(i, new AsciiCharacter((AsciiTile) characters[i]));
+                }
+            }
         }
     }
 
