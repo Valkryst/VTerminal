@@ -120,9 +120,12 @@ public class ColoredImageCache {
             image = cloneImage(font.getCharacterImage(character.getCharacter()));
         } catch (final NullPointerException e) {
             System.err.println("Couldn't display '" + character.getCharacter() + "', represented by the decimal #"
-                               + (int) character.getCharacter() +". This is because there is no character sprite"
-                               + " for the character.");
-            System.err.println("Defaulting to '?' sprite.\n");
+                               + (int) character.getCharacter() +".");
+
+            System.err.println("When this error occurs, it means that the font being used does not contain a sprite"
+                               + " for the character being used.");
+
+            System.err.println("Defaulting to the '?' sprite.\n");
 
             image = cloneImage(font.getCharacterImage('?'));
         }
