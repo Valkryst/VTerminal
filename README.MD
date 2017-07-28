@@ -93,6 +93,10 @@ To use a different font:
     * Textures: png
 * Do *Options->Save bitmap font as...* and save your font. This will generate a png and fnt file.
 
+## Tiles
+
+VTerminal supports the use of graphical tiles. See this [README](https://github.com/Valkryst/VTerminal/blob/master/res/Tiles/README.md) for more information.
+
 ## Misc
 
 * Ensure the font png image uses a transparent background with white characters. The program relies on this and unintended behaviour could occur with any other settings.
