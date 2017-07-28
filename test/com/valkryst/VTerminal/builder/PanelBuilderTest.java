@@ -53,20 +53,19 @@ public class PanelBuilderTest {
 
         Assert.assertNotEquals(null, builder.getFrame());
     }
+    */
 
     @Test
     public void testSetJFrame_returnValue() {
-        Assert.assertTrue(builder == builder.setJFrame(new JFrame()));
+        Assert.assertTrue(builder == builder.setJFrame(null));
     }
 
     @Test
     public void testSetJFrame_withNullJFrame() {
-        builder.setJFrame(new JFrame());
         builder.setJFrame(null);
 
         Assert.assertEquals(null, builder.getFrame());
     }
-    */
 
     @Test
     public void testSetWidthInCharacters() {
