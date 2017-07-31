@@ -71,7 +71,17 @@ public class Panel extends Canvas implements Receiver<String> {
     /** Draws every character of every row onto the canvas. */
     public void draw() {
         final BufferStrategy bs = this.getBufferStrategy();
-        final Graphics2D gc = (Graphics2D) bs.getDrawGraphics();
+        final Graphics2D gc;
+
+        try {
+            gc = (Graphics2D) bs.getDrawGraphics();
+        } catch (final NullPointerException | IllegalStateException e) {
+            // BufferStrategy may not have been created on the first call,
+            // so just do a recursive call until it works.
+            // This may be a bad idea.
+            draw();
+            return;
+        }
 
         gc.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
         gc.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
