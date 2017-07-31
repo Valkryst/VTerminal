@@ -2,19 +2,17 @@ package com.valkryst.VTerminal.builder;
 
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Screen;
-import com.valkryst.VTerminal.font.Font;
 import lombok.Getter;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
+import java.util.Objects;
 
 public class PanelBuilder {
     /** The width of the panel, in characters. */
     @Getter private int widthInCharacters = 80;
     /** The height of the panel, in characters. */
     @Getter private int heightInCharacters = 24;
-    /** The font to draw with. */
-    @Getter private Font font;
 
     /** The screen being displayed on the panel. */
     @Getter private Screen screen;
@@ -50,16 +48,10 @@ public class PanelBuilder {
      * Checks the current state of the builder.
      *
      * @throws NullPointerException
-     *          If the font is null.
+     *          If the screen is null.
      */
     private void checkState() throws NullPointerException {
-        if (font == null) {
-            throw new NullPointerException("The panel must have an AsciiFont to draw with.");
-        }
-
-        if (screen == null) {
-            screen = new Screen(0, 0, widthInCharacters, heightInCharacters);
-        }
+        Objects.requireNonNull(screen);
 
         if (frame == null) {
             frame = new JFrame();
@@ -71,7 +63,6 @@ public class PanelBuilder {
     public void reset() {
         widthInCharacters = 80;
         heightInCharacters = 24;
-        font = null;
         screen = null;
         frame = null;
     }
@@ -123,23 +114,6 @@ public class PanelBuilder {
             this.heightInCharacters = 1;
         } else {
             this.heightInCharacters = heightInCharacters;
-        }
-
-        return this;
-    }
-
-    /**
-     * Sets the font.
-     *
-     * @param asciiFont
-     *        The new font.
-     *
-     * @return
-     *        This.
-     */
-    public PanelBuilder setFont(final Font asciiFont) {
-        if (asciiFont != null) {
-            this.font = asciiFont;
         }
 
         return this;
