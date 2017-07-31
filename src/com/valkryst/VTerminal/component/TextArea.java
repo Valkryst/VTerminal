@@ -348,34 +348,30 @@ public class TextArea extends Component {
                             final boolean caretAtStartOfLine = x_index_caret_visual == 0;
                             final boolean caretAtEndOfLine = x_index_caret_visual == maxHorizontalCharacters - 1;
 
-                            if (caretAtStartOfLine || caretAtEndOfLine) {
+                            if (caretAtStartOfLine) {
+                                changeVisualCharacter(maxHorizontalCharacters - 1, y_index_caret_visual - 1, ' ');
+                                changeActualCharacter(maxHorizontalCharacters - 1, y_index_caret_actual - 1, ' ');
+                                changeVisualCaretPosition(maxHorizontalCharacters - 1, y_index_caret_visual - 1);
+                                changeActualCaretPosition(maxHorizontalCharacters - 1, y_index_caret_actual - 1);
+                            } else if (caretAtEndOfLine) {
                                 final AsciiCharacter currentChar = TextArea.super.getStrings()[y_index_caret_visual].getCharacters()[x_index_caret_visual];
 
-                                if (currentChar.getCharacter() != ' ') {
+                                if (currentChar.getCharacter() == ' ') {
+                                    changeVisualCharacter(x_index_caret_visual - 1, y_index_caret_visual, ' ');
+                                    changeActualCharacter(x_index_caret_visual - 1, y_index_caret_actual, ' ');
+                                    changeVisualCaretPosition(x_index_caret_visual - 1, y_index_caret_visual);
+                                    changeActualCaretPosition(x_index_caret_actual - 1, y_index_caret_actual);
+                                } else {
                                     changeVisualCharacter(x_index_caret_visual, y_index_caret_visual, ' ');
-                                    changeActualCharacter(x_index_caret_actual, y_index_caret_actual, ' ');
-
-                                    if (caretAtEndOfLine) {
-                                        break;
-                                    }
+                                    changeActualCharacter(x_index_caret_visual, y_index_caret_actual, ' ');
                                 }
-
+                            } else {
+                                changeVisualCharacter(x_index_caret_visual - 1, y_index_caret_visual, ' ');
+                                changeActualCharacter(x_index_caret_actual - 1, y_index_caret_actual,  ' ');
+                                changeVisualCaretPosition(x_index_caret_visual - 1, y_index_caret_visual);
+                                changeActualCaretPosition(x_index_caret_actual - 1, y_index_caret_actual);
                             }
 
-                            if (caretAtStartOfLine) {
-                                if (y_index_caret_actual > 0) {
-                                    changeVisualCaretPosition(maxHorizontalCharacters - 1, y_index_caret_visual - 1);
-                                    changeActualCaretPosition(maxHorizontalCharacters - 1, y_index_caret_actual - 1);
-                                }
-
-                                break;
-                            }
-
-                            changeVisualCharacter(x_index_caret_visual - 1, y_index_caret_visual, ' ');
-                            changeActualCharacter(x_index_caret_actual - 1, y_index_caret_actual,  ' ');
-
-                            changeVisualCaretPosition(x_index_caret_visual - 1, y_index_caret_visual);
-                            changeActualCaretPosition(x_index_caret_actual - 1, y_index_caret_actual);
                             updateDisplayedCharacters();
                             transmitDraw();
                             break;
