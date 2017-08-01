@@ -362,6 +362,18 @@ public class Screen extends Component {
     }
 
     /**
+     * Adds one or more components to the screen.
+     *
+     * @param components
+     *        The components.
+     */
+    public void addComponents(final Component ... components) {
+        for (int i = 0 ; i < components.length ; i++) {
+            addComponent(components[i]);
+        }
+    }
+
+    /**
      * Removes a component from the screen.
      *
      * @param component
@@ -389,6 +401,18 @@ public class Screen extends Component {
         } else{
             component.setScreen(null);
             components.remove(component);
+        }
+    }
+
+    /**
+     * Removes one or more components from the screen.
+     *
+     * @param components
+     *        The components.
+     */
+    public void removeComponents(final Component ... components) {
+        for (int i = 0 ; i < components.length ; i++) {
+            removeComponent(components[i]);
         }
     }
 
