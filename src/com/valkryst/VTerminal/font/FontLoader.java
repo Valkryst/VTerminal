@@ -37,9 +37,6 @@ public class FontLoader {
      *
      * @throws IOException
      *         If an IOException occurs while loading the font.
-     *
-     * @throws URISyntaxException
-     *         If a URISyntaxException occurs while loading the font.
      */
     public static Font loadFont(final String spriteSheetPath, final String characterDataPath, final int scale) throws IOException {
         Objects.requireNonNull(spriteSheetPath);
@@ -76,9 +73,6 @@ public class FontLoader {
      *
      * @throws IOException
      *         If an IOException occurs while loading the font.
-     *
-     * @throws URISyntaxException
-     *         If a URISyntaxException occurs while loading the font.
      */
     public static Font loadFont(final InputStream spriteSheet, final InputStream characterData, int scale) throws IOException {
         Objects.requireNonNull(spriteSheet);
