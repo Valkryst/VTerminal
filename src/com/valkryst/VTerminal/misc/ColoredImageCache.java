@@ -33,10 +33,10 @@ public class ColoredImageCache {
 
         this.font = font;
         cachedImages = Caffeine.newBuilder()
-                .initialCapacity(100)
-                .maximumSize(10_000)
-                .expireAfterAccess(5, TimeUnit.MINUTES)
-                .build();
+                               .initialCapacity(100)
+                               .maximumSize(10_000)
+                               .expireAfterAccess(5, TimeUnit.MINUTES)
+                               .build();
     }
 
     /**
@@ -56,10 +56,10 @@ public class ColoredImageCache {
 
         this.font = font;
         cachedImages = Caffeine.newBuilder()
-                .initialCapacity(100)
-                .maximumSize(maxCacheSize)
-                .expireAfterAccess(5, TimeUnit.MINUTES)
-                .build();
+                               .initialCapacity(100)
+                               .maximumSize(maxCacheSize)
+                               .expireAfterAccess(5, TimeUnit.MINUTES)
+                               .build();
     }
 
     @Override
