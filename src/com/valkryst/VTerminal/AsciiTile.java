@@ -30,6 +30,9 @@ public class AsciiTile extends AsciiCharacter {
      *
      * @param character
      *         The AsciiCharacter.
+     *
+     * @throws NullPointerException
+     *        If the character is null.
      */
     public AsciiTile(final AsciiCharacter character) {
 	    super(character.getCharacter());
