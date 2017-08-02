@@ -15,14 +15,14 @@ public class ColorFunctionsTest {
     @Test
     public void testShade_withAboveOneShadeFactor() {
         final Color color = new Color(255, 255, 255);
-        final Color shadedColor = ColorFunctions.shade(color, 1);
+        final Color shadedColor = ColorFunctions.shade(color, 2);
         Assert.assertEquals(Color.BLACK, shadedColor);
     }
 
     @Test
     public void testShade_withBelowZeroShadeFactor() {
         final Color color = new Color(255, 255, 255);
-        final Color shadedColor = ColorFunctions.shade(color, 0);
+        final Color shadedColor = ColorFunctions.shade(color, -1);
         Assert.assertEquals(color, shadedColor);
     }
 
@@ -61,14 +61,14 @@ public class ColorFunctionsTest {
     @Test
     public void testTint_withAboveOneTintFactor() {
         final Color color = new Color(0, 0, 0);
-        final Color tintedColor = ColorFunctions.tint(color, 0);
+        final Color tintedColor = ColorFunctions.tint(color, 2);
         Assert.assertEquals(color, tintedColor);
     }
 
     @Test
     public void testTint_withBelowZeroTintFactor() {
         final Color color = new Color(0, 0, 0);
-        final Color tintedColor = ColorFunctions.tint(color, 1);
+        final Color tintedColor = ColorFunctions.tint(color, -1);
         Assert.assertEquals(Color.WHITE, tintedColor);
     }
 
