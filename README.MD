@@ -10,10 +10,8 @@ This project is currently under active development and code-breaking changes may
 * [JavaDoc Documentation](https://valkryst.github.io/VTerminal/)
 * [Usage Guide](https://github.com/Valkryst/VTerminal/wiki)
     * [More Examples](https://github.com/Valkryst/VTerminal/tree/master/test/com/valkryst/VTerminal/samples)
-* [Fonts](#Fonts)
-* [Tiles](https://github.com/Valkryst/VTerminal/blob/master/res/Tiles/README.md)
-* [Misc](#Misc)
-* [Screen Draw Process](#Screen-Draw-Process)
+* [Font Information](https://github.com/Valkryst/VTerminal/wiki/Creating-a-New-Font)
+* [Tile Information](https://github.com/Valkryst/VTerminal/blob/master/res/Tiles/README.md)
 
 
 ## Jar Files & Maven
