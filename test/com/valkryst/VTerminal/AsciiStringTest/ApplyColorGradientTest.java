@@ -20,7 +20,7 @@ public class ApplyColorGradientTest {
     }
 
     @Test
-    public void toBackgroundOfAllCharacters_withValidInput() {
+    public void toBackgroundOfAllCharacters() {
         string.applyColorGradient(Color.RED, Color.BLUE, true);
 
         for (final AsciiCharacter character : string.getCharacters()) {
@@ -30,7 +30,7 @@ public class ApplyColorGradientTest {
     }
 
     @Test
-    public void toForegroundOfAllCharacters_withValidInput() {
+    public void toForegroundOfAllCharacters() {
         string.applyColorGradient(Color.RED, Color.BLUE, false);
 
         for (final AsciiCharacter character : string.getCharacters()) {
@@ -40,7 +40,7 @@ public class ApplyColorGradientTest {
     }
 
     @Test
-    public void toBackgroundOfRange_withValidInput() {
+    public void toBackgroundOfRange() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
 
         string.applyColorGradient(range, Color.RED, Color.BLUE, true);
@@ -52,7 +52,7 @@ public class ApplyColorGradientTest {
     }
 
     @Test
-    public void toForegroundOfRange_withValidInput() {
+    public void toForegroundOfRange() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
 
         string.applyColorGradient(range, Color.RED, Color.BLUE, false);
