@@ -20,7 +20,7 @@ public class ApplyShadeGradientTest {
     }
 
     @Test
-    public void toBackgroundOfAllCharacters_withValidInput() {
+    public void toBackgroundOfAllCharacters() {
         string.applyShadeGradient(Color.RED, true);
 
         for (final AsciiCharacter character : string.getCharacters()) {
@@ -30,7 +30,7 @@ public class ApplyShadeGradientTest {
     }
 
     @Test
-    public void toForegroundOfAllCharacters_withValidInput() {
+    public void toForegroundOfAllCharacters() {
         string.applyShadeGradient(Color.RED,  false);
 
         for (final AsciiCharacter character : string.getCharacters()) {
@@ -40,7 +40,7 @@ public class ApplyShadeGradientTest {
     }
 
     @Test
-    public void toBackgroundOfRange_withValidInput() {
+    public void toBackgroundOfRange() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
 
         string.applyShadeGradient(range, Color.RED,  true);
@@ -52,7 +52,7 @@ public class ApplyShadeGradientTest {
     }
 
     @Test
-    public void toForegroundOfRange_withValidInput() {
+    public void toForegroundOfRange() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
 
         string.applyShadeGradient(range, Color.RED,  false);
