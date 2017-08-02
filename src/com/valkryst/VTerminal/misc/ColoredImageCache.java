@@ -62,11 +62,6 @@ public class ColoredImageCache {
                                .build();
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(cachedImages);
-    }
-
     /**
      * Retrieves a character image from the cache.
      *
