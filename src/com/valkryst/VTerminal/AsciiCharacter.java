@@ -53,36 +53,35 @@ public class AsciiCharacter {
 	    this.character = character;
         boundingBox = new Rectangle();
     }
-
     /**
      * Constructs a new AsciiCharacter by copying the data
-     * of an AsciiTile.
+     * of an AsciiCharacter.
      *
      * Does not copy the blinkTimer.
      *
-     * @param tile
-     *         The AsciiTile.
+     * @param character
+     *         The AsciiCharacter.
      *
      * @throws NullPointerException
-     *        If the tile is null.
+     *        If the character is null.
      */
-    public AsciiCharacter(final AsciiTile tile) {
-        Objects.requireNonNull(tile);
+    public AsciiCharacter(final AsciiCharacter character) {
+        Objects.requireNonNull(character);
 
-        character = tile.getCharacter();
+        this.character = character.getCharacter();
 
-        isHidden = tile.isHidden();
+        isHidden = character.isHidden();
 
-        backgroundColor = tile.getBackgroundColor();
-        foregroundColor = tile.getForegroundColor();
+        backgroundColor = character.getBackgroundColor();
+        foregroundColor = character.getForegroundColor();
 
-        boundingBox = tile.getBoundingBox();
+        boundingBox = character.getBoundingBox();
 
-        isUnderlined = tile.isUnderlined();
-        underlineThickness = tile.getUnderlineThickness();
+        isUnderlined = character.isUnderlined();
+        underlineThickness = character.getUnderlineThickness();
 
-        isFlippedHorizontally = tile.isFlippedHorizontally();
-        isFlippedVertically = tile.isFlippedVertically();
+        isFlippedHorizontally = character.isFlippedHorizontally();
+        isFlippedVertically = character.isFlippedVertically();
     }
 
     @Override
