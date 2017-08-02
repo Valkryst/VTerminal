@@ -155,33 +155,31 @@ public class AsciiCharacter {
         columnIndex *= fontWidth;
         rowIndex *= fontHeight;
 
-        BufferedImage image;
+        BufferedImage image = null;
 
         // Handle hidden state:
         if (isHidden) {
-            final Color color = foregroundColor;
-            foregroundColor = backgroundColor;
-
-            image = imageCache.retrieveFromCache(this);
-
-            foregroundColor = color;
+            gc.setColor(backgroundColor);
+            gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
         } else {
             image = imageCache.retrieveFromCache(this);
         }
 
-        // Handle Horizontal/Vertical Flipping:
-        if (isFlippedHorizontally || isFlippedVertically) {
-            AffineTransform tx;
+        if (image != null) {
+            // Handle Horizontal/Vertical Flipping:
+            if (isFlippedHorizontally || isFlippedVertically) {
+                AffineTransform tx;
 
-            tx = AffineTransform.getScaleInstance((isFlippedHorizontally ? -1 : 1), (isFlippedVertically ? -1 : 1));
-            tx.translate((isFlippedHorizontally ? -fontWidth : 0), (isFlippedVertically ? -fontHeight : 0));
+                tx = AffineTransform.getScaleInstance((isFlippedHorizontally ? -1 : 1), (isFlippedVertically ? -1 : 1));
+                tx.translate((isFlippedHorizontally ? -fontWidth : 0), (isFlippedVertically ? -fontHeight : 0));
 
-            final BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
-            image = op.filter(image, null);
+                final BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
+                image = op.filter(image, null);
+            }
+
+            // Draw character:
+            gc.drawImage(image, columnIndex, rowIndex, null);
         }
-
-        // Draw character:
-        gc.drawImage(image, columnIndex, rowIndex,null);
 
         boundingBox.setLocation(columnIndex, rowIndex);
         boundingBox.setSize(fontWidth, fontHeight);
