@@ -62,8 +62,13 @@ public class AsciiCharacter {
      *
      * @param tile
      *         The AsciiTile.
+     *
+     * @throws NullPointerException
+     *        If the tile is null.
      */
     public AsciiCharacter(final AsciiTile tile) {
+        Objects.requireNonNull(tile);
+
         character = tile.getCharacter();
 
         isHidden = tile.isHidden();
