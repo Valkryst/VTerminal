@@ -60,16 +60,16 @@ public class ColorFunctionsTest {
 
     @Test
     public void testTint_withAboveOneTintFactor() {
-        final Color color = new Color(0, 0, 0);
+        final Color color = new Color(255, 255, 255);
         final Color tintedColor = ColorFunctions.tint(color, 2);
-        Assert.assertEquals(color, tintedColor);
+        Assert.assertEquals(Color.WHITE, tintedColor);
     }
 
     @Test
     public void testTint_withBelowZeroTintFactor() {
         final Color color = new Color(0, 0, 0);
         final Color tintedColor = ColorFunctions.tint(color, -1);
-        Assert.assertEquals(Color.WHITE, tintedColor);
+        Assert.assertEquals(Color.BLACK, tintedColor);
     }
 
     @Test
