@@ -97,7 +97,7 @@ To use a different font:
 
 VTerminal supports the use of graphical tiles. See this [README](https://github.com/Valkryst/VTerminal/blob/master/res/Tiles/README.md) for more information.
 
-There is one set of graphical tiles supplies with this project.
+There is one set of graphical tiles supplied with this project.
 
 ## Misc
 
