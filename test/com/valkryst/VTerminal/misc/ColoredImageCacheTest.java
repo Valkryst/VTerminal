@@ -48,6 +48,13 @@ public class ColoredImageCacheTest {
         Assert.assertNotNull(image);
     }
 
+    @Test
+    public void testRetrieveFromCache_withInvalidInput() {
+        final ColoredImageCache cache = new ColoredImageCache(font, 100);
+        final BufferedImage image = cache.retrieveFromCache(new AsciiCharacter(Character.MAX_VALUE));
+        Assert.assertNotNull(image);
+    }
+
     @Test(expected=NullPointerException.class)
     public void testRetrieveFromCache_withNullCharacter() {
         final ColoredImageCache cache = new ColoredImageCache(font, 100);
