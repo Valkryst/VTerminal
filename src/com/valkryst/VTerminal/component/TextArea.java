@@ -474,7 +474,6 @@ public class TextArea extends Component {
      */
     private void changeVisualCharacter(final int columnIndex, final int rowIndex, final char character) {
         final AsciiCharacter[] characters = super.getString(rowIndex).getCharacters();
-        System.out.println(characters.length);
         characters[columnIndex].setCharacter(character);
     }
 
