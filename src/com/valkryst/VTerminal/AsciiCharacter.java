@@ -67,6 +67,21 @@ public class AsciiCharacter {
      */
     public AsciiCharacter(final AsciiCharacter character) {
         Objects.requireNonNull(character);
+        boundingBox = new Rectangle();
+
+        copy(character);
+    }
+
+    /**
+     * Copies the settings of an AsciiCharacter to this
+     * AsciiCharacter.
+     *
+     * Does not copy the blinkTimer.
+     *
+     * @param character
+     *        The other AsciiCharacter.
+     */
+    public void copy(final AsciiCharacter character) {
 
         this.character = character.getCharacter();
 
@@ -75,7 +90,8 @@ public class AsciiCharacter {
         backgroundColor = character.getBackgroundColor();
         foregroundColor = character.getForegroundColor();
 
-        boundingBox = character.getBoundingBox();
+        boundingBox.setSize(character.getBoundingBox().getSize());
+        boundingBox.setLocation(character.getBoundingBox().getLocation());
 
         isUnderlined = character.isUnderlined();
         underlineThickness = character.getUnderlineThickness();
