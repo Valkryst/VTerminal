@@ -20,19 +20,19 @@ public class FontTest {
     }
 
     @Test
+    public void testIsCharacterSupported_withSupportedCharacter() {
+        Assert.assertTrue(font.isCharacterSupported('?'));
+    }
+
+    @Test
+    public void testIsCharacterSupported_withNonSupportedCharacter() {
+        Assert.assertFalse(font.isCharacterSupported('\u1F5E'));
+    }
+
+    @Test
     public void testGetCharacterImage_withAllSymbolAlphabeticAndNumberAsciiCharacters() {
         for (byte i = 33 ; i < 127 ; i++) {
             Assert.assertNotNull(font.getCharacterImage((char) i));
         }
-    }
-
-    @Test
-    public void testGetWidth() {
-        Assert.assertEquals(12, font.getWidth());
-    }
-
-    @Test
-    public void testGetHeight() {
-        Assert.assertEquals(24, font.getHeight());
     }
 }
