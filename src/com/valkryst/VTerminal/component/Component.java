@@ -13,9 +13,7 @@ import lombok.Setter;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class Component {
     /** The x-axis (column) coordinate of the top-left character. */
@@ -42,6 +40,9 @@ public class Component {
 
     /** The screen that the component is on. */
     @Getter @Setter private Screen screen;
+
+    /** The event listeners. */
+    @Getter private final List<EventListener> eventListeners = new ArrayList<>();
 
     /**
      * Constructs a new AsciiComponent.
@@ -156,7 +157,7 @@ public class Component {
         final int fontWidth = font.getWidth();
         final int fontHeight = font.getHeight();
 
-        panel.addMouseListener(new MouseListener() {
+        final MouseListener mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(final MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
@@ -175,7 +176,9 @@ public class Component {
 
             @Override
             public void mouseExited(final MouseEvent e) {}
-        });
+        };
+
+        eventListeners.add(mouseListener);
     }
 
     /**
