@@ -42,12 +42,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
     @Override
     public TextField build() {
         checkState();
-
-        final TextField textField = new TextField(this);
-        textField.registerEventHandlers(super.panel);
-        super.panel.addComponent(textField);
-
-        return textField;
+        return new TextField(this);
     }
 
     /**
@@ -64,11 +59,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField, TextFieldBuild
         }
 
         if (radio == null) {
-            radio = panel.getRadio();
-
-            if (radio == null) {
-                throw new NullPointerException("The text field must have a radio to transmit to.");
-            }
+            throw new NullPointerException("The text field must have a radio to transmit to.");
         }
     }
 

@@ -17,11 +17,7 @@ public class LabelBuilder extends ComponentBuilder<Label, LabelBuilder> {
     @Override
     public Label build() {
         checkState();
-
-        final Label label = new Label(this);
-        super.panel.addComponent(label);
-
-        return label;
+        return new Label(this);
     }
 
     /** Resets the builder to it's default state. */

@@ -52,12 +52,7 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea, TextAreaBuilder>
     @Override
     public TextArea build() {
         checkState();
-
-        final TextArea textArea = new TextArea(this);
-        textArea.registerEventHandlers(super.panel);
-        super.panel.addComponent(textArea);
-
-        return textArea;
+        return new TextArea(this);
     }
 
     /**
@@ -78,11 +73,7 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea, TextAreaBuilder>
         }
 
         if (radio == null) {
-            radio = panel.getRadio();
-
-            if (radio == null) {
-                throw new NullPointerException("The text area must have a radio to transmit to.");
-            }
+            throw new NullPointerException("The text area must have a radio to transmit to.");
         }
     }
 

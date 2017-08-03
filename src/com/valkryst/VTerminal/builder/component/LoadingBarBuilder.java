@@ -29,11 +29,7 @@ public class LoadingBarBuilder extends ComponentBuilder<LoadingBar, LoadingBarBu
     @Override
     public LoadingBar build() {
         checkState();
-
-        final LoadingBar loadingBar = new LoadingBar(this);
-        super.panel.addComponent(loadingBar);
-
-        return loadingBar;
+        return new LoadingBar(this);
     }
 
     /**
