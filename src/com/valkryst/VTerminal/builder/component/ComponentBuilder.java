@@ -11,9 +11,6 @@ public class ComponentBuilder<C extends Component, B extends ComponentBuilder<C,
     /** The y-axis (row) coordinate of the top-left character. */
     @Getter protected int rowIndex;
 
-    /** The panel on which the button is to be placed. */
-    @Getter protected Panel panel;
-
     /** The radio to transmit events to. */
     @Getter protected Radio<String> radio;
 
@@ -36,24 +33,13 @@ public class ComponentBuilder<C extends Component, B extends ComponentBuilder<C,
         return null;
     }
 
-    /**
-     * Checks the current state of the builder.
-     *
-     * @throws NullPointerException
-     *          If the panel is null.
-     */
-    protected void checkState() throws NullPointerException {
-        if (panel == null) {
-            throw new NullPointerException("The component must have a panel to be placed on.");
-        }
-    }
+    /** Checks the current state of the builder. */
+    protected void checkState() {}
 
     /** Resets the builder to it's default state. */
     public void reset() {
         columnIndex = 0;
         rowIndex = 0;
-
-        panel = null;
     }
 
     /**
@@ -108,29 +94,6 @@ public class ComponentBuilder<C extends Component, B extends ComponentBuilder<C,
         return (B)this;
     }
 
-    /**
-     * Sets the panel.
-     *
-     * If the radio is null and the Panel's radio is not null,
-     * then the radio is also set to the Panel's radio.
-     *
-     * @param panel
-     *        The panel.
-     *
-     * @return
-     *        This.
-     */
-    public B setPanel(final Panel panel) {
-        if (panel != null) {
-            this.panel = panel;
-
-            if (radio == null) {
-                setRadio(panel);
-            }
-        }
-
-        return (B)this;
-    }
     /**
      * Sets the radio to transmit events to.
      *
