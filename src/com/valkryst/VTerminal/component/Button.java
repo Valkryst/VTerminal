@@ -128,13 +128,13 @@ public class Button extends Component {
 
     @Override
     public void registerEventHandlers(final Panel panel) {
-        Objects.requireNonNull(panel);
+        super.registerEventHandlers(panel);
 
         final Font font = panel.getImageCache().getFont();
         final int fontWidth = font.getWidth();
         final int fontHeight = font.getHeight();
 
-        panel.addMouseListener(new MouseListener() {
+        final MouseListener mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -173,9 +173,9 @@ public class Button extends Component {
             public void mouseExited(MouseEvent e) {
 
             }
-        });
+        };
 
-        panel.addMouseMotionListener(new MouseMotionListener() {
+        final MouseMotionListener mouseMotionListener = new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
 
@@ -189,7 +189,10 @@ public class Button extends Component {
                     setStateNormal();
                 }
             }
-        });
+        };
+
+        super.getEventListeners().add(mouseListener);
+        super.getEventListeners().add(mouseMotionListener);
     }
 
     /** Sets the button state to normal if the current state allows for the normal state to be set. */
