@@ -141,8 +141,8 @@ public class TextField extends Component {
     }
 
     @Override
-    public void registerEventHandlers(final Panel panel) {
-        super.registerEventHandlers(panel);
+    public void createEventListeners(final Panel panel) {
+        super.createEventListeners(panel);
 
         final KeyListener keyListener = new KeyListener() {
             @Override

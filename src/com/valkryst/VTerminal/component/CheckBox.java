@@ -125,8 +125,8 @@ public class CheckBox extends Component {
     }
 
     @Override
-    public void registerEventHandlers(final Panel panel) {
-        super.registerEventHandlers(panel);
+    public void createEventListeners(final Panel panel) {
+        super.createEventListeners(panel);
 
         final Font font = panel.getImageCache().getFont();
         final int fontWidth = font.getWidth();
