@@ -35,12 +35,7 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox, CheckBoxBuilder>
     @Override
     public CheckBox build() {
         checkState();
-
-        final CheckBox checkBox = new CheckBox(this);
-        checkBox.registerEventHandlers(super.panel);
-        super.panel.addComponent(checkBox);
-
-        return checkBox;
+        return new CheckBox(this);
     }
 
     /**
