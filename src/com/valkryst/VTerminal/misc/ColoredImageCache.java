@@ -7,6 +7,7 @@ import com.valkryst.VTerminal.AsciiTile;
 import com.valkryst.VTerminal.font.Font;
 import lombok.Getter;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
@@ -80,9 +81,13 @@ public final class ColoredImageCache {
     public BufferedImage retrieveFromCache(final AsciiCharacter character) {
         Objects.requireNonNull(character);
 
-        final int hashCode = Objects.hash(character.getCharacter(),
-                                          character.getBackgroundColor(),
-                                          character.getForegroundColor());
+        int hashCode;
+
+        if (character instanceof AsciiTile) {
+            hashCode = Objects.hash(character.getCharacter(), character.getBackgroundColor(), Color.WHITE);
+        } else {
+            hashCode = Objects.hash(character.getCharacter(), character.getBackgroundColor(), character.getForegroundColor());
+        }
 
         BufferedImage image = cachedImages.getIfPresent(hashCode);
 
