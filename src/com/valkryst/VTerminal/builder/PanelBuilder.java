@@ -10,9 +10,9 @@ import javax.swing.WindowConstants;
 
 public class PanelBuilder {
     /** The width of the panel, in characters. */
-    @Getter private int widthInCharacters = 80;
+    @Getter private int widthInCharacters;
     /** The height of the panel, in characters. */
-    @Getter private int heightInCharacters = 24;
+    @Getter private int heightInCharacters;
     /** The font to draw with. */
     @Getter private Font font;
 
@@ -21,6 +21,11 @@ public class PanelBuilder {
 
     /** The frame in which the panel is to be placed. */
     @Getter private JFrame frame;
+
+    /** Constructs a new PanelBuilder. */
+    public PanelBuilder() {
+        reset();
+    }
 
     /**
      * Uses the builder to construct a new VTerminal.
