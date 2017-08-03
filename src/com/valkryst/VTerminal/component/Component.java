@@ -150,7 +150,7 @@ public class Component {
      * @throws NullPointerException
      *         If the panel is null.
      */
-    public void registerEventHandlers(final Panel panel) {
+    public void createEventListeners(final Panel panel) {
         Objects.requireNonNull(panel);
 
         final Font font = panel.getImageCache().getFont();
