@@ -142,10 +142,10 @@ public class Component {
     }
 
     /**
-     * Registers events, required by the component, with the specified panel.
+     * Creates all required event listeners for the component.
      *
      * @param panel
-     *         The panel to register events with.
+     *         The panel on which the Component is being drawn.
      *
      * @throws NullPointerException
      *         If the panel is null.
