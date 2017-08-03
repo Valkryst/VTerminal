@@ -225,6 +225,10 @@ public class Panel extends Canvas implements Receiver<String> {
     public void addComponent(final Component component) {
         screen.addComponent(component);
 
+        if (component.getEventListeners().size() == 0) {
+            component.createEventListeners(this);
+        }
+
         for (final EventListener eventListener : component.getEventListeners()) {
             if (eventListener instanceof KeyListener) {
                 this.addKeyListener((KeyListener) eventListener);
