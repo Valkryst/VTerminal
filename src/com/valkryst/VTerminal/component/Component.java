@@ -42,7 +42,7 @@ public class Component {
     @Getter @Setter private Screen screen;
 
     /** The event listeners. */
-    @Getter private final List<EventListener> eventListeners = new ArrayList<>();
+    @Getter private final Set<EventListener> eventListeners = new HashSet<>();
 
     /**
      * Constructs a new AsciiComponent.
