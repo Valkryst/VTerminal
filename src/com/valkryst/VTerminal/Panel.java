@@ -252,7 +252,9 @@ public class Panel extends Canvas implements Receiver<String> {
      *        The components.
      */
     public void addComponents(final Component ... components) {
-        screen.addComponents(components);
+        for (final Component component : components) {
+            addComponent(component);
+        }
     }
 
     /**
@@ -291,6 +293,8 @@ public class Panel extends Canvas implements Receiver<String> {
      *        The components.
      */
     public void removeComponents(final Component ... components) {
-        screen.removeComponents(components);
+        for (final Component component : components) {
+            removeComponent(component);
+        }
     }
 }
