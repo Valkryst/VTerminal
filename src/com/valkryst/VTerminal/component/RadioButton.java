@@ -128,7 +128,7 @@ public class RadioButton extends Component {
 
     @Override
     public void registerEventHandlers(final Panel panel) {
-        Objects.requireNonNull(panel);
+        super.registerEventHandlers(panel);
 
         final Font font = panel.getImageCache().getFont();
         final int fontWidth = font.getWidth();
@@ -136,7 +136,7 @@ public class RadioButton extends Component {
 
         final RadioButton thisButton = this;
 
-        panel.addMouseListener(new MouseListener() {
+        final MouseListener mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(final MouseEvent e) {}
 
@@ -159,9 +159,9 @@ public class RadioButton extends Component {
 
             @Override
             public void mouseExited(final MouseEvent e) {}
-        });
+        };
 
-        panel.addMouseMotionListener(new MouseMotionListener() {
+        final MouseMotionListener mouseMotionListener = new MouseMotionListener() {
             @Override
             public void mouseDragged(final MouseEvent e) {}
 
@@ -177,7 +177,10 @@ public class RadioButton extends Component {
                     }
                 }
             }
-        });
+        };
+
+        super.getEventListeners().add(mouseListener);
+        super.getEventListeners().add(mouseMotionListener);
     }
 
     /** Sets the radio button state to normal if the current state allows for the normal state to be set. */
