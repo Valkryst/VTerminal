@@ -51,7 +51,7 @@ public class ColoredImageCacheTest {
     @Test
     public void testRetrieveFromCache_withInvalidInput() {
         final ColoredImageCache cache = new ColoredImageCache(font, 100);
-        final BufferedImage image = cache.retrieveFromCache(new AsciiCharacter(Character.MAX_VALUE));
+        final BufferedImage image = cache.retrieveFromCache(new AsciiCharacter('\u1F5E'));
         Assert.assertNotNull(image);
     }
 
