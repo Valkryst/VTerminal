@@ -101,8 +101,7 @@ public class Component {
         // virtually identical other than their focus.
         // Left out a check for radio.
         final Component otherComp = (Component) otherObj;
-        boolean isEqual = super.equals(otherObj);
-        isEqual &= Objects.equals(columnIndex, otherComp.getColumnIndex());
+        boolean isEqual = Objects.equals(columnIndex, otherComp.getColumnIndex());
         isEqual &= Objects.equals(rowIndex, otherComp.getRowIndex());
         isEqual &= Objects.equals(width, otherComp.getWidth());
         isEqual &= Objects.equals(height, otherComp.getHeight());
