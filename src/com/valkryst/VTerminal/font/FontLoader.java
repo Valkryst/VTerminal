@@ -13,7 +13,10 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class FontLoader {
+public final class FontLoader {
+    // Prevent users from creating an instance.
+    private FontLoader() {}
+
     /**
      * Loads a font from the file system.
      *
