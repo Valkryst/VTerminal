@@ -3,7 +3,10 @@ package com.valkryst.VTerminal.misc;
 import java.awt.Color;
 import java.util.Objects;
 
-public class ColorFunctions {
+public final class ColorFunctions {
+    // Prevent users from creating an instance.
+    private ColorFunctions() {}
+
     /**
      * Shades a color by some factor, where a higher factor results
      * in a darker shade.
