@@ -36,12 +36,7 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
     @Override
     public Button build() {
         checkState();
-
-        final Button button = new Button(this);
-        button.registerEventHandlers(super.panel);
-        super.panel.addComponent(button);
-
-        return button;
+        return new Button(this);
     }
 
     /**
