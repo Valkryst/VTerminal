@@ -165,11 +165,9 @@ public class TextArea extends Component {
 
     @Override
     public void registerEventHandlers(final Panel panel) {
-        Objects.requireNonNull(panel);
-
         super.registerEventHandlers(panel);
 
-        panel.addKeyListener(new KeyListener() {
+        final KeyListener keyListener = new KeyListener() {
             @Override
             public void keyTyped(final KeyEvent e) {
                 if (isFocused()) {
@@ -344,7 +342,9 @@ public class TextArea extends Component {
                     }
                 }
             }
-        });
+        };
+
+        super.getEventListeners().add(keyListener);
     }
 
     /** Moves the caret one cell up. */
