@@ -126,13 +126,13 @@ public class CheckBox extends Component {
 
     @Override
     public void registerEventHandlers(final Panel panel) {
-        Objects.requireNonNull(panel);
+        super.registerEventHandlers(panel);
 
         final Font font = panel.getImageCache().getFont();
         final int fontWidth = font.getWidth();
         final int fontHeight = font.getHeight();
 
-        panel.addMouseListener(new MouseListener() {
+        final MouseListener mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(final MouseEvent e) {}
 
@@ -157,9 +157,9 @@ public class CheckBox extends Component {
 
             @Override
             public void mouseExited(final MouseEvent e) {}
-        });
+        };
 
-        panel.addMouseMotionListener(new MouseMotionListener() {
+        final MouseMotionListener mouseMotionListener = new MouseMotionListener() {
             @Override
             public void mouseDragged(final MouseEvent e) {}
 
@@ -175,7 +175,10 @@ public class CheckBox extends Component {
                     }
                 }
             }
-        });
+        };
+
+        super.getEventListeners().add(mouseListener);
+        super.getEventListeners().add(mouseMotionListener);
     }
 
     /** Sets the check box state to normal if the current state allows for the normal state to be set. */
