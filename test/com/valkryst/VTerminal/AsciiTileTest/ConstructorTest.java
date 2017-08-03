@@ -1,11 +1,13 @@
-package com.valkryst.VTerminal;
+package com.valkryst.VTerminal.AsciiTileTest;
 
+import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.AsciiTile;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.awt.Color;
 
-public class AsciiTileTest {
+public class ConstructorTest {
     @Test
     public void testConstructor_withValidInput() {
         final AsciiCharacter character = new AsciiCharacter('?');
