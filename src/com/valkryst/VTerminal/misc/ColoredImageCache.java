@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class ColoredImageCache {
+public final class ColoredImageCache {
     /** The cache. */
     private final Cache<Integer, BufferedImage> cachedImages;
 
