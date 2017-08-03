@@ -13,10 +13,14 @@ import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.EventListener;
 import java.util.Objects;
 
 public class Panel extends Canvas implements Receiver<String> {
@@ -212,11 +216,15 @@ public class Panel extends Canvas implements Receiver<String> {
     /**
      * Adds a component to the current screen.
      *
+     * Registers event listeners of the component to the panel,
+     * if required.
+     *
      * @param component
      *          The component.
      */
     public void addComponent(final Component component) {
         screen.addComponent(component);
+        component.registerEventHandlers(this);
     }
 
 
@@ -233,11 +241,28 @@ public class Panel extends Canvas implements Receiver<String> {
     /**
      * Removes a component from the current screen.
      *
+     * Removes event listeners of the component from the panel,
+     * if required.
+     *
      * @param component
      *          The component.
      */
     public void removeComponent(final Component component) {
         screen.removeComponent(component);
+
+        for (final EventListener eventListener : component.getEventListeners()) {
+            if (eventListener instanceof KeyListener) {
+                this.removeKeyListener((KeyListener) eventListener);
+            }
+
+            if (eventListener instanceof MouseListener) {
+                this.removeMouseListener((MouseListener) eventListener);
+            }
+
+            if (eventListener instanceof MouseMotionListener) {
+                this.removeMouseMotionListener((MouseMotionListener) eventListener);
+            }
+        }
     }
 
 
