@@ -67,5 +67,7 @@ public class ComponentBuilder<C extends Component> {
         rowIndex = 0;
 
         panel = null;
+
+        radio = null;
     }
 }
