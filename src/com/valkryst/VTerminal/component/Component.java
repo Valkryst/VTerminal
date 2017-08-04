@@ -13,9 +13,7 @@ import lombok.Setter;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class Component {
     /** The x-axis (column) coordinate of the top-left character. */
@@ -42,6 +40,9 @@ public class Component {
 
     /** The screen that the component is on. */
     @Getter @Setter private Screen screen;
+
+    /** The event listeners. */
+    @Getter private final Set<EventListener> eventListeners = new HashSet<>();
 
     /**
      * Constructs a new AsciiComponent.
@@ -100,8 +101,7 @@ public class Component {
         // virtually identical other than their focus.
         // Left out a check for radio.
         final Component otherComp = (Component) otherObj;
-        boolean isEqual = super.equals(otherObj);
-        isEqual &= Objects.equals(columnIndex, otherComp.getColumnIndex());
+        boolean isEqual = Objects.equals(columnIndex, otherComp.getColumnIndex());
         isEqual &= Objects.equals(rowIndex, otherComp.getRowIndex());
         isEqual &= Objects.equals(width, otherComp.getWidth());
         isEqual &= Objects.equals(height, otherComp.getHeight());
@@ -141,22 +141,22 @@ public class Component {
     }
 
     /**
-     * Registers events, required by the component, with the specified panel.
+     * Creates all required event listeners for the component.
      *
      * @param panel
-     *         The panel to register events with.
+     *         The panel on which the Component is being drawn.
      *
      * @throws NullPointerException
      *         If the panel is null.
      */
-    public void registerEventHandlers(final Panel panel) {
+    public void createEventListeners(final Panel panel) {
         Objects.requireNonNull(panel);
 
         final Font font = panel.getImageCache().getFont();
         final int fontWidth = font.getWidth();
         final int fontHeight = font.getHeight();
 
-        panel.addMouseListener(new MouseListener() {
+        final MouseListener mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(final MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
@@ -175,7 +175,9 @@ public class Component {
 
             @Override
             public void mouseExited(final MouseEvent e) {}
-        });
+        };
+
+        eventListeners.add(mouseListener);
     }
 
     /**

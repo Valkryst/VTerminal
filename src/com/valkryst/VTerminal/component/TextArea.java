@@ -164,14 +164,10 @@ public class TextArea extends Component {
     }
 
     @Override
-    public void registerEventHandlers(final Panel panel) {
-        Objects.requireNonNull(panel);
+    public void createEventListeners(final Panel panel) {
+        super.createEventListeners(panel);
 
-        super.registerEventHandlers(panel);
-
-        final int width = super.getWidth();
-
-        panel.addKeyListener(new KeyListener() {
+        final KeyListener keyListener = new KeyListener() {
             @Override
             public void keyTyped(final KeyEvent e) {
                 if (isFocused()) {
@@ -181,22 +177,16 @@ public class TextArea extends Component {
                     if (matcher.matches()) {
                         changeVisualCharacter(x_index_caret_visual, y_index_caret_visual, character);
                         changeActualCharacter(x_index_caret_actual, y_index_caret_actual, character);
-                        changeVisualCaretPosition(x_index_caret_visual + 1, y_index_caret_visual);
-                        changeActualCaretPosition(x_index_caret_actual + 1, y_index_caret_actual);
 
-                        // Move caret to beginning of next line:
-                        if (x_index_caret_actual == maxHorizontalCharacters - 1) {
-                            final AsciiCharacter currentChar = TextArea.super.getStrings()[y_index_caret_visual].getCharacters()[x_index_caret_visual];
+                        final boolean caretAtEndOfLine = x_index_caret_actual == maxHorizontalCharacters - 1;
 
-                            if (currentChar.getCharacter() != ' ') {
-                                boolean canMoveDown = rightArrowKeyEnabled;
-                                canMoveDown &= y_index_caret_actual < maxVerticalCharacters - 1;
-
-                                if (canMoveDown) {
-                                    changeVisualCaretPosition(0, y_index_caret_visual + 1);
-                                    changeActualCaretPosition(0, y_index_caret_actual + 1);
-                                }
+                        if (caretAtEndOfLine) {
+                            if (y_index_caret_actual < maxVerticalCharacters - 1) {
+                                moveCaretDown();
+                                moveCaretToStartOfLine();
                             }
+                        } else {
+                            moveCaretRight();
                         }
 
                         updateDisplayedCharacters();
@@ -219,8 +209,7 @@ public class TextArea extends Component {
                         // Move the caret to the first position on the left:
                         case KeyEvent.VK_HOME: {
                             if (homeKeyEnabled) {
-                                changeVisualCaretPosition(0, y_index_caret_visual);
-                                changeActualCaretPosition(0, y_index_caret_actual);
+                                moveCaretToStartOfLine();
                                 updateDisplayedCharacters();
                                 transmitDraw();
                             }
@@ -230,8 +219,7 @@ public class TextArea extends Component {
                         // Move the caret to the last position on the right:
                         case KeyEvent.VK_END: {
                             if (endKeyEnabled) {
-                                changeVisualCaretPosition(width, y_index_caret_visual);
-                                changeActualCaretPosition(maxHorizontalCharacters, y_index_caret_actual);
+                                moveCaretToEndOfLine();
                                 updateDisplayedCharacters();
                                 transmitDraw();
                             }
@@ -241,8 +229,7 @@ public class TextArea extends Component {
                         // Erase the current character:
                         case KeyEvent.VK_DELETE: {
                             if (deleteKeyEnabled) {
-                                changeVisualCharacter(x_index_caret_visual, y_index_caret_visual, ' ');
-                                changeActualCharacter(x_index_caret_actual, y_index_caret_actual,  ' ');
+                                clearCurrentCell();
                                 updateDisplayedCharacters();
                                 transmitDraw();
                             }
@@ -251,60 +238,48 @@ public class TextArea extends Component {
 
                         // Move the caret one position to the left:
                         case KeyEvent.VK_LEFT: {
-                            boolean canMoveLeft = leftArrowKeyEnabled;
-                            canMoveLeft &= x_index_caret_visual > 0;
+                            if (leftArrowKeyEnabled) {
+                                boolean moveToPreviousLine = x_index_caret_actual == 0;
+                                moveToPreviousLine &= y_index_caret_actual > 0;
 
-                            boolean canMoveUp = leftArrowKeyEnabled;
-                            canMoveUp &= x_index_caret_visual == 0;
-                            canMoveUp &= y_index_caret_actual > 0;
+                                if (moveToPreviousLine) {
+                                    moveCaretUp();
+                                    moveCaretToEndOfLine();
+                                } else {
+                                    moveCaretLeft();
+                                }
 
-                            if (canMoveLeft) {
-                                changeVisualCaretPosition(x_index_caret_visual - 1, y_index_caret_visual);
-                                changeActualCaretPosition(x_index_caret_actual - 1, y_index_caret_actual);
+                                updateDisplayedCharacters();
+                                transmitDraw();
                             }
 
-                            if (canMoveUp) {
-                                changeVisualCaretPosition(maxHorizontalCharacters - 1, y_index_caret_visual - 1);
-                                changeActualCaretPosition(maxHorizontalCharacters - 1, y_index_caret_actual - 1);
-                            }
-
-                            updateDisplayedCharacters();
-                            transmitDraw();
                             break;
                         }
 
                         // Move the caret one position to the right:
                         case KeyEvent.VK_RIGHT: {
-                            boolean canMoveRight = rightArrowKeyEnabled;
-                            canMoveRight &= x_index_caret_visual < maxHorizontalCharacters - 1;
+                            if (isRightArrowKeyEnabled()) {
+                                boolean moveToNextLine = x_index_caret_actual == maxHorizontalCharacters - 1;
+                                moveToNextLine &= y_index_caret_actual < maxVerticalCharacters - 1;
 
-                            boolean canMoveDown = rightArrowKeyEnabled;
-                            canMoveDown &= x_index_caret_visual == maxHorizontalCharacters - 1;
-                            canMoveDown &= y_index_caret_actual < maxVerticalCharacters - 1;
+                                if (moveToNextLine) {
+                                    moveCaretDown();
+                                    moveCaretToStartOfLine();
+                                } else {
+                                    moveCaretRight();
+                                }
 
-                            if (canMoveRight) {
-                                changeVisualCaretPosition(x_index_caret_visual + 1, y_index_caret_visual);
-                                changeActualCaretPosition(x_index_caret_actual + 1, y_index_caret_actual);
+                                updateDisplayedCharacters();
+                                transmitDraw();
                             }
 
-                            if (canMoveDown) {
-                                changeVisualCaretPosition(0, y_index_caret_visual + 1);
-                                changeActualCaretPosition(0, y_index_caret_actual + 1);
-                            }
-
-                            updateDisplayedCharacters();
-                            transmitDraw();
                             break;
                         }
 
                         // Move the caret one position up:
                         case KeyEvent.VK_UP: {
-                            boolean canWork = upArrowKeyEnabled;
-                            canWork &= y_index_caret_actual > 0;
-
-                            if (canWork) {
-                                changeVisualCaretPosition(x_index_caret_visual, y_index_caret_visual - 1);
-                                changeActualCaretPosition(x_index_caret_actual, y_index_caret_actual - 1);
+                            if (upArrowKeyEnabled) {
+                                moveCaretUp();
                                 updateDisplayedCharacters();
                                 transmitDraw();
                             }
@@ -313,12 +288,8 @@ public class TextArea extends Component {
 
                         // Move the caret one position down:
                         case KeyEvent.VK_DOWN: {
-                            boolean canWork = downArrowKeyEnabled;
-                            canWork &= y_index_caret_visual < maxVerticalCharacters;
-
-                            if (canWork) {
-                                changeVisualCaretPosition(x_index_caret_visual, y_index_caret_visual + 1);
-                                changeActualCaretPosition(x_index_caret_actual, y_index_caret_actual + 1);
+                            if (downArrowKeyEnabled) {
+                                moveCaretDown();
                                 updateDisplayedCharacters();
                                 transmitDraw();
                             }
@@ -331,8 +302,8 @@ public class TextArea extends Component {
                             canWork &= y_index_caret_actual < maxVerticalCharacters - 1;
 
                             if (canWork) {
-                                changeVisualCaretPosition(0, y_index_caret_visual + 1);
-                                changeActualCaretPosition(0, y_index_caret_actual + 1);
+                                moveCaretDown();
+                                moveCaretToStartOfLine();
                                 updateDisplayedCharacters();
                                 transmitDraw();
                             }
@@ -345,37 +316,25 @@ public class TextArea extends Component {
                                 break;
                             }
 
-                            final boolean caretAtStartOfLine = x_index_caret_visual == 0;
-                            final boolean caretAtEndOfLine = x_index_caret_visual == maxHorizontalCharacters - 1;
-
-                            if (caretAtStartOfLine || caretAtEndOfLine) {
-                                final AsciiCharacter currentChar = TextArea.super.getStrings()[y_index_caret_visual].getCharacters()[x_index_caret_visual];
-
-                                if (currentChar.getCharacter() != ' ') {
-                                    changeVisualCharacter(x_index_caret_visual, y_index_caret_visual, ' ');
-                                    changeActualCharacter(x_index_caret_actual, y_index_caret_actual, ' ');
-
-                                    if (caretAtEndOfLine) {
-                                        break;
-                                    }
-                                }
-
-                            }
+                            final boolean caretAtStartOfLine = x_index_caret_actual == 0;
+                            final boolean caretAtEndOfLine = x_index_caret_actual == maxHorizontalCharacters - 1;
 
                             if (caretAtStartOfLine) {
                                 if (y_index_caret_actual > 0) {
-                                    changeVisualCaretPosition(maxHorizontalCharacters - 1, y_index_caret_visual - 1);
-                                    changeActualCaretPosition(maxHorizontalCharacters - 1, y_index_caret_actual - 1);
+                                    moveCaretUp();
+                                    moveCaretToEndOfLine();
                                 }
+                            } else if (caretAtEndOfLine) {
+                                final AsciiCharacter currentChar = TextArea.super.getStrings()[y_index_caret_visual].getCharacters()[x_index_caret_visual];
 
-                                break;
+                                if (currentChar.getCharacter() == ' ') {
+                                    moveCaretLeft();
+                                }
+                            } else {
+                                moveCaretLeft();
                             }
 
-                            changeVisualCharacter(x_index_caret_visual - 1, y_index_caret_visual, ' ');
-                            changeActualCharacter(x_index_caret_actual - 1, y_index_caret_actual,  ' ');
-
-                            changeVisualCaretPosition(x_index_caret_visual - 1, y_index_caret_visual);
-                            changeActualCaretPosition(x_index_caret_actual - 1, y_index_caret_actual);
+                            clearCurrentCell();
                             updateDisplayedCharacters();
                             transmitDraw();
                             break;
@@ -383,7 +342,71 @@ public class TextArea extends Component {
                     }
                 }
             }
-        });
+        };
+
+        super.getEventListeners().add(keyListener);
+    }
+
+    /** Moves the caret one cell up. */
+    private void moveCaretUp() {
+        if (y_index_caret_visual > 0) {
+            changeVisualCaretPosition(x_index_caret_visual, y_index_caret_visual - 1);
+        }
+
+        if (y_index_caret_actual > 0) {
+            changeActualCaretPosition(x_index_caret_actual, y_index_caret_actual - 1);
+        }
+    }
+
+    /** Moves the caret one cell down. */
+    private void moveCaretDown() {
+        if (y_index_caret_visual < super.getHeight() - 1) {
+            changeVisualCaretPosition(x_index_caret_visual, y_index_caret_visual + 1);
+        }
+
+        if (y_index_caret_actual < maxVerticalCharacters - 1) {
+            changeActualCaretPosition(x_index_caret_actual, y_index_caret_actual + 1);
+        }
+    }
+
+    /** Moves the caret one cell left. */
+    private void moveCaretLeft() {
+        if (x_index_caret_visual > 0) {
+            changeVisualCaretPosition(x_index_caret_visual - 1, y_index_caret_visual);
+        }
+
+        if (x_index_caret_actual > 0) {
+            changeActualCaretPosition(x_index_caret_actual - 1, y_index_caret_actual);
+        }
+    }
+
+    /** Moves the caret one cell right. */
+    private void moveCaretRight() {
+        if (x_index_caret_visual < super.getWidth() - 1) {
+            changeVisualCaretPosition(x_index_caret_visual + 1, y_index_caret_visual);
+        }
+
+        if (x_index_caret_actual < maxHorizontalCharacters - 1) {
+            changeActualCaretPosition(x_index_caret_actual + 1, y_index_caret_actual);
+        }
+    }
+
+    /** Moves the caret to the beginning of the current line. */
+    private void moveCaretToStartOfLine() {
+        changeVisualCaretPosition(0, y_index_caret_visual);
+        changeActualCaretPosition(0, y_index_caret_actual);
+    }
+
+    /** Moves the caret to the end of the current line. */
+    private void moveCaretToEndOfLine() {
+        changeVisualCaretPosition(super.getWidth() - 1, y_index_caret_visual);
+        changeActualCaretPosition(maxHorizontalCharacters - 1, y_index_caret_actual);
+    }
+
+    /** Deletes the character in the current cell. */
+    private void clearCurrentCell() {
+        changeVisualCharacter(x_index_caret_visual, y_index_caret_visual, ' ');
+        changeActualCharacter(x_index_caret_actual, y_index_caret_actual, ' ');
     }
 
     /**
@@ -395,23 +418,7 @@ public class TextArea extends Component {
      * @param newRowIndex
      *         The new row index for the caret.
      */
-    private void changeVisualCaretPosition(int newColumnIndex, int newRowIndex) {
-        if (newColumnIndex >= super.getWidth()) {
-            newColumnIndex = super.getWidth() - 1;
-        }
-
-        if (newColumnIndex < 0) {
-            newColumnIndex = 0;
-        }
-
-        if (newRowIndex >= super.getHeight()) {
-            newRowIndex = super.getHeight() - 1;
-        }
-
-        if (newRowIndex < 0) {
-            newRowIndex = 0;
-        }
-
+    private void changeVisualCaretPosition(final int newColumnIndex, final int newRowIndex) {
         final Radio<String> radio = super.getRadio();
 
         // Reset current position's fore/background:
@@ -448,23 +455,7 @@ public class TextArea extends Component {
      * @param newRowIndex
      *         The new row index for the caret.
      */
-    private void changeActualCaretPosition(int newColumnIndex, int newRowIndex) {
-        if (newColumnIndex >= maxHorizontalCharacters) {
-            newColumnIndex = maxHorizontalCharacters - 1;
-        }
-
-        if (newColumnIndex < 0) {
-            newColumnIndex = 0;
-        }
-
-        if (newRowIndex >= maxVerticalCharacters) {
-            newRowIndex = maxVerticalCharacters - 1;
-        }
-
-        if (newRowIndex < 0) {
-            newRowIndex = 0;
-        }
-
+    private void changeActualCaretPosition(final int newColumnIndex, final int newRowIndex) {
         x_index_caret_actual = newColumnIndex;
         y_index_caret_actual = newRowIndex;
     }
@@ -482,14 +473,6 @@ public class TextArea extends Component {
      *         The new character.
      */
     private void changeVisualCharacter(final int columnIndex, final int rowIndex, final char character) {
-        if (columnIndex < 0 || columnIndex >= maxHorizontalCharacters) {
-            return;
-        }
-
-        if (rowIndex < 0 || rowIndex >= maxVerticalCharacters) {
-            return;
-        }
-
         final AsciiCharacter[] characters = super.getString(rowIndex).getCharacters();
         characters[columnIndex].setCharacter(character);
     }
@@ -522,11 +505,11 @@ public class TextArea extends Component {
         final int xDifference = x_index_caret_actual - x_index_caret_visual;
         final int yDifference = y_index_caret_actual - y_index_caret_visual;
 
-        for (int x = xDifference ; x < super.getWidth() + xDifference ; x++) {
-            for (int y = yDifference ; y < super.getHeight() + yDifference ; y++) {
-                final AsciiString string = super.getString(y - yDifference);
+        for (int y = yDifference ; y < super.getHeight() + yDifference ; y++) {
+            final AsciiString string = super.getString(y - yDifference);
+            final AsciiCharacter[] characters = string.getCharacters();
 
-                final AsciiCharacter[] characters = string.getCharacters();
+            for (int x = xDifference ; x < super.getWidth() + xDifference ; x++) {
                 characters[x - xDifference].setCharacter(enteredText[y][x]);
             }
         }

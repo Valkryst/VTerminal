@@ -54,12 +54,7 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
     @Override
     public TextArea build() {
         checkState();
-
-        final TextArea textArea = new TextArea(this);
-        textArea.registerEventHandlers(super.getPanel());
-        super.getPanel().addComponent(textArea);
-
-        return textArea;
+        return new TextArea(this);
     }
 
     /**
@@ -93,6 +88,10 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
 
         if (maxVerticalCharacters < height) {
             maxVerticalCharacters = height;
+        }
+
+        if (radio == null) {
+            throw new NullPointerException("The text area must have a radio to transmit to.");
         }
     }
 

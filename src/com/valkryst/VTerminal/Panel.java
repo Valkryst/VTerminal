@@ -13,10 +13,14 @@ import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.EventListener;
 import java.util.Objects;
 
 public class Panel extends Canvas implements Receiver<String> {
@@ -71,7 +75,17 @@ public class Panel extends Canvas implements Receiver<String> {
     /** Draws every character of every row onto the canvas. */
     public void draw() {
         final BufferStrategy bs = this.getBufferStrategy();
-        final Graphics2D gc = (Graphics2D) bs.getDrawGraphics();
+        final Graphics2D gc;
+
+        try {
+            gc = (Graphics2D) bs.getDrawGraphics();
+        } catch (final NullPointerException | IllegalStateException e) {
+            // BufferStrategy may not have been created on the first call,
+            // so just do a recursive call until it works.
+            // This may be a bad idea.
+            draw();
+            return;
+        }
 
         gc.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
         gc.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
@@ -202,20 +216,85 @@ public class Panel extends Canvas implements Receiver<String> {
     /**
      * Adds a component to the current screen.
      *
+     * Registers event listeners of the component to the panel,
+     * if required.
+     *
      * @param component
      *          The component.
      */
     public void addComponent(final Component component) {
         screen.addComponent(component);
+
+        if (component.getEventListeners().size() == 0) {
+            component.createEventListeners(this);
+        }
+
+        for (final EventListener eventListener : component.getEventListeners()) {
+            if (eventListener instanceof KeyListener) {
+                this.addKeyListener((KeyListener) eventListener);
+            }
+
+            if (eventListener instanceof MouseListener) {
+                this.addMouseListener((MouseListener) eventListener);
+            }
+
+            if (eventListener instanceof MouseMotionListener) {
+                this.addMouseMotionListener((MouseMotionListener) eventListener);
+            }
+        }
+    }
+
+
+    /**
+     * Adds one or more components to the current screen.
+     *
+     * @param components
+     *        The components.
+     */
+    public void addComponents(final Component ... components) {
+        for (final Component component : components) {
+            addComponent(component);
+        }
     }
 
     /**
      * Removes a component from the current screen.
+     *
+     * Removes event listeners of the component from the panel,
+     * if required.
      *
      * @param component
      *          The component.
      */
     public void removeComponent(final Component component) {
         screen.removeComponent(component);
+
+        for (final EventListener eventListener : component.getEventListeners()) {
+            if (eventListener instanceof KeyListener) {
+                this.removeKeyListener((KeyListener) eventListener);
+            }
+
+            if (eventListener instanceof MouseListener) {
+                this.removeMouseListener((MouseListener) eventListener);
+            }
+
+            if (eventListener instanceof MouseMotionListener) {
+                this.removeMouseMotionListener((MouseMotionListener) eventListener);
+            }
+        }
+    }
+
+
+
+    /**
+     * Removes one or more components from the current screen.
+     *
+     * @param components
+     *        The components.
+     */
+    public void removeComponents(final Component ... components) {
+        for (final Component component : components) {
+            removeComponent(component);
+        }
     }
 }

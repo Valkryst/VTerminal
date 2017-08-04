@@ -7,12 +7,13 @@ import com.valkryst.VTerminal.AsciiTile;
 import com.valkryst.VTerminal.font.Font;
 import lombok.Getter;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class ColoredImageCache {
+public final class ColoredImageCache {
     /** The cache. */
     private final Cache<Integer, BufferedImage> cachedImages;
 
@@ -33,10 +34,10 @@ public class ColoredImageCache {
 
         this.font = font;
         cachedImages = Caffeine.newBuilder()
-                .initialCapacity(100)
-                .maximumSize(10_000)
-                .expireAfterAccess(5, TimeUnit.MINUTES)
-                .build();
+                               .initialCapacity(100)
+                               .maximumSize(10_000)
+                               .expireAfterAccess(5, TimeUnit.MINUTES)
+                               .build();
     }
 
     /**
@@ -56,15 +57,10 @@ public class ColoredImageCache {
 
         this.font = font;
         cachedImages = Caffeine.newBuilder()
-                .initialCapacity(100)
-                .maximumSize(maxCacheSize)
-                .expireAfterAccess(5, TimeUnit.MINUTES)
-                .build();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cachedImages);
+                               .initialCapacity(100)
+                               .maximumSize(maxCacheSize)
+                               .expireAfterAccess(5, TimeUnit.MINUTES)
+                               .build();
     }
 
     /**
@@ -85,9 +81,13 @@ public class ColoredImageCache {
     public BufferedImage retrieveFromCache(final AsciiCharacter character) {
         Objects.requireNonNull(character);
 
-        final int hashCode = Objects.hash(character.getCharacter(),
-                                          character.getBackgroundColor(),
-                                          character.getForegroundColor());
+        int hashCode;
+
+        if (character instanceof AsciiTile) {
+            hashCode = Objects.hash(character.getCharacter(), character.getBackgroundColor(), Color.WHITE);
+        } else {
+            hashCode = Objects.hash(character.getCharacter(), character.getBackgroundColor(), character.getForegroundColor());
+        }
 
         BufferedImage image = cachedImages.getIfPresent(hashCode);
 

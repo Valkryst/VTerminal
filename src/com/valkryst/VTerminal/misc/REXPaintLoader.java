@@ -14,7 +14,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.zip.GZIPInputStream;
 
-public class REXPaintLoader {
+public final class REXPaintLoader {
+    // Prevent users from creating an instance.
+    private REXPaintLoader() {}
+
     /**
      * Loads a REXPaint file into a set of layers.
      *

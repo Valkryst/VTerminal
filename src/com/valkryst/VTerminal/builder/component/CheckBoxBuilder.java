@@ -37,12 +37,7 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox> {
     @Override
     public CheckBox build() {
         checkState();
-
-        final CheckBox checkBox = new CheckBox(this);
-        checkBox.registerEventHandlers(super.getPanel());
-        super.getPanel().addComponent(checkBox);
-
-        return checkBox;
+        return new CheckBox(this);
     }
 
     /** Resets the builder to it's default state. */

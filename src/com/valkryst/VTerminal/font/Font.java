@@ -19,6 +19,18 @@ public class Font {
     /** The height of the font. */
     @Getter private final int height;
 
+    /**
+     * Constructs a new Font.
+     *
+     * @param characterImages
+     *        The base character images.
+     *
+     * @param scale
+     *        The amount to scale each character image by.
+     *
+     * @throws IOException
+     *         If an I/O error occurs.
+     */
     public Font(final HashMap<Character, BufferedImage> characterImages, int scale) throws IOException {
         Objects.requireNonNull(characterImages);
 

@@ -14,11 +14,6 @@ public class LabelBuilderTest {
         builder = new LabelBuilder();
     }
 
-    @Test(expected=NullPointerException.class)
-    public void testCheckState_withNoPanelSet() {
-        builder.checkState();
-    }
-
     @Test
     public void testReset() {
         builder.setText("Testing");

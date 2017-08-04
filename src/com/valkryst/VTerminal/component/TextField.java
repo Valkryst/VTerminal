@@ -141,14 +141,10 @@ public class TextField extends Component {
     }
 
     @Override
-    public void registerEventHandlers(final Panel panel) {
-        Objects.requireNonNull(panel);
+    public void createEventListeners(final Panel panel) {
+        super.createEventListeners(panel);
 
-        super.registerEventHandlers(panel);
-
-        final int width = super.getWidth();
-
-        panel.addKeyListener(new KeyListener() {
+        final KeyListener keyListener = new KeyListener() {
             @Override
             public void keyTyped(final KeyEvent e) {
                 if (isFocused()) {
@@ -158,8 +154,9 @@ public class TextField extends Component {
                     if (matcher.matches()) {
                         changeVisualCharacter(index_caret_visual, character);
                         changeActualCharacter(index_caret_actual, character);
-                        changeVisualCaretPosition(index_caret_visual + 1);
-                        changeActualCaretPosition(index_caret_actual + 1);
+
+                        moveCaretRight();
+
                         updateDisplayedCharacters();
                         transmitDraw();
                     }
@@ -180,8 +177,7 @@ public class TextField extends Component {
                         // Move the caret to the first position on the left:
                         case KeyEvent.VK_HOME: {
                             if (homeKeyEnabled) {
-                                changeVisualCaretPosition(0);
-                                changeActualCaretPosition(0);
+                                moveCaretToStartOfLine();
                                 updateDisplayedCharacters();
                                 transmitDraw();
                             }
@@ -191,8 +187,7 @@ public class TextField extends Component {
                         // Move the caret to the last position on the right:
                         case KeyEvent.VK_END: {
                             if (endKeyEnabled) {
-                                changeVisualCaretPosition(width);
-                                changeActualCaretPosition(maxCharacters);
+                                moveCaretToEndOfLine();
                                 updateDisplayedCharacters();
                                 transmitDraw();
                             }
@@ -202,8 +197,7 @@ public class TextField extends Component {
                         // Erase the current character:
                         case KeyEvent.VK_DELETE: {
                             if (deleteKeyEnabled) {
-                                changeVisualCharacter(index_caret_visual, ' ');
-                                changeActualCharacter(index_caret_actual, ' ');
+                                clearCurrentCell();
                                 updateDisplayedCharacters();
                                 transmitDraw();
                             }
@@ -212,12 +206,8 @@ public class TextField extends Component {
 
                         // Move the caret one position to the left:
                         case KeyEvent.VK_LEFT: {
-                            boolean canWork = leftArrowKeyEnabled;
-                            canWork &= index_caret_visual > 0;
-
-                            if (canWork) {
-                                changeVisualCaretPosition(index_caret_visual - 1);
-                                changeActualCaretPosition(index_caret_actual - 1);
+                            if (leftArrowKeyEnabled) {
+                                moveCaretLeft();
                                 updateDisplayedCharacters();
                                 transmitDraw();
                             }
@@ -226,12 +216,8 @@ public class TextField extends Component {
 
                         // Move the caret one position to the right:
                         case KeyEvent.VK_RIGHT: {
-                            boolean canWork = rightArrowKeyEnabled;
-                            canWork &= index_caret_visual < maxCharacters;
-
-                            if (canWork) {
-                                changeVisualCaretPosition(index_caret_visual + 1);
-                                changeActualCaretPosition(index_caret_actual + 1);
+                            if (rightArrowKeyEnabled) {
+                                moveCaretRight();
                                 updateDisplayedCharacters();
                                 transmitDraw();
                             }
@@ -240,28 +226,26 @@ public class TextField extends Component {
 
                         // Delete the character to the left of the caret, then move the caret one position left:
                         case KeyEvent.VK_BACK_SPACE: {
-                            boolean canWork = backSpaceKeyEnabled;
-                            canWork &= index_caret_visual > 0;
-
-                            if (! canWork) {
+                            if (! backSpaceKeyEnabled) {
                                 break;
                             }
 
-                            if (index_caret_visual == maxCharacters - 1) {
-                                final AsciiCharacter currentChar = TextField.super.getStrings()[0].getCharacters()[index_caret_visual];
+                            final boolean caretAtEndOfLine = index_caret_actual == maxCharacters - 1;
+
+                            if (caretAtEndOfLine) {
+                                final AsciiCharacter currentChar = TextField.super.getString(0).getCharacters()[index_caret_visual];
 
                                 if (currentChar.getCharacter() != ' ') {
-                                    changeVisualCharacter(index_caret_visual, ' ');
-                                    changeActualCharacter(index_caret_actual, ' ');
+                                    clearCurrentCell();
+                                    updateDisplayedCharacters();
+                                    transmitDraw();
                                     break;
                                 }
                             }
 
-                            changeVisualCharacter(index_caret_visual - 1, ' ');
-                            changeActualCharacter(index_caret_actual - 1, ' ');
+                            moveCaretLeft();
+                            clearCurrentCell();
 
-                            changeVisualCaretPosition(index_caret_visual - 1);
-                            changeActualCaretPosition(index_caret_actual - 1);
                             updateDisplayedCharacters();
                             transmitDraw();
                             break;
@@ -269,7 +253,49 @@ public class TextField extends Component {
                     }
                 }
             }
-        });
+        };
+
+        super.getEventListeners().add(keyListener);
+    }
+
+    /** Moves the caret one cell left. */
+    private void moveCaretLeft() {
+        if (index_caret_visual > 0) {
+            changeVisualCaretPosition(index_caret_visual - 1);
+        }
+
+        if (index_caret_actual > 0) {
+            changeActualCaretPosition(index_caret_actual - 1);
+        }
+    }
+
+    /** Moves the caret one cell right. */
+    private void moveCaretRight() {
+        if (index_caret_visual < super.getWidth() - 1) {
+            changeVisualCaretPosition(index_caret_visual + 1);
+        }
+
+        if (index_caret_actual < maxCharacters - 1) {
+            changeActualCaretPosition(index_caret_actual + 1);
+        }
+    }
+
+    /** Moves the caret to the beginning of the current line. */
+    private void moveCaretToStartOfLine() {
+        changeVisualCaretPosition(0);
+        changeActualCaretPosition(0);
+    }
+
+    /** Moves the caret to the end of the current line. */
+    private void moveCaretToEndOfLine() {
+        changeVisualCaretPosition(super.getWidth() - 1);
+        changeActualCaretPosition(maxCharacters - 1);
+    }
+
+    /** Deletes the character in the current cell. */
+    private void clearCurrentCell() {
+        changeVisualCharacter(index_caret_visual, ' ');
+        changeActualCharacter(index_caret_actual, ' ');
     }
 
     /**

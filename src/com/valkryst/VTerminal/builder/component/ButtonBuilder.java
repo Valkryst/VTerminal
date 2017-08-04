@@ -38,12 +38,7 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
     @Override
     public Button build() {
         checkState();
-
-        final Button button = new Button(this);
-        button.registerEventHandlers(super.getPanel());
-        super.getPanel().addComponent(button);
-
-        return button;
+        return new Button(this);
     }
 
     /** Resets the builder to it's default state. */

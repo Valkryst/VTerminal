@@ -53,31 +53,51 @@ public class AsciiCharacter {
 	    this.character = character;
         boundingBox = new Rectangle();
     }
-
     /**
      * Constructs a new AsciiCharacter by copying the data
-     * of an AsciiTile.
+     * of an AsciiCharacter.
      *
      * Does not copy the blinkTimer.
      *
-     * @param tile
-     *         The AsciiTile.
+     * @param character
+     *         The AsciiCharacter.
+     *
+     * @throws NullPointerException
+     *        If the character is null.
      */
-    public AsciiCharacter(final AsciiTile tile) {
-        character = tile.getCharacter();
+    public AsciiCharacter(final AsciiCharacter character) {
+        Objects.requireNonNull(character);
+        boundingBox = new Rectangle();
 
-        isHidden = tile.isHidden();
+        copy(character);
+    }
 
-        backgroundColor = tile.getBackgroundColor();
-        foregroundColor = tile.getForegroundColor();
+    /**
+     * Copies the settings of an AsciiCharacter to this
+     * AsciiCharacter.
+     *
+     * Does not copy the blinkTimer.
+     *
+     * @param character
+     *        The other AsciiCharacter.
+     */
+    public void copy(final AsciiCharacter character) {
 
-        boundingBox = tile.getBoundingBox();
+        this.character = character.getCharacter();
 
-        isUnderlined = tile.isUnderlined();
-        underlineThickness = tile.getUnderlineThickness();
+        isHidden = character.isHidden();
 
-        isFlippedHorizontally = tile.isFlippedHorizontally();
-        isFlippedVertically = tile.isFlippedVertically();
+        backgroundColor = character.getBackgroundColor();
+        foregroundColor = character.getForegroundColor();
+
+        boundingBox.setSize(character.getBoundingBox().getSize());
+        boundingBox.setLocation(character.getBoundingBox().getLocation());
+
+        isUnderlined = character.isUnderlined();
+        underlineThickness = character.getUnderlineThickness();
+
+        isFlippedHorizontally = character.isFlippedHorizontally();
+        isFlippedVertically = character.isFlippedVertically();
     }
 
     @Override
@@ -150,33 +170,31 @@ public class AsciiCharacter {
         columnIndex *= fontWidth;
         rowIndex *= fontHeight;
 
-        BufferedImage image;
+        BufferedImage image = null;
 
         // Handle hidden state:
         if (isHidden) {
-            final Color color = foregroundColor;
-            foregroundColor = backgroundColor;
-
-            image = imageCache.retrieveFromCache(this);
-
-            foregroundColor = color;
+            gc.setColor(backgroundColor);
+            gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
         } else {
             image = imageCache.retrieveFromCache(this);
         }
 
-        // Handle Horizontal/Vertical Flipping:
-        if (isFlippedHorizontally || isFlippedVertically) {
-            AffineTransform tx;
+        if (image != null) {
+            // Handle Horizontal/Vertical Flipping:
+            if (isFlippedHorizontally || isFlippedVertically) {
+                AffineTransform tx;
 
-            tx = AffineTransform.getScaleInstance((isFlippedHorizontally ? -1 : 1), (isFlippedVertically ? -1 : 1));
-            tx.translate((isFlippedHorizontally ? -fontWidth : 0), (isFlippedVertically ? -fontHeight : 0));
+                tx = AffineTransform.getScaleInstance((isFlippedHorizontally ? -1 : 1), (isFlippedVertically ? -1 : 1));
+                tx.translate((isFlippedHorizontally ? -fontWidth : 0), (isFlippedVertically ? -fontHeight : 0));
 
-            final BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
-            image = op.filter(image, null);
+                final BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
+                image = op.filter(image, null);
+            }
+
+            // Draw character:
+            gc.drawImage(image, columnIndex, rowIndex, null);
         }
-
-        // Draw character:
-        gc.drawImage(image, columnIndex, rowIndex,null);
 
         boundingBox.setLocation(columnIndex, rowIndex);
         boundingBox.setSize(fontWidth, fontHeight);

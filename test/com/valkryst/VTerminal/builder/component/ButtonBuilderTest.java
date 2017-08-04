@@ -12,7 +12,7 @@ public class ButtonBuilderTest {
     private ButtonBuilder builder;
 
     @Before
-    public void initalizeBuilder() {
+    public void initializeBuilder() {
         builder = new ButtonBuilder();
     }
 

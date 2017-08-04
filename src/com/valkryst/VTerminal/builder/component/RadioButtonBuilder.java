@@ -40,9 +40,7 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton> {
         checkState();
 
         final RadioButton radioButton = new RadioButton(this);
-        radioButton.registerEventHandlers(super.getPanel());
         group.addRadioButton(radioButton);
-        super.getPanel().addComponent(radioButton);
 
         return radioButton;
     }

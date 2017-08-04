@@ -7,6 +7,8 @@ import com.valkryst.VTerminal.builder.component.ButtonBuilder;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.IntRange;
 import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -44,7 +46,7 @@ public class Button extends Component {
     @Getter private Color foregroundColor_pressed;
 
     /** The function to run when the button is clicked. */
-    @Getter private final Runnable onClickFunction;
+    @Getter @Setter @NonNull private Runnable onClickFunction;
 
     /**
      * Constructs a new AsciiButton.
@@ -125,14 +127,14 @@ public class Button extends Component {
     }
 
     @Override
-    public void registerEventHandlers(final Panel panel) {
-        Objects.requireNonNull(panel);
+    public void createEventListeners(final Panel panel) {
+        super.createEventListeners(panel);
 
         final Font font = panel.getImageCache().getFont();
         final int fontWidth = font.getWidth();
         final int fontHeight = font.getHeight();
 
-        panel.addMouseListener(new MouseListener() {
+        final MouseListener mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -171,9 +173,9 @@ public class Button extends Component {
             public void mouseExited(MouseEvent e) {
 
             }
-        });
+        };
 
-        panel.addMouseMotionListener(new MouseMotionListener() {
+        final MouseMotionListener mouseMotionListener = new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
 
@@ -187,7 +189,10 @@ public class Button extends Component {
                     setStateNormal();
                 }
             }
-        });
+        };
+
+        super.getEventListeners().add(mouseListener);
+        super.getEventListeners().add(mouseMotionListener);
     }
 
     /** Sets the button state to normal if the current state allows for the normal state to be set. */

@@ -18,14 +18,9 @@ public class ComponentBuilderTest {
         new ComponentBuilder<>();
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test
     public void testBuild() {
         builder.build();
-    }
-
-    @Test(expected=NullPointerException.class)
-    public void testCheckState_withNoPanelSet() {
-        builder.checkState();
     }
 
     @Test

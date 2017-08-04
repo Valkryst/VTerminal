@@ -13,7 +13,10 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class FontLoader {
+public final class FontLoader {
+    // Prevent users from creating an instance.
+    private FontLoader() {}
+
     /**
      * Loads a font from the file system.
      *
@@ -37,9 +40,6 @@ public class FontLoader {
      *
      * @throws IOException
      *         If an IOException occurs while loading the font.
-     *
-     * @throws URISyntaxException
-     *         If a URISyntaxException occurs while loading the font.
      */
     public static Font loadFont(final String spriteSheetPath, final String characterDataPath, final int scale) throws IOException {
         Objects.requireNonNull(spriteSheetPath);
@@ -76,9 +76,6 @@ public class FontLoader {
      *
      * @throws IOException
      *         If an IOException occurs while loading the font.
-     *
-     * @throws URISyntaxException
-     *         If a URISyntaxException occurs while loading the font.
      */
     public static Font loadFont(final InputStream spriteSheet, final InputStream characterData, int scale) throws IOException {
         Objects.requireNonNull(spriteSheet);

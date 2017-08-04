@@ -65,6 +65,7 @@ public class ComponentBuilder<C extends Component> {
     public void reset() {
         columnIndex = 0;
         rowIndex = 0;
+    }
 
         panel = null;
 
