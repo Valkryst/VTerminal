@@ -56,13 +56,8 @@ public class PanelBuilderTest {
     */
 
     @Test
-    public void testSetJFrame_returnValue() {
-        Assert.assertTrue(builder == builder.setJFrame(null));
-    }
-
-    @Test
     public void testSetJFrame_withNullJFrame() {
-        builder.setJFrame(null);
+        builder.setFrame(null);
 
         Assert.assertEquals(null, builder.getFrame());
     }
@@ -72,11 +67,6 @@ public class PanelBuilderTest {
         builder.setWidthInCharacters(10);
 
         Assert.assertEquals(10, builder.getWidthInCharacters());
-    }
-
-    @Test
-    public void testSetWidthInCharacters_returnValue() {
-        Assert.assertTrue(builder == builder.setWidthInCharacters(10));
     }
 
     @Test
@@ -96,11 +86,6 @@ public class PanelBuilderTest {
     }
 
     @Test
-    public void testSetHeightInCharacters_returnValue() {
-        Assert.assertTrue(builder == builder.setHeightInCharacters(10));
-    }
-
-    @Test
     public void testSetHeightInCharacters_withHeightBelowOne() {
         for (int i = 0 ; i < 10 ; i++) {
             builder.setHeightInCharacters(-i);
@@ -117,11 +102,6 @@ public class PanelBuilderTest {
     }
 
     @Test
-    public void testSetAsciiFont_returnValue() {
-        Assert.assertTrue(builder == builder.setFont(font));
-    }
-
-    @Test
     public void testSetAsciiFont_withNullFont() {
         builder.setFont(font);
         builder.setFont(null);
@@ -134,11 +114,6 @@ public class PanelBuilderTest {
         builder.setScreen(new Screen(0, 0, 1, 1));
 
         Assert.assertNotEquals(null, builder.getScreen());
-    }
-
-    @Test
-    public void testSetCurrentScreen_returnValue() {
-        Assert.assertEquals(builder, builder.setScreen(new Screen(0, 0, 1, 1)));
     }
 
     @Test
