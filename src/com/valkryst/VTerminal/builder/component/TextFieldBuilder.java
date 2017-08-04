@@ -68,6 +68,10 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
         if (maxCharacters < 1) {
             throw new IllegalArgumentException("The maximum characters cannot be less than one.");
         }
+
+        if (maxCharacters < width) {
+            maxCharacters = width;
+        }
     }
 
     /** Resets the builder to it's default state. */

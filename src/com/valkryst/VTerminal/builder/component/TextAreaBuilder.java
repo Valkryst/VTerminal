@@ -86,6 +86,14 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
         if (maxVerticalCharacters < 1) {
             throw new IllegalArgumentException("The maximum vertical characters cannot be less than one.");
         }
+
+        if (maxHorizontalCharacters < width) {
+            maxHorizontalCharacters = width;
+        }
+
+        if (maxVerticalCharacters < height) {
+            maxVerticalCharacters = height;
+        }
     }
 
     /** Resets the builder to it's default state. */
