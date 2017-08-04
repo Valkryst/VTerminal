@@ -4,18 +4,20 @@ import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Component;
 import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 
-public class ComponentBuilder<C extends Component, B extends ComponentBuilder<C, B>> {
+public class ComponentBuilder<C extends Component> {
     /** The x-axis (column) coordinate of the top-left character. */
-    @Getter protected int columnIndex;
+    @Getter @Setter private int columnIndex;
     /** The y-axis (row) coordinate of the top-left character. */
-    @Getter protected int rowIndex;
+    @Getter @Setter private int rowIndex;
 
     /** The panel on which the button is to be placed. */
-    @Getter protected Panel panel;
+    @Getter @Setter @NonNull private Panel panel;
 
     /** The radio to transmit events to. */
-    @Getter protected Radio<String> radio;
+    @Getter @Setter @NonNull private Radio<String> radio;
 
     /** Constructs a new ComponentBuilder. */
     public ComponentBuilder() {
@@ -39,10 +41,21 @@ public class ComponentBuilder<C extends Component, B extends ComponentBuilder<C,
     /**
      * Checks the current state of the builder.
      *
+     * @throws IllegalArgumentException
+     *          If the column or row indices are less than zero.
+     *
      * @throws NullPointerException
      *          If the panel is null.
      */
     protected void checkState() throws NullPointerException {
+        if (columnIndex < 0) {
+            throw new IllegalArgumentException("The column index cannot be less than zero.");
+        }
+
+        if (rowIndex < 0) {
+            throw new IllegalArgumentException("The row index cannot be less than zero.");
+        }
+
         if (panel == null) {
             throw new NullPointerException("The component must have a panel to be placed on.");
         }
@@ -54,114 +67,5 @@ public class ComponentBuilder<C extends Component, B extends ComponentBuilder<C,
         rowIndex = 0;
 
         panel = null;
-    }
-
-    /**
-     * Sets the column index.
-     *
-     * @param columnIndex
-     *        The new column index.
-     *
-     * @return
-     *        This.
-     */
-    public B setColumnIndex(final int columnIndex) {
-        if (columnIndex >= 0) {
-            this.columnIndex = columnIndex;
-        }
-
-        return (B)this;
-    }
-
-    /**
-     * Sets the row index.
-     *
-     * @param rowIndex
-     *        The new row index.
-     *
-     * @return
-     *        This.
-     */
-    public B setRowIndex(final int rowIndex) {
-        if (rowIndex >= 0) {
-            this.rowIndex = rowIndex;
-        }
-
-        return (B)this;
-    }
-
-    /**
-     * Sets the column and row indices.
-     *
-     * @param columnIndex
-     *        The new column index.
-     *
-     * @param rowIndex
-     *        The new row index.
-     *
-     * @return
-     *        This.
-     */
-    public B setColumnAndRowIndices(final int columnIndex, final int rowIndex) {
-        setColumnIndex(columnIndex);
-        setRowIndex(rowIndex);
-        return (B)this;
-    }
-
-    /**
-     * Sets the panel.
-     *
-     * If the radio is null and the Panel's radio is not null,
-     * then the radio is also set to the Panel's radio.
-     *
-     * @param panel
-     *        The panel.
-     *
-     * @return
-     *        This.
-     */
-    public B setPanel(final Panel panel) {
-        if (panel != null) {
-            this.panel = panel;
-
-            if (radio == null) {
-                setRadio(panel);
-            }
-        }
-
-        return (B)this;
-    }
-    /**
-     * Sets the radio to transmit events to.
-     *
-     * @param radio
-     *         The radio.
-     *
-     * @return
-     *         This.
-     */
-    public B setRadio(final Radio<String> radio) {
-        if (radio != null) {
-            this.radio = radio;
-        }
-
-        return (B)this;
-    }
-
-    /**
-     * Sets the radio to transmit to, to the radio of a panel.
-     *
-     * @param panel
-     *         The panel.
-     *
-     * @return
-     *         This.
-     */
-    public B setRadio(final Panel panel) {
-        if (panel != null) {
-            setRadio(panel.getRadio());
-        }
-
-        return (B)this;
     }
 }
