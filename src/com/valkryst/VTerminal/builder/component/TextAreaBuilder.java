@@ -67,8 +67,6 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
      *
      * @throws IllegalArgumentException
      *          If the width, height, or maximum horizontal/vertical characters is less than one.
-     *          If the maximum horizontal characters is less than the width.
-     *          If the maximum vertical characters is less than the height.
      */
     protected void checkState() throws NullPointerException {
         super.checkState();
@@ -87,14 +85,6 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
 
         if (maxVerticalCharacters < 1) {
             throw new IllegalArgumentException("The maximum vertical characters cannot be less than one.");
-        }
-
-        if (maxHorizontalCharacters < width) {
-            throw new IllegalArgumentException("The maximum horizontal characters cannot be less than the width.");
-        }
-
-        if (maxVerticalCharacters < height) {
-            throw new IllegalArgumentException("The maximum vertical characters cannot be less than the height.");
         }
     }
 
