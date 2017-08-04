@@ -12,7 +12,13 @@ import java.net.URISyntaxException;
 public class SampleTileSheet {
     public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
         final Font font = FontLoader.loadFontFromJar("Tiles/Nevanda Nethack/bitmap.png", "Tiles/Nevanda Nethack/data.fnt", 1);
-        final Panel panel = new PanelBuilder().setFont(font).setWidthInCharacters(50).setHeightInCharacters(22).build();
+
+        final PanelBuilder builder = new PanelBuilder();
+        builder.setFont(font);
+        builder.setWidthInCharacters(50);
+        builder.setHeightInCharacters(22);
+
+        final Panel panel = builder.build();
 
         Thread.sleep(50);
 

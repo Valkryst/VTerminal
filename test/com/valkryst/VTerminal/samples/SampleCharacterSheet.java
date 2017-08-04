@@ -13,7 +13,13 @@ import java.net.URISyntaxException;
 public class SampleCharacterSheet {
     public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/16pt/bitmap.png", "Fonts/DejaVu Sans Mono/16pt/data.fnt", 1);
-        final Panel panel = new PanelBuilder().setFont(font).setWidthInCharacters(160).setHeightInCharacters(50).build();
+
+        final PanelBuilder builder = new PanelBuilder();
+        builder.setFont(font);
+        builder.setWidthInCharacters(160);
+        builder.setHeightInCharacters(50);
+
+        final Panel panel = builder.build();
 
         Thread.sleep(50);
 

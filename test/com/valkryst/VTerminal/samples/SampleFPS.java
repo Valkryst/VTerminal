@@ -12,7 +12,11 @@ import java.net.URISyntaxException;
 public class SampleFPS {
     public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
-        final Panel panel = new PanelBuilder().setFont(font).build();
+
+        final PanelBuilder builder = new PanelBuilder();
+        builder.setFont(font);
+
+        final Panel panel = builder.build();
 
         double smoothing = 0.9; // larger=more smoothing
         double measurement = 0.0;
