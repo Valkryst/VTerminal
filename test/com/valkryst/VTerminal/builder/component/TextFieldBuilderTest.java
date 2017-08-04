@@ -42,7 +42,8 @@ public class TextFieldBuilderTest {
         builder.setRightArrowKeyEnabled(false);
         builder.setBackSpaceKeyEnabled(false);
 
-        builder.setAllowedCharacterPattern(null);
+        final Pattern pattern = Pattern.compile("asdfgdgf");
+        builder.setAllowedCharacterPattern(pattern);
 
         // Doesn't test the AllowedCharacterPattern
 
@@ -65,133 +66,6 @@ public class TextFieldBuilderTest {
         Assert.assertTrue(builder.isRightArrowKeyEnabled());
         Assert.assertTrue(builder.isBackSpaceKeyEnabled());
 
-        Assert.assertNotEquals(null, builder.getAllowedCharacterPattern());
-    }
-
-    @Test
-    public void testSetWidth_withWidthAboveZero() {
-        builder.setWidth(66);
-        Assert.assertEquals(66, builder.getWidth());
-    }
-
-    @Test
-    public void testSetWidth_withWidthBelowOne() {
-        builder.setWidth(0);
-        Assert.assertEquals(4, builder.getWidth());
-    }
-
-    @Test
-    public void testSetMaxCharacters_withMaxCharactersAboveZero() {
-        builder.setMaxCharacters(66);
-        Assert.assertEquals(66, builder.getMaxCharacters());
-    }
-
-    @Test
-    public void testSetMaxCharacters_withMaxCharactersBelowOne() {
-        builder.setMaxCharacters(0);
-        Assert.assertEquals(4, builder.getMaxCharacters());
-    }
-
-    @Test
-    public void testSetCaretForegroundColor_withValidColor() {
-        builder.setCaretForegroundColor(Color.RED);
-        Assert.assertEquals(Color.RED, builder.getCaretForegroundColor());
-    }
-
-    @Test
-    public void testSetCaretForegroundColor_withNullColor() {
-        builder.setCaretForegroundColor(Color.RED);
-        builder.setCaretForegroundColor(null);
-        Assert.assertEquals(Color.RED, builder.getCaretForegroundColor());
-    }
-
-    @Test
-    public void testSetCaretBackgroundColor_withValidColor() {
-        builder.setCaretBackgroundColor(Color.RED);
-        Assert.assertEquals(Color.RED, builder.getCaretBackgroundColor());
-    }
-
-    @Test
-    public void testSetCaretBackgroundColor_withNullColor() {
-        builder.setCaretBackgroundColor(Color.RED);
-        builder.setCaretBackgroundColor(null);
-        Assert.assertEquals(Color.RED, builder.getCaretBackgroundColor());
-    }
-
-    @Test
-    public void testSetForegroundColor_withValidColor() {
-        builder.setForegroundColor(Color.RED);
-        Assert.assertEquals(Color.RED, builder.getForegroundColor());
-    }
-
-    @Test
-    public void testSetForegroundColor_withNullColor() {
-        builder.setForegroundColor(Color.RED);
-        builder.setForegroundColor(null);
-        Assert.assertEquals(Color.RED, builder.getForegroundColor());
-    }
-
-    @Test
-    public void testSetBackgroundColor_withValidColor() {
-        builder.setBackgroundColor(Color.RED);
-        Assert.assertEquals(Color.RED, builder.getBackgroundColor());
-    }
-
-    @Test
-    public void testSetBackgroundColor_withNullColor() {
-        builder.setBackgroundColor(Color.RED);
-        builder.setBackgroundColor(null);
-        Assert.assertEquals(Color.RED, builder.getBackgroundColor());
-    }
-
-    @Test
-    public void testSetHomeKeyEnabled() {
-        builder.setHomeKeyEnabled(false);
-        Assert.assertFalse(builder.isHomeKeyEnabled());
-    }
-
-    @Test
-    public void testSetEndKeyEnabled() {
-        builder.setEndKeyEnabled(false);
-        Assert.assertFalse(builder.isEndKeyEnabled());
-    }
-
-    @Test
-    public void testSetDeleteKeyEnabled() {
-        builder.setDeleteKeyEnabled(false);
-        Assert.assertFalse(builder.isDeleteKeyEnabled());
-    }
-
-    @Test
-    public void testSetLeftArrowKeyEnabled() {
-        builder.setLeftArrowKeyEnabled(false);
-        Assert.assertFalse(builder.isLeftArrowKeyEnabled());
-    }
-
-    @Test
-    public void testSetRightArrowKeyEnabled() {
-        builder.setRightArrowKeyEnabled(false);
-        Assert.assertFalse(builder.isRightArrowKeyEnabled());
-    }
-
-    @Test
-    public void testSetBackSpaceKeyEnabled() {
-        builder.setBackSpaceKeyEnabled(false);
-        Assert.assertFalse(builder.isBackSpaceKeyEnabled());
-    }
-
-    @Test
-    public void testSetAllowedCharacterPattern_withValidPattern() {
-        final Pattern pattern = Pattern.compile("asdsdf");
-        builder.setAllowedCharacterPattern(pattern);
-        Assert.assertEquals(pattern, builder.getAllowedCharacterPattern());
-    }
-
-    @Test
-    public void testSetAllowedCharacterPattern_withNullPattern() {
-        final Pattern pattern = Pattern.compile("asdsdf");
-        builder.setAllowedCharacterPattern(pattern);
-        builder.setAllowedCharacterPattern(null);
-        Assert.assertEquals(pattern, builder.getAllowedCharacterPattern());
+        Assert.assertNotEquals(pattern, builder.getAllowedCharacterPattern());
     }
 }

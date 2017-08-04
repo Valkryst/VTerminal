@@ -1,6 +1,5 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.component.Button;
 import org.junit.Assert;
 import org.junit.Before;
@@ -43,64 +42,5 @@ public class ComponentBuilderTest {
 
         Assert.assertEquals(0, builder.getColumnIndex());
         Assert.assertEquals(0, builder.getRowIndex());
-    }
-
-    @Test
-    public void testSetColumnIndex_withValidInput() {
-        builder.setColumnIndex(6);
-        Assert.assertEquals(6, builder.getColumnIndex());
-    }
-
-    @Test
-    public void testSetColumnIndex_withIndexEqualToZero() {
-        builder.setColumnIndex(0);
-        Assert.assertEquals(0, builder.getColumnIndex());
-    }
-
-    @Test
-    public void testSetColumnIndex_withIndexLessThanZero() {
-        builder.setColumnIndex(-1);
-        Assert.assertEquals(0, builder.getColumnIndex());
-    }
-
-    @Test
-    public void testSetRowIndex_withValidInput() {
-        builder.setRowIndex(6);
-        Assert.assertEquals(6, builder.getRowIndex());
-    }
-
-    @Test
-    public void testSetRowIndex_withIndexEqualToZero() {
-        builder.setRowIndex(0);
-        Assert.assertEquals(0, builder.getRowIndex());
-    }
-
-    @Test
-    public void testSetRowIndex_withIndexLessThanZero() {
-        builder.setRowIndex(-1);
-        Assert.assertEquals(0, builder.getRowIndex());
-    }
-
-    @Test
-    public void testSetPanel_withNullPanel() {
-        builder.setPanel(null);
-        Assert.assertEquals(null, builder.getPanel());
-    }
-
-    @Test
-    public void testSetRadio_radio() {
-        final Radio<String> radio = new Radio<>();
-
-        builder.setRadio(radio);
-        Assert.assertEquals(radio, builder.getRadio());
-    }
-
-    @Test
-    public void testSetRadio_radio_withNullRadio() {
-        final Radio<String> radio = new Radio<>();
-
-        builder.setRadio(radio);
-        builder.setRadio((Radio<String>)null);
-        Assert.assertEquals(radio, builder.getRadio());
     }
 }

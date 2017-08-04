@@ -1,9 +1,7 @@
 package com.valkryst.VTerminal.builder;
 
-import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,80 +44,5 @@ public class PanelBuilderTest {
         Assert.assertNotEquals(builderDefault.getFont(), builderAltered.getFont());
         Assert.assertNotEquals(builderDefault.getScreen(), builderAltered.getScreen());
     }
-
-    @Test
-    public void testSetJFrame() {
-        builder.setJFrame(new JFrame());
-
-        Assert.assertNotEquals(null, builder.getFrame());
-    }
     */
-
-    @Test
-    public void testSetJFrame_withNullJFrame() {
-        builder.setFrame(null);
-
-        Assert.assertEquals(null, builder.getFrame());
-    }
-
-    @Test
-    public void testSetWidthInCharacters() {
-        builder.setWidthInCharacters(10);
-
-        Assert.assertEquals(10, builder.getWidthInCharacters());
-    }
-
-    @Test
-    public void testSetWidthInCharacters_withWidthBelowOne() {
-        for (int i = 0 ; i < 10 ; i++) {
-            builder.setWidthInCharacters(-i);
-
-            Assert.assertEquals(1, builder.getWidthInCharacters());
-        }
-    }
-
-    @Test
-    public void testSetHeightInCharacters() {
-        builder.setHeightInCharacters(10);
-
-        Assert.assertEquals(10, builder.getHeightInCharacters());
-    }
-
-    @Test
-    public void testSetHeightInCharacters_withHeightBelowOne() {
-        for (int i = 0 ; i < 10 ; i++) {
-            builder.setHeightInCharacters(-i);
-
-            Assert.assertEquals(1, builder.getHeightInCharacters());
-        }
-    }
-
-    @Test
-    public void testSetAsciiFont() {
-        builder.setFont(font);
-
-        Assert.assertEquals(font, builder.getFont());
-    }
-
-    @Test
-    public void testSetAsciiFont_withNullFont() {
-        builder.setFont(font);
-        builder.setFont(null);
-
-        Assert.assertEquals(font, builder.getFont());
-    }
-
-    @Test
-    public void testSetCurrentScreen() {
-        builder.setScreen(new Screen(0, 0, 1, 1));
-
-        Assert.assertNotEquals(null, builder.getScreen());
-    }
-
-    @Test
-    public void testSetCurrentScreen_withNullScreen() {
-        builder.setScreen(null);
-
-        Assert.assertEquals(null, builder.getScreen());
-    }
 }
