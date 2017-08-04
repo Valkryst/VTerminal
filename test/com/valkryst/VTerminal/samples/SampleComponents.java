@@ -44,7 +44,6 @@ public class SampleComponents {
 
         // Title #1
         final LabelBuilder labelBuilder = new LabelBuilder();
-        labelBuilder.setPanel(panel);
         labelBuilder.setColumnIndex(1);
         labelBuilder.setRowIndex(1);
         labelBuilder.setText("Component Library Test");
@@ -56,7 +55,6 @@ public class SampleComponents {
 
         // Button
         final ButtonBuilder buttonBuilder = new ButtonBuilder();
-        buttonBuilder.setPanel(panel);
         buttonBuilder.setColumnIndex(1);
         buttonBuilder.setRowIndex(3);
         buttonBuilder.setText("Click Me");
@@ -68,7 +66,6 @@ public class SampleComponents {
         final RadioButtonGroup groupA = new RadioButtonGroup();
 
         final RadioButtonBuilder radioButtonBuilder = new RadioButtonBuilder();
-        radioButtonBuilder.setPanel(panel);
         radioButtonBuilder.setColumnIndex(1);
         radioButtonBuilder.setRowIndex(5);
         radioButtonBuilder.setGroup(groupA);
@@ -103,7 +100,6 @@ public class SampleComponents {
 
         // Check Boxes
         final CheckBoxBuilder checkBoxBuilder = new CheckBoxBuilder();
-        checkBoxBuilder.setPanel(panel);
         checkBoxBuilder.setColumnIndex(1);
         checkBoxBuilder.setRowIndex(11);
         checkBoxBuilder.setText("Checkbox A");
@@ -118,7 +114,6 @@ public class SampleComponents {
 
         // Fixed Width Text Field
         final TextFieldBuilder textFieldBuilder = new TextFieldBuilder();
-        textFieldBuilder.setPanel(panel);
         textFieldBuilder.setColumnIndex(1);
         textFieldBuilder.setRowIndex(14);
         textFieldBuilder.setWidth(20);
@@ -136,9 +131,6 @@ public class SampleComponents {
 
 
         // Title #2
-        labelBuilder.reset();
-        labelBuilder.setPanel(panel);
-        labelBuilder.setColumnIndex(24);
         labelBuilder.setRowIndex(1);
         labelBuilder.setText("TextArea Tests");
 
@@ -149,9 +141,6 @@ public class SampleComponents {
 
 
         // Fixed Width & Height Text Area:
-        labelBuilder.reset();
-        labelBuilder.setPanel(panel);
-        labelBuilder.setColumnIndex(24);
         labelBuilder.setRowIndex(3);
         labelBuilder.setText("Fixed Width & Height");
 
@@ -161,7 +150,6 @@ public class SampleComponents {
         panel.addComponent(label);
 
         final TextAreaBuilder textAreaBuilder = new TextAreaBuilder();
-        textAreaBuilder.setPanel(panel);
         textAreaBuilder.setColumnIndex(24);
         textAreaBuilder.setRowIndex(4);
         textAreaBuilder.setWidth(23);
@@ -171,9 +159,6 @@ public class SampleComponents {
         panel.addComponent(textAreaBuilder.build());
 
         // Variable Width Text Area:
-        labelBuilder.reset();
-        labelBuilder.setPanel(panel);
-        labelBuilder.setColumnIndex(24);
         labelBuilder.setRowIndex(8);
         labelBuilder.setText("Variable Width Only");
 
@@ -189,9 +174,6 @@ public class SampleComponents {
         panel.addComponent(textAreaBuilder.build());
 
         // Variable Height Text Area:
-        labelBuilder.reset();
-        labelBuilder.setPanel(panel);
-        labelBuilder.setColumnIndex(24);
         labelBuilder.setRowIndex(13);
         labelBuilder.setText("Variable Height Only");
 
@@ -207,9 +189,6 @@ public class SampleComponents {
         panel.addComponent(textAreaBuilder.build());
 
         // Variable Width & HeightText Area:
-        labelBuilder.reset();
-        labelBuilder.setPanel(panel);
-        labelBuilder.setColumnIndex(24);
         labelBuilder.setRowIndex(18);
         labelBuilder.setText("Variable Width & Height");
 
@@ -227,7 +206,6 @@ public class SampleComponents {
 
         // Loading Bar
         final LoadingBarBuilder loadingBarBuilder = new LoadingBarBuilder();
-        loadingBarBuilder.setPanel(panel);
         loadingBarBuilder.setColumnIndex(1);
         loadingBarBuilder.setRowIndex(19);
         loadingBarBuilder.setWidth(20);
