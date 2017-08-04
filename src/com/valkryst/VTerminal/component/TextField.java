@@ -71,7 +71,7 @@ public class TextField extends Component {
 
         Objects.requireNonNull(builder);
 
-        super.setRadio(builder.getRadio());
+        super.setRadio(builder.getPanel().getRadio());
 
         caretForegroundColor = builder.getCaretForegroundColor();
         caretBackgroundColor = builder.getCaretBackgroundColor();
