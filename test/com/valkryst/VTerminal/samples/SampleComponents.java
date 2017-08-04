@@ -3,6 +3,7 @@ package com.valkryst.VTerminal.samples;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.builder.component.*;
+import com.valkryst.VTerminal.component.Label;
 import com.valkryst.VTerminal.component.LoadingBar;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
 import com.valkryst.VTerminal.font.Font;
@@ -18,7 +19,11 @@ import java.net.URISyntaxException;
 public class SampleComponents {
     public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
-        final Panel panel = new PanelBuilder().setFont(font).build();
+
+        final PanelBuilder builder = new PanelBuilder();
+        builder.setFont(font);
+
+        final Panel panel = builder.build();
 
         Thread.sleep(100);
 
@@ -38,151 +43,198 @@ public class SampleComponents {
         printer.print(panel, 0, 0);
 
         // Title #1
-        new LabelBuilder().setColumnAndRowIndices(1, 1)
-                          .setPanel(panel)
-                          .setText("Component Library Test")
-                          .build()
-                          .getString(0)
-                          .setUnderlined(true);
+        final LabelBuilder labelBuilder = new LabelBuilder();
+        labelBuilder.setPanel(panel);
+        labelBuilder.setColumnIndex(1);
+        labelBuilder.setRowIndex(1);
+        labelBuilder.setText("Component Library Test");
+
+        Label label = labelBuilder.build();
+        label.getString(0).setUnderlined(true);
+
+        panel.addComponent(label);
 
         // Button
-        new ButtonBuilder().setColumnAndRowIndices(1, 3)
-                           .setPanel(panel)
-                           .setText("Click")
-                           .setOnClickFunction(() -> System.out.println("Clicked!"))
-                           .build();
+        final ButtonBuilder buttonBuilder = new ButtonBuilder();
+        buttonBuilder.setPanel(panel);
+        buttonBuilder.setColumnIndex(1);
+        buttonBuilder.setRowIndex(3);
+        buttonBuilder.setText("Click Me");
+        buttonBuilder.setOnClickFunction(() -> System.out.println("Clicked!"));
+
+        panel.addComponent(buttonBuilder.build());
 
         // First Radio Button Group
         final RadioButtonGroup groupA = new RadioButtonGroup();
 
-        new RadioButtonBuilder().setColumnAndRowIndices(1, 5)
-                                .setPanel(panel)
-                                .setGroup(groupA)
-                                .setText("Group A, Option 1")
-                                .build();
+        final RadioButtonBuilder radioButtonBuilder = new RadioButtonBuilder();
+        radioButtonBuilder.setPanel(panel);
+        radioButtonBuilder.setColumnIndex(1);
+        radioButtonBuilder.setRowIndex(5);
+        radioButtonBuilder.setGroup(groupA);
+        radioButtonBuilder.setText("Group A, Option 1");
 
-        new RadioButtonBuilder().setColumnAndRowIndices(1, 6)
-                                .setPanel(panel)
-                                .setGroup(groupA)
-                                .setText("Group A, Option 2")
-                                .build();
+        panel.addComponent(radioButtonBuilder.build());
+
+
+        radioButtonBuilder.setRowIndex(6);
+        radioButtonBuilder.setGroup(groupA);
+        radioButtonBuilder.setText("Group A, Option 2");
+
+        panel.addComponent(radioButtonBuilder.build());
 
 
         // Second Radio Button Group
         final RadioButtonGroup groupB = new RadioButtonGroup();
 
-        new RadioButtonBuilder().setColumnAndRowIndices(1, 8)
-                                .setPanel(panel)
-                                .setGroup(groupB)
-                                .setText("Group B, Option 1")
-                                .build();
+        radioButtonBuilder.setRowIndex(8);
+        radioButtonBuilder.setGroup(groupB);
+        radioButtonBuilder.setText("Group B, Option 1");
 
-        new RadioButtonBuilder().setColumnAndRowIndices(1, 9)
-                                .setPanel(panel)
-                                .setGroup(groupB)
-                                .setText("Group B, Option 2")
-                                .build();
+        panel.addComponent(radioButtonBuilder.build());
+
+
+        radioButtonBuilder.setRowIndex(9);
+        radioButtonBuilder.setGroup(groupB);
+        radioButtonBuilder.setText("Group B, Option 2");
+
+        panel.addComponent(radioButtonBuilder.build());
+
 
         // Check Boxes
-        new CheckBoxBuilder().setColumnAndRowIndices(1, 11)
-                             .setPanel(panel)
-                             .setText("Checkbox A")
-                             .build();
+        final CheckBoxBuilder checkBoxBuilder = new CheckBoxBuilder();
+        checkBoxBuilder.setPanel(panel);
+        checkBoxBuilder.setColumnIndex(1);
+        checkBoxBuilder.setRowIndex(11);
+        checkBoxBuilder.setText("Checkbox A");
 
-        new CheckBoxBuilder().setColumnAndRowIndices(1, 12)
-                            .setPanel(panel)
-                            .setText("Checkbox B")
-                            .build();
+        panel.addComponent(checkBoxBuilder.build());
+
+
+        checkBoxBuilder.setRowIndex(12);
+        checkBoxBuilder.setText("Checkbox B");
+
+        panel.addComponent(checkBoxBuilder.build());
 
         // Fixed Width Text Field
-        new TextFieldBuilder().setColumnAndRowIndices(1, 14)
-                              .setPanel(panel)
-                              .setWidth(20)
-                              .build();
+        final TextFieldBuilder textFieldBuilder = new TextFieldBuilder();
+        textFieldBuilder.setPanel(panel);
+        textFieldBuilder.setColumnIndex(1);
+        textFieldBuilder.setRowIndex(14);
+        textFieldBuilder.setWidth(20);
+
+        panel.addComponent(textFieldBuilder.build());
 
         // Variable Width Text Field
-        new TextFieldBuilder().setColumnAndRowIndices(1, 16)
-                              .setPanel(panel)
-                              .setWidth(20)
-                              .setMaxCharacters(40)
-                              .build();
+        textFieldBuilder.setRowIndex(16);
+        textFieldBuilder.setWidth(20);
+        textFieldBuilder.setMaxCharacters(40);
+
+        panel.addComponent(textFieldBuilder.build());
 
 
 
 
         // Title #2
-        new LabelBuilder().setColumnAndRowIndices(24, 1)
-                .setPanel(panel)
-                .setText("TextArea Tests")
-                .build()
-                .getString(0)
-                .setUnderlined(true);
+        labelBuilder.reset();
+        labelBuilder.setPanel(panel);
+        labelBuilder.setColumnIndex(24);
+        labelBuilder.setRowIndex(1);
+        labelBuilder.setText("TextArea Tests");
+
+        label = labelBuilder.build();
+        label.getString(0).setUnderlined(true);
+
+        panel.addComponent(label);
 
 
         // Fixed Width & Height Text Area:
-        new LabelBuilder().setColumnAndRowIndices(24, 3)
-                          .setPanel(panel)
-                          .setText("Fixed Width & Height")
-                          .build()
-                          .getString(0);
+        labelBuilder.reset();
+        labelBuilder.setPanel(panel);
+        labelBuilder.setColumnIndex(24);
+        labelBuilder.setRowIndex(3);
+        labelBuilder.setText("Fixed Width & Height");
 
-        new TextAreaBuilder().setColumnAndRowIndices(24, 4)
-                             .setPanel(panel)
-                             .setWidth(23)
-                             .setHeight(3)
-                             .setMaxVerticalCharacters(3)
-                             .build();
+        label = labelBuilder.build();
+        label.getString(0).setUnderlined(true);
+
+        panel.addComponent(label);
+
+        final TextAreaBuilder textAreaBuilder = new TextAreaBuilder();
+        textAreaBuilder.setPanel(panel);
+        textAreaBuilder.setColumnIndex(24);
+        textAreaBuilder.setRowIndex(4);
+        textAreaBuilder.setWidth(23);
+        textAreaBuilder.setHeight(3);
+        textAreaBuilder.setMaxVerticalCharacters(3);
+
+        panel.addComponent(textAreaBuilder.build());
 
         // Variable Width Text Area:
-        new LabelBuilder().setColumnAndRowIndices(24, 8)
-                          .setPanel(panel)
-                          .setText("Variable Width Only")
-                          .build()
-                          .getString(0);
+        labelBuilder.reset();
+        labelBuilder.setPanel(panel);
+        labelBuilder.setColumnIndex(24);
+        labelBuilder.setRowIndex(8);
+        labelBuilder.setText("Variable Width Only");
 
-        new TextAreaBuilder().setColumnAndRowIndices(24, 9)
-                             .setPanel(panel)
-                             .setWidth(23)
-                             .setHeight(3)
-                             .setMaxVerticalCharacters(3)
-                             .setMaxHorizontalCharacters(40)
-                             .build();
+        label = labelBuilder.build();
+        label.getString(0).setUnderlined(true);
+
+        panel.addComponent(label);
+
+
+        textAreaBuilder.setRowIndex(9);
+        textAreaBuilder.setMaxHorizontalCharacters(40);
+
+        panel.addComponent(textAreaBuilder.build());
 
         // Variable Height Text Area:
-        new LabelBuilder().setColumnAndRowIndices(24, 13)
-                          .setPanel(panel)
-                          .setText("Variable Height Only")
-                          .build()
-                          .getString(0);
+        labelBuilder.reset();
+        labelBuilder.setPanel(panel);
+        labelBuilder.setColumnIndex(24);
+        labelBuilder.setRowIndex(13);
+        labelBuilder.setText("Variable Height Only");
 
-        new TextAreaBuilder().setColumnAndRowIndices(24, 14)
-                             .setPanel(panel)
-                             .setWidth(23)
-                             .setHeight(3)
-                             .setMaxVerticalCharacters(3)
-                             .setMaxVerticalCharacters(6)
-                             .build();
+        label = labelBuilder.build();
+        label.getString(0).setUnderlined(true);
+
+        panel.addComponent(label);
+
+
+        textAreaBuilder.setRowIndex(14);
+        textAreaBuilder.setMaxVerticalCharacters(6);
+
+        panel.addComponent(textAreaBuilder.build());
 
         // Variable Width & HeightText Area:
-        new LabelBuilder().setColumnAndRowIndices(24, 18)
-                          .setPanel(panel)
-                          .setText("Variable Width & Height")
-                          .build()
-                          .getString(0);
+        labelBuilder.reset();
+        labelBuilder.setPanel(panel);
+        labelBuilder.setColumnIndex(24);
+        labelBuilder.setRowIndex(18);
+        labelBuilder.setText("Variable Width & Height");
 
-        new TextAreaBuilder().setColumnAndRowIndices(24, 19)
-                             .setPanel(panel)
-                             .setWidth(23)
-                             .setHeight(3)
-                             .setMaxHorizontalCharacters(40)
-                             .setMaxVerticalCharacters(6)
-                             .build();
+        label = labelBuilder.build();
+        label.getString(0).setUnderlined(true);
+
+        panel.addComponent(label);
+
+
+        textAreaBuilder.setRowIndex(19);
+        textAreaBuilder.setMaxVerticalCharacters(6);
+        textAreaBuilder.setMaxHorizontalCharacters(40);
+
+        panel.addComponent(textAreaBuilder.build());
 
         // Loading Bar
-        final LoadingBar loadingBar = new LoadingBarBuilder().setColumnAndRowIndices(1, 19)
-                                                                .setPanel(panel)
-                                                                .setWidth(20)
-                                                                .build();
+        final LoadingBarBuilder loadingBarBuilder = new LoadingBarBuilder();
+        loadingBarBuilder.setPanel(panel);
+        loadingBarBuilder.setColumnIndex(1);
+        loadingBarBuilder.setRowIndex(19);
+        loadingBarBuilder.setWidth(20);
+
+        final LoadingBar loadingBar = loadingBarBuilder.build();
+
+        panel.addComponent(loadingBar);
 
         final Timer timer = new Timer(1000, e -> {
             int pct = loadingBar.getPercentComplete();
