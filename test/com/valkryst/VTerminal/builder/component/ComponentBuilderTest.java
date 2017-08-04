@@ -9,7 +9,7 @@ public class ComponentBuilderTest {
     private ComponentBuilder<Button> builder;
 
     @Before
-    public void initalizeBuilder() {
+    public void initializeBuilder() {
         builder = new ComponentBuilder<>();
     }
 

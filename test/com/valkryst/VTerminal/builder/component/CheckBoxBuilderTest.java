@@ -15,11 +15,6 @@ public class CheckBoxBuilderTest {
         builder = new CheckBoxBuilder();
     }
 
-    @Test(expected=NullPointerException.class)
-    public void testCheckState_withNoPanelSet() {
-        builder.checkState();
-    }
-
     @Test
     public void testReset() {
         final Radio<String> radio = new Radio<>();

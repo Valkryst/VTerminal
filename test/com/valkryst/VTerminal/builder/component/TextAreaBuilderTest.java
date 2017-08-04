@@ -16,11 +16,6 @@ public class TextAreaBuilderTest {
         builder = new TextAreaBuilder();
     }
 
-    @Test(expected=NullPointerException.class)
-    public void testCheckState_withNoPanelSet() {
-        builder.checkState();
-    }
-
     @Test
     public void testReset() {
         final Radio<String> radio = new Radio<>();
