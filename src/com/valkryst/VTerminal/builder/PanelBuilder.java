@@ -14,6 +14,7 @@ public class PanelBuilder {
     @Getter @Setter private int widthInCharacters = 80;
     /** The height of the panel, in characters. */
     @Getter @Setter private int heightInCharacters = 24;
+
     /** The font to draw with. */
     @Getter @Setter private Font font;
 
