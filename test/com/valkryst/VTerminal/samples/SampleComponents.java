@@ -6,7 +6,6 @@ import com.valkryst.VTerminal.builder.component.*;
 import com.valkryst.VTerminal.component.Label;
 import com.valkryst.VTerminal.component.LoadingBar;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
-import com.valkryst.VTerminal.component.*;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.printer.RectanglePrinter;
@@ -177,9 +176,6 @@ public class SampleComponents {
         labelBuilder.setColumnIndex(24);
         labelBuilder.setRowIndex(8);
         labelBuilder.setText("Variable Width Only");
-        final Label labelD = new LabelBuilder().setColumnAndRowIndices(24, 8)
-                                               .setText("Variable Width Only")
-                                               .build();
 
         label = labelBuilder.build();
         label.getString(0).setUnderlined(true);

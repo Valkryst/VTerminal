@@ -58,8 +58,11 @@ public class RadioButtonGroupTest {
         builder.setGroup(group);
 
 
-        final RadioButton buttonA = builder.setText("Testing").build();
-        final RadioButton buttonB = builder.setText("Testing2").build();
+        builder.setText("Testing");
+        final RadioButton buttonA = builder.build();
+
+        builder.setText("Testing2");
+        final RadioButton buttonB = builder.build();
 
         Assert.assertTrue(buttonA.isChecked());
         Assert.assertFalse(buttonB.isChecked());

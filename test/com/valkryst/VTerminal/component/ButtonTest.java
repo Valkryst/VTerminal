@@ -13,7 +13,10 @@ public class ButtonTest {
 
     @Before
     public void testInitializeButton() {
-        button = new ButtonBuilder().setText("Testing").setRadio(new Radio<>()).build();
+        final ButtonBuilder buttonBuilder = new ButtonBuilder();
+        buttonBuilder.setText("Testing");
+        buttonBuilder.setRadio(new Radio<>());
+        button = buttonBuilder.build();
     }
 
     @Test
