@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import java.awt.Color;
 
-public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
+public class ButtonBuilder extends ComponentBuilder<Button> {
     /** The text to display on the button. */
     @Getter @Setter @NonNull private String text;
 
@@ -40,8 +40,8 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
         checkState();
 
         final Button button = new Button(this);
-        button.registerEventHandlers(super.panel);
-        super.panel.addComponent(button);
+        button.registerEventHandlers(super.getPanel());
+        super.getPanel().addComponent(button);
 
         return button;
     }
@@ -51,8 +51,6 @@ public class ButtonBuilder extends ComponentBuilder<Button, ButtonBuilder> {
         super.reset();
 
         text = "";
-
-        radio = null;
 
         startingCharacter = '<';
         endingCharacter = '>';
