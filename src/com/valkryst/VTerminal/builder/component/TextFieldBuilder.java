@@ -67,10 +67,6 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
         if (maxCharacters < width) {
             maxCharacters = width;
         }
-
-        if (radio == null) {
-            throw new NullPointerException("The text field must have a radio to transmit to.");
-        }
     }
 
     /** Resets the builder to it's default state. */

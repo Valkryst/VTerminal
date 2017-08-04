@@ -89,10 +89,6 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
         if (maxVerticalCharacters < height) {
             maxVerticalCharacters = height;
         }
-
-        if (radio == null) {
-            throw new NullPointerException("The text area must have a radio to transmit to.");
-        }
     }
 
     /** Resets the builder to it's default state. */
