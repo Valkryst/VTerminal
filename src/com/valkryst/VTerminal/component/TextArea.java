@@ -84,7 +84,7 @@ public class TextArea extends Component {
 
         Objects.requireNonNull(builder);
 
-        super.setRadio(builder.getPanel().getRadio());
+        super.setRadio(builder.getRadio());
 
         caretForegroundColor = builder.getCaretForegroundColor();
         caretBackgroundColor = builder.getCaretBackgroundColor();

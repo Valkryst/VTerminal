@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VRadio.Radio;
-import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Component;
 import lombok.Getter;
 import lombok.NonNull;
@@ -12,9 +11,6 @@ public class ComponentBuilder<C extends Component> {
     @Getter @Setter private int columnIndex;
     /** The y-axis (row) coordinate of the top-left character. */
     @Getter @Setter private int rowIndex;
-
-    /** The panel on which the button is to be placed. */
-    @Getter @Setter @NonNull private Panel panel;
 
     /** The radio to transmit events to. */
     @Getter @Setter @NonNull private Radio<String> radio;
@@ -55,18 +51,12 @@ public class ComponentBuilder<C extends Component> {
         if (rowIndex < 0) {
             throw new IllegalArgumentException("The row index cannot be less than zero.");
         }
-
-        if (panel == null) {
-            throw new NullPointerException("The component must have a panel to be placed on.");
-        }
     }
 
     /** Resets the builder to it's default state. */
     public void reset() {
         columnIndex = 0;
         rowIndex = 0;
-
-        panel = null;
 
         radio = null;
     }

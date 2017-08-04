@@ -58,7 +58,7 @@ public class CheckBox extends Component {
 
         Objects.requireNonNull(builder);
 
-        super.setRadio(builder.getPanel().getRadio());
+        super.setRadio(builder.getRadio());
 
         this.emptyBoxChar = builder.getEmptyBoxChar();
         this.checkedBoxChar = builder.getCheckedBoxChar();

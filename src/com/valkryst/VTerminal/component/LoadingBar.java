@@ -41,7 +41,7 @@ public class LoadingBar extends Component {
 
         Objects.requireNonNull(builder);
 
-        super.setRadio(builder.getPanel().getRadio());
+        super.setRadio(builder.getRadio());
 
         incompleteCharacter = builder.getIncompleteCharacter();
         completeCharacter = builder.getCompleteCharacter();

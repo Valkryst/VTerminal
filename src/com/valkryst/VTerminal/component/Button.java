@@ -63,7 +63,7 @@ public class Button extends Component {
 
         Objects.requireNonNull(builder);
 
-        super.setRadio(builder.getPanel().getRadio());
+        super.setRadio(builder.getRadio());
 
         this.startingCharacter = builder.getStartingCharacter();
         this.endingCharacter = builder.getEndingCharacter();

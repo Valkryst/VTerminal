@@ -60,7 +60,7 @@ public class RadioButton extends Component {
 
         Objects.requireNonNull(builder);
 
-        super.setRadio(builder.getPanel().getRadio());
+        super.setRadio(builder.getRadio());
 
         this.emptyButtonChar = builder.getEmptyButtonChar();
         this.checkedButtonChar = builder.getCheckedButtonChar();

@@ -11,9 +11,9 @@ import javax.swing.WindowConstants;
 
 public class PanelBuilder {
     /** The width of the panel, in characters. */
-    @Getter private int widthInCharacters;
+    @Getter @Setter private int widthInCharacters;
     /** The height of the panel, in characters. */
-    @Getter private int heightInCharacters;
+    @Getter @Setter private int heightInCharacters;
     /** The font to draw with. */
     @Getter @Setter private Font font;
 
