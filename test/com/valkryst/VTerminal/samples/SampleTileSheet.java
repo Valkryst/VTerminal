@@ -6,6 +6,7 @@ import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -19,6 +20,7 @@ public class SampleTileSheet {
         builder.setHeightInCharacters(22);
 
         final Panel panel = builder.build();
+        panel.getScreen().setBackgroundColor(new Color(255, 0, 255));
 
         Thread.sleep(50);
 
