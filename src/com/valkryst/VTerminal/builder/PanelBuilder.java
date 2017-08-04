@@ -51,7 +51,7 @@ public class PanelBuilder {
     /**
      * Checks the current state of the builder.
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *          If the width or height is less than one.
      *
      * @throws NullPointerException
