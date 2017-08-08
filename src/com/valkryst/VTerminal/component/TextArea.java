@@ -502,8 +502,13 @@ public class TextArea extends Component {
      *
      * @param text
      *        The list of text.
+     *
+     * @throws NullPointerException
+     *        If the text is null.
      */
     public void setText(final List<String> text) {
+        Objects.requireNonNull(text);
+
         clearText();
 
         for (int i = 0 ; i < text.size() && i < maxVerticalCharacters ; i++) {
@@ -534,8 +539,20 @@ public class TextArea extends Component {
      *
      * @param rowIndex
      *        The row index,
+     *
+     * @throws java.lang.IllegalArgumentException
+     *        If the row index is below zero.
+     *        If the row index exceeds the TextArea's height.
      */
     public void clearText(final int rowIndex) {
+        if (rowIndex < 0) {
+            throw new IllegalArgumentException("The row index cannot be below 0.");
+        }
+
+        if (rowIndex > super.getHeight()) {
+            throw new IllegalArgumentException("The row index cannot be above " + super.getHeight() +".");
+        }
+
         Arrays.fill(enteredText[rowIndex], ' ');
 
         if (y_index_caret_actual == y_index_caret_visual && y_index_caret_actual == rowIndex) {
