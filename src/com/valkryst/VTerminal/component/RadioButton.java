@@ -21,9 +21,9 @@ public class RadioButton extends Component {
     private boolean isInHoveredState = false;
 
     /** The character to display when the radio button is not checked. */
-    @Getter @Setter private char emptyButtonChar;
+    @Getter @Setter private char emptyBoxChar;
     /** The character to display when the radio button is checked. */
-    @Getter @Setter private char checkedButtonChar;
+    @Getter @Setter private char checkedBoxChar;
 
     /** Whether or not the radio button is checked. */
     @Getter private boolean isChecked = false;
@@ -62,8 +62,8 @@ public class RadioButton extends Component {
 
         super.setRadio(builder.getRadio());
 
-        this.emptyButtonChar = builder.getEmptyButtonChar();
-        this.checkedButtonChar = builder.getCheckedButtonChar();
+        this.emptyBoxChar = builder.getEmptyButtonChar();
+        this.checkedBoxChar = builder.getCheckedButtonChar();
 
         this.group = builder.getGroup();
 
@@ -80,7 +80,7 @@ public class RadioButton extends Component {
         final AsciiString string = super.getString(0);
 
         // Set the radio button's text, place a space between the button and the label, then set the label
-        string.setCharacter(0, emptyButtonChar);
+        string.setCharacter(0, emptyBoxChar);
         string.setCharacter(1, ' ');
 
 
@@ -223,7 +223,7 @@ public class RadioButton extends Component {
      *         The new empty button character.
      */
     public void setEmptyBoxCharacter(final char emptyButtonChar) {
-        this.emptyButtonChar = emptyButtonChar;
+        this.emptyBoxChar = emptyButtonChar;
 
         super.getString(0).getCharacters()[0].setCharacter(emptyButtonChar);
     }
@@ -235,7 +235,7 @@ public class RadioButton extends Component {
      *         The new checked button character.
      */
     public void setEndingCharacter(final char checkedButtonChar) {
-        this.checkedButtonChar = checkedButtonChar;
+        this.checkedBoxChar = checkedButtonChar;
 
         final AsciiCharacter[] characters = super.getString(0).getCharacters();
         super.getString(0).setCharacter(characters.length - 1, checkedButtonChar);
@@ -321,7 +321,7 @@ public class RadioButton extends Component {
     public void check() {
         setStateChecked();
         isChecked = true;
-        super.getString(0).setCharacter(0, checkedButtonChar);
+        super.getString(0).setCharacter(0, checkedBoxChar);
 
         transmitDraw();
     }
@@ -330,7 +330,7 @@ public class RadioButton extends Component {
     public void uncheck() {
         setStateNormal();
         isChecked = false;
-        super.getString(0).setCharacter(0, emptyButtonChar);
+        super.getString(0).setCharacter(0, emptyBoxChar);
 
         transmitDraw();
     }
