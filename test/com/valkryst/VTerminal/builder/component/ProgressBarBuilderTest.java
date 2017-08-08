@@ -7,12 +7,12 @@ import org.junit.Test;
 
 import java.awt.*;
 
-public class LoadingBarBuilderTest {
-    private LoadingBarBuilder builder;
+public class ProgressBarBuilderTest {
+    private ProgressBarBuilder builder;
 
     @Before
     public void initalizeBuilder() {
-        builder = new LoadingBarBuilder();
+        builder = new ProgressBarBuilder();
     }
 
     @Test
