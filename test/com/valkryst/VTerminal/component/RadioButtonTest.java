@@ -32,8 +32,8 @@ public class RadioButtonTest {
     public void testSetCheckedBoxCharacter() {
         button.setCheckedBoxChar('?');
 
-        Assert.assertNotEquals('?', button.getCheckedBoxChar());
-        Assert.assertEquals('?', button.getEmptyBoxChar());
+        Assert.assertEquals('?', button.getCheckedBoxChar());
+        Assert.assertNotEquals('?', button.getEmptyBoxChar());
     }
 
     @Test
