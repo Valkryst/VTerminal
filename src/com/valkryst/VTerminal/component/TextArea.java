@@ -512,17 +512,20 @@ public class TextArea extends Component {
     }
 
     /** @return The text contained within the area. */
-    public String getText() {
-        final StringBuilder sb = new StringBuilder();
+    public String[] getText() {
+        final String[] strings = new String[super.getHeight() + 1];
+
+        String temp = "";
 
         for (int i = 0 ; i < enteredText.length ; i++) {
             for (final char c : enteredText[i]) {
-                sb.append(c);
+                temp += c;
             }
-            sb.append("\n");
+
+            strings[i] = temp;
         }
 
-        return sb.toString();
+        return strings;
     }
 
     /**
