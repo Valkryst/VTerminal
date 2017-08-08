@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import java.awt.Color;
 
-public class LoadingBarBuilder extends ComponentBuilder<ProgressBar> {
+public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
     /** The width of the loading bar, in characters. */
     @Getter @Setter private int width;
     /** The height of the loading bar, in characters. */
