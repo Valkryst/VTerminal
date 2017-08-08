@@ -481,12 +481,12 @@ public class TextArea extends Component {
      *
      * @param text
      *        The text.
+     *
+     * @throws NullPointerException
+     *        If the text is null.
      */
     public void setText(final int rowIndex, String text) {
-        if (text == null || text.isEmpty()) {
-            clearText(rowIndex);
-            return;
-        }
+        Objects.requireNonNull(text);
 
         if (text.length() > maxHorizontalCharacters) {
             text = text.substring(0, maxHorizontalCharacters);
