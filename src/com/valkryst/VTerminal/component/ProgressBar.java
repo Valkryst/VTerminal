@@ -8,7 +8,7 @@ import lombok.Getter;
 import java.awt.Color;
 import java.util.Objects;
 
-public class LoadingBar extends Component {
+public class ProgressBar extends Component {
     /** The percent complete. */
     @Getter private int percentComplete = 0;
 
@@ -36,7 +36,7 @@ public class LoadingBar extends Component {
      * @throws NullPointerException
      *         If the builder is null.
      */
-    public LoadingBar(final LoadingBarBuilder builder) {
+    public ProgressBar(final LoadingBarBuilder builder) {
         super(builder.getColumnIndex(), builder.getRowIndex(), builder.getWidth(), builder.getHeight());
 
         Objects.requireNonNull(builder);

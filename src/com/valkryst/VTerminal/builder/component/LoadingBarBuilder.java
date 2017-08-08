@@ -1,13 +1,13 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.valkryst.VTerminal.component.LoadingBar;
+import com.valkryst.VTerminal.component.ProgressBar;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
 import java.awt.Color;
 
-public class LoadingBarBuilder extends ComponentBuilder<LoadingBar> {
+public class LoadingBarBuilder extends ComponentBuilder<ProgressBar> {
     /** The width of the loading bar, in characters. */
     @Getter @Setter private int width;
     /** The height of the loading bar, in characters. */
@@ -29,9 +29,9 @@ public class LoadingBarBuilder extends ComponentBuilder<LoadingBar> {
     @Getter @Setter @NonNull private Color foregroundColor_complete;
 
     @Override
-    public LoadingBar build() {
+    public ProgressBar build() {
         checkState();
-        return new LoadingBar(this);
+        return new ProgressBar(this);
     }
 
     /** Resets the builder to it's default state. */
