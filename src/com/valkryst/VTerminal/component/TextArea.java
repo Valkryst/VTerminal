@@ -523,6 +523,7 @@ public class TextArea extends Component {
             }
 
             strings[i] = temp;
+            temp = "";
         }
 
         return strings;
