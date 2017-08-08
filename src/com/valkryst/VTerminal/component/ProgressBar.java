@@ -1,7 +1,7 @@
 package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiString;
-import com.valkryst.VTerminal.builder.component.LoadingBarBuilder;
+import com.valkryst.VTerminal.builder.component.ProgressBarBuilder;
 import com.valkryst.VTerminal.misc.IntRange;
 import lombok.Getter;
 
@@ -36,7 +36,7 @@ public class ProgressBar extends Component {
      * @throws NullPointerException
      *         If the builder is null.
      */
-    public ProgressBar(final LoadingBarBuilder builder) {
+    public ProgressBar(final ProgressBarBuilder builder) {
         super(builder.getColumnIndex(), builder.getRowIndex(), builder.getWidth(), builder.getHeight());
 
         Objects.requireNonNull(builder);
