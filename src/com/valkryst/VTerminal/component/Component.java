@@ -100,7 +100,7 @@ public class Component {
         sb.append("\n\tWidth:\t").append(width);
         sb.append("\n\tHeight:\t").append(height);
         sb.append("\n\tIs Focused:\t").append(isFocused);
-        sb.append("\n\tBounding Box:\t" + boundingBox);
+        sb.append("\n\tBounding Box:\t").append(boundingBox);
         sb.append("\n\tStrings:\n\t\t");
 
         for (final AsciiString string : strings) {
@@ -110,7 +110,7 @@ public class Component {
             sb.append("\n\t\t");
         }
 
-        sb.append("\n\tRadio:\t" + radio);
+        sb.append("\n\tRadio:\t").append(radio);
 
         return sb.toString();
     }
