@@ -50,4 +50,48 @@ public class TextAreaTest {
         Assert.assertEquals("TestingB", textArea.getText()[1]);
         Assert.assertEquals("TestingC", textArea.getText()[2]);
     }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testClearText_oneParam_withNegativeIndex() {
+        textArea.clearText(-1);
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testClearText_oneParam_withIndexExceedingHeight() {
+        textArea.clearText(textArea.getHeight() + 1);
+    }
+
+    @Test
+    public void testClearText_oneParam_withValidIndex() {
+        textArea.setText(0, "TestingA");
+        textArea.setText(1, "TestingB");
+        textArea.setText(2, "TestingC");
+
+        Assert.assertEquals("TestingA", textArea.getText()[0]);
+        Assert.assertEquals("TestingB", textArea.getText()[1]);
+        Assert.assertEquals("TestingC", textArea.getText()[2]);
+
+        textArea.clearText(0);
+
+        Assert.assertEquals("        ", textArea.getText()[0]);
+        Assert.assertEquals("TestingB", textArea.getText()[1]);
+        Assert.assertEquals("TestingC", textArea.getText()[2]);
+    }
+
+    @Test
+    public void testClearText() {
+        textArea.setText(0, "TestingA");
+        textArea.setText(1, "TestingB");
+        textArea.setText(2, "TestingC");
+
+        Assert.assertEquals("TestingA", textArea.getText()[0]);
+        Assert.assertEquals("TestingB", textArea.getText()[1]);
+        Assert.assertEquals("TestingC", textArea.getText()[2]);
+
+        textArea.clearText();
+
+        Assert.assertEquals("        ", textArea.getText()[0]);
+        Assert.assertEquals("        ", textArea.getText()[1]);
+        Assert.assertEquals("        ", textArea.getText()[2]);
+    }
 }
