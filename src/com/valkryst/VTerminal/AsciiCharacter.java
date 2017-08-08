@@ -3,6 +3,7 @@ package com.valkryst.VTerminal;
 import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.misc.ColorFunctions;
 import com.valkryst.VTerminal.misc.ColoredImageCache;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +17,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.util.Objects;
 
-
+@EqualsAndHashCode
 public class AsciiCharacter {
     /** The character. */
 	@Getter @Setter private char character;
@@ -114,32 +115,6 @@ public class AsciiCharacter {
                 "\n\tIs Flipped Vertically:\t" + isFlippedVertically +
                 "\n\tBlink Timer:\t" + blinkTimer +
                 "\n\tMilliseconds Between Blinks:\t" + millsBetweenBlinks;
-    }
-
-    @Override
-    public boolean equals(final Object object) {
-	    if (object instanceof AsciiCharacter == false) {
-	        return false;
-        }
-
-        if (object == this) {
-	        return true;
-        }
-
-        final AsciiCharacter otherCharacter = (AsciiCharacter) object;
-
-	    boolean isEqual = Objects.equals(character, otherCharacter.getCharacter());
-	    isEqual &= Objects.equals(backgroundColor, otherCharacter.getBackgroundColor());
-	    isEqual &= Objects.equals(foregroundColor, otherCharacter.getForegroundColor());
-
-        return isEqual;
-    }
-
-    @Override
-    public int hashCode() {
-	    return Objects.hash(character, isHidden, backgroundColor, foregroundColor, boundingBox, isUnderlined,
-                            underlineThickness, isFlippedHorizontally, isFlippedVertically, blinkTimer,
-                            millsBetweenBlinks);
     }
 
     /**
