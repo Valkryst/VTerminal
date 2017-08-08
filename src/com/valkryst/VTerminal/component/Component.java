@@ -197,7 +197,7 @@ public class Component {
 
             for (int i = 0 ; i < characters.length ; i++) {
                 if (characters[i] instanceof AsciiTile) {
-                    string.setCharacter(i, new AsciiCharacter((AsciiTile) characters[i]));
+                    string.setCharacter(i, new AsciiCharacter(characters[i]));
                 }
             }
         }
