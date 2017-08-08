@@ -96,37 +96,6 @@ public class RadioButton extends Component {
     }
 
     @Override
-    public boolean equals(final Object otherObj) {
-        if (otherObj instanceof RadioButton == false) {
-            return false;
-        }
-
-        if (otherObj == this) {
-            return true;
-        }
-
-        final RadioButton otherButton = (RadioButton) otherObj;
-        boolean isEqual = super.equals(otherObj);
-        isEqual &= Objects.equals(emptyButtonChar, otherButton.getEmptyButtonChar());
-        isEqual &= Objects.equals(checkedButtonChar, otherButton.getCheckedButtonChar());
-        isEqual &= Objects.equals(isChecked, otherButton.isChecked());
-        isEqual &= Objects.equals(backgroundColor_normal, otherButton.getBackgroundColor_normal());
-        isEqual &= Objects.equals(foregroundColor_normal, otherButton.getForegroundColor_normal());
-        isEqual &= Objects.equals(backgroundColor_hover, otherButton.getBackgroundColor_hover());
-        isEqual &= Objects.equals(foregroundColor_hover, otherButton.getForegroundColor_hover());
-        isEqual &= Objects.equals(backgroundColor_checked, otherButton.getBackgroundColor_checked());
-        isEqual &= Objects.equals(foregroundColor_checked, otherButton.getForegroundColor_checked());
-        return isEqual;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), emptyButtonChar, checkedButtonChar, isChecked, backgroundColor_normal,
-                            foregroundColor_normal, backgroundColor_hover, foregroundColor_hover,
-                            backgroundColor_checked, foregroundColor_checked);
-    }
-
-    @Override
     public void createEventListeners(final Panel panel) {
         super.createEventListeners(panel);
 

@@ -95,38 +95,6 @@ public class Button extends Component {
     }
 
     @Override
-    public boolean equals(final Object otherObj) {
-        if (otherObj instanceof Button == false) {
-            return false;
-        }
-
-        if (otherObj == this) {
-            return true;
-        }
-
-        final Button otherButton = (Button) otherObj;
-
-        boolean isEqual = super.equals(otherObj);
-        isEqual &= Objects.equals(startingCharacter, otherButton.getStartingCharacter());
-        isEqual &= Objects.equals(endingCharacter, otherButton.getEndingCharacter());
-        isEqual &= Objects.equals(backgroundColor_normal, otherButton.getBackgroundColor_normal());
-        isEqual &= Objects.equals(foregroundColor_normal, otherButton.getForegroundColor_normal());
-        isEqual &= Objects.equals(backgroundColor_hover, otherButton.getBackgroundColor_hover());
-        isEqual &= Objects.equals(foregroundColor_hover, otherButton.getForegroundColor_hover());
-        isEqual &= Objects.equals(backgroundColor_pressed, otherButton.getBackgroundColor_pressed());
-        isEqual &= Objects.equals(foregroundColor_pressed, otherButton.getForegroundColor_pressed());
-        isEqual &= Objects.equals(onClickFunction, otherButton.getOnClickFunction());
-        return isEqual;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), startingCharacter, endingCharacter, backgroundColor_normal,
-                            foregroundColor_normal, backgroundColor_hover, foregroundColor_hover, backgroundColor_pressed,
-                            foregroundColor_pressed, onClickFunction);
-    }
-
-    @Override
     public void createEventListeners(final Panel panel) {
         super.createEventListeners(panel);
 

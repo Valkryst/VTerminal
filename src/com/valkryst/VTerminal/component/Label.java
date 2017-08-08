@@ -41,26 +41,4 @@ public class Label extends Component {
         string.setBackgroundColor(backgroundColor);
         string.setForegroundColor(foregroundColor);
     }
-
-    @Override
-    public boolean equals(final Object otherObj) {
-        if (otherObj instanceof Label == false) {
-            return false;
-        }
-
-        if (otherObj == this) {
-            return true;
-        }
-
-        final Label otherLabel = (Label) otherObj;
-        boolean isEqual = super.equals(otherObj);
-        isEqual &= Objects.equals(backgroundColor, otherLabel.getBackgroundColor());
-        isEqual &= Objects.equals(foregroundColor, otherLabel.getForegroundColor());
-        return isEqual;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), backgroundColor, foregroundColor);
-    }
 }

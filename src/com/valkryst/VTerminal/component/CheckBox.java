@@ -94,37 +94,6 @@ public class CheckBox extends Component {
     }
 
     @Override
-    public boolean equals(final Object otherObj) {
-        if (otherObj instanceof CheckBox == false) {
-            return false;
-        }
-
-        if (otherObj == this) {
-            return true;
-        }
-
-        final CheckBox otherBox = (CheckBox) otherObj;
-        boolean isEqual = super.equals(otherObj);
-        isEqual &= Objects.equals(emptyBoxChar, otherBox.getEmptyBoxChar());
-        isEqual &= Objects.equals(checkedBoxChar, otherBox.getCheckedBoxChar());
-        isEqual &= Objects.equals(isChecked, otherBox.isChecked());
-        isEqual &= Objects.equals(backgroundColor_normal, otherBox.getBackgroundColor_normal());
-        isEqual &= Objects.equals(foregroundColor_normal, otherBox.getForegroundColor_normal());
-        isEqual &= Objects.equals(backgroundColor_hover, otherBox.getBackgroundColor_hover());
-        isEqual &= Objects.equals(foregroundColor_hover, otherBox.getForegroundColor_hover());
-        isEqual &= Objects.equals(backgroundColor_checked, otherBox.getBackgroundColor_checked());
-        isEqual &= Objects.equals(foregroundColor_checked, otherBox.getForegroundColor_checked());
-        return isEqual;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), emptyBoxChar, checkedBoxChar, isChecked, backgroundColor_normal,
-                            foregroundColor_normal, backgroundColor_hover, foregroundColor_hover,
-                            backgroundColor_checked, foregroundColor_checked);
-    }
-
-    @Override
     public void createEventListeners(final Panel panel) {
         super.createEventListeners(panel);
 

@@ -92,31 +92,6 @@ public class Component {
     }
 
     @Override
-    public boolean equals(final Object otherObj) {
-        if (otherObj instanceof Component == false) {
-            return false;
-        }
-
-        // Left out a check for isFocused since two components could be
-        // virtually identical other than their focus.
-        // Left out a check for radio.
-        final Component otherComp = (Component) otherObj;
-        boolean isEqual = Objects.equals(columnIndex, otherComp.getColumnIndex());
-        isEqual &= Objects.equals(rowIndex, otherComp.getRowIndex());
-        isEqual &= Objects.equals(width, otherComp.getWidth());
-        isEqual &= Objects.equals(height, otherComp.getHeight());
-        isEqual &= Objects.equals(boundingBox, otherComp.getBoundingBox());
-        isEqual &= Arrays.equals(strings, otherComp.getStrings());
-
-        return isEqual;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(columnIndex, rowIndex, width, height, boundingBox, strings);
-    }
-
-    @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append("Component:");

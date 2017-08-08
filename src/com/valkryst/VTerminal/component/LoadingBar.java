@@ -60,35 +60,6 @@ public class LoadingBar extends Component {
         }
     }
 
-    @Override
-    public boolean equals(final Object otherObj) {
-        if (otherObj instanceof LoadingBar == false) {
-            return false;
-        }
-
-        if (otherObj == this) {
-            return true;
-        }
-
-        final LoadingBar otherBar = (LoadingBar) otherObj;
-        boolean isEqual = super.equals(otherObj);
-        isEqual &= Objects.equals(percentComplete, otherBar.getPercentComplete());
-        isEqual &= Objects.equals(incompleteCharacter, otherBar.getIncompleteCharacter());
-        isEqual &= Objects.equals(completeCharacter, otherBar.getCompleteCharacter());
-        isEqual &= Objects.equals(backgroundColor_incomplete, otherBar.getBackgroundColor_incomplete());
-        isEqual &= Objects.equals(foregroundColor_incomplete, otherBar.getForegroundColor_incomplete());
-        isEqual &= Objects.equals(backgroundColor_complete, otherBar.getBackgroundColor_complete());
-        isEqual &= Objects.equals(foregroundColor_complete, otherBar.getForegroundColor_complete());
-        return isEqual;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), percentComplete, incompleteCharacter, completeCharacter,
-                            backgroundColor_incomplete, foregroundColor_incomplete, backgroundColor_complete,
-                            foregroundColor_complete);
-    }
-
     /**
      * Sets the new percent complete and redraws the loading bar
      * to reflect the changes.

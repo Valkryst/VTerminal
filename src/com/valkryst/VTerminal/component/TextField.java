@@ -104,43 +104,6 @@ public class TextField extends Component {
     }
 
     @Override
-    public boolean equals(final Object otherObj) {
-        if (otherObj instanceof TextField == false) {
-            return false;
-        }
-
-        if (otherObj == this) {
-            return true;
-        }
-
-        final TextField otherField = (TextField) otherObj;
-        boolean isEqual = super.equals(otherObj);
-        isEqual &= Objects.equals(caretForegroundColor, otherField.getCaretForegroundColor());
-        isEqual &= Objects.equals(caretBackgroundColor, otherField.getCaretBackgroundColor());
-        isEqual &= Objects.equals(foregroundColor, otherField.getForegroundColor());
-        isEqual &= Objects.equals(backgroundColor, otherField.getBackgroundColor());
-        isEqual &= Objects.equals(homeKeyEnabled, otherField.isHomeKeyEnabled());
-        isEqual &= Objects.equals(endKeyEnabled, otherField.isEndKeyEnabled());
-        isEqual &= Objects.equals(deleteKeyEnabled, otherField.isDeleteKeyEnabled());
-        isEqual &= Objects.equals(leftArrowKeyEnabled, otherField.isLeftArrowKeyEnabled());
-        isEqual &= Objects.equals(rightArrowKeyEnabled, otherField.isRightArrowKeyEnabled());
-        isEqual &= Objects.equals(backSpaceKeyEnabled, otherField.isBackSpaceKeyEnabled());
-        isEqual &= Objects.equals(index_caret_actual, otherField.getIndex_caret_actual());
-        isEqual &= Objects.equals(index_caret_visual, otherField.getIndex_caret_visual());
-        isEqual &= Objects.equals(maxCharacters, otherField.getMaxCharacters());
-        isEqual &= Objects.equals(allowedCharacterPattern, otherField.getAllowedCharacterPattern());
-        return isEqual;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), caretForegroundColor, caretBackgroundColor, foregroundColor,
-                            backgroundColor, homeKeyEnabled, endKeyEnabled, deleteKeyEnabled, leftArrowKeyEnabled,
-                            rightArrowKeyEnabled, backSpaceKeyEnabled, index_caret_actual, index_caret_visual,
-                            maxCharacters, allowedCharacterPattern);
-    }
-
-    @Override
     public void createEventListeners(final Panel panel) {
         super.createEventListeners(panel);
 

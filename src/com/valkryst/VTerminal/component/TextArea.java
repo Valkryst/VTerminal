@@ -122,48 +122,6 @@ public class TextArea extends Component {
     }
 
     @Override
-    public boolean equals(final Object otherObj) {
-        if (otherObj instanceof TextArea == false) {
-            return false;
-        }
-
-        if (otherObj == this) {
-            return true;
-        }
-
-        final TextArea otherArea = (TextArea) otherObj;
-        boolean isEqual = super.equals(otherObj);
-        isEqual &= Objects.equals(caretForegroundColor, otherArea.getCaretForegroundColor());
-        isEqual &= Objects.equals(caretBackgroundColor, otherArea.getCaretBackgroundColor());
-        isEqual &= Objects.equals(foregroundColor, otherArea.getForegroundColor());
-        isEqual &= Objects.equals(backgroundColor, otherArea.getBackgroundColor());
-        isEqual &= Objects.equals(homeKeyEnabled, otherArea.isHomeKeyEnabled());
-        isEqual &= Objects.equals(endKeyEnabled, otherArea.isEndKeyEnabled());
-        isEqual &= Objects.equals(deleteKeyEnabled, otherArea.isDeleteKeyEnabled());
-        isEqual &= Objects.equals(leftArrowKeyEnabled, otherArea.isLeftArrowKeyEnabled());
-        isEqual &= Objects.equals(rightArrowKeyEnabled, otherArea.isRightArrowKeyEnabled());
-        isEqual &= Objects.equals(enterKeyEnabled, otherArea.isEnterKeyEnabled());
-        isEqual &= Objects.equals(backSpaceKeyEnabled, otherArea.isBackSpaceKeyEnabled());
-        isEqual &= Objects.equals(x_index_caret_actual, otherArea.getX_index_caret_actual());
-        isEqual &= Objects.equals(y_index_caret_actual, otherArea.getY_index_caret_actual());
-        isEqual &= Objects.equals(x_index_caret_visual, otherArea.getX_index_caret_visual());
-        isEqual &= Objects.equals(y_index_caret_visual, otherArea.getY_index_caret_visual());
-        isEqual &= Objects.equals(maxHorizontalCharacters, otherArea.getMaxHorizontalCharacters());
-        isEqual &= Objects.equals(maxVerticalCharacters, otherArea.getMaxVerticalCharacters());
-        isEqual &= Objects.equals(allowedCharacterPattern, otherArea.getAllowedCharacterPattern());
-        return isEqual;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), caretForegroundColor, caretBackgroundColor, foregroundColor,
-                            backgroundColor, homeKeyEnabled, endKeyEnabled, deleteKeyEnabled, leftArrowKeyEnabled,
-                            rightArrowKeyEnabled, enterKeyEnabled, backSpaceKeyEnabled, x_index_caret_actual,
-                            y_index_caret_actual, x_index_caret_visual, y_index_caret_visual, maxHorizontalCharacters,
-                            maxVerticalCharacters, allowedCharacterPattern);
-    }
-
-    @Override
     public void createEventListeners(final Panel panel) {
         super.createEventListeners(panel);
 

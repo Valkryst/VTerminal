@@ -43,11 +43,6 @@ public class Screen extends Component {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), components, layerComponents, screenComponents);
-    }
-
-    @Override
     public void draw(final Screen screen) {
         throw new UnsupportedOperationException("A Screen must be drawn using the draw(canvas, font) method.");
     }
