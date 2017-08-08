@@ -16,6 +16,7 @@ public class RadioButtonTest {
         final RadioButtonBuilder buttonBuilder = new RadioButtonBuilder();
         buttonBuilder.setText("Testing");
         buttonBuilder.setRadio(new Radio<>());
+        buttonBuilder.setGroup(new RadioButtonGroup());
         button = buttonBuilder.build();
     }
 
