@@ -11,7 +11,7 @@ public class ProgressBarBuilderTest {
     private ProgressBarBuilder builder;
 
     @Before
-    public void initalizeBuilder() {
+    public void initializeBuilder() {
         builder = new ProgressBarBuilder();
     }
 
