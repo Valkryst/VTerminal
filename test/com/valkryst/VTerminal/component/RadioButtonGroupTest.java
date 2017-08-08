@@ -6,44 +6,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class RadioButtonGroupTest {
-    /* Uncomment when issues resolved.
-    @Test
-    public void testHashCode_withEqualGroup() {
-        final RadioButtonBuilder builder = new RadioButtonBuilder();
-        builder.setRadio(new Radio<>());
-        builder.setText("Testing");
-
-        final RadioButtonGroup groupA = new RadioButtonGroup();
-        builder.setGroup(groupA);
-        builder.build();
-
-
-        final RadioButtonGroup groupB = new RadioButtonGroup();
-        builder.setGroup(groupB);
-        builder.build();
-
-        Assert.assertEquals(groupA.hashCode(), groupB.hashCode());
-    }*/
-
-    @Test
-    public void testHashCode_withNonEqualGroup() {
-        final RadioButtonBuilder builder = new RadioButtonBuilder();
-        builder.setRadio(new Radio<>());
-        builder.setText("Testing");
-
-        final RadioButtonGroup groupA = new RadioButtonGroup();
-        builder.setGroup(groupA);
-        builder.build();
-
-
-        final RadioButtonGroup groupB = new RadioButtonGroup();
-        builder.setGroup(groupB);
-        builder.setText("Testing2");
-        builder.build();
-
-        Assert.assertNotEquals(groupA.hashCode(), groupB.hashCode());
-    }
-
     @Test(expected=NullPointerException.class)
     public void testSetCheckedButton_withNullButton() {
         new RadioButtonGroup().setCheckedButton(null);
