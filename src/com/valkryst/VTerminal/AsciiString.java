@@ -4,6 +4,7 @@ import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.misc.ColorFunctions;
 import com.valkryst.VTerminal.misc.ColoredImageCache;
 import com.valkryst.VTerminal.misc.IntRange;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.awt.Color;
@@ -11,6 +12,7 @@ import java.awt.Graphics2D;
 import java.util.Arrays;
 import java.util.Objects;
 
+@EqualsAndHashCode
 public class AsciiString {
     /** The characters of the string. */
     @Getter private AsciiCharacter[] characters;
@@ -81,29 +83,6 @@ public class AsciiString {
         }
 
         return builder.toString();
-    }
-
-    @Override
-    public boolean equals(final Object object) {
-        if (object instanceof AsciiString == false) {
-            return false;
-        }
-
-        if (object == this) {
-            return true;
-        }
-
-        final AsciiString otherString = (AsciiString) object;
-
-        boolean isEqual = Arrays.equals(characters, otherString.getCharacters());
-        isEqual &= Arrays.equals(charactersToBeRedrawn, otherString.getCharactersToBeRedrawn());
-
-        return isEqual;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(characters, charactersToBeRedrawn);
     }
 
     /**
