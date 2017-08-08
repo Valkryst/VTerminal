@@ -522,7 +522,7 @@ public class TextArea extends Component {
 
         String temp = "";
 
-        for (int i = 0 ; i < enteredText.length ; i++) {
+        for (int i = 0 ; i < super.getHeight() ; i++) {
             for (final char c : enteredText[i]) {
                 temp += c;
             }
