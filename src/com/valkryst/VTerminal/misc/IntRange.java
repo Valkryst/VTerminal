@@ -1,9 +1,9 @@
 package com.valkryst.VTerminal.misc;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import java.util.Objects;
-
+@EqualsAndHashCode
 public class IntRange {
     /** The starting value of the range. */
     @Getter private int start;
@@ -35,26 +35,5 @@ public class IntRange {
     @Override
     public String toString() {
         return "IntRange(" + start + ", " + end + ")";
-    }
-
-    @Override
-    public boolean equals(final Object otherObj) {
-        if (otherObj instanceof IntRange == false) {
-            return false;
-        }
-
-        if (otherObj == this) {
-            return true;
-        }
-
-        final IntRange otherRange = (IntRange) otherObj;
-        boolean isEqual = start == otherRange.getStart();
-        isEqual &= end == otherRange.getEnd();
-        return isEqual;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(start, end);
     }
 }
