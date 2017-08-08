@@ -4,7 +4,7 @@ import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.builder.component.*;
 import com.valkryst.VTerminal.component.Label;
-import com.valkryst.VTerminal.component.LoadingBar;
+import com.valkryst.VTerminal.component.ProgressBar;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
@@ -212,13 +212,13 @@ public class SampleComponents {
         panel.addComponent(textAreaBuilder.build());
 
         // Loading Bar
-        final LoadingBarBuilder loadingBarBuilder = new LoadingBarBuilder();
+        final ProgressBarBuilder loadingBarBuilder = new ProgressBarBuilder();
         loadingBarBuilder.setRadio(panel.getRadio());
         loadingBarBuilder.setColumnIndex(1);
         loadingBarBuilder.setRowIndex(19);
         loadingBarBuilder.setWidth(20);
 
-        final LoadingBar loadingBar = loadingBarBuilder.build();
+        final ProgressBar loadingBar = loadingBarBuilder.build();
 
         panel.addComponent(loadingBar);
 
