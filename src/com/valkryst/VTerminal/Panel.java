@@ -207,6 +207,10 @@ public class Panel extends Canvas implements Receiver<String> {
     public Screen swapScreen(final Screen newScreen) {
         Objects.requireNonNull(newScreen);
 
+        if (newScreen == screen) {
+            return screen;
+        }
+
         final Screen oldScreen = screen;
         screen = newScreen;
         draw();
