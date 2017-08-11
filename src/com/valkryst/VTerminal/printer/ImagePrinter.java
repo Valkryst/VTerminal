@@ -23,9 +23,9 @@ public class ImagePrinter {
     @Getter @Setter private boolean flipVertically = false;
 
     /** The amount to scale the image by, horizontally, when printing. */
-    @Getter private int scaleX = 2;
+    @Getter @Setter private int scaleX = 2;
     /** The amount to scale the image by, vertically, when printing. */
-    @Getter private int scaleY = 1;
+    @Getter @Setter private int scaleY = 1;
 
     /** The character to print the ellipse with. */
     @Getter @Setter private char printChar = '█';
