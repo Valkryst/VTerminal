@@ -53,7 +53,7 @@ public class EllipsePrinter {
      *         If the panel is screen.
      */
     public void print(final @NonNull Screen screen, final int row, final int column) {
-        for (final Point point : ShapeAlgorithms.getEllipse(row, column, width, height)) {
+        for (final Point point : ShapeAlgorithms.getEllipse(column, row, width, height)) {
             screen.write(printChar, point.x, point.y);
         }
     }
