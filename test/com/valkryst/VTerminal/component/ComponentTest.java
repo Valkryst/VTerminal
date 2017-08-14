@@ -2,6 +2,7 @@ package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
+import com.valkryst.VTerminal.AsciiTile;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -100,6 +101,31 @@ public class ComponentTest {
         final Component componentB = new Component(0, 0, width, height);
 
         Assert.assertTrue(componentA.intersects(componentB));
+    }
+
+    @Test
+    public void testConvertAsciiCharactersToAsciiTiles() {
+        final Component component = new Component(0, 0, width, height);
+        component.convertAsciiCharactersToAsciiTiles();
+
+        for (final AsciiString string : component.getStrings()) {
+            for (final AsciiCharacter character : string.getCharacters()) {
+                Assert.assertTrue(character instanceof AsciiTile);
+            }
+        }
+    }
+
+    @Test
+    public void testConvertAsciiTilesToAsciiCharacters() {
+        final Component component = new Component(0, 0, width, height);
+        component.convertAsciiCharactersToAsciiTiles();
+        component.convertAsciiTilesToAsciiCharacters();
+
+        for (final AsciiString string : component.getStrings()) {
+            for (final AsciiCharacter character : string.getCharacters()) {
+                Assert.assertFalse(character instanceof AsciiTile);
+            }
+        }
     }
 
     @Test
