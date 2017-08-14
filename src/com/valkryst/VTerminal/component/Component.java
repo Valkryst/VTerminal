@@ -14,7 +14,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.*;
 
-@EqualsAndHashCode
 @ToString
 public class Component {
     /** The x-axis (column) coordinate of the top-left character. */
