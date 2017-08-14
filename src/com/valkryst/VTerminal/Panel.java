@@ -6,7 +6,10 @@ import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.misc.ColoredImageCache;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
+import lombok.ToString;
 
 import javax.imageio.ImageIO;
 import java.awt.Canvas;
@@ -21,8 +24,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.EventListener;
-import java.util.Objects;
 
+@EqualsAndHashCode
+@ToString
 public class Panel extends Canvas implements Receiver<String> {
     /** The width of the panel, in characters. */
     @Getter private int widthInCharacters;
@@ -47,9 +51,7 @@ public class Panel extends Canvas implements Receiver<String> {
      * @throws NullPointerException
      *         If the builder is null.
      */
-    public Panel(final PanelBuilder builder) {
-        Objects.requireNonNull(builder);
-
+    public Panel(final @NonNull PanelBuilder builder) {
         this.widthInCharacters = builder.getWidthInCharacters();
         this.heightInCharacters = builder.getHeightInCharacters();
 
@@ -140,9 +142,7 @@ public class Panel extends Canvas implements Receiver<String> {
      * @throws IOException
      *         If an I/O error occurred.
      */
-    public void screenshotToFile(final String filename) throws IOException {
-        Objects.requireNonNull(filename);
-
+    public void screenshotToFile(final @NonNull String filename) throws IOException {
         if (filename.isEmpty()) {
             throw new IllegalArgumentException("The filename cannot be null.");
         }
@@ -181,10 +181,7 @@ public class Panel extends Canvas implements Receiver<String> {
      * @throws IOException
      *         If an error occurs during writing.
      */
-    public void screenshotToFile(final File file, final String extension) throws IOException {
-        Objects.requireNonNull(file);
-        Objects.requireNonNull(extension);
-
+    public void screenshotToFile(final @NonNull File file, final @NonNull String extension) throws IOException {
         if (extension.isEmpty()) {
             throw new IllegalArgumentException("The extension cannot be null.");
         }
@@ -204,9 +201,7 @@ public class Panel extends Canvas implements Receiver<String> {
      * @throws NullPointerException
      *         If the new screen is null.
      */
-    public Screen swapScreen(final Screen newScreen) {
-        Objects.requireNonNull(newScreen);
-
+    public Screen swapScreen(final @NonNull Screen newScreen) {
         if (newScreen == screen) {
             return screen;
         }
@@ -225,8 +220,11 @@ public class Panel extends Canvas implements Receiver<String> {
      *
      * @param component
      *          The component.
+     *
+     * @throws NullPointerException
+     *         If the new component is null.
      */
-    public void addComponent(final Component component) {
+    public void addComponent(final @NonNull Component component) {
         screen.addComponent(component);
 
         if (component.getEventListeners().size() == 0) {
@@ -254,8 +252,11 @@ public class Panel extends Canvas implements Receiver<String> {
      *
      * @param components
      *        The components.
+     *
+     * @throws NullPointerException
+     *         If the new components are null.
      */
-    public void addComponents(final Component ... components) {
+    public void addComponents(final @NonNull Component ... components) {
         for (final Component component : components) {
             addComponent(component);
         }
@@ -269,8 +270,11 @@ public class Panel extends Canvas implements Receiver<String> {
      *
      * @param component
      *          The component.
+     *
+     * @throws NullPointerException
+     *         If the new component is null.
      */
-    public void removeComponent(final Component component) {
+    public void removeComponent(final @NonNull Component component) {
         screen.removeComponent(component);
 
         for (final EventListener eventListener : component.getEventListeners()) {
@@ -295,8 +299,11 @@ public class Panel extends Canvas implements Receiver<String> {
      *
      * @param components
      *        The components.
+     *
+     * @throws NullPointerException
+     *         If the new components are null.
      */
-    public void removeComponents(final Component ... components) {
+    public void removeComponents(final @NonNull Component ... components) {
         for (final Component component : components) {
             removeComponent(component);
         }
