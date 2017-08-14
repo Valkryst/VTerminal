@@ -1,6 +1,9 @@
 package com.valkryst.VTerminal;
 
 import com.valkryst.VTerminal.misc.ColoredImageCache;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import lombok.ToString;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -8,9 +11,9 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
-import java.util.Objects;
 
-
+@EqualsAndHashCode
+@ToString
 public class AsciiTile extends AsciiCharacter {
     /**
      * Constructs a new AsciiTile.
@@ -34,7 +37,7 @@ public class AsciiTile extends AsciiCharacter {
      * @throws NullPointerException
      *        If the character is null.
      */
-    public AsciiTile(final AsciiCharacter character) {
+    public AsciiTile(final @NonNull AsciiCharacter character) {
 	    super(character.getCharacter());
 
 	    super.setHidden(character.isHidden());
@@ -72,10 +75,7 @@ public class AsciiTile extends AsciiCharacter {
      *         If the gc or image cache are null.
      */
     @Override
-    public void draw(final Graphics2D gc, final ColoredImageCache imageCache, int columnIndex, int rowIndex) {
-        Objects.requireNonNull(gc);
-        Objects.requireNonNull(imageCache);
-
+    public void draw(final @NonNull Graphics2D gc, @NonNull final ColoredImageCache imageCache, int columnIndex, int rowIndex) {
         final int fontWidth = imageCache.getFont().getWidth();
         final int fontHeight = imageCache.getFont().getHeight();
 
