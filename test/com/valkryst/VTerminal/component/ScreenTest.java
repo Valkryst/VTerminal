@@ -2,17 +2,29 @@ package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
+import com.valkryst.VTerminal.font.Font;
+import com.valkryst.VTerminal.font.FontLoader;
+import com.valkryst.VTerminal.misc.ColoredImageCache;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Optional;
 
 public class ScreenTest {
+    private final Font font;
     private Screen screen;
     private final AsciiCharacter character = new AsciiCharacter('?');
     private final AsciiString string = new AsciiString("?????");
+
+    public ScreenTest() throws IOException, URISyntaxException {
+        font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1);
+    }
 
     @Before
     public void initalizeScreen() {
@@ -49,8 +61,30 @@ public class ScreenTest {
     }
 
     @Test(expected=UnsupportedOperationException.class)
-    public void testDraw_screen() {
+    public void testDraw_withScreen() {
         screen.draw(screen);
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testDraw_twoParams_withNullGraphicsContext() {
+        screen.draw(null, new ColoredImageCache(font));
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testDraw_twoParams_withNullImageCache() {
+        final BufferedImage image = new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB);
+        screen.draw((Graphics2D) image.getGraphics(), null);
+    }
+
+    @Test
+    public void testDraw_twoParams_withValidInputs() {
+        final ColoredImageCache cache = new ColoredImageCache(font);
+
+        final int width = font.getWidth() * screen.getWidth();
+        final int height = font.getHeight() * screen.getHeight();
+        final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        screen.draw((Graphics2D) image.getGraphics(), cache);
     }
 
     @Test
