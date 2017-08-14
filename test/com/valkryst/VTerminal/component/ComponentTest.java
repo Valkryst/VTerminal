@@ -81,6 +81,19 @@ public class ComponentTest {
         new Component(0, 0, width, -1);
     }
 
+    @Test(expected=NullPointerException.class)
+    public void testDraw_withNullScreen() {
+        new Component(0, 0, width, height).draw(null);
+    }
+
+    @Test
+    public void testDraw_withValidScreen() {
+        final Screen screen = new Screen(0, 0, width, height);
+        final Component component = new Component(0, 0, width, height);
+
+        component.draw(screen);
+    }
+
     @Test
     public void testIntersects_withComponent() {
         final Component componentA = new Component(0, 0, width, height);
