@@ -6,6 +6,8 @@ import com.valkryst.VTerminal.misc.ColoredImageCache;
 import com.valkryst.VTerminal.misc.IntRange;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
+import lombok.ToString;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -13,6 +15,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 @EqualsAndHashCode
+@ToString
 public class AsciiString {
     /** The characters of the string. */
     @Getter private AsciiCharacter[] characters;
@@ -25,10 +28,13 @@ public class AsciiString {
      *
      * @param length
      *         The length to make the string.
+     *
+     * @throws IllegalArgumentException
+     *        If the length is less than 0.
      */
     public AsciiString(int length) {
         if (length < 0) {
-            length = 0;
+            throw new IllegalArgumentException("The length cannot be below 0.");
         }
 
         characters = new AsciiCharacter[length];
@@ -46,43 +52,18 @@ public class AsciiString {
      *
      * @param string
      *         The string.
+     *
+     * @throws NullPointerException
+     *        If the string is null.
      */
-    public AsciiString(final String string) {
-        if (string == null) {
-            characters = new AsciiCharacter[0];
-        } else {
-            characters = new AsciiCharacter[string.length()];
-            charactersToBeRedrawn = new boolean[string.length()];
+    public AsciiString(final @NonNull String string) {
+        characters = new AsciiCharacter[string.length()];
+        charactersToBeRedrawn = new boolean[string.length()];
 
-            for (int columnIndex = 0 ; columnIndex < string.length() ; columnIndex++) {
-                charactersToBeRedrawn[columnIndex] = false;
-                characters[columnIndex] = new AsciiCharacter(string.charAt(columnIndex));
-            }
+        for (int columnIndex = 0 ; columnIndex < string.length() ; columnIndex++) {
+            charactersToBeRedrawn[columnIndex] = false;
+            characters[columnIndex] = new AsciiCharacter(string.charAt(columnIndex));
         }
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-
-        for (final AsciiCharacter c : characters) {
-            builder.append(c.getCharacter());
-        }
-
-        return builder.toString();
-    }
-
-    public String detailedToString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("String:");
-        builder.append("\n\tCharacters:\t").append(toString());
-        builder.append("\n\tCharacters to be Redrawn:\t").append(Arrays.toString(charactersToBeRedrawn)).append("\n");
-
-        for (final AsciiCharacter c : characters) {
-            builder.append("\t").append(c.toString().replace("\n\t", "\n\t\t"));
-        }
-
-        return builder.toString();
     }
 
     /**
@@ -100,13 +81,13 @@ public class AsciiString {
      *
      * @throws NullPointerException
      *         If the gc or image cache is null.
+     *
+     * @throws IllegalArgumentException
+     *         If the row index is below 0.
      */
-    public void draw(final Graphics2D gc, final ColoredImageCache imageCache, int rowIndex) {
-        Objects.requireNonNull(gc);
-        Objects.requireNonNull(imageCache);
-
+    public void draw(final @NonNull Graphics2D gc, final @NonNull ColoredImageCache imageCache, int rowIndex) {
         if (rowIndex < 0) {
-            rowIndex = 0;
+            throw new IllegalArgumentException("The row index cannot be below 0.");
         }
 
         for (int columnIndex = 0; columnIndex < charactersToBeRedrawn.length; columnIndex++) {
@@ -136,9 +117,7 @@ public class AsciiString {
      *        If the start of the range is less than zero.
      *        If the end of the range is greater than the length of the string.
      */
-    public void checkRangeValidity(final IntRange range) {
-        Objects.requireNonNull(range);
-
+    public void checkRangeValidity(final @NonNull IntRange range) {
         if (range.getStart() < 0) {
             throw new IllegalArgumentException("The start (" + range.getStart() + ") of the range is less than zero.");
         }
@@ -154,7 +133,7 @@ public class AsciiString {
         Arrays.fill(charactersToBeRedrawn, true);
     }
 
-    public void setCharacterRangeToBeRedrawn(final IntRange range) {
+    public void setCharacterRangeToBeRedrawn(final @NonNull IntRange range) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
@@ -181,9 +160,7 @@ public class AsciiString {
      *         If the column is less than 0.
      *         If the column is greater than the length of the string.
      */
-    public void setCharacter(final int column, final AsciiCharacter character) {
-        Objects.requireNonNull(character);
-
+    public void setCharacter(final int column, final @NonNull AsciiCharacter character) {
         if (column < 0) {
             throw new IllegalArgumentException("The column index " + column + " cannot be below 0.");
         }
@@ -271,8 +248,11 @@ public class AsciiString {
      *
      * @param applyToBackground
      *         Whether or not to apply the gradient to the background or foreground of the characters.
+     *
+     * @throws NullPointerException
+     *         If the colorFrom or colorTo is null.
      */
-    public void applyColorGradient(final Color colorFrom, final Color colorTo, final boolean applyToBackground) {
+    public void applyColorGradient(final @NonNull Color colorFrom, final @NonNull Color colorTo, final boolean applyToBackground) {
         applyColorGradient(new IntRange(0, characters.length), colorFrom, colorTo, applyToBackground);
     }
 
@@ -293,12 +273,10 @@ public class AsciiString {
      *         Whether or not to apply the gradient to the background or foreground of the characters.
      *
      * @throws NullPointerException
-     *         If the colorFrom or colorTo is null.
+     *         If the rande, colorFrom, or colorTo is null.
      */
-    public void applyColorGradient(final IntRange range, final Color colorFrom, final Color colorTo, final boolean applyToBackground) {
+    public void applyColorGradient(final @NonNull IntRange range, final @NonNull Color colorFrom, final @NonNull Color colorTo, final boolean applyToBackground) {
         checkRangeValidity(range);
-        Objects.requireNonNull(colorFrom);
-        Objects.requireNonNull(colorTo);
 
         // Determine the difference between the RGB values of the colors:
         final float redDifference = colorTo.getRed() - colorFrom.getRed();
@@ -342,8 +320,11 @@ public class AsciiString {
      *
      * @param applyToBackground
      *         Whether or not to apply the gradient to the background or foreground of the characters.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
      */
-    public void applyShadeGradient(final Color color, final boolean applyToBackground) {
+    public void applyShadeGradient(final @NonNull Color color, final boolean applyToBackground) {
         applyShadeGradient(new IntRange(0, characters.length), color, applyToBackground);
     }
 
@@ -363,9 +344,8 @@ public class AsciiString {
      * @throws NullPointerException
      *         If the color is null.
      */
-    public void applyShadeGradient(final IntRange range, Color color, final boolean applyToBackground) {
+    public void applyShadeGradient(final @NonNull IntRange range, @NonNull Color color, final boolean applyToBackground) {
         checkRangeValidity(range);
-        Objects.requireNonNull(color);
 
         // Set the new color values:
         final int beginIndex = range.getStart();
@@ -393,8 +373,11 @@ public class AsciiString {
      *
      * @param applyToBackground
      *         Whether or not to apply the gradient to the background or foreground of the characters.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
      */
-    public void applyTintGradient(final Color color, final boolean applyToBackground) {
+    public void applyTintGradient(final @NonNull Color color, final boolean applyToBackground) {
         applyTintGradient(new IntRange(0, characters.length), color, applyToBackground);
     }
 
@@ -412,11 +395,10 @@ public class AsciiString {
      *         Whether or not to apply the gradient to the background or foreground of the characters.
      *
      * @throws NullPointerException
-     *         If the color is null.
+     *         If the range or color is null.
      */
-    public void applyTintGradient(final IntRange range, Color color, final boolean applyToBackground) {
+    public void applyTintGradient(final @NonNull IntRange range, @NonNull Color color, final boolean applyToBackground) {
         checkRangeValidity(range);
-        Objects.requireNonNull(color);
 
         // Set the new color values:
         final int beginIndex = range.getStart();
@@ -448,9 +430,7 @@ public class AsciiString {
      * @throws NullPointerException
      *         If the radio is null.
      */
-    public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio) {
-        Objects.requireNonNull(radio);
-
+    public void enableBlinkEffect(final short millsBetweenBlinks, final @NonNull Radio<String> radio) {
         for (final AsciiCharacter c : characters) {
             c.enableBlinkEffect(millsBetweenBlinks, radio);
         }
@@ -491,11 +471,10 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      *
      * @throws NullPointerException
-     *         If the radio is null.
+     *         If the radio or range is null.
      */
-    public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio, final IntRange range) {
+    public void enableBlinkEffect(final short millsBetweenBlinks, final @NonNull Radio<String> radio, final @NonNull IntRange range) {
         Objects.requireNonNull(radio);
-        checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
         final int endIndex = range.getEnd();
@@ -513,10 +492,11 @@ public class AsciiString {
      * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the resume between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void resumeBlinkEffect(final IntRange range) {
-        checkRangeValidity(range);
-
+    public void resumeBlinkEffect(final @NonNull IntRange range) {
         final int beginIndex = range.getStart();
         final int endIndex = range.getEnd();
 
@@ -531,8 +511,11 @@ public class AsciiString {
      * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the pause between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void pauseBlinkEffect(final IntRange range) {
+    public void pauseBlinkEffect(final @NonNull IntRange range) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
@@ -549,8 +532,11 @@ public class AsciiString {
      * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the change between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void disableBlinkEffect(final IntRange range) {
+    public void disableBlinkEffect(final @NonNull IntRange range) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
@@ -573,8 +559,11 @@ public class AsciiString {
      * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the inversion between.
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void invertColors(final IntRange range) {
+    public void invertColors(final @NonNull IntRange range) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
@@ -617,8 +606,11 @@ public class AsciiString {
      *
      * @param applyToBackground
      *         Whether or not to apply the tint to the background or foreground of the characters.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void tintColors(final IntRange range, final double tintFactor, final boolean applyToBackground) {
+    public void tintColors(final @NonNull IntRange range, final double tintFactor, final boolean applyToBackground) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
@@ -666,8 +658,11 @@ public class AsciiString {
      *
      * @param applyToBackground
      *         Whether or not to apply the shade to the background or foreground of the characters.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void shadeColors(final IntRange range, final double shadeFactor, final boolean applyToBackground) {
+    public void shadeColors(final @NonNull IntRange range, final double shadeFactor, final boolean applyToBackground) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
@@ -689,8 +684,11 @@ public class AsciiString {
      *
      * @param color
      *         The new background color.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
      */
-    public void setBackgroundColor(final Color color) {
+    public void setBackgroundColor(final @NonNull Color color) {
         setBackgroundColor(color, new IntRange(0, characters.length));
     }
 
@@ -699,8 +697,11 @@ public class AsciiString {
      *
      * @param color
      *         The new foreground color.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
      */
-    public void setForegroundColor(final Color color) {
+    public void setForegroundColor(final @NonNull Color color) {
         setForegroundColor(color, new IntRange(0, characters.length));
     }
 
@@ -715,10 +716,9 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      *
      * @throws NullPointerException
-     *         If the color is null.
+     *         If the color or range is null.
      */
-    public void setBackgroundColor(final Color color, final IntRange range) {
-        Objects.requireNonNull(color);
+    public void setBackgroundColor(final @NonNull Color color, final @NonNull IntRange range) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
@@ -741,10 +741,9 @@ public class AsciiString {
      *         Includes the first index and excludes the last index.
      *
      * @throws NullPointerException
-     *         If the color is null.
+     *         If the color or range is null.
      */
-    public void setForegroundColor(final Color color, final IntRange range) {
-        Objects.requireNonNull(color);
+    public void setForegroundColor(final @NonNull Color color, final @NonNull IntRange range) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
@@ -803,8 +802,11 @@ public class AsciiString {
      *
      * @param flipHorizontally
      *        Whether or not the characters should be flipped horizontally.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void setFlippedHorizontally(final IntRange range, final boolean flipHorizontally) {
+    public void setFlippedHorizontally(final @NonNull IntRange range, final boolean flipHorizontally) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
@@ -825,8 +827,11 @@ public class AsciiString {
      *         the change between.
      *
      *         Includes the first index and excludes the last index.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void setFlippedVertically(final IntRange range, final boolean flipVertically) {
+    public void setFlippedVertically(final @NonNull IntRange range, final boolean flipVertically) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
@@ -858,8 +863,11 @@ public class AsciiString {
      *
      * @param underline
      *        Whether or not the characters should be underlined.
+     *
+     * @throws NullPointerException
+     *         If the range is null.
      */
-    public void setUnderlined(final IntRange range, final boolean underline) {
+    public void setUnderlined(final @NonNull IntRange range, final boolean underline) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
