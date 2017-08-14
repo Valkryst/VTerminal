@@ -3,8 +3,10 @@ package com.valkryst.VTerminal.printer;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Screen;
+import com.valkryst.VTerminal.misc.ShapeAlgorithms;
 import lombok.*;
 
+import java.awt.Point;
 import java.util.Optional;
 
 @EqualsAndHashCode
@@ -41,26 +43,6 @@ public class RectanglePrinter {
     }
 
     /**
-     * Prints a rectangle on a screen and attempts to connect the new
-     * rectangle with existing similar rectangles within the draw area.
-     *
-     * @param screen
-     *         The screen.
-     *
-     * @param column
-     *         The x-axis (column) coordinate of the top-left character.
-     *
-     * @param row
-     *         The y-axis (row) coordinate of the top-left character.
-     *
-     * @throws NullPointerException
-     *         If the screen is null.
-     */
-    public void print(final @NonNull Screen screen, final int column, final int row) {
-        print(screen, column, row, true);
-    }
-
-    /**
      * Prints a rectangle on a screen.
      *
      * If the function is set to perform connections, then it will attempt
@@ -76,13 +58,10 @@ public class RectanglePrinter {
      * @param row
      *         The y-axis (row) coordinate of the top-left character.
      *
-     * @param performConnections
-     *        Whether or not to perform connections.
-     *
      * @throws NullPointerException
      *         If the screen is null.
      */
-    public void print(final @NonNull Screen screen, final int column, final int row, final boolean performConnections) {
+    public void print(final @NonNull Screen screen, final int column, final int row) {
         final int lastRow = row + height - 1;
         final int lastColumn = column + width - 1;
 
@@ -114,9 +93,7 @@ public class RectanglePrinter {
         }
 
         // Handle Connectors:
-        if (performConnections) {
-            setConnectors(screen, column, row);
-        }
+        setConnectors(screen, column, row);
     }
 
     /**
@@ -136,25 +113,8 @@ public class RectanglePrinter {
      *         If the screen is null.
      */
     private void setConnectors(final @NonNull Screen screen, final int column, final int row) {
-        final int lastRow = row + height - 1;
-        final int lastColumn = column + width - 1;
-
-        // Check Corners:
-        setConnector(screen, column, row);
-        setConnector(screen, lastColumn, row);
-        setConnector(screen, column, lastRow);
-        setConnector(screen, lastColumn, lastRow);
-
-        // Check Left/Right Sides:
-        for (int i = 1 ; i < height - 1 ; i++) {
-            setConnector(screen, column, row + i);
-            setConnector(screen, lastColumn, row + i);
-        }
-
-        // Check Top/Bottom Sides:
-        for (int i = 1 ; i < width - 1 ; i++) {
-            setConnector(screen, column + i, row);
-            setConnector(screen, column + i, lastRow);
+        for (final Point point : ShapeAlgorithms.getRectangle(column, row, width, height)) {
+            setConnector(screen, point.x, point.y);
         }
     }
 
