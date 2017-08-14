@@ -2,10 +2,10 @@ package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.component.Component;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
+@EqualsAndHashCode
+@ToString
 public class ComponentBuilder<C extends Component> {
     /** The x-axis (column) coordinate of the top-left character. */
     @Getter @Setter private int columnIndex;

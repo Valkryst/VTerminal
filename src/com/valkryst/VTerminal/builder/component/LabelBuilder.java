@@ -1,12 +1,12 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.Label;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import java.awt.Color;
 
+@EqualsAndHashCode
+@ToString
 public class LabelBuilder extends ComponentBuilder<Label> {
     /** The text to display on the label. */
     @Getter @Setter @NonNull private String text;

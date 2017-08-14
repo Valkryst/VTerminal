@@ -6,19 +6,18 @@ import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.TextAreaBuilder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+@EqualsAndHashCode
+@ToString
 public class TextArea extends Component {
     /** The foreground color of the caret. */
     @Getter @Setter private Color caretForegroundColor;
@@ -79,10 +78,8 @@ public class TextArea extends Component {
      * @throws NullPointerException
      *         If the builder is null.
      */
-    public TextArea(final TextAreaBuilder builder) {
+    public TextArea(final @NonNull TextAreaBuilder builder) {
         super(builder.getColumnIndex(), builder.getRowIndex(), builder.getWidth(), builder.getHeight());
-
-        Objects.requireNonNull(builder);
 
         super.setRadio(builder.getRadio());
 
@@ -122,7 +119,7 @@ public class TextArea extends Component {
     }
 
     @Override
-    public void createEventListeners(final Panel panel) {
+    public void createEventListeners(final @NonNull Panel panel) {
         super.createEventListeners(panel);
 
         final KeyListener keyListener = new KeyListener() {
@@ -485,9 +482,7 @@ public class TextArea extends Component {
      * @throws NullPointerException
      *        If the text is null.
      */
-    public void setText(final int rowIndex, String text) {
-        Objects.requireNonNull(text);
-
+    public void setText(final int rowIndex, @NonNull String text) {
         if (text.length() > maxHorizontalCharacters) {
             text = text.substring(0, maxHorizontalCharacters);
         }
@@ -506,9 +501,7 @@ public class TextArea extends Component {
      * @throws NullPointerException
      *        If the text is null.
      */
-    public void setText(final List<String> text) {
-        Objects.requireNonNull(text);
-
+    public void setText(final @NonNull List<String> text) {
         clearText();
 
         for (int i = 0 ; i < text.size() && i < maxVerticalCharacters ; i++) {

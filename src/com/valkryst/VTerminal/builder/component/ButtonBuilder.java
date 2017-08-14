@@ -1,12 +1,12 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.Button;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import java.awt.Color;
 
+@EqualsAndHashCode
+@ToString
 public class ButtonBuilder extends ComponentBuilder<Button> {
     /** The text to display on the button. */
     @Getter @Setter @NonNull private String text;

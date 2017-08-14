@@ -4,15 +4,18 @@ import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ColoredImageCache;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import lombok.ToString;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.LinkedHashSet;
-import java.util.Objects;
 import java.util.Set;
 
-
+@EqualsAndHashCode
+@ToString
 public class Screen extends Component {
     /** The non-layer components displayed on the screen. */
     private final Set<Component> components = new LinkedHashSet<>();
@@ -43,7 +46,7 @@ public class Screen extends Component {
     }
 
     @Override
-    public void draw(final Screen screen) {
+    public void draw(final @NonNull Screen screen) {
         throw new UnsupportedOperationException("A Screen must be drawn using the draw(canvas, font) method.");
     }
 
@@ -59,10 +62,7 @@ public class Screen extends Component {
      * @throws NullPointerException
      *         If the gc or image cache is null.
      */
-    public void draw(final Graphics2D gc, final ColoredImageCache imageCache) {
-        Objects.requireNonNull(gc);
-        Objects.requireNonNull(imageCache);
-
+    public void draw(final @NonNull Graphics2D gc, final @NonNull ColoredImageCache imageCache) {
         // Draw non-layer components onto the screen:
         components.forEach(component -> component.draw(this));
 
@@ -146,9 +146,7 @@ public class Screen extends Component {
      * @throws NullPointerException
      *         If the character is null.
      */
-    public void write(final AsciiCharacter character, final int columnIndex, final int rowIndex) {
-        Objects.requireNonNull(character);
-
+    public void write(final @NonNull AsciiCharacter character, final int columnIndex, final int rowIndex) {
         if (isPositionValid(columnIndex, rowIndex)) {
             super.getString(rowIndex).setCharacter(columnIndex, character);
         }
@@ -189,9 +187,7 @@ public class Screen extends Component {
      * @throws NullPointerException
      *         If the string is null.
      */
-    public void write(final AsciiString string, final int columnIndex, final int rowIndex) {
-        Objects.requireNonNull(string);
-
+    public void write(final @NonNull AsciiString string, final int columnIndex, final int rowIndex) {
         if (isPositionValid(columnIndex, rowIndex)) {
             final AsciiCharacter[] characters = string.getCharacters();
 
@@ -218,9 +214,7 @@ public class Screen extends Component {
      * @throws NullPointerException
      *         If the string is null.
      */
-    public void write(final String string, final int columnIndex, final int rowIndex) {
-        Objects.requireNonNull(string);
-
+    public void write(final @NonNull String string, final int columnIndex, final int rowIndex) {
         write(new AsciiString(string), columnIndex, rowIndex);
     }
 
@@ -244,9 +238,7 @@ public class Screen extends Component {
      * @throws NullPointerException
      *         If the image cache is null.
      */
-    public BufferedImage screenshot(final ColoredImageCache imageCache) {
-        Objects.requireNonNull(imageCache);
-
+    public BufferedImage screenshot(final @NonNull ColoredImageCache imageCache) {
         final Font font = imageCache.getFont();
         final int width = this.getWidth() * font.getWidth();
         final int height = this.getHeight() * font.getHeight();
@@ -273,9 +265,7 @@ public class Screen extends Component {
      * @throws NullPointerException
      *         If the color is null.
      */
-    public void setBackgroundColor(final Color color) {
-        Objects.requireNonNull(color);
-
+    public void setBackgroundColor(final @NonNull Color color) {
         for (final AsciiString string : getStrings()) {
             string.setBackgroundColor(color);
         }
@@ -290,9 +280,7 @@ public class Screen extends Component {
      * @throws NullPointerException
      *         If the color is null.
      */
-    public void setForegroundColor(final Color color) {
-        Objects.requireNonNull(color);
-
+    public void setForegroundColor(final @NonNull Color color) {
         for (final AsciiString string : getStrings()) {
             string.setForegroundColor(color);
         }
@@ -310,10 +298,7 @@ public class Screen extends Component {
      * @throws NullPointerException
      *         If the background or foreground color is null.
      */
-    public void setBackgroundAndForegroundColor(final Color background, final Color foreground) {
-        Objects.requireNonNull(background);
-        Objects.requireNonNull(foreground);
-
+    public void setBackgroundAndForegroundColor(final @NonNull Color background, final @NonNull Color foreground) {
         for (final AsciiString string : getStrings()) {
             string.setBackgroundColor(background);
             string.setForegroundColor(foreground);
@@ -332,9 +317,7 @@ public class Screen extends Component {
      * @throws IllegalArgumentException
      *         If the component is this.
      */
-    public void addComponent(final Component component) {
-        Objects.requireNonNull(component);
-
+    public void addComponent(final @NonNull Component component) {
         if (component == this) {
             throw new IllegalArgumentException("A screen cannot be added to itself.");
         }
@@ -361,8 +344,11 @@ public class Screen extends Component {
      *
      * @param components
      *        The components.
+     *
+     * @throws NullPointerException
+     *         If the components are null.
      */
-    public void addComponents(final Component ... components) {
+    public void addComponents(final @NonNull Component ... components) {
         for (int i = 0 ; i < components.length ; i++) {
             addComponent(components[i]);
         }
@@ -380,9 +366,7 @@ public class Screen extends Component {
      * @throws IllegalArgumentException
      *         If the component is this.
      */
-    public void removeComponent(final Component component) {
-        Objects.requireNonNull(component);
-
+    public void removeComponent(final @NonNull Component component) {
         if (component == this) {
             throw new IllegalArgumentException("A screen cannot be removed from itself.");
         }
@@ -404,8 +388,11 @@ public class Screen extends Component {
      *
      * @param components
      *        The components.
+     *
+     * @throws NullPointerException
+     *         If the components are null.
      */
-    public void removeComponents(final Component ... components) {
+    public void removeComponents(final @NonNull Component ... components) {
         for (int i = 0 ; i < components.length ; i++) {
             removeComponent(components[i]);
         }
@@ -424,9 +411,7 @@ public class Screen extends Component {
      * @throws NullPointerException
      *         If the component is null.
      */
-    public boolean containsComponent(final Component component) {
-        Objects.requireNonNull(component);
-
+    public boolean containsComponent(final @NonNull Component component) {
         if (component == this) {
             return false;
         }
@@ -464,9 +449,7 @@ public class Screen extends Component {
      * @throws NullPointerException
      *         If the component is null.
      */
-    public boolean recursiveContainsComponent(final Component component) {
-        Objects.requireNonNull(component);
-
+    public boolean recursiveContainsComponent(final @NonNull Component component) {
         if (component == this) {
             return false;
         }

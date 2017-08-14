@@ -2,11 +2,15 @@ package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ColoredImageCache;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import lombok.ToString;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.util.Objects;
 
+@EqualsAndHashCode
+@ToString
 public class Layer extends Component {
     /**
      * Constructs a new Layer.
@@ -28,7 +32,7 @@ public class Layer extends Component {
     }
 
     @Override
-    public void draw(final Screen screen) {
+    public void draw(final @NonNull Screen screen) {
         throw new UnsupportedOperationException("A Layer must be drawn using the draw(canvas, font) method.");
     }
 
@@ -44,10 +48,7 @@ public class Layer extends Component {
      * @throws NullPointerException
      *         If the gc or image cache is null.
      */
-    public void draw(final Graphics2D gc, final ColoredImageCache imageCache) {
-        Objects.requireNonNull(gc);
-        Objects.requireNonNull(imageCache);
-
+    public void draw(final @NonNull Graphics2D gc, final @NonNull ColoredImageCache imageCache) {
         final Font font = imageCache.getFont();
 
         final int iWidth = getWidth() * font.getWidth();

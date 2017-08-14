@@ -1,12 +1,12 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.CheckBox;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import java.awt.Color;
 
+@EqualsAndHashCode
+@ToString
 public class CheckBoxBuilder extends ComponentBuilder<CheckBox> {
     /** The text of the label to display to the right of the check box. */
     @Getter @Setter @NonNull private String text;

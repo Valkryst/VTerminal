@@ -6,15 +6,15 @@ import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.CheckBoxBuilder;
 import com.valkryst.VTerminal.font.Font;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.Objects;
 
+@EqualsAndHashCode
+@ToString
 public class CheckBox extends Component {
     /** Whether or not the check box is in the normal state. */
     private boolean isInNormalState = true;
@@ -53,10 +53,8 @@ public class CheckBox extends Component {
      * @throws NullPointerException
      *         If the builder is null.
      */
-    public CheckBox(final CheckBoxBuilder builder) {
+    public CheckBox(final @NonNull CheckBoxBuilder builder) {
         super(builder.getColumnIndex(), builder.getRowIndex(), builder.getText().length() + 2, 1);
-
-        Objects.requireNonNull(builder);
 
         super.setRadio(builder.getRadio());
 
@@ -94,7 +92,7 @@ public class CheckBox extends Component {
     }
 
     @Override
-    public void createEventListeners(final Panel panel) {
+    public void createEventListeners(final @NonNull Panel panel) {
         super.createEventListeners(panel);
 
         final Font font = panel.getImageCache().getFont();
@@ -204,10 +202,7 @@ public class CheckBox extends Component {
      * @throws NullPointerException
      *         If the background or foreground color is null.
      */
-    private void setColors(final Color backgroundColor, final Color foregroundColor) {
-        Objects.requireNonNull(backgroundColor);
-        Objects.requireNonNull(foregroundColor);
-
+    private void setColors(final @NonNull Color backgroundColor, final @NonNull Color foregroundColor) {
         for (final AsciiString s : super.getStrings()) {
             s.setBackgroundColor(backgroundColor);
             s.setForegroundColor(foregroundColor);
@@ -251,9 +246,7 @@ public class CheckBox extends Component {
      * @throws NullPointerException
      *         If the color is null.
      */
-    public void setBackgroundColor_normal(final Color color) {
-        Objects.requireNonNull(color);
-
+    public void setBackgroundColor_normal(final @NonNull Color color) {
         backgroundColor_normal = color;
 
         if (isInNormalState) {
@@ -270,9 +263,7 @@ public class CheckBox extends Component {
      * @throws NullPointerException
      *         If the color is null.
      */
-    public void setForegroundColor_normal(final Color color) {
-        Objects.requireNonNull(color);
-
+    public void setForegroundColor_normal(final @NonNull Color color) {
         foregroundColor_normal = color;
 
         if (isInNormalState) {
@@ -289,9 +280,7 @@ public class CheckBox extends Component {
      * @throws NullPointerException
      *         If the color is null.
      */
-    public void setBackgroundColor_hover(final Color color) {
-        Objects.requireNonNull(color);
-
+    public void setBackgroundColor_hover(final @NonNull Color color) {
         backgroundColor_hover = color;
 
         if (isInHoveredState) {
@@ -308,9 +297,7 @@ public class CheckBox extends Component {
      * @throws NullPointerException
      *         If the color is null.
      */
-    public void setForegroundColor_hover(final Color color) {
-        Objects.requireNonNull(color);
-
+    public void setForegroundColor_hover(final @NonNull Color color) {
         foregroundColor_hover = color;
 
         if (isInHoveredState) {

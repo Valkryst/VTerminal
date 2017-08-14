@@ -2,11 +2,15 @@ package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.builder.component.LabelBuilder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
+import lombok.ToString;
 
 import java.awt.Color;
-import java.util.Objects;
 
+@EqualsAndHashCode
+@ToString
 public class Label extends Component {
     /** The background color for when the label. */
     @Getter private Color backgroundColor;
@@ -22,10 +26,8 @@ public class Label extends Component {
      * @throws NullPointerException
      *         If the builder is null.
      */
-    public Label(final LabelBuilder builder) {
+    public Label(final @NonNull LabelBuilder builder) {
         super(builder.getColumnIndex(), builder.getRowIndex(), builder.getText().length(), 1);
-
-        Objects.requireNonNull(builder);
 
         this.backgroundColor = builder.getBackgroundColor();
         this.foregroundColor = builder.getForegroundColor();

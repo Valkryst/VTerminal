@@ -3,12 +3,16 @@ package com.valkryst.VTerminal.builder;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.font.Font;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+@EqualsAndHashCode
+@ToString
 public class PanelBuilder {
     /** The width of the panel, in characters. */
     @Getter @Setter private int widthInCharacters;

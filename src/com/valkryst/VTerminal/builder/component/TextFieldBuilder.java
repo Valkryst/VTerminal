@@ -1,13 +1,13 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.TextField;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import java.awt.Color;
 import java.util.regex.Pattern;
 
+@EqualsAndHashCode
+@ToString
 public class TextFieldBuilder extends ComponentBuilder<TextField> {
     /** The width of the text field, in characters. */
     @Getter @Setter private int width;

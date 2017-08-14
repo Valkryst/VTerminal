@@ -3,11 +3,15 @@ package com.valkryst.VTerminal.component;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.builder.component.ProgressBarBuilder;
 import com.valkryst.VTerminal.misc.IntRange;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
+import lombok.ToString;
 
 import java.awt.Color;
-import java.util.Objects;
 
+@EqualsAndHashCode
+@ToString
 public class ProgressBar extends Component {
     /** The percent complete. */
     @Getter private int percentComplete = 0;
@@ -36,10 +40,8 @@ public class ProgressBar extends Component {
      * @throws NullPointerException
      *         If the builder is null.
      */
-    public ProgressBar(final ProgressBarBuilder builder) {
+    public ProgressBar(final @NonNull ProgressBarBuilder builder) {
         super(builder.getColumnIndex(), builder.getRowIndex(), builder.getWidth(), builder.getHeight());
-
-        Objects.requireNonNull(builder);
 
         super.setRadio(builder.getRadio());
 

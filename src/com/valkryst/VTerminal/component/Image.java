@@ -1,5 +1,10 @@
 package com.valkryst.VTerminal.component;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+@EqualsAndHashCode
+@ToString
 public class Image extends Layer {
     /**
      * Constructs a new CellImage.

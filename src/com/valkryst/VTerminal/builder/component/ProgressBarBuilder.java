@@ -1,12 +1,12 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.ProgressBar;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import java.awt.Color;
 
+@EqualsAndHashCode
+@ToString
 public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
     /** The width of the loading bar, in characters. */
     @Getter @Setter private int width;

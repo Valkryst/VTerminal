@@ -1,13 +1,13 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.TextArea;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import java.awt.Color;
 import java.util.regex.Pattern;
 
+@EqualsAndHashCode
+@ToString
 public class TextAreaBuilder extends ComponentBuilder<TextArea> {
     /** The width of the text area, in characters. */
     @Getter @Setter private int width;

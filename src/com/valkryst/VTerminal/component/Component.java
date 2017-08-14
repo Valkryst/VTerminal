@@ -7,14 +7,15 @@ import com.valkryst.VTerminal.AsciiTile;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.IntRange;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.*;
 
+@EqualsAndHashCode
+@ToString
 public class Component {
     /** The x-axis (column) coordinate of the top-left character. */
     @Getter private int columnIndex;
@@ -91,30 +92,6 @@ public class Component {
         }
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("Component:");
-        sb.append("\n\tColumn Index:\t").append(columnIndex);
-        sb.append("\n\tRow Index:\t").append(rowIndex);
-        sb.append("\n\tWidth:\t").append(width);
-        sb.append("\n\tHeight:\t").append(height);
-        sb.append("\n\tIs Focused:\t").append(isFocused);
-        sb.append("\n\tBounding Box:\t").append(boundingBox);
-        sb.append("\n\tStrings:\n\t\t");
-
-        for (final AsciiString string : strings) {
-            for (final AsciiCharacter character : string.getCharacters()) {
-                sb.append(character.getCharacter());
-            }
-            sb.append("\n\t\t");
-        }
-
-        sb.append("\n\tRadio:\t").append(radio);
-
-        return sb.toString();
-    }
-
     /**
      * Creates all required event listeners for the component.
      *
@@ -124,9 +101,7 @@ public class Component {
      * @throws NullPointerException
      *         If the panel is null.
      */
-    public void createEventListeners(final Panel panel) {
-        Objects.requireNonNull(panel);
-
+    public void createEventListeners(final @NonNull Panel panel) {
         final Font font = panel.getImageCache().getFont();
         final int fontWidth = font.getWidth();
         final int fontHeight = font.getHeight();
@@ -164,9 +139,7 @@ public class Component {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    public void draw(final Screen screen) {
-        Objects.requireNonNull(screen);
-
+    public void draw(final @NonNull Screen screen) {
         for (int row = 0 ; row < strings.length ; row++) {
             screen.write(strings[row], columnIndex, rowIndex + row);
         }
@@ -215,9 +188,7 @@ public class Component {
      * @throws NullPointerException
      *         If the other component is null.
      */
-    public boolean intersects(final Component otherComponent) {
-        Objects.requireNonNull(otherComponent);
-
+    public boolean intersects(final @NonNull Component otherComponent) {
         return boundingBox.intersects(otherComponent.getBoundingBox());
 
     }
@@ -261,9 +232,7 @@ public class Component {
      * @throws NullPointerException
      *         If the event is null.
      */
-    public boolean intersects(final MouseEvent event, final int fontWidth, final int fontHeight) {
-        Objects.requireNonNull(event);
-
+    public boolean intersects(final @NonNull MouseEvent event, final int fontWidth, final int fontHeight) {
         final int mouseX = event.getX() / fontWidth;
         final int mouseY = event.getY() / fontHeight;
         return intersects(mouseX, mouseY);
@@ -301,8 +270,11 @@ public class Component {
      *
      * @param radio
      *         The Radio to transmit a DRAW event to whenever a blink occurs.
+     *
+     * @throws NullPointerException
+     *        If the radio is null.
      */
-    public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio) {
+    public void enableBlinkEffect(final short millsBetweenBlinks, final @NonNull Radio<String> radio) {
         for (final AsciiString s: strings) {
             for (final AsciiCharacter c : s.getCharacters()) {
                 c.enableBlinkEffect(millsBetweenBlinks, radio);
@@ -473,7 +445,7 @@ public class Component {
      * @throws NullPointerException
      *         If the radio is null.
      */
-    public void setRadio(final Radio<String> radio) {
+    public void setRadio(final @NonNull Radio<String> radio) {
         Objects.requireNonNull(radio);
         this.radio = radio;
     }

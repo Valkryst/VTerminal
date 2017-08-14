@@ -6,18 +6,17 @@ import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.TextFieldBuilder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+@EqualsAndHashCode
+@ToString
 public class TextField extends Component {
     /** The foreground color of the caret. */
     @Getter @Setter private Color caretForegroundColor;
@@ -66,10 +65,8 @@ public class TextField extends Component {
      * @throws NullPointerException
      *         If the builder is null.
      */
-    public TextField(final TextFieldBuilder builder) {
+    public TextField(final @NonNull TextFieldBuilder builder) {
         super(builder.getColumnIndex(), builder.getRowIndex(), builder.getWidth(), 1);
-
-        Objects.requireNonNull(builder);
 
         super.setRadio(builder.getRadio());
 
@@ -104,7 +101,7 @@ public class TextField extends Component {
     }
 
     @Override
-    public void createEventListeners(final Panel panel) {
+    public void createEventListeners(final @NonNull Panel panel) {
         super.createEventListeners(panel);
 
         final KeyListener keyListener = new KeyListener() {
@@ -372,9 +369,12 @@ public class TextField extends Component {
      *
      * @param text
      *        The new text.
+     *
+     * @throws NullPointerException
+     *         If the text is null.
      */
-    public void setText(String text) {
-        if (text == null || text.isEmpty()) {
+    public void setText(@NonNull String text) {
+        if (text.isEmpty()) {
             clearText();
             return;
         }

@@ -2,12 +2,12 @@ package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.RadioButton;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import java.awt.Color;
 
+@EqualsAndHashCode
+@ToString
 public class RadioButtonBuilder extends ComponentBuilder<RadioButton> {
     /** The text of the label to display to the right of the radio button. */
     @Getter @Setter @NonNull private String text;
