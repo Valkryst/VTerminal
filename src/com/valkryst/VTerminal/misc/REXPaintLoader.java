@@ -3,6 +3,7 @@ package com.valkryst.VTerminal.misc;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.component.Layer;
+import lombok.NonNull;
 
 import java.awt.Color;
 import java.io.*;
@@ -11,7 +12,6 @@ import java.nio.ByteOrder;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.zip.GZIPInputStream;
 
 public final class REXPaintLoader {
@@ -30,9 +30,7 @@ public final class REXPaintLoader {
      * @throws IOException
      *         If an I/O error has occurred.
      */
-    public static List<Layer> load(final File file) throws IOException {
-        Objects.requireNonNull(file);
-
+    public static List<Layer> load(final @NonNull File file) throws IOException {
         if (file.exists() == false) {
             throw new FileNotFoundException("The file \"" + file.getAbsolutePath() + "\" does not exist.");
         }
