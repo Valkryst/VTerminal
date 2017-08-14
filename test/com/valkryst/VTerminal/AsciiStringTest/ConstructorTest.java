@@ -45,10 +45,9 @@ public class ConstructorTest {
         }
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void lengthConstructor_withNegativeLength() {
-        final AsciiString string = new AsciiString(-1);
-        Assert.assertEquals(0, string.getCharacters().length);
+        new AsciiString(-1);
     }
 
     @Test
@@ -86,9 +85,8 @@ public class ConstructorTest {
         Assert.assertEquals(0, string.getCharacters().length);
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void stringConstructor_withNullString() {
-        final AsciiString string = new AsciiString(null);
-        Assert.assertEquals(0, string.getCharacters().length);
+        new AsciiString(null);
     }
 }
