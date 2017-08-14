@@ -3,9 +3,7 @@ package com.valkryst.VTerminal;
 import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.misc.ColorFunctions;
 import com.valkryst.VTerminal.misc.ColoredImageCache;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.swing.Timer;
 import java.awt.Color;
@@ -15,9 +13,9 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
-import java.util.Objects;
 
 @EqualsAndHashCode
+@ToString
 public class AsciiCharacter {
     /** The character. */
 	@Getter @Setter private char character;
@@ -66,8 +64,7 @@ public class AsciiCharacter {
      * @throws NullPointerException
      *        If the character is null.
      */
-    public AsciiCharacter(final AsciiCharacter character) {
-        Objects.requireNonNull(character);
+    public AsciiCharacter(final @NonNull AsciiCharacter character) {
         boundingBox = new Rectangle();
 
         copy(character);
@@ -82,8 +79,7 @@ public class AsciiCharacter {
      * @param character
      *        The other AsciiCharacter.
      */
-    public void copy(final AsciiCharacter character) {
-
+    public void copy(final @NonNull AsciiCharacter character) {
         this.character = character.getCharacter();
 
         isHidden = character.isHidden();
@@ -99,22 +95,6 @@ public class AsciiCharacter {
 
         isFlippedHorizontally = character.isFlippedHorizontally();
         isFlippedVertically = character.isFlippedVertically();
-    }
-
-    @Override
-    public String toString() {
-        return "Character:" +
-                "\n\tCharacter:\t'" + character + "'" +
-                "\n\tBackground Color:\t" + backgroundColor +
-                "\n\tForeground Color:\t" + foregroundColor +
-                "\n\tIs Hidden:\t" + isHidden +
-                "\n\tBounding Box:\t" + boundingBox +
-                "\n\tIs Underlined:\t" + isUnderlined +
-                "\n\tUnderline Thickness:\t" + underlineThickness +
-                "\n\tIs Flipped Horizontally:\t" + isFlippedHorizontally +
-                "\n\tIs Flipped Vertically:\t" + isFlippedVertically +
-                "\n\tBlink Timer:\t" + blinkTimer +
-                "\n\tMilliseconds Between Blinks:\t" + millsBetweenBlinks;
     }
 
     /**
@@ -135,10 +115,7 @@ public class AsciiCharacter {
      * @throws NullPointerException
      *         If the gc or image cache are null.
      */
-    public void draw(final Graphics2D gc, final ColoredImageCache imageCache, int columnIndex, int rowIndex) {
-        Objects.requireNonNull(gc);
-        Objects.requireNonNull(imageCache);
-
+    public void draw(final @NonNull Graphics2D gc, final @NonNull ColoredImageCache imageCache, int columnIndex, int rowIndex) {
         final int fontWidth = imageCache.getFont().getWidth();
         final int fontHeight = imageCache.getFont().getHeight();
 
@@ -334,9 +311,7 @@ public class AsciiCharacter {
      * @throws NullPointerException
      *         If the color is null.
      */
-    public void setBackgroundColor(Color color) {
-        Objects.requireNonNull(color);
-
+    public void setBackgroundColor(final @NonNull Color color) {
 	    if (backgroundColor.equals(color) == false) {
             this.backgroundColor = color;
         }
@@ -353,9 +328,7 @@ public class AsciiCharacter {
      * @throws NullPointerException
      *         If the color is null.
      */
-    public void setForegroundColor(Color color) {
-        Objects.requireNonNull(color);
-
+    public void setForegroundColor(final @NonNull Color color) {
 	    if (foregroundColor.equals(color) == false) {
 	        this.foregroundColor = color;
         }
