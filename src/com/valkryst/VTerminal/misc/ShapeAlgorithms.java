@@ -166,19 +166,19 @@ public final class ShapeAlgorithms {
         final int lastRow = y + height - 1;
         final int lastColumn = x + width - 1;
 
-        // Draw Corners:
+        // Corners:
         points.add(new Point(x, y));
         points.add(new Point(lastColumn, y));
         points.add(new Point(x, lastRow));
         points.add(new Point(lastColumn, lastRow));
 
-        // Draw Left/Right Sides:
+        // Left/Right Sides:
         for (int i = 1 ; i < height - 1 ; i++) {
             points.add(new Point(x, y + i));
             points.add(new Point(lastColumn, y + i));
         }
 
-        // Draw Top/Bottom Sides:
+        // Top/Bottom Sides:
         for (int i = 1 ; i < width - 1 ; i++) {
             points.add(new Point(x + i, y));
             points.add(new Point(x + i, lastRow));
