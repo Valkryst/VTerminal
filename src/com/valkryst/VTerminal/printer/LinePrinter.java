@@ -2,12 +2,12 @@ package com.valkryst.VTerminal.printer;
 
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Screen;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.awt.Point;
-import java.util.Objects;
 
+@EqualsAndHashCode
+@ToString
 public class LinePrinter {
     /** The character to print the line with. */
     @Getter @Setter private char printChar = '█';
@@ -33,8 +33,7 @@ public class LinePrinter {
      * @throws NullPointerException
      *         If the panel is null.
      */
-    public void print(final Panel panel, final int fromX, final int fromY, final int toX, final int toY) {
-        Objects.requireNonNull(panel);
+    public void print(final @NonNull Panel panel, final int fromX, final int fromY, final int toX, final int toY) {
         print(panel.getScreen(), fromX, fromY, toX, toY);
     }
 
@@ -60,8 +59,7 @@ public class LinePrinter {
      * @throws NullPointerException
      *         If the panel is null.
      */
-    public void print(final Screen screen, int fromX, int fromY, final int toX, final int toY) {
-        Objects.requireNonNull(screen);
+    public void print(final @NonNull Screen screen, int fromX, int fromY, final int toX, final int toY) {
         printLine(screen, fromX, fromY, toX, toY);
     }
 
@@ -79,16 +77,10 @@ public class LinePrinter {
      * @param points
      *        The points.
      *
-     * @throws IllegalArgumentException
-     *         If there are fewer than two points.
-     *
      * @throws NullPointerException
      *         If the panel or points array is null.
      */
-    public void print(final Panel panel, final Point[] points) {
-        Objects.requireNonNull(panel);
-        Objects.requireNonNull(points);
-
+    public void print(final @NonNull Panel panel, final @NonNull Point[] points) {
         print(panel.getScreen(), points);
     }
 
@@ -112,10 +104,7 @@ public class LinePrinter {
      * @throws NullPointerException
      *         If the screen or points array is null.
      */
-    public void print(final Screen screen, final Point[] points) {
-        Objects.requireNonNull(screen);
-        Objects.requireNonNull(points);
-
+    public void print(final @NonNull Screen screen, final @NonNull Point[] points) {
         if (points.length < 2) {
             throw new IllegalArgumentException("A line requires at-least two points to be drawn.");
         }
@@ -149,9 +138,7 @@ public class LinePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private void printLine(final Screen screen, int fromX, int fromY, final int toX, final int toY) {
-        Objects.requireNonNull(screen);
-
+    private void printLine(final @NonNull Screen screen, int fromX, int fromY, final int toX, final int toY) {
         // delta of exact value and rounded value of the dependant variable
         int d = 0;
 

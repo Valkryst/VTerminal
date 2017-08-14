@@ -2,11 +2,15 @@ package com.valkryst.VTerminal.printer;
 
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Screen;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
+import lombok.ToString;
 
 import java.awt.Point;
-import java.util.Objects;
 
+@EqualsAndHashCode
+@ToString
 public class TrianglePrinter {
     /** The character to print the triangle with. */
     @Getter private char printChar = '█';
@@ -34,10 +38,7 @@ public class TrianglePrinter {
      * @throws NullPointerException
      *         If the screen or points array is null.
      */
-    public void print(final Panel panel, final Point[] points) {
-        Objects.requireNonNull(panel);
-        Objects.requireNonNull(points);
-
+    public void print(final @NonNull Panel panel, final @NonNull Point[] points) {
         print(panel.getScreen(), points);
     }
 
@@ -59,10 +60,7 @@ public class TrianglePrinter {
      * @throws NullPointerException
      *         If the screen or points array is null.
      */
-    public void print(final Screen screen, Point[] points) {
-        Objects.requireNonNull(screen);
-        Objects.requireNonNull(points);
-
+    public void print(final @NonNull Screen screen, @NonNull Point[] points) {
         if (points.length < 3) {
             throw new IllegalArgumentException("A triangle requires three points to be drawn.");
         }

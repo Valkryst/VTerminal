@@ -4,15 +4,15 @@ import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.component.Image;
 import com.valkryst.VTerminal.component.Screen;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.util.Objects;
 
+@EqualsAndHashCode
+@ToString
 public class ImagePrinter {
     /** The image to print. */
     private final BufferedImage image;
@@ -39,9 +39,7 @@ public class ImagePrinter {
      * @throws NullPointerException
      *         If the image is null.
      */
-    public ImagePrinter(final BufferedImage image) {
-        Objects.requireNonNull(image);
-
+    public ImagePrinter(final @NonNull BufferedImage image) {
         this.image = image;
     }
 
@@ -60,8 +58,7 @@ public class ImagePrinter {
      * @throws NullPointerException
      *         If the panel is null.
      */
-    public void print(final Panel panel, final int columnIndex, final int rowIndex) {
-        Objects.requireNonNull(panel);
+    public void print(final @NonNull Panel panel, final int columnIndex, final int rowIndex) {
         print((Component) panel.getScreen(), columnIndex, rowIndex);
     }
 
@@ -80,7 +77,7 @@ public class ImagePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    public void print(final Screen screen, final int columnIndex, final int rowIndex) {
+    public void print(final @NonNull Screen screen, final int columnIndex, final int rowIndex) {
         print((Component) screen, columnIndex, rowIndex);
     }
 
@@ -120,9 +117,7 @@ public class ImagePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private void print(final Component component, final int columnIndex, final int rowIndex) {
-        Objects.requireNonNull(component);
-
+    private void print(final @NonNull Component component, final int columnIndex, final int rowIndex) {
         final BufferedImage temp = applyTransformations();
 
         for (int y = 0 ; y < temp.getHeight() && y < component.getHeight() ; y++) {

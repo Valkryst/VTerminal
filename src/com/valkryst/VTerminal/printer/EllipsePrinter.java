@@ -2,11 +2,10 @@ package com.valkryst.VTerminal.printer;
 
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Screen;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.Objects;
-
+@EqualsAndHashCode
+@ToString
 public class EllipsePrinter {
     /** The width of the ellipse to print. */
     @Getter private int width = 2;
@@ -31,8 +30,7 @@ public class EllipsePrinter {
      * @throws NullPointerException
      *         If the panel is null.
      */
-    public void print(final Panel panel, final int row, final int column) {
-        Objects.requireNonNull(panel);
+    public void print(final @NonNull Panel panel, final int row, final int column) {
         print(panel.getScreen(), row, column);
     }
 
@@ -51,9 +49,7 @@ public class EllipsePrinter {
      * @throws NullPointerException
      *         If the panel is screen.
      */
-    public void print(final Screen screen, final int row, final int column) {
-        Objects.requireNonNull(screen);
-
+    public void print(final @NonNull Screen screen, final int row, final int column) {
         int a2 = width * width;
         int b2 = height * height;
         int fa2 = 4 * a2;

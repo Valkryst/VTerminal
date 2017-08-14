@@ -3,12 +3,12 @@ package com.valkryst.VTerminal.printer;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Screen;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.Objects;
 import java.util.Optional;
 
+@EqualsAndHashCode
+@ToString
 public class RectanglePrinter {
     /** The width of the rectangle to print. */
     @Getter private int width = 2;
@@ -36,8 +36,7 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the panel is null.
      */
-    public void print(final Panel panel, final int column, final int row) {
-        Objects.requireNonNull(panel);
+    public void print(final @NonNull Panel panel, final int column, final int row) {
         print(panel.getScreen(), column, row);
     }
 
@@ -57,8 +56,7 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    public void print(final Screen screen, final int column, final int row) {
-        Objects.requireNonNull(screen);
+    public void print(final @NonNull Screen screen, final int column, final int row) {
         print(screen, column, row, true);
     }
 
@@ -84,9 +82,7 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    public void print(final Screen screen, final int column, final int row, final boolean performConnections) {
-        Objects.requireNonNull(screen);
-
+    public void print(final @NonNull Screen screen, final int column, final int row, final boolean performConnections) {
         final int lastRow = row + height - 1;
         final int lastColumn = column + width - 1;
 
@@ -139,9 +135,7 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private void setConnectors(final Screen screen, final int column, final int row) {
-        Objects.requireNonNull(screen);
-
+    private void setConnectors(final @NonNull Screen screen, final int column, final int row) {
         final int lastRow = row + height - 1;
         final int lastColumn = column + width - 1;
 
@@ -180,9 +174,7 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private void setConnector(final Screen screen, final int column, final int row) {
-        Objects.requireNonNull(screen);
-
+    private void setConnector(final @NonNull Screen screen, final int column, final int row) {
         final boolean validTop = hasValidTopNeighbour(screen, column, row);
         final boolean validBottom = hasValidBottomNeighbour(screen, column, row);
         final boolean validLeft = hasValidLeftNeighbour(screen, column, row);
@@ -211,9 +203,7 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private boolean hasValidTopNeighbour(final Screen screen, final int column, final int row) {
-        Objects.requireNonNull(screen);
-
+    private boolean hasValidTopNeighbour(final @NonNull Screen screen, final int column, final int row) {
         final Optional<AsciiCharacter> optChar = screen.getCharacterAt(column, row - 1);
         return optChar.filter(asciiCharacter -> rectangleType.isValidTopCharacter(asciiCharacter)).isPresent();
     }
@@ -235,9 +225,7 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private boolean hasValidBottomNeighbour(final Screen screen, final int column, final int row) {
-        Objects.requireNonNull(screen);
-
+    private boolean hasValidBottomNeighbour(final @NonNull Screen screen, final int column, final int row) {
         final Optional<AsciiCharacter> optChar = screen.getCharacterAt(column, row + 1);
         return optChar.filter(asciiCharacter -> rectangleType.isValidBottomCharacter(asciiCharacter)).isPresent();
     }
@@ -259,9 +247,7 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private boolean hasValidLeftNeighbour(final Screen screen, final int column, final int row) {
-        Objects.requireNonNull(screen);
-
+    private boolean hasValidLeftNeighbour(final @NonNull Screen screen, final int column, final int row) {
         final Optional<AsciiCharacter> optChar = screen.getCharacterAt(column - 1, row);
         return optChar.filter(asciiCharacter -> rectangleType.isValidLeftCharacter(asciiCharacter)).isPresent();
     }
@@ -283,9 +269,7 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private boolean hasValidRightNeighbour(final Screen screen, final int column, final int row) {
-        Objects.requireNonNull(screen);
-
+    private boolean hasValidRightNeighbour(final @NonNull Screen screen, final int column, final int row) {
         final Optional<AsciiCharacter> optChar = screen.getCharacterAt(column + 1, row);
         return optChar.filter(asciiCharacter -> rectangleType.isValidRightCharacter(asciiCharacter)).isPresent();
     }
