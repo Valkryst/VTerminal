@@ -6,7 +6,7 @@ import lombok.*;
 
 import java.awt.Color;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=true)
 @ToString
 public class RadioButtonBuilder extends ComponentBuilder<RadioButton> {
     /** The text of the label to display to the right of the radio button. */

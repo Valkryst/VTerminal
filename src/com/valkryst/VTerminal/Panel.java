@@ -25,7 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.EventListener;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=true)
 @ToString
 public class Panel extends Canvas implements Receiver<String> {
     /** The width of the panel, in characters. */

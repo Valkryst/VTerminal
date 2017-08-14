@@ -6,7 +6,7 @@ import lombok.*;
 import java.awt.Color;
 import java.util.regex.Pattern;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=true)
 @ToString
 public class TextAreaBuilder extends ComponentBuilder<TextArea> {
     /** The width of the text area, in characters. */

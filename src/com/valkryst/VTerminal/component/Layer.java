@@ -9,7 +9,7 @@ import lombok.ToString;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=true)
 @ToString
 public class Layer extends Component {
     /**

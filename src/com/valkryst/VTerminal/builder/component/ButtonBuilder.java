@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.awt.Color;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=true)
 @ToString
 public class ButtonBuilder extends ComponentBuilder<Button> {
     /** The text to display on the button. */

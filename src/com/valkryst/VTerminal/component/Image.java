@@ -3,7 +3,7 @@ package com.valkryst.VTerminal.component;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=true)
 @ToString
 public class Image extends Layer {
     /**

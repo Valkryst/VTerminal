@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=true)
 @ToString
 public class Screen extends Component {
     /** The non-layer components displayed on the screen. */

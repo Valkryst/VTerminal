@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.awt.Color;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=true)
 @ToString
 public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
     /** The width of the loading bar, in characters. */

@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.awt.Color;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=true)
 @ToString
 public class CheckBoxBuilder extends ComponentBuilder<CheckBox> {
     /** The text of the label to display to the right of the check box. */

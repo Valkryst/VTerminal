@@ -9,7 +9,7 @@ import lombok.ToString;
 
 import java.awt.Color;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=true)
 @ToString
 public class Label extends Component {
     /** The background color for when the label. */

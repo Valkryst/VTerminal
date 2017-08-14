@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.awt.Color;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=true)
 @ToString
 public class LabelBuilder extends ComponentBuilder<Label> {
     /** The text to display on the label. */

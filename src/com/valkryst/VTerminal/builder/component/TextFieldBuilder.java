@@ -6,7 +6,7 @@ import lombok.*;
 import java.awt.Color;
 import java.util.regex.Pattern;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=true)
 @ToString
 public class TextFieldBuilder extends ComponentBuilder<TextField> {
     /** The width of the text field, in characters. */
