@@ -62,37 +62,31 @@ public class SampleRectanglePrinter {
         printer.print(panel, 49, 0);
 
         // Creates top box in right rect
-        printer.setRectangleType(RectangleType.HEAVY);
         printer.setWidth(31);
         printer.setHeight(6);
         printer.print(panel, 49, 0);
 
         // Creates middle box in right rect
-        printer.setRectangleType(RectangleType.HEAVY);
         printer.setWidth(31);
         printer.setHeight(12);
         printer.print(panel, 49, 0);
 
         // Creates bottom box in right rect
-        printer.setRectangleType(RectangleType.HEAVY);
         printer.setWidth(31);
         printer.setHeight(18);
         printer.print(panel, 49, 0);
 
         // Creates left box in right rect
-        printer.setRectangleType(RectangleType.HEAVY);
         printer.setWidth(6);
         printer.setHeight(24);
         printer.print(panel, 49, 0);
 
         // Creates halves top left box in right rect
-        printer.setRectangleType(RectangleType.HEAVY);
         printer.setWidth(3);
         printer.setHeight(6);
         printer.print(panel, 49, 0);
 
         // Creates box spanning the right boxes in the right rect
-        printer.setRectangleType(RectangleType.HEAVY);
         printer.setWidth(8);
         printer.setHeight(18);
         printer.print(panel, 59, 3);

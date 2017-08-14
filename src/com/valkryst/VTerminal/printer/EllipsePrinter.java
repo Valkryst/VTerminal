@@ -54,49 +54,46 @@ public class EllipsePrinter {
     public void print(final Screen screen, final int row, final int column) {
         Objects.requireNonNull(screen);
 
-        int a = width * width;
-        int b = height * height;
-        int fa = 4 * a;
-        int fb = 4 * b;
+        int a2 = width * width;
+        int b2 = height * height;
+        int fa2 = 4 * a2;
+        int fb2 = 4 * b2;
 
-        // Draw first half of the ellipse:
-        int sigma = (2 * b) + (a * (1 - (2 * height)));
         int x = 0;
         int y = height;
+        int sigma = 2 * b2 + a2 * (1 - 2 * height);
 
-        while ((a * x) <= (a * y)) {
+        for (;b2 * x <= a2 * y ; x++) {
             screen.write(printChar, column + x, row + y);
             screen.write(printChar, column - x, row + y);
             screen.write(printChar, column + x, row - y);
             screen.write(printChar, column - x, row - y);
 
             if (sigma >= 0) {
-                sigma += fa * (1 - y);
+                sigma += fa2 * (1 - y);
                 y--;
             }
 
-            sigma += b * ((4 * x) + 6);
-            x++;
+            sigma += b2 * ((4 * x) + 6);
         }
 
-        // Draw second half of the ellipse:
-        sigma = (2 * a) + (b * (1 - (2 * width)));
+
         x = width;
         y = 0;
+        sigma = 2 * a2 + b2 * (1 - 2 * width);
 
-        while ((b * y) <= (b * x)) {
+        for (;a2 * y <= b2 * x ; y++) {
             screen.write(printChar, column + x, row + y);
             screen.write(printChar, column - x, row + y);
             screen.write(printChar, column + x, row - y);
             screen.write(printChar, column - x, row - y);
 
             if (sigma >= 0) {
-                sigma += fb * (1 - x);
+                sigma += fb2 * (1 - x);
                 x--;
             }
 
-            sigma += b * ((4 * y) + 6);
-            y++;
+            sigma += a2 * ((4 * y) + 6);
         }
     }
 

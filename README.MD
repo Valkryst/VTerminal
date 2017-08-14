@@ -1,4 +1,4 @@
-[![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg)](https://github.com/Valkryst/VTerminal/blob/master/LICENSE.md) ![](https://travis-ci.org/Valkryst/VTerminal.svg?branch=master) [![codecov](https://codecov.io/gh/Valkryst/VTerminal/branch/master/graph/badge.svg)](https://codecov.io/gh/Valkryst/VTerminal) [![Release](https://jitpack.io/v/Valkryst/VTerminal.svg)](https://jitpack.io/#Valkryst/VTerminal)
+[![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg)](https://github.com/Valkryst/VTerminal/blob/master/LICENSE.md) ![](https://travis-ci.org/Valkryst/VTerminal.svg?branch=master) [![codecov](https://codecov.io/gh/Valkryst/VTerminal/branch/master/graph/badge.svg)](https://codecov.io/gh/Valkryst/VTerminal)
 
 VPanel simulates a Unicode terminal display. It supports arbitrary fore/background colors,  terminal sizes, and allows
 the use of any font.
@@ -19,7 +19,7 @@ This project is currently under active development and code-breaking changes may
     <dependency>
         <groupId>com.github.Valkryst</groupId>
         <artifactId>VTerminal</artifactId>
-        <version>1.7.0-ALPHA</version>
+        <version>1.7.2-ALPHA</version>
     </dependency>
 
 Jar files can be found on the [releases](https://github.com/Valkryst/VTerminal/releases) page.
