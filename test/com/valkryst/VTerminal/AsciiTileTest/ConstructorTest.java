@@ -10,9 +10,7 @@ import java.awt.Color;
 public class ConstructorTest {
     @Test
     public void testConstructor_withValidInput() {
-        final AsciiCharacter character = new AsciiCharacter('?');
-        final AsciiTile tile = new AsciiTile('?');
-        Assert.assertEquals(character, tile);
+        new AsciiTile('?');
     }
 
     @Test(expected=NullPointerException.class)
