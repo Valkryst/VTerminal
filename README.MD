@@ -1,4 +1,4 @@
-[![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg)](https://github.com/Valkryst/VTerminal/blob/master/LICENSE.md) ![](https://travis-ci.org/Valkryst/VTerminal.svg?branch=master) [![codecov](https://codecov.io/gh/Valkryst/VTerminal/branch/master/graph/badge.svg)](https://codecov.io/gh/Valkryst/VTerminal)
+[![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg)](https://github.com/Valkryst/VTerminal/blob/master/LICENSE.md) ![](https://travis-ci.org/Valkryst/VTerminal.svg?branch=master)
 
 VPanel simulates a Unicode terminal display. It supports arbitrary fore/background colors,  terminal sizes, and allows
 the use of any font.
