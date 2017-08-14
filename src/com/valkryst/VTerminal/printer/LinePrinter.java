@@ -2,6 +2,7 @@ package com.valkryst.VTerminal.printer;
 
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Screen;
+import com.valkryst.VTerminal.misc.ShapeAlgorithms;
 import lombok.*;
 
 import java.awt.Point;
@@ -118,7 +119,7 @@ public class LinePrinter {
     }
 
     /**
-     * Prints a line on a screen using the Bresenham algorithm.
+     * Prints a line on a screen.
      *
      * @param screen
      *        The screen.
@@ -139,46 +140,8 @@ public class LinePrinter {
      *         If the screen is null.
      */
     private void printLine(final @NonNull Screen screen, int fromX, int fromY, final int toX, final int toY) {
-        // delta of exact value and rounded value of the dependant variable
-        int d = 0;
-
-        int dy = Math.abs(toY - fromY);
-        int dx = Math.abs(toX - fromX);
-
-        int dy2 = (dy << 1); // slope scaling factors to avoid floating
-        int dx2 = (dx << 1); // point
-
-        int ix = fromX < toX ? 1 : -1; // increment direction
-        int iy = fromY < toY ? 1 : -1;
-
-        while (true) {
-            screen.write(printChar, fromX, fromY);
-
-            if (dy <= dx) {
-                if (fromX == toX) {
-                    break;
-                }
-
-                fromX += ix;
-                d += dy2;
-
-                if (d > dx) {
-                    fromY += iy;
-                    d -= dx2;
-                }
-            } else {
-                if (fromY == toY) {
-                    break;
-                }
-
-                fromY += iy;
-                d += dx2;
-
-                if (d > dy) {
-                    fromX += ix;
-                    d -= dy2;
-                }
-            }
+        for (final Point point : ShapeAlgorithms.getLine(fromX, fromY, toX, toY)) {
+            screen.write(printChar, point.x, point.y);
         }
     }
 }

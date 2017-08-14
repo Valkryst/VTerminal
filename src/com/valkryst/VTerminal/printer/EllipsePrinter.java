@@ -38,7 +38,7 @@ public class EllipsePrinter {
     }
 
     /**
-     * Prints an ellipse on a screen using the Bresenham algorithm.
+     * Prints an ellipse on a screen.
      *
      * @param screen
      *         The screen.
