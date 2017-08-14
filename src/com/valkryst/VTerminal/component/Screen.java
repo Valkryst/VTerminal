@@ -48,7 +48,7 @@ public class Screen extends Component {
     }
 
     /**
-     * Draws the screen onto the specified canvas using the specified font.
+     * Draws the screen onto the specified graphics context..
      *
      * @param gc
      *         The graphics context to draw with.
