@@ -2,7 +2,10 @@ package com.valkryst.VTerminal.printer;
 
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Screen;
+import com.valkryst.VTerminal.misc.ShapeAlgorithms;
 import lombok.*;
+
+import java.awt.Point;
 
 @EqualsAndHashCode
 @ToString
@@ -50,46 +53,8 @@ public class EllipsePrinter {
      *         If the panel is screen.
      */
     public void print(final @NonNull Screen screen, final int row, final int column) {
-        int a2 = width * width;
-        int b2 = height * height;
-        int fa2 = 4 * a2;
-        int fb2 = 4 * b2;
-
-        int x = 0;
-        int y = height;
-        int sigma = 2 * b2 + a2 * (1 - 2 * height);
-
-        for (;b2 * x <= a2 * y ; x++) {
-            screen.write(printChar, column + x, row + y);
-            screen.write(printChar, column - x, row + y);
-            screen.write(printChar, column + x, row - y);
-            screen.write(printChar, column - x, row - y);
-
-            if (sigma >= 0) {
-                sigma += fa2 * (1 - y);
-                y--;
-            }
-
-            sigma += b2 * ((4 * x) + 6);
-        }
-
-
-        x = width;
-        y = 0;
-        sigma = 2 * a2 + b2 * (1 - 2 * width);
-
-        for (;a2 * y <= b2 * x ; y++) {
-            screen.write(printChar, column + x, row + y);
-            screen.write(printChar, column - x, row + y);
-            screen.write(printChar, column + x, row - y);
-            screen.write(printChar, column - x, row - y);
-
-            if (sigma >= 0) {
-                sigma += fb2 * (1 - x);
-                x--;
-            }
-
-            sigma += a2 * ((4 * y) + 6);
+        for (final Point point : ShapeAlgorithms.getEllipseOutline(row, column, width, height)) {
+            screen.write(printChar, point.x, point.y);
         }
     }
 
