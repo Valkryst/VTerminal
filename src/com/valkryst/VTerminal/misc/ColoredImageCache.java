@@ -5,7 +5,10 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiTile;
 import com.valkryst.VTerminal.font.Font;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
+import lombok.ToString;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -13,6 +16,8 @@ import java.awt.image.BufferedImage;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+@EqualsAndHashCode
+@ToString
 public final class ColoredImageCache {
     /** The cache. */
     private final Cache<Integer, BufferedImage> cachedImages;
@@ -29,9 +34,7 @@ public final class ColoredImageCache {
      * @throws NullPointerException
      *         If the font is null.
      */
-    public ColoredImageCache(final Font font) {
-        Objects.requireNonNull(font);
-
+    public ColoredImageCache(final @NonNull Font font) {
         this.font = font;
         cachedImages = Caffeine.newBuilder()
                                .initialCapacity(100)
@@ -52,9 +55,7 @@ public final class ColoredImageCache {
      * @throws NullPointerException
      *         If the font is null.
      */
-    public ColoredImageCache(final Font font, final int maxCacheSize) {
-        Objects.requireNonNull(font);
-
+    public ColoredImageCache(final @NonNull Font font, final int maxCacheSize) {
         this.font = font;
         cachedImages = Caffeine.newBuilder()
                                .initialCapacity(100)
@@ -78,9 +79,7 @@ public final class ColoredImageCache {
      * @throws NullPointerException
      *         If the character is null.
      */
-    public BufferedImage retrieveFromCache(final AsciiCharacter character) {
-        Objects.requireNonNull(character);
-
+    public BufferedImage retrieveFromCache(final @NonNull AsciiCharacter character) {
         int hashCode;
 
         if (character instanceof AsciiTile) {
@@ -110,11 +109,9 @@ public final class ColoredImageCache {
      *        The character image.
      *
      * @throws NullPointerException
-     *         If the character is null.
+     *         If the character or font are null.
      */
-    private static BufferedImage applyColorSwap(final AsciiCharacter character, final Font font) {
-        Objects.requireNonNull(character);
-
+    private static BufferedImage applyColorSwap(final @NonNull AsciiCharacter character, final @NonNull Font font) {
         BufferedImage image;
 
         try {
@@ -172,9 +169,7 @@ public final class ColoredImageCache {
      * @throws NullPointerException
      *         If the image is null.
      */
-    private static BufferedImage cloneImage(final BufferedImage image) {
-        Objects.requireNonNull(image);
-
+    private static BufferedImage cloneImage(final @NonNull BufferedImage image) {
         final BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
         final Graphics g = newImage.getGraphics();
         g.drawImage(image, 0, 0, null);
