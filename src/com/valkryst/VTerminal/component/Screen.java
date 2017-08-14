@@ -4,7 +4,6 @@ import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ColoredImageCache;
-import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
@@ -14,7 +13,6 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper=true)
 @ToString
 public class Screen extends Component {
     /** The non-layer components displayed on the screen. */
