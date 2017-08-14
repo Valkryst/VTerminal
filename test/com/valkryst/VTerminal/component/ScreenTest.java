@@ -27,7 +27,7 @@ public class ScreenTest {
     }
 
     @Before
-    public void initalizeScreen() {
+    public void initializeScreen() {
         screen = new Screen(0, 0, 5, 5);
     }
 
