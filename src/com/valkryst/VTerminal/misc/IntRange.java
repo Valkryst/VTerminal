@@ -2,8 +2,10 @@ package com.valkryst.VTerminal.misc;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 @EqualsAndHashCode
+@ToString
 public class IntRange {
     /** The starting value of the range. */
     @Getter private int start;
@@ -30,10 +32,5 @@ public class IntRange {
             throw new IllegalArgumentException("The start value (" + start + ") is larger than the end value ("
                                                + end + ").");
         }
-    }
-
-    @Override
-    public String toString() {
-        return "IntRange(" + start + ", " + end + ")";
     }
 }
