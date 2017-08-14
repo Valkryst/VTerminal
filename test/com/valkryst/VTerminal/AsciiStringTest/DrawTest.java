@@ -43,7 +43,7 @@ public class DrawTest {
         string.draw((Graphics2D) temp.getGraphics(), null, 0);
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void testWithRowBelowZero() {
         final int width = font.getWidth() * string.getCharacters().length;
         final int height = font.getHeight();
