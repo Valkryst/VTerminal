@@ -4,7 +4,6 @@ import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.misc.ColorFunctions;
 import com.valkryst.VTerminal.misc.ColoredImageCache;
 import com.valkryst.VTerminal.misc.IntRange;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -14,7 +13,6 @@ import java.awt.Graphics2D;
 import java.util.Arrays;
 import java.util.Objects;
 
-@EqualsAndHashCode
 @ToString
 public class AsciiString {
     /** The characters of the string. */

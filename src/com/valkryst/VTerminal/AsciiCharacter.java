@@ -14,7 +14,6 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 
-@EqualsAndHashCode
 @ToString
 public class AsciiCharacter {
     /** The character. */
