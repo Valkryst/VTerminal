@@ -1,7 +1,8 @@
 package com.valkryst.VTerminal.misc;
 
+import lombok.NonNull;
+
 import java.awt.Color;
-import java.util.Objects;
 
 public final class ColorFunctions {
     // Prevent users from creating an instance.
@@ -25,9 +26,7 @@ public final class ColorFunctions {
      * @throws NullPointerException
      *         If the color is null.
      */
-    public static Color shade(final Color color, double shadeFactor) {
-        Objects.requireNonNull(color);
-
+    public static Color shade(final @NonNull Color color, double shadeFactor) {
         if (shadeFactor > 1.0) {
             shadeFactor = 1.0;
         }
@@ -66,9 +65,7 @@ public final class ColorFunctions {
      * @throws NullPointerException
      *         If the color is null.
      */
-    public static Color tint(final Color color, double tintFactor) {
-        Objects.requireNonNull(color);
-
+    public static Color tint(final @NonNull Color color, double tintFactor) {
         if (tintFactor > 1.0) {
             tintFactor = 1.0;
         }
