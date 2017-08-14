@@ -1,6 +1,9 @@
 package com.valkryst.VTerminal.font;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
+import lombok.ToString;
 
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -10,6 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+@EqualsAndHashCode
+@ToString
 public class Font {
     /** The sprite-images of every character provided by the Font with a completely transparent background. */
     private final HashMap<Character, BufferedImage> characterImages;
@@ -28,12 +33,13 @@ public class Font {
      * @param scale
      *        The amount to scale each character image by.
      *
+     * @throws NullPointerException
+     *         If the characterImages is null.
+     *
      * @throws IOException
      *         If an I/O error occurs.
      */
-    public Font(final HashMap<Character, BufferedImage> characterImages, int scale) throws IOException {
-        Objects.requireNonNull(characterImages);
-
+    public Font(final @NonNull HashMap<Character, BufferedImage> characterImages, int scale) throws IOException {
         this.characterImages = characterImages;
 
         width = characterImages.get('X').getWidth() * scale;
@@ -58,11 +64,8 @@ public class Font {
      *
      * @return
      *         The scaled image.
-     *
-     * @throws NullPointerException
-     *         If the image is null.
      */
-    private BufferedImage scaleImage(final BufferedImage image, final int scale) {
+    private BufferedImage scaleImage(final @NonNull BufferedImage image, final int scale) {
         Objects.requireNonNull(image);
 
         final AffineTransform tx = AffineTransform.getScaleInstance(scale, scale);

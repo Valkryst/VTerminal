@@ -1,5 +1,7 @@
 package com.valkryst.VTerminal.font;
 
+import lombok.NonNull;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -8,7 +10,6 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -41,10 +42,7 @@ public final class FontLoader {
      * @throws IOException
      *         If an IOException occurs while loading the font.
      */
-    public static Font loadFont(final String spriteSheetPath, final String characterDataPath, final int scale) throws IOException {
-        Objects.requireNonNull(spriteSheetPath);
-        Objects.requireNonNull(characterDataPath);
-
+    public static Font loadFont(final @NonNull String spriteSheetPath, final @NonNull String characterDataPath, final int scale) throws IOException {
         if (spriteSheetPath.isEmpty()) {
             throw new IllegalArgumentException("The sprite sheet path cannot be null or empty.");
         }
@@ -77,10 +75,7 @@ public final class FontLoader {
      * @throws IOException
      *         If an IOException occurs while loading the font.
      */
-    public static Font loadFont(final InputStream spriteSheet, final InputStream characterData, int scale) throws IOException {
-        Objects.requireNonNull(spriteSheet);
-        Objects.requireNonNull(characterData);
-
+    public static Font loadFont(final @NonNull InputStream spriteSheet, final @NonNull InputStream characterData, int scale) throws IOException {
         if (scale < 1) {
             scale = 1;
         }
@@ -118,10 +113,7 @@ public final class FontLoader {
      * @throws URISyntaxException
      *         If a URISyntaxException occurs while loading the font.
      */
-    public static Font loadFontFromJar(final String spriteSheetPath, final String characterDataPath, final int scale) throws IOException, URISyntaxException {
-        Objects.requireNonNull(spriteSheetPath);
-        Objects.requireNonNull(characterDataPath);
-
+    public static Font loadFontFromJar(final @NonNull String spriteSheetPath, final @NonNull String characterDataPath, final int scale) throws IOException, URISyntaxException {
         if (spriteSheetPath.isEmpty()) {
             throw new IllegalArgumentException("The sprite sheet path cannot be null or empty.");
         }
@@ -153,10 +145,7 @@ public final class FontLoader {
      * @throws NullPointerException
      *         If the sprite sheet or character data is null.
      */
-    private static HashMap<Character, BufferedImage> processFontData(final BufferedImage spriteSheet, final List<String> characterData) {
-        Objects.requireNonNull(spriteSheet);
-        Objects.requireNonNull(characterData);
-
+    private static HashMap<Character, BufferedImage> processFontData(final @NonNull BufferedImage spriteSheet, final @NonNull List<String> characterData) {
         final HashMap<Character, BufferedImage> hashMap = new HashMap<>(characterData.size());
 
         for (final String string : characterData) {
@@ -192,9 +181,7 @@ public final class FontLoader {
      * @throws IOException
      *         If an IOException occurs while loading the sprite sheet.
      */
-    private static BufferedImage loadSpriteSheet(final InputStream inputStream) throws IOException {
-        Objects.requireNonNull(inputStream);
-
+    private static BufferedImage loadSpriteSheet(final @NonNull InputStream inputStream) throws IOException {
         final BufferedImage loadedImage = ImageIO.read(inputStream);
         inputStream.close();
 
@@ -231,9 +218,7 @@ public final class FontLoader {
      * @throws IOException
      *         If an IOException occurs while loading the character data.
      */
-    private static List<String> loadCharacterData(final InputStream inputStream) throws IOException {
-        Objects.requireNonNull(inputStream);
-
+    private static List<String> loadCharacterData(final @NonNull InputStream inputStream) throws IOException {
         // Load lines
         final InputStreamReader isr = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
         final BufferedReader br = new BufferedReader(isr);
