@@ -261,22 +261,6 @@ public class ScreenTest {
         Assert.assertNotEquals('?', optChar.get().getCharacter());
     }
 
-    @Test
-    public void testWrite_stringObj_withValidParams() {
-        screen.write(string, 0, 0);
-        string.setAllCharactersToBeRedrawn();
-        Assert.assertEquals(string, screen.getString(0));
-    }
-
-    @Test
-    public void testWrite_stringObj_allCharPositions() {
-        for (int y = 0 ; y < screen.getHeight() ; y++) {
-            screen.write(string, 0, y);
-            string.setAllCharactersToBeRedrawn();
-            Assert.assertEquals(string, screen.getString(y));
-        }
-    }
-
     @Test(expected=NullPointerException.class)
     public void testWrite_stringObj_withNullString() {
         screen.write((AsciiString) null, 0, 0);
