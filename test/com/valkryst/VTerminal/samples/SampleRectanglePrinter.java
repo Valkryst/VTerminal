@@ -62,17 +62,14 @@ public class SampleRectanglePrinter {
         printer.print(panel, 49, 0);
 
         // Creates top box in right rect
-        printer.setWidth(31);
         printer.setHeight(6);
         printer.print(panel, 49, 0);
 
         // Creates middle box in right rect
-        printer.setWidth(31);
         printer.setHeight(12);
         printer.print(panel, 49, 0);
 
         // Creates bottom box in right rect
-        printer.setWidth(31);
         printer.setHeight(18);
         printer.print(panel, 49, 0);
 
