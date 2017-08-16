@@ -396,13 +396,13 @@ public class TextArea extends Component {
     /** Moves the caret to the first line. Does not change the x-axis position of the caret. */
     public void moveCaretToFirstLine() {
         changeVisualCaretPosition(x_index_caret_visual, 0);
-        changeActualCaretPosition(x_index_caret_visual, 0);
+        changeActualCaretPosition(x_index_caret_actual, 0);
     }
 
     /** Moves the caret to the last line. Does not change the x-axis position of the caret. */
     public void moveCaretToLastLine() {
         changeVisualCaretPosition(x_index_caret_visual, super.getHeight() - 1);
-        changeActualCaretPosition(x_index_caret_visual, super.getHeight() - 1);
+        changeActualCaretPosition(x_index_caret_actual, maxVerticalCharacters - 1);
     }
 
     /** Moves the caret to the beginning of the current line. */
