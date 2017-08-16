@@ -47,6 +47,11 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
     @Getter @Setter private boolean enterKeyEnabled;
     /** Whether or not the BACK SPACE key can be used to erase the character before the caret and move the caret backwards. */
     @Getter @Setter private boolean backSpaceKeyEnabled;
+    /** Whether or not the TAB key can be used to indent by some number of spaces. */
+    @Getter @Setter private boolean tabKeyEnabled;
+
+    /** The amount of spaces to insert when the TAB key is pressed. */
+    @Getter private int tabSize;
 
     /** The pattern used to determine which typed characters can be entered into the field. */
     @Getter @Setter @NonNull private Pattern allowedCharacterPattern;
@@ -82,6 +87,10 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
             throw new IllegalArgumentException("The maximum vertical characters cannot be less than one.");
         }
 
+        if (tabSize < 1) {
+            throw new IllegalArgumentException("The tab size cannot be less than one character.");
+        }
+
         if (maxHorizontalCharacters < width) {
             maxHorizontalCharacters = width;
         }
@@ -115,6 +124,9 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
         downArrowKeyEnabled = true;
         enterKeyEnabled = true;
         backSpaceKeyEnabled = true;
+        tabKeyEnabled = true;
+
+        tabSize = 4;
 
         allowedCharacterPattern = Pattern.compile("^[a-zA-z0-9$-/:-?{-~!\"^_`\\[\\]@# ]$");
     }
