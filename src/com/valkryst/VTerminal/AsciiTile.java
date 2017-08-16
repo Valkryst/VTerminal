@@ -82,17 +82,13 @@ public class AsciiTile extends AsciiCharacter {
         columnIndex *= fontWidth;
         rowIndex *= fontHeight;
 
-        BufferedImage image = null;
-
         // Handle hidden state:
         if (super.isHidden()) {
             gc.setColor(super.getBackgroundColor());
             gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
         } else {
-            image = imageCache.retrieveFromCache(this);
-        }
+            BufferedImage image = imageCache.retrieveFromCache(this);
 
-        if (image != null) {
             // Handle Horizontal/Vertical Flipping:
             if (super.isFlippedHorizontally() || super.isFlippedVertically()) {
                 AffineTransform tx;

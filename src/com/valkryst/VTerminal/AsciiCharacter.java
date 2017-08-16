@@ -121,17 +121,13 @@ public class AsciiCharacter {
         columnIndex *= fontWidth;
         rowIndex *= fontHeight;
 
-        BufferedImage image = null;
-
         // Handle hidden state:
         if (isHidden) {
             gc.setColor(backgroundColor);
             gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
         } else {
-            image = imageCache.retrieveFromCache(this);
-        }
+            BufferedImage image = imageCache.retrieveFromCache(this);
 
-        if (image != null) {
             // Handle Horizontal/Vertical Flipping:
             if (isFlippedHorizontally || isFlippedVertically) {
                 AffineTransform tx;
