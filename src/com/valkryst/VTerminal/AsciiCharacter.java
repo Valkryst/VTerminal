@@ -121,6 +121,9 @@ public class AsciiCharacter {
         columnIndex *= fontWidth;
         rowIndex *= fontHeight;
 
+        boundingBox.setLocation(columnIndex, rowIndex);
+        boundingBox.setSize(fontWidth, fontHeight);
+
         // Handle hidden state:
         if (isHidden) {
             gc.setColor(backgroundColor);
@@ -142,9 +145,6 @@ public class AsciiCharacter {
             // Draw character:
             gc.drawImage(image, columnIndex, rowIndex, null);
         }
-
-        boundingBox.setLocation(columnIndex, rowIndex);
-        boundingBox.setSize(fontWidth, fontHeight);
 
         // Draw underline:
         if (isUnderlined) {
