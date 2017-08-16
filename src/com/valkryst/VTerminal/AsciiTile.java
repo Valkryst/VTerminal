@@ -7,10 +7,7 @@ import lombok.ToString;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
 
 @EqualsAndHashCode(callSuper=true)
 @ToString
@@ -90,23 +87,7 @@ public class AsciiTile extends AsciiCharacter {
             gc.setColor(super.getBackgroundColor());
             gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
         } else {
-            BufferedImage image = imageCache.retrieveFromCache(this);
-
-            // Handle Horizontal/Vertical Flipping:
-            if (super.isFlippedHorizontally() || super.isFlippedVertically()) {
-                final double scaleX = super.isFlippedHorizontally() ? -1 : 1;
-                final double scaleY = super.isFlippedVertically() ? -1 : 1;
-                final double translateX = super.isFlippedHorizontally() ? -fontWidth : 0;
-                final double translateY = super.isFlippedVertically() ? -fontHeight : 0;
-
-                final AffineTransform tx = AffineTransform.getScaleInstance(scaleX, scaleY);
-                tx.translate(translateX, translateY);
-
-                final BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-                image = op.filter(image, null);
-            }
-
-            // Draw character:
+            final BufferedImage image = imageCache.retrieveFromCache(this);
             gc.drawImage(image, columnIndex, rowIndex, null);
         }
 
