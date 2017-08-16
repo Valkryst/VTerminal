@@ -1,6 +1,5 @@
 package com.valkryst.VTerminal.font;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -13,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-@EqualsAndHashCode
 @ToString
 public class Font {
     /** The sprite-images of every character provided by the Font with a completely transparent background. */
