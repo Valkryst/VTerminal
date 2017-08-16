@@ -24,9 +24,8 @@ public class SampleDrawTime {
         int temp = 45;
 
         BigInteger measurementsTotal = BigInteger.ZERO;
-        long measurementsCounter = 1;
 
-        while(true) {
+        for(int i = 0 ; i < 4_000 ; i++) {
             panel.getScreen().clear((char)temp);
             panel.getScreen().setForegroundColor(new Color(255, 155, temp, 255));
             panel.getScreen().setBackgroundColor(new Color(temp, temp, temp, 255));
@@ -52,21 +51,22 @@ public class SampleDrawTime {
             final long timeAfterDraw = System.nanoTime();
             final long timeDifference = timeAfterDraw - timeBeforeDraw;
             measurementsTotal = measurementsTotal.add(BigInteger.valueOf(timeDifference));
-            measurementsCounter++;
 
-            if (measurementsCounter % 50 == 0) {
-                double averageDrawTime = measurementsTotal.divide(BigInteger.valueOf(measurementsCounter)).doubleValue();
+            if (i % 50 == 0) {
+                double averageDrawTime = measurementsTotal.divide(BigInteger.valueOf(i)).doubleValue();
                 averageDrawTime /= 1_000_000;
 
                 System.out.println(
                     String.format("Avg Draw Time: %f ms\t\tAvg FPS: %f\t\tTotal Measurements: %d",
                             averageDrawTime,
                             1000 / averageDrawTime,
-                            measurementsCounter)
+                            i)
                 );
             }
 
             Thread.sleep(16);
         }
+
+        System.exit(0);
     }
 }
