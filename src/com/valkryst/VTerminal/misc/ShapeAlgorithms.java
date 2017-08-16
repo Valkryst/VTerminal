@@ -39,7 +39,7 @@ public final class ShapeAlgorithms {
         int dy = height;
         int sigma = 2 * b2 + a2 * (1 - 2 * height);
 
-        for (;b2 * dx <= a2 * dy ; dx++) {
+        while (b2 * dx <= a2 * dy) {
             points.add(new Point(x + dx, y + dy));
             points.add(new Point(x - dx, y + dy));
             points.add(new Point(x + dx, y - dy));
@@ -51,6 +51,7 @@ public final class ShapeAlgorithms {
             }
 
             sigma += b2 * ((4 * dx) + 6);
+            dx++;
         }
 
 
@@ -58,7 +59,7 @@ public final class ShapeAlgorithms {
         dy = 0;
         sigma = 2 * a2 + b2 * (1 - 2 * width);
 
-        for (;a2 * dy <= b2 * dx ; dy++) {
+        while (a2 * dy <= b2 * dx) {
             points.add(new Point(x + dx, y + dy));
             points.add(new Point(x - dx, y + dy));
             points.add(new Point(x + dx, y - dy));
@@ -70,6 +71,7 @@ public final class ShapeAlgorithms {
             }
 
             sigma += a2 * ((4 * dy) + 6);
+            dy++;
         }
 
         return points;
