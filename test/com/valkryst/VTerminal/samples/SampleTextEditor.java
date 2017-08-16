@@ -29,6 +29,7 @@ public class SampleTextEditor {
 
         panel.getScreen().setBackgroundColor(new Color(0xFF366C9F, true));
 
+        // Create text area:
         final TextAreaBuilder textAreaBuilder = new TextAreaBuilder();
         textAreaBuilder.setRadio(panel.getRadio());
         textAreaBuilder.setColumnIndex(0);
@@ -39,10 +40,12 @@ public class SampleTextEditor {
         final TextArea textArea = textAreaBuilder.build();
         panel.addComponent(textArea);
 
+        // Create NEW button:
         final ButtonBuilder buttonBuilder = new ButtonBuilder();
         buttonBuilder.setRadio(panel.getRadio());
         buttonBuilder.setColumnIndex(0);
         buttonBuilder.setRowIndex(0);
+        buttonBuilder.setUsingStartingAndEndingCharacters(false);
         buttonBuilder.setText("New");
         buttonBuilder.setOnClickFunction(() -> {
             textArea.clearText();
@@ -51,8 +54,11 @@ public class SampleTextEditor {
         });
         panel.addComponent(buttonBuilder.build());
 
+        // Add spacer between buttons:
+        panel.getScreen().getString(0).getCharacters()[3].setCharacter('|');
 
-        buttonBuilder.setColumnIndex(5);
+        // Create SAVE button:
+        buttonBuilder.setColumnIndex(4);
         buttonBuilder.setText("Save");
         buttonBuilder.setOnClickFunction(() -> {
             final JFileChooser fileChooser = new JFileChooser();
