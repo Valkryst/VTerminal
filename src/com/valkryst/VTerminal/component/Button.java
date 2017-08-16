@@ -56,7 +56,10 @@ public class Button extends Component {
      */
     public Button(final @NonNull ButtonBuilder builder) {
         // The width of the button is "text.length() + 2" because the button text is startingCharacter + text + endingCharacter.
-        super(builder.getColumnIndex(), builder.getRowIndex(), builder.getText().length() + 2, 1);
+        super(builder.getColumnIndex(),
+              builder.getRowIndex(),
+              builder.getText().length() + (builder.isUsingStartingAndEndingCharacters() ? 2 : 0),
+              1);
 
         super.setRadio(builder.getRadio());
 
@@ -78,11 +81,19 @@ public class Button extends Component {
         final char[] text = builder.getText().toCharArray();
 
         final AsciiCharacter[] characters = super.getString(0).getCharacters();
-        characters[0].setCharacter(startingCharacter);
-        characters[characters.length - 1].setCharacter(endingCharacter);
 
-        for (int column = 1 ; column < characters.length - 1 ; column++) {
-            characters[column].setCharacter(text[column - 1]);
+
+        if (builder.isUsingStartingAndEndingCharacters()) {
+            characters[0].setCharacter(startingCharacter);
+            characters[characters.length - 1].setCharacter(endingCharacter);
+
+            for (int column = 1; column < characters.length - 1; column++) {
+                characters[column].setCharacter(text[column - 1]);
+            }
+        } else {
+            for (int column = 0; column < characters.length; column++) {
+                characters[column].setCharacter(text[column]);
+            }
         }
 
         // Set the button's colors (must be done after setting text):

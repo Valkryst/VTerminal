@@ -16,6 +16,8 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
     /** The last character of the button's text. This is used to identify the text as a button. */
     @Getter @Setter private char endingCharacter;
 
+    /** Whether or not the button should use the starting/ending characters. */
+    @Getter @Setter private boolean usingStartingAndEndingCharacters;
 
     /** The background color for when the button is in the normal state. */
     @Getter @Setter @NonNull private Color backgroundColor_normal;
@@ -49,6 +51,8 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
 
         startingCharacter = '<';
         endingCharacter = '>';
+
+        usingStartingAndEndingCharacters = true;
 
         backgroundColor_normal = new Color(0xFF366C9F, true);
         foregroundColor_normal = new Color(0xFF66CCFF, true);
