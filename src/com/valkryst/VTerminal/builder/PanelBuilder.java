@@ -53,6 +53,7 @@ public class PanelBuilder {
         panel.setIgnoreRepaint(true);
         panel.createBufferStrategy(2);
         panel.setFocusable(true);
+        panel.setFocusTraversalKeysEnabled(false);
         return panel;
     }
 
