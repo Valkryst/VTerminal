@@ -76,11 +76,11 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
         width = 4;
         maxCharacters = 4;
 
-        caretForegroundColor = new Color(0xFF21B6A8, true);
-        caretBackgroundColor = new Color(0xFF52F2EA, true);
+        caretForegroundColor = new Color(0xFF8E999E, true);
+        caretBackgroundColor = new Color(0xFF68D0FF, true);
 
-        foregroundColor = new Color(0xFF52F2EA, true);
-        backgroundColor = new Color(0xFF21B6A8, true);
+        foregroundColor = caretBackgroundColor;
+        backgroundColor = caretForegroundColor;
 
         homeKeyEnabled = true;
         endKeyEnabled = true;
