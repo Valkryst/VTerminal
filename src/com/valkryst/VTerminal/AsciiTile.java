@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal;
 
 import com.valkryst.VTerminal.misc.ColoredImageCache;
-import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
@@ -11,7 +10,6 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
-@EqualsAndHashCode(callSuper=true)
 @ToString
 public class AsciiTile extends AsciiCharacter {
     /**
