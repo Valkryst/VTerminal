@@ -62,7 +62,7 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
         foregroundColor_hover = ColorFunctions.shade(backgroundColor_hover, 0.5);
 
         backgroundColor_pressed = backgroundColor_normal;
-        foregroundColor_pressed = new Color(0xFFFFFF66, true);
+        foregroundColor_pressed = new Color(0xFFFFD72D, true);
 
         onClickFunction = () -> {};
     }

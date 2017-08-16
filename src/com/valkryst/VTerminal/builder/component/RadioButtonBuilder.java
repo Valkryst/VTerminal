@@ -78,6 +78,6 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton> {
         foregroundColor_hover = ColorFunctions.shade(backgroundColor_hover, 0.5);
 
         backgroundColor_checked = backgroundColor_normal;
-        foregroundColor_checked = new Color(0xFFFFFF66, true);
+        foregroundColor_checked = new Color(0xFFFFD72D, true);
     }
 }
