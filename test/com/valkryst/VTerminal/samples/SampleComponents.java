@@ -27,7 +27,7 @@ public class SampleComponents {
 
         Thread.sleep(100);
 
-        panel.getScreen().setBackgroundColor(new Color(0xFF366C9F, true));
+        panel.getScreen().setBackgroundColor(new Color(45, 45, 45, 255));
 
         // Border
         final RectanglePrinter printer = new RectanglePrinter();
