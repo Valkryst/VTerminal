@@ -8,6 +8,7 @@ import com.valkryst.VTerminal.font.FontLoader;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -22,13 +23,13 @@ public class SampleDrawTime {
 
         int temp = 45;
 
-        long total = 1;
-        long counter = 1;
+        BigInteger measurementsTotal = BigInteger.ZERO;
+        long measurementsCounter = 1;
 
         while(true) {
             panel.getScreen().clear((char)temp);
             panel.getScreen().setForegroundColor(new Color(255, 155, temp, 255));
-            panel.getScreen().setBackgroundColor(new Color(temp, 155, 255, 255));
+            panel.getScreen().setBackgroundColor(new Color(temp, temp, temp, 255));
 
             temp++;
 
@@ -43,17 +44,28 @@ public class SampleDrawTime {
                 string.setUnderlined(ThreadLocalRandom.current().nextBoolean());
             }
 
-            final long bef = System.currentTimeMillis();
-            panel.draw();
-            final long res = System.currentTimeMillis() - bef;
-            counter++;
-            total += res;
+            // Draw and deal with calculations:
+            final long timeBeforeDraw = System.currentTimeMillis();
 
-            if (temp == 45) {
-                System.out.println("Draw Took:\t" + res + "ms\t\tAvg Is:\t" + (total / counter) + "ms");
+            panel.draw();
+
+            final long timeAfterDraw = System.currentTimeMillis();
+            final long timeDifference = timeAfterDraw - timeBeforeDraw;
+            measurementsTotal = measurementsTotal.add(BigInteger.valueOf(timeDifference));
+            measurementsCounter++;
+
+            if (measurementsCounter % 50 == 0) {
+                final long averageDrawTime = measurementsTotal.divide(BigInteger.valueOf(measurementsCounter)).longValue();
+
+                System.out.println(
+                    String.format("Avg Draw Time: %d ms\t\tAvg FPS: %d\t\tTotal Measurements: %d",
+                            averageDrawTime,
+                            1000 / averageDrawTime,
+                            measurementsCounter)
+                );
             }
 
-            Thread.sleep(32);
+            Thread.sleep(16);
         }
     }
 }
