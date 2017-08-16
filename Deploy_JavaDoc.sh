@@ -17,7 +17,7 @@ echo -e "\tActual:\t$TRAVIS_PULL_REQUEST\n"
 
 # Display Branch:
 echo -e "Branch:"
-echo -e "\tExpected:\tfalse"
+echo -e "\tExpected:\tmaster"
 echo -e "\tActual:\t$TRAVIS_BRANCH\n"
 
 if [ "$TRAVIS_REPO_SLUG" == "Valkryst/VTerminal" ] &&
