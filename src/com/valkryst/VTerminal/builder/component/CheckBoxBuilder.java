@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.CheckBox;
+import com.valkryst.VTerminal.misc.ColorFunctions;
 import lombok.*;
 
 import java.awt.Color;
@@ -54,8 +55,8 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox> {
         backgroundColor_normal = new Color(45, 45, 45, 255);
         foregroundColor_normal = new Color(0xFF2DBEFF, true);
 
-        backgroundColor_hover = new Color(0xFF71AB14, true);
-        foregroundColor_hover = new Color(0xFF99E000, true);
+        backgroundColor_hover = new Color(0xFF2DFF63, true);
+        foregroundColor_hover = ColorFunctions.shade(backgroundColor_hover, 0.5);
 
         backgroundColor_checked = backgroundColor_normal;
         foregroundColor_checked = new Color(0xFFFFFF66, true);

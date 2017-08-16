@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.Button;
+import com.valkryst.VTerminal.misc.ColorFunctions;
 import lombok.*;
 
 import java.awt.Color;
@@ -57,8 +58,8 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
         backgroundColor_normal = new Color(45, 45, 45, 255);
         foregroundColor_normal = new Color(0xFF2DBEFF, true);
 
-        backgroundColor_hover = new Color(45, 155, 255, 255);
-        foregroundColor_hover = new Color(0xFF99E000, true);
+        backgroundColor_hover = new Color(0xFF2DFF63, true);
+        foregroundColor_hover = ColorFunctions.shade(backgroundColor_hover, 0.5);
 
         backgroundColor_pressed = backgroundColor_normal;
         foregroundColor_pressed = new Color(0xFFFFFF66, true);
