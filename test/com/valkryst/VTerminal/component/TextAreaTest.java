@@ -57,7 +57,7 @@ public class TextAreaTest {
         textArea.setText(1, "TestingB");
         textArea.setText(2, "TestingC");
 
-        Assert.assertEquals(4, textArea.getText().length);
+        Assert.assertEquals(3, textArea.getText().length);
         Assert.assertEquals("TestingA", textArea.getText()[0]);
         Assert.assertEquals("TestingB", textArea.getText()[1]);
         Assert.assertEquals("TestingC", textArea.getText()[2]);
