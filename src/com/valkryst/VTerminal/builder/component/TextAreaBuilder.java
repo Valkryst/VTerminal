@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.TextArea;
+import com.valkryst.VTerminal.misc.ColorFunctions;
 import lombok.*;
 
 import java.awt.Color;
@@ -113,7 +114,7 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
         maxHorizontalCharacters = 4;
         maxVerticalCharacters = 4;
 
-        caretForegroundColor = new Color(0xFF8E999E, true);
+        caretForegroundColor = ColorFunctions.shade(new Color(0xFF8E999E, true), 0.25);
         caretBackgroundColor = new Color(0xFF68D0FF, true);
 
         foregroundColor = caretBackgroundColor;
