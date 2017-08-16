@@ -19,6 +19,7 @@ import java.util.Objects;
 public class AsciiCharacter {
     /** The hash value, of the character, used by the image cache. */
     @Getter protected int cacheHash;
+    /** Whether or not to update the cache hash. */
     protected boolean updateCacheHash = true;
 
     /** The character. */
