@@ -54,11 +54,11 @@ public class AsciiTile extends AsciiCharacter {
         super.setFlippedHorizontally(character.isFlippedHorizontally());
         super.setFlippedVertically(character.isFlippedVertically());
 
-        computeCacheHash();
+        updateCacheHash();
     }
 
     @Override
-    protected void computeCacheHash() {
+    protected void updateCacheHash() {
         super.cacheHash = Objects.hash(super.getCharacter(), super.getBackgroundColor(), Color.WHITE,
                                        super.isFlippedHorizontally(), super.isFlippedVertically());
     }
