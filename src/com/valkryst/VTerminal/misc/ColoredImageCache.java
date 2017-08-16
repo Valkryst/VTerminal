@@ -37,7 +37,7 @@ public final class ColoredImageCache {
         this.font = font;
         cachedImages = Caffeine.newBuilder()
                                .initialCapacity(256)
-                               .maximumSize(10_000)
+                               .maximumSize(1000)
                                .expireAfterAccess(3, TimeUnit.MINUTES)
                                .build();
     }
