@@ -45,9 +45,9 @@ public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
         completeCharacter = '█';
 
         backgroundColor_incomplete = new Color(45, 45, 45, 255);
-        foregroundColor_incomplete = new Color(255, 0, 0, 255);
+        foregroundColor_incomplete = new Color(0xFFFF2D55, true);
 
         backgroundColor_complete = backgroundColor_incomplete;
-        foregroundColor_complete = new Color(0, 255, 0, 255);
+        foregroundColor_complete = new Color(0xFF2DFF6E, true);
     }
 }
