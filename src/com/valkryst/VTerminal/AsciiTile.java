@@ -99,7 +99,7 @@ public class AsciiTile extends AsciiCharacter {
                 tx = AffineTransform.getScaleInstance((super.isFlippedHorizontally() ? -1 : 1), (super.isFlippedVertically() ? -1 : 1));
                 tx.translate((super.isFlippedHorizontally() ? -fontWidth : 0), (super.isFlippedVertically() ? -fontHeight : 0));
 
-                final BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
+                final BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
                 image = op.filter(image, null);
             }
 

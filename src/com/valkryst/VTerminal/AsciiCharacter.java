@@ -138,7 +138,7 @@ public class AsciiCharacter {
                 tx = AffineTransform.getScaleInstance((isFlippedHorizontally ? -1 : 1), (isFlippedVertically ? -1 : 1));
                 tx.translate((isFlippedHorizontally ? -fontWidth : 0), (isFlippedVertically ? -fontHeight : 0));
 
-                final BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
+                final BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
                 image = op.filter(image, null);
             }
 
