@@ -46,6 +46,8 @@ public class TextArea extends Component {
     @Getter @Setter private boolean enterKeyEnabled;
     /** Whether or not the BACK SPACE key can be used to erase the character before the caret and move the caret backwards. */
     @Getter @Setter private boolean backSpaceKeyEnabled;
+    /** Whether or not the TAB key can be used to indent by some number of spaces. */
+    @Getter @Setter private boolean tabKeyEnabled;
 
     /** The current position of the visual caret on the x-axis. */
     @Getter private int x_index_caret_visual = 0;
@@ -61,6 +63,9 @@ public class TextArea extends Component {
     @Getter private int maxHorizontalCharacters;
     /** The maximum number of characters that the field can contain along the y-axis. */
     @Getter private int maxVerticalCharacters;
+
+    /** The amount of spaces to insert when the TAB key is pressed. */
+    @Getter private int tabSize;
 
     /** The text entered by the user. */
     @Getter private char[][] enteredText;
@@ -97,9 +102,12 @@ public class TextArea extends Component {
         downArrowKeyEnabled = builder.isDownArrowKeyEnabled();
         enterKeyEnabled = builder.isEnterKeyEnabled();
         backSpaceKeyEnabled = builder.isBackSpaceKeyEnabled();
+        tabKeyEnabled = builder.isTabKeyEnabled();
 
         maxHorizontalCharacters = builder.getMaxHorizontalCharacters();
         maxVerticalCharacters = builder.getMaxVerticalCharacters();
+
+        tabSize = builder.getTabSize();
 
         enteredText = new char[maxVerticalCharacters][maxHorizontalCharacters];
         clearText();
@@ -289,6 +297,20 @@ public class TextArea extends Component {
                             }
 
                             clearCurrentCell();
+                            updateDisplayedCharacters();
+                            transmitDraw();
+                            break;
+                        }
+
+                        case KeyEvent.VK_TAB: {
+                            if (tabKeyEnabled) {
+                                for (int i = 0 ; i < tabSize ; i++) {
+                                    if (i < maxHorizontalCharacters - 1) {
+                                        moveCaretRight();
+                                    }
+                                }
+                            }
+
                             updateDisplayedCharacters();
                             transmitDraw();
                             break;
