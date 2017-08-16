@@ -21,9 +21,9 @@ public class AsciiCharacter {
 	/** Whether or not the foreground should be drawn using the background color. */
 	@Getter @Setter private boolean isHidden = false;
     /** The background color. Defaults to black. */
-    @Getter private Color backgroundColor = Color.BLACK;
+    @Getter @Setter @NonNull private Color backgroundColor = Color.BLACK;
 	/** The foreground color. Defaults to white. */
-	@Getter private Color foregroundColor = Color.WHITE;
+	@Getter @Setter @NonNull private Color foregroundColor = Color.WHITE;
 	/** The bounding box of the character's area. */
 	@Getter private final Rectangle boundingBox;
 
@@ -297,40 +297,6 @@ public class AsciiCharacter {
     public void shadeBackgroundAndForegroundColor(final double shadeFactor) {
         shadeBackgroundColor(shadeFactor);
         shadeForegroundColor(shadeFactor);
-    }
-
-    /**
-     * Sets the new background color.
-     *
-     * Does nothing if the specified color is null.
-     *
-     * @param color
-     *         The new background color.
-     *
-     * @throws NullPointerException
-     *         If the color is null.
-     */
-    public void setBackgroundColor(final @NonNull Color color) {
-	    if (backgroundColor.equals(color) == false) {
-            this.backgroundColor = color;
-        }
-    }
-
-    /**
-     * Sets the new foreground color.
-     *
-     * Does nothing if the specified color is null.
-     *
-     * @param color
-     *         The new foreground color.
-     *
-     * @throws NullPointerException
-     *         If the color is null.
-     */
-    public void setForegroundColor(final @NonNull Color color) {
-	    if (foregroundColor.equals(color) == false) {
-	        this.foregroundColor = color;
-        }
     }
 
     /**
