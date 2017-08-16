@@ -12,6 +12,7 @@ This project is currently under active development and code-breaking changes may
     * [More Examples](https://github.com/Valkryst/VTerminal/tree/master/test/com/valkryst/VTerminal/samples)
 * [Font Information](https://github.com/Valkryst/VTerminal/wiki/Creating-a-New-Font)
 * [Tile Information](https://github.com/Valkryst/VTerminal/blob/master/res/Tiles/README.md)
+* [Performance Tests](https://github.com/Valkryst/VTerminal/wiki/Performance-Tests)
 
 
 ## Jar Files & Maven
