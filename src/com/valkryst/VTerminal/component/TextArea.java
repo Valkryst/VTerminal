@@ -28,10 +28,14 @@ public class TextArea extends Component {
     /** The background color of non-caret characters. */
     @Getter @Setter private Color backgroundColor;
 
-    /** Whether or not the HOME key can be used to move the caret to the first index of the field. */
+    /** Whether or not the HOME key can be used to move the caret to the first index of the current line. */
     @Getter @Setter private boolean homeKeyEnabled;
-    /** Whether or not the END key can be used to move the caret to the last index of the field. */
+    /** Whether or not the END key can be used to move the caret to the last index of the current line. */
     @Getter @Setter private boolean endKeyEnabled;
+    /** Whether or not the PAGE UP key can be used to move the caret to the first row. */
+    @Getter @Setter private boolean pageUpKeyEnabled;
+    /** Whether or nor the PAGE DOWN key can be used to move the caret to the last row. */
+    @Getter @Setter private boolean pageDownKeyEnabled;
     /** Whether or not the DELETE key can be used to erase the character that the caret is on. */
     @Getter @Setter private boolean deleteKeyEnabled;
     /** Whether or not the LEFT ARROW key can be used to move the caret one index to the left. */
@@ -95,6 +99,8 @@ public class TextArea extends Component {
 
         homeKeyEnabled = builder.isHomeKeyEnabled();
         endKeyEnabled = builder.isEndKeyEnabled();
+        pageUpKeyEnabled = builder.isPageUpKeyEnabled();
+        pageDownKeyEnabled = builder.isPageDownKeyEnabled();
         deleteKeyEnabled = builder.isDeleteKeyEnabled();
         leftArrowKeyEnabled = builder.isLeftArrowKeyEnabled();
         rightArrowKeyEnabled = builder.isRightArrowKeyEnabled();
@@ -182,6 +188,26 @@ public class TextArea extends Component {
                         case KeyEvent.VK_END: {
                             if (endKeyEnabled) {
                                 moveCaretToEndOfLine();
+                                updateDisplayedCharacters();
+                                transmitDraw();
+                            }
+                            break;
+                        }
+
+                        // Move the caret to the first row:
+                        case KeyEvent.VK_PAGE_UP: {
+                            if (pageUpKeyEnabled) {
+                                moveCaretToFirstLine();
+                                updateDisplayedCharacters();
+                                transmitDraw();
+                            }
+                            break;
+                        }
+
+                        // Move the caret to the last row:
+                        case KeyEvent.VK_PAGE_DOWN: {
+                            if (pageDownKeyEnabled) {
+                                moveCaretToLastLine();
                                 updateDisplayedCharacters();
                                 transmitDraw();
                             }

@@ -29,10 +29,14 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
     /** The background color of non-caret characters. */
     @Getter @Setter @NonNull private Color backgroundColor;
 
-    /** Whether or not the HOME key can be used to move the caret to the first index of the field. */
+    /** Whether or not the HOME key can be used to move the caret to the first index of the current line. */
     @Getter @Setter private boolean homeKeyEnabled;
-    /** Whether or not the END key can be used to move the caret to the last index of the field. */
+    /** Whether or not the END key can be used to move the caret to the last index of the current line. */
     @Getter @Setter private boolean endKeyEnabled;
+    /** Whether or not the PAGE UP key can be used to move the caret to the first row. */
+    @Getter @Setter private boolean pageUpKeyEnabled;
+    /** Whether or nor the PAGE DOWN key can be used to move the caret to the last row. */
+    @Getter @Setter private boolean pageDownKeyEnabled;
     /** Whether or not the DELETE key can be used to erase the character that the caret is on. */
     @Getter @Setter private boolean deleteKeyEnabled;
     /** Whether or not the LEFT ARROW key can be used to move the caret one index to the left. */
@@ -117,6 +121,8 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
 
         homeKeyEnabled = true;
         endKeyEnabled = true;
+        pageUpKeyEnabled = true;
+        pageDownKeyEnabled = true;
         deleteKeyEnabled = true;
         leftArrowKeyEnabled = true;
         rightArrowKeyEnabled = true;
