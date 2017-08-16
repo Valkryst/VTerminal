@@ -19,6 +19,7 @@ import java.util.Objects;
 public class AsciiCharacter {
     /** The hash value, of the character, used by the image cache. */
     @Getter protected int cacheHash;
+    protected boolean updateCacheHash = true;
 
     /** The character. */
 	@Getter private char character;
@@ -54,7 +55,6 @@ public class AsciiCharacter {
 	public AsciiCharacter(final char character) {
 	    this.character = character;
         boundingBox = new Rectangle();
-        updateCacheHash();
     }
     /**
      * Constructs a new AsciiCharacter by copying the data
@@ -72,7 +72,6 @@ public class AsciiCharacter {
         boundingBox = new Rectangle();
 
         copy(character);
-        updateCacheHash();
     }
 
     /**
@@ -126,6 +125,11 @@ public class AsciiCharacter {
      *         If the gc or image cache are null.
      */
     public void draw(final @NonNull Graphics2D gc, final @NonNull ColoredImageCache imageCache, int columnIndex, int rowIndex) {
+        if (updateCacheHash) {
+            updateCacheHash();
+            updateCacheHash = false;
+        }
+
         final int fontWidth = imageCache.getFont().getWidth();
         final int fontHeight = imageCache.getFont().getHeight();
 
@@ -223,7 +227,7 @@ public class AsciiCharacter {
      */
     public void tintBackgroundColor(final double tintFactor) {
         backgroundColor = ColorFunctions.tint(backgroundColor, tintFactor);
-        updateCacheHash();
+        updateCacheHash = true;
     }
 
 
@@ -238,7 +242,7 @@ public class AsciiCharacter {
      */
     public void tintForegroundColor(final double tintFactor) {
         foregroundColor = ColorFunctions.tint(foregroundColor, tintFactor);
-        updateCacheHash();
+        updateCacheHash = true;
     }
 
     /**
@@ -251,9 +255,9 @@ public class AsciiCharacter {
      *        Values should range from 0.0 to 1.0.
      */
     public void tintBackgroundAndForegroundColor(final double tintFactor) {
-        backgroundColor = ColorFunctions.tint(backgroundColor, tintFactor);
-        foregroundColor = ColorFunctions.tint(foregroundColor, tintFactor);
-        updateCacheHash();
+        tintBackgroundColor(tintFactor);
+        tintForegroundColor(tintFactor);
+        updateCacheHash = true;
     }
 
     /**
@@ -267,7 +271,7 @@ public class AsciiCharacter {
      */
     public void shadeBackgroundColor(final double shadeFactor) {
         backgroundColor = ColorFunctions.shade(backgroundColor, shadeFactor);
-        updateCacheHash();
+        updateCacheHash = true;
     }
 
     /**
@@ -281,7 +285,7 @@ public class AsciiCharacter {
      */
     public void shadeForegroundColor(final double shadeFactor) {
         foregroundColor = ColorFunctions.shade(foregroundColor, shadeFactor);
-        updateCacheHash();
+        updateCacheHash = true;
     }
 
     /**
@@ -294,9 +298,9 @@ public class AsciiCharacter {
      *        Values should range from 0.0 to 1.0.
      */
     public void shadeBackgroundAndForegroundColor(final double shadeFactor) {
-        backgroundColor = ColorFunctions.shade(backgroundColor, shadeFactor);
-        foregroundColor = ColorFunctions.shade(foregroundColor, shadeFactor);
-        updateCacheHash();
+        shadeBackgroundColor(shadeFactor);
+        shadeForegroundColor(shadeFactor);
+        updateCacheHash = true;
     }
 
     /**
@@ -308,7 +312,7 @@ public class AsciiCharacter {
     public void setCharacter(final char character) {
         if (this.character != character) {
             this.character = character;
-            updateCacheHash();
+            updateCacheHash = true;
         }
     }
 
@@ -324,7 +328,7 @@ public class AsciiCharacter {
     public void setBackgroundColor(final @NonNull Color color) {
         if (backgroundColor.equals(color) == false) {
             backgroundColor = color;
-            updateCacheHash();
+            updateCacheHash = true;
         }
     }
 
@@ -340,7 +344,7 @@ public class AsciiCharacter {
     public void setForegroundColor(final @NonNull Color color) {
         if (foregroundColor.equals(color) == false) {
             foregroundColor = color;
-            updateCacheHash();
+            updateCacheHash = true;
         }
     }
 
@@ -353,7 +357,7 @@ public class AsciiCharacter {
     public void setFlippedHorizontally(final boolean isFlippedHorizontally) {
         if (this.isFlippedHorizontally != isFlippedHorizontally) {
             this.isFlippedHorizontally = isFlippedHorizontally;
-            updateCacheHash();
+            updateCacheHash = true;
         }
     }
 
@@ -366,7 +370,7 @@ public class AsciiCharacter {
     public void setFlippedVertically(final boolean isFlippedVertically) {
         if (this.isFlippedVertically != isFlippedVertically) {
             this.isFlippedVertically = isFlippedVertically;
-            updateCacheHash();
+            updateCacheHash = true;
         }
     }
 
