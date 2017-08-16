@@ -52,7 +52,7 @@ public class SampleFPS {
             if (temp == 45) {
                 System.out.println("Estimated FPS based on Past Render Times:\t" + measurement);
             }
-            Thread.sleep(100);
+            Thread.sleep(32);
         }
     }
 }

@@ -53,7 +53,7 @@ public class SampleDrawTime {
                 System.out.println("Draw Took:\t" + res + "ms\t\tAvg Is:\t" + (total / counter) + "ms");
             }
 
-            Thread.sleep(100);
+            Thread.sleep(32);
         }
     }
 }
