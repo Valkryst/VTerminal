@@ -45,20 +45,21 @@ public class SampleDrawTime {
             }
 
             // Draw and deal with calculations:
-            final long timeBeforeDraw = System.currentTimeMillis();
+            final long timeBeforeDraw = System.nanoTime();
 
             panel.draw();
 
-            final long timeAfterDraw = System.currentTimeMillis();
+            final long timeAfterDraw = System.nanoTime();
             final long timeDifference = timeAfterDraw - timeBeforeDraw;
             measurementsTotal = measurementsTotal.add(BigInteger.valueOf(timeDifference));
             measurementsCounter++;
 
             if (measurementsCounter % 50 == 0) {
-                final long averageDrawTime = measurementsTotal.divide(BigInteger.valueOf(measurementsCounter)).longValue();
+                double averageDrawTime = measurementsTotal.divide(BigInteger.valueOf(measurementsCounter)).doubleValue();
+                averageDrawTime /= 1_000_000;
 
                 System.out.println(
-                    String.format("Avg Draw Time: %d ms\t\tAvg FPS: %d\t\tTotal Measurements: %d",
+                    String.format("Avg Draw Time: %f ms\t\tAvg FPS: %f\t\tTotal Measurements: %d",
                             averageDrawTime,
                             1000 / averageDrawTime,
                             measurementsCounter)
