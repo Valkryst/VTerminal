@@ -85,7 +85,6 @@ public class AsciiTile extends AsciiCharacter {
         super.getBoundingBox().setLocation(columnIndex, rowIndex);
         super.getBoundingBox().setSize(fontWidth, fontHeight);
 
-
         // Handle hidden state:
         if (super.isHidden()) {
             gc.setColor(super.getBackgroundColor());
@@ -107,6 +106,7 @@ public class AsciiTile extends AsciiCharacter {
             // Draw character:
             gc.drawImage(image, columnIndex, rowIndex, null);
         }
+
         // Draw underline:
         if (super.isUnderlined()) {
             gc.setColor(super.getForegroundColor());
