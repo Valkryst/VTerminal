@@ -324,7 +324,7 @@ public class TextArea extends Component {
     }
 
     /** Moves the caret one cell up. */
-    private void moveCaretUp() {
+    public void moveCaretUp() {
         if (y_index_caret_visual > 0) {
             changeVisualCaretPosition(x_index_caret_visual, y_index_caret_visual - 1);
         }
@@ -335,7 +335,7 @@ public class TextArea extends Component {
     }
 
     /** Moves the caret one cell down. */
-    private void moveCaretDown() {
+    public void moveCaretDown() {
         if (y_index_caret_visual < super.getHeight() - 1) {
             changeVisualCaretPosition(x_index_caret_visual, y_index_caret_visual + 1);
         }
@@ -346,7 +346,7 @@ public class TextArea extends Component {
     }
 
     /** Moves the caret one cell left. */
-    private void moveCaretLeft() {
+    public void moveCaretLeft() {
         if (x_index_caret_visual > 0) {
             changeVisualCaretPosition(x_index_caret_visual - 1, y_index_caret_visual);
         }
@@ -357,7 +357,7 @@ public class TextArea extends Component {
     }
 
     /** Moves the caret one cell right. */
-    private void moveCaretRight() {
+    public void moveCaretRight() {
         if (x_index_caret_visual < super.getWidth() - 1) {
             changeVisualCaretPosition(x_index_caret_visual + 1, y_index_caret_visual);
         }
@@ -368,19 +368,19 @@ public class TextArea extends Component {
     }
 
     /** Moves the caret to the beginning of the current line. */
-    private void moveCaretToStartOfLine() {
+    public void moveCaretToStartOfLine() {
         changeVisualCaretPosition(0, y_index_caret_visual);
         changeActualCaretPosition(0, y_index_caret_actual);
     }
 
     /** Moves the caret to the end of the current line. */
-    private void moveCaretToEndOfLine() {
+    public void moveCaretToEndOfLine() {
         changeVisualCaretPosition(super.getWidth() - 1, y_index_caret_visual);
         changeActualCaretPosition(maxHorizontalCharacters - 1, y_index_caret_actual);
     }
 
     /** Deletes the character in the current cell. */
-    private void clearCurrentCell() {
+    public void clearCurrentCell() {
         changeVisualCharacter(x_index_caret_visual, y_index_caret_visual, ' ');
         changeActualCharacter(x_index_caret_actual, y_index_caret_actual, ' ');
     }

@@ -218,7 +218,7 @@ public class TextField extends Component {
     }
 
     /** Moves the caret one cell left. */
-    private void moveCaretLeft() {
+    public void moveCaretLeft() {
         if (index_caret_visual > 0) {
             changeVisualCaretPosition(index_caret_visual - 1);
         }
@@ -229,7 +229,7 @@ public class TextField extends Component {
     }
 
     /** Moves the caret one cell right. */
-    private void moveCaretRight() {
+    public void moveCaretRight() {
         if (index_caret_visual < super.getWidth() - 1) {
             changeVisualCaretPosition(index_caret_visual + 1);
         }
@@ -240,19 +240,19 @@ public class TextField extends Component {
     }
 
     /** Moves the caret to the beginning of the current line. */
-    private void moveCaretToStartOfLine() {
+    public void moveCaretToStartOfLine() {
         changeVisualCaretPosition(0);
         changeActualCaretPosition(0);
     }
 
     /** Moves the caret to the end of the current line. */
-    private void moveCaretToEndOfLine() {
+    public void moveCaretToEndOfLine() {
         changeVisualCaretPosition(super.getWidth() - 1);
         changeActualCaretPosition(maxCharacters - 1);
     }
 
     /** Deletes the character in the current cell. */
-    private void clearCurrentCell() {
+    public void clearCurrentCell() {
         changeVisualCharacter(index_caret_visual, ' ');
         changeActualCharacter(index_caret_actual, ' ');
     }
