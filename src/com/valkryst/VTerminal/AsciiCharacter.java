@@ -242,6 +242,21 @@ public class AsciiCharacter {
     }
 
     /**
+     * Shades the background and foreground color by some factor, where a higher
+     * factor results in a darker shade.
+     *
+     * @param tintFactor
+     *        The factor.
+     *
+     *        Values should range from 0.0 to 1.0.
+     */
+    public void tintBackgroundAndForegroundColor(final double tintFactor) {
+        backgroundColor = ColorFunctions.tint(backgroundColor, tintFactor);
+        foregroundColor = ColorFunctions.tint(foregroundColor, tintFactor);
+        updateCacheHash();
+    }
+
+    /**
      * Tints the background color by some factor, where a higher factor results
      * in a lighter tint.
      *
@@ -265,6 +280,21 @@ public class AsciiCharacter {
      *        Values should range from 0.0 to 1.0.
      */
     public void shadeForegroundColor(final double shadeFactor) {
+        foregroundColor = ColorFunctions.shade(foregroundColor, shadeFactor);
+        updateCacheHash();
+    }
+
+    /**
+     * Tints the background and foreground color by some factor, where a higher
+     * factor results in a lighter tint.
+     *
+     * @param shadeFactor
+     *        The factor.
+     *
+     *        Values should range from 0.0 to 1.0.
+     */
+    public void shadeBackgroundAndForegroundColor(final double shadeFactor) {
+        backgroundColor = ColorFunctions.shade(backgroundColor, shadeFactor);
         foregroundColor = ColorFunctions.shade(foregroundColor, shadeFactor);
         updateCacheHash();
     }
