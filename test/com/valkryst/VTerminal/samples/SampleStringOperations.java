@@ -21,9 +21,9 @@ public class SampleStringOperations {
 
         final Screen screen = panel.getScreen();
 
-        Thread.sleep(100);
+        Thread.sleep(50);
 
-        screen.write("Writing a String on Line #2", 0, 1);
+        screen.write("Writing a String on Line #3", 0, 2);
 
         screen.write("Horizontally Flipping a String on Line #4", 0, 3);
         screen.getString(3).setFlippedHorizontally(true);
