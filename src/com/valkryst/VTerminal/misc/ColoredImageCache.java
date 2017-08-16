@@ -12,7 +12,10 @@ import lombok.ToString;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -83,15 +86,18 @@ public final class ColoredImageCache {
         int hashCode;
 
         if (character instanceof AsciiTile) {
-            hashCode = Objects.hash(character.getCharacter(), character.getBackgroundColor(), Color.WHITE);
+            hashCode = Objects.hash(character.getCharacter(), character.getBackgroundColor(), Color.WHITE,
+                                    character.isFlippedHorizontally(), character.isFlippedVertically());
         } else {
-            hashCode = Objects.hash(character.getCharacter(), character.getBackgroundColor(), character.getForegroundColor());
+            hashCode = Objects.hash(character.getCharacter(), character.getBackgroundColor(), character.getForegroundColor(),
+                                    character.isFlippedHorizontally(), character.isFlippedVertically());
         }
 
         BufferedImage image = cachedImages.getIfPresent(hashCode);
 
         if (image == null) {
             image = applyColorSwap(character, font);
+            image = applyFlips(character, font, image);
             cachedImages.put(hashCode, image);
         }
 
@@ -99,8 +105,11 @@ public final class ColoredImageCache {
     }
 
     /**
-     * Gets a character image for a character  and applies the back/foreground
+     * Gets a character image for a character and applies the back/foreground
      * colors to it.
+     *
+     * @param character
+     *        The character.
      *
      * @param font
      *        The font to retrieve the base character image from.
@@ -152,6 +161,41 @@ public final class ColoredImageCache {
                     image.setRGB(x, y, foregroundRGB);
                 }
             }
+        }
+
+        return image;
+    }
+
+    /**
+     * Performs a vertical and/or horizontal flip on a character's image.
+     *
+     * @param character
+     *        The character.
+     *
+     * @param font
+     *        The font to retrieve the base character image from.
+     *
+     * @param image
+     *        The character image.
+     *
+     * @return
+     *        The flipped character image.
+     */
+    private static BufferedImage applyFlips(final @NonNull AsciiCharacter character, final @NonNull Font font, final @NonNull BufferedImage image) {
+        final boolean isFlippedHorizontally = character.isFlippedHorizontally();
+        final boolean isFlippedVertically = character.isFlippedVertically();
+
+        if (isFlippedHorizontally || isFlippedVertically) {
+            final double scaleX = isFlippedHorizontally ? -1 : 1;
+            final double scaleY = isFlippedVertically ? -1 : 1;
+            final double translateX = isFlippedHorizontally ? -font.getWidth() : 0;
+            final double translateY = isFlippedVertically ? -font.getHeight() : 0;
+
+            final AffineTransform tx = AffineTransform.getScaleInstance(scaleX, scaleY);
+            tx.translate(translateX, translateY);
+
+            final BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+            return op.filter(image, null);
         }
 
         return image;
