@@ -54,7 +54,7 @@ public class AsciiCharacter {
 	public AsciiCharacter(final char character) {
 	    this.character = character;
         boundingBox = new Rectangle();
-        computeCacheHash();
+        updateCacheHash();
     }
     /**
      * Constructs a new AsciiCharacter by copying the data
@@ -72,7 +72,7 @@ public class AsciiCharacter {
         boundingBox = new Rectangle();
 
         copy(character);
-        computeCacheHash();
+        updateCacheHash();
     }
 
     /**
@@ -102,7 +102,8 @@ public class AsciiCharacter {
         isFlippedVertically = character.isFlippedVertically();
     }
 
-    protected void computeCacheHash() {
+    /** Updates the cache hash value. */
+    protected void updateCacheHash() {
         cacheHash = Objects.hash(character, backgroundColor, foregroundColor, isFlippedHorizontally, isFlippedVertically);
     }
 
@@ -222,7 +223,7 @@ public class AsciiCharacter {
      */
     public void tintBackgroundColor(final double tintFactor) {
         backgroundColor = ColorFunctions.tint(backgroundColor, tintFactor);
-        computeCacheHash();
+        updateCacheHash();
     }
 
 
@@ -237,7 +238,7 @@ public class AsciiCharacter {
      */
     public void tintForegroundColor(final double tintFactor) {
         foregroundColor = ColorFunctions.tint(foregroundColor, tintFactor);
-        computeCacheHash();
+        updateCacheHash();
     }
 
     /**
@@ -265,7 +266,7 @@ public class AsciiCharacter {
      */
     public void shadeBackgroundColor(final double shadeFactor) {
         backgroundColor = ColorFunctions.shade(backgroundColor, shadeFactor);
-        computeCacheHash();
+        updateCacheHash();
     }
 
     /**
@@ -279,7 +280,7 @@ public class AsciiCharacter {
      */
     public void shadeForegroundColor(final double shadeFactor) {
         foregroundColor = ColorFunctions.shade(foregroundColor, shadeFactor);
-        computeCacheHash();
+        updateCacheHash();
     }
 
     /**
@@ -303,8 +304,10 @@ public class AsciiCharacter {
      *        The new character.
      */
     public void setCharacter(final char character) {
-        this.character = character;
-        computeCacheHash();
+        if (this.character != character) {
+            this.character = character;
+            updateCacheHash();
+        }
     }
 
     /**
@@ -317,8 +320,10 @@ public class AsciiCharacter {
      *         If the color is null.
      */
     public void setBackgroundColor(final @NonNull Color color) {
-        this.backgroundColor = color;
-        computeCacheHash();
+        if (backgroundColor.equals(color) == false) {
+            backgroundColor = color;
+            updateCacheHash();
+        }
     }
 
     /**
@@ -331,8 +336,10 @@ public class AsciiCharacter {
      *         If the color is null.
      */
     public void setForegroundColor(final @NonNull Color color) {
-        this.foregroundColor = color;
-        computeCacheHash();
+        if (foregroundColor.equals(color) == false) {
+            foregroundColor = color;
+            updateCacheHash();
+        }
     }
 
     /**
@@ -342,8 +349,10 @@ public class AsciiCharacter {
      *        Whether or not the character is flipped horizontally.
      */
     public void setFlippedHorizontally(final boolean isFlippedHorizontally) {
-        this.isFlippedHorizontally = isFlippedHorizontally;
-        computeCacheHash();
+        if (this.isFlippedHorizontally != isFlippedHorizontally) {
+            this.isFlippedHorizontally = isFlippedHorizontally;
+            updateCacheHash();
+        }
     }
 
     /**
@@ -353,8 +362,10 @@ public class AsciiCharacter {
      *        Whether or not the character is flipped vertically.
      */
     public void setFlippedVertically(final boolean isFlippedVertically) {
-        this.isFlippedVertically = isFlippedVertically;
-        computeCacheHash();
+        if (this.isFlippedVertically != isFlippedVertically) {
+            this.isFlippedVertically = isFlippedVertically;
+            updateCacheHash();
+        }
     }
 
     /**
