@@ -54,13 +54,13 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
 
         usingStartingAndEndingCharacters = true;
 
-        backgroundColor_normal = new Color(0xFF366C9F, true);
+        backgroundColor_normal = new Color(45, 45, 45, 255);
         foregroundColor_normal = new Color(0xFF66CCFF, true);
 
         backgroundColor_hover = new Color(0xFF71AB14, true);
         foregroundColor_hover = new Color(0xFF99E000, true);
 
-        backgroundColor_pressed = new Color(0xFF366C9F, true);
+        backgroundColor_pressed = backgroundColor_normal;
         foregroundColor_pressed = new Color(0xFFFFFF66, true);
 
         onClickFunction = () -> {};
