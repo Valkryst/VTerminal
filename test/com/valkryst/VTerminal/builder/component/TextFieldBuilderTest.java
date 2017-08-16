@@ -48,11 +48,11 @@ public class TextFieldBuilderTest {
 
         Assert.assertEquals(null, builder.getRadio());
 
-        Assert.assertEquals(new Color(0x21B6A8), builder.getCaretForegroundColor());
-        Assert.assertEquals(new Color(0x52F2EA), builder.getCaretBackgroundColor());
+        Assert.assertEquals(new Color(142, 153, 158), builder.getCaretForegroundColor());
+        Assert.assertEquals(new Color(104, 208, 255), builder.getCaretBackgroundColor());
 
-        Assert.assertEquals(new Color(0x52F2EA), builder.getForegroundColor());
-        Assert.assertEquals(new Color(0x21B6A8), builder.getBackgroundColor());
+        Assert.assertEquals(new Color(104, 208, 255), builder.getForegroundColor());
+        Assert.assertEquals(new Color(142, 153, 158), builder.getBackgroundColor());
 
         Assert.assertTrue(builder.isHomeKeyEnabled());
         Assert.assertTrue(builder.isEndKeyEnabled());

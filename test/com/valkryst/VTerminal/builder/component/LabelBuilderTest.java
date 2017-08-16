@@ -23,7 +23,7 @@ public class LabelBuilderTest {
         builder.reset();
 
         Assert.assertEquals("", builder.getText());
-        Assert.assertEquals(new Color(0x366C9F), builder.getBackgroundColor());
-        Assert.assertEquals(new Color(0xFFCF0F), builder.getForegroundColor());
+        Assert.assertEquals(new Color(45, 45, 45), builder.getBackgroundColor());
+        Assert.assertEquals(new Color(249, 202, 0), builder.getForegroundColor());
     }
 }

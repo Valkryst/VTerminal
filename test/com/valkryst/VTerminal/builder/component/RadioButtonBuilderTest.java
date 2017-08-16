@@ -55,14 +55,14 @@ public class RadioButtonBuilderTest {
 
         Assert.assertEquals(null, builder.getGroup());
 
-        Assert.assertEquals(new Color(0x366C9F), builder.getBackgroundColor_normal());
-        Assert.assertEquals(new Color(0x66CCFF), builder.getForegroundColor_normal());
+        Assert.assertEquals(new Color(45, 45, 45), builder.getBackgroundColor_normal());
+        Assert.assertEquals(new Color(45, 190, 255), builder.getForegroundColor_normal());
 
-        Assert.assertEquals(new Color(0x71AB14), builder.getBackgroundColor_hover());
-        Assert.assertEquals(new Color(0x99E000), builder.getForegroundColor_hover());
+        Assert.assertEquals(new Color(45, 255, 99), builder.getBackgroundColor_hover());
+        Assert.assertEquals(new Color(22, 127, 49), builder.getForegroundColor_hover());
 
-        Assert.assertEquals(new Color(0x366C9F), builder.getBackgroundColor_checked());
-        Assert.assertEquals(new Color(0xFFFF66), builder.getForegroundColor_checked());
+        Assert.assertEquals(new Color(45, 45, 45), builder.getBackgroundColor_checked());
+        Assert.assertEquals(new Color(255, 215, 45), builder.getForegroundColor_checked());
     }
 
     @Test(expected=NullPointerException.class)

@@ -43,10 +43,10 @@ public class ProgressBarBuilderTest {
         Assert.assertEquals('█', builder.getIncompleteCharacter());
         Assert.assertEquals('█', builder.getCompleteCharacter());
 
-        Assert.assertEquals(new Color(0x366C9F), builder.getBackgroundColor_incomplete());
-        Assert.assertEquals(Color.RED, builder.getForegroundColor_incomplete());
+        Assert.assertEquals(new Color(45, 45, 45), builder.getBackgroundColor_incomplete());
+        Assert.assertEquals(new Color(255, 45, 85), builder.getForegroundColor_incomplete());
 
-        Assert.assertEquals(new Color(0x366C9F), builder.getBackgroundColor_complete());
-        Assert.assertEquals(Color.GREEN, builder.getForegroundColor_complete());
+        Assert.assertEquals(new Color(45, 45, 45), builder.getBackgroundColor_complete());
+        Assert.assertEquals(new Color(45, 255, 110), builder.getForegroundColor_complete());
     }
 }
