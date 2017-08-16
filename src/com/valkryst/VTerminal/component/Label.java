@@ -2,14 +2,12 @@ package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.builder.component.LabelBuilder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
 import java.awt.Color;
 
-@EqualsAndHashCode(callSuper=true)
 @ToString
 public class Label extends Component {
     /** The background color for when the label. */

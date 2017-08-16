@@ -3,14 +3,12 @@ package com.valkryst.VTerminal.component;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.builder.component.ProgressBarBuilder;
 import com.valkryst.VTerminal.misc.IntRange;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
 import java.awt.Color;
 
-@EqualsAndHashCode(callSuper=true)
 @ToString
 public class ProgressBar extends Component {
     /** The percent complete. */

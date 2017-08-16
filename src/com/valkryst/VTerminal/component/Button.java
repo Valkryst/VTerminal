@@ -13,7 +13,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-@EqualsAndHashCode(callSuper=true)
 @ToString
 public class Button extends Component {
     /** Whether or not the button is in the normal state. */

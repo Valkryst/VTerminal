@@ -13,7 +13,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-@EqualsAndHashCode(callSuper=true)
 @ToString
 public class CheckBox extends Component {
     /** Whether or not the check box is in the normal state. */

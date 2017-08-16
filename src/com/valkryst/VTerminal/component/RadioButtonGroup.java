@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@EqualsAndHashCode
 @ToString
 public class RadioButtonGroup {
     /** The buttons in the group. */

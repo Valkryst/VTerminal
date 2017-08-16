@@ -2,14 +2,12 @@ package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ColoredImageCache;
-import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-@EqualsAndHashCode(callSuper=true)
 @ToString
 public class Layer extends Component {
     /**
