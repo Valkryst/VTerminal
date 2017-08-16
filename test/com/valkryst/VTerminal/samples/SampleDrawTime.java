@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal.samples;
 
+import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.font.Font;
@@ -8,6 +9,7 @@ import com.valkryst.VTerminal.font.FontLoader;
 import java.awt.Color;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SampleDrawTime {
     public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
@@ -32,6 +34,13 @@ public class SampleDrawTime {
 
             if (temp > 55) {
                 temp = 45;
+            }
+
+            // Random Flips & Underlines:
+            for (final AsciiString string : panel.getScreen().getStrings()) {
+                string.setFlippedVertically(ThreadLocalRandom.current().nextBoolean());
+                string.setFlippedHorizontally(ThreadLocalRandom.current().nextBoolean());
+                string.setUnderlined(ThreadLocalRandom.current().nextBoolean());
             }
 
             final long bef = System.currentTimeMillis();
