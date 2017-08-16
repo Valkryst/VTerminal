@@ -53,8 +53,6 @@ public class AsciiTile extends AsciiCharacter {
 
         super.setFlippedHorizontally(character.isFlippedHorizontally());
         super.setFlippedVertically(character.isFlippedVertically());
-
-        updateCacheHash();
     }
 
     @Override
@@ -83,6 +81,11 @@ public class AsciiTile extends AsciiCharacter {
      */
     @Override
     public void draw(final @NonNull Graphics2D gc, @NonNull final ColoredImageCache imageCache, int columnIndex, int rowIndex) {
+        if (super.updateCacheHash) {
+            updateCacheHash();
+            super.updateCacheHash = false;
+        }
+
         final int fontWidth = imageCache.getFont().getWidth();
         final int fontHeight = imageCache.getFont().getHeight();
 
