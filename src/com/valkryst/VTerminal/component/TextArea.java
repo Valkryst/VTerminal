@@ -544,7 +544,7 @@ public class TextArea extends Component {
 
     /** @return The text contained within the area. */
     public String[] getText() {
-        final String[] strings = new String[super.getHeight() + 1];
+        final String[] strings = new String[super.getHeight()];
 
         String temp = "";
 
