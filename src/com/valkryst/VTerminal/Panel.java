@@ -6,7 +6,6 @@ import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.misc.ColoredImageCache;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -25,7 +24,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.EventListener;
 
-@EqualsAndHashCode(callSuper=true)
 @ToString
 public class Panel extends Canvas implements Receiver<String> {
     /** The width of the panel, in characters. */
