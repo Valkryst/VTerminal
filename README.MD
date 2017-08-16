@@ -19,7 +19,7 @@ This project is currently under active development and code-breaking changes may
     <dependency>
         <groupId>com.github.Valkryst</groupId>
         <artifactId>VTerminal</artifactId>
-        <version>1.7.5-ALPHA</version>
+        <version>1.9.0-ALPHA</version>
     </dependency>
 
 Jar files can be found on the [releases](https://github.com/Valkryst/VTerminal/releases) page.
