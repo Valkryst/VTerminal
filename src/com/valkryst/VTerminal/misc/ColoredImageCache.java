@@ -10,13 +10,11 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 @EqualsAndHashCode
@@ -40,9 +38,9 @@ public final class ColoredImageCache {
     public ColoredImageCache(final @NonNull Font font) {
         this.font = font;
         cachedImages = Caffeine.newBuilder()
-                               .initialCapacity(100)
+                               .initialCapacity(256)
                                .maximumSize(10_000)
-                               .expireAfterAccess(5, TimeUnit.MINUTES)
+                               .expireAfterAccess(3, TimeUnit.MINUTES)
                                .build();
     }
 
@@ -61,9 +59,9 @@ public final class ColoredImageCache {
     public ColoredImageCache(final @NonNull Font font, final int maxCacheSize) {
         this.font = font;
         cachedImages = Caffeine.newBuilder()
-                               .initialCapacity(100)
+                               .initialCapacity(256)
                                .maximumSize(maxCacheSize)
-                               .expireAfterAccess(5, TimeUnit.MINUTES)
+                               .expireAfterAccess(3, TimeUnit.MINUTES)
                                .build();
     }
 
@@ -83,22 +81,14 @@ public final class ColoredImageCache {
      *         If the character is null.
      */
     public BufferedImage retrieveFromCache(final @NonNull AsciiCharacter character) {
-        int hashCode;
+        final int hash = character.getCacheHash();
 
-        if (character instanceof AsciiTile) {
-            hashCode = Objects.hash(character.getCharacter(), character.getBackgroundColor(), Color.WHITE,
-                                    character.isFlippedHorizontally(), character.isFlippedVertically());
-        } else {
-            hashCode = Objects.hash(character.getCharacter(), character.getBackgroundColor(), character.getForegroundColor(),
-                                    character.isFlippedHorizontally(), character.isFlippedVertically());
-        }
-
-        BufferedImage image = cachedImages.getIfPresent(hashCode);
+        BufferedImage image = cachedImages.getIfPresent(hash);
 
         if (image == null) {
             image = applyColorSwap(character, font);
             image = applyFlips(character, font, image);
-            cachedImages.put(hashCode, image);
+            cachedImages.put(hash, image);
         }
 
         return image;

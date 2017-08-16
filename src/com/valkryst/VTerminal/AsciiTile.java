@@ -5,9 +5,11 @@ import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 @EqualsAndHashCode(callSuper=true)
 @ToString
@@ -51,6 +53,14 @@ public class AsciiTile extends AsciiCharacter {
 
         super.setFlippedHorizontally(character.isFlippedHorizontally());
         super.setFlippedVertically(character.isFlippedVertically());
+
+        computeCacheHash();
+    }
+
+    @Override
+    protected void computeCacheHash() {
+        super.cacheHash = Objects.hash(super.getCharacter(), super.getBackgroundColor(), Color.WHITE,
+                                       super.isFlippedHorizontally(), super.isFlippedVertically());
     }
 
     /**

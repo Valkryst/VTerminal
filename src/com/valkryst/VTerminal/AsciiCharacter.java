@@ -13,17 +13,21 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 @ToString
 public class AsciiCharacter {
+    /** The hash value, of the character, used by the image cache. */
+    @Getter protected int cacheHash;
+
     /** The character. */
-	@Getter @Setter private char character;
+	@Getter private char character;
 	/** Whether or not the foreground should be drawn using the background color. */
 	@Getter @Setter private boolean isHidden = false;
     /** The background color. Defaults to black. */
-    @Getter @Setter @NonNull private Color backgroundColor = Color.BLACK;
+    @Getter private Color backgroundColor = Color.BLACK;
 	/** The foreground color. Defaults to white. */
-	@Getter @Setter @NonNull private Color foregroundColor = Color.WHITE;
+	@Getter private Color foregroundColor = Color.WHITE;
 	/** The bounding box of the character's area. */
 	@Getter private final Rectangle boundingBox;
 
@@ -33,9 +37,9 @@ public class AsciiCharacter {
 	@Getter private int underlineThickness = 2;
 
 	/** Whether or not the character should be flipped horizontally when drawn. */
-	@Getter @Setter private boolean isFlippedHorizontally = false;
+	@Getter private boolean isFlippedHorizontally = false;
 	/** Whether or not the character should be flipped vertically when drawn. */
-	@Getter @Setter private boolean isFlippedVertically = false;
+	@Getter private boolean isFlippedVertically = false;
 
 	private Timer blinkTimer;
 	/** The amount of time, in milliseconds, before the blink effect can occur. */
@@ -50,6 +54,7 @@ public class AsciiCharacter {
 	public AsciiCharacter(final char character) {
 	    this.character = character;
         boundingBox = new Rectangle();
+        computeCacheHash();
     }
     /**
      * Constructs a new AsciiCharacter by copying the data
@@ -67,6 +72,7 @@ public class AsciiCharacter {
         boundingBox = new Rectangle();
 
         copy(character);
+        computeCacheHash();
     }
 
     /**
@@ -94,6 +100,10 @@ public class AsciiCharacter {
 
         isFlippedHorizontally = character.isFlippedHorizontally();
         isFlippedVertically = character.isFlippedVertically();
+    }
+
+    protected void computeCacheHash() {
+        cacheHash = Objects.hash(character, backgroundColor, foregroundColor, isFlippedHorizontally, isFlippedVertically);
     }
 
     /**
@@ -212,6 +222,7 @@ public class AsciiCharacter {
      */
     public void tintBackgroundColor(final double tintFactor) {
         backgroundColor = ColorFunctions.tint(backgroundColor, tintFactor);
+        computeCacheHash();
     }
 
 
@@ -226,6 +237,7 @@ public class AsciiCharacter {
      */
     public void tintForegroundColor(final double tintFactor) {
         foregroundColor = ColorFunctions.tint(foregroundColor, tintFactor);
+        computeCacheHash();
     }
 
     /**
@@ -253,6 +265,7 @@ public class AsciiCharacter {
      */
     public void shadeBackgroundColor(final double shadeFactor) {
         backgroundColor = ColorFunctions.shade(backgroundColor, shadeFactor);
+        computeCacheHash();
     }
 
     /**
@@ -266,6 +279,7 @@ public class AsciiCharacter {
      */
     public void shadeForegroundColor(final double shadeFactor) {
         foregroundColor = ColorFunctions.shade(foregroundColor, shadeFactor);
+        computeCacheHash();
     }
 
     /**
@@ -280,6 +294,67 @@ public class AsciiCharacter {
     public void shadeBackgroundAndForegroundColor(final double shadeFactor) {
         shadeBackgroundColor(shadeFactor);
         shadeForegroundColor(shadeFactor);
+    }
+
+    /**
+     * Sets the new character.
+     *
+     * @param character
+     *        The new character.
+     */
+    public void setCharacter(final char character) {
+        this.character = character;
+        computeCacheHash();
+    }
+
+    /**
+     * Sets the new background color.
+     *
+     * @param color
+     *         The new background color.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
+     */
+    public void setBackgroundColor(final @NonNull Color color) {
+        this.backgroundColor = color;
+        computeCacheHash();
+    }
+
+    /**
+     * Sets the new foreground color.
+     *
+     * @param color
+     *         The new foreground color.
+     *
+     * @throws NullPointerException
+     *         If the color is null.
+     */
+    public void setForegroundColor(final @NonNull Color color) {
+        this.foregroundColor = color;
+        computeCacheHash();
+    }
+
+    /**
+     * Sets whether or not the character is flipped horizontally.
+     *
+     * @param isFlippedHorizontally
+     *        Whether or not the character is flipped horizontally.
+     */
+    public void setFlippedHorizontally(final boolean isFlippedHorizontally) {
+        this.isFlippedHorizontally = isFlippedHorizontally;
+        computeCacheHash();
+    }
+
+    /**
+     * Sets whether or not the character is flipped vertically.
+     *
+     * @param isFlippedVertically
+     *        Whether or not the character is flipped vertically.
+     */
+    public void setFlippedVertically(final boolean isFlippedVertically) {
+        this.isFlippedVertically = isFlippedVertically;
+        computeCacheHash();
     }
 
     /**
