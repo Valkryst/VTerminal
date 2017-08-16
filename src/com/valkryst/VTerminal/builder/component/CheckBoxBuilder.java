@@ -52,7 +52,7 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox> {
         isChecked = false;
 
         backgroundColor_normal = new Color(45, 45, 45, 255);
-        foregroundColor_normal = new Color(0xFF66CCFF, true);
+        foregroundColor_normal = new Color(45, 155, 255, 255);
 
         backgroundColor_hover = new Color(0xFF71AB14, true);
         foregroundColor_hover = new Color(0xFF99E000, true);
