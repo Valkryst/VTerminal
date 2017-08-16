@@ -5,7 +5,6 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiTile;
 import com.valkryst.VTerminal.font.Font;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -17,7 +16,6 @@ import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.util.concurrent.TimeUnit;
 
-@EqualsAndHashCode
 @ToString
 public final class ColoredImageCache {
     /** The cache. */
