@@ -25,7 +25,7 @@ public class SampleDrawTime {
 
         BigInteger measurementsTotal = BigInteger.ZERO;
 
-        for(int i = 0 ; i < 4_000 ; i++) {
+        for(int i = 1 ; i != 4_000 ; i++) {
             panel.getScreen().clear((char)temp);
             panel.getScreen().setForegroundColor(new Color(255, 155, temp, 255));
             panel.getScreen().setBackgroundColor(new Color(temp, temp, temp, 255));
