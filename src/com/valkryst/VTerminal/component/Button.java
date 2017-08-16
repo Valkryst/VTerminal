@@ -6,7 +6,10 @@ import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.ButtonBuilder;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.IntRange;
-import lombok.*;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
