@@ -234,17 +234,6 @@ public class TextArea extends Component {
                     int keyCode = e.getKeyCode();
 
                     switch (keyCode) {
-
-                        // Erase the current character:
-                        case KeyEvent.VK_DELETE: {
-                            if (deleteKeyEnabled) {
-                                clearCurrentCell();
-                                updateDisplayedCharacters();
-                                transmitDraw();
-                            }
-                            break;
-                        }
-
                         // Move the caret to the first position of the next row:
                         case KeyEvent.VK_ENTER: {
                             boolean canWork = enterKeyEnabled;
@@ -298,6 +287,16 @@ public class TextArea extends Component {
                     int keyCode = e.getKeyCode();
 
                     switch (keyCode) {
+                        // Erase the current character:
+                        case KeyEvent.VK_DELETE: {
+                            if (deleteKeyEnabled) {
+                                clearCurrentCell();
+                                updateDisplayedCharacters();
+                                transmitDraw();
+                            }
+                            break;
+                        }
+
                         // Move the caret to the first position on the left:
                         case KeyEvent.VK_HOME: {
                             if (homeKeyEnabled) {
