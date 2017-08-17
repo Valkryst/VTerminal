@@ -6,11 +6,17 @@ import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.TextAreaBuilder;
-import lombok.*;
+import com.valkryst.VTerminal.font.Font;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -133,7 +139,66 @@ public class TextArea extends Component {
 
     @Override
     public void createEventListeners(final @NonNull Panel panel) {
-        super.createEventListeners(panel);
+        // Intentionally not calling the super func because it's functionality
+        // was added into the MouseListener of this method in order to allow
+        // the user to move the caret with the mouse.
+        // super.createEventListeners(panel);
+
+        final Font font = panel.getImageCache().getFont();
+        final int fontWidth = font.getWidth();
+        final int fontHeight = font.getHeight();
+
+        final MouseListener mouseListener = new MouseListener() {
+            @Override
+            public void mouseClicked(final MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    TextArea.super.isFocused = intersects(e, fontWidth, fontHeight);
+
+                    if (TextArea.super.isFocused()) {
+                        final int columnIndexInArea = (e.getX() / fontWidth) - TextArea.super.getColumnIndex();
+                        final int rowIndexInArea = (e.getY() / fontHeight) - TextArea.super.getRowIndex();
+
+                        int dx = columnIndexInArea - x_index_caret_visual;
+                        int dy = rowIndexInArea - y_index_caret_visual;
+
+                        while (dx != 0) {
+                            if (dx > 0) {
+                                moveCaretRight();
+                                dx--;
+                            } else {
+                                moveCaretLeft();
+                                dx++;
+                            }
+                        }
+
+                        while (dy != 0) {
+                            if (dy > 0) {
+                                moveCaretDown();
+                                dy--;
+                            } else {
+                                moveCaretUp();
+                                dy++;
+                            }
+                        }
+
+                        updateDisplayedCharacters();
+                        transmitDraw();
+                    }
+                }
+            }
+
+            @Override
+            public void mousePressed(final MouseEvent e) {}
+
+            @Override
+            public void mouseReleased(final MouseEvent e) {}
+
+            @Override
+            public void mouseEntered(final MouseEvent e) {}
+
+            @Override
+            public void mouseExited(final MouseEvent e) {}
+        };
 
         final KeyListener keyListener = new KeyListener() {
             @Override
@@ -347,6 +412,7 @@ public class TextArea extends Component {
         };
 
         super.getEventListeners().add(keyListener);
+        super.getEventListeners().add(mouseListener);
     }
 
     /** Moves the caret one cell up. */
