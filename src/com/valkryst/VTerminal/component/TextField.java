@@ -285,8 +285,6 @@ public class TextField extends Component {
         if (radio != null) {
             characters[index_caret_visual].disableBlinkEffect();
             characters[index_caret_visual].setHidden(false);
-            characters[index_caret_visual].setBackgroundColor(backgroundColor);
-            characters[index_caret_visual].setForegroundColor(foregroundColor);
             characters[newIndex].enableBlinkEffect((short) 1000, radio);
         }
 
