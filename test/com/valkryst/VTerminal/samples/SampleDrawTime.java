@@ -22,24 +22,18 @@ public class SampleDrawTime {
 
         final Panel panel = builder.build();
 
-        int temp = 45;
-
         BigInteger measurementsTotal = BigInteger.ZERO;
 
         for(int i = 1 ; i != 4_001 ; i++) {
-            panel.getScreen().clear((char)temp);
-            panel.getScreen().setForegroundColor(new Color(temp, 155, 255, 255));
-            panel.getScreen().setBackgroundColor(new Color(temp, temp, temp, 255));
+            final int colorVal = ThreadLocalRandom.current().nextInt(45, 56);
+            panel.getScreen().setForegroundColor(new Color(colorVal, 155, 255, 255));
+            panel.getScreen().setBackgroundColor(new Color(colorVal, colorVal, colorVal, 255));
 
-            temp++;
 
-            if (temp > 55) {
-                temp = 45;
-            }
-
-            // Random Flips & Underlines:
+            // Random Characters, Flips, and Underlines:
             for (final AsciiString string : panel.getScreen().getStrings()) {
                 for (final AsciiCharacter character : string.getCharacters()) {
+                    character.setCharacter(((char)ThreadLocalRandom.current().nextInt(45, 126)));
                     character.setFlippedVertically(ThreadLocalRandom.current().nextBoolean());
                     character.setFlippedHorizontally(ThreadLocalRandom.current().nextBoolean());
                     character.setUnderlined(ThreadLocalRandom.current().nextBoolean());
