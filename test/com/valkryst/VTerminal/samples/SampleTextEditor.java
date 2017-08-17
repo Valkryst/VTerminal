@@ -9,7 +9,6 @@ import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 
 import javax.swing.JFileChooser;
-import java.awt.Color;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -26,8 +25,6 @@ public class SampleTextEditor {
         final Panel panel = builder.build();
 
         Thread.sleep(100);
-
-        panel.getScreen().setBackgroundColor(new Color(0xFF366C9F, true));
 
         // Create text area:
         final TextAreaBuilder textAreaBuilder = new TextAreaBuilder();
