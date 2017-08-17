@@ -27,7 +27,7 @@ public class Component {
     @Getter private int height;
 
     /** Whether or not the component is currently the target of the user's input. */
-    @Getter private boolean isFocused = false;
+    @Getter protected boolean isFocused = false;
 
     /** The bounding box. */
     @Getter private Rectangle boundingBox = new Rectangle();
