@@ -54,10 +54,11 @@ public class SampleDrawTime {
                 averageDrawTime /= 1_000_000;
 
                 System.out.println(
-                    String.format("Avg Draw Time: %f ms\t\tAvg FPS: %f\t\tTotal Measurements: %d",
+                    String.format("Avg Draw Time: %f ms\t\tAvg FPS: %f\t\tTotal Measurements: %d\t\tCached Images: %d",
                             averageDrawTime,
                             1000 / averageDrawTime,
-                            i)
+                            i,
+                            panel.getImageCache().totalCachedImages())
                 );
             }
 
