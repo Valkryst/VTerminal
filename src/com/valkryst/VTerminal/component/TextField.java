@@ -177,7 +177,38 @@ public class TextField extends Component {
 
             @Override
             public void keyPressed(final KeyEvent e) {
+                if (isFocused()) {
+                    int keyCode = e.getKeyCode();
 
+                    switch (keyCode) {
+                        // Delete the character to the left of the caret, then move the caret one position left:
+                        case KeyEvent.VK_BACK_SPACE: {
+                            if (! backSpaceKeyEnabled) {
+                                break;
+                            }
+
+                            final boolean caretAtEndOfLine = index_caret_actual == maxCharacters - 1;
+
+                            if (caretAtEndOfLine) {
+                                final AsciiCharacter currentChar = TextField.super.getString(0).getCharacters()[index_caret_visual];
+
+                                if (currentChar.getCharacter() != ' ') {
+                                    clearCurrentCell();
+                                    updateDisplayedCharacters();
+                                    transmitDraw();
+                                    break;
+                                }
+                            }
+
+                            moveCaretLeft();
+                            clearCurrentCell();
+
+                            updateDisplayedCharacters();
+                            transmitDraw();
+                            break;
+                        }
+                    }
+                }
             }
 
             @Override
@@ -233,33 +264,6 @@ public class TextField extends Component {
                                 updateDisplayedCharacters();
                                 transmitDraw();
                             }
-                            break;
-                        }
-
-                        // Delete the character to the left of the caret, then move the caret one position left:
-                        case KeyEvent.VK_BACK_SPACE: {
-                            if (! backSpaceKeyEnabled) {
-                                break;
-                            }
-
-                            final boolean caretAtEndOfLine = index_caret_actual == maxCharacters - 1;
-
-                            if (caretAtEndOfLine) {
-                                final AsciiCharacter currentChar = TextField.super.getString(0).getCharacters()[index_caret_visual];
-
-                                if (currentChar.getCharacter() != ' ') {
-                                    clearCurrentCell();
-                                    updateDisplayedCharacters();
-                                    transmitDraw();
-                                    break;
-                                }
-                            }
-
-                            moveCaretLeft();
-                            clearCurrentCell();
-
-                            updateDisplayedCharacters();
-                            transmitDraw();
                             break;
                         }
                     }
