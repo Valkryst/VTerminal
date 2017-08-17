@@ -179,12 +179,7 @@ public class AsciiCharacter {
         }
 
         blinkTimer = new Timer(this.millsBetweenBlinks, e -> {
-            if (character == ' ') {
-                invertColors();
-            } else {
-                isHidden = !isHidden;
-            }
-
+            isHidden = !isHidden;
             radio.transmit("DRAW");
         });
         blinkTimer.setInitialDelay(this.millsBetweenBlinks);
