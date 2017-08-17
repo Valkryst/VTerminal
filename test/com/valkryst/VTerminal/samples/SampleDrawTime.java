@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal.samples;
 
+import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
@@ -38,9 +39,11 @@ public class SampleDrawTime {
 
             // Random Flips & Underlines:
             for (final AsciiString string : panel.getScreen().getStrings()) {
-                string.setFlippedVertically(ThreadLocalRandom.current().nextBoolean());
-                string.setFlippedHorizontally(ThreadLocalRandom.current().nextBoolean());
-                string.setUnderlined(ThreadLocalRandom.current().nextBoolean());
+                for (final AsciiCharacter character : string.getCharacters()) {
+                    character.setFlippedVertically(ThreadLocalRandom.current().nextBoolean());
+                    character.setFlippedHorizontally(ThreadLocalRandom.current().nextBoolean());
+                    character.setUnderlined(ThreadLocalRandom.current().nextBoolean());
+                }
             }
 
             // Draw and deal with calculations:
