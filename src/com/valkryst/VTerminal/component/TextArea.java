@@ -230,7 +230,66 @@ public class TextArea extends Component {
 
             @Override
             public void keyPressed(final KeyEvent e) {
+                if (isFocused()) {
+                    int keyCode = e.getKeyCode();
 
+                    switch (keyCode) {
+
+                        // Erase the current character:
+                        case KeyEvent.VK_DELETE: {
+                            if (deleteKeyEnabled) {
+                                clearCurrentCell();
+                                updateDisplayedCharacters();
+                                transmitDraw();
+                            }
+                            break;
+                        }
+
+                        // Move the caret to the first position of the next row:
+                        case KeyEvent.VK_ENTER: {
+                            boolean canWork = enterKeyEnabled;
+                            canWork &= y_index_caret_actual < maxVerticalCharacters - 1;
+
+                            if (canWork) {
+                                moveCaretDown();
+                                moveCaretToStartOfLine();
+                                updateDisplayedCharacters();
+                                transmitDraw();
+                            }
+                            break;
+                        }
+
+                        // Delete the character to the left of the caret, then move the caret one position left:
+                        case KeyEvent.VK_BACK_SPACE: {
+                            if (!backSpaceKeyEnabled) {
+                                break;
+                            }
+
+                            final boolean caretAtStartOfLine = x_index_caret_actual == 0;
+                            final boolean caretAtEndOfLine = x_index_caret_actual == maxHorizontalCharacters - 1;
+
+                            if (caretAtStartOfLine) {
+                                if (y_index_caret_actual > 0) {
+                                    moveCaretUp();
+                                    moveCaretToEndOfLine();
+                                }
+                            } else if (caretAtEndOfLine) {
+                                final AsciiCharacter currentChar = TextArea.super.getStrings()[y_index_caret_visual].getCharacters()[x_index_caret_visual];
+
+                                if (currentChar.getCharacter() == ' ') {
+                                    moveCaretLeft();
+                                }
+                            } else {
+                                moveCaretLeft();
+                            }
+
+                            clearCurrentCell();
+                            updateDisplayedCharacters();
+                            transmitDraw();
+                            break;
+                        }
+                    }
+                }
             }
 
             @Override
@@ -273,16 +332,6 @@ public class TextArea extends Component {
                         case KeyEvent.VK_PAGE_DOWN: {
                             if (pageDownKeyEnabled) {
                                 moveCaretToLastLine();
-                                updateDisplayedCharacters();
-                                transmitDraw();
-                            }
-                            break;
-                        }
-
-                        // Erase the current character:
-                        case KeyEvent.VK_DELETE: {
-                            if (deleteKeyEnabled) {
-                                clearCurrentCell();
                                 updateDisplayedCharacters();
                                 transmitDraw();
                             }
@@ -346,50 +395,6 @@ public class TextArea extends Component {
                                 updateDisplayedCharacters();
                                 transmitDraw();
                             }
-                            break;
-                        }
-
-                        // Move the caret to the first position of the next row:
-                        case KeyEvent.VK_ENTER: {
-                            boolean canWork = enterKeyEnabled;
-                            canWork &= y_index_caret_actual < maxVerticalCharacters - 1;
-
-                            if (canWork) {
-                                moveCaretDown();
-                                moveCaretToStartOfLine();
-                                updateDisplayedCharacters();
-                                transmitDraw();
-                            }
-                            break;
-                        }
-
-                        // Delete the character to the left of the caret, then move the caret one position left:
-                        case KeyEvent.VK_BACK_SPACE: {
-                            if (! backSpaceKeyEnabled) {
-                                break;
-                            }
-
-                            final boolean caretAtStartOfLine = x_index_caret_actual == 0;
-                            final boolean caretAtEndOfLine = x_index_caret_actual == maxHorizontalCharacters - 1;
-
-                            if (caretAtStartOfLine) {
-                                if (y_index_caret_actual > 0) {
-                                    moveCaretUp();
-                                    moveCaretToEndOfLine();
-                                }
-                            } else if (caretAtEndOfLine) {
-                                final AsciiCharacter currentChar = TextArea.super.getStrings()[y_index_caret_visual].getCharacters()[x_index_caret_visual];
-
-                                if (currentChar.getCharacter() == ' ') {
-                                    moveCaretLeft();
-                                }
-                            } else {
-                                moveCaretLeft();
-                            }
-
-                            clearCurrentCell();
-                            updateDisplayedCharacters();
-                            transmitDraw();
                             break;
                         }
 
