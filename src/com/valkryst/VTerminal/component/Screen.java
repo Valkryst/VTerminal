@@ -41,6 +41,7 @@ public class Screen extends Component {
      */
     public Screen(final int columnIndex, final int rowIndex, final int width, final int height) {
         super(columnIndex, rowIndex, width, height);
+        setBackgroundColor(new Color(45, 45, 45, 255));
     }
 
     @Override
