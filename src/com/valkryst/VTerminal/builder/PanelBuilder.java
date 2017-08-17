@@ -10,6 +10,7 @@ import lombok.ToString;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
+import java.awt.Color;
 
 @EqualsAndHashCode
 @ToString
@@ -43,17 +44,21 @@ public class PanelBuilder {
     public Panel build() {
         checkState();
 
+        final Color backgroundColor = new Color(255, 0, 255, 255);
+
         final Panel panel = new Panel(this);
         frame.add(panel);
         frame.setResizable(false);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        frame.setBackground(backgroundColor);
 
         panel.setIgnoreRepaint(true);
         panel.createBufferStrategy(2);
         panel.setFocusable(true);
         panel.setFocusTraversalKeysEnabled(false);
+        panel.setBackground(backgroundColor);
         return panel;
     }
 
