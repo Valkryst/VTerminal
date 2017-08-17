@@ -5,7 +5,7 @@ import lombok.ToString;
 @ToString
 public class Image extends Layer {
     /**
-     * Constructs a new CellImage.
+     * Constructs a new Image.
      *
      * @param columnIndex
      *        The x-axis (column) coordinate of the top-left character.
