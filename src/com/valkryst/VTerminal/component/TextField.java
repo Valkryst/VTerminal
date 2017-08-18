@@ -111,7 +111,6 @@ public class TextField extends Component {
 
         final Font font = panel.getImageCache().getFont();
         final int fontWidth = font.getWidth();
-        final int fontHeight = font.getHeight();
 
         final MouseListener mouseListener = new MouseListener() {
             @Override
