@@ -21,9 +21,6 @@ public class Screen extends Component {
     /** The layer components displayed on the screen. */
     private final Set<Layer> layerComponents = new LinkedHashSet<>();
 
-    /** The screen components displayed on the screen. */
-    private final Set<Screen> screenComponents = new LinkedHashSet<>();
-
     /**
      * Constructs a new AsciiScreen.
      *
@@ -74,12 +71,6 @@ public class Screen extends Component {
         layerComponents.forEach(layer -> {
             layer.setAllCharactersToBeRedrawn();
             layer.draw(gc, imageCache);
-        });
-
-        // Draw screen components onto the screen:
-        screenComponents.forEach(screen -> {
-            screen.setAllCharactersToBeRedrawn();
-            screen.draw(gc, imageCache);
         });
     }
 
@@ -314,24 +305,16 @@ public class Screen extends Component {
      *         If the component is null.
      *
      * @throws IllegalArgumentException
-     *         If the component is this.
+     *         If the component is a screen.
      */
     public void addComponent(final @NonNull Component component) {
-        if (component == this) {
-            throw new IllegalArgumentException("A screen cannot be added to itself.");
+        if (component instanceof Screen) {
+            throw new IllegalArgumentException("A screen cannot be added to another screen.");
         }
 
         if (component instanceof Layer) {
             component.setScreen(this);
             layerComponents.add((Layer) component);
-        } else if (component instanceof  Screen) {
-            // Prevent an endless draw-loop by ensuring that
-            // a screen cannot be added if it's contained
-            // within any of this screen's sub-screens.
-            if (recursiveContainsComponent(component) == false) {
-                component.setScreen(this);
-                screenComponents.add((Screen) component);
-            }
         } else {
             component.setScreen(this);
             components.add(component);
@@ -373,9 +356,6 @@ public class Screen extends Component {
         if (component instanceof Layer) {
             component.setScreen(null);
             layerComponents.remove(component);
-        } else if (component instanceof Screen) {
-            component.setScreen(null);
-            screenComponents.remove(component);
         } else{
             component.setScreen(null);
             components.remove(component);
@@ -421,12 +401,6 @@ public class Screen extends Component {
             }
         }
 
-        if (component instanceof Screen) {
-            if (screenComponents.contains(component)) {
-                return true;
-            }
-        }
-
         if (components.contains(component)) {
             return true;
         }
@@ -463,12 +437,6 @@ public class Screen extends Component {
             }
         }
 
-        for (final Screen screen : screenComponents) {
-            if (screen.containsComponent(component)) {
-                return true;
-            }
-        }
-
         return false;
     }
 
@@ -481,7 +449,6 @@ public class Screen extends Component {
     public int totalComponents() {
         int sum = components.size();
         sum += layerComponents.size();
-        sum += screenComponents.size();
 
         return sum;
     }
