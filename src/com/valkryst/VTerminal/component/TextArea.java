@@ -139,10 +139,7 @@ public class TextArea extends Component {
 
     @Override
     public void createEventListeners(final @NonNull Panel panel) {
-        // Intentionally not calling the super func because it's functionality
-        // was added into the MouseListener of this method in order to allow
-        // the user to move the caret with the mouse.
-        // super.createEventListeners(panel);
+        super.createEventListeners(panel);
 
         final Font font = panel.getImageCache().getFont();
         final int fontWidth = font.getWidth();
@@ -152,8 +149,6 @@ public class TextArea extends Component {
             @Override
             public void mouseClicked(final MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    TextArea.super.isFocused = intersects(e, fontWidth, fontHeight);
-
                     if (TextArea.super.isFocused()) {
                         final int columnIndexInArea = (e.getX() / fontWidth) - TextArea.super.getColumnIndex();
                         final int rowIndexInArea = (e.getY() / fontHeight) - TextArea.super.getRowIndex();
