@@ -351,28 +351,11 @@ public class ScreenTest {
     }
 
     @Test
-    public void testAddComponent_withScreen() {
-        final Screen otherComponent = new Screen(0, 0, 2, 2);
-        screen.addComponent(otherComponent);
-
-        Assert.assertTrue(screen.containsComponent(otherComponent));
-    }
-
-    @Test
     public void testAddComponent_withComponent() {
         final Component otherComponent = new Component(0, 0, 2, 2);
         screen.addComponent(otherComponent);
 
         Assert.assertTrue(screen.containsComponent(otherComponent));
-    }
-
-    @Test
-    public void testAddComponent_withScreenContainingMainScreen() {
-        final Screen otherComponent = new Screen(0, 0, 2, 2);
-        otherComponent.addComponent(screen);
-        screen.addComponent(otherComponent);
-
-        Assert.assertFalse(screen.containsComponent(otherComponent));
     }
 
     @Test
@@ -388,19 +371,6 @@ public class ScreenTest {
     @Test
     public void testRemoveComponent_withLayer() {
         final Layer otherComponent = new Layer(0, 0, 2, 2);
-
-        screen.addComponent(otherComponent);
-        Assert.assertTrue(screen.containsComponent(otherComponent));
-        Assert.assertEquals(1, screen.totalComponents());
-
-        screen.removeComponent(otherComponent);
-        Assert.assertFalse(screen.containsComponent(otherComponent));
-        Assert.assertEquals(0, screen.totalComponents());
-    }
-
-    @Test
-    public void testRemoveComponent_withScreen() {
-        final Screen otherComponent = new Screen(0, 0, 2, 2);
 
         screen.addComponent(otherComponent);
         Assert.assertTrue(screen.containsComponent(otherComponent));
@@ -442,13 +412,6 @@ public class ScreenTest {
     }
 
     @Test
-    public void testContainsComponent_withScreen() {
-        final Screen otherComponent = new Screen(0, 0, 2, 2);
-        screen.addComponent(otherComponent);
-        Assert.assertTrue(screen.containsComponent(otherComponent));
-    }
-
-    @Test
     public void testContainsComponent_withComponent() {
         final Component otherComponent = new Component(0, 0, 2, 2);
         screen.addComponent(otherComponent);
@@ -485,25 +448,6 @@ public class ScreenTest {
     public void testRecursiveContainsComponent_whereSelfContainsComponent() {
         final Component otherComponent = new Component(0, 0, 2, 2);
         screen.addComponent(otherComponent);
-        Assert.assertTrue(screen.recursiveContainsComponent(otherComponent));
-    }
-
-    @Test
-    public void testRecursiveContainsComponent_whereOtherComponentIsScreenThatContainsCallingScreen() {
-        final Screen otherComponent = new Screen(0, 0, 2, 2);
-        otherComponent.addComponent(screen);
-        screen.addComponent(otherComponent);
-        Assert.assertTrue(screen.recursiveContainsComponent(otherComponent));
-    }
-
-    @Test
-    public void testRecursiveContainsComponent_whereSubscreenContainsComponent() {
-        final Component otherComponent = new Component(0, 0, 2, 2);
-        final Screen otherScreen = new Screen(0, 0, 2, 2);
-        otherScreen.addComponent(otherComponent);
-
-        screen.addComponent(otherScreen);
-
         Assert.assertTrue(screen.recursiveContainsComponent(otherComponent));
     }
 
