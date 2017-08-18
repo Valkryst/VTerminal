@@ -1,9 +1,11 @@
 package com.valkryst.VTerminal.samples;
 
+import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.builder.component.*;
 import com.valkryst.VTerminal.component.Label;
+import com.valkryst.VTerminal.component.Layer;
 import com.valkryst.VTerminal.component.ProgressBar;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
 import com.valkryst.VTerminal.font.Font;
@@ -131,6 +133,30 @@ public class SampleComponents {
 
         panel.addComponent(textFieldBuilder.build());
 
+        // Loading Bar
+        final ProgressBarBuilder loadingBarBuilder = new ProgressBarBuilder();
+        loadingBarBuilder.setRadio(panel.getRadio());
+        loadingBarBuilder.setColumnIndex(1);
+        loadingBarBuilder.setRowIndex(19);
+        loadingBarBuilder.setWidth(20);
+
+        final ProgressBar loadingBar = loadingBarBuilder.build();
+
+        panel.addComponent(loadingBar);
+
+        final Timer timer = new Timer(1000, e -> {
+            int pct = loadingBar.getPercentComplete();
+
+            if (pct < 100) {
+                pct += 5;
+            } else {
+                pct = 0;
+            }
+
+            loadingBar.setPercentComplete(pct);
+        });
+        timer.start();
+
 
 
 
@@ -211,29 +237,27 @@ public class SampleComponents {
 
         panel.addComponent(textAreaBuilder.build());
 
-        // Loading Bar
-        final ProgressBarBuilder loadingBarBuilder = new ProgressBarBuilder();
-        loadingBarBuilder.setRadio(panel.getRadio());
-        loadingBarBuilder.setColumnIndex(1);
-        loadingBarBuilder.setRowIndex(19);
-        loadingBarBuilder.setWidth(20);
 
-        final ProgressBar loadingBar = loadingBarBuilder.build();
 
-        panel.addComponent(loadingBar);
 
-        final Timer timer = new Timer(1000, e -> {
-            int pct = loadingBar.getPercentComplete();
+        // Layer
+        labelBuilder.setColumnIndex(50);
+        labelBuilder.setRowIndex(1);
+        labelBuilder.setText("Layer Test");
+        panel.addComponent(labelBuilder.build());
 
-            if (pct < 100) {
-                pct += 5;
-            } else {
-                pct = 0;
-            }
+        final Layer layerA = new Layer(50, 2, 23, 10);
+        for (final AsciiString string : layerA.getStrings()) {
+            string.setBackgroundColor(new Color(255, 0, 0, 255));
+        }
 
-            loadingBar.setPercentComplete(pct);
-        });
-        timer.start();
+        final Layer layerB = new Layer(50, 8, 23, 10);
+        for (final AsciiString string : layerB.getStrings()) {
+            string.setBackgroundColor(new Color(0, 0, 255, 155));
+        }
+
+        panel.addComponents(layerA, layerB);
+
 
         panel.draw();
     }
