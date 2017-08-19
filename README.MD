@@ -10,7 +10,7 @@ This project is currently under active development and code-breaking changes may
 * [JavaDoc Documentation](https://valkryst.github.io/VTerminal/)
 * [Usage Guide](https://github.com/Valkryst/VTerminal/wiki)
     * [More Examples](https://github.com/Valkryst/VTerminal/tree/master/test/com/valkryst/VTerminal/samples)
-* [Performance Tests](https://github.com/Valkryst/VTerminal/wiki/Performance-Tests)
+* [Performance Tests](https://github.com/Valkryst/VTerminal/wiki/Stress-Tests)
 
 
 ## Jar Files & Maven
