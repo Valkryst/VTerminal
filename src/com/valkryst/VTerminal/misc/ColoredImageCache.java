@@ -113,7 +113,6 @@ public final class ColoredImageCache {
             BufferedImage bufferedImage;
             bufferedImage = applyColorSwap(character, font);
             bufferedImage = applyFlips(character, font, bufferedImage);
-            bufferedImage = applyUnderline(character, bufferedImage);
 
             image = convertToVolatileImage(bufferedImage);
             cachedImages.put(hash, image);
@@ -218,21 +217,6 @@ public final class ColoredImageCache {
 
             final BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
             return op.filter(image, null);
-        }
-
-        return image;
-    }
-
-    private static BufferedImage applyUnderline(final @NonNull AsciiCharacter character, final @NonNull BufferedImage image) {
-        if (character.isUnderlined()) {
-            final Graphics2D gc = image.createGraphics();
-
-            gc.setColor(character.getForegroundColor());
-
-            final int y = image.getHeight() - character.getUnderlineThickness();
-            gc.fillRect(0, y, image.getWidth(), character.getUnderlineThickness());
-
-            gc.dispose();
         }
 
         return image;
