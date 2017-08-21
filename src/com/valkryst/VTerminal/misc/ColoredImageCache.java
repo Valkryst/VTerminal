@@ -241,6 +241,15 @@ public final class ColoredImageCache {
         return newImage;
     }
 
+    /**
+     * Converts a BufferedImage into a VolatileImage,
+     *
+     * @param source
+     *        The BufferedImage.
+     *
+     * @return
+     *        The VolatileImage.
+     */
     private static VolatileImage convertToVolatileImage(final BufferedImage source) {
         final GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
         final GraphicsDevice graphicsDevice = graphicsEnvironment.getDefaultScreenDevice();
