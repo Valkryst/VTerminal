@@ -152,14 +152,14 @@ public class AsciiCharacter {
         } else {
             final Image image = imageCache.retrieveFromCache(this);
             gc.drawImage(image, columnIndex, rowIndex, null);
-        }
 
-        // Draw underline:
-        if (isUnderlined) {
-            gc.setColor(foregroundColor);
+            // Draw underline:
+            if (isUnderlined) {
+                gc.setColor(foregroundColor);
 
-            final int y = rowIndex + fontHeight - underlineThickness;
-            gc.fillRect(columnIndex, y, fontWidth, underlineThickness);
+                final int y = rowIndex + fontHeight - underlineThickness;
+                gc.fillRect(columnIndex, y, fontWidth, underlineThickness);
+            }
         }
     }
 
