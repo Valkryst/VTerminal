@@ -6,8 +6,8 @@ import lombok.ToString;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 @ToString
@@ -98,7 +98,7 @@ public class AsciiTile extends AsciiCharacter {
             gc.setColor(super.getBackgroundColor());
             gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
         } else {
-            final BufferedImage image = imageCache.retrieveFromCache(this);
+            final Image image = imageCache.retrieveFromCache(this);
             gc.drawImage(image, columnIndex, rowIndex, null);
         }
 

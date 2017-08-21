@@ -11,8 +11,8 @@ import lombok.ToString;
 import javax.swing.Timer;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 @ToString
@@ -145,7 +145,7 @@ public class AsciiCharacter {
             gc.setColor(backgroundColor);
             gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
         } else {
-            final BufferedImage image = imageCache.retrieveFromCache(this);
+            final Image image = imageCache.retrieveFromCache(this);
             gc.drawImage(image, columnIndex, rowIndex, null);
         }
 

@@ -6,7 +6,7 @@ import com.valkryst.VTerminal.font.FontLoader;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -44,14 +44,14 @@ public class ColoredImageCacheTest {
     @Test
     public void testRetrieveFromCache_withValidInput() {
         final ColoredImageCache cache = new ColoredImageCache(font, 100);
-        final BufferedImage image = cache.retrieveFromCache(new AsciiCharacter('A'));
+        final Image image = cache.retrieveFromCache(new AsciiCharacter('A'));
         Assert.assertNotNull(image);
     }
 
     @Test
     public void testRetrieveFromCache_withInvalidInput() {
         final ColoredImageCache cache = new ColoredImageCache(font, 100);
-        final BufferedImage image = cache.retrieveFromCache(new AsciiCharacter('\u1F5E'));
+        final Image image = cache.retrieveFromCache(new AsciiCharacter('\u1F5E'));
         Assert.assertNotNull(image);
     }
 
