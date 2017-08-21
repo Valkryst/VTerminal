@@ -47,6 +47,8 @@ public class AsciiCharacter {
 	/** The amount of time, in milliseconds, before the blink effect can occur. */
 	@Getter private short millsBetweenBlinks = 1000;
 
+	@Getter private boolean foregroundAndBackgroundColorEqual = false;
+
     /**
      * Constructs a new AsciiCharacter.
      *
@@ -101,6 +103,8 @@ public class AsciiCharacter {
 
         isFlippedHorizontally = character.isFlippedHorizontally();
         isFlippedVertically = character.isFlippedVertically();
+
+        foregroundAndBackgroundColorEqual = character.isForegroundAndBackgroundColorEqual();
     }
 
     /** Updates the cache hash value. */
@@ -142,7 +146,7 @@ public class AsciiCharacter {
         boundingBox.setSize(fontWidth, fontHeight);
 
         // Handle hidden state:
-        if (isHidden) {
+        if (isHidden || isForegroundAndBackgroundColorEqual()) {
             gc.setColor(backgroundColor);
             gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
         } else {
@@ -230,6 +234,7 @@ public class AsciiCharacter {
     public void tintBackgroundColor(final double tintFactor) {
         backgroundColor = ColorFunctions.tint(backgroundColor, tintFactor);
         updateCacheHash = true;
+        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
     }
 
 
@@ -245,6 +250,7 @@ public class AsciiCharacter {
     public void tintForegroundColor(final double tintFactor) {
         foregroundColor = ColorFunctions.tint(foregroundColor, tintFactor);
         updateCacheHash = true;
+        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
     }
 
     /**
@@ -260,6 +266,7 @@ public class AsciiCharacter {
         tintBackgroundColor(tintFactor);
         tintForegroundColor(tintFactor);
         updateCacheHash = true;
+        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
     }
 
     /**
@@ -274,6 +281,7 @@ public class AsciiCharacter {
     public void shadeBackgroundColor(final double shadeFactor) {
         backgroundColor = ColorFunctions.shade(backgroundColor, shadeFactor);
         updateCacheHash = true;
+        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
     }
 
     /**
@@ -288,6 +296,7 @@ public class AsciiCharacter {
     public void shadeForegroundColor(final double shadeFactor) {
         foregroundColor = ColorFunctions.shade(foregroundColor, shadeFactor);
         updateCacheHash = true;
+        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
     }
 
     /**
@@ -303,6 +312,7 @@ public class AsciiCharacter {
         shadeBackgroundColor(shadeFactor);
         shadeForegroundColor(shadeFactor);
         updateCacheHash = true;
+        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
     }
 
     /**
@@ -331,6 +341,7 @@ public class AsciiCharacter {
         if (backgroundColor.equals(color) == false) {
             backgroundColor = color;
             updateCacheHash = true;
+            foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
         }
     }
 
@@ -347,6 +358,7 @@ public class AsciiCharacter {
         if (foregroundColor.equals(color) == false) {
             foregroundColor = color;
             updateCacheHash = true;
+            foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
         }
     }
 
