@@ -9,17 +9,18 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
+import java.awt.image.VolatileImage;
 import java.util.concurrent.TimeUnit;
 
 @ToString
 public final class ColoredImageCache {
     /** The cache. */
-    private final Cache<Integer, BufferedImage> cachedImages;
+    private final Cache<Integer, VolatileImage> cachedImages;
 
     /** The font of the character images. */
     @Getter private final Font font;
@@ -103,15 +104,17 @@ public final class ColoredImageCache {
      * @throws NullPointerException
      *         If the character is null.
      */
-    public BufferedImage retrieveFromCache(final @NonNull AsciiCharacter character) {
+    public VolatileImage retrieveFromCache(final @NonNull AsciiCharacter character) {
         final int hash = character.getCacheHash();
 
-        BufferedImage image = cachedImages.getIfPresent(hash);
+        VolatileImage image = cachedImages.getIfPresent(hash);
 
-        if (image == null) {
-            image = applyColorSwap(character, font);
-            image = applyFlips(character, font, image);
-            cachedImages.put(hash, image);
+        if (image == null || image.contentsLost()) {
+            BufferedImage bufferedImage;
+            bufferedImage = applyColorSwap(character, font);
+            bufferedImage = applyFlips(character, font, bufferedImage);
+
+            cachedImages.put(hash, convertToVolatileImage(bufferedImage));
         }
 
         return image;
@@ -236,5 +239,20 @@ public final class ColoredImageCache {
         g.drawImage(image, 0, 0, null);
         g.dispose();
         return newImage;
+    }
+
+    private static VolatileImage convertToVolatileImage(final BufferedImage source) {
+        final GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        final GraphicsDevice graphicsDevice = graphicsEnvironment.getDefaultScreenDevice();
+        final GraphicsConfiguration graphicsConfiguration = graphicsDevice.getDefaultConfiguration();
+
+        final VolatileImage destination = graphicsConfiguration.createCompatibleVolatileImage(source.getWidth(), source.getHeight(), source.getTransparency());
+
+        final Graphics2D g2d = destination.createGraphics();
+        g2d.setComposite(AlphaComposite.Src);
+        g2d.drawImage(source, 0, 0, null);
+        g2d.dispose();
+
+        return destination;
     }
 }
