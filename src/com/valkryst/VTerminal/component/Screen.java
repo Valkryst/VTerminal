@@ -452,4 +452,10 @@ public class Screen extends Component {
 
         return sum;
     }
+
+    public Set<Component> getComponents() {
+        final Set<Component> set = new LinkedHashSet<>(components);
+        set.addAll(layerComponents);
+        return set;
+    }
 }
