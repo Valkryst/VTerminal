@@ -204,6 +204,12 @@ public class Panel extends Canvas implements Receiver<String> {
             return screen;
         }
 
+        // Unregister all of the old screen's components:
+        screen.getComponents().forEach(component -> component.getEventListeners().forEach(this::removeListener));
+
+        // Register all of the new screen's components:
+        newScreen.getComponents().forEach(component -> component.getEventListeners().forEach(this::addListener));
+
         final Screen oldScreen = screen;
         screen = newScreen;
         draw();
@@ -230,17 +236,7 @@ public class Panel extends Canvas implements Receiver<String> {
         }
 
         for (final EventListener eventListener : component.getEventListeners()) {
-            if (eventListener instanceof KeyListener) {
-                this.addKeyListener((KeyListener) eventListener);
-            }
-
-            if (eventListener instanceof MouseListener) {
-                this.addMouseListener((MouseListener) eventListener);
-            }
-
-            if (eventListener instanceof MouseMotionListener) {
-                this.addMouseMotionListener((MouseMotionListener) eventListener);
-            }
+            addListener(eventListener);
         }
     }
 
@@ -276,18 +272,58 @@ public class Panel extends Canvas implements Receiver<String> {
         screen.removeComponent(component);
 
         for (final EventListener eventListener : component.getEventListeners()) {
-            if (eventListener instanceof KeyListener) {
-                this.removeKeyListener((KeyListener) eventListener);
-            }
-
-            if (eventListener instanceof MouseListener) {
-                this.removeMouseListener((MouseListener) eventListener);
-            }
-
-            if (eventListener instanceof MouseMotionListener) {
-                this.removeMouseMotionListener((MouseMotionListener) eventListener);
-            }
+            removeListener(eventListener);
         }
+    }
+
+    /**
+     * Adds an event listener to the Panel.
+     *
+     * @param eventListener
+     *        The event listener.
+     *
+     * @throws IllegalArgumentException
+     *        If the event listener isn't supported by this function.
+     */
+    private void addListener(final EventListener eventListener) {
+        if (eventListener instanceof KeyListener) {
+            this.addKeyListener((KeyListener) eventListener);
+        }
+
+        if (eventListener instanceof MouseListener) {
+            this.addMouseListener((MouseListener) eventListener);
+        }
+
+        if (eventListener instanceof MouseMotionListener) {
+            this.addMouseMotionListener((MouseMotionListener) eventListener);
+        }
+
+        throw new IllegalArgumentException("The " + eventListener.getClass().getSimpleName() + " is not supported.");
+    }
+
+    /**
+     * Removes an event listener from the Panel.
+     *
+     * @param eventListener
+     *        The event listener.
+     *
+     * @throws IllegalArgumentException
+     *        If the event listener isn't supported by this function.
+     */
+    private void removeListener(final EventListener eventListener) {
+        if (eventListener instanceof KeyListener) {
+            this.removeKeyListener((KeyListener) eventListener);
+        }
+
+        if (eventListener instanceof MouseListener) {
+            this.removeMouseListener((MouseListener) eventListener);
+        }
+
+        if (eventListener instanceof MouseMotionListener) {
+            this.removeMouseMotionListener((MouseMotionListener) eventListener);
+        }
+
+        throw new IllegalArgumentException("The " + eventListener.getClass().getSimpleName() + " is not supported.");
     }
 
 
