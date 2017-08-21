@@ -34,7 +34,7 @@ public class AsciiCharacter {
 	@Getter private final Rectangle boundingBox;
 
 	/** Whether or not to draw the character as underlined. */
-	@Getter @Setter private boolean isUnderlined = false;
+	@Getter private boolean isUnderlined = false;
     /** The thickness of the underline to draw beneath the character. */
 	@Getter private int underlineThickness = 2;
 
@@ -109,7 +109,8 @@ public class AsciiCharacter {
 
     /** Updates the cache hash value. */
     protected void updateCacheHash() {
-        cacheHash = Objects.hash(character, backgroundColor, foregroundColor, isFlippedHorizontally, isFlippedVertically);
+        cacheHash = Objects.hash(character, backgroundColor, foregroundColor, isFlippedHorizontally, isFlippedVertically,
+                                 isUnderlined, underlineThickness);
     }
 
     /**
@@ -152,14 +153,6 @@ public class AsciiCharacter {
         } else {
             final Image image = imageCache.retrieveFromCache(this);
             gc.drawImage(image, columnIndex, rowIndex, null);
-
-            // Draw underline:
-            if (isUnderlined) {
-                gc.setColor(foregroundColor);
-
-                final int y = rowIndex + fontHeight - underlineThickness;
-                gc.fillRect(columnIndex, y, fontWidth, underlineThickness);
-            }
         }
     }
 
@@ -388,6 +381,11 @@ public class AsciiCharacter {
         }
     }
 
+    public void setUnderlined(final boolean isUnderlined) {
+        this.isUnderlined = isUnderlined;
+        updateCacheHash = true;
+    }
+
     /**
      * Sets the new underline thickness.
      *
@@ -401,8 +399,10 @@ public class AsciiCharacter {
     public void setUnderlineThickness(final int underlineThickness) {
         if (underlineThickness > boundingBox.getHeight()) {
             this.underlineThickness = (int) boundingBox.getHeight();
+            updateCacheHash = true;
         } else if (underlineThickness <= 0) {
             this.underlineThickness = 1;
+            updateCacheHash = true;
         } else {
             this.underlineThickness = underlineThickness;
         }
