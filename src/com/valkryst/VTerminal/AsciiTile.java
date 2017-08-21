@@ -100,14 +100,6 @@ public class AsciiTile extends AsciiCharacter {
         } else {
             final Image image = imageCache.retrieveFromCache(this);
             gc.drawImage(image, columnIndex, rowIndex, null);
-
-            // Draw underline:
-            if (super.isUnderlined()) {
-                gc.setColor(super.getForegroundColor());
-
-                final int y = rowIndex + fontHeight - super.getUnderlineThickness();
-                gc.fillRect(columnIndex, y, fontWidth, super.getUnderlineThickness());
-            }
         }
     }
 }
