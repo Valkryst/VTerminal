@@ -114,7 +114,8 @@ public final class ColoredImageCache {
             bufferedImage = applyColorSwap(character, font);
             bufferedImage = applyFlips(character, font, bufferedImage);
 
-            cachedImages.put(hash, convertToVolatileImage(bufferedImage));
+            image = convertToVolatileImage(bufferedImage);
+            cachedImages.put(hash, image);
         }
 
         return image;
