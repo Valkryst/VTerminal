@@ -62,7 +62,7 @@ public class Panel extends Canvas implements Receiver<String> {
 
         radio.addReceiver("DRAW", this);
 
-        imageCache = new ColoredImageCache(builder.getFont());
+        imageCache = builder.getImageCache();
     }
 
     @Override
