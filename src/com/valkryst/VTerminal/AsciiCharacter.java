@@ -57,6 +57,7 @@ public class AsciiCharacter {
 	    this.character = character;
         boundingBox = new Rectangle();
     }
+
     /**
      * Constructs a new AsciiCharacter by copying the data
      * of an AsciiCharacter.
