@@ -1,4 +1,4 @@
-package com.valkryst.VTerminal.samples;
+package com.valkryst.VTerminal.samples.printer;
 
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
