@@ -40,6 +40,7 @@ public class SampleDrawTime {
                     character.setFlippedVertically(ThreadLocalRandom.current().nextBoolean());
                     character.setFlippedHorizontally(ThreadLocalRandom.current().nextBoolean());
                     character.setUnderlined(ThreadLocalRandom.current().nextBoolean());
+                    character.setHidden(ThreadLocalRandom.current().nextBoolean());
                 }
             }
 
