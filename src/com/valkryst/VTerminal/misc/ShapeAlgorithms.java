@@ -172,8 +172,14 @@ public final class ShapeAlgorithms {
     public static List<Point> getHorizontalLine(final int fromX, final int fromY, final int toX) {
         final List<Point> points = new ArrayList<>();
 
-        for (int x = fromX ; x < toX ; x++) {
-            points.add(new Point(x, fromY));
+        if (fromX < toX) {
+            for (int x = fromX; x < toX; x++) {
+                points.add(new Point(x, fromY));
+            }
+        } else {
+            for (int x = toX; x < fromX; x++) {
+                points.add(new Point(x, fromY));
+            }
         }
 
         return points;
@@ -197,8 +203,14 @@ public final class ShapeAlgorithms {
     public static List<Point> getVerticalLine(final int fromX, final int fromY, final int toY) {
         final List<Point> points = new ArrayList<>();
 
-        for (int y = fromY ; y < toY ; y++) {
-            points.add(new Point(fromX, y));
+        if (fromY < toY) {
+            for (int y = fromY; y < toY; y++) {
+                points.add(new Point(fromX, y));
+            }
+        } else {
+            for (int y = toY; y < fromY; y++) {
+                points.add(new Point(fromX, y));
+            }
         }
 
         return points;
