@@ -28,7 +28,7 @@ public class SampleDrawTime {
         List<Long> measurements = new ArrayList<>();
 
         for(int i = 1 ; i != 10_001 ; i++) {
-            final int colorVal = ThreadLocalRandom.current().nextInt(45, 56);
+            final int colorVal = ThreadLocalRandom.current().nextInt(45, 56 + (i / 500));
             panel.getScreen().setForegroundColor(new Color(colorVal, 155, 255, 255));
             panel.getScreen().setBackgroundColor(new Color(colorVal, colorVal, colorVal, 255));
 
