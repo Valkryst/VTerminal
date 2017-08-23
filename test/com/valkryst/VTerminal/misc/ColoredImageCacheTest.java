@@ -12,11 +12,9 @@ import java.net.URISyntaxException;
 
 public class ColoredImageCacheTest {
     private final Font font;
-    private final Font otherFont;
 
     public ColoredImageCacheTest() throws IOException, URISyntaxException {
         font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1);
-        otherFont = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 2);
     }
 
     @Test
