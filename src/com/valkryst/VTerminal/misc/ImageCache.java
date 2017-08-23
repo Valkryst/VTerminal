@@ -26,7 +26,7 @@ public final class ImageCache {
     @Getter private final Font font;
 
     /**
-     * Constructs a new ColoredImageCache.
+     * Constructs a new ImageCache.
      *
      * @param font
      *         The font.
@@ -43,7 +43,7 @@ public final class ImageCache {
     }
 
     /**
-     * Constructs a new ColoredImageCache.
+     * Constructs a new ImageCache.
      *
      * @param font
      *         The font.
