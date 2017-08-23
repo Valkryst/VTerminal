@@ -43,31 +43,6 @@ public final class ImageCache {
     }
 
     /**
-     * Constructs a new ImageCache.
-     *
-     * @param font
-     *         The font.
-     *
-     * @param maxCacheSize
-     *         The maximum number of images to save in the cache.
-     *
-     * @param expiryTimeInMinutes
-     *        The length of time, in minutes, after an entry is last accessed
-     *        that it should be automatically removed from the cache.
-     *
-     * @throws NullPointerException
-     *         If the font is null.
-     */
-    public ImageCache(final @NonNull Font font, final int maxCacheSize, final int expiryTimeInMinutes) {
-        this.font = font;
-        cachedImages = Caffeine.newBuilder()
-                              .initialCapacity(256)
-                              .maximumSize(maxCacheSize)
-                              .expireAfterAccess(expiryTimeInMinutes, TimeUnit.MINUTES)
-                              .build();
-    }
-
-    /**
      * Retrieves a character image from the cache.
      *
      * If no image could be found, then one is created, inserted into
