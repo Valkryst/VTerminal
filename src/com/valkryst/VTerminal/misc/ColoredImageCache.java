@@ -88,19 +88,35 @@ public final class ColoredImageCache {
         VolatileImage image = cachedImages.getIfPresent(hash);
 
         if (image == null || image.contentsLost()) {
-            BufferedImage bufferedImage;
-            bufferedImage = applyColorSwap(character, font);
-            bufferedImage = applyFlips(character, font, bufferedImage);
-
-            image = convertToVolatileImage(bufferedImage);
-            cachedImages.put(hash, image);
+            image = loadIntoCache(character);
         }
 
         return image;
     }
 
+    /** @return The total number of cached images. */
     public long totalCachedImages() {
         return cachedImages.estimatedSize();
+    }
+
+    /**
+     * Loads a character into the cache.
+     *
+     * @param character
+     *         The character.
+     *
+     * @return
+     *         The resulting character image.
+     */
+    public VolatileImage loadIntoCache(final @NonNull AsciiCharacter character) {
+        BufferedImage bufferedImage;
+        bufferedImage = applyColorSwap(character, font);
+        bufferedImage = applyFlips(character, font, bufferedImage);
+
+        final VolatileImage result = convertToVolatileImage(bufferedImage);
+        cachedImages.put(character.getCacheHash(), result);
+
+        return result;
     }
 
     /**
