@@ -3,7 +3,7 @@ package com.valkryst.VTerminal.builder;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.misc.ColoredImageCache;
+import com.valkryst.VTerminal.misc.ImageCache;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +30,7 @@ public class PanelBuilder {
     @Getter @Setter private JFrame frame;
 
     /** The image cache to retrieve character images from. */
-    @Getter @Setter private ColoredImageCache imageCache;
+    @Getter @Setter private ImageCache imageCache;
 
     /** Constructs a new PanelBuilder. */
     public PanelBuilder() {
@@ -98,7 +98,7 @@ public class PanelBuilder {
         }
 
         if (imageCache == null) {
-            imageCache = new ColoredImageCache(font);
+            imageCache = new ImageCache(font);
         }
     }
 

@@ -3,7 +3,7 @@ package com.valkryst.VTerminal.component;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.misc.ColoredImageCache;
+import com.valkryst.VTerminal.misc.ImageCache;
 import lombok.NonNull;
 import lombok.ToString;
 
@@ -58,7 +58,7 @@ public class Screen extends Component {
      * @throws NullPointerException
      *         If the gc or image cache is null.
      */
-    public void draw(final @NonNull Graphics2D gc, final @NonNull ColoredImageCache imageCache) {
+    public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache) {
         // Draw non-layer components onto the screen:
         components.forEach(component -> component.draw(this));
 
@@ -228,7 +228,7 @@ public class Screen extends Component {
      * @throws NullPointerException
      *         If the image cache is null.
      */
-    public BufferedImage screenshot(final @NonNull ColoredImageCache imageCache) {
+    public BufferedImage screenshot(final @NonNull ImageCache imageCache) {
         final Font font = imageCache.getFont();
         final int width = this.getWidth() * font.getWidth();
         final int height = this.getHeight() * font.getHeight();

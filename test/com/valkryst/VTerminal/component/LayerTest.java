@@ -2,7 +2,7 @@ package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
-import com.valkryst.VTerminal.misc.ColoredImageCache;
+import com.valkryst.VTerminal.misc.ImageCache;
 import org.junit.Test;
 
 import java.awt.Graphics2D;
@@ -31,7 +31,7 @@ public class LayerTest {
     @Test(expected=NullPointerException.class)
     public void testDraw_withNullGraphics() {
         final Layer layer = new Layer(0, 0,1, 1);
-        layer.draw(null, new ColoredImageCache(font));
+        layer.draw(null, new ImageCache(font));
     }
 
     @Test(expected=NullPointerException.class)
@@ -51,6 +51,6 @@ public class LayerTest {
         final BufferedImage temp = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         final Layer layer = new Layer(0, 0,1, 1);
-        layer.draw((Graphics2D) temp.getGraphics(), new ColoredImageCache(font));
+        layer.draw((Graphics2D) temp.getGraphics(), new ImageCache(font));
     }
 }

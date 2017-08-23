@@ -2,7 +2,7 @@ package com.valkryst.VTerminal;
 
 import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.misc.ColorFunctions;
-import com.valkryst.VTerminal.misc.ColoredImageCache;
+import com.valkryst.VTerminal.misc.ImageCache;
 import com.valkryst.VTerminal.misc.IntRange;
 import lombok.Getter;
 import lombok.NonNull;
@@ -83,7 +83,7 @@ public class AsciiString {
      * @throws IllegalArgumentException
      *         If the row index is below 0.
      */
-    public void draw(final @NonNull Graphics2D gc, final @NonNull ColoredImageCache imageCache, int rowIndex) {
+    public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache, int rowIndex) {
         if (rowIndex < 0) {
             throw new IllegalArgumentException("The row index cannot be below 0.");
         }

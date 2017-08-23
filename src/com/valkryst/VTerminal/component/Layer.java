@@ -1,7 +1,7 @@
 package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.misc.ColoredImageCache;
+import com.valkryst.VTerminal.misc.ImageCache;
 import lombok.NonNull;
 import lombok.ToString;
 
@@ -46,7 +46,7 @@ public class Layer extends Component {
      * @throws NullPointerException
      *         If the gc or image cache is null.
      */
-    public void draw(final @NonNull Graphics2D gc, final @NonNull ColoredImageCache imageCache) {
+    public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache) {
         final Font font = imageCache.getFont();
 
         final int iWidth = getWidth() * font.getWidth();

@@ -2,7 +2,7 @@ package com.valkryst.VTerminal;
 
 import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.misc.ColorFunctions;
-import com.valkryst.VTerminal.misc.ColoredImageCache;
+import com.valkryst.VTerminal.misc.ImageCache;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -130,7 +130,7 @@ public class AsciiCharacter {
      * @throws NullPointerException
      *         If the gc or image cache are null.
      */
-    public void draw(final @NonNull Graphics2D gc, final @NonNull ColoredImageCache imageCache, int columnIndex, int rowIndex) {
+    public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache, int columnIndex, int rowIndex) {
         if (updateCacheHash) {
             updateCacheHash();
             updateCacheHash = false;

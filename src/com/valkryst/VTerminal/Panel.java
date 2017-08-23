@@ -5,7 +5,7 @@ import com.valkryst.VRadio.Receiver;
 import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.component.Screen;
-import com.valkryst.VTerminal.misc.ColoredImageCache;
+import com.valkryst.VTerminal.misc.ImageCache;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -38,7 +38,7 @@ public class Panel extends Canvas implements Receiver<String> {
     @Getter private Radio<String> radio = new Radio<>();
 
     /** The image cache to retrieve character images from. */
-    @Getter private final ColoredImageCache imageCache;
+    @Getter private final ImageCache imageCache;
 
     /**
      * Constructs a new VTerminal.

@@ -18,7 +18,7 @@ import java.awt.image.VolatileImage;
 import java.util.concurrent.TimeUnit;
 
 @ToString
-public final class ColoredImageCache {
+public final class ImageCache {
     /** The cache. */
     private final Cache<Integer, VolatileImage> cachedImages;
 
@@ -34,7 +34,7 @@ public final class ColoredImageCache {
      * @throws NullPointerException
      *         If the font is null.
      */
-    public ColoredImageCache(final @NonNull Font font) {
+    public ImageCache(final @NonNull Font font) {
         this.font = font;
         cachedImages = Caffeine.newBuilder()
                                .initialCapacity(5_000)
@@ -58,7 +58,7 @@ public final class ColoredImageCache {
      * @throws NullPointerException
      *         If the font is null.
      */
-    public ColoredImageCache(final @NonNull Font font, final int maxCacheSize, final int expiryTimeInMinutes) {
+    public ImageCache(final @NonNull Font font, final int maxCacheSize, final int expiryTimeInMinutes) {
         this.font = font;
         cachedImages = Caffeine.newBuilder()
                               .initialCapacity(256)
