@@ -37,29 +37,7 @@ public final class ColoredImageCache {
     public ColoredImageCache(final @NonNull Font font) {
         this.font = font;
         cachedImages = Caffeine.newBuilder()
-                               .initialCapacity(256)
-                               .maximumSize(10_000)
-                               .expireAfterAccess(3, TimeUnit.MINUTES)
-                               .build();
-    }
-
-    /**
-     * Constructs a new ColoredImageCache.
-     *
-     * @param font
-     *         The font.
-     *
-     * @param maxCacheSize
-     *         The maximum number of images to save in the cache.
-     *
-     * @throws NullPointerException
-     *         If the font is null.
-     */
-    public ColoredImageCache(final @NonNull Font font, final int maxCacheSize) {
-        this.font = font;
-        cachedImages = Caffeine.newBuilder()
-                               .initialCapacity(256)
-                               .maximumSize(maxCacheSize)
+                               .initialCapacity(5_000)
                                .expireAfterAccess(3, TimeUnit.MINUTES)
                                .build();
     }

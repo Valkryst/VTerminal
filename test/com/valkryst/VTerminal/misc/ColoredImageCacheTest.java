@@ -31,33 +31,22 @@ public class ColoredImageCacheTest {
     }
 
     @Test
-    public void testConstructor_twoParams_withValidFont() {
-        final ColoredImageCache cache = new ColoredImageCache(font, 100);
-        Assert.assertEquals(font, cache.getFont());
-    }
-
-    @Test(expected=NullPointerException.class)
-    public void testConstructor_twoParams_withNullFont() {
-        new ColoredImageCache(null, 100);
-    }
-
-    @Test
     public void testRetrieveFromCache_withValidInput() {
-        final ColoredImageCache cache = new ColoredImageCache(font, 100);
+        final ColoredImageCache cache = new ColoredImageCache(font);
         final Image image = cache.retrieveFromCache(new AsciiCharacter('A'));
         Assert.assertNotNull(image);
     }
 
     @Test
     public void testRetrieveFromCache_withInvalidInput() {
-        final ColoredImageCache cache = new ColoredImageCache(font, 100);
+        final ColoredImageCache cache = new ColoredImageCache(font);
         final Image image = cache.retrieveFromCache(new AsciiCharacter('\u1F5E'));
         Assert.assertNotNull(image);
     }
 
     @Test(expected=NullPointerException.class)
     public void testRetrieveFromCache_withNullCharacter() {
-        final ColoredImageCache cache = new ColoredImageCache(font, 100);
+        final ColoredImageCache cache = new ColoredImageCache(font);
         cache.retrieveFromCache(null);
     }
 }
