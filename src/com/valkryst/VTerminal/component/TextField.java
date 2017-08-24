@@ -452,16 +452,15 @@ public class TextField extends Component {
      *         If the text is null.
      */
     public void setText(@NonNull String text) {
-        if (text.isEmpty()) {
-            clearText();
-            return;
-        }
+        clearText();
 
         if (text.length() > maxCharacters) {
             text = text.substring(0, maxCharacters);
         }
 
         System.arraycopy(text.toCharArray(), 0, enteredText, 0, text.length());
+
+        updateDisplayedCharacters();
     }
 
     /** Clears all text from the field. */
@@ -471,5 +470,7 @@ public class TextField extends Component {
         for (final AsciiCharacter character : super.getString(0).getCharacters()) {
             character.setCharacter(' ');
         }
+
+        updateDisplayedCharacters();
     }
 }
