@@ -341,7 +341,7 @@ public class Component {
             if (container instanceof Component) {
                 ((Component) container).getString(y).setCharacterRangeToBeRedrawn(new IntRange(columnIndex, columnIndex + width));
             } else {
-                throw new IllegalStateException("The Component has been placed on something that isn't a Component.");
+                throw new IllegalStateException("Implementations of ComponentContainer must be subclasses of Component.");
             }
         }
     }
