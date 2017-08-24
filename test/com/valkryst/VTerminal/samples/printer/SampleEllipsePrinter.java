@@ -25,6 +25,8 @@ public class SampleEllipsePrinter {
         printer.setHeight(8);
         printer.print(panel, 10, 10);
 
+        printer.printFilled(panel, 10, 40);
+
         panel.draw();
     }
 }
