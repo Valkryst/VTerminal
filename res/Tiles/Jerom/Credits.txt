@@ -1,11 +1,5 @@
 Source:
-	https://opengameart.org/content/roguedb32-plus-add-on-tiles
+	https://opengameart.org/content/16x16-fantasy-tileset
 
 License:
 	CC BY SA 3.0
-
-Copyright/Attribution Notice:
-
-	No attribution required. Totally free! If you want to credit this anyway, you can 
-	thank "SpiderDave" for the original tiles and "Dan Norder" for extra content. 
-	Links to this page or the original file or both are also a possibility.
