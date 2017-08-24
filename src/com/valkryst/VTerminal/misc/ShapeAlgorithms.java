@@ -108,17 +108,30 @@ public final class ShapeAlgorithms {
         }
 
         final List<Point> points = new ArrayList<>();
-        int m_new = 2 * (toY - fromY);
-        int slope_error_new = m_new - (toX - fromX);
 
-        for (int x = fromX, y = fromY ; x <= toX ; x++) {
-            points.add(new Point(x, y));
+        int dx = Math.abs(toX - fromX);
+        int dy = Math.abs(toY - fromY);
+        int sx = fromX < toX ? 1 : -1;
+        int sy = fromY < toY ? 1 : -1;
+        int err = dx - dy;
 
-            slope_error_new += m_new;
+        while (true) {
+            points.add(new Point(fromX, fromY));
 
-            if (slope_error_new >= 0) {
-                y++;
-                slope_error_new -= 2 * (toX - fromX);
+            if (fromX == toX && fromY == toY) {
+                break;
+            }
+
+            int e2 = err * 2;
+
+            if (e2 > -dx) {
+                err -= dy;
+                fromX += sx;
+            }
+
+            if (e2 < dx) {
+                err += dx;
+                fromY += sy;
             }
         }
 
