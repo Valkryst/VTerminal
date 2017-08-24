@@ -364,7 +364,10 @@ public class TextField extends Component {
         if (radio != null) {
             characters[index_caret_visual].disableBlinkEffect();
             characters[index_caret_visual].setHidden(false);
-            characters[newIndex].enableBlinkEffect((short) 1000, radio);
+
+            if (isEditable) {
+                characters[newIndex].enableBlinkEffect((short) 1000, radio);
+            }
         }
 
         index_caret_visual = newIndex;
@@ -472,5 +475,16 @@ public class TextField extends Component {
         }
 
         updateDisplayedCharacters();
+    }
+
+    /**
+     * Sets whether or not the area is editable.
+     *
+     * @param isEditable
+     *        Whether or not the area is editable.
+     */
+    public void setEditable(final boolean isEditable) {
+        this.isEditable = isEditable;
+        changeVisualCaretPosition(index_caret_visual);
     }
 }

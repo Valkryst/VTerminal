@@ -35,7 +35,7 @@ public class TextArea extends Component {
     @Getter @Setter private Color backgroundColor;
 
     /** Whether or not the TextArea can be edited. */
-    @Getter @Setter private boolean isEditable;
+    @Getter private boolean isEditable;
 
     /** Whether or not the HOME key can be used to move the caret to the first index of the current line. */
     @Getter @Setter private boolean homeKeyEnabled;
@@ -540,8 +540,10 @@ public class TextArea extends Component {
         characters[newColumnIndex].setBackgroundColor(caretBackgroundColor);
 
         if (radio != null) {
-            // Set new position's blink state:
-            characters[newColumnIndex].enableBlinkEffect((short) 1000, radio);
+            if (isEditable) {
+                // Set new position's blink state:
+                characters[newColumnIndex].enableBlinkEffect((short) 1000, radio);
+            }
         }
 
         x_index_caret_visual = newColumnIndex;
@@ -750,5 +752,16 @@ public class TextArea extends Component {
         }
 
         updateDisplayedCharacters();
+    }
+
+    /**
+     * Sets whether or not the area is editable.
+     *
+     * @param isEditable
+     *        Whether or not the area is editable.
+     */
+    public void setEditable(final boolean isEditable) {
+        this.isEditable = isEditable;
+        changeVisualCaretPosition(x_index_caret_visual, y_index_caret_visual);
     }
 }
