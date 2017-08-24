@@ -6,7 +6,7 @@
 
     <groupId>com.github.Valkryst</groupId>
     <artifactId>VTerminal</artifactId>
-    <version>1.4.0-BETA</version>
+    <version>1.4.1-BETA</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
