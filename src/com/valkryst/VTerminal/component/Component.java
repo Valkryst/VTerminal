@@ -38,8 +38,8 @@ public class Component {
     /** The radio to transmit events to. */
     @Getter private Radio<String> radio;
 
-    /** The container of the component. */
-    @Getter @Setter private ComponentContainer container;
+    /** The screen that the component is on. */
+    @Getter @Setter private Screen screen;
 
     /** The event listeners. */
     @Getter private final Set<EventListener> eventListeners = new HashSet<>();
@@ -338,11 +338,7 @@ public class Component {
      */
     private void setLocationOnScreenToBeRedrawn() {
         for (int y = rowIndex ; y <= rowIndex + height ; y++) {
-            if (container instanceof Component) {
-                ((Component) container).getString(y).setCharacterRangeToBeRedrawn(new IntRange(columnIndex, columnIndex + width));
-            } else {
-                throw new IllegalStateException("Implementations of ComponentContainer must be subclasses of Component.");
-            }
+            screen.getString(y).setCharacterRangeToBeRedrawn(new IntRange(columnIndex, columnIndex + width));
         }
     }
 
