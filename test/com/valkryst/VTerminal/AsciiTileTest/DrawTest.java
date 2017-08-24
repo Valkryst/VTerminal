@@ -3,7 +3,7 @@ package com.valkryst.VTerminal.AsciiTileTest;
 import com.valkryst.VTerminal.AsciiTile;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
-import com.valkryst.VTerminal.misc.ColoredImageCache;
+import com.valkryst.VTerminal.misc.ImageCache;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +30,7 @@ public class DrawTest {
 
     @Test(expected=NullPointerException.class)
     public void testWithNullGC() {
-        character.draw(null, new ColoredImageCache(font), 0, 0);
+        character.draw(null, new ImageCache(font), 0, 0);
     }
 
     @Test(expected=NullPointerException.class)
@@ -48,7 +48,7 @@ public class DrawTest {
         final int height = font.getHeight();
         final BufferedImage temp = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
-        character.draw((Graphics2D) temp.getGraphics(), new ColoredImageCache(font), 0, 0);
+        character.draw((Graphics2D) temp.getGraphics(), new ImageCache(font), 0, 0);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class DrawTest {
         final BufferedImage temp = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         character.setHidden(true);
-        character.draw((Graphics2D) temp.getGraphics(), new ColoredImageCache(font), 0, 0);
+        character.draw((Graphics2D) temp.getGraphics(), new ImageCache(font), 0, 0);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class DrawTest {
         final BufferedImage temp = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         character.setFlippedHorizontally(true);
-        character.draw((Graphics2D) temp.getGraphics(), new ColoredImageCache(font), 0, 0);
+        character.draw((Graphics2D) temp.getGraphics(), new ImageCache(font), 0, 0);
     }
 
     @Test
@@ -78,7 +78,7 @@ public class DrawTest {
         final BufferedImage temp = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         character.setFlippedVertically(true);
-        character.draw((Graphics2D) temp.getGraphics(), new ColoredImageCache(font), 0, 0);
+        character.draw((Graphics2D) temp.getGraphics(), new ImageCache(font), 0, 0);
     }
 
     @Test
@@ -88,6 +88,6 @@ public class DrawTest {
         final BufferedImage temp = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         character.setUnderlined(true);
-        character.draw((Graphics2D) temp.getGraphics(), new ColoredImageCache(font), 0, 0);
+        character.draw((Graphics2D) temp.getGraphics(), new ImageCache(font), 0, 0);
     }
 }

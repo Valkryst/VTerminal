@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal;
 
-import com.valkryst.VTerminal.misc.ColoredImageCache;
+import com.valkryst.VTerminal.misc.ImageCache;
 import lombok.NonNull;
 import lombok.ToString;
 
@@ -78,7 +78,7 @@ public class AsciiTile extends AsciiCharacter {
      *         If the gc or image cache are null.
      */
     @Override
-    public void draw(final @NonNull Graphics2D gc, @NonNull final ColoredImageCache imageCache, int columnIndex, int rowIndex) {
+    public void draw(final @NonNull Graphics2D gc, @NonNull final ImageCache imageCache, int columnIndex, int rowIndex) {
         if (super.updateCacheHash) {
             updateCacheHash();
             super.updateCacheHash = false;
@@ -100,14 +100,6 @@ public class AsciiTile extends AsciiCharacter {
         } else {
             final Image image = imageCache.retrieveFromCache(this);
             gc.drawImage(image, columnIndex, rowIndex, null);
-        }
-
-        // Draw underline:
-        if (super.isUnderlined()) {
-            gc.setColor(super.getForegroundColor());
-
-            final int y = rowIndex + fontHeight - super.getUnderlineThickness();
-            gc.fillRect(columnIndex, y, fontWidth, super.getUnderlineThickness());
         }
     }
 }

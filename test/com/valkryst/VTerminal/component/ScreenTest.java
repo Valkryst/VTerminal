@@ -4,7 +4,7 @@ import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
-import com.valkryst.VTerminal.misc.ColoredImageCache;
+import com.valkryst.VTerminal.misc.ImageCache;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -67,7 +67,7 @@ public class ScreenTest {
 
     @Test(expected=NullPointerException.class)
     public void testDraw_twoParams_withNullGraphicsContext() {
-        screen.draw(null, new ColoredImageCache(font));
+        screen.draw(null, new ImageCache(font));
     }
 
     @Test(expected=NullPointerException.class)
@@ -78,7 +78,7 @@ public class ScreenTest {
 
     @Test
     public void testDraw_twoParams_withValidInputs() {
-        final ColoredImageCache cache = new ColoredImageCache(font);
+        final ImageCache cache = new ImageCache(font);
 
         final int width = font.getWidth() * screen.getWidth();
         final int height = font.getHeight() * screen.getHeight();

@@ -85,11 +85,16 @@ public class RectanglePrinter {
 
         // Draw title on Top Side:
         if (title != null && title.isEmpty() == false) {
+            // Draw Title Text:
             final char[] titleChars = title.toCharArray();
 
-            for (int i = 1; i < width - 1 && i <= titleChars.length; i++) {
-                screen.write(titleChars[i - 1], column + i, row);
+            for (int i = 2; i < width - 2 && i - 2 < titleChars.length; i++) {
+                screen.write(titleChars[i - 2], column + i, row);
             }
+
+            // Draw Title Borders:
+            screen.write(rectangleType.getConnectorLeft(), column + 1, row);
+            screen.write(rectangleType.getConnectorRight(), column + titleChars.length + 2, row);
         }
 
         // Handle Connectors:

@@ -3,7 +3,7 @@ package com.valkryst.VTerminal.AsciiStringTest;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
-import com.valkryst.VTerminal.misc.ColoredImageCache;
+import com.valkryst.VTerminal.misc.ImageCache;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +30,7 @@ public class DrawTest {
 
     @Test(expected=NullPointerException.class)
     public void testWithNullGC() {
-        string.draw(null, new ColoredImageCache(font), 0);
+        string.draw(null, new ImageCache(font), 0);
     }
 
     @Test(expected=NullPointerException.class)
@@ -49,7 +49,7 @@ public class DrawTest {
         final int height = font.getHeight();
         final BufferedImage temp = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
-        string.draw((Graphics2D) temp.getGraphics(), new ColoredImageCache(font), -1);
+        string.draw((Graphics2D) temp.getGraphics(), new ImageCache(font), -1);
     }
 
     @Test
@@ -58,6 +58,6 @@ public class DrawTest {
         final int height = font.getHeight();
         final BufferedImage temp = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
-        string.draw((Graphics2D) temp.getGraphics(), new ColoredImageCache(font), 0);
+        string.draw((Graphics2D) temp.getGraphics(), new ImageCache(font), 0);
     }
 }

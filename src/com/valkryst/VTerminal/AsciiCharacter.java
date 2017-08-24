@@ -2,7 +2,7 @@ package com.valkryst.VTerminal;
 
 import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.misc.ColorFunctions;
-import com.valkryst.VTerminal.misc.ColoredImageCache;
+import com.valkryst.VTerminal.misc.ImageCache;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -46,6 +46,8 @@ public class AsciiCharacter {
 	private Timer blinkTimer;
 	/** The amount of time, in milliseconds, before the blink effect can occur. */
 	@Getter private short millsBetweenBlinks = 1000;
+
+	@Getter private boolean foregroundAndBackgroundColorEqual = false;
 
     /**
      * Constructs a new AsciiCharacter.
@@ -101,6 +103,8 @@ public class AsciiCharacter {
 
         isFlippedHorizontally = character.isFlippedHorizontally();
         isFlippedVertically = character.isFlippedVertically();
+
+        foregroundAndBackgroundColorEqual = character.isForegroundAndBackgroundColorEqual();
     }
 
     /** Updates the cache hash value. */
@@ -126,7 +130,7 @@ public class AsciiCharacter {
      * @throws NullPointerException
      *         If the gc or image cache are null.
      */
-    public void draw(final @NonNull Graphics2D gc, final @NonNull ColoredImageCache imageCache, int columnIndex, int rowIndex) {
+    public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache, int columnIndex, int rowIndex) {
         if (updateCacheHash) {
             updateCacheHash();
             updateCacheHash = false;
@@ -142,20 +146,20 @@ public class AsciiCharacter {
         boundingBox.setSize(fontWidth, fontHeight);
 
         // Handle hidden state:
-        if (isHidden) {
+        if (isHidden || isForegroundAndBackgroundColorEqual()) {
             gc.setColor(backgroundColor);
             gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
         } else {
             final Image image = imageCache.retrieveFromCache(this);
             gc.drawImage(image, columnIndex, rowIndex, null);
-        }
 
-        // Draw underline:
-        if (isUnderlined) {
-            gc.setColor(foregroundColor);
+            // Draw underline:
+            if (isUnderlined) {
+                gc.setColor(foregroundColor);
 
-            final int y = rowIndex + fontHeight - underlineThickness;
-            gc.fillRect(columnIndex, y, fontWidth, underlineThickness);
+                final int y = rowIndex + fontHeight - underlineThickness;
+                gc.fillRect(columnIndex, y, fontWidth, underlineThickness);
+            }
         }
     }
 
@@ -230,6 +234,7 @@ public class AsciiCharacter {
     public void tintBackgroundColor(final double tintFactor) {
         backgroundColor = ColorFunctions.tint(backgroundColor, tintFactor);
         updateCacheHash = true;
+        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
     }
 
 
@@ -245,6 +250,7 @@ public class AsciiCharacter {
     public void tintForegroundColor(final double tintFactor) {
         foregroundColor = ColorFunctions.tint(foregroundColor, tintFactor);
         updateCacheHash = true;
+        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
     }
 
     /**
@@ -260,6 +266,7 @@ public class AsciiCharacter {
         tintBackgroundColor(tintFactor);
         tintForegroundColor(tintFactor);
         updateCacheHash = true;
+        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
     }
 
     /**
@@ -274,6 +281,7 @@ public class AsciiCharacter {
     public void shadeBackgroundColor(final double shadeFactor) {
         backgroundColor = ColorFunctions.shade(backgroundColor, shadeFactor);
         updateCacheHash = true;
+        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
     }
 
     /**
@@ -288,6 +296,7 @@ public class AsciiCharacter {
     public void shadeForegroundColor(final double shadeFactor) {
         foregroundColor = ColorFunctions.shade(foregroundColor, shadeFactor);
         updateCacheHash = true;
+        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
     }
 
     /**
@@ -303,6 +312,7 @@ public class AsciiCharacter {
         shadeBackgroundColor(shadeFactor);
         shadeForegroundColor(shadeFactor);
         updateCacheHash = true;
+        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
     }
 
     /**
@@ -331,6 +341,7 @@ public class AsciiCharacter {
         if (backgroundColor.equals(color) == false) {
             backgroundColor = color;
             updateCacheHash = true;
+            foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
         }
     }
 
@@ -347,6 +358,7 @@ public class AsciiCharacter {
         if (foregroundColor.equals(color) == false) {
             foregroundColor = color;
             updateCacheHash = true;
+            foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
         }
     }
 

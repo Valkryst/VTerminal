@@ -18,7 +18,7 @@ import java.awt.image.VolatileImage;
 import java.util.concurrent.TimeUnit;
 
 @ToString
-public final class ColoredImageCache {
+public final class ImageCache {
     /** The cache. */
     private final Cache<Integer, VolatileImage> cachedImages;
 
@@ -26,7 +26,7 @@ public final class ColoredImageCache {
     @Getter private final Font font;
 
     /**
-     * Constructs a new ColoredImageCache.
+     * Constructs a new ImageCache.
      *
      * @param font
      *         The font.
@@ -34,59 +34,12 @@ public final class ColoredImageCache {
      * @throws NullPointerException
      *         If the font is null.
      */
-    public ColoredImageCache(final @NonNull Font font) {
+    public ImageCache(final @NonNull Font font) {
         this.font = font;
         cachedImages = Caffeine.newBuilder()
-                               .initialCapacity(256)
-                               .maximumSize(10_000)
+                               .initialCapacity(5_000)
                                .expireAfterAccess(3, TimeUnit.MINUTES)
                                .build();
-    }
-
-    /**
-     * Constructs a new ColoredImageCache.
-     *
-     * @param font
-     *         The font.
-     *
-     * @param maxCacheSize
-     *         The maximum number of images to save in the cache.
-     *
-     * @throws NullPointerException
-     *         If the font is null.
-     */
-    public ColoredImageCache(final @NonNull Font font, final int maxCacheSize) {
-        this.font = font;
-        cachedImages = Caffeine.newBuilder()
-                               .initialCapacity(256)
-                               .maximumSize(maxCacheSize)
-                               .expireAfterAccess(3, TimeUnit.MINUTES)
-                               .build();
-    }
-
-    /**
-     * Constructs a new ColoredImageCache.
-     *
-     * @param font
-     *         The font.
-     *
-     * @param maxCacheSize
-     *         The maximum number of images to save in the cache.
-     *
-     * @param expiryTimeInMinutes
-     *        The length of time, in minutes, after an entry is last accessed
-     *        that it should be automatically removed from the cache.
-     *
-     * @throws NullPointerException
-     *         If the font is null.
-     */
-    public ColoredImageCache(final @NonNull Font font, final int maxCacheSize, final int expiryTimeInMinutes) {
-        this.font = font;
-        cachedImages = Caffeine.newBuilder()
-                              .initialCapacity(256)
-                              .maximumSize(maxCacheSize)
-                              .expireAfterAccess(expiryTimeInMinutes, TimeUnit.MINUTES)
-                              .build();
     }
 
     /**
@@ -110,19 +63,35 @@ public final class ColoredImageCache {
         VolatileImage image = cachedImages.getIfPresent(hash);
 
         if (image == null || image.contentsLost()) {
-            BufferedImage bufferedImage;
-            bufferedImage = applyColorSwap(character, font);
-            bufferedImage = applyFlips(character, font, bufferedImage);
-
-            image = convertToVolatileImage(bufferedImage);
-            cachedImages.put(hash, image);
+            image = loadIntoCache(character);
         }
 
         return image;
     }
 
+    /** @return The total number of cached images. */
     public long totalCachedImages() {
         return cachedImages.estimatedSize();
+    }
+
+    /**
+     * Loads a character into the cache.
+     *
+     * @param character
+     *         The character.
+     *
+     * @return
+     *         The resulting character image.
+     */
+    public VolatileImage loadIntoCache(final @NonNull AsciiCharacter character) {
+        BufferedImage bufferedImage;
+        bufferedImage = applyColorSwap(character, font);
+        bufferedImage = applyFlips(character, font, bufferedImage);
+
+        final VolatileImage result = convertToVolatileImage(bufferedImage);
+        cachedImages.put(character.getCacheHash(), result);
+
+        return result;
     }
 
     /**
@@ -235,7 +204,7 @@ public final class ColoredImageCache {
      *         If the image is null.
      */
     private static BufferedImage cloneImage(final @NonNull BufferedImage image) {
-        final BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+        final BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
         final Graphics g = newImage.getGraphics();
         g.drawImage(image, 0, 0, null);
         g.dispose();
