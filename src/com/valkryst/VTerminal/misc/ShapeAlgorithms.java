@@ -109,29 +109,48 @@ public final class ShapeAlgorithms {
 
         final List<Point> points = new ArrayList<>();
 
+        int d = 0;
+
         int dx = Math.abs(toX - fromX);
         int dy = Math.abs(toY - fromY);
-        int sx = fromX < toX ? 1 : -1;
-        int sy = fromY < toY ? 1 : -1;
-        int err = dx - dy;
 
-        while (true) {
-            points.add(new Point(fromX, fromY));
+        int dx2 = dx << 1;
+        int dy2 = dy << 1;
 
-            if (fromX == toX && fromY == toY) {
-                break;
+        int ix = fromX < toX ? 1 : -1;
+        int iy = fromY < toY ? 1 : -1;
+
+        if (dy <= dx) {
+            while(true) {
+                points.add(new Point(fromX, fromY));
+
+                if (fromX == toX) {
+                    break;
+                }
+
+                fromX += ix;
+                d += dy2;
+
+                if (d > dx) {
+                    fromY += iy;
+                    d -= dx2;
+                }
             }
+        } else {
+            while (true) {
+                points.add(new Point(fromX, fromY));
 
-            int e2 = err * 2;
+                if (fromY == toY) {
+                    break;
+                }
 
-            if (e2 > -dx) {
-                err -= dy;
-                fromX += sx;
-            }
+                fromY += iy;
+                d += dx2;
 
-            if (e2 < dx) {
-                err += dx;
-                fromY += sy;
+                if (d > dy) {
+                    fromX += ix;
+                    d -= dy2;
+                }
             }
         }
 
@@ -157,7 +176,7 @@ public final class ShapeAlgorithms {
         final List<Point> points = new ArrayList<>();
 
         if (fromX < toX) {
-            for (int x = fromX; x < toX; x++) {
+            for (int x = fromX; x <= toX; x++) {
                 points.add(new Point(x, fromY));
             }
         } else {
@@ -188,7 +207,7 @@ public final class ShapeAlgorithms {
         final List<Point> points = new ArrayList<>();
 
         if (fromY < toY) {
-            for (int y = fromY; y < toY; y++) {
+            for (int y = fromY; y <= toY; y++) {
                 points.add(new Point(fromX, y));
             }
         } else {
