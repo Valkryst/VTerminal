@@ -263,4 +263,42 @@ public final class ShapeAlgorithms {
 
         return points;
     }
+
+    /**
+     * Recursively fills an area on the screen bounded by the set of
+     * input points.
+     *
+     * @param points
+     *        The border points.
+     *
+     * @param x
+     *         The x-axis (column) coordinate of the current point.
+     *
+     * @param y
+     *         The y-axis (row) coordinate of the current point.
+     *
+     * @return
+     *        The list of filled points.
+     */
+    public static List<Point> recursiveFill(final List<Point> points, final int x, final int y) {
+        boolean pointExists = false;
+
+        for (final Point point : points) {
+            if (point.x == x && point.y == y) {
+                pointExists = true;
+                break;
+            }
+        }
+
+        if (pointExists == false) {
+            points.add(new Point(x, y));
+
+            recursiveFill(points, x + 1, y);
+            recursiveFill(points, x - 1, y);
+            recursiveFill(points, x, y + 1);
+            recursiveFill(points, x, y - 1);
+        }
+
+        return points;
+    }
 }
