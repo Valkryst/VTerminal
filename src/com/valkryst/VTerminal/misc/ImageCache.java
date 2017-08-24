@@ -35,11 +35,35 @@ public final class ImageCache {
      *         If the font is null.
      */
     public ImageCache(final @NonNull Font font) {
+        this(font, 3);
+    }
+
+    /**
+     * Constructs a new ImageCache.
+     *
+     * @param font
+     *         The font.
+     *
+     * @param duration
+     *        The number of minutes, after the most recent access,
+     *        that a cached image will be removed from the cache.
+     *
+     * @throws NullPointerException
+     *         If the font is null.
+     *
+     * @throws IllegalArgumentException
+     *        If the duration is below 1.
+     */
+    public ImageCache(final @NonNull Font font, final int duration) {
+        if (duration < 1) {
+            throw new IllegalArgumentException("The duration cannot be below 1.");
+        }
+
         this.font = font;
         cachedImages = Caffeine.newBuilder()
-                               .initialCapacity(5_000)
-                               .expireAfterAccess(3, TimeUnit.MINUTES)
-                               .build();
+                              .initialCapacity(5_000)
+                              .expireAfterAccess(duration, TimeUnit.MINUTES)
+                              .build();
     }
 
     /**
