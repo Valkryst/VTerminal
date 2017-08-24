@@ -320,19 +320,6 @@ public class Screen extends Component {
             component.setScreen(this);
             components.add(component);
         }
-
-        final int startRow = component.getRowIndex();
-        final int endRow = startRow + component.getHeight();
-
-        final int startColumn = component.getColumnIndex();
-        final int endColumn = startColumn + component.getWidth();
-
-        for (int row = startRow ; row < endRow ; row++) {
-            final AsciiString string = getString(row);
-
-            final IntRange redrawRange = new IntRange(startColumn, endColumn);
-            string.setCharacterRangeToBeRedrawn(redrawRange);
-        }
     }
 
     /**
