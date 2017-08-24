@@ -33,6 +33,9 @@ public class TextField extends Component {
     /** The background color of non-caret characters. */
     @Getter @Setter private Color backgroundColor;
 
+    /** Whether or not the field can be edited. */
+    @Getter @Setter private boolean isEditable;
+
     /** Whether or not the HOME key can be used to move the caret to the first index of the field. */
     @Getter @Setter private boolean homeKeyEnabled;
     /** Whether or not the END key can be used to move the caret to the last index of the field. */
@@ -81,6 +84,8 @@ public class TextField extends Component {
         foregroundColor = builder.getForegroundColor();
         backgroundColor = builder.getBackgroundColor();
 
+        isEditable = builder.isEditable();
+
         homeKeyEnabled = builder.isHomeKeyEnabled();
         endKeyEnabled = builder.isEndKeyEnabled();
         deleteKeyEnabled = builder.isDeleteKeyEnabled();
@@ -119,6 +124,10 @@ public class TextField extends Component {
         final MouseListener mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(final MouseEvent e) {
+                if (isEditable == false) {
+                    return;
+                }
+
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     TextField.super.isFocused = intersects(e, fontWidth, fontHeight);
 
@@ -159,6 +168,10 @@ public class TextField extends Component {
         final KeyListener keyListener = new KeyListener() {
             @Override
             public void keyTyped(final KeyEvent e) {
+                if (isEditable == false) {
+                    return;
+                }
+
                 if (isFocused()) {
                     final char character = e.getKeyChar();
                     final Matcher matcher = allowedCharacterPattern.matcher(character + "");
@@ -177,6 +190,10 @@ public class TextField extends Component {
 
             @Override
             public void keyPressed(final KeyEvent e) {
+                if (isEditable == false) {
+                    return;
+                }
+
                 if (isFocused()) {
                     int keyCode = e.getKeyCode();
 
@@ -213,6 +230,10 @@ public class TextField extends Component {
 
             @Override
             public void keyReleased(final KeyEvent e) {
+                if (isEditable == false) {
+                    return;
+                }
+
                 if (isFocused()) {
                     int keyCode = e.getKeyCode();
 

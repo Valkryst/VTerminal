@@ -25,6 +25,9 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
     /** The background color of non-caret characters. */
     @Getter @Setter @NonNull private Color backgroundColor;
 
+    /** Whether or not the field can be edited. */
+    @Getter @Setter private boolean isEditable;
+
     /** Whether or not the HOME key can be used to move the caret to the first index of the field. */
     @Getter @Setter private boolean homeKeyEnabled;
     /** Whether or not the END key can be used to move the caret to the last index of the field. */
@@ -81,6 +84,8 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
 
         foregroundColor = caretBackgroundColor;
         backgroundColor = caretForegroundColor;
+
+        isEditable = true;
 
         homeKeyEnabled = true;
         endKeyEnabled = true;
