@@ -288,14 +288,17 @@ public class Panel extends Canvas implements Receiver<String> {
     private void addListener(final EventListener eventListener) {
         if (eventListener instanceof KeyListener) {
             this.addKeyListener((KeyListener) eventListener);
+            return;
         }
 
         if (eventListener instanceof MouseListener) {
             this.addMouseListener((MouseListener) eventListener);
+            return;
         }
 
         if (eventListener instanceof MouseMotionListener) {
             this.addMouseMotionListener((MouseMotionListener) eventListener);
+            return;
         }
 
         throw new IllegalArgumentException("The " + eventListener.getClass().getSimpleName() + " is not supported.");
@@ -313,14 +316,17 @@ public class Panel extends Canvas implements Receiver<String> {
     private void removeListener(final EventListener eventListener) {
         if (eventListener instanceof KeyListener) {
             this.removeKeyListener((KeyListener) eventListener);
+            return;
         }
 
         if (eventListener instanceof MouseListener) {
             this.removeMouseListener((MouseListener) eventListener);
+            return;
         }
 
         if (eventListener instanceof MouseMotionListener) {
             this.removeMouseMotionListener((MouseMotionListener) eventListener);
+            return;
         }
 
         throw new IllegalArgumentException("The " + eventListener.getClass().getSimpleName() + " is not supported.");
