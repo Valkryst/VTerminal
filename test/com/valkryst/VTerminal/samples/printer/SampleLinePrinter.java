@@ -4,10 +4,13 @@ import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
+import com.valkryst.VTerminal.misc.ShapeAlgorithms;
 import com.valkryst.VTerminal.printer.LinePrinter;
 
+import java.awt.Point;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public class SampleLinePrinter {
     public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
@@ -20,8 +23,13 @@ public class SampleLinePrinter {
 
         Thread.sleep(100);
 
+
+        final List<Point> circlePoints = ShapeAlgorithms.getEllipse(10, 10, 5, 5);
         final LinePrinter printer = new LinePrinter();
-        printer.print(panel, 0, 0, 80, 24);
+
+        for (final Point point : circlePoints) {
+            printer.print(panel, 10, 10, point.x, point.y);
+        }
 
         panel.draw();
     }
