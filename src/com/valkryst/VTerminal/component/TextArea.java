@@ -659,6 +659,8 @@ public class TextArea extends Component {
      *        If the text is null.
      */
     public void setText(final int rowIndex, @NonNull String text) {
+        clearText(rowIndex);
+
         if (text.length() > maxHorizontalCharacters) {
             text = text.substring(0, maxHorizontalCharacters);
         }
