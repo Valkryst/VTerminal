@@ -4,6 +4,7 @@ import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ImageCache;
+import com.valkryst.VTerminal.misc.IntRange;
 import lombok.NonNull;
 import lombok.ToString;
 
@@ -319,6 +320,19 @@ public class Screen extends Component {
             component.setScreen(this);
             components.add(component);
         }
+
+        final int startRow = component.getRowIndex();
+        final int endRow = startRow + component.getHeight();
+
+        final int startColumn = component.getColumnIndex();
+        final int endColumn = startColumn + component.getWidth();
+
+        for (int row = startRow ; row < endRow ; row++) {
+            final AsciiString string = getString(row);
+
+            final IntRange redrawRange = new IntRange(startColumn, endColumn);
+            string.setCharacterRangeToBeRedrawn(redrawRange);
+        }
     }
 
     /**
@@ -359,6 +373,19 @@ public class Screen extends Component {
         } else{
             component.setScreen(null);
             components.remove(component);
+        }
+
+        final int startRow = component.getRowIndex();
+        final int endRow = startRow + component.getHeight();
+
+        final int startColumn = component.getColumnIndex();
+        final int endColumn = startColumn + component.getWidth();
+
+        for (int row = startRow ; row < endRow ; row++) {
+            final AsciiString string = getString(row);
+
+            final IntRange redrawRange = new IntRange(startColumn, endColumn);
+            string.setCharacterRangeToBeRedrawn(redrawRange);
         }
     }
 
