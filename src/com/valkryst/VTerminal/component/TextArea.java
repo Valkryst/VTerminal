@@ -642,6 +642,8 @@ public class TextArea extends Component {
         }
 
         setText(textAreaContents.length - 1, text);
+
+        updateDisplayedCharacters();
     }
 
     /**
@@ -662,6 +664,8 @@ public class TextArea extends Component {
         }
 
         System.arraycopy(text.toCharArray(), 0, enteredText[rowIndex], 0, text.length());
+
+        updateDisplayedCharacters();
     }
 
     /**
@@ -727,6 +731,8 @@ public class TextArea extends Component {
                 character.setCharacter(' ');
             }
         }
+
+        updateDisplayedCharacters();
     }
 
     /** Clears all text from the field. */
@@ -740,5 +746,7 @@ public class TextArea extends Component {
                 character.setCharacter(' ');
             }
         }
+
+        updateDisplayedCharacters();
     }
 }
