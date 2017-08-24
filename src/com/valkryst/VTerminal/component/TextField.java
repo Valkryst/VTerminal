@@ -356,12 +356,12 @@ public class TextField extends Component {
         characters[index_caret_visual].setForegroundColor(foregroundColor);
         characters[index_caret_visual].setBackgroundColor(backgroundColor);
 
-        characters[newIndex].setForegroundColor(caretForegroundColor);
-        characters[newIndex].setBackgroundColor(caretBackgroundColor);
+        if (isEditable) {
+            characters[newIndex].setForegroundColor(caretForegroundColor);
+            characters[newIndex].setBackgroundColor(caretBackgroundColor);
 
-        final Radio<String> radio = super.getRadio();
+            final Radio<String> radio = super.getRadio();
 
-        if (radio != null) {
             characters[index_caret_visual].disableBlinkEffect();
             characters[index_caret_visual].setHidden(false);
 

@@ -528,22 +528,18 @@ public class TextArea extends Component {
         characters[x_index_caret_visual].setForegroundColor(foregroundColor);
         characters[x_index_caret_visual].setBackgroundColor(backgroundColor);
 
-        if (radio != null) {
-            // Reset current position's blink/hidden state:
-            characters[x_index_caret_visual].disableBlinkEffect();
-            characters[x_index_caret_visual].setHidden(false);
-        }
+        // Reset current position's blink/hidden state:
+        characters[x_index_caret_visual].disableBlinkEffect();
+        characters[x_index_caret_visual].setHidden(false);
 
         // Set new position's fore/background:
-        characters = super.getString(newRowIndex).getCharacters();
-        characters[newColumnIndex].setForegroundColor(caretForegroundColor);
-        characters[newColumnIndex].setBackgroundColor(caretBackgroundColor);
+        if (isEditable) {
+            characters = super.getString(newRowIndex).getCharacters();
+            characters[newColumnIndex].setForegroundColor(caretForegroundColor);
+            characters[newColumnIndex].setBackgroundColor(caretBackgroundColor);
 
-        if (radio != null) {
-            if (isEditable) {
-                // Set new position's blink state:
-                characters[newColumnIndex].enableBlinkEffect((short) 1000, radio);
-            }
+            // Set new position's blink state:
+            characters[newColumnIndex].enableBlinkEffect((short) 1000, radio);
         }
 
         x_index_caret_visual = newColumnIndex;
