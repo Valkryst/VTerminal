@@ -97,16 +97,6 @@ public final class ShapeAlgorithms {
      *        The list of points.
      */
     public static List<Point> getLine(int fromX, int fromY, final int toX, final int toY) {
-        // Faster algorithm for vertical line:
-        if (fromX == toX) {
-            return getVerticalLine(fromX, fromY, toY);
-        }
-
-        // Faster algorithm for horizontal line:
-        if (fromY == toY) {
-            return getHorizontalLine(fromX, fromY, toX);
-        }
-
         final List<Point> points = new ArrayList<>();
 
         int d = 0;
@@ -151,68 +141,6 @@ public final class ShapeAlgorithms {
                     fromX += ix;
                     d -= dy2;
                 }
-            }
-        }
-
-        return points;
-    }
-
-    /**
-     * Constructs a list, containing the path, of a horizontal line's points,
-     *
-     * @param fromX
-     *         The x-axis (column) coordinate of the start point of the line.
-     *
-     * @param fromY
-     *         The y-axis (row) coordinate of the start point of the line.
-     *
-     * @param toX
-     *         The x-axis (column) coordinate of the end point of the line.
-     *
-     * @return
-     *        The list of points.
-     */
-    public static List<Point> getHorizontalLine(final int fromX, final int fromY, final int toX) {
-        final List<Point> points = new ArrayList<>();
-
-        if (fromX < toX) {
-            for (int x = fromX; x <= toX; x++) {
-                points.add(new Point(x, fromY));
-            }
-        } else {
-            for (int x = toX; x < fromX; x++) {
-                points.add(new Point(x, fromY));
-            }
-        }
-
-        return points;
-    }
-
-    /**
-     * Constructs a list, containing the path, of a vertical line's points,
-     *
-     * @param fromX
-     *         The x-axis (column) coordinate of the start point of the line.
-     *
-     * @param fromY
-     *         The y-axis (row) coordinate of the start point of the line.
-     *
-     * @param toY
-     *         The y-axis (row) coordinate of the end point of the line.
-     *
-     * @return
-     *        The list of points.
-     */
-    public static List<Point> getVerticalLine(final int fromX, final int fromY, final int toY) {
-        final List<Point> points = new ArrayList<>();
-
-        if (fromY < toY) {
-            for (int y = fromY; y <= toY; y++) {
-                points.add(new Point(fromX, y));
-            }
-        } else {
-            for (int y = toY; y < fromY; y++) {
-                points.add(new Point(fromX, y));
             }
         }
 
