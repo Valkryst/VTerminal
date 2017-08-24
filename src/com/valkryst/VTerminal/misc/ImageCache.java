@@ -120,11 +120,12 @@ public final class ImageCache {
                                + (int) character.getCharacter() +".");
 
             System.err.println("When this error occurs, it means that the font being used does not contain a sprite"
-                               + " for the character being used.");
+                               + " for the character being used.\n");
 
-            System.err.println("Defaulting to the '?' sprite.\n");
-
-            image = cloneImage(font.getCharacterImage('?'));
+            image = new BufferedImage(font.getWidth(), font.getHeight(), BufferedImage.TYPE_INT_ARGB);
+            character.setBackgroundColor(new Color(0xFFFF00FF));
+            character.setForegroundColor(new Color(0xFFFF00FF));
+            return image;
         }
 
 
