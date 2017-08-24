@@ -29,6 +29,9 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
     /** The background color of non-caret characters. */
     @Getter @Setter @NonNull private Color backgroundColor;
 
+    /** Whether or not the TextArea can be edited. */
+    @Getter @Setter private boolean isEditable;
+
     /** Whether or not the HOME key can be used to move the caret to the first index of the current line. */
     @Getter @Setter private boolean homeKeyEnabled;
     /** Whether or not the END key can be used to move the caret to the last index of the current line. */
@@ -118,6 +121,8 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
 
         foregroundColor = caretBackgroundColor;
         backgroundColor = caretForegroundColor;
+
+        isEditable = true;
 
         homeKeyEnabled = true;
         endKeyEnabled = true;
