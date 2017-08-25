@@ -2,6 +2,7 @@ package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
+import com.valkryst.VTerminal.builder.component.ScreenBuilder;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ImageCache;
 import com.valkryst.VTerminal.misc.IntRange;
@@ -17,13 +18,28 @@ import java.util.Set;
 @ToString
 public class Screen extends Component {
     /** The non-layer components displayed on the screen. */
-    private final Set<Component> components = new LinkedHashSet<>();
+    private Set<Component> components = new LinkedHashSet<>();
 
     /** The layer components displayed on the screen. */
-    private final Set<Layer> layerComponents = new LinkedHashSet<>();
+    private Set<Layer> layerComponents = new LinkedHashSet<>();
 
     /**
-     * Constructs a new AsciiScreen.
+     * Constructs a new Screen.
+     *
+     * @param builder
+     *         The builder to use.
+     *
+     * @throws NullPointerException
+     *         If the builder is null.
+     */
+    public Screen (final @NonNull ScreenBuilder builder) {
+        this(builder.getColumnIndex(), builder.getRowIndex(), builder.getWidth(), builder.getHeight());
+        this.components = builder.getComponents();
+        this.layerComponents = builder.getLayerComponents();
+    }
+
+    /**
+     * Constructs a new Screen.
      *
      * @param columnIndex
      *         The x-axis (column) coordinate of the top-left character.
