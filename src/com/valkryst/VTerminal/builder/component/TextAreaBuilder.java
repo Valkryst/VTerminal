@@ -1,7 +1,10 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.TextArea;
+import com.valkryst.VTerminal.misc.JSONFunctions;
 import lombok.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.awt.Color;
 import java.util.regex.Pattern;
@@ -30,7 +33,7 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
     @Getter @Setter @NonNull private Color backgroundColor;
 
     /** Whether or not the TextArea can be edited. */
-    @Getter @Setter private boolean isEditable;
+    @Getter @Setter private boolean editable;
 
     /** Whether or not the HOME key can be used to move the caret to the first index of the current line. */
     @Getter @Setter private boolean homeKeyEnabled;
@@ -122,7 +125,7 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
         foregroundColor = caretBackgroundColor;
         backgroundColor = caretForegroundColor;
 
-        isEditable = true;
+        editable = true;
 
         homeKeyEnabled = true;
         endKeyEnabled = true;
@@ -140,5 +143,127 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
         tabSize = 4;
 
         allowedCharacterPattern = Pattern.compile("^[a-zA-z0-9$-/:-?{-~!\"^_`\\[\\]@# ]$");
+    }
+
+    @Override
+    public void parseJSON(final JSONObject jsonObject) {
+        reset();
+        super.parseJSON(jsonObject);
+
+
+        final Integer width = JSONFunctions.getIntElement(jsonObject, "width");
+        final Integer height = JSONFunctions.getIntElement(jsonObject, "height");
+        final Integer maxHorizontalCharacters = JSONFunctions.getIntElement(jsonObject, "maxHorizontalCharacters");
+        final Integer maxVerticalCharacters = JSONFunctions.getIntElement(jsonObject, "maxVerticalCharacters");
+
+        final Color caretForegroundColor = super.loadColorFromJSON((JSONArray) jsonObject.get("caretForegroundColor"));
+        final Color caretBackgroundColor = super.loadColorFromJSON((JSONArray) jsonObject.get("caretBackgroundColor"));
+
+        final Color foregroundColor = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor"));
+        final Color backgroundColor = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor"));
+
+        final Boolean editable = (Boolean) jsonObject.get("editable");
+
+        final Boolean homeKeyEnabled = (Boolean) jsonObject.get("homeKeyEnabled");
+        final Boolean endKeyEnabled = (Boolean) jsonObject.get("endKeyEnabled");
+        final Boolean deleteKeyEnabled = (Boolean) jsonObject.get("deleteKeyEnabled");
+        final Boolean leftArrowKeyEnabled = (Boolean) jsonObject.get("leftArrowKeyEnabled");
+        final Boolean rightArrowKeyEnabled = (Boolean) jsonObject.get("rightArrowKeyEnabled");
+        final Boolean upArrowKeyEnabled = (Boolean) jsonObject.get("upArrowKeyEnabled");
+        final Boolean downArrowKeyEnabled = (Boolean) jsonObject.get("downArrowKeyEnabled");
+        final Boolean enterKeyEnabled = (Boolean) jsonObject.get("enterKeyEnabled");
+        final Boolean backSpaceKeyEnabled = (Boolean) jsonObject.get("backSpaceKeyEnabled");
+        final Boolean tabKeyEnabled = (Boolean) jsonObject.get("tabKeyEnabled");
+
+        final Integer tabSize = JSONFunctions.getIntElement(jsonObject, "tabSize");
+
+        final String allowedCharacterPattern = (String) jsonObject.get("allowedCharacterPattern");
+
+
+        if (width != null) {
+            this.width = width;
+        }
+
+        if (height != null) {
+            this.height = height;
+        }
+
+        if (maxHorizontalCharacters != null) {
+            this.maxHorizontalCharacters = maxHorizontalCharacters;
+        }
+
+        if (maxVerticalCharacters != null) {
+            this.maxVerticalCharacters = maxVerticalCharacters;
+        }
+
+
+        if (caretForegroundColor != null) {
+            this.caretForegroundColor = caretForegroundColor;
+        }
+
+        if (caretBackgroundColor != null) {
+            this.caretBackgroundColor = caretBackgroundColor;
+        }
+
+
+        if (foregroundColor != null) {
+            this.foregroundColor = foregroundColor;
+        }
+
+
+        if (editable != null) {
+            this.editable = editable;
+        }
+
+
+        if (homeKeyEnabled != null) {
+            this.homeKeyEnabled = homeKeyEnabled;
+        }
+
+        if (endKeyEnabled != null) {
+            this.endKeyEnabled = endKeyEnabled;
+        }
+
+        if (deleteKeyEnabled != null) {
+            this.deleteKeyEnabled = deleteKeyEnabled;
+        }
+
+        if (leftArrowKeyEnabled != null) {
+            this.leftArrowKeyEnabled = leftArrowKeyEnabled;
+        }
+
+        if (rightArrowKeyEnabled != null) {
+            this.rightArrowKeyEnabled = rightArrowKeyEnabled;
+        }
+
+        if (upArrowKeyEnabled != null) {
+            this.upArrowKeyEnabled = upArrowKeyEnabled;
+        }
+
+        if (downArrowKeyEnabled != null) {
+            this.downArrowKeyEnabled = downArrowKeyEnabled;
+        }
+
+        if (enterKeyEnabled != null) {
+            this.enterKeyEnabled = enterKeyEnabled;
+        }
+
+        if (backSpaceKeyEnabled != null) {
+            this.backgroundColor = backgroundColor;
+        }
+
+        if (tabKeyEnabled != null) {
+            this.tabKeyEnabled = tabKeyEnabled;
+        }
+
+
+        if (tabSize != null) {
+            this.tabSize = tabSize;
+        }
+
+
+        if (allowedCharacterPattern != null) {
+            this.allowedCharacterPattern = Pattern.compile(allowedCharacterPattern);
+        }
     }
 }
