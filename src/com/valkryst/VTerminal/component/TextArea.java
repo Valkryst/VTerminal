@@ -96,7 +96,7 @@ public class TextArea extends Component {
      *         If the builder is null.
      */
     public TextArea(final @NonNull TextAreaBuilder builder) {
-        super(builder.getColumnIndex(), builder.getRowIndex(), builder.getWidth(), builder.getHeight());
+        super(builder, builder.getWidth(), builder.getHeight());
 
         super.setRadio(builder.getRadio());
 

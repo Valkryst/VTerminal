@@ -74,7 +74,7 @@ public class TextField extends Component {
      *         If the builder is null.
      */
     public TextField(final @NonNull TextFieldBuilder builder) {
-        super(builder.getColumnIndex(), builder.getRowIndex(), builder.getWidth(), 1);
+        super(builder, builder.getWidth(), 1);
 
         super.setRadio(builder.getRadio());
 

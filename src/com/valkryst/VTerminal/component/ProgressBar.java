@@ -39,7 +39,7 @@ public class ProgressBar extends Component {
      *         If the builder is null.
      */
     public ProgressBar(final @NonNull ProgressBarBuilder builder) {
-        super(builder.getColumnIndex(), builder.getRowIndex(), builder.getWidth(), builder.getHeight());
+        super(builder, builder.getWidth(), builder.getHeight());
 
         super.setRadio(builder.getRadio());
 
