@@ -3,11 +3,9 @@ package com.valkryst.VTerminal.samples.component;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
-import com.valkryst.VTerminal.builder.component.RadioButtonBuilder;
 import com.valkryst.VTerminal.builder.component.ScreenBuilder;
 import com.valkryst.VTerminal.component.Layer;
 import com.valkryst.VTerminal.component.ProgressBar;
-import com.valkryst.VTerminal.component.RadioButtonGroup;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.printer.RectanglePrinter;
@@ -54,42 +52,6 @@ public class SampleComponentsFromJSON {
         printer.setWidth(48);
         printer.print(panel, 0, 0);
 
-
-        // First Radio Button Group
-        final RadioButtonGroup groupA = new RadioButtonGroup();
-
-        final RadioButtonBuilder radioButtonBuilder = new RadioButtonBuilder();
-        radioButtonBuilder.setRadio(panel.getRadio());
-        radioButtonBuilder.setColumnIndex(1);
-        radioButtonBuilder.setRowIndex(5);
-        radioButtonBuilder.setGroup(groupA);
-        radioButtonBuilder.setText("Group A, Option 1");
-
-        panel.addComponent(radioButtonBuilder.build());
-
-
-        radioButtonBuilder.setRowIndex(6);
-        radioButtonBuilder.setGroup(groupA);
-        radioButtonBuilder.setText("Group A, Option 2");
-
-        panel.addComponent(radioButtonBuilder.build());
-
-
-        // Second Radio Button Group
-        final RadioButtonGroup groupB = new RadioButtonGroup();
-
-        radioButtonBuilder.setRowIndex(8);
-        radioButtonBuilder.setGroup(groupB);
-        radioButtonBuilder.setText("Group B, Option 1");
-
-        panel.addComponent(radioButtonBuilder.build());
-
-
-        radioButtonBuilder.setRowIndex(9);
-        radioButtonBuilder.setGroup(groupB);
-        radioButtonBuilder.setText("Group B, Option 2");
-
-        panel.addComponent(radioButtonBuilder.build());
 
         // Loading Bar
         final ProgressBar progressBar = panel.getScreen().getProgressBarByID("Progress Bar");
