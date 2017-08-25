@@ -1,0 +1,147 @@
+{
+  "type": "screen",
+  "columnIndex": 0,
+  "rowIndex": 0,
+  "components": [
+    {
+      "type": "label",
+      "columnIndex": 1,
+      "rowIndex": 1,
+      "text": "Component Library Test",
+      "underlined": true
+    },
+
+    {
+      "type": "button",
+      "id": "Click Me Button",
+      "columnIndex": 1,
+      "rowIndex": 3,
+      "text": "Click Me!"
+    },
+
+    {
+      "type": "check box",
+      "columnIndex": 1,
+      "rowIndex": 11,
+      "text": "Checkbox A"
+    },
+    {
+      "type": "check box",
+      "columnIndex": 1,
+      "rowIndex": 12,
+      "text": "Checkbox B"
+    },
+
+    // Fixed Width
+    {
+      "type": "text field",
+      "rowIndex": 14,
+      "columnIndex": 1,
+      "width": 20
+    },
+
+    // Variable Width
+    {
+      "type": "text field",
+      "rowIndex": 16,
+      "columnIndex": 1,
+      "width": 20,
+      "maxCharacters": 40
+    },
+
+    {
+      "type": "progress bar",
+      "id": "Progress Bar",
+      "columnIndex": 1,
+      "rowIndex": 19,
+      "width": 20
+    },
+
+    {
+      "type": "label",
+      "columnIndex": 24,
+      "rowIndex": 1,
+      "text": "TextArea Tests",
+      "underlined": true
+    },
+
+    {
+      "type": "label",
+      "columnIndex": 24,
+      "rowIndex": 3,
+      "text": "Fixed Width & Height"
+    },
+
+    // Fixed Width & Height
+    {
+      "type": "text area",
+      "columnIndex": 24,
+      "rowIndex": 4,
+      "width": 23,
+      "height": 3,
+      "maxVerticalCharacters": 3
+    },
+
+    {
+      "type": "label",
+      "columnIndex": 24,
+      "rowIndex": 8,
+      "text": "Variable Width Only"
+    },
+
+    // Variable Width
+    {
+      "type": "text area",
+      "columnIndex": 24,
+      "rowIndex": 9,
+      "width": 23,
+      "height": 3,
+      "maxVerticalCharacters": 3,
+      "maxHorizontalCharacters": 40
+    },
+
+    {
+      "type": "label",
+      "columnIndex": 24,
+      "rowIndex": 13,
+      "text": "Variable Height Only"
+    },
+
+    // Variable Height
+    {
+      "type": "text area",
+      "columnIndex": 24,
+      "rowIndex": 14,
+      "width": 23,
+      "height": 3,
+      "maxVerticalCharacters": 6,
+      "maxHorizontalCharacters": 23
+    },
+
+    {
+      "type": "label",
+      "columnIndex": 24,
+      "rowIndex": 18,
+      "text": "Variable Width & Height"
+    },
+
+    // Variable Width & Height
+    {
+      "type": "text area",
+      "columnIndex": 24,
+      "rowIndex": 19,
+      "width": 23,
+      "height": 3,
+      "maxVerticalCharacters": 6,
+      "maxHorizontalCharacters": 40
+    },
+
+    {
+      "type": "label",
+      "columnIndex": 50,
+      "rowIndex": 1,
+      "text": "Layer Tests",
+      "underlined": true
+    }
+  ]
+}
