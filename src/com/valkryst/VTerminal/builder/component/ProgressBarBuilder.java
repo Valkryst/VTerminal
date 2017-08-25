@@ -1,7 +1,10 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.ProgressBar;
+import com.valkryst.VTerminal.misc.JSONFunctions;
 import lombok.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.awt.Color;
 
@@ -49,5 +52,63 @@ public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
 
         backgroundColor_complete = backgroundColor_incomplete;
         foregroundColor_complete = new Color(0xFF2DFF6E, true);
+    }
+
+    @Override
+    public void parseJSON(final @NonNull JSONObject jsonObject) {
+        reset();
+        super.parseJSON(jsonObject);
+
+
+        final Integer width = JSONFunctions.getIntElement(jsonObject, "width");
+        final Integer height = JSONFunctions.getIntElement(jsonObject, "height");
+
+        final Character incompleteCharacter = (Character) jsonObject.get("incompleteCharacter");
+        final Character completeCharacter = (Character) jsonObject.get("completeCharacter");
+
+        final Color backgroundColor_incomplete = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_incomplete"));
+        final Color foregroundColor_incomplete = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_incomplete"));
+
+        final Color backgroundColor_complete = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_complete"));
+        final Color foregroundColor_complete = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_complete"));
+
+
+        if (width != null) {
+            this.width = width;
+        }
+
+        if (height != null) {
+            this.height = height;
+        }
+
+
+
+        if (incompleteCharacter != null) {
+            this.incompleteCharacter = incompleteCharacter;
+        }
+
+        if (completeCharacter != null) {
+            this.completeCharacter = completeCharacter;
+        }
+
+
+
+        if (backgroundColor_incomplete != null) {
+            this.backgroundColor_incomplete = backgroundColor_incomplete;
+        }
+
+        if (foregroundColor_incomplete != null) {
+            this.foregroundColor_incomplete = foregroundColor_incomplete;
+        }
+
+
+
+        if (backgroundColor_complete != null) {
+            this.backgroundColor_complete = backgroundColor_complete;
+        }
+
+        if (foregroundColor_complete != null) {
+            this.foregroundColor_complete = foregroundColor_complete;
+        }
     }
 }
