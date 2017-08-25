@@ -1,4 +1,4 @@
-package com.valkryst.VTerminal.samples;
+package com.valkryst.VTerminal.samples.component;
 
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.Panel;
