@@ -53,7 +53,7 @@ public class CheckBox extends Component {
      *         If the builder is null.
      */
     public CheckBox(final @NonNull CheckBoxBuilder builder) {
-        super(builder.getColumnIndex(), builder.getRowIndex(), builder.getText().length() + 2, 1);
+        super(builder, builder.getText().length() + 2, 1);
 
         super.setRadio(builder.getRadio());
 
