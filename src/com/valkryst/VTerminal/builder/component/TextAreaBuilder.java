@@ -210,6 +210,10 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
             this.foregroundColor = foregroundColor;
         }
 
+        if (backgroundColor != null) {
+            this.backgroundColor = backgroundColor;
+        }
+
 
         if (editable != null) {
             this.editable = editable;
@@ -249,7 +253,7 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
         }
 
         if (backSpaceKeyEnabled != null) {
-            this.backgroundColor = backgroundColor;
+            this.backSpaceKeyEnabled = backSpaceKeyEnabled;
         }
 
         if (tabKeyEnabled != null) {
