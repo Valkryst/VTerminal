@@ -38,6 +38,10 @@ public class Label extends Component {
             string.setCharacter(column, text[column]);
         }
 
+        if (builder.isUnderlined()) {
+            string.setUnderlined(true);
+        }
+
         string.setBackgroundColor(backgroundColor);
         string.setForegroundColor(foregroundColor);
     }
