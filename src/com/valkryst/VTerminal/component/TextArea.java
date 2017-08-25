@@ -35,7 +35,7 @@ public class TextArea extends Component {
     @Getter @Setter private Color backgroundColor;
 
     /** Whether or not the TextArea can be edited. */
-    @Getter private boolean isEditable;
+    @Getter private boolean editable;
 
     /** Whether or not the HOME key can be used to move the caret to the first index of the current line. */
     @Getter @Setter private boolean homeKeyEnabled;
@@ -106,7 +106,7 @@ public class TextArea extends Component {
         foregroundColor = builder.getForegroundColor();
         backgroundColor = builder.getBackgroundColor();
 
-        isEditable = builder.isEditable();
+        editable = builder.isEditable();
 
         homeKeyEnabled = builder.isHomeKeyEnabled();
         endKeyEnabled = builder.isEndKeyEnabled();
@@ -156,7 +156,7 @@ public class TextArea extends Component {
         final MouseListener mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(final MouseEvent e) {
-                if (isEditable == false) {
+                if (editable == false) {
                     return;
                 }
 
@@ -212,7 +212,7 @@ public class TextArea extends Component {
         final KeyListener keyListener = new KeyListener() {
             @Override
             public void keyTyped(final KeyEvent e) {
-                if (isEditable == false) {
+                if (editable == false) {
                     return;
                 }
                 if (isFocused()) {
@@ -242,7 +242,7 @@ public class TextArea extends Component {
 
             @Override
             public void keyPressed(final KeyEvent e) {
-                if (isEditable == false) {
+                if (editable == false) {
                     return;
                 }
                 if (isFocused()) {
@@ -298,7 +298,7 @@ public class TextArea extends Component {
 
             @Override
             public void keyReleased(final KeyEvent e) {
-                if (isEditable == false) {
+                if (editable == false) {
                     return;
                 }
                 if (isFocused()) {
@@ -533,7 +533,7 @@ public class TextArea extends Component {
         characters[x_index_caret_visual].setHidden(false);
 
         // Set new position's fore/background:
-        if (isEditable) {
+        if (editable) {
             characters = super.getString(newRowIndex).getCharacters();
             characters[newColumnIndex].setForegroundColor(caretForegroundColor);
             characters[newColumnIndex].setBackgroundColor(caretBackgroundColor);
@@ -757,7 +757,7 @@ public class TextArea extends Component {
      *        Whether or not the area is editable.
      */
     public void setEditable(final boolean isEditable) {
-        this.isEditable = isEditable;
+        this.editable = isEditable;
         changeVisualCaretPosition(x_index_caret_visual, y_index_caret_visual);
     }
 }
