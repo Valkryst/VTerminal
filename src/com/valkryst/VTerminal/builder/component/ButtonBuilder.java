@@ -3,6 +3,8 @@ package com.valkryst.VTerminal.builder.component;
 import com.valkryst.VTerminal.component.Button;
 import com.valkryst.VTerminal.misc.ColorFunctions;
 import lombok.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.awt.Color;
 
@@ -65,5 +67,78 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
         foregroundColor_pressed = ColorFunctions.shade(foregroundColor_hover, 0.25);
 
         onClickFunction = () -> {};
+    }
+
+    @Override
+    public void parseJSON(final JSONObject jsonObject) {
+        super.parseJSON(jsonObject);
+
+
+        final String text = (String) jsonObject.get("text");
+
+        final Character startingCharacter = (Character) jsonObject.get("startingCharacter");
+        final Character endingCharacter = (Character) jsonObject.get("endingCharacter");
+
+        final Boolean usingStartingAndEndingCharacters = (Boolean) jsonObject.get("usingStartingAndEndingCharacters");
+
+        final Color backgroundColor_normal = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_normal"));
+        final Color foregroundColor_normal = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_normal"));
+
+        final Color backgroundColor_hover = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_hover"));
+        final Color foregroundColor_hover = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_hover"));
+
+        final Color backgroundColor_pressed = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_pressed"));
+        final Color foregroundColor_pressed = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_pressed"));
+
+
+        if (text != null) {
+            this.text = text;
+        }
+
+
+
+        if (startingCharacter != null) {
+            this.startingCharacter = startingCharacter;
+        }
+
+        if (endingCharacter != null) {
+            this.endingCharacter = endingCharacter;
+        }
+
+
+
+        if (usingStartingAndEndingCharacters != null) {
+            this.usingStartingAndEndingCharacters = usingStartingAndEndingCharacters;
+        }
+
+
+
+        if (backgroundColor_normal != null) {
+            this.backgroundColor_normal = backgroundColor_normal;
+        }
+
+        if (foregroundColor_normal != null) {
+            this.foregroundColor_normal = foregroundColor_normal;
+        }
+
+
+
+        if (backgroundColor_hover != null) {
+            this.backgroundColor_hover = backgroundColor_hover;
+        }
+
+        if (foregroundColor_hover != null) {
+            this.foregroundColor_hover = foregroundColor_hover;
+        }
+
+
+
+        if (backgroundColor_pressed != null) {
+            this.backgroundColor_hover = backgroundColor_pressed;
+        }
+
+        if (foregroundColor_pressed != null) {
+            this.backgroundColor_pressed = backgroundColor_pressed;
+        }
     }
 }
