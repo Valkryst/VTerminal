@@ -178,6 +178,24 @@
       "rowIndex": 1,
       "text": "Layer Tests",
       "underlined": true
+    },
+
+    {
+      "type": "layer",
+      "columnIndex": 50,
+      "rowIndex": 2,
+      "width": 23,
+      "height": 10,
+      "backgroundColor": [255, 0, 0, 255]
+    },
+
+    {
+      "type": "layer",
+      "columnIndex": 50,
+      "rowIndex": 8,
+      "width": 23,
+      "height": 10,
+      "backgroundColor": [0, 0, 255, 155]
     }
   ]
 }
