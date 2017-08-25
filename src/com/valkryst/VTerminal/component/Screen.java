@@ -483,6 +483,22 @@ public class Screen extends Component {
         return sum;
     }
 
+    public Component getComponentByID(final String id) {
+        for (final Component component : components) {
+            if (component.getId().equals(id)) {
+                return component;
+            }
+        }
+
+        for (final Layer layer : layerComponents) {
+            if (layer.getId().equals(id)) {
+                return layer;
+            }
+        }
+
+        return null;
+    }
+
     public Set<Component> getComponents() {
         final Set<Component> set = new LinkedHashSet<>(components);
         set.addAll(layerComponents);
