@@ -686,6 +686,12 @@ public class Screen extends Component {
         return null;
     }
 
+    /**
+     * Retrieves a combined set of all components.
+     *
+     * @return
+     *        A combined set of all components.
+     */
     public Set<Component> getComponents() {
         final Set<Component> set = new LinkedHashSet<>(components);
         set.addAll(layerComponents);
