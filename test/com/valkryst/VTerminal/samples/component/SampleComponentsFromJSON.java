@@ -1,10 +1,8 @@
 package com.valkryst.VTerminal.samples.component;
 
-import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.builder.component.ScreenBuilder;
-import com.valkryst.VTerminal.component.Layer;
 import com.valkryst.VTerminal.component.ProgressBar;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
@@ -13,7 +11,6 @@ import com.valkryst.VTerminal.printer.RectangleType;
 import org.json.simple.parser.ParseException;
 
 import javax.swing.Timer;
-import java.awt.Color;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -34,7 +31,7 @@ public class SampleComponentsFromJSON {
 
         panel.swapScreen(screenBuilder.build());
 
-        // Add button function:
+        // Setup Button Functionality:
         panel.getScreen().getButtonByID("Click Me Button").setOnClickFunction(() -> {
             System.out.println("Clicked!");
         });
@@ -53,7 +50,7 @@ public class SampleComponentsFromJSON {
         printer.print(panel, 0, 0);
 
 
-        // Loading Bar
+        // Setup Loading Bar Functionality:
         final ProgressBar progressBar = panel.getScreen().getProgressBarByID("Progress Bar");
 
         final Timer timer = new Timer(1000, e -> {
@@ -68,19 +65,6 @@ public class SampleComponentsFromJSON {
             progressBar.setPercentComplete(pct);
         });
         timer.start();
-
-
-        final Layer layerA = new Layer(50, 2, 23, 10);
-        for (final AsciiString string : layerA.getStrings()) {
-            string.setBackgroundColor(new Color(255, 0, 0, 255));
-        }
-
-        final Layer layerB = new Layer(50, 8, 23, 10);
-        for (final AsciiString string : layerB.getStrings()) {
-            string.setBackgroundColor(new Color(0, 0, 255, 155));
-        }
-
-        panel.addComponents(layerA, layerB);
 
 
         panel.draw();
