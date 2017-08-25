@@ -1,7 +1,10 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.TextField;
+import com.valkryst.VTerminal.misc.JSONFunctions;
 import lombok.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.awt.Color;
 import java.util.regex.Pattern;
@@ -26,7 +29,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
     @Getter @Setter @NonNull private Color backgroundColor;
 
     /** Whether or not the field can be edited. */
-    @Getter @Setter private boolean isEditable;
+    @Getter @Setter private boolean editable;
 
     /** Whether or not the HOME key can be used to move the caret to the first index of the field. */
     @Getter @Setter private boolean homeKeyEnabled;
@@ -85,7 +88,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
         foregroundColor = caretBackgroundColor;
         backgroundColor = caretForegroundColor;
 
-        isEditable = true;
+        editable = true;
 
         homeKeyEnabled = true;
         endKeyEnabled = true;
@@ -95,5 +98,89 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
         backSpaceKeyEnabled = true;
 
         allowedCharacterPattern = Pattern.compile("^[a-zA-z0-9$-/:-?{-~!\"^_`\\[\\]@# ]$");
+    }
+
+    @Override
+    public void parseJSON(final JSONObject jsonObject) {
+        super.parseJSON(jsonObject);
+
+
+        final Integer width = JSONFunctions.getIntElement(jsonObject, "width");
+        final Integer maxCharacters = JSONFunctions.getIntElement(jsonObject, "maxCharacters");
+
+        final Color caretForegroundColor = super.loadColorFromJSON((JSONArray) jsonObject.get("caretForegroundColor"));
+        final Color caretBackgroundColor = super.loadColorFromJSON((JSONArray) jsonObject.get("caretBackgroundColor"));
+
+        final Color foregroundColor = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor"));
+        final Color backgroundColor = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor"));
+
+        final Boolean editable = (Boolean) jsonObject.get("editable");
+
+        final Boolean homeKeyEnabled = (Boolean) jsonObject.get("homeKeyEnabled");
+        final Boolean endKeyEnabled = (Boolean) jsonObject.get("endKeyEnabled");
+        final Boolean deleteKeyEnabled = (Boolean) jsonObject.get("deleteKeyEnabled");
+        final Boolean leftArrowKeyEnabled = (Boolean) jsonObject.get("leftArrowKeyEnabled");
+        final Boolean rightArrowKeyEnabled = (Boolean) jsonObject.get("rightArrowKeyEnabled");
+        final Boolean backSpaceKeyEnabled = (Boolean) jsonObject.get("backSpaceKeyEnabled");
+
+        final String allowedCharacterPattern = (String) jsonObject.get("allowedCharacterPattern");
+
+
+        if (width != null) {
+            this.width = width;
+        }
+
+        if (maxCharacters != null) {
+            this.maxCharacters = maxCharacters;
+        }
+
+
+        if (caretForegroundColor != null) {
+            this.caretForegroundColor = caretForegroundColor;
+        }
+
+        if (caretBackgroundColor != null) {
+            this.caretBackgroundColor = caretBackgroundColor;
+        }
+
+
+        if (foregroundColor != null) {
+            this.foregroundColor = foregroundColor;
+        }
+
+        if (backSpaceKeyEnabled != null) {
+            this.backgroundColor = backgroundColor;
+        }
+
+
+        if (editable != null) {
+            this.editable = editable;
+        }
+
+
+        if (homeKeyEnabled != null) {
+            this.homeKeyEnabled = homeKeyEnabled;
+        }
+
+        if (endKeyEnabled != null) {
+            this.endKeyEnabled = endKeyEnabled;
+        }
+
+        if (deleteKeyEnabled != null) {
+            this.deleteKeyEnabled = deleteKeyEnabled;
+        }
+
+        if (leftArrowKeyEnabled != null) {
+            this.leftArrowKeyEnabled = leftArrowKeyEnabled;
+        }
+
+        if (rightArrowKeyEnabled != null) {
+            this.rightArrowKeyEnabled = rightArrowKeyEnabled;
+        }
+
+
+        if (allowedCharacterPattern != null) {
+            this.allowedCharacterPattern = Pattern.compile(allowedCharacterPattern);
+        }
     }
 }
