@@ -92,6 +92,10 @@ public class CheckBox extends Component {
 
     @Override
     public void createEventListeners(final @NonNull Panel panel) {
+        if (super.getEventListeners().size() > 0) {
+            return;
+        }
+
         super.createEventListeners(panel);
 
         final Font font = panel.getImageCache().getFont();

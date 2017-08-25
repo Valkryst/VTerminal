@@ -101,6 +101,10 @@ public class Component {
      *         If the panel is null.
      */
     public void createEventListeners(final @NonNull Panel panel) {
+        if (eventListeners.size() > 0) {
+            return;
+        }
+
         final Font font = panel.getImageCache().getFont();
         final int fontWidth = font.getWidth();
         final int fontHeight = font.getHeight();

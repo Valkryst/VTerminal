@@ -144,6 +144,10 @@ public class TextArea extends Component {
 
     @Override
     public void createEventListeners(final @NonNull Panel panel) {
+        if (super.getEventListeners().size() > 0) {
+            return;
+        }
+
         // Intentionally not calling the super func because it's functionality
         // was added into the MouseListener of this method in order to allow
         // the user to move the caret with the mouse.
