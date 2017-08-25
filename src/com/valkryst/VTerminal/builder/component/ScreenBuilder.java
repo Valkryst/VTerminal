@@ -89,15 +89,11 @@ public class ScreenBuilder extends ComponentBuilder<Screen> {
                     final ComponentBuilder componentBuilder = loadComponentFromJSON(arrayElement, radio);
 
                     if (componentBuilder != null) {
-                        // todo Add special case for LayerBuilder
-                        /*
-                        if (component instanceof Layer) {
-                            layerComponents.add((Layer) component);
+                        if (componentBuilder instanceof LayerBuilder) {
+                            layerComponents.add((Layer) componentBuilder.build());
                         } else {
-                            this.components.add(component);
+                            this.components.add(componentBuilder.build());
                         }
-                        */
-                        this.components.add(componentBuilder.build());
                     }
                 }
             }
@@ -148,6 +144,13 @@ public class ScreenBuilder extends ComponentBuilder<Screen> {
                 labelBuilder.parseJSON(jsonObject);
                 labelBuilder.setRadio(radio);
                 return labelBuilder;
+            }
+
+            case "layer": {
+                final LayerBuilder layerBuilder = new LayerBuilder();
+                layerBuilder.parseJSON(jsonObject);
+                layerBuilder.setRadio(radio);
+                return layerBuilder;
             }
 
             case "progress bar": {
