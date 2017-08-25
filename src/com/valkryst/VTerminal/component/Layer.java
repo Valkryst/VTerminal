@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal.component;
 
+import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.builder.component.LayerBuilder;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ImageCache;
@@ -19,6 +20,11 @@ public class Layer extends Component {
      */
     public Layer(final LayerBuilder builder) {
         super(builder, builder.getWidth(), builder.getHeight());
+
+        for (final AsciiString string : super.getStrings()) {
+            string.setBackgroundColor(builder.getBackgroundColor());
+            string.setForegroundColor(builder.getForegroundColor());
+        }
     }
 
     /**
