@@ -8,17 +8,21 @@ import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.ComponentBuilder;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.IntRange;
-import lombok.*;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 @ToString
 public class Component {
     /** The ID. Not guaranteed to be unique. */
-    @Getter private final String id;
+    @Getter private String id;
 
     /** The x-axis (column) coordinate of the top-left character. */
     @Getter private int columnIndex;
@@ -64,6 +68,35 @@ public class Component {
      *         If the builder is null.
      */
     public Component(final @NonNull ComponentBuilder builder, final int width, final int height) {
+        this(builder.getColumnIndex(), builder.getRowIndex(), width, height);
+        this.id = builder.getId();
+    }
+
+
+    /**
+     * Constructs a new AsciiComponent.
+     *
+     * @param columnIndex
+     *         The x-axis (column) coordinate of the top-left character.
+     *
+     * @param rowIndex
+     *         The y-axis (row) coordinate of the top-left character.
+     *
+     * @param width
+     *         The width, in characters.
+     *
+     * @param height
+     *         The height, in characters.
+     */
+    public Component(final int columnIndex, final int rowIndex, final int width, final int height) {
+        if (columnIndex < 0) {
+            throw new IllegalArgumentException("You must specify a columnIndex of 0 or greater.");
+        }
+
+        if (rowIndex < 0) {
+            throw new IllegalArgumentException("You must specify a rowIndex of 0 or greater.");
+        }
+
         if (width < 1) {
             throw new IllegalArgumentException("You must specify a width of 1 or greater.");
         }
@@ -72,9 +105,11 @@ public class Component {
             throw new IllegalArgumentException("You must specify a height of 1 or greater.");
         }
 
-        this.id = builder.getId();
-        this.columnIndex = builder.getColumnIndex();
-        this.rowIndex = builder.getRowIndex();
+        this.id = "No ID Set. Random ID = " + ThreadLocalRandom.current().nextLong(Long.MAX_VALUE);
+        this.columnIndex = columnIndex;
+        this.rowIndex = rowIndex;
+        this.width = width;
+        this.height = height;
 
         boundingBox.setLocation(columnIndex, rowIndex);
         boundingBox.setSize(width, height);
