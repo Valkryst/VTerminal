@@ -76,6 +76,8 @@ public class ComponentBuilder<C extends Component> {
     /**
      * Loads a portion of the builder's data from JSON.
      *
+     * Resets the builder's state before loading.
+     *
      * @param jsonFilePath
      *        The path to the JSON file.
      *
@@ -99,6 +101,8 @@ public class ComponentBuilder<C extends Component> {
      * Loads a portion of the builder's data from a JSON file
      * within the Jar.
      *
+     * Resets the builder's state before loading.
+     *
      * @param jsonFilePath
      *        The path to the JSON file.
      *
@@ -119,6 +123,8 @@ public class ComponentBuilder<C extends Component> {
     /**
      * Loads a portion of the builder's data from JSON.
      *
+     * Resets the builder's state before loading.
+     *
      * @param jsonFileStream
      *        The JSON input stream.
      *
@@ -137,6 +143,8 @@ public class ComponentBuilder<C extends Component> {
     /**
      * Loads a portion of the builder's data from JSON.
      *
+     * Resets the builder's state before loading.
+     *
      * @param jsonData
      *        The JSON.
      *
@@ -152,6 +160,8 @@ public class ComponentBuilder<C extends Component> {
 
     /**
      * Loads a portion of the builder's data from JSON.
+     *
+     * Resets the builder's state before loading.
      *
      * @param jsonObject
      *        The JSON.
