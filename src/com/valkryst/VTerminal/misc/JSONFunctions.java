@@ -1,17 +1,25 @@
 package com.valkryst.VTerminal.misc;
 
+import lombok.NonNull;
+import org.json.simple.JSONObject;
+
 public class JSONFunctions {
     /**
-     * Attempts to parse an object as an integer.
+     * Retrieves an int element from JSON.
      *
-     * @param object
+     * @param jsonObject
      *        The object.
      *
+     * @param element
+     *        The element.
+     *
      * @return
-     *        If the object is null, then null is returned.
-     *        Else the object is cast to an int and returned.
+     *        If the element's object is null, then null is returned.
+     *        Else the element's object is cast to int and returned.
      */
-    public static Integer parseInt(final Object object) {
+    public static Integer getIntElement(final @NonNull JSONObject jsonObject, final @NonNull String element) {
+        final Object object = jsonObject.get(element);
+
         if (object == null) {
             return null;
         } else {
