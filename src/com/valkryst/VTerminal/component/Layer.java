@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal.component;
 
+import com.valkryst.VTerminal.builder.component.LayerBuilder;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ImageCache;
 import lombok.NonNull;
@@ -10,6 +11,16 @@ import java.awt.image.BufferedImage;
 
 @ToString
 public class Layer extends Component {
+    /**
+     * Constructs a new Layer.
+     *
+     * @param builder
+     *        The builder to use.
+     */
+    public Layer(final LayerBuilder builder) {
+        super(builder, builder.getWidth(), builder.getHeight());
+    }
+
     /**
      * Constructs a new Layer.
      *
