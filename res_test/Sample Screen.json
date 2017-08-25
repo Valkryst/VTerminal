@@ -20,6 +20,42 @@
     },
 
     {
+      "type": "radio button group",
+      "components": [
+        {
+          "type": "radio button",
+          "columnIndex": 1,
+          "rowIndex": 5,
+          "text": "Group A, Option 1"
+        },
+        {
+          "type": "radio button",
+          "columnIndex": 1,
+          "rowIndex": 6,
+          "text": "Group A, Option 2"
+        }
+      ]
+    },
+
+    {
+      "type": "radio button group",
+      "components": [
+        {
+          "type": "radio button",
+          "columnIndex": 1,
+          "rowIndex": 8,
+          "text": "Group B, Option 1"
+        },
+        {
+          "type": "radio button",
+          "columnIndex": 1,
+          "rowIndex": 9,
+          "text": "Group B, Option 2"
+        }
+      ]
+    },
+
+    {
       "type": "check box",
       "columnIndex": 1,
       "rowIndex": 11,
