@@ -137,7 +137,7 @@ public class ComponentBuilder<C extends Component> {
         final BufferedReader br = new BufferedReader(isr);
         final List<String> lines = br.lines().collect(Collectors.toList());
 
-        parseJSON(String.join("", lines));
+        parseJSON(String.join("\n", lines));
     }
 
     /**
@@ -151,7 +151,11 @@ public class ComponentBuilder<C extends Component> {
      * @throws ParseException
      *         If there's an error when parsing the JSON.
      */
-    public void parseJSON(final @NonNull String jsonData) throws ParseException {
+    public void parseJSON(@NonNull String jsonData) throws ParseException {
+        // Remove comments from JSON:
+        jsonData = jsonData.replaceAll("/\\*.*\\*/", ""); // Strip '/**/' comments
+        jsonData = jsonData.replaceAll("//.*(?=\\n)", ""); // Strip '//' comments
+
         final JSONParser parser = new JSONParser();
         final Object object = parser.parse(jsonData);
 
