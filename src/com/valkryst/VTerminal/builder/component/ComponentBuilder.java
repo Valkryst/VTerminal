@@ -157,8 +157,8 @@ public class ComponentBuilder<C extends Component> {
      *        The JSON.
      */
     public void parseJSON(final @NonNull JSONObject jsonObject) {
-        final Integer columnIndex = JSONFunctions.parseInt(jsonObject.get("columnIndex"));
-        final Integer rowIndex = JSONFunctions.parseInt(jsonObject.get("rowIndex"));
+        final Integer columnIndex = JSONFunctions.getIntElement(jsonObject, "columnIndex");
+        final Integer rowIndex = JSONFunctions.getIntElement(jsonObject, "rowIndex");
 
         if (columnIndex != null) {
             this.columnIndex = columnIndex;
@@ -190,10 +190,10 @@ public class ComponentBuilder<C extends Component> {
         }
 
         if (jsonArray.size() >= 3) {
-            final Integer red = JSONFunctions.parseInt(jsonArray.get(0));
-            final Integer green = JSONFunctions.parseInt(jsonArray.get(1));
-            final Integer blue = JSONFunctions.parseInt(jsonArray.get(2));
-            Integer alpha = jsonArray.size() >= 4 ? JSONFunctions.parseInt(jsonArray.get(3)) : 255;
+            final Integer red = (int) (long) jsonArray.get(0);
+            final Integer green = (int) (long) jsonArray.get(1);
+            final Integer blue = (int) (long) jsonArray.get(2);
+            Integer alpha = jsonArray.size() >= 4 ? (int) (long) jsonArray.get(3) : 255;
 
             return new Color(red, green, blue, alpha);
         }
