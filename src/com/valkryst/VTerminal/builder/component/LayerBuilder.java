@@ -34,8 +34,8 @@ public class LayerBuilder extends ComponentBuilder<Layer> {
         width = 1;
         height = 1;
 
-        foregroundColor = Color.BLACK;
-        backgroundColor = Color.WHITE;
+        backgroundColor = new Color(45, 45, 45, 255);
+        foregroundColor = Color.WHITE;
     }
 
     @Override
