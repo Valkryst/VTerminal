@@ -34,7 +34,7 @@ public class TextField extends Component {
     @Getter @Setter private Color backgroundColor;
 
     /** Whether or not the field can be edited. */
-    @Getter @Setter private boolean isEditable;
+    @Getter @Setter private boolean editable;
 
     /** Whether or not the HOME key can be used to move the caret to the first index of the field. */
     @Getter @Setter private boolean homeKeyEnabled;
@@ -84,7 +84,7 @@ public class TextField extends Component {
         foregroundColor = builder.getForegroundColor();
         backgroundColor = builder.getBackgroundColor();
 
-        isEditable = builder.isEditable();
+        editable = builder.isEditable();
 
         homeKeyEnabled = builder.isHomeKeyEnabled();
         endKeyEnabled = builder.isEndKeyEnabled();
@@ -124,7 +124,7 @@ public class TextField extends Component {
         final MouseListener mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(final MouseEvent e) {
-                if (isEditable == false) {
+                if (editable == false) {
                     return;
                 }
 
@@ -168,7 +168,7 @@ public class TextField extends Component {
         final KeyListener keyListener = new KeyListener() {
             @Override
             public void keyTyped(final KeyEvent e) {
-                if (isEditable == false) {
+                if (editable == false) {
                     return;
                 }
 
@@ -190,7 +190,7 @@ public class TextField extends Component {
 
             @Override
             public void keyPressed(final KeyEvent e) {
-                if (isEditable == false) {
+                if (editable == false) {
                     return;
                 }
 
@@ -230,7 +230,7 @@ public class TextField extends Component {
 
             @Override
             public void keyReleased(final KeyEvent e) {
-                if (isEditable == false) {
+                if (editable == false) {
                     return;
                 }
 
@@ -356,7 +356,7 @@ public class TextField extends Component {
         characters[index_caret_visual].setForegroundColor(foregroundColor);
         characters[index_caret_visual].setBackgroundColor(backgroundColor);
 
-        if (isEditable) {
+        if (editable) {
             characters[newIndex].setForegroundColor(caretForegroundColor);
             characters[newIndex].setBackgroundColor(caretBackgroundColor);
 
@@ -365,7 +365,7 @@ public class TextField extends Component {
             characters[index_caret_visual].disableBlinkEffect();
             characters[index_caret_visual].setHidden(false);
 
-            if (isEditable) {
+            if (editable) {
                 characters[newIndex].enableBlinkEffect((short) 1000, radio);
             }
         }
@@ -484,7 +484,7 @@ public class TextField extends Component {
      *        Whether or not the area is editable.
      */
     public void setEditable(final boolean isEditable) {
-        this.isEditable = isEditable;
+        this.editable = isEditable;
         changeVisualCaretPosition(index_caret_visual);
     }
 }
