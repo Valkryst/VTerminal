@@ -5,7 +5,6 @@ import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.builder.component.RadioButtonBuilder;
 import com.valkryst.VTerminal.builder.component.ScreenBuilder;
-import com.valkryst.VTerminal.component.Button;
 import com.valkryst.VTerminal.component.Layer;
 import com.valkryst.VTerminal.component.ProgressBar;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
@@ -38,7 +37,7 @@ public class SampleComponentsFromJSON {
         panel.swapScreen(screenBuilder.build());
 
         // Add button function:
-        ((Button) panel.getScreen().getComponentByID("Click Me Button")).setOnClickFunction(() -> {
+        panel.getScreen().getButtonByID("Click Me Button").setOnClickFunction(() -> {
             System.out.println("Clicked!");
         });
 
@@ -93,7 +92,7 @@ public class SampleComponentsFromJSON {
         panel.addComponent(radioButtonBuilder.build());
 
         // Loading Bar
-        final ProgressBar progressBar = ((ProgressBar) panel.getScreen().getComponentByID("Progress Bar"));
+        final ProgressBar progressBar = panel.getScreen().getProgressBarByID("Progress Bar");
 
         final Timer timer = new Timer(1000, e -> {
             int pct = progressBar.getPercentComplete();
