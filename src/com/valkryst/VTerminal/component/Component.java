@@ -5,6 +5,7 @@ import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.AsciiTile;
 import com.valkryst.VTerminal.Panel;
+import com.valkryst.VTerminal.builder.component.ComponentBuilder;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.IntRange;
 import lombok.*;
@@ -16,6 +17,9 @@ import java.util.*;
 
 @ToString
 public class Component {
+    /** The ID. Not guaranteed to be unique. */
+    @Getter private final String id;
+
     /** The x-axis (column) coordinate of the top-left character. */
     @Getter private int columnIndex;
     /** The y-axis (row) coordinate of the top-left character. */
@@ -47,27 +51,19 @@ public class Component {
     /**
      * Constructs a new AsciiComponent.
      *
-     * @param columnIndex
-     *         The x-axis (column) coordinate of the top-left character.
-     *
-     * @param rowIndex
-     *         The y-axis (row) coordinate of the top-left character.
+     * @param builder
+     *         The builder to use.
      *
      * @param width
      *         The width, in characters.
      *
      * @param height
      *         The height, in characters.
+     *
+     * @throws NullPointerException
+     *         If the builder is null.
      */
-    public Component(final int columnIndex, final int rowIndex, final int width, final int height) {
-        if (columnIndex < 0) {
-            throw new IllegalArgumentException("You must specify a columnIndex of 0 or greater.");
-        }
-
-        if (rowIndex < 0) {
-            throw new IllegalArgumentException("You must specify a rowIndex of 0 or greater.");
-        }
-
+    public Component(final @NonNull ComponentBuilder builder, final int width, final int height) {
         if (width < 1) {
             throw new IllegalArgumentException("You must specify a width of 1 or greater.");
         }
@@ -76,10 +72,9 @@ public class Component {
             throw new IllegalArgumentException("You must specify a height of 1 or greater.");
         }
 
-        this.columnIndex = columnIndex;
-        this.rowIndex = rowIndex;
-        this.width = width;
-        this.height = height;
+        this.id = builder.getId();
+        this.columnIndex = builder.getColumnIndex();
+        this.rowIndex = builder.getRowIndex();
 
         boundingBox.setLocation(columnIndex, rowIndex);
         boundingBox.setSize(width, height);
