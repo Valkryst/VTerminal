@@ -149,10 +149,6 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
             this.foregroundColor = foregroundColor;
         }
 
-        if (backSpaceKeyEnabled != null) {
-            this.backgroundColor = backgroundColor;
-        }
-
 
         if (editable != null) {
             this.editable = editable;
@@ -177,6 +173,10 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
 
         if (rightArrowKeyEnabled != null) {
             this.rightArrowKeyEnabled = rightArrowKeyEnabled;
+        }
+
+        if (backSpaceKeyEnabled != null) {
+            this.backgroundColor = backgroundColor;
         }
 
 
