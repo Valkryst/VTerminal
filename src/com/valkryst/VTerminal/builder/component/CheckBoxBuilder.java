@@ -66,6 +66,7 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox> {
 
     @Override
     public void parseJSON(final JSONObject jsonObject) {
+        reset();
         super.parseJSON(jsonObject);
 
 

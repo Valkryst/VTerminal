@@ -71,6 +71,7 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
 
     @Override
     public void parseJSON(final JSONObject jsonObject) {
+        reset();
         super.parseJSON(jsonObject);
 
 

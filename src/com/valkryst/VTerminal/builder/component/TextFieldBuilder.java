@@ -102,6 +102,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
 
     @Override
     public void parseJSON(final JSONObject jsonObject) {
+        reset();
         super.parseJSON(jsonObject);
 
 

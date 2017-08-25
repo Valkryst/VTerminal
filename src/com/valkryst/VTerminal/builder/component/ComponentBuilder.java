@@ -157,6 +157,8 @@ public class ComponentBuilder<C extends Component> {
      *        The JSON.
      */
     public void parseJSON(final @NonNull JSONObject jsonObject) {
+        reset();
+
         final Integer columnIndex = JSONFunctions.getIntElement(jsonObject, "columnIndex");
         final Integer rowIndex = JSONFunctions.getIntElement(jsonObject, "rowIndex");
 
