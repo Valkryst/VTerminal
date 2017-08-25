@@ -134,7 +134,7 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
 
 
         if (backgroundColor_pressed != null) {
-            this.backgroundColor_hover = backgroundColor_pressed;
+            this.backgroundColor_pressed = backgroundColor_pressed;
         }
 
         if (foregroundColor_pressed != null) {
