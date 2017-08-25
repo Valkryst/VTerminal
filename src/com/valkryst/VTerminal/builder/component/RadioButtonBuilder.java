@@ -4,6 +4,8 @@ import com.valkryst.VTerminal.component.RadioButton;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
 import com.valkryst.VTerminal.misc.ColorFunctions;
 import lombok.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.awt.Color;
 
@@ -79,5 +81,71 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton> {
 
         backgroundColor_checked = backgroundColor_normal;
         foregroundColor_checked = new Color(0xFFFFD72D, true);
+    }
+
+    @Override
+    public void parseJSON(final @NonNull JSONObject jsonObject) {
+        reset();
+        super.parseJSON(jsonObject);
+
+
+        final String text = (String) jsonObject.get("text");
+
+        final Character emptyButtonChar = (Character) jsonObject.get("emptyButtonChar");
+        final Character checkedButtonChar = (Character) jsonObject.get("checkedButtonChar");
+
+        final Color backgroundColor_normal = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_normal"));
+        final Color foregroundColor_normal = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_normal"));
+
+        final Color backgroundColor_hover = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_hover"));
+        final Color foregroundColor_hover = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_hover"));
+
+        final Color backgroundColor_checked = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_checked"));
+        final Color foregroundColor_checked = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_checked"));
+
+
+        if (text != null) {
+            this.text = text;
+        }
+
+
+
+        if (emptyButtonChar != null) {
+            this.emptyButtonChar = emptyButtonChar;
+        }
+
+        if (checkedButtonChar != null) {
+            this.checkedButtonChar = checkedButtonChar;
+        }
+
+
+
+        if (backgroundColor_normal != null) {
+            this.backgroundColor_normal = backgroundColor_normal;
+        }
+
+        if (foregroundColor_normal != null) {
+            this.foregroundColor_normal = foregroundColor_normal;
+        }
+
+
+
+        if (backgroundColor_hover != null) {
+            this.backgroundColor_hover = backgroundColor_hover;
+        }
+
+        if (foregroundColor_hover != null) {
+            this.foregroundColor_hover = foregroundColor_hover;
+        }
+
+
+
+        if (backgroundColor_checked != null) {
+            this.backgroundColor_checked = backgroundColor_checked;
+        }
+
+        if (foregroundColor_checked != null) {
+            this.foregroundColor_checked = foregroundColor_checked;
+        }
     }
 }
