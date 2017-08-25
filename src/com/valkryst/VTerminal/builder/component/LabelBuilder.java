@@ -35,7 +35,7 @@ public class LabelBuilder extends ComponentBuilder<Label> {
         underlined = false;
 
         backgroundColor = new Color(45, 45, 45, 255);
-        foregroundColor = new Color(0xFF2DBEFF, true);
+        foregroundColor = new Color(0xFFF9CA00, true);
     }
 
     @Override
