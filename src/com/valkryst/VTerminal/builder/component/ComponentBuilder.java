@@ -14,11 +14,15 @@ import java.awt.Color;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 @EqualsAndHashCode
 @ToString
 public class ComponentBuilder<C extends Component> {
+    /** The ID. Not guaranteed to be unique. */
+    @Getter @Setter private String id;
+
     /** The x-axis (column) coordinate of the top-left character. */
     @Getter @Setter private int columnIndex;
     /** The y-axis (row) coordinate of the top-left character. */
@@ -67,6 +71,8 @@ public class ComponentBuilder<C extends Component> {
 
     /** Resets the builder to it's default state. */
     public void reset() {
+        id = "No ID Set. Random ID = " + ThreadLocalRandom.current().nextLong(Long.MAX_VALUE);
+
         columnIndex = 0;
         rowIndex = 0;
 
@@ -173,8 +179,16 @@ public class ComponentBuilder<C extends Component> {
     public void parseJSON(final @NonNull JSONObject jsonObject) {
         reset();
 
+        final String id = (String) jsonObject.get("id");
+
         final Integer columnIndex = JSONFunctions.getIntElement(jsonObject, "columnIndex");
         final Integer rowIndex = JSONFunctions.getIntElement(jsonObject, "rowIndex");
+
+
+        if (id != null) {
+            this.id = id;
+        }
+
 
         if (columnIndex != null) {
             this.columnIndex = columnIndex;
