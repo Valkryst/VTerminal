@@ -44,11 +44,11 @@ public final class FontLoader {
      */
     public static Font loadFont(final @NonNull String spriteSheetPath, final @NonNull String characterDataPath, final int scale) throws IOException {
         if (spriteSheetPath.isEmpty()) {
-            throw new IllegalArgumentException("The sprite sheet path cannot be null or empty.");
+            throw new IllegalArgumentException("The sprite sheet path cannot be empty.");
         }
 
         if (characterDataPath.isEmpty()) {
-            throw new IllegalArgumentException("The character data path cannot be null or empty.");
+            throw new IllegalArgumentException("The character data path cannot be empty.");
         }
 
         return loadFont(new FileInputStream(spriteSheetPath), new FileInputStream(characterDataPath), scale);
@@ -115,11 +115,11 @@ public final class FontLoader {
      */
     public static Font loadFontFromJar(final @NonNull String spriteSheetPath, final @NonNull String characterDataPath, final int scale) throws IOException, URISyntaxException {
         if (spriteSheetPath.isEmpty()) {
-            throw new IllegalArgumentException("The sprite sheet path cannot be null or empty.");
+            throw new IllegalArgumentException("The sprite sheet path cannot be empty.");
         }
 
         if (characterDataPath.isEmpty()) {
-            throw new IllegalArgumentException("The character data path cannot be null or empty.");
+            throw new IllegalArgumentException("The character data path cannot be empty.");
         }
 
         final ClassLoader classLoader = FontLoader.class.getClassLoader();
