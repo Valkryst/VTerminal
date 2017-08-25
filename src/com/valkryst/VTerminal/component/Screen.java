@@ -483,6 +483,17 @@ public class Screen extends Component {
         return sum;
     }
 
+    /**
+     * Retrieves the first encountered component that uses the
+     * specified ID.
+     *
+     * @param id
+     *        The id.
+     *
+     * @return
+     *        If no component matches the ID, the null is returned.
+     *        Else the component is returned.
+     */
     public Component getComponentByID(final String id) {
         for (final Component component : components) {
             if (component.getId().equals(id)) {
@@ -494,6 +505,182 @@ public class Screen extends Component {
             if (layer.getId().equals(id)) {
                 return layer;
             }
+        }
+
+        return null;
+    }
+
+    /**
+     * Works the same as getComponentByID, but only returns
+     * if the result is a Button component.
+     *
+     * @param id
+     *        The id.
+     *
+     * @return
+     *        If no component matches the ID, then null is returned.
+     *        If no button component matches the ID, then null is returned.
+     *        Else the component is returned.
+     */
+    public Button getButtonByID(final String id) {
+        final Component component = getComponentByID(id);
+
+        if (component instanceof Button) {
+            return (Button) component;
+        }
+
+        return null;
+    }
+
+    /**
+     * Works the same as getComponentByID, but only returns
+     * if the result is a Check Box component.
+     *
+     * @param id
+     *        The id.
+     *
+     * @return
+     *        If no component matches the ID, then null is returned.
+     *        If no check box component matches the ID, then null is returned.
+     *        Else the component is returned.
+     */
+    public CheckBox getCheckBoxByID(final String id) {
+        final Component component = getComponentByID(id);
+
+        if (component instanceof CheckBox) {
+            return (CheckBox) component;
+        }
+
+        return null;
+    }
+
+    /**
+     * Works the same as getComponentByID, but only returns
+     * if the result is a Image component.
+     *
+     * @param id
+     *        The id.
+     *
+     * @return
+     *        If no component matches the ID, then null is returned.
+     *        If no image component matches the ID, then null is returned.
+     *        Else the component is returned.
+     */
+    public Image getImageByID(final String id) {
+        final Component component = getComponentByID(id);
+
+        if (component instanceof Image) {
+            return (Image) component;
+        }
+
+        return null;
+    }
+
+    /**
+     * Works the same as getComponentByID, but only returns
+     * if the result is a Layer component.
+     *
+     * @param id
+     *        The id.
+     *
+     * @return
+     *        If no component matches the ID, then null is returned.
+     *        If no layer component matches the ID, then null is returned.
+     *        Else the component is returned.
+     */
+    public Layer getLayerByID(final String id) {
+        final Component component = getComponentByID(id);
+
+        if (component instanceof Layer) {
+            return (Layer) component;
+        }
+
+        return null;
+    }
+
+    /**
+     * Works the same as getComponentByID, but only returns
+     * if the result is a ProgressBar component.
+     *
+     * @param id
+     *        The id.
+     *
+     * @return
+     *        If no component matches the ID, then null is returned.
+     *        If no progress bar component matches the ID, then null is returned.
+     *        Else the component is returned.
+     */
+    public ProgressBar getProgressBarByID(final String id) {
+        final Component component = getComponentByID(id);
+
+        if (component instanceof ProgressBar) {
+            return (ProgressBar) component;
+        }
+
+        return null;
+    }
+
+    /**
+     * Works the same as getComponentByID, but only returns
+     * if the result is a RadioButton component.
+     *
+     * @param id
+     *        The id.
+     *
+     * @return
+     *        If no component matches the ID, then null is returned.
+     *        If no radio button component matches the ID, then null is returned.
+     *        Else the component is returned.
+     */
+    public RadioButton getRadioButtonByID(final String id) {
+        final Component component = getComponentByID(id);
+
+        if (component instanceof RadioButton) {
+            return (RadioButton) component;
+        }
+
+        return null;
+    }
+
+    /**
+     * Works the same as getComponentByID, but only returns
+     * if the result is a TextArea component.
+     *
+     * @param id
+     *        The id.
+     *
+     * @return
+     *        If no component matches the ID, then null is returned.
+     *        If no text area component matches the ID, then null is returned.
+     *        Else the component is returned.
+     */
+    public TextArea getTextAreaByID(final String id) {
+        final Component component = getComponentByID(id);
+
+        if (component instanceof TextArea) {
+            return (TextArea) component;
+        }
+
+        return null;
+    }
+
+    /**
+     * Works the same as getComponentByID, but only returns
+     * if the result is a TextField component.
+     *
+     * @param id
+     *        The id.
+     *
+     * @return
+     *        If no component matches the ID, then null is returned.
+     *        If no text field component matches the ID, then null is returned.
+     *        Else the component is returned.
+     */
+    public TextField getTextFieldByID(final String id) {
+        final Component component = getComponentByID(id);
+
+        if (component instanceof TextField) {
+            return (TextField) component;
         }
 
         return null;
