@@ -146,7 +146,7 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
     }
 
     @Override
-    public void parseJSON(final JSONObject jsonObject) {
+    public void parseJSON(final  @NonNull JSONObject jsonObject) {
         reset();
         super.parseJSON(jsonObject);
 
