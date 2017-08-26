@@ -3,19 +3,44 @@
   "columnIndex": 0,
   "rowIndex": 0,
   "components": [
+    // Outer Border
     {
-      "type": "label",
-      "columnIndex": 1,
-      "rowIndex": 1,
-      "text": "Component Library Test",
-      "underlined": true
+      "type": "rectangle printer",
+      "column": 0,
+      "row": 0,
+      "width": 22,
+      "height": 24,
+      "title": "Misc. Components",
+      "rectangleType": "heavy"
+    },
+
+    // First Section
+    {
+      "type": "rectangle printer",
+      "column": 22,
+      "row": 0,
+      "width": 25,
+      "height": 24,
+      "title": "Text Areas",
+      "rectangleType": "heavy"
+    },
+
+    // Second Section
+    {
+      "type": "rectangle printer",
+      "column": 47,
+      "row": 0,
+      "width": 33,
+      "height": 24,
+      "title": "Layers",
+      "rectangleType": "heavy"
     },
 
     {
       "type": "button",
       "id": "Click Me Button",
       "columnIndex": 1,
-      "rowIndex": 3,
+      "rowIndex": 2,
       "text": "Click Me!"
     },
 
@@ -25,13 +50,13 @@
         {
           "type": "radio button",
           "columnIndex": 1,
-          "rowIndex": 5,
+          "rowIndex": 4,
           "text": "Group A, Option 1"
         },
         {
           "type": "radio button",
           "columnIndex": 1,
-          "rowIndex": 6,
+          "rowIndex": 5,
           "text": "Group A, Option 2"
         }
       ]
@@ -43,13 +68,13 @@
         {
           "type": "radio button",
           "columnIndex": 1,
-          "rowIndex": 8,
+          "rowIndex": 7,
           "text": "Group B, Option 1"
         },
         {
           "type": "radio button",
           "columnIndex": 1,
-          "rowIndex": 9,
+          "rowIndex": 8,
           "text": "Group B, Option 2"
         }
       ]
@@ -58,20 +83,20 @@
     {
       "type": "check box",
       "columnIndex": 1,
-      "rowIndex": 11,
+      "rowIndex": 10,
       "text": "Checkbox A"
     },
     {
       "type": "check box",
       "columnIndex": 1,
-      "rowIndex": 12,
+      "rowIndex": 11,
       "text": "Checkbox B"
     },
 
     // Fixed Width
     {
       "type": "text field",
-      "rowIndex": 14,
+      "rowIndex": 13,
       "columnIndex": 1,
       "width": 20
     },
@@ -79,7 +104,7 @@
     // Variable Width
     {
       "type": "text field",
-      "rowIndex": 16,
+      "rowIndex": 15,
       "columnIndex": 1,
       "width": 20,
       "maxCharacters": 40
@@ -88,31 +113,23 @@
     {
       "type": "progress bar",
       "id": "Progress Bar",
+      "rowIndex": 18,
       "columnIndex": 1,
-      "rowIndex": 19,
       "width": 20
     },
 
     {
       "type": "label",
-      "columnIndex": 24,
-      "rowIndex": 1,
-      "text": "TextArea Tests",
-      "underlined": true
-    },
-
-    {
-      "type": "label",
-      "columnIndex": 24,
       "rowIndex": 3,
+      "columnIndex": 23,
       "text": "Fixed Width & Height"
     },
 
     // Fixed Width & Height
     {
       "type": "text area",
-      "columnIndex": 24,
       "rowIndex": 4,
+      "columnIndex": 23,
       "width": 23,
       "height": 3,
       "maxVerticalCharacters": 3
@@ -120,16 +137,16 @@
 
     {
       "type": "label",
-      "columnIndex": 24,
       "rowIndex": 8,
+      "columnIndex": 23,
       "text": "Variable Width Only"
     },
 
     // Variable Width
     {
       "type": "text area",
-      "columnIndex": 24,
       "rowIndex": 9,
+      "columnIndex": 23,
       "width": 23,
       "height": 3,
       "maxVerticalCharacters": 3,
@@ -138,16 +155,16 @@
 
     {
       "type": "label",
-      "columnIndex": 24,
       "rowIndex": 13,
+      "columnIndex": 23,
       "text": "Variable Height Only"
     },
 
     // Variable Height
     {
       "type": "text area",
-      "columnIndex": 24,
       "rowIndex": 14,
+      "columnIndex": 23,
       "width": 23,
       "height": 3,
       "maxVerticalCharacters": 6,
@@ -156,16 +173,16 @@
 
     {
       "type": "label",
-      "columnIndex": 24,
       "rowIndex": 18,
+      "columnIndex": 23,
       "text": "Variable Width & Height"
     },
 
     // Variable Width & Height
     {
       "type": "text area",
-      "columnIndex": 24,
       "rowIndex": 19,
+      "columnIndex": 23,
       "width": 23,
       "height": 3,
       "maxVerticalCharacters": 6,
