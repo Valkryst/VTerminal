@@ -3,8 +3,10 @@ package com.valkryst.VTerminal.printer;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Screen;
+import com.valkryst.VTerminal.misc.JSONFunctions;
 import com.valkryst.VTerminal.misc.ShapeAlgorithms;
 import lombok.*;
+import org.json.simple.JSONObject;
 
 import java.awt.Point;
 import java.util.Optional;
@@ -99,6 +101,41 @@ public class RectanglePrinter {
 
         // Handle Connectors:
         setConnectors(screen, column, row);
+    }
+
+    public void printFromJSON(final @NonNull Screen screen, final JSONObject jsonObject) {
+        final Integer column = JSONFunctions.getIntElement(jsonObject, "column");
+        final Integer row = JSONFunctions.getIntElement(jsonObject, "row");
+        final Integer width = JSONFunctions.getIntElement(jsonObject, "width");
+        final Integer height = JSONFunctions.getIntElement(jsonObject, "height");
+        final String title = (String) jsonObject.get("title");
+        final String rectangleType = (String) jsonObject.get("rectangleType");
+
+        if (column == null) {
+            throw new IllegalArgumentException("A rectangle printer requires that a column be set.");
+        }
+
+        if (row == null) {
+            throw new IllegalArgumentException("A rectangle printer requires that a row be set.");
+        }
+
+        if (width != null) {
+            setWidth(width);
+        }
+
+        if (height != null) {
+            setHeight(height);
+        }
+
+        if (title != null) {
+            this.title = title;
+        }
+
+        if (rectangleType != null) {
+            this.rectangleType = RectangleType.valueOf(rectangleType.toUpperCase());
+        }
+
+        print(screen, column, row);
     }
 
     /**
