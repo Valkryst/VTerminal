@@ -192,7 +192,7 @@ public final class ImageCache {
                 int green = (pixel >> 8) & 0xFF;
                 int blue = (pixel) & 0xFF;
 
-                boolean isTransparent = alpha != 255;
+                boolean isTransparent = alpha == 0;
                 isTransparent &= red == 0;
                 isTransparent &= green == 0;
                 isTransparent &= blue == 0;
@@ -200,9 +200,10 @@ public final class ImageCache {
                 if (isTransparent) {
                     image.setRGB(x, y, backgroundRGB);
                 } else if (isTile == false) {
-                    if (alpha == 0) {
+                    if (alpha == 255) {
                         image.setRGB(x, y, foregroundRGB);
                     } else {
+                        System.out.println(alpha);
                         // Blend the fore/background colors using alpha blending
                         int alphaBlend = backgroundA * (255 - foregroundA) + foregroundA;
                         int redBlend = backgroundR * (255 - foregroundA) + (foregroundR * foregroundA);
