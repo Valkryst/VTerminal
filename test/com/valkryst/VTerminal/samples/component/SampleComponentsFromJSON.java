@@ -6,8 +6,6 @@ import com.valkryst.VTerminal.builder.component.ScreenBuilder;
 import com.valkryst.VTerminal.component.ProgressBar;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
-import com.valkryst.VTerminal.printer.RectanglePrinter;
-import com.valkryst.VTerminal.printer.RectangleType;
 import org.json.simple.parser.ParseException;
 
 import javax.swing.Timer;
@@ -26,8 +24,8 @@ public class SampleComponentsFromJSON {
         Thread.sleep(100);
 
         final ScreenBuilder screenBuilder = new ScreenBuilder();
-        screenBuilder.setRadio(panel.getRadio());
         screenBuilder.loadFromJSON(System.getProperty("user.dir") + "/res_test/Sample Screen.json");
+        screenBuilder.setRadio(panel.getRadio());
 
         panel.swapScreen(screenBuilder.build());
 
@@ -35,19 +33,6 @@ public class SampleComponentsFromJSON {
         panel.getScreen().getButtonByID("Click Me Button").setOnClickFunction(() -> {
             System.out.println("Clicked!");
         });
-
-        // Border
-        final RectanglePrinter printer = new RectanglePrinter();
-        printer.setRectangleType(RectangleType.HEAVY);
-        printer.setWidth(80);
-        printer.setHeight(24);
-        printer.print(panel, 0, 0);
-
-        printer.setWidth(24);
-        printer.print(panel, 0, 0);
-
-        printer.setWidth(48);
-        printer.print(panel, 0, 0);
 
 
         // Setup Loading Bar Functionality:
