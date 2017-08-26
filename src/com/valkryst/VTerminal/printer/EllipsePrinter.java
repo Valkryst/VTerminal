@@ -6,7 +6,6 @@ import com.valkryst.VTerminal.misc.ShapeAlgorithms;
 import lombok.*;
 
 import java.awt.Point;
-import java.util.List;
 
 @EqualsAndHashCode
 @ToString
@@ -94,14 +93,7 @@ public class EllipsePrinter {
      *         If the screen is null.
      */
     public void printFilled(final @NonNull Screen screen, final int row, final int column) {
-        final List<Point> ellipseBorder = ShapeAlgorithms.getEllipse(column, row, width, height);
-        final List<Point> ellipseFill = ShapeAlgorithms.recursiveFill(ellipseBorder, column + 1, row + 1);
-
-        for (final Point point : ellipseBorder) {
-            screen.write(printChar, point.x, point.y);
-        }
-
-        for (final Point point : ellipseFill) {
+        for (final Point point : ShapeAlgorithms.getFilledEllipse(column, row, width, height)) {
             screen.write(printChar, point.x, point.y);
         }
     }
