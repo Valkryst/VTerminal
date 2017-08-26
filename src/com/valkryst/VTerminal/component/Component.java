@@ -46,8 +46,8 @@ public class Component {
     /** The radio to transmit events to. */
     @Getter private Radio<String> radio;
 
-    /** The display that the component is on. */
-    @Getter @Setter private Component componentDisplay;
+    /** The screen that the component is on. */
+    @Getter @Setter private Screen screen;
 
     /** The event listeners. */
     @Getter private final Set<EventListener> eventListeners = new HashSet<>();
@@ -367,19 +367,12 @@ public class Component {
      * resides on, at the component's current location to be
      * redrawn.
      *
-     * If the component display hasn't been set, then this just
-     * redraws everything.
-     *
      * This should only be called when the component is moved
      * on-screen or resized.
      */
-    private void setLocationOnDisplayToBeRedrawn() {
-        if (componentDisplay == null) {
-            setAllCharactersToBeRedrawn();
-        } else {
-            for (int y = rowIndex; y <= rowIndex + height; y++) {
-                componentDisplay.getString(y).setCharacterRangeToBeRedrawn(new IntRange(columnIndex, columnIndex + width));
-            }
+    private void setLocationOnScreenToBeRedrawn() {
+        for (int y = rowIndex ; y <= rowIndex + height ; y++) {
+            screen.getString(y).setCharacterRangeToBeRedrawn(new IntRange(columnIndex, columnIndex + width));
         }
     }
 
@@ -414,7 +407,7 @@ public class Component {
      */
     public void setColumnIndex(final int columnIndex) {
         if (columnIndex >= 0) {
-            setLocationOnDisplayToBeRedrawn();
+            setLocationOnScreenToBeRedrawn();
             this.columnIndex = columnIndex;
             boundingBox.setLocation(columnIndex, rowIndex);
             setAllCharactersToBeRedrawn();
@@ -431,7 +424,7 @@ public class Component {
      */
     public void setRowIndex(final int rowIndex) {
         if (rowIndex >= 0) {
-            setLocationOnDisplayToBeRedrawn();
+            setLocationOnScreenToBeRedrawn();
             this.rowIndex = rowIndex;
             boundingBox.setLocation(columnIndex, rowIndex);
             setAllCharactersToBeRedrawn();
@@ -451,7 +444,7 @@ public class Component {
             return;
         }
 
-        setLocationOnDisplayToBeRedrawn();
+        setLocationOnScreenToBeRedrawn();
         this.width = width;
         boundingBox.setSize(width, height);
         setAllCharactersToBeRedrawn();
@@ -470,7 +463,7 @@ public class Component {
             return;
         }
 
-        setLocationOnDisplayToBeRedrawn();
+        setLocationOnScreenToBeRedrawn();
         this.height = height;
         boundingBox.setSize(width, height);
         setAllCharactersToBeRedrawn();
