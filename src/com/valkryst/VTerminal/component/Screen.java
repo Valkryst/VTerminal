@@ -1,13 +1,17 @@
 package com.valkryst.VTerminal.component;
 
+import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
-import com.valkryst.VTerminal.builder.component.ScreenBuilder;
+import com.valkryst.VTerminal.builder.component.*;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ImageCache;
 import com.valkryst.VTerminal.misc.IntRange;
+import com.valkryst.VTerminal.printer.RectanglePrinter;
 import lombok.NonNull;
 import lombok.ToString;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -33,29 +37,148 @@ public class Screen extends Component {
      *         If the builder is null.
      */
     public Screen (final @NonNull ScreenBuilder builder) {
-        this(builder.getColumnIndex(), builder.getRowIndex(), builder.getWidth(), builder.getHeight());
-        this.components = builder.getComponents();
-        this.layerComponents = builder.getLayerComponents();
+        super(builder.getColumnIndex(), builder.getRowIndex(), builder.getWidth(), builder.getHeight());
+        super.setRadio(builder.getRadio());
+
+        setBackgroundColor(new Color(45, 45, 45, 255));
+
+        if (builder.getJsonObject() != null) {
+            parseJSON(builder.getJsonObject());
+        }
+    }
+
+    private void parseJSON(final @NonNull JSONObject jsonObject) {
+        final JSONArray components = (JSONArray) jsonObject.get("components");
+
+        if (components != null) {
+            for (final Object obj : components) {
+                final JSONObject arrayElement = (JSONObject) obj;
+
+                if (arrayElement != null) {
+                    final ComponentBuilder componentBuilder = loadElementFromJSON(arrayElement, super.getRadio());
+
+                    if (componentBuilder != null) {
+                        if (componentBuilder instanceof LayerBuilder) {
+                            layerComponents.add((Layer) componentBuilder.build());
+                        } else {
+                            this.components.add(componentBuilder.build());
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
-     * Constructs a new Screen.
+     * Loads an element from it's JSON representation.
      *
-     * @param columnIndex
-     *         The x-axis (column) coordinate of the top-left character.
+     * @param jsonObject
+     *        The JSON.
      *
-     * @param rowIndex
-     *         The y-axis (row) coordinate of the top-left character.
+     * @param radio
+     *        The radio for the element to use, if necessary.
      *
-     * @param width
-     *         The width, in characters.
+     * @return
+     *        The component.
      *
-     * @param height
-     *         The height, in characters.
+     * @throws IllegalArgumentException
+     *        If the type of the element isn't supported.
      */
-    public Screen(final int columnIndex, final int rowIndex, final int width, final int height) {
-        super(columnIndex, rowIndex, width, height);
-        setBackgroundColor(new Color(45, 45, 45, 255));
+    private ComponentBuilder loadElementFromJSON(final @NonNull JSONObject jsonObject, final @NonNull Radio<String> radio) {
+        String componentType = (String) jsonObject.get("type");
+
+        if (componentType == null) {
+            return null;
+        }
+
+        componentType = componentType.toLowerCase();
+
+        switch (componentType) {
+            case "button": {
+                final ButtonBuilder buttonBuilder = new ButtonBuilder();
+                buttonBuilder.parseJSON(jsonObject);
+                buttonBuilder.setRadio(radio);
+                return buttonBuilder;
+            }
+
+            case "check box": {
+                final CheckBoxBuilder checkBoxBuilder = new CheckBoxBuilder();
+                checkBoxBuilder.parseJSON(jsonObject);
+                checkBoxBuilder.setRadio(radio);
+                return checkBoxBuilder;
+            }
+
+            case "label": {
+                final LabelBuilder labelBuilder = new LabelBuilder();
+                labelBuilder.parseJSON(jsonObject);
+                labelBuilder.setRadio(radio);
+                return labelBuilder;
+            }
+
+            case "layer": {
+                final LayerBuilder layerBuilder = new LayerBuilder();
+                layerBuilder.parseJSON(jsonObject);
+                layerBuilder.setRadio(radio);
+                return layerBuilder;
+            }
+
+            case "progress bar": {
+                final ProgressBarBuilder progressBarBuilder = new ProgressBarBuilder();
+                progressBarBuilder.parseJSON(jsonObject);
+                progressBarBuilder.setRadio(radio);
+                return progressBarBuilder;
+            }
+
+            case "radio button": {
+                final RadioButtonBuilder radioButtonBuilder = new RadioButtonBuilder();
+                radioButtonBuilder.parseJSON(jsonObject);
+                radioButtonBuilder.setRadio(radio);
+                return radioButtonBuilder;
+            }
+
+            case "radio button group": {
+                final RadioButtonGroup radioButtonGroup = new RadioButtonGroup();
+
+                final JSONArray radioButtons = (JSONArray) jsonObject.get("components");
+
+                if (radioButtons != null) {
+                    for (final Object object : radioButtons) {
+                        final JSONObject buttonJSON = (JSONObject) object;
+
+                        final RadioButtonBuilder builder = (RadioButtonBuilder) loadElementFromJSON(buttonJSON, radio);
+                        builder.setGroup(radioButtonGroup);
+
+                        components.add(builder.build());
+                    }
+                }
+
+                return null;
+            }
+
+            case "text field": {
+                final TextFieldBuilder textFieldBuilder = new TextFieldBuilder();
+                textFieldBuilder.parseJSON(jsonObject);
+                textFieldBuilder.setRadio(radio);
+                return textFieldBuilder;
+            }
+
+            case "text area": {
+                final TextAreaBuilder textAreaBuilder = new TextAreaBuilder();
+                textAreaBuilder.parseJSON(jsonObject);
+                textAreaBuilder.setRadio(radio);
+                return textAreaBuilder;
+            }
+
+            case "rectangle printer": {
+                final RectanglePrinter rectanglePrinter = new RectanglePrinter();
+                rectanglePrinter.printFromJSON(this, jsonObject);
+                return null;
+            }
+
+            default: {
+                throw new IllegalArgumentException("The element type '" + componentType + "' is not supported.");
+            }
+        }
     }
 
     @Override
