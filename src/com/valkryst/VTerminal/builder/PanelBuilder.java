@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal.builder;
 
+import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.ScreenBuilder;
 import com.valkryst.VTerminal.component.Screen;
@@ -23,6 +24,9 @@ public class PanelBuilder {
     @Getter @Setter private int heightInCharacters;
     /** The font to draw with. */
     @Getter @Setter private Font font;
+
+    /** The radio being listened to. */
+    @Getter private Radio<String> radio = new Radio<>();
 
     /** The screen being displayed on the panel. */
     @Getter @Setter private Screen screen;
@@ -94,6 +98,7 @@ public class PanelBuilder {
 
         if (screen == null) {
             final ScreenBuilder screenBuilder = new ScreenBuilder();
+            screenBuilder.setRadio(radio);
             screenBuilder.setColumnIndex(0);
             screenBuilder.setRowIndex(0);
             screenBuilder.setWidth(widthInCharacters);
