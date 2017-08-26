@@ -242,8 +242,8 @@ public final class ShapeAlgorithms {
     public static List<Point> getFilledRectangle(final int x, final int y, final int width, final int height) {
         final List<Point> points = new ArrayList<>();
 
-        for (int xCounter = x ; xCounter < width ; xCounter++) {
-            for (int yCounter = y ; yCounter < height ; yCounter++) {
+        for (int xCounter = x ; xCounter < width + x ; xCounter++) {
+            for (int yCounter = y ; yCounter < height + y ; yCounter++) {
                 points.add(new Point(xCounter, yCounter));
             }
         }
