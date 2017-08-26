@@ -73,7 +73,7 @@ public class Panel extends Canvas implements Receiver<String> {
 
     @Override
     public void receive(final String event, final String data) {
-        if (event.equals("DRAW") && dynamicallyRedrawn == false) {
+        if (event.equals("DRAW") && dynamicallyRedrawn) {
             draw();
         }
     }
