@@ -36,7 +36,7 @@ public class Panel extends Canvas implements Receiver<String> {
     @Getter private Screen screen;
 
     /** The radio being listened to. */
-    @Getter private Radio<String> radio = new Radio<>();
+    @Getter private Radio<String> radio;
 
     /** The image cache to retrieve character images from. */
     @Getter private final ImageCache imageCache;
@@ -64,6 +64,7 @@ public class Panel extends Canvas implements Receiver<String> {
 
         screen = builder.getScreen();
 
+        radio = builder.getRadio();
         radio.addReceiver("DRAW", this);
 
         imageCache = builder.getImageCache();
