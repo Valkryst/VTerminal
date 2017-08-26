@@ -8,6 +8,7 @@ import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.misc.ImageCache;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.imageio.ImageIO;
@@ -40,6 +41,9 @@ public class Panel extends Canvas implements Receiver<String> {
     /** The image cache to retrieve character images from. */
     @Getter private final ImageCache imageCache;
 
+    /** Whether or not to allow the Panel to redraw itself based on received radio transmissions. */
+    @Getter @Setter private boolean dynamicallyRedrawn;
+
     /**
      * Constructs a new VTerminal.
      *
@@ -63,11 +67,13 @@ public class Panel extends Canvas implements Receiver<String> {
         radio.addReceiver("DRAW", this);
 
         imageCache = builder.getImageCache();
+
+        dynamicallyRedrawn = builder.isDynamicallyRedrawn();
     }
 
     @Override
     public void receive(final String event, final String data) {
-        if (event.equals("DRAW")) {
+        if (event.equals("DRAW") && dynamicallyRedrawn == false) {
             draw();
         }
     }

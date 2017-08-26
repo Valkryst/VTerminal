@@ -32,6 +32,9 @@ public class PanelBuilder {
     /** The image cache to retrieve character images from. */
     @Getter @Setter private ImageCache imageCache;
 
+    /** Whether or not to allow the Panel to redraw itself based on received radio transmissions. */
+    @Getter @Setter private boolean dynamicallyRedrawn;
+
     /** Constructs a new PanelBuilder. */
     public PanelBuilder() {
         reset();
@@ -109,5 +112,6 @@ public class PanelBuilder {
         font = null;
         screen = null;
         frame = null;
+        dynamicallyRedrawn = true;
     }
 }
