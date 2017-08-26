@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal.component;
 
+import com.valkryst.VTerminal.builder.component.ScreenBuilder;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.misc.ImageCache;
@@ -24,7 +25,13 @@ public class LayerTest {
 
     @Test(expected=UnsupportedOperationException.class)
     public void testDraw_unsupported() {
-        final Screen screen = new Screen(0, 0, 1, 1);
+        final ScreenBuilder screenBuilder = new ScreenBuilder();
+        screenBuilder.setColumnIndex(0);
+        screenBuilder.setRowIndex(0);
+        screenBuilder.setWidth(1);
+        screenBuilder.setHeight(1);
+
+        final Screen screen = screenBuilder.build();
         new Layer(0, 0, 1, 1).draw(screen);
     }
 
