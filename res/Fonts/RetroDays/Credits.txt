@@ -1,0 +1,8 @@
+Source:
+	http://smf.cataclysmdda.com/index.php?topic=5482.0
+
+License:
+	CC-BY-SA
+
+Edits:
+	Manually replaced non-white pixels with white pixels.
