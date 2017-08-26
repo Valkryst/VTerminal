@@ -2,6 +2,7 @@ package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.Screen;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.json.simple.JSONObject;
 
@@ -44,5 +45,11 @@ public class ScreenBuilder extends ComponentBuilder<Screen> {
 
         width = 80;
         height = 24;
+    }
+
+    @Override
+    public void parseJSON(final @NonNull JSONObject jsonObject) {
+        this.jsonObject = jsonObject;
+        super.parseJSON(jsonObject);
     }
 }
