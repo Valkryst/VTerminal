@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.builder;
 
 import com.valkryst.VTerminal.Panel;
+import com.valkryst.VTerminal.builder.component.ScreenBuilder;
 import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ImageCache;
@@ -92,7 +93,13 @@ public class PanelBuilder {
         }
 
         if (screen == null) {
-            screen = new Screen(0, 0, widthInCharacters, heightInCharacters);
+            final ScreenBuilder screenBuilder = new ScreenBuilder();
+            screenBuilder.setColumnIndex(0);
+            screenBuilder.setRowIndex(0);
+            screenBuilder.setWidth(widthInCharacters);
+            screenBuilder.setHeight(heightInCharacters);
+
+            screen = screenBuilder.build();
         }
 
         if (frame == null) {
