@@ -369,7 +369,8 @@ public class TextField extends Component {
             characters[index_caret_visual].disableBlinkEffect();
             characters[index_caret_visual].setHidden(false);
 
-            if (editable) {
+            // Set new position's blink state:
+            if (characters[newIndex].getCharacter() != ' ') {
                 characters[newIndex].enableBlinkEffect((short) 1000, radio);
             }
         }

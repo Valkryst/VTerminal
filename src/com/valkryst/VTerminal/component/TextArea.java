@@ -543,7 +543,9 @@ public class TextArea extends Component {
             characters[newColumnIndex].setBackgroundColor(caretBackgroundColor);
 
             // Set new position's blink state:
-            characters[newColumnIndex].enableBlinkEffect((short) 1000, radio);
+            if (characters[newColumnIndex].getCharacter() != ' ') {
+                characters[newColumnIndex].enableBlinkEffect((short) 1000, radio);
+            }
         }
 
         x_index_caret_visual = newColumnIndex;
