@@ -240,10 +240,10 @@ public final class ShapeAlgorithms {
      *        The list of points.
      */
     public static List<Point> getFilledRectangle(final int x, final int y, final int width, final int height) {
-        final List<Point> points = getRectangle(x, y, width, height);
+        final List<Point> points = new ArrayList<>();
 
-        for (int xCounter = x + 1 ; xCounter < width - 1 ; xCounter++) {
-            for (int yCounter = y + 1 ; yCounter < height - 1 ; yCounter++) {
+        for (int xCounter = x ; xCounter < width ; xCounter++) {
+            for (int yCounter = y ; yCounter < height ; yCounter++) {
                 points.add(new Point(xCounter, yCounter));
             }
         }
