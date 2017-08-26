@@ -78,6 +78,34 @@ public final class ShapeAlgorithms {
     }
 
     /**
+     * Constructs a list, containing the outline and fill, of an
+     * ellipse's points.
+     *
+     * @param x
+     *        The x-axis (column) coordinate of the top-left character.
+     *
+     * @param y
+     *        The y-axis (row) coordinate of the top-left character.
+     *
+     * @param width
+     *        The width.
+     *
+     * @param height
+     *        The height.
+     *
+     * @return
+     *        The list of points.
+     */
+    public static List<Point> getFilledEllipse(final int x, final int y, final int width, final int height) {
+        final List<Point> points = getEllipse(x, y, width, height);
+
+        final int xCenter = x + (width / 2);
+        final int yCenter = y + (height / 2);
+
+        return recursiveFill(points, xCenter, yCenter);
+    }
+
+    /**
      * Constructs a list, containing the path, of a line's points by
      * using the Bresenham algorithm,
      *
@@ -148,7 +176,8 @@ public final class ShapeAlgorithms {
     }
 
     /**
-     * Constructs a list, containing the outline, of a rectangle's points,
+     * Constructs a list, containing the outline, of a rectangle's
+     * points.
      *
      * @param x
      *         The x-axis (column) coordinate of the top-left character.
@@ -187,6 +216,37 @@ public final class ShapeAlgorithms {
         for (int i = 1 ; i < width - 1 ; i++) {
             points.add(new Point(x + i, y));
             points.add(new Point(x + i, lastRow));
+        }
+
+        return points;
+    }
+
+    /**
+     * Constructs a list, containing the outline and fill, of a
+     * rectangle's points.
+     *
+     * @param x
+     *         The x-axis (column) coordinate of the top-left character.
+     *
+     * @param y
+     *         The y-axis (row) coordinate of the top-left character.
+     *
+     * @param width
+     *        The width.
+     *
+     * @param height
+     *        The height.
+     *
+     * @return
+     *        The list of points.
+     */
+    public static List<Point> getFilledRectangle(final int x, final int y, final int width, final int height) {
+        final List<Point> points = getRectangle(x, y, width, height);
+
+        for (int xCounter = x + 1 ; xCounter < width - 1 ; xCounter++) {
+            for (int yCounter = y + 1 ; yCounter < height - 1 ; yCounter++) {
+                points.add(new Point(xCounter, yCounter));
+            }
         }
 
         return points;
