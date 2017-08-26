@@ -157,12 +157,6 @@ public final class ImageCache {
         try {
             image = cloneImage(font.getCharacterImage(character.getCharacter()));
         } catch (final NullPointerException e) {
-            System.err.println("Couldn't display '" + character.getCharacter() + "', represented by the decimal #"
-                               + (int) character.getCharacter() +".");
-
-            System.err.println("When this error occurs, it means that the font being used does not contain a sprite"
-                               + " for the character being used.\n");
-
             image = new BufferedImage(font.getWidth(), font.getHeight(), BufferedImage.TYPE_INT_ARGB);
             character.setBackgroundColor(new Color(0xFFFF00FF));
             character.setForegroundColor(new Color(0xFFFF00FF));
