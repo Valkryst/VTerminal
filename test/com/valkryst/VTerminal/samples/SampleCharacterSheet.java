@@ -23,7 +23,7 @@ public class SampleCharacterSheet {
 
         Thread.sleep(50);
 
-        char counter = 33;
+        char counter = 0;
 
         for (int y = 0 ; y < panel.getHeightInCharacters() ; y++) {
             final AsciiString string = panel.getScreen().getString(y);
