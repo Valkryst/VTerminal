@@ -145,7 +145,9 @@ public class RectanglePrinter {
      *         If the screen is null.
      */
     public void printFilled(final @NonNull Screen screen, final int column, final int row) {
-        for (final Point point : ShapeAlgorithms.getFilledRectangle(column, row, width, height)) {
+        print(screen, column, row);
+
+        for (final Point point : ShapeAlgorithms.getFilledRectangle(column + 1, row + 1, width - 2, height - 2)) {
             screen.write(fillChar, point.x, point.y);
         }
     }
