@@ -66,7 +66,9 @@ public class SampleDrawTime {
                     );
                 }
             } else {
-                System.out.println("Ignoring first " + i + "/1000 draw calls.");
+                if (i % 50 == 0) {
+                    System.out.println("Ignoring first " + i + "/1000 draw calls.");
+                }
             }
 
             Thread.sleep(16);
