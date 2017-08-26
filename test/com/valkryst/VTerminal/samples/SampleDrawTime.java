@@ -11,8 +11,10 @@ import java.awt.Color;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 public class SampleDrawTime {
     public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
@@ -49,32 +51,31 @@ public class SampleDrawTime {
 
             final long timeAfterDraw = System.nanoTime();
             final long timeDifference = timeAfterDraw - timeBeforeDraw;
+            measurements.add(timeDifference);
 
-            if (i > 1000) {
-                measurements.add(timeDifference);
+            if (i % 50 == 0) {
+                double averageDrawTime = measurements.stream().mapToLong(Long::longValue).sum() / (double) i;
+                averageDrawTime /= 1_000_000;
 
-                if (i % 50 == 0) {
-                    double averageDrawTime = measurements.stream().mapToLong(Long::longValue).sum() / (double) i;
-                    averageDrawTime /= 1_000_000;
-
-                    System.out.println(
-                            String.format("Avg Draw Time: %f ms\t\tAvg FPS: %f\t\tTotal Measurements: %d\t\tCached Images: %d",
-                                    averageDrawTime,
-                                    1000 / averageDrawTime,
-                                    i,
-                                    panel.getImageCache().totalCachedImages())
-                    );
-                }
-            } else {
-                if (i % 50 == 0) {
-                    System.out.println("Ignoring first " + i + "/1000 draw calls.");
-                }
+                System.out.println(
+                    String.format("Avg Draw Time: %f ms\t\tAvg FPS: %f\t\tTotal Measurements: %d\t\tCached Images: %d",
+                            averageDrawTime,
+                            1000 / averageDrawTime,
+                            i,
+                            panel.getImageCache().totalCachedImages())
+                );
             }
 
             Thread.sleep(16);
         }
 
         // Remove the bottom and top 10% (outliers) of results:
+        Collections.sort(measurements);
+        final long middleElement = measurements.get(measurements.size() / 2);
+        final double lowestElement = middleElement * 0.80;
+        final double highestElement = middleElement + (middleElement * 0.80);
+
+        measurements = measurements.stream().filter(val -> val >= lowestElement && val <= highestElement).collect(Collectors.toList());
         double averageDrawTime = measurements.stream().mapToLong(Long::longValue).sum() / (double) measurements.size();
         averageDrawTime /= 1_000_000;
 
