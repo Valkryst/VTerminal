@@ -85,4 +85,56 @@ public final class ColorFunctions {
 
         return new Color(r, g, b, a);
     }
+
+    /**
+     * Blends two colors using the alpha blend algorithm.
+     *
+     * @param source
+     *         The source color being blended onto the destination color.
+     *
+     * @param destination
+     *         The destination color.
+     *
+     * @return
+     *         The blended color.
+     */
+    public static Color alphaBlend(final Color source, final Color destination) {
+        return new Color(alphaBlend(source.getRGB(), destination.getRGB()));
+    }
+
+    /**
+     * Blends two RGBA values using the alpha blend algorithm.
+     *
+     * @param sourceRGBA
+     *         The source RGBA being blended onto the destination RGBA.
+     *
+     * @param destinationRGBA
+     *         The destination RGBA.
+     *
+     * @return
+     *         The blended RGBA value.
+     */
+    public static int alphaBlend(final int sourceRGBA, final int destinationRGBA) {
+        final int destinationA = (destinationRGBA >> 24) & 0xFF;
+        final int destinationR = (destinationRGBA >> 16) & 0xFF;
+        final int destinationG = (destinationRGBA >> 8) & 0xFF;
+        final int destinationB = destinationRGBA & 0xFF;
+
+        final int sourceA = (sourceRGBA >> 24) & 0xFF;
+        final int sourceR = (sourceRGBA >> 16) & 0xFF;
+        final int sourceG = (sourceRGBA >> 8) & 0xFF;
+        final int sourceB = sourceRGBA & 0xFF;
+
+        int alphaBlend = destinationA * (255 - sourceA) + sourceA;
+        int redBlend = destinationR * (255 - sourceA) + (sourceR * sourceA);
+        int greenBlend = destinationG * (255 - sourceA) + (sourceG * sourceA);
+        int blueBlend = destinationB * (255 - sourceA) + (sourceB * sourceA);
+
+        alphaBlend = alphaBlend & 0xFF;
+        redBlend = redBlend & 0xFF;
+        greenBlend = greenBlend & 0xFF;
+        blueBlend = blueBlend & 0xFF;
+
+        return (alphaBlend << 24) + (redBlend << 16) + (greenBlend << 8) + blueBlend;
+    }
 }
