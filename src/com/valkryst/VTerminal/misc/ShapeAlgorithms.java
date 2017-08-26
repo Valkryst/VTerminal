@@ -222,8 +222,7 @@ public final class ShapeAlgorithms {
     }
 
     /**
-     * Constructs a list, containing the outline and fill, of a
-     * rectangle's points.
+     * Constructs a list containing all of rectangle's points.
      *
      * @param x
      *         The x-axis (column) coordinate of the top-left character.
