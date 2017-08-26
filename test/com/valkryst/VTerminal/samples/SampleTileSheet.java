@@ -23,7 +23,7 @@ public class SampleTileSheet {
 
         Thread.sleep(50);
 
-        char counter = 32;
+        char counter = 0;
 
         for (int y = 0 ; y < panel.getHeightInCharacters() ; y++) {
             final AsciiString string = panel.getScreen().getString(y);
