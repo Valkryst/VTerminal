@@ -3,6 +3,7 @@ package com.valkryst.VTerminal.component;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.AsciiTile;
+import com.valkryst.VTerminal.builder.component.ScreenBuilder;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -89,7 +90,13 @@ public class ComponentTest {
 
     @Test
     public void testDraw_withValidScreen() {
-        final Screen screen = new Screen(0, 0, width, height);
+        final ScreenBuilder screenBuilder = new ScreenBuilder();
+        screenBuilder.setColumnIndex(0);
+        screenBuilder.setRowIndex(0);
+        screenBuilder.setWidth(width);
+        screenBuilder.setHeight(height);
+
+        final Screen screen = screenBuilder.build();
         final Component component = new Component(0, 0, width, height);
 
         component.draw(screen);
