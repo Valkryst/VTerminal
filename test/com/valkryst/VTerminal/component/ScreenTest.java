@@ -2,6 +2,7 @@ package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
+import com.valkryst.VTerminal.builder.component.ScreenBuilder;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.misc.ImageCache;
@@ -28,36 +29,27 @@ public class ScreenTest {
 
     @Before
     public void initializeScreen() {
-        screen = new Screen(0, 0, 5, 5);
+        final ScreenBuilder screenBuilder = new ScreenBuilder();
+        screenBuilder.setColumnIndex(0);
+        screenBuilder.setRowIndex(0);
+        screenBuilder.setWidth(5);
+        screenBuilder.setHeight(5);
+        screen = screenBuilder.build();
     }
 
     @Test
     public void testConstructor_withValidParams() {
-        final Screen screen = new Screen(4, 6, 9, 10);
+        final ScreenBuilder screenBuilder = new ScreenBuilder();
+        screenBuilder.setColumnIndex(4);
+        screenBuilder.setRowIndex(6);
+        screenBuilder.setWidth(9);
+        screenBuilder.setHeight(10);
+
+        final Screen screen = screenBuilder.build();
         Assert.assertEquals(4, screen.getColumnIndex());
         Assert.assertEquals(6, screen.getRowIndex());
         Assert.assertEquals(9, screen.getWidth());
         Assert.assertEquals(10, screen.getHeight());
-    }
-
-    @Test(expected=IllegalArgumentException.class)
-    public void testConstructor_withNegativeColumnIndex() {
-        new Screen(-1, 6, 9, 10);
-    }
-
-    @Test(expected=IllegalArgumentException.class)
-    public void testConstructor_withNegativeRowIndex() {
-        new Screen(4, -1, 9, 10);
-    }
-
-    @Test(expected=IllegalArgumentException.class)
-    public void testConstructor_withNegativeWidth() {
-        new Screen(4, 6, -1, 10);
-    }
-
-    @Test(expected=IllegalArgumentException.class)
-    public void testConstructor_withNegativeHeight() {
-        new Screen(4, 6, 9, -1);
     }
 
     @Test(expected=UnsupportedOperationException.class)
