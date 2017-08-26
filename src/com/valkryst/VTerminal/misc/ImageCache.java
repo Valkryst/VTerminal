@@ -203,7 +203,6 @@ public final class ImageCache {
                     if (alpha == 255) {
                         image.setRGB(x, y, foregroundRGB);
                     } else {
-                        System.out.println(alpha);
                         // Blend the fore/background colors using alpha blending
                         int alphaBlend = backgroundA * (255 - foregroundA) + foregroundA;
                         int redBlend = backgroundR * (255 - foregroundA) + (foregroundR * foregroundA);
