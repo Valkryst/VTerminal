@@ -19,6 +19,9 @@ public class RectanglePrinter {
     /** The height of the rectangle to print. */
     @Getter private int height = 2;
 
+    /** The character to fill the rectangle with, if a filled rectangle is drawn. */
+    @Getter @Setter private char fillChar = '█';
+
     /** The title string. */
     @Getter @Setter private String title;
 
@@ -101,6 +104,50 @@ public class RectanglePrinter {
 
         // Handle Connectors:
         setConnectors(screen, column, row);
+    }
+
+    /**
+     * Prints a filled rectangle on the screen of a panel.
+     *
+     * @param panel
+     *         The panel.
+     *
+     * @param column
+     *         The x-axis (column) coordinate of the top-left character.
+     *
+     * @param row
+     *         The y-axis (row) coordinate of the top-left character.
+     *
+     * @throws NullPointerException
+     *         If the panel is null.
+     */
+    public void printFilled(final @NonNull Panel panel, final int column, final int row) {
+        printFilled(panel.getScreen(), column, row);
+    }
+
+    /**
+     * Prints a rectangle on a screen.
+     *
+     * If the function is set to perform connections, then it will attempt
+     * to connect the new rectangle with existing similar rectangles in
+     * the draw area.
+     *
+     * @param screen
+     *         The screen.
+     *
+     * @param column
+     *         The x-axis (column) coordinate of the top-left character.
+     *
+     * @param row
+     *         The y-axis (row) coordinate of the top-left character.
+     *
+     * @throws NullPointerException
+     *         If the screen is null.
+     */
+    public void printFilled(final @NonNull Screen screen, final int column, final int row) {
+        for (final Point point : ShapeAlgorithms.getFilledRectangle(column, row, width, height)) {
+            screen.write(fillChar, point.x, point.y);
+        }
     }
 
     public void printFromJSON(final @NonNull Screen screen, final JSONObject jsonObject) {
