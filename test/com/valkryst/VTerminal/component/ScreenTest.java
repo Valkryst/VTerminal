@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal.component;
 
+import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.builder.component.ScreenBuilder;
@@ -34,6 +35,7 @@ public class ScreenTest {
         screenBuilder.setRowIndex(0);
         screenBuilder.setWidth(5);
         screenBuilder.setHeight(5);
+        screenBuilder.setRadio(new Radio<>());
         screen = screenBuilder.build();
     }
 
@@ -44,6 +46,7 @@ public class ScreenTest {
         screenBuilder.setRowIndex(6);
         screenBuilder.setWidth(9);
         screenBuilder.setHeight(10);
+        screenBuilder.setRadio(new Radio<>());
 
         final Screen screen = screenBuilder.build();
         Assert.assertEquals(4, screen.getColumnIndex());

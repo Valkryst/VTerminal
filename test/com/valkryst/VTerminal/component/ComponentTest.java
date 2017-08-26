@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal.component;
 
+import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.AsciiTile;
@@ -95,6 +96,7 @@ public class ComponentTest {
         screenBuilder.setRowIndex(0);
         screenBuilder.setWidth(width);
         screenBuilder.setHeight(height);
+        screenBuilder.setRadio(new Radio<>());
 
         final Screen screen = screenBuilder.build();
         final Component component = new Component(0, 0, width, height);

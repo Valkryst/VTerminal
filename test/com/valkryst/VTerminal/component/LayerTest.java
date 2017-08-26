@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal.component;
 
+import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.builder.component.ScreenBuilder;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
@@ -30,6 +31,7 @@ public class LayerTest {
         screenBuilder.setRowIndex(0);
         screenBuilder.setWidth(1);
         screenBuilder.setHeight(1);
+        screenBuilder.setRadio(new Radio<>());
 
         final Screen screen = screenBuilder.build();
         new Layer(0, 0, 1, 1).draw(screen);
