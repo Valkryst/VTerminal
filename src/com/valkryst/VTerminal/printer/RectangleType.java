@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum RectangleType {
+    NONE(new char[]{'█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█'}),
     SIMPLE(new char[]{'+', '+', '+', '+', '|', '-', '+', '+', '+', '+', '+'}),
     THIN(new char[]{'┌', '┐', '└', '┘', '│', '─', '┼', '┤', '├', '┬', '┴'}),
     HEAVY(new char[]{'╔', '╗', '╚', '╝', '║', '═', '╬', '╣', '╠', '╦', '╩'}),
