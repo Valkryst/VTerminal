@@ -43,11 +43,11 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton> {
     public RadioButton build() {
         checkState();
 
-        final RadioButton radioButton = new RadioButton(this);
-        group.addRadioButton(radioButton);
-
         super.width = text.length() + 2;
         super.height = 1;
+
+        final RadioButton radioButton = new RadioButton(this);
+        group.addRadioButton(radioButton);
 
         return radioButton;
     }
