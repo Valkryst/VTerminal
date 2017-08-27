@@ -254,7 +254,11 @@ public class RectanglePrinter {
      *         If the screen is null.
      */
     private boolean hasValidTopNeighbour(final @NonNull Screen screen, final int column, final int row) {
-        return rectangleType.isValidTopCharacter(screen.getCharacterAt(column, row - 1));
+        try {
+            return rectangleType.isValidTopCharacter(screen.getCharacterAt(column, row - 1));
+        } catch (final IllegalArgumentException e) {
+            return false;
+        }
     }
 
     /**
@@ -275,7 +279,11 @@ public class RectanglePrinter {
      *         If the screen is null.
      */
     private boolean hasValidBottomNeighbour(final @NonNull Screen screen, final int column, final int row) {
-        return rectangleType.isValidBottomCharacter(screen.getCharacterAt(column, row + 1));
+        try {
+            return rectangleType.isValidBottomCharacter(screen.getCharacterAt(column, row + 1));
+        } catch (final IllegalArgumentException e) {
+            return false;
+        }
     }
 
     /**
@@ -296,7 +304,11 @@ public class RectanglePrinter {
      *         If the screen is null.
      */
     private boolean hasValidLeftNeighbour(final @NonNull Screen screen, final int column, final int row) {
-        return rectangleType.isValidLeftCharacter(screen.getCharacterAt(column - 1, row));
+        try {
+            return rectangleType.isValidLeftCharacter(screen.getCharacterAt(column - 1, row));
+        } catch (final IllegalArgumentException e) {
+            return false;
+        }
     }
 
     /**
@@ -317,7 +329,11 @@ public class RectanglePrinter {
      *         If the screen is null.
      */
     private boolean hasValidRightNeighbour(final @NonNull Screen screen, final int column, final int row) {
-        return rectangleType.isValidRightCharacter(screen.getCharacterAt(column + 1, row));
+        try {
+            return rectangleType.isValidRightCharacter(screen.getCharacterAt(column + 1, row));
+        } catch (final IllegalArgumentException e) {
+            return false;
+        }
     }
 
     /**
