@@ -12,9 +12,6 @@ import java.util.regex.Pattern;
 @EqualsAndHashCode(callSuper=true)
 @ToString
 public class TextFieldBuilder extends ComponentBuilder<TextField> {
-    /** The width of the text field, in characters. */
-    @Getter @Setter private int width;
-
     /** The maximum number of characters that the text field can contain. */
     @Getter @Setter private int maxCharacters;
 
@@ -62,10 +59,6 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
     protected void checkState() throws NullPointerException {
         super.checkState();
 
-        if (width < 1) {
-            throw new IllegalArgumentException("The width cannot be less than one.");
-        }
-
         if (maxCharacters < 1) {
             throw new IllegalArgumentException("The maximum characters cannot be less than one.");
         }
@@ -79,7 +72,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
     public void reset() {
         super.reset();
 
-        width = 4;
+        super.width = 4;
         maxCharacters = 4;
 
         caretForegroundColor = new Color(0xFF8E999E, true);
@@ -105,8 +98,6 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
         reset();
         super.parseJSON(jsonObject);
 
-
-        final Integer width = JSONFunctions.getIntElement(jsonObject, "width");
         final Integer maxCharacters = JSONFunctions.getIntElement(jsonObject, "maxCharacters");
 
         final Color caretForegroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("caretForegroundColor"));
@@ -126,10 +117,6 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
 
         final String allowedCharacterPattern = (String) jsonObject.get("allowedCharacterPattern");
 
-
-        if (width != null) {
-            this.width = width;
-        }
 
         if (maxCharacters != null) {
             this.maxCharacters = maxCharacters;

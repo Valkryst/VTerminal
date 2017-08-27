@@ -24,6 +24,10 @@ public class LabelBuilder extends ComponentBuilder<Label> {
     @Override
     public Label build() {
         checkState();
+
+        super.width = text.length();
+        super.height = 1;
+
         return new Label(this);
     }
 

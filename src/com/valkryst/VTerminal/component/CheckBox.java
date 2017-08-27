@@ -53,9 +53,7 @@ public class CheckBox extends Component {
      *         If the builder is null.
      */
     public CheckBox(final @NonNull CheckBoxBuilder builder) {
-        super(builder, builder.getText().length() + 2, 1);
-
-        super.setRadio(builder.getRadio());
+        super(builder);
 
         this.emptyBoxChar = builder.getEmptyBoxChar();
         this.checkedBoxChar = builder.getCheckedBoxChar();

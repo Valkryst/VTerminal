@@ -1,8 +1,8 @@
 package com.valkryst.VTerminal.printer;
 
+import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Component;
-import com.valkryst.VTerminal.component.Image;
 import com.valkryst.VTerminal.component.Screen;
 import lombok.*;
 
@@ -82,27 +82,6 @@ public class ImagePrinter {
     }
 
     /**
-     * Prints an image onto an image component.
-     *
-     * @param columnIndex
-     *         The x-axis (column) coordinate of the top-left character
-     *         of the image component when drawn on a screen.
-     *
-     * @param rowIndex
-     *         The y-axis (row) coordinate of the top-left character
-     *         of the image component when drawn on a screen.
-     */
-    public Image print(final int columnIndex, final int rowIndex) {
-        // Redundant method call to applyTransformations(), but it's required to get the correct
-        // width/height of the resulting image.
-        final BufferedImage temp = applyTransformations();
-        final Image imageComponent = new Image(columnIndex, rowIndex, temp.getWidth(), temp.getHeight());
-        print(imageComponent, columnIndex, rowIndex);
-
-        return imageComponent;
-    }
-
-    /**
      * Prints an image on a component.
      *
      * @param component
@@ -129,10 +108,10 @@ public class ImagePrinter {
 
                 final int charX = x + columnIndex;
                 final int charY = y + rowIndex;
-                component.getCharacterAt(charX, charY).ifPresent(asciiCharacter -> {
-                    asciiCharacter.setCharacter(printChar);
-                    asciiCharacter.setForegroundColor(new Color(red, green, blue));
-                });
+
+                final AsciiCharacter character = component.getCharacterAt(charX, charY);
+                character.setCharacter(printChar);
+                character.setForegroundColor(new Color(red, green, blue));
             }
         }
     }

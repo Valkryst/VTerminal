@@ -55,9 +55,7 @@ public class RadioButton extends Component {
      *         If the builder is null.
      */
     public RadioButton(final @NonNull RadioButtonBuilder builder) {
-        super(builder, builder.getText().length() + 2, 1);
-
-        super.setRadio(builder.getRadio());
+        super(builder);
 
         this.emptyBoxChar = builder.getEmptyButtonChar();
         this.checkedBoxChar = builder.getCheckedButtonChar();

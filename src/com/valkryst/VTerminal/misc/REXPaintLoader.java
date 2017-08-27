@@ -2,6 +2,7 @@ package com.valkryst.VTerminal.misc;
 
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
+import com.valkryst.VTerminal.builder.component.LayerBuilder;
 import com.valkryst.VTerminal.component.Layer;
 import lombok.NonNull;
 
@@ -93,11 +94,18 @@ public final class REXPaintLoader {
 
         final List<Layer> layers = new ArrayList<>();
 
+        final LayerBuilder layerBuilder = new LayerBuilder();
+
         for (int i = 0 ; i < totalLayers ; i++) {
             final int width = byteBuffer.getInt();
             final int height = byteBuffer.getInt();
 
-            final Layer layer = new Layer(0, 0, width, height);
+            layerBuilder.setColumnIndex(0);
+            layerBuilder.setRowIndex(0);
+            layerBuilder.setWidth(width);
+            layerBuilder.setHeight(height);
+
+            final Layer layer = layerBuilder.build();
             final AsciiString[] strings = layer.getStrings();
 
             for (int column = 0 ; column < layer.getWidth() ; column++) {

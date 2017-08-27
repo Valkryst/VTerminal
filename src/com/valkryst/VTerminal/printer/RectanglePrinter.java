@@ -1,6 +1,5 @@
 package com.valkryst.VTerminal.printer;
 
-import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.misc.JSONFunctions;
@@ -255,8 +254,7 @@ public class RectanglePrinter {
      *         If the screen is null.
      */
     private boolean hasValidTopNeighbour(final @NonNull Screen screen, final int column, final int row) {
-        final Optional<AsciiCharacter> optChar = screen.getCharacterAt(column, row - 1);
-        return optChar.filter(asciiCharacter -> rectangleType.isValidTopCharacter(asciiCharacter)).isPresent();
+        return rectangleType.isValidTopCharacter(screen.getCharacterAt(column, row - 1));
     }
 
     /**
@@ -277,8 +275,7 @@ public class RectanglePrinter {
      *         If the screen is null.
      */
     private boolean hasValidBottomNeighbour(final @NonNull Screen screen, final int column, final int row) {
-        final Optional<AsciiCharacter> optChar = screen.getCharacterAt(column, row + 1);
-        return optChar.filter(asciiCharacter -> rectangleType.isValidBottomCharacter(asciiCharacter)).isPresent();
+        return rectangleType.isValidBottomCharacter(screen.getCharacterAt(column, row + 1));
     }
 
     /**
@@ -299,8 +296,7 @@ public class RectanglePrinter {
      *         If the screen is null.
      */
     private boolean hasValidLeftNeighbour(final @NonNull Screen screen, final int column, final int row) {
-        final Optional<AsciiCharacter> optChar = screen.getCharacterAt(column - 1, row);
-        return optChar.filter(asciiCharacter -> rectangleType.isValidLeftCharacter(asciiCharacter)).isPresent();
+        return rectangleType.isValidLeftCharacter(screen.getCharacterAt(column - 1, row));
     }
 
     /**
@@ -321,8 +317,7 @@ public class RectanglePrinter {
      *         If the screen is null.
      */
     private boolean hasValidRightNeighbour(final @NonNull Screen screen, final int column, final int row) {
-        final Optional<AsciiCharacter> optChar = screen.getCharacterAt(column + 1, row);
-        return optChar.filter(asciiCharacter -> rectangleType.isValidRightCharacter(asciiCharacter)).isPresent();
+        return rectangleType.isValidRightCharacter(screen.getCharacterAt(column + 1, row));
     }
 
     /**

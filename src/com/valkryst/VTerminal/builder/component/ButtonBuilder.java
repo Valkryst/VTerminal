@@ -44,6 +44,11 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
     @Override
     public Button build() {
         checkState();
+
+        // The width of the button is "text.length() + 2" because the button text is startingCharacter + text + endingCharacter.
+        super.width = text.length() + (isUsingStartingAndEndingCharacters() ? 2 : 0);
+        super.height = 1;
+
         return new Button(this);
     }
 

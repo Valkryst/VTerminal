@@ -58,12 +58,7 @@ public class Button extends Component {
      *         If the builder is null.
      */
     public Button(final @NonNull ButtonBuilder builder) {
-        // The width of the button is "text.length() + 2" because the button text is startingCharacter + text + endingCharacter.
-        super(builder,
-              builder.getText().length() + (builder.isUsingStartingAndEndingCharacters() ? 2 : 0),
-              1);
-
-        super.setRadio(builder.getRadio());
+        super(builder);
 
         this.startingCharacter = builder.getStartingCharacter();
         this.endingCharacter = builder.getEndingCharacter();

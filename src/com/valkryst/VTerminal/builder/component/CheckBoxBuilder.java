@@ -41,6 +41,10 @@ public class CheckBoxBuilder extends ComponentBuilder<CheckBox> {
     @Override
     public CheckBox build() {
         checkState();
+
+        super.width = text.length() + 2;
+        super.height = 1;
+
         return new CheckBox(this);
     }
 

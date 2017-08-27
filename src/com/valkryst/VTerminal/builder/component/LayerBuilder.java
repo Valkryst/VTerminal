@@ -11,11 +11,6 @@ import java.awt.Color;
 @EqualsAndHashCode(callSuper=true)
 @ToString
 public class LayerBuilder extends ComponentBuilder<Layer> {
-    /** The width of the layer, in characters. */
-    @Getter @Setter private int width;
-    /** The height of the layer, in characters. */
-    @Getter @Setter private int height;
-
     /** The foreground color. */
     @Getter @Setter @NonNull private Color foregroundColor;
     /** The background color. */
@@ -31,8 +26,8 @@ public class LayerBuilder extends ComponentBuilder<Layer> {
     public void reset() {
         super.reset();
 
-        width = 1;
-        height = 1;
+        super.width = 1;
+        super.height = 1;
 
         backgroundColor = new Color(45, 45, 45, 255);
         foregroundColor = Color.WHITE;
@@ -43,22 +38,8 @@ public class LayerBuilder extends ComponentBuilder<Layer> {
         reset();
         super.parseJSON(jsonObject);
 
-
-        final Integer width = JSONFunctions.getIntElement(jsonObject, "width");
-        final Integer height = JSONFunctions.getIntElement(jsonObject, "height");
-
         final Color foregroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor"));
         final Color backgroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor"));
-
-
-        if (width != null) {
-            this.width = width;
-        }
-
-        if (height != null) {
-            this.height = height;
-        }
-
 
         if (foregroundColor != null) {
             this.foregroundColor = foregroundColor;

@@ -11,11 +11,6 @@ import java.awt.Color;
 @EqualsAndHashCode(callSuper=true)
 @ToString
 public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
-    /** The width of the loading bar, in characters. */
-    @Getter @Setter private int width;
-    /** The height of the loading bar, in characters. */
-    @Getter @Setter private int height;
-
     /** The character that represents an incomplete cell. */
     @Getter @Setter private char incompleteCharacter;
     /** The character that represents a complete cell. */
@@ -41,8 +36,8 @@ public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
     public void reset() {
         super.reset();
 
-        width = 10;
-        height = 1;
+        super.width = 10;
+        super.height = 1;
 
         incompleteCharacter = '█';
         completeCharacter = '█';
@@ -60,9 +55,6 @@ public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
         super.parseJSON(jsonObject);
 
 
-        final Integer width = JSONFunctions.getIntElement(jsonObject, "width");
-        final Integer height = JSONFunctions.getIntElement(jsonObject, "height");
-
         final Character incompleteCharacter = (Character) jsonObject.get("incompleteCharacter");
         final Character completeCharacter = (Character) jsonObject.get("completeCharacter");
 
@@ -71,16 +63,6 @@ public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
 
         final Color backgroundColor_complete = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_complete"));
         final Color foregroundColor_complete = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_complete"));
-
-
-        if (width != null) {
-            this.width = width;
-        }
-
-        if (height != null) {
-            this.height = height;
-        }
-
 
 
         if (incompleteCharacter != null) {

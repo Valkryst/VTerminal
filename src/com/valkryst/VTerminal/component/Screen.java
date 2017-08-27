@@ -37,8 +37,7 @@ public class Screen extends Component {
      *         If the builder is null.
      */
     public Screen (final @NonNull ScreenBuilder builder) {
-        super(builder.getColumnIndex(), builder.getRowIndex(), builder.getWidth(), builder.getHeight());
-        super.setRadio(builder.getRadio());
+        super(builder);
 
         setBackgroundColor(new Color(45, 45, 45, 255));
 
@@ -672,28 +671,6 @@ public class Screen extends Component {
 
         if (component instanceof CheckBox) {
             return (CheckBox) component;
-        }
-
-        return null;
-    }
-
-    /**
-     * Works the same as getComponentByID, but only returns
-     * if the result is a Image component.
-     *
-     * @param id
-     *        The id.
-     *
-     * @return
-     *        If no component matches the ID, then null is returned.
-     *        If no image component matches the ID, then null is returned.
-     *        Else the component is returned.
-     */
-    public Image getImageByID(final String id) {
-        final Component component = getComponentByID(id);
-
-        if (component instanceof Image) {
-            return (Image) component;
         }
 
         return null;

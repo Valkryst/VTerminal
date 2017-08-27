@@ -12,11 +12,6 @@ import java.util.regex.Pattern;
 @EqualsAndHashCode(callSuper=true)
 @ToString
 public class TextAreaBuilder extends ComponentBuilder<TextArea> {
-    /** The width of the text area, in characters. */
-    @Getter @Setter private int width;
-    /** The height of the text area, in characters. */
-    @Getter @Setter private int height;
-
     /** The maximum number of characters that the field can contain along the x-axis. */
     @Getter @Setter private int maxHorizontalCharacters;
     /** The maximum number of characters that the field can contain along the y-axis. */
@@ -81,14 +76,6 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
     protected void checkState() throws NullPointerException {
         super.checkState();
 
-        if (width < 1) {
-            throw new IllegalArgumentException("The width cannot be less than one.");
-        }
-
-        if (height < 1) {
-            throw new IllegalArgumentException("The height cannot be less than one.");
-        }
-
         if (maxHorizontalCharacters < 1) {
             throw new IllegalArgumentException("The maximum horizontal characters cannot be less than one.");
         }
@@ -114,8 +101,8 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
     public void reset() {
         super.reset();
 
-        width = 4;
-        height = 4;
+        super.width = 4;
+        super.height = 4;
         maxHorizontalCharacters = 4;
         maxVerticalCharacters = 4;
 
@@ -150,9 +137,6 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
         reset();
         super.parseJSON(jsonObject);
 
-
-        final Integer width = JSONFunctions.getIntElement(jsonObject, "width");
-        final Integer height = JSONFunctions.getIntElement(jsonObject, "height");
         final Integer maxHorizontalCharacters = JSONFunctions.getIntElement(jsonObject, "maxHorizontalCharacters");
         final Integer maxVerticalCharacters = JSONFunctions.getIntElement(jsonObject, "maxVerticalCharacters");
 
@@ -179,14 +163,6 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
 
         final String allowedCharacterPattern = (String) jsonObject.get("allowedCharacterPattern");
 
-
-        if (width != null) {
-            this.width = width;
-        }
-
-        if (height != null) {
-            this.height = height;
-        }
 
         if (maxHorizontalCharacters != null) {
             this.maxHorizontalCharacters = maxHorizontalCharacters;

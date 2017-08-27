@@ -46,6 +46,9 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton> {
         final RadioButton radioButton = new RadioButton(this);
         group.addRadioButton(radioButton);
 
+        super.width = text.length() + 2;
+        super.height = 1;
+
         return radioButton;
     }
 

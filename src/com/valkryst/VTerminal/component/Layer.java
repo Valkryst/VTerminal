@@ -19,31 +19,12 @@ public class Layer extends Component {
      *        The builder to use.
      */
     public Layer(final LayerBuilder builder) {
-        super(builder, builder.getWidth(), builder.getHeight());
+        super(builder);
 
         for (final AsciiString string : super.getStrings()) {
             string.setBackgroundColor(builder.getBackgroundColor());
             string.setForegroundColor(builder.getForegroundColor());
         }
-    }
-
-    /**
-     * Constructs a new Layer.
-     *
-     * @param columnIndex
-     *        The x-axis (column) coordinate of the top-left character.
-     *
-     * @param rowIndex
-     *        The y-axis (row) coordinate of the top-left character.
-     *
-     * @param width
-     *        The width, in characters.
-     *
-     * @param height
-     *        The height, in characters.
-     */
-    public Layer(final int columnIndex, final int rowIndex, final int width, final int height) {
-        super(columnIndex, rowIndex, width, height);
     }
 
     @Override

@@ -25,7 +25,7 @@ public class Label extends Component {
      *         If the builder is null.
      */
     public Label(final @NonNull LabelBuilder builder) {
-        super(builder, builder.getText().length(), 1);
+        super(builder);
 
         this.backgroundColor = builder.getBackgroundColor();
         this.foregroundColor = builder.getForegroundColor();

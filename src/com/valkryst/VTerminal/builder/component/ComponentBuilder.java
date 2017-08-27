@@ -27,9 +27,9 @@ public class ComponentBuilder<C extends Component> {
     @Getter @Setter private int rowIndex;
 
     /** The width, in characters. */
-    @Getter protected int width;
+    @Getter @Setter protected int width;
     /** The height, in characters. */
-    @Getter protected int height;
+    @Getter @Setter protected int height;
 
     /** The radio to transmit events to. */
     @Getter @Setter @NonNull private Radio<String> radio;
