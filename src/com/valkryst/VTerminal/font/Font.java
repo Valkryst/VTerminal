@@ -10,7 +10,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @ToString
 public class Font {
@@ -45,30 +44,11 @@ public class Font {
 
         if (scale > 0) {
             for (final Map.Entry<Character, BufferedImage> entry : characterImages.entrySet()) {
-                final BufferedImage scaledImage = scaleImage(entry.getValue(), scale);
-                characterImages.put(entry.getKey(), scaledImage);
+                final AffineTransform tx = AffineTransform.getScaleInstance(scale, scale);
+                final AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                characterImages.put(entry.getKey(), op.filter(entry.getValue(), null));
             }
         }
-    }
-
-    /**
-     * Scales an image.
-     *
-     * @param image
-     *         The image.
-     *
-     * @param scale
-     *         The amount to scale by.
-     *
-     * @return
-     *         The scaled image.
-     */
-    private BufferedImage scaleImage(final @NonNull BufferedImage image, final int scale) {
-        Objects.requireNonNull(image);
-
-        final AffineTransform tx = AffineTransform.getScaleInstance(scale, scale);
-        final AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-        return op.filter(image, null);
     }
 
     /**
