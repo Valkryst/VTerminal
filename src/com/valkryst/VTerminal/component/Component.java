@@ -377,71 +377,86 @@ public class Component {
     }
 
     /**
-     * Retrieves the AsciiCharacter at a specific location.
+     * Retrieves the AsciiCharacter at a specific position.
      *
      * @param columnIndex
-     *        The x-axis (column) coordinate of the location.
+     *        The x-axis (column) coordinate of the position.
      *
      * @param rowIndex
-     *        The y-axis (row) coordinate of the location.
+     *        The y-axis (row) coordinate of the position.
      *
      * @return
-     *        The AsciiCharacter at the specified location or nothing
-     *        if the location is invalid.
+     *        The AsciiCharacter.
+     *
+     * @throws IllegalArgumentException
+     *         If the position is invalid.
      */
-    public Optional<AsciiCharacter> getCharacterAt(final int columnIndex, final int rowIndex) {
+    public AsciiCharacter getCharacterAt(final int columnIndex, final int rowIndex) {
         if (isPositionValid(columnIndex, rowIndex)) {
-            return Optional.of(strings[rowIndex].getCharacters()[columnIndex]);
+            return strings[rowIndex].getCharacters()[columnIndex];
         }
 
-        return Optional.empty();
+        throw new IllegalArgumentException("The position (" + columnIndex + " columnIndex, " + rowIndex + " rowIndex) is invalid.");
     }
 
     /**
      * Sets a new value for the columnIndex.
      *
-     * Does nothing if the specified columnIndex is < 0.
-     *
      * @param columnIndex
-     *         The new x-axis (column) coordinate of the top-left character of the component.
+     *         The new x-axis (column) coordinate of the top-left
+     *         character of the component.
+     *
+     * @throws IllegalArgumentException
+     *         If the columnIndex is < 0.
      */
     public void setColumnIndex(final int columnIndex) {
-        if (columnIndex >= 0) {
-            setLocationOnScreenToBeRedrawn();
-            this.columnIndex = columnIndex;
-            boundingBox.setLocation(columnIndex, rowIndex);
-            setAllCharactersToBeRedrawn();
+        if (columnIndex < 0) {
+            throw new IllegalArgumentException("The columnIndex cannot be < 0.");
         }
+
+        setLocationOnScreenToBeRedrawn();
+        this.columnIndex = columnIndex;
+        boundingBox.setLocation(columnIndex, rowIndex);
+        setAllCharactersToBeRedrawn();
     }
 
     /**
      * Sets a new value for the rowIndex.
      *
-     * Does nothing if the specified rowIndex is < 0.
-     *
      * @param rowIndex
-     *         The y-axis (row) coordinate of the top-left character of the component.
+     *         The y-axis (row) coordinate of the top-left character of
+     *         the component.
+     *
+     * @throws IllegalArgumentException
+     *         If the rowIndex is < 0.
      */
     public void setRowIndex(final int rowIndex) {
-        if (rowIndex >= 0) {
-            setLocationOnScreenToBeRedrawn();
-            this.rowIndex = rowIndex;
-            boundingBox.setLocation(columnIndex, rowIndex);
-            setAllCharactersToBeRedrawn();
+        if (rowIndex < 0) {
+            throw new IllegalArgumentException("The rowIndex cannot be < 0.");
         }
+
+        setLocationOnScreenToBeRedrawn();
+        this.rowIndex = rowIndex;
+        boundingBox.setLocation(columnIndex, rowIndex);
+        setAllCharactersToBeRedrawn();
     }
 
     /**
      * Sets a new value for the width.
      *
-     * Does nothing if the specified width is < 0 or < columnIndex.
-     *
      * @param width
      *         The new width, in characters, of the component.
+     *
+     * @throws IllegalArgumentException
+     *         If the width is < 0 or the width is < columnIndex.
      */
     public void setWidth(final int width) {
-        if (width < 0 || width < columnIndex) {
-            return;
+        if (width < 0) {
+            throw new IllegalArgumentException("The width cannot be < 0.");
+        }
+
+        if (width < columnIndex) {
+            throw new IllegalArgumentException("The width cannot be < columnIndex,");
         }
 
         setLocationOnScreenToBeRedrawn();
@@ -453,14 +468,19 @@ public class Component {
     /**
      * Sets a new value for the height.
      *
-     * Does nothing if the specified height is < 0 or < rowIndex.
-     *
      * @param height
      *         The new height, in characters, of the component.
+     *
+     * @throws java.lang.IllegalArgumentException
+     *         If the height is < 0 or the height is < rowIndex.
      */
     public void setHeight(final int height) {
-        if (height < 0 || height < rowIndex) {
-            return;
+        if (height < 0) {
+            throw new IllegalArgumentException("The height cannot be < 0.");
+        }
+
+        if (height < rowIndex) {
+            throw new IllegalArgumentException("The height cannot be < rowIndex,");
         }
 
         setLocationOnScreenToBeRedrawn();
@@ -479,7 +499,6 @@ public class Component {
      *         If the radio is null.
      */
     public void setRadio(final @NonNull Radio<String> radio) {
-        Objects.requireNonNull(radio);
         this.radio = radio;
     }
 }
