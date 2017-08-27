@@ -246,12 +246,21 @@ public class SampleComponents {
         labelBuilder.setText("Layer Test");
         panel.addComponent(labelBuilder.build());
 
-        final Layer layerA = new Layer(50, 2, 23, 10);
+        final LayerBuilder layerBuilder = new LayerBuilder();
+        layerBuilder.setColumnIndex(50);
+        layerBuilder.setRowIndex(2);
+        layerBuilder.setWidth(23);
+        layerBuilder.setHeight(10);
+        final Layer layerA = layerBuilder.build();
         for (final AsciiString string : layerA.getStrings()) {
             string.setBackgroundColor(new Color(255, 0, 0, 255));
         }
 
-        final Layer layerB = new Layer(50, 8, 23, 10);
+        layerBuilder.setColumnIndex(50);
+        layerBuilder.setRowIndex(8);
+        layerBuilder.setWidth(23);
+        layerBuilder.setHeight(10);
+        final Layer layerB = layerBuilder.build();
         for (final AsciiString string : layerB.getStrings()) {
             string.setBackgroundColor(new Color(0, 0, 255, 155));
         }
