@@ -3,6 +3,7 @@ package com.valkryst.VTerminal.builder.component;
 import com.valkryst.VTerminal.component.RadioButton;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
 import com.valkryst.VTerminal.misc.ColorFunctions;
+import com.valkryst.VTerminal.misc.JSONFunctions;
 import lombok.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -94,14 +95,14 @@ public class RadioButtonBuilder extends ComponentBuilder<RadioButton> {
         final Character emptyButtonChar = (Character) jsonObject.get("emptyButtonChar");
         final Character checkedButtonChar = (Character) jsonObject.get("checkedButtonChar");
 
-        final Color backgroundColor_normal = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_normal"));
-        final Color foregroundColor_normal = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_normal"));
+        final Color backgroundColor_normal = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_normal"));
+        final Color foregroundColor_normal = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_normal"));
 
-        final Color backgroundColor_hover = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_hover"));
-        final Color foregroundColor_hover = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_hover"));
+        final Color backgroundColor_hover = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_hover"));
+        final Color foregroundColor_hover = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_hover"));
 
-        final Color backgroundColor_checked = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_checked"));
-        final Color foregroundColor_checked = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_checked"));
+        final Color backgroundColor_checked = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_checked"));
+        final Color foregroundColor_checked = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_checked"));
 
 
         if (text != null) {

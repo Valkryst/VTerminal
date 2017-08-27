@@ -2,6 +2,7 @@ package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.Button;
 import com.valkryst.VTerminal.misc.ColorFunctions;
+import com.valkryst.VTerminal.misc.JSONFunctions;
 import lombok.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -82,14 +83,14 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
 
         final Boolean usingStartingAndEndingCharacters = (Boolean) jsonObject.get("usingStartingAndEndingCharacters");
 
-        final Color backgroundColor_normal = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_normal"));
-        final Color foregroundColor_normal = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_normal"));
+        final Color backgroundColor_normal = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_normal"));
+        final Color foregroundColor_normal = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_normal"));
 
-        final Color backgroundColor_hover = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_hover"));
-        final Color foregroundColor_hover = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_hover"));
+        final Color backgroundColor_hover = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_hover"));
+        final Color foregroundColor_hover = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_hover"));
 
-        final Color backgroundColor_pressed = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_pressed"));
-        final Color foregroundColor_pressed = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_pressed"));
+        final Color backgroundColor_pressed = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_pressed"));
+        final Color foregroundColor_pressed = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_pressed"));
 
 
         if (text != null) {

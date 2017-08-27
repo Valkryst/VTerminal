@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.Label;
+import com.valkryst.VTerminal.misc.JSONFunctions;
 import lombok.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -48,8 +49,8 @@ public class LabelBuilder extends ComponentBuilder<Label> {
 
         final Boolean underlined = (Boolean) jsonObject.get("underlined");
 
-        final Color backgroundColor = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor"));
-        final Color foregroundColor = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor"));
+        final Color backgroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor"));
+        final Color foregroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor"));
 
 
         if (text != null) {

@@ -47,8 +47,8 @@ public class LayerBuilder extends ComponentBuilder<Layer> {
         final Integer width = JSONFunctions.getIntElement(jsonObject, "width");
         final Integer height = JSONFunctions.getIntElement(jsonObject, "height");
 
-        final Color foregroundColor = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor"));
-        final Color backgroundColor = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor"));
+        final Color foregroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor"));
+        final Color backgroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor"));
 
 
         if (width != null) {

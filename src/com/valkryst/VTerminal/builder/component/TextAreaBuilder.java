@@ -156,11 +156,11 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
         final Integer maxHorizontalCharacters = JSONFunctions.getIntElement(jsonObject, "maxHorizontalCharacters");
         final Integer maxVerticalCharacters = JSONFunctions.getIntElement(jsonObject, "maxVerticalCharacters");
 
-        final Color caretForegroundColor = super.loadColorFromJSON((JSONArray) jsonObject.get("caretForegroundColor"));
-        final Color caretBackgroundColor = super.loadColorFromJSON((JSONArray) jsonObject.get("caretBackgroundColor"));
+        final Color caretForegroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("caretForegroundColor"));
+        final Color caretBackgroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("caretBackgroundColor"));
 
-        final Color foregroundColor = super.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor"));
-        final Color backgroundColor = super.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor"));
+        final Color foregroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor"));
+        final Color backgroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor"));
 
         final Boolean editable = (Boolean) jsonObject.get("editable");
 
