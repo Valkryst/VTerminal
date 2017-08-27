@@ -55,38 +55,6 @@ public final class FontLoader {
     }
 
     /**
-     * Loads a font from the file system.
-     *
-     * @param spriteSheet
-     *         The input stream to the sprite sheet.
-     *
-     * @param characterData
-     *         The input stream to the character data.
-     *
-     * @param scale
-     *         The amount to scale the font by.
-     *
-     * @return
-     *         The font.
-     *
-     * @throws NullPointerException
-     *         If the sprite sheet or character data streams are null.
-     *
-     * @throws IOException
-     *         If an IOException occurs while loading the font.
-     */
-    public static Font loadFont(final @NonNull InputStream spriteSheet, final @NonNull InputStream characterData, int scale) throws IOException {
-        if (scale < 1) {
-            scale = 1;
-        }
-
-        final BufferedImage image = loadSpriteSheet(spriteSheet);
-        final List<String> data = loadCharacterData(characterData);
-
-        return new Font(processFontData(image, data), scale);
-    }
-
-    /**
      * Loads a font from within the Jar.
      *
      * @param spriteSheetPath
@@ -128,6 +96,38 @@ public final class FontLoader {
         final InputStream characterDataStream = classLoader.getResourceAsStream(characterDataPath);
 
         return loadFont(spriteSheetStream, characterDataStream, scale);
+    }
+
+    /**
+     * Loads a font from the file system.
+     *
+     * @param spriteSheet
+     *         The input stream to the sprite sheet.
+     *
+     * @param characterData
+     *         The input stream to the character data.
+     *
+     * @param scale
+     *         The amount to scale the font by.
+     *
+     * @return
+     *         The font.
+     *
+     * @throws NullPointerException
+     *         If the sprite sheet or character data streams are null.
+     *
+     * @throws IOException
+     *         If an IOException occurs while loading the font.
+     */
+    public static Font loadFont(final @NonNull InputStream spriteSheet, final @NonNull InputStream characterData, int scale) throws IOException {
+        if (scale < 1) {
+            scale = 1;
+        }
+
+        final BufferedImage image = loadSpriteSheet(spriteSheet);
+        final List<String> data = loadCharacterData(characterData);
+
+        return new Font(processFontData(image, data), scale);
     }
 
     /**
@@ -190,12 +190,12 @@ public final class FontLoader {
             final GraphicsDevice gd = ge.getDefaultScreenDevice();
             final GraphicsConfiguration gc = gd.getDefaultConfiguration();
 
-            final BufferedImage converedImage = gc.createCompatibleImage(loadedImage.getWidth(), loadedImage.getHeight(), loadedImage.getTransparency());
+            final BufferedImage convertedImage = gc.createCompatibleImage(loadedImage.getWidth(), loadedImage.getHeight(), loadedImage.getTransparency());
 
-            final Graphics2D g2d = converedImage.createGraphics();
+            final Graphics2D g2d = convertedImage.createGraphics();
             g2d.drawImage(loadedImage, 0, 0, null);
             g2d.dispose();
-            return converedImage;
+            return convertedImage;
         } catch(final HeadlessException e) {
             // Occurs when running FontLoader unit tests on Travis CI.
             // Probably because there's no screen/graphics device.
