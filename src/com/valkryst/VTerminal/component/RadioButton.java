@@ -67,6 +67,7 @@ public class RadioButton extends Button {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     if (intersects(e, fontWidth, fontHeight)) {
                         if (isChecked == false) {
+                            RadioButton.super.getOnClickFunction().run();
                             group.setCheckedButton(thisButton);
                             setStateHovered();
                         }

@@ -65,6 +65,7 @@ public class CheckBox extends Button {
                         if (isChecked) {
                             uncheck();
                         } else {
+                            CheckBox.super.getOnClickFunction().run();
                             check();
                         }
                     }
