@@ -5,12 +5,10 @@ import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.misc.JSONFunctions;
 import lombok.*;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.awt.Color;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -27,6 +25,11 @@ public class ComponentBuilder<C extends Component> {
     @Getter @Setter private int columnIndex;
     /** The y-axis (row) coordinate of the top-left character. */
     @Getter @Setter private int rowIndex;
+
+    /** The width, in characters. */
+    @Getter private int width;
+    /** The height, in characters. */
+    @Getter private int height;
 
     /** The radio to transmit events to. */
     @Getter @Setter @NonNull private Radio<String> radio;
@@ -67,6 +70,14 @@ public class ComponentBuilder<C extends Component> {
         if (rowIndex < 0) {
             throw new IllegalArgumentException("The row index cannot be less than zero.");
         }
+
+        if (width < 1) {
+            throw new IllegalArgumentException("You must specify a width of 1 or greater.");
+        }
+
+        if (height < 1) {
+            throw new IllegalArgumentException("You must specify a height of 1 or greater.");
+        }
     }
 
     /** Resets the builder to it's default state. */
@@ -75,6 +86,8 @@ public class ComponentBuilder<C extends Component> {
 
         columnIndex = 0;
         rowIndex = 0;
+        width = 1;
+        height = 1;
 
         radio = null;
     }
@@ -183,6 +196,8 @@ public class ComponentBuilder<C extends Component> {
 
         final Integer columnIndex = JSONFunctions.getIntElement(jsonObject, "columnIndex");
         final Integer rowIndex = JSONFunctions.getIntElement(jsonObject, "rowIndex");
+        final Integer width = JSONFunctions.getIntElement(jsonObject, "width");
+        final Integer height = JSONFunctions.getIntElement(jsonObject, "height");
 
 
         if (id != null) {
@@ -197,37 +212,13 @@ public class ComponentBuilder<C extends Component> {
         if (rowIndex != null) {
             this.rowIndex = rowIndex;
         }
-    }
 
-    /**
-     * Loads a Color from a JSON array.
-     *
-     * The array is loaded as [red, green, blue] or a [red, green, blue, alpha].
-     * Any values after alpha are ignored.
-     *
-     * @param jsonArray
-     *        The array of color values.
-     *
-     * @return
-     *        The Color or null if the jsonArray is null.
-     *
-     * @throws IllegalStateException
-     *        If the array contains fewer than three values.
-     */
-    public Color loadColorFromJSON(final JSONArray jsonArray) {
-        if (jsonArray == null) {
-            return null;
+        if (width != null) {
+            this.width = width;
         }
 
-        if (jsonArray.size() >= 3) {
-            final Integer red = (int) (long) jsonArray.get(0);
-            final Integer green = (int) (long) jsonArray.get(1);
-            final Integer blue = (int) (long) jsonArray.get(2);
-            Integer alpha = jsonArray.size() >= 4 ? (int) (long) jsonArray.get(3) : 255;
-
-            return new Color(red, green, blue, alpha);
+        if (height != null) {
+            this.height = height;
         }
-
-        throw new IllegalStateException("Cannot load a color with fewer than 3 values.");
     }
 }
