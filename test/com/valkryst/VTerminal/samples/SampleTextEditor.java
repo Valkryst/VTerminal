@@ -42,7 +42,6 @@ public class SampleTextEditor {
         buttonBuilder.setRadio(panel.getRadio());
         buttonBuilder.setColumnIndex(0);
         buttonBuilder.setRowIndex(0);
-        buttonBuilder.setUsingStartingAndEndingCharacters(false);
         buttonBuilder.setText("New");
         buttonBuilder.setOnClickFunction(() -> {
             textArea.clearText();

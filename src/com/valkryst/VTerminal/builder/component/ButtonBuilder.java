@@ -15,14 +15,6 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
     /** The text to display on the button. */
     @Getter @Setter @NonNull private String text;
 
-    /** The first character of the button's text. This is used to identify the text as a button. */
-    @Getter @Setter private char startingCharacter;
-    /** The last character of the button's text. This is used to identify the text as a button. */
-    @Getter @Setter private char endingCharacter;
-
-    /** Whether or not the button should use the starting/ending characters. */
-    @Getter @Setter private boolean usingStartingAndEndingCharacters;
-
     /** The background color for when the button is in the normal state. */
     @Getter @Setter @NonNull private Color backgroundColor_normal;
     /** The foreground color for when the button is in the normal state. */
@@ -45,8 +37,7 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
     public Button build() {
         checkState();
 
-        // The width of the button is "text.length() + 2" because the button text is startingCharacter + text + endingCharacter.
-        super.width = text.length() + (isUsingStartingAndEndingCharacters() ? 2 : 0);
+        super.width = text.length();
         super.height = 1;
 
         return new Button(this);
@@ -57,11 +48,6 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
         super.reset();
 
         text = "";
-
-        startingCharacter = '<';
-        endingCharacter = '>';
-
-        usingStartingAndEndingCharacters = true;
 
         backgroundColor_normal = new Color(45, 45, 45, 255);
         foregroundColor_normal = new Color(0xFF2DBEFF, true);
@@ -83,11 +69,6 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
 
         final String text = (String) jsonObject.get("text");
 
-        final Character startingCharacter = (Character) jsonObject.get("startingCharacter");
-        final Character endingCharacter = (Character) jsonObject.get("endingCharacter");
-
-        final Boolean usingStartingAndEndingCharacters = (Boolean) jsonObject.get("usingStartingAndEndingCharacters");
-
         final Color backgroundColor_normal = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_normal"));
         final Color foregroundColor_normal = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_normal"));
 
@@ -100,22 +81,6 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
 
         if (text != null) {
             this.text = text;
-        }
-
-
-
-        if (startingCharacter != null) {
-            this.startingCharacter = startingCharacter;
-        }
-
-        if (endingCharacter != null) {
-            this.endingCharacter = endingCharacter;
-        }
-
-
-
-        if (usingStartingAndEndingCharacters != null) {
-            this.usingStartingAndEndingCharacters = usingStartingAndEndingCharacters;
         }
 
 
