@@ -25,11 +25,6 @@ public class Button extends Component {
     /** Whether or not the button is in the pressed state. */
     private boolean isInPressedState = false;
 
-    /** The first character of the button's text. This is used to identify the text as a button. */
-    @Getter private char startingCharacter;
-    /** The last character of the button's text. This is used to identify the text as a button. */
-    @Getter private char endingCharacter;
-
     /** The background color for when the button is in the normal state. */
     @Getter private Color backgroundColor_normal;
     /** The foreground color for when the button is in the normal state. */
@@ -242,31 +237,6 @@ public class Button extends Component {
         final IntRange range = new IntRange(beginIndex, endIndex);
 
         super.getString(0).disableBlinkEffect(range);
-    }
-
-    /**
-     * Sets the starting character of the button's text.
-     *
-     * @param startingCharacter
-     *         The new starting character.
-     */
-    public void setStartingCharacter(final char startingCharacter) {
-        this.startingCharacter = startingCharacter;
-
-        super.getString(0).getCharacters()[0].setCharacter(startingCharacter);
-    }
-
-    /**
-     * Sets the ending character of the button's text.
-     *
-     * @param endingCharacter
-     *         The new ending character.
-     */
-    public void setEndingCharacter(final char endingCharacter) {
-        this.endingCharacter = endingCharacter;
-
-        final AsciiCharacter[] characters = super.getString(0).getCharacters();
-        super.getString(0).setCharacter(characters.length - 1, endingCharacter);
     }
 
     /**
