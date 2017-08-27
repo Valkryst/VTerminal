@@ -1,12 +1,10 @@
 package com.valkryst.VTerminal.component;
 
-import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @ToString
 public class RadioButtonGroup {
@@ -25,9 +23,9 @@ public class RadioButtonGroup {
     public void setCheckedButton(final @NonNull RadioButton button) {
         for (int i = 0 ; i < buttons.size() ; i++) {
             if (buttons.get(i).equals(button)) {
-                buttons.get(i).check();
+                buttons.get(i).setChecked(true);
             } else {
-                buttons.get(i).uncheck();
+                buttons.get(i).setChecked(false);
             }
         }
     }
@@ -44,7 +42,7 @@ public class RadioButtonGroup {
     public void addRadioButton(final @NonNull RadioButton button) {
         if (buttons.size() == 0) {
             buttons.add(button);
-            button.check();
+            button.setChecked(true);
         } else {
             buttons.add(button);
         }

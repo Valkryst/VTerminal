@@ -87,6 +87,10 @@ public class Button extends Component {
 
         super.createEventListeners(panel);
 
+        if (this instanceof CheckBox || this instanceof RadioButton) {
+            return;
+        }
+
         final Font font = panel.getImageCache().getFont();
         final int fontWidth = font.getWidth();
         final int fontHeight = font.getHeight();
@@ -153,7 +157,7 @@ public class Button extends Component {
     }
 
     /** Sets the button state to normal if the current state allows for the normal state to be set. */
-    private void setStateNormal() {
+    protected void setStateNormal() {
         boolean canSetState = isInNormalState == false;
         canSetState &= isInHoveredState || isInPressedState;
 
@@ -168,7 +172,7 @@ public class Button extends Component {
     }
 
     /** Sets the button state to hovered if the current state allows for the normal state to be set. */
-    private void setStateHovered() {
+    protected void setStateHovered() {
         boolean canSetState = isInNormalState || isInPressedState;
         canSetState &= isInHoveredState == false;
 
@@ -183,7 +187,7 @@ public class Button extends Component {
     }
 
     /** Sets the button state to pressed if the current state allows for the normal state to be set. */
-    private void setStatePressed() {
+    protected void setStatePressed() {
         boolean canSetState = isInNormalState || isInHoveredState;
         canSetState &= isInPressedState == false;
 
