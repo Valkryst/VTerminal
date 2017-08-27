@@ -60,7 +60,7 @@ public class SampleComponents {
         buttonBuilder.setRadio(panel.getRadio());
         buttonBuilder.setColumnIndex(1);
         buttonBuilder.setRowIndex(3);
-        buttonBuilder.setText("Click Me");
+        buttonBuilder.setText("<Click Me>");
         buttonBuilder.setOnClickFunction(() -> System.out.println("Clicked!"));
 
         panel.addComponent(buttonBuilder.build());
