@@ -16,8 +16,9 @@ import lombok.ToString;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.EventListener;
+import java.util.HashSet;
+import java.util.Set;
 
 @ToString
 public class Component {
@@ -44,7 +45,7 @@ public class Component {
     @Getter private AsciiString[] strings;
 
     /** The radio to transmit events to. */
-    @Getter private Radio<String> radio;
+    @Getter private final Radio<String> radio;
 
     /** The screen that the component is on. */
     @Getter @Setter private Screen screen;
@@ -58,58 +59,15 @@ public class Component {
      * @param builder
      *         The builder to use.
      *
-     * @param width
-     *         The width, in characters.
-     *
-     * @param height
-     *         The height, in characters.
-     *
      * @throws NullPointerException
      *         If the builder is null.
      */
-    public Component(final @NonNull ComponentBuilder builder, final int width, final int height) {
-        this(builder.getColumnIndex(), builder.getRowIndex(), width, height);
+    public Component(final @NonNull ComponentBuilder builder) {
         this.id = builder.getId();
-    }
-
-
-    /**
-     * Constructs a new AsciiComponent.
-     *
-     * @param columnIndex
-     *         The x-axis (column) coordinate of the top-left character.
-     *
-     * @param rowIndex
-     *         The y-axis (row) coordinate of the top-left character.
-     *
-     * @param width
-     *         The width, in characters.
-     *
-     * @param height
-     *         The height, in characters.
-     */
-    public Component(final int columnIndex, final int rowIndex, final int width, final int height) {
-        if (columnIndex < 0) {
-            throw new IllegalArgumentException("You must specify a columnIndex of 0 or greater.");
-        }
-
-        if (rowIndex < 0) {
-            throw new IllegalArgumentException("You must specify a rowIndex of 0 or greater.");
-        }
-
-        if (width < 1) {
-            throw new IllegalArgumentException("You must specify a width of 1 or greater.");
-        }
-
-        if (height < 1) {
-            throw new IllegalArgumentException("You must specify a height of 1 or greater.");
-        }
-
-        this.id = "No ID Set. Random ID = " + ThreadLocalRandom.current().nextLong(Long.MAX_VALUE);
-        this.columnIndex = columnIndex;
-        this.rowIndex = rowIndex;
-        this.width = width;
-        this.height = height;
+        this.columnIndex = builder.getColumnIndex();
+        this.rowIndex = builder.getRowIndex();
+        this.width = builder.getWidth();
+        this.height = builder.getHeight();
 
         boundingBox.setLocation(columnIndex, rowIndex);
         boundingBox.setSize(width, height);
@@ -119,6 +77,8 @@ public class Component {
         for (int row = 0 ; row < height ; row++) {
             strings[row] = new AsciiString(width);
         }
+
+        this.radio = builder.getRadio();
     }
 
     /**
@@ -178,11 +138,9 @@ public class Component {
         }
     }
 
-    /** Attempts to transmit a "DRAW" event to the assigned Radio. */
+    /** Transmits a "DRAW" event to the assigned Radio. */
     public void transmitDraw() {
-        if (radio != null) {
-            radio.transmit("DRAW");
-        }
+        radio.transmit("DRAW");
     }
 
     /** Converts every AsciiCharacter of every AsciiString into an AsciiTile. */
@@ -487,18 +445,5 @@ public class Component {
         this.height = height;
         boundingBox.setSize(width, height);
         setAllCharactersToBeRedrawn();
-    }
-
-    /**
-     * Sets a new radio.
-     *
-     * @param radio
-     *         The new radio.
-     *
-     * @throws NullPointerException
-     *         If the radio is null.
-     */
-    public void setRadio(final @NonNull Radio<String> radio) {
-        this.radio = radio;
     }
 }
