@@ -45,7 +45,7 @@ public class JSONFunctions {
      * @throws IllegalStateException
      *         If the array contains fewer than three values.
      */
-    public Color loadColorFromJSON(final JSONArray jsonArray) {
+    public static Color loadColorFromJSON(final JSONArray jsonArray) {
         if (jsonArray == null) {
             return null;
         }
