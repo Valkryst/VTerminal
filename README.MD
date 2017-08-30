@@ -15,10 +15,27 @@ The project is currently in it's BETA phase. During this phase, the API is being
 
 ## Jar Files & Maven
 
+The Maven dependency is hosted off of JitPack, so you will need to add JitPack as a repository before you add VTerminal as a dependency.
+
+### Maven
+
+JitPack ([Example](https://github.com/Valkryst/VTerminal/blob/master/pom.xml)):
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
+Dependency:
+
     <dependency>
         <groupId>com.github.Valkryst</groupId>
         <artifactId>VTerminal</artifactId>
         <version>2.1.0-BETA</version>
     </dependency>
+
+### Jar
 
 Jar files can be found on the [releases](https://github.com/Valkryst/VTerminal/releases) page.
