@@ -207,6 +207,10 @@ public class Panel extends Canvas implements Receiver<String> {
      *         If the new screen is null.
      */
     public Screen swapScreen(final @NonNull Screen newScreen) {
+        if (newScreen == screen) {
+            return screen;
+        }
+
         // Unregister all of the old screen's components:
         screen.getComponents().forEach(component -> component.getEventListeners().forEach(this::removeListener));
 
