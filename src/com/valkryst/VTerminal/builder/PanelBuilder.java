@@ -14,6 +14,8 @@ import lombok.ToString;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import java.awt.Color;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 @EqualsAndHashCode
 @ToString
@@ -65,6 +67,30 @@ public class PanelBuilder {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setBackground(backgroundColor);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        frame.addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(final ComponentEvent e) {
+                panel.getScreen().setAllCharactersToBeRedrawn();
+                panel.draw();
+            }
+
+            @Override
+            public void componentMoved(final ComponentEvent e) {
+                panel.getScreen().setAllCharactersToBeRedrawn();
+                panel.draw();
+            }
+
+            @Override
+            public void componentShown(final ComponentEvent e) {
+                panel.getScreen().setAllCharactersToBeRedrawn();
+                panel.draw();
+            }
+
+            @Override
+            public void componentHidden(final ComponentEvent e) {}
+        });
 
         panel.setIgnoreRepaint(true);
         panel.createBufferStrategy(2);
