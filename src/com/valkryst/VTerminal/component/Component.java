@@ -7,7 +7,6 @@ import com.valkryst.VTerminal.AsciiTile;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.ComponentBuilder;
 import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.misc.IntRange;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -313,27 +312,6 @@ public class Component {
         return strings[rowIndex];
     }
 
-    /** Sets all characters to be redrawn. */
-    public void setAllCharactersToBeRedrawn() {
-        for (final AsciiString string : strings) {
-            string.setAllCharactersToBeRedrawn();
-        }
-    }
-
-    /**
-     * Sets every character, on the Screen that the component
-     * resides on, at the component's current location to be
-     * redrawn.
-     *
-     * This should only be called when the component is moved
-     * on-screen or resized.
-     */
-    private void setLocationOnScreenToBeRedrawn() {
-        for (int y = rowIndex ; y <= rowIndex + height ; y++) {
-            screen.getString(y).setCharacterRangeToBeRedrawn(new IntRange(columnIndex, columnIndex + width));
-        }
-    }
-
     /**
      * Retrieves the AsciiCharacter at a specific position.
      *
@@ -372,10 +350,8 @@ public class Component {
             throw new IllegalArgumentException("The columnIndex cannot be < 0.");
         }
 
-        setLocationOnScreenToBeRedrawn();
         this.columnIndex = columnIndex;
         boundingBox.setLocation(columnIndex, rowIndex);
-        setAllCharactersToBeRedrawn();
     }
 
     /**
@@ -393,10 +369,8 @@ public class Component {
             throw new IllegalArgumentException("The rowIndex cannot be < 0.");
         }
 
-        setLocationOnScreenToBeRedrawn();
         this.rowIndex = rowIndex;
         boundingBox.setLocation(columnIndex, rowIndex);
-        setAllCharactersToBeRedrawn();
     }
 
     /**
@@ -417,10 +391,8 @@ public class Component {
             throw new IllegalArgumentException("The width cannot be < columnIndex,");
         }
 
-        setLocationOnScreenToBeRedrawn();
         this.width = width;
         boundingBox.setSize(width, height);
-        setAllCharactersToBeRedrawn();
     }
 
     /**
@@ -441,9 +413,7 @@ public class Component {
             throw new IllegalArgumentException("The height cannot be < rowIndex,");
         }
 
-        setLocationOnScreenToBeRedrawn();
         this.height = height;
         boundingBox.setSize(width, height);
-        setAllCharactersToBeRedrawn();
     }
 }

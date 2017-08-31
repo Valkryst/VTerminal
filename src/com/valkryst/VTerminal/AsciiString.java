@@ -10,16 +10,12 @@ import lombok.ToString;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.Arrays;
 import java.util.Objects;
 
 @ToString
 public class AsciiString {
     /** The characters of the string. */
     @Getter private AsciiCharacter[] characters;
-
-    /** The characters that need to be redrawn. */
-    @Getter private boolean[] charactersToBeRedrawn;
 
     /**
      * Constructs a new AsciiString of the specified length with all characters set to ' '.
@@ -36,9 +32,6 @@ public class AsciiString {
         }
 
         characters = new AsciiCharacter[length];
-        charactersToBeRedrawn = new boolean[length];
-        Arrays.fill(charactersToBeRedrawn, true);
-
 
         for (int columnIndex = 0 ; columnIndex < length ; columnIndex++) {
             characters[columnIndex] = new AsciiCharacter(' ');
@@ -56,10 +49,8 @@ public class AsciiString {
      */
     public AsciiString(final @NonNull String string) {
         characters = new AsciiCharacter[string.length()];
-        charactersToBeRedrawn = new boolean[string.length()];
 
         for (int columnIndex = 0 ; columnIndex < string.length() ; columnIndex++) {
-            charactersToBeRedrawn[columnIndex] = false;
             characters[columnIndex] = new AsciiCharacter(string.charAt(columnIndex));
         }
     }
@@ -88,11 +79,8 @@ public class AsciiString {
             throw new IllegalArgumentException("The row index cannot be below 0.");
         }
 
-        for (int columnIndex = 0; columnIndex < charactersToBeRedrawn.length; columnIndex++) {
-            if (charactersToBeRedrawn[columnIndex]) {
-                charactersToBeRedrawn[columnIndex] = false;
-                characters[columnIndex].draw(gc, imageCache, columnIndex, rowIndex);
-            }
+        for (int columnIndex = 0; columnIndex < characters.length; columnIndex++) {
+            characters[columnIndex].draw(gc, imageCache, columnIndex, rowIndex);
         }
     }
 
@@ -126,22 +114,6 @@ public class AsciiString {
         }
     }
 
-    /** Sets all characters to be redrawn on the next draw call. */
-    public void setAllCharactersToBeRedrawn() {
-        Arrays.fill(charactersToBeRedrawn, true);
-    }
-
-    public void setCharacterRangeToBeRedrawn(final @NonNull IntRange range) {
-        checkRangeValidity(range);
-
-        final int beginIndex = range.getStart();
-        final int endIndex = range.getEnd();
-
-        for (int col = beginIndex ; col < endIndex ; col++) {
-            charactersToBeRedrawn[col] = true;
-        }
-    }
-
     /**
      * Sets a new character in the specified position.
      *
@@ -169,7 +141,6 @@ public class AsciiString {
         }
 
         characters[column] = character;
-        charactersToBeRedrawn[column] = true;
     }
 
     /**
@@ -196,7 +167,6 @@ public class AsciiString {
         }
 
         characters[column].setCharacter(character);
-        charactersToBeRedrawn[column] = true;
     }
 
     /**
@@ -217,7 +187,6 @@ public class AsciiString {
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             characters[columnIndex].setCharacter(character);
-            charactersToBeRedrawn[columnIndex] = true;
         }
     }
 
@@ -231,8 +200,6 @@ public class AsciiString {
         for (final AsciiCharacter c : characters) {
             c.setCharacter(character);
         }
-
-        setAllCharactersToBeRedrawn();
     }
 
     /**
@@ -296,8 +263,6 @@ public class AsciiString {
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            charactersToBeRedrawn[columnIndex] = true;
-
             if (applyToBackground) {
                 characters[columnIndex].setBackgroundColor(new Color(redCurrent, greenCurrent, blueCurrent));
             } else {
@@ -351,8 +316,6 @@ public class AsciiString {
         final double shadeFactor = 1 / (double) endIndex;
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            charactersToBeRedrawn[columnIndex] = true;
-
             if (applyToBackground) {
                 characters[columnIndex].setBackgroundColor(color);
             } else {
@@ -404,8 +367,6 @@ public class AsciiString {
         final double tintFactor = 1 / (double) endIndex;
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            charactersToBeRedrawn[columnIndex] = true;
-
             if (applyToBackground) {
                 characters[columnIndex].setBackgroundColor(color);
             } else {
@@ -478,7 +439,6 @@ public class AsciiString {
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            charactersToBeRedrawn[columnIndex] = true;
             characters[columnIndex].enableBlinkEffect(millsBetweenBlinks, radio);
         }
     }
@@ -541,7 +501,6 @@ public class AsciiString {
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            charactersToBeRedrawn[columnIndex] = true;
             characters[columnIndex].disableBlinkEffect();
         }
     }
@@ -568,7 +527,6 @@ public class AsciiString {
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            charactersToBeRedrawn[columnIndex] = true;
             characters[columnIndex].invertColors();
         }
     }
@@ -615,8 +573,6 @@ public class AsciiString {
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            charactersToBeRedrawn[columnIndex] = true;
-
             if (applyToBackground) {
                 characters[columnIndex].tintBackgroundColor(tintFactor);
             } else {
@@ -667,8 +623,6 @@ public class AsciiString {
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            charactersToBeRedrawn[columnIndex] = true;
-
             if (applyToBackground) {
                 characters[columnIndex].shadeBackgroundColor(shadeFactor);
             } else {
@@ -723,7 +677,6 @@ public class AsciiString {
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            charactersToBeRedrawn[columnIndex] = true;
             characters[columnIndex].setBackgroundColor(color);
         }
     }
@@ -748,7 +701,6 @@ public class AsciiString {
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            charactersToBeRedrawn[columnIndex] = true;
             characters[columnIndex].setForegroundColor(color);
         }
     }
@@ -761,7 +713,6 @@ public class AsciiString {
      */
     public void setHidden(final boolean isHidden) {
         for (int columnIndex = 0 ; columnIndex < characters.length ; columnIndex++) {
-            charactersToBeRedrawn[columnIndex] = true;
             characters[columnIndex].setHidden(isHidden);
         }
     }
@@ -811,7 +762,6 @@ public class AsciiString {
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            charactersToBeRedrawn[columnIndex] = true;
             characters[columnIndex].setFlippedHorizontally(flipHorizontally);
         }
     }
@@ -836,7 +786,6 @@ public class AsciiString {
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            charactersToBeRedrawn[columnIndex] = flipVertically;
             characters[columnIndex].setFlippedVertically(true);
         }
     }
@@ -872,7 +821,6 @@ public class AsciiString {
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            charactersToBeRedrawn[columnIndex] = true;
             characters[columnIndex].setUnderlined(underline);
         }
     }

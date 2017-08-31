@@ -6,7 +6,6 @@ import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.builder.component.*;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ImageCache;
-import com.valkryst.VTerminal.misc.IntRange;
 import com.valkryst.VTerminal.printer.RectanglePrinter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -208,7 +207,6 @@ public class Screen extends Component {
 
         // Draw layer components onto the screen:
         layerComponents.forEach(layer -> {
-            layer.setAllCharactersToBeRedrawn();
             layer.draw(gc, imageCache);
         });
     }
@@ -375,10 +373,6 @@ public class Screen extends Component {
         final BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         final Graphics2D gc = img.createGraphics();
 
-        for (final AsciiString string : getStrings()) {
-            string.setAllCharactersToBeRedrawn();
-        }
-
         draw(gc, imageCache);
         gc.dispose();
 
@@ -495,22 +489,9 @@ public class Screen extends Component {
         if (component instanceof Layer) {
             component.setScreen(null);
             layerComponents.remove(component);
-        } else{
+        } else {
             component.setScreen(null);
             components.remove(component);
-        }
-
-        final int startRow = component.getRowIndex();
-        final int endRow = startRow + component.getHeight();
-
-        final int startColumn = component.getColumnIndex();
-        final int endColumn = startColumn + component.getWidth();
-
-        for (int row = startRow ; row < endRow ; row++) {
-            final AsciiString string = getString(row);
-
-            final IntRange redrawRange = new IntRange(startColumn, endColumn);
-            string.setCharacterRangeToBeRedrawn(redrawRange);
         }
     }
 
