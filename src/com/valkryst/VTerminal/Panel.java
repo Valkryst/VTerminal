@@ -82,36 +82,42 @@ public class Panel extends Canvas implements Receiver<String> {
     /** Draws every character of every row onto the canvas. */
     public void draw() {
         final BufferStrategy bs = this.getBufferStrategy();
-        final Graphics2D gc;
 
-        try {
-            gc = (Graphics2D) bs.getDrawGraphics();
-        } catch (final NullPointerException | IllegalStateException e) {
-            // BufferStrategy may not have been created on the first call,
-            // so just do a recursive call until it works.
-            // This may be a bad idea.
-            draw();
-            return;
-        }
+        do {
+            do {
+                final Graphics2D gc;
 
-        gc.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
-        gc.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
-        gc.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-        gc.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+                try {
+                    gc = (Graphics2D) bs.getDrawGraphics();
+                } catch (final NullPointerException | IllegalStateException e) {
+                    // BufferStrategy may not have been created on the first call,
+                    // so just do a recursive call until it works.
+                    // This may be a bad idea.
+                    draw();
+                    return;
+                }
 
-        // Font characters are pre-rendered images, so no need for AA.
-        gc.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+                gc.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+                gc.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+                gc.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+                gc.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-        // No-need for text rendering related options.
-        gc.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
-        gc.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+                // Font characters are pre-rendered images, so no need for AA.
+                gc.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 
-        // If alpha is used in the character images, we want computations related to drawing them to be fast.
-        gc.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
+                // No-need for text rendering related options.
+                gc.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
+                gc.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 
-        screen.draw(gc, imageCache);
-        gc.dispose();
-        bs.show();
+                // If alpha is used in the character images, we want computations related to drawing them to be fast.
+                gc.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
+
+                screen.draw(gc, imageCache);
+                gc.dispose();
+            } while (bs.contentsRestored()); // Repeat render if drawing buffer contents were restored.
+
+            bs.show();
+        } while (bs.contentsLost()); // Repeat render if drawing buffer was lost.
     }
 
     /**
