@@ -134,7 +134,7 @@ public class TextField extends Component {
                     TextField.super.isFocused = intersects(e, fontWidth, fontHeight);
 
                     if (TextField.super.isFocused()) {
-                        final int columnIndexInArea = (e.getX() / fontWidth) - TextField.super.getColumnIndex();
+                        final int columnIndexInArea = (e.getX() / fontWidth) - TextField.super.getPosition().x;
 
                         int dx = columnIndexInArea - index_caret_visual;
 

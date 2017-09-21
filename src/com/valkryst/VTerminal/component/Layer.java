@@ -8,6 +8,7 @@ import lombok.NonNull;
 import lombok.ToString;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 @ToString
@@ -57,8 +58,9 @@ public class Layer extends Component {
         }
 
         // Draw the image onto the canvas:
-        final int xPos = super.getColumnIndex() * font.getWidth();
-        final int yPos = super.getRowIndex() * font.getHeight();
+        final Point position = super.getPosition();
+        final int xPos = position.x * font.getWidth();
+        final int yPos = position.y * font.getHeight();
 
         gc.drawImage(image, xPos, yPos, null);
     }

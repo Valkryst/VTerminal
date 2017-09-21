@@ -14,6 +14,7 @@ import org.json.simple.JSONObject;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -212,16 +213,6 @@ public class Screen extends Component {
     }
 
     /**
-     * Clears the entire screen.
-     *
-     * @param character
-     *         The character to replace every character on the screen with.
-     */
-    public void clear(final char character) {
-        clear(character, 0, 0, super.getWidth(), super.getHeight());
-    }
-
-    /**
      * Clears the specified section of the screen.
      *
      * Does nothing if the (columnIndex, rowIndex) or (width, height) pairs point to invalid positions.
@@ -256,6 +247,16 @@ public class Screen extends Component {
                 }
             }
         }
+    }
+
+    /**
+     * Clears the entire screen.
+     *
+     * @param character
+     *         The character to replace every character on the screen with.
+     */
+    public void clear(final char character) {
+        clear(character, 0, 0, super.getWidth(), super.getHeight());
     }
 
     /**
@@ -343,6 +344,92 @@ public class Screen extends Component {
      */
     public void write(final @NonNull String string, final int columnIndex, final int rowIndex) {
         write(new AsciiString(string), columnIndex, rowIndex);
+    }
+
+    /**
+     * Clears the specified section of the screen.
+     *
+     * Does nothing if the (columnIndex, rowIndex) or (width, height) pairs point to invalid positions.
+     *
+     * @param character
+     *         The character to replace all characters being cleared with.
+     *
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the cell to clear.
+     *
+     * @param width
+     *         The width of the area to clear.
+     *
+     * @param height
+     *         The height of the area to clear.
+     */
+    public void clear(final char character, final Point position, int width, int height) {
+        clear(character, position.x, position.y, width, height);
+    }
+
+    /**
+     * Write the specified character to the specified position.
+     *
+     * @param character
+     *         The character.
+     *
+     * @param position
+     *         The x/y-axis (column/row) coordinates to write to.
+     *
+     * @throws NullPointerException
+     *         If the character is null.
+     */
+    public void write(final @NonNull AsciiCharacter character, final Point position) {
+        write(character, position.x, position.y);
+    }
+
+    /**
+     * Write the specified character to the specified position.
+     *
+     * @param character
+     *         The character.
+     *
+     * @param position
+     *         The x/y-axis (column/row) coordinates to write to.
+     */
+    public void write(final char character, final Point position) {
+        write(character, position.x, position.y);
+    }
+
+    /**
+     * Write a string to the specified position.
+     *
+     * Does nothing if the (columnIndex, rowIndex) points to invalid position.
+     *
+     * @param string
+     *         The string.
+     *
+     * @param position
+     *         The x/y-axis (column/row) coordinates to begin writing from.
+     *
+     * @throws NullPointerException
+     *         If the string is null.
+     */
+    public void write(final @NonNull AsciiString string, final Point position) {
+        write(string, position.x, position.y);
+    }
+
+    /**
+     * Write a string to the specified position.
+     *
+     * Does nothing if the (columnIndex, rowIndex) points to invalid position.
+     *
+     * @param string
+     *         The string.
+     *
+     * @param position
+     *         The x/y-axis (column/row) coordinates to begin writing from.
+     *
+     * @throws NullPointerException
+     *         If the string is null.
+     */
+    public void write(final @NonNull String string, final Point position) {
+        write(new AsciiString(string), position);
     }
 
     /**

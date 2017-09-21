@@ -141,7 +141,7 @@ public class LinePrinter {
      */
     private void printLine(final @NonNull Screen screen, int fromX, int fromY, final int toX, final int toY) {
         for (final Point point : ShapeAlgorithms.getLine(fromX, fromY, toX, toY)) {
-            screen.write(printChar, point.x, point.y);
+            screen.write(printChar, point);
         }
     }
 }

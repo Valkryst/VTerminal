@@ -13,6 +13,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -165,8 +166,9 @@ public class TextArea extends Component {
                     TextArea.super.isFocused = intersects(e, fontWidth, fontHeight);
 
                     if (TextArea.super.isFocused()) {
-                        final int columnIndexInArea = (e.getX() / fontWidth) - TextArea.super.getColumnIndex();
-                        final int rowIndexInArea = (e.getY() / fontHeight) - TextArea.super.getRowIndex();
+                        final Point position = TextArea.super.getPosition();
+                        final int columnIndexInArea = (e.getX() / fontWidth) - position.x;
+                        final int rowIndexInArea = (e.getY() / fontHeight) - position.y;
 
                         int dx = columnIndexInArea - x_index_caret_visual;
                         int dy = rowIndexInArea - y_index_caret_visual;

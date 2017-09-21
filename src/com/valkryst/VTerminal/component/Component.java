@@ -12,6 +12,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -24,10 +25,8 @@ public class Component {
     /** The ID. Not guaranteed to be unique. */
     @Getter private String id;
 
-    /** The x-axis (column) coordinate of the top-left character. */
-    @Getter private int columnIndex;
-    /** The y-axis (row) coordinate of the top-left character. */
-    @Getter private int rowIndex;
+    /** The x/y-axis (column/row) coordinates of the top-left character. */
+    @Getter private final Point position;
 
     /** The width, in characters. */
     @Getter private int width;
@@ -63,12 +62,11 @@ public class Component {
      */
     public Component(final @NonNull ComponentBuilder builder) {
         this.id = builder.getId();
-        this.columnIndex = builder.getColumnIndex();
-        this.rowIndex = builder.getRowIndex();
+        position = new Point(builder.getColumnIndex(), builder.getRowIndex());
         this.width = builder.getWidth();
         this.height = builder.getHeight();
 
-        boundingBox.setLocation(columnIndex, rowIndex);
+        boundingBox.setLocation(position);
         boundingBox.setSize(width, height);
 
         strings = new AsciiString[height];
@@ -133,7 +131,7 @@ public class Component {
      */
     public void draw(final @NonNull Screen screen) {
         for (int row = 0 ; row < strings.length ; row++) {
-            screen.write(strings[row], columnIndex, rowIndex + row);
+            screen.write(strings[row], new Point(position.x, position.y + row));
         }
     }
 
@@ -186,20 +184,17 @@ public class Component {
     /**
      * Determines if the specified point intersects with this component.
      *
-     * @param pointX
-     *         The x-axis (column) coordinate.
-     *
-     * @param pointY
-     *         The y-axis (row) coordinate.
+     * @param position
+     *         The x/y-axis (column/row) coordinates.
      *
      * @return
      *         Whether or not the point intersects with this component.
      */
-    public boolean intersects(final int pointX, final int pointY) {
-        boolean intersects = pointX >= columnIndex;
-        intersects &= pointX < (boundingBox.getWidth() + columnIndex);
-        intersects &= pointY >= rowIndex;
-        intersects &= pointY < (boundingBox.getHeight() + rowIndex);
+    public boolean intersects(final Point position) {
+        boolean intersects = position.x >= this.position.x;
+        intersects &= position.x < (boundingBox.getWidth() + this.position.x);
+        intersects &= position.y >= this.position.y;
+        intersects &= position.y < (boundingBox.getHeight() + this.position.y);
 
         return intersects;
     }
@@ -225,7 +220,7 @@ public class Component {
     public boolean intersects(final @NonNull MouseEvent event, final int fontWidth, final int fontHeight) {
         final int mouseX = event.getX() / fontWidth;
         final int mouseY = event.getY() / fontHeight;
-        return intersects(mouseX, mouseY);
+        return intersects(new Point(mouseX, mouseY));
     }
 
     /**
@@ -250,6 +245,19 @@ public class Component {
         }
 
         return true;
+    }
+
+    /**
+     * Determines whether or not the specified position is within the bounds of the component.
+     *
+     * @param position
+     *         The x/y-axis (column/row) coordinates.
+     *
+     * @return
+     *         Whether or not the specified position is within the bounds of the component.
+     */
+    public boolean isPositionValid(final Point position) {
+        return isPositionValid(position.x, position.y);
     }
 
     /**
@@ -319,7 +327,7 @@ public class Component {
      *        The x-axis (column) coordinate of the position.
      *
      * @param rowIndex
-     *        The y-axis (row) coordinate of the position.
+     *         The y-axis (row) coordinate of the position.
      *
      * @return
      *        The AsciiCharacter.
@@ -333,6 +341,26 @@ public class Component {
         }
 
         throw new IllegalArgumentException("The position (" + columnIndex + " columnIndex, " + rowIndex + " rowIndex) is invalid.");
+    }
+
+    /**
+     * Retrieves the AsciiCharacter at a specific position.
+     *
+     * @param position
+     *        The x/y-axis (column/row) coordinates of the position.
+     *
+     * @return
+     *        The AsciiCharacter.
+     *
+     * @throws IllegalArgumentException
+     *         If the position is invalid.
+     */
+    public AsciiCharacter getCharacterAt(final Point position) {
+        if (isPositionValid(position)) {
+            return strings[position.y].getCharacters()[position.x];
+        }
+
+        throw new IllegalArgumentException("The position (" + position.x + " columnIndex, " + position.y + " rowIndex) is invalid.");
     }
 
     /**
@@ -350,8 +378,8 @@ public class Component {
             throw new IllegalArgumentException("The columnIndex cannot be < 0.");
         }
 
-        this.columnIndex = columnIndex;
-        boundingBox.setLocation(columnIndex, rowIndex);
+        position.setLocation(columnIndex, position.y);
+        boundingBox.setLocation(columnIndex, position.y);
     }
 
     /**
@@ -369,8 +397,8 @@ public class Component {
             throw new IllegalArgumentException("The rowIndex cannot be < 0.");
         }
 
-        this.rowIndex = rowIndex;
-        boundingBox.setLocation(columnIndex, rowIndex);
+        position.setLocation(position.x, rowIndex);
+        boundingBox.setLocation(position.x, rowIndex);
     }
 
     /**
@@ -387,7 +415,7 @@ public class Component {
             throw new IllegalArgumentException("The width cannot be < 0.");
         }
 
-        if (width < columnIndex) {
+        if (width < position.x) {
             throw new IllegalArgumentException("The width cannot be < columnIndex,");
         }
 
@@ -409,7 +437,7 @@ public class Component {
             throw new IllegalArgumentException("The height cannot be < 0.");
         }
 
-        if (height < rowIndex) {
+        if (height < position.y) {
             throw new IllegalArgumentException("The height cannot be < rowIndex,");
         }
 

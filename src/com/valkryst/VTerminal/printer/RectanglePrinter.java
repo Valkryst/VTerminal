@@ -147,7 +147,7 @@ public class RectanglePrinter {
         print(screen, column, row);
 
         for (final Point point : ShapeAlgorithms.getFilledRectangle(column + 1, row + 1, width - 2, height - 2)) {
-            screen.write(fillChar, point.x, point.y);
+            screen.write(fillChar, point);
         }
     }
 
@@ -233,7 +233,7 @@ public class RectanglePrinter {
         final boolean[] neighbourPattern = new boolean[]{validRight, validTop, validLeft, validBottom};
         final Optional<Character> optChar = rectangleType.getCharacterByNeighbourPattern(neighbourPattern);
 
-        optChar.ifPresent(character -> screen.write(character, column, row));
+        optChar.ifPresent(character -> screen.write(character, new Point(column, row)));
     }
 
     /**
