@@ -8,18 +8,19 @@ import org.json.simple.JSONObject;
 
 import java.awt.Color;
 
+@Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-@ToString
 public class LabelBuilder extends ComponentBuilder<Label> {
     /** The text to display on the label. */
-    @Getter @Setter @NonNull private String text;
+    @NonNull private String text;
 
-    @Getter @Setter private boolean underlined;
+    private boolean underlined;
 
     /** The background color for when the label. */
-    @Getter @Setter @NonNull private Color backgroundColor;
+    @NonNull private Color backgroundColor;
     /** The foreground color for when the label. */
-    @Getter @Setter @NonNull private Color foregroundColor;
+    @NonNull private Color foregroundColor;
 
     @Override
     public Label build() {

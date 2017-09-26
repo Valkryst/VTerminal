@@ -8,23 +8,24 @@ import org.json.simple.JSONObject;
 
 import java.awt.Color;
 
+@Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-@ToString
 public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
     /** The character that represents an incomplete cell. */
-    @Getter @Setter private char incompleteCharacter;
+    private char incompleteCharacter;
     /** The character that represents a complete cell. */
-    @Getter @Setter private char completeCharacter;
+    private char completeCharacter;
 
     /** The background color for incomplete cells. */
-    @Getter @Setter @NonNull private Color backgroundColor_incomplete;
+    @NonNull private Color backgroundColor_incomplete;
     /** The foreground color for incomplete cells. */
-    @Getter @Setter @NonNull private Color foregroundColor_incomplete;
+    @NonNull private Color foregroundColor_incomplete;
 
     /** The background color for complete cells. */
-    @Getter @Setter @NonNull private Color backgroundColor_complete;
+    @NonNull private Color backgroundColor_complete;
     /** The foreground color for complete cells. */
-    @Getter @Setter @NonNull private Color foregroundColor_complete;
+    @NonNull private Color foregroundColor_complete;
 
     @Override
     public ProgressBar build() {

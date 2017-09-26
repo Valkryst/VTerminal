@@ -9,29 +9,30 @@ import org.json.simple.JSONObject;
 
 import java.awt.Color;
 
+@Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-@ToString
 public class ButtonBuilder extends ComponentBuilder<Button> {
     /** The text to display on the button. */
-    @Getter @Setter @NonNull private String text;
+    @NonNull private String text;
 
     /** The background color for when the button is in the normal state. */
-    @Getter @Setter @NonNull private Color backgroundColor_normal;
+    @NonNull private Color backgroundColor_normal;
     /** The foreground color for when the button is in the normal state. */
-    @Getter @Setter @NonNull private Color foregroundColor_normal;
+    @NonNull private Color foregroundColor_normal;
 
     /** The background color for when the button is in the hover state. */
-    @Getter @Setter @NonNull private Color backgroundColor_hover;
+    @NonNull private Color backgroundColor_hover;
     /** The foreground color for when the button is in the hover state. */
-    @Getter @Setter @NonNull private Color foregroundColor_hover;
+    @NonNull private Color foregroundColor_hover;
 
     /** The background color for when the button is in the pressed state. */
-    @Getter @Setter @NonNull private Color backgroundColor_pressed;
+    @NonNull private Color backgroundColor_pressed;
     /** The foreground color for when the button is in the pressed state. */
-    @Getter @Setter @NonNull private Color foregroundColor_pressed;
+    @NonNull private Color foregroundColor_pressed;
 
     /** The function to run when the button is clicked. */
-    @Getter @Setter private Runnable onClickFunction;
+    private Runnable onClickFunction;
 
     @Override
     public Button build() {

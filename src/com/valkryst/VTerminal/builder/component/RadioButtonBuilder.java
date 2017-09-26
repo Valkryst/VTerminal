@@ -7,19 +7,20 @@ import org.json.simple.JSONObject;
 
 import java.awt.Color;
 
+@Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-@ToString
 public class RadioButtonBuilder extends ButtonBuilder {
     /** The text of the label to display to the right of the radio button. */
-    @Getter @Setter @NonNull private String text;
+    @NonNull private String text;
 
     /** The character to display when the radio button is not checked. */
-    @Getter @Setter private char emptyButtonChar;
+    private char emptyButtonChar;
     /** The character to display when the radio button is checked. */
-    @Getter @Setter private char checkedButtonChar;
+    private char checkedButtonChar;
 
     /** The radio button group that the radio button will belong to. */
-    @Getter @Setter @NonNull private RadioButtonGroup group;
+    @NonNull private RadioButtonGroup group;
 
     @Override
     public RadioButton build() {

@@ -6,19 +6,20 @@ import org.json.simple.JSONObject;
 
 import java.awt.Color;
 
+@Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-@ToString
 public class CheckBoxBuilder extends ButtonBuilder {
     /** The text of the label to display to the right of the check box. */
-    @Getter @Setter @NonNull private String text;
+    @NonNull private String text;
 
     /** The character to display when the check box is not checked. */
-    @Getter @Setter private char emptyBoxChar;
+    private char emptyBoxChar;
     /** The character to display when the check box is checked. */
-    @Getter @Setter private char checkedBoxChar;
+    private char checkedBoxChar;
 
     /** Whether or not the check box is checked. */
-    @Getter @Setter private boolean isChecked;
+    private boolean isChecked;
 
     @Override
     public CheckBox build() {

@@ -8,13 +8,14 @@ import org.json.simple.JSONObject;
 
 import java.awt.Color;
 
+@Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-@ToString
 public class LayerBuilder extends ComponentBuilder<Layer> {
     /** The foreground color. */
-    @Getter @Setter @NonNull private Color foregroundColor;
+    @NonNull private Color foregroundColor;
     /** The background color. */
-    @Getter @Setter @NonNull private Color backgroundColor;
+    @NonNull private Color backgroundColor;
 
     @Override
     public Layer build() {

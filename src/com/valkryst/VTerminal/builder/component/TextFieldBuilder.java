@@ -9,40 +9,41 @@ import org.json.simple.JSONObject;
 import java.awt.Color;
 import java.util.regex.Pattern;
 
+@Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-@ToString
 public class TextFieldBuilder extends ComponentBuilder<TextField> {
     /** The maximum number of characters that the text field can contain. */
-    @Getter @Setter private int maxCharacters;
+    private int maxCharacters;
 
     /** The foreground color of the caret. */
-    @Getter @Setter @NonNull private Color caretForegroundColor;
+    @NonNull private Color caretForegroundColor;
     /** The background color of the caret. */
-    @Getter @Setter @NonNull private Color caretBackgroundColor;
+    @NonNull private Color caretBackgroundColor;
 
     /** The foreground color of non-caret characters. */
-    @Getter @Setter @NonNull private Color foregroundColor;
+    @NonNull private Color foregroundColor;
     /** The background color of non-caret characters. */
-    @Getter @Setter @NonNull private Color backgroundColor;
+    @NonNull private Color backgroundColor;
 
     /** Whether or not the field can be edited. */
-    @Getter @Setter private boolean editable;
+    private boolean editable;
 
     /** Whether or not the HOME key can be used to move the caret to the first index of the field. */
-    @Getter @Setter private boolean homeKeyEnabled;
+    private boolean homeKeyEnabled;
     /** Whether or not the END key can be used to move the caret to the last index of the field. */
-    @Getter @Setter private boolean endKeyEnabled;
+    private boolean endKeyEnabled;
     /** Whether or not the DELETE key can be used to erase the character that the caret is on. */
-    @Getter @Setter private boolean deleteKeyEnabled;
+    private boolean deleteKeyEnabled;
     /** Whether or not the LEFT ARROW key can be used to move the caret one index to the left. */
-    @Getter @Setter private boolean leftArrowKeyEnabled;
+    private boolean leftArrowKeyEnabled;
     /** Whether or not the RIGHT ARROW key can be used to move the caret one index to the right. */
-    @Getter @Setter private boolean rightArrowKeyEnabled;
+    private boolean rightArrowKeyEnabled;
     /** Whether or not the BACK SPACE key can be used to erase the character before the caret and move the caret backwards. */
-    @Getter @Setter private boolean backSpaceKeyEnabled;
+    private boolean backSpaceKeyEnabled;
 
     /** The pattern used to determine which typed characters can be entered into the field. */
-    @Getter @Setter @NonNull private Pattern allowedCharacterPattern;
+    @NonNull private Pattern allowedCharacterPattern;
 
     @Override
     public TextField build() {

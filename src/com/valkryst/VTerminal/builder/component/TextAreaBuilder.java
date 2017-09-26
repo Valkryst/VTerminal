@@ -9,57 +9,58 @@ import org.json.simple.JSONObject;
 import java.awt.Color;
 import java.util.regex.Pattern;
 
+@Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-@ToString
 public class TextAreaBuilder extends ComponentBuilder<TextArea> {
     /** The maximum number of characters that the field can contain along the x-axis. */
-    @Getter @Setter private int maxHorizontalCharacters;
+    private int maxHorizontalCharacters;
     /** The maximum number of characters that the field can contain along the y-axis. */
-    @Getter @Setter private int maxVerticalCharacters;
+    private int maxVerticalCharacters;
 
     /** The foreground color of the caret. */
-    @Getter @Setter @NonNull private Color caretForegroundColor;
+    @NonNull private Color caretForegroundColor;
     /** The background color of the caret. */
-    @Getter @Setter @NonNull private Color caretBackgroundColor;
+    @NonNull private Color caretBackgroundColor;
 
     /** The foreground color of non-caret characters. */
-    @Getter @Setter @NonNull private Color foregroundColor;
+    @NonNull private Color foregroundColor;
     /** The background color of non-caret characters. */
-    @Getter @Setter @NonNull private Color backgroundColor;
+    @NonNull private Color backgroundColor;
 
     /** Whether or not the TextArea can be edited. */
-    @Getter @Setter private boolean editable;
+    private boolean editable;
 
     /** Whether or not the HOME key can be used to move the caret to the first index of the current line. */
-    @Getter @Setter private boolean homeKeyEnabled;
+    private boolean homeKeyEnabled;
     /** Whether or not the END key can be used to move the caret to the last index of the current line. */
-    @Getter @Setter private boolean endKeyEnabled;
+    private boolean endKeyEnabled;
     /** Whether or not the PAGE UP key can be used to move the caret to the first row. */
-    @Getter @Setter private boolean pageUpKeyEnabled;
+    private boolean pageUpKeyEnabled;
     /** Whether or nor the PAGE DOWN key can be used to move the caret to the last row. */
-    @Getter @Setter private boolean pageDownKeyEnabled;
+    private boolean pageDownKeyEnabled;
     /** Whether or not the DELETE key can be used to erase the character that the caret is on. */
-    @Getter @Setter private boolean deleteKeyEnabled;
+    private boolean deleteKeyEnabled;
     /** Whether or not the LEFT ARROW key can be used to move the caret one index to the left. */
-    @Getter @Setter private boolean leftArrowKeyEnabled;
+    private boolean leftArrowKeyEnabled;
     /** Whether or not the RIGHT ARROW key can be used to move the caret one index to the right. */
-    @Getter @Setter private boolean rightArrowKeyEnabled;
+    private boolean rightArrowKeyEnabled;
     /** Whether or not the UP ARROW key can be used to move the caret one index up. */
-    @Getter @Setter private boolean upArrowKeyEnabled;
+    private boolean upArrowKeyEnabled;
     /** Whether or not the DOWN ARROW key can be used to move the caret one index up. */
-    @Getter @Setter private boolean downArrowKeyEnabled;
+    private boolean downArrowKeyEnabled;
     /** Whether or not the ENTER key can be used to advance the caret to the first position of the next line. */
-    @Getter @Setter private boolean enterKeyEnabled;
+    private boolean enterKeyEnabled;
     /** Whether or not the BACK SPACE key can be used to erase the character before the caret and move the caret backwards. */
-    @Getter @Setter private boolean backSpaceKeyEnabled;
+    private boolean backSpaceKeyEnabled;
     /** Whether or not the TAB key can be used to indent by some number of spaces. */
-    @Getter @Setter private boolean tabKeyEnabled;
+    private boolean tabKeyEnabled;
 
     /** The amount of spaces to insert when the TAB key is pressed. */
-    @Getter private int tabSize;
+    private int tabSize;
 
     /** The pattern used to determine which typed characters can be entered into the field. */
-    @Getter @Setter @NonNull private Pattern allowedCharacterPattern;
+    @NonNull private Pattern allowedCharacterPattern;
 
     @Override
     public TextArea build() {

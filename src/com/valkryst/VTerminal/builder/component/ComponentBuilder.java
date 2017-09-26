@@ -15,24 +15,23 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-@EqualsAndHashCode
-@ToString
+@Data
 public class ComponentBuilder<C extends Component> {
     /** The ID. Not guaranteed to be unique. */
-    @Getter @Setter private String id;
+   private String id;
 
     /** The x-axis (column) coordinate of the top-left character. */
-    @Getter @Setter private int columnIndex;
+    private int columnIndex;
     /** The y-axis (row) coordinate of the top-left character. */
-    @Getter @Setter private int rowIndex;
+    private int rowIndex;
 
     /** The width, in characters. */
-    @Getter @Setter protected int width;
+    protected int width;
     /** The height, in characters. */
-    @Getter @Setter protected int height;
+    protected int height;
 
     /** The radio to transmit events to. */
-    @Getter @Setter @NonNull private Radio<String> radio;
+    @NonNull private Radio<String> radio;
 
     /** Constructs a new ComponentBuilder. */
     public ComponentBuilder() {

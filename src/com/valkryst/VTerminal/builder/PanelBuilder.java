@@ -6,39 +6,38 @@ import com.valkryst.VTerminal.builder.component.ScreenBuilder;
 import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ImageCache;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import java.awt.Color;
 
+@Data
 @EqualsAndHashCode
-@ToString
 public class PanelBuilder {
     /** The width of the panel, in characters. */
-    @Getter @Setter private int widthInCharacters;
+    private int widthInCharacters;
     /** The height of the panel, in characters. */
-    @Getter @Setter private int heightInCharacters;
+    private int heightInCharacters;
     /** The font to draw with. */
-    @Getter @Setter private Font font;
+    private Font font;
 
     /** The radio being listened to. */
     @Getter private Radio<String> radio = new Radio<>();
 
     /** The screen being displayed on the panel. */
-    @Getter @Setter private Screen screen;
+    private Screen screen;
 
     /** The frame in which the panel is to be placed. */
-    @Getter @Setter private JFrame frame;
+    private JFrame frame;
 
     /** The image cache to retrieve character images from. */
-    @Getter @Setter private ImageCache imageCache;
+    private ImageCache imageCache;
 
     /** Whether or not to allow the Panel to redraw itself based on received radio transmissions. */
-    @Getter @Setter private boolean dynamicallyRedrawn;
+    private boolean dynamicallyRedrawn;
 
     /** Constructs a new PanelBuilder. */
     public PanelBuilder() {
