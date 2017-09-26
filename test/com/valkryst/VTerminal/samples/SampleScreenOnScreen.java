@@ -29,20 +29,11 @@ public class SampleScreenOnScreen {
         screenBuilder.setWidth(panel.getWidthInCharacters() - 10);
         screenBuilder.setHeight(panel.getHeightInCharacters() - 10);
         screenBuilder.setRadio(panel.getRadio());
+
         final Screen screenA = screenBuilder.build();
         screenA.setBackgroundColor(Color.CYAN);
 
-
-
-        screenBuilder.setColumnIndex(0);
-        screenBuilder.setRowIndex(0);
-        screenBuilder.setWidth(panel.getWidthInCharacters());
-        screenBuilder.setHeight(panel.getHeightInCharacters());
-        final Screen screenB = screenBuilder.build();
-        screenB.setBackgroundColor(Color.RED);
-
-        screenA.addComponent(screenB);
-        panel.swapScreen(screenA);
+        panel.addComponent(screenA);
 
         panel.draw();
     }
