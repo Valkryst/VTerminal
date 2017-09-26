@@ -200,7 +200,8 @@ public class Component {
     }
 
     /**
-     * Determines whether or not the specified mouse event is at a point that intersects this component.
+     * Determines whether or not the specified mouse event is at a point that
+     * intersects this component.
      *
      * @param event
      *         The event.
@@ -224,7 +225,8 @@ public class Component {
     }
 
     /**
-     * Determines whether or not the specified position is within the bounds of the component.
+     * Determines whether or not the specified position is within the bounds of
+     * the component.
      *
      * @param columnIndex
      *         The x-axis (column) coordinate.
@@ -233,7 +235,8 @@ public class Component {
      *         The y-axis (row) coordinate.
      *
      * @return
-     *         Whether or not the specified position is within the bounds of the component.
+     *         Whether or not the specified position is within the bounds of the
+     *         component.
      */
     public boolean isPositionValid(final int columnIndex, final int rowIndex) {
         if (rowIndex < 0 || rowIndex > boundingBox.getHeight() - 1) {
@@ -248,13 +251,15 @@ public class Component {
     }
 
     /**
-     * Determines whether or not the specified position is within the bounds of the component.
+     * Determines whether or not the specified position is within the bounds of
+     * the component.
      *
      * @param position
      *         The x/y-axis (column/row) coordinates.
      *
      * @return
-     *         Whether or not the specified position is within the bounds of the component.
+     *         Whether or not the specified position is within the bounds of the
+     *         component.
      */
     public boolean isPositionValid(final Point position) {
         return isPositionValid(position.x, position.y);
@@ -264,7 +269,8 @@ public class Component {
      * Enables the blink effect for every character.
      *
      * @param millsBetweenBlinks
-     *         The amount of time, in milliseconds, before the blink effect can occur.
+     *         The amount of time, in milliseconds, before the blink effect can
+     *         occur.
      *
      * @param radio
      *         The Radio to transmit a DRAW event to whenever a blink occurs.

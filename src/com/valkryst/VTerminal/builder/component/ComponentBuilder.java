@@ -116,8 +116,7 @@ public class ComponentBuilder<C extends Component> {
     }
 
     /**
-     * Loads a portion of the builder's data from a JSON file
-     * within the Jar.
+     * Loads a portion of the builder's data from a JSON file within the Jar.
      *
      * Resets the builder's state before loading.
      *

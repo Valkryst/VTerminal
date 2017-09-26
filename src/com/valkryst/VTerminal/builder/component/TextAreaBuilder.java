@@ -13,9 +13,15 @@ import java.util.regex.Pattern;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
 public class TextAreaBuilder extends ComponentBuilder<TextArea> {
-    /** The maximum number of characters that the field can contain along the x-axis. */
+    /**
+     * The maximum number of characters that the field can contain along the
+     * x-axis.
+     */
     private int maxHorizontalCharacters;
-    /** The maximum number of characters that the field can contain along the y-axis. */
+    /**
+     * The maximum number of characters that the field can contain along the
+     * y-axis.
+     */
     private int maxVerticalCharacters;
 
     /** The foreground color of the caret. */
@@ -31,35 +37,73 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
     /** Whether or not the TextArea can be edited. */
     private boolean editable;
 
-    /** Whether or not the HOME key can be used to move the caret to the first index of the current line. */
+    /**
+     * Whether or not the HOME key can be used to move the caret to the first
+     * index of the current line.
+     */
     private boolean homeKeyEnabled;
-    /** Whether or not the END key can be used to move the caret to the last index of the current line. */
+    /**
+     * Whether or not the END key can be used to move the caret to the last index
+     * of the current line.
+     */
     private boolean endKeyEnabled;
-    /** Whether or not the PAGE UP key can be used to move the caret to the first row. */
+    /**
+     * Whether or not the PAGE UP key can be used to move the caret to the first
+     * row.
+     */
     private boolean pageUpKeyEnabled;
-    /** Whether or nor the PAGE DOWN key can be used to move the caret to the last row. */
+    /**
+     * Whether or nor the PAGE DOWN key can be used to move the caret to the last
+     * row.
+     */
     private boolean pageDownKeyEnabled;
-    /** Whether or not the DELETE key can be used to erase the character that the caret is on. */
+    /**
+     * Whether or not the DELETE key can be used to erase the character that the
+     * caret is on.
+     */
     private boolean deleteKeyEnabled;
-    /** Whether or not the LEFT ARROW key can be used to move the caret one index to the left. */
+    /**
+     * Whether or not the LEFT ARROW key can be used to move the caret one index
+     * to the left.
+     */
     private boolean leftArrowKeyEnabled;
-    /** Whether or not the RIGHT ARROW key can be used to move the caret one index to the right. */
+    /**
+     * Whether or not the RIGHT ARROW key can be used to move the caret one index
+     * to the right.
+     */
     private boolean rightArrowKeyEnabled;
-    /** Whether or not the UP ARROW key can be used to move the caret one index up. */
+    /**
+     * Whether or not the UP ARROW key can be used to move the caret one index
+     * up.
+     */
     private boolean upArrowKeyEnabled;
-    /** Whether or not the DOWN ARROW key can be used to move the caret one index up. */
+    /**
+     * Whether or not the DOWN ARROW key can be used to move the caret one index
+     * up.
+     */
     private boolean downArrowKeyEnabled;
-    /** Whether or not the ENTER key can be used to advance the caret to the first position of the next line. */
+    /**
+     * Whether or not the ENTER key can be used to advance the caret to the first
+     * position of the next line.
+     */
     private boolean enterKeyEnabled;
-    /** Whether or not the BACK SPACE key can be used to erase the character before the caret and move the caret backwards. */
+    /**
+     * Whether or not the BACK SPACE key can be used to erase the character before
+     * the caret and move the caret backwards.
+     */
     private boolean backSpaceKeyEnabled;
-    /** Whether or not the TAB key can be used to indent by some number of spaces. */
+    /**
+     * Whether or not the TAB key can be used to indent by some number of spaces.
+     */
     private boolean tabKeyEnabled;
 
     /** The amount of spaces to insert when the TAB key is pressed. */
     private int tabSize;
 
-    /** The pattern used to determine which typed characters can be entered into the field. */
+    /**
+     * The pattern used to determine which typed characters can be entered into
+     * the field.
+     */
     @NonNull private Pattern allowedCharacterPattern;
 
     @Override
@@ -72,7 +116,8 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
      * Checks the current state of the builder.
      *
      * @throws IllegalArgumentException
-     *          If the width, height, or maximum horizontal/vertical characters is less than one.
+     *          If the width, height, or maximum horizontal/vertical characters
+     *          is less than one.
      */
     protected void checkState() throws NullPointerException {
         super.checkState();

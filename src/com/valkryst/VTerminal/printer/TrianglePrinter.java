@@ -26,8 +26,8 @@ public class TrianglePrinter {
     /**
      * Prints a triangle on the screen of a panel using a set of points.
      *
-     * The algorithm requires exactly three points. If there are more
-     * than three points, the extra points are ignored.
+     * The algorithm requires exactly three points. If there are more than three
+     * points, the extra points are ignored.
      *
      * @param panel
      *        The panel.
@@ -45,8 +45,8 @@ public class TrianglePrinter {
     /**
      * Prints a triangle on a screen using a set of points.
      *
-     * The algorithm requires exactly three points. If there are more
-     * than three points, the extra points are ignored.
+     * The algorithm requires exactly three points. If there are more than three
+     * points, the extra points are ignored.
      *
      * @param screen
      *        The screen.

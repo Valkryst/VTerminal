@@ -9,8 +9,8 @@ public final class ColorFunctions {
     private ColorFunctions() {}
 
     /**
-     * Shades a color by some factor, where a higher factor results
-     * in a darker shade.
+     * Shades a color by some factor, where a higher factor results in a darker
+     * shade.
      *
      * @param color
      *        The color.
@@ -48,8 +48,8 @@ public final class ColorFunctions {
     }
 
     /**
-     * Tints a color by some factor, where a higher factor results in
-     * a lighter tint.
+     * Tints a color by some factor, where a higher factor results in a lighter
+     * tint.
      *
      * @param color
      *        the color.

@@ -156,7 +156,10 @@ public class Button extends Component {
         super.getEventListeners().add(mouseMotionListener);
     }
 
-    /** Sets the button state to normal if the current state allows for the normal state to be set. */
+    /**
+     * Sets the button state to normal if the current state allows for the normal
+     * state to be set.
+     */
     protected void setStateNormal() {
         boolean canSetState = isInNormalState == false;
         canSetState &= isInHoveredState || isInPressedState;
@@ -171,7 +174,10 @@ public class Button extends Component {
         }
     }
 
-    /** Sets the button state to hovered if the current state allows for the normal state to be set. */
+    /**
+     * Sets the button state to hovered if the current state allows for the normal
+     * state to be set.
+     */
     protected void setStateHovered() {
         boolean canSetState = isInNormalState || isInPressedState;
         canSetState &= isInHoveredState == false;
@@ -186,7 +192,10 @@ public class Button extends Component {
         }
     }
 
-    /** Sets the button state to pressed if the current state allows for the normal state to be set. */
+    /**
+     * Sets the button state to pressed if the current state allows for the normal
+     * state to be set.
+     */
     protected void setStatePressed() {
         boolean canSetState = isInNormalState || isInHoveredState;
         canSetState &= isInPressedState == false;
@@ -221,10 +230,12 @@ public class Button extends Component {
     }
 
     /**
-     * Enables the blink effect on the button's text, but not on the starting and ending characters.
+     * Enables the blink effect on the button's text, but not on the starting and
+     * ending characters.
      *
      * @param millsBetweenBlinks
-     *         The amount of time, in milliseconds, before the blink effect can occur.
+     *         The amount of time, in milliseconds, before the blink effect can
+     *         occur.
      */
     public void enableBlinkEffect(final short millsBetweenBlinks) {
         final int beginIndex = 1;
@@ -234,7 +245,8 @@ public class Button extends Component {
         super.getString(0).enableBlinkEffect(millsBetweenBlinks, getRadio(), range);
     }
 
-    /** Disables the blink effect on the button's text, but not on the starting and ending characters. */
+    /** Disables the blink effect on the button's text, but not on the starting
+     * and ending characters. */
     public void disableBlinkEffect() {
         final int beginIndex = 1;
         final int endIndex = super.getString(0).getCharacters().length - 1;

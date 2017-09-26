@@ -23,8 +23,7 @@ public class AsciiTile extends AsciiCharacter {
     }
 
     /**
-     * Constructs a new AsciiTile by copying the data
-     * of an AsciiCharacter.
+     * Constructs a new AsciiTile by copying the data of an AsciiCharacter.
      *
      * Does not copy the blinkTimer.
      *

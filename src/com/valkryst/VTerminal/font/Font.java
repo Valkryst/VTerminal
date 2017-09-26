@@ -13,7 +13,10 @@ import java.util.Map;
 
 @ToString
 public class Font {
-    /** The sprite-images of every character provided by the Font with a completely transparent background. */
+    /**
+     * The sprite-images of every character provided by the Font with a completely
+     * transparent background.
+     */
     private final HashMap<Character, BufferedImage> characterImages;
 
     /** The width of the font. */

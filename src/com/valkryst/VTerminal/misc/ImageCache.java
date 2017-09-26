@@ -45,8 +45,8 @@ public final class ImageCache {
      *         The font.
      *
      * @param duration
-     *        The number of minutes, after the most recent access,
-     *        that a cached image will be removed from the cache.
+     *        The number of minutes, after the most recent access, that a cached
+     *        image will be removed from the cache.
      *
      * @throws NullPointerException
      *         If the font is null.
@@ -86,8 +86,8 @@ public final class ImageCache {
     /**
      * Retrieves a character image from the cache.
      *
-     * If no image could be found, then one is created, inserted into
-     * the cache, and then returned.
+     * If no image could be found, then one is created, inserted into the cache,
+     * and then returned.
      *
      * @param character
      *        The character.

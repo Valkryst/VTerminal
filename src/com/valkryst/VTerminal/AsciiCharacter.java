@@ -61,8 +61,7 @@ public class AsciiCharacter {
     }
 
     /**
-     * Constructs a new AsciiCharacter by copying the data
-     * of an AsciiCharacter.
+     * Constructs a new AsciiCharacter by copying the data of an AsciiCharacter.
      *
      * Does not copy the blinkTimer.
      *
@@ -79,8 +78,7 @@ public class AsciiCharacter {
     }
 
     /**
-     * Copies the settings of an AsciiCharacter to this
-     * AsciiCharacter.
+     * Copies the settings of an AsciiCharacter to this AsciiCharacter.
      *
      * Does not copy the blinkTimer.
      *
@@ -392,8 +390,12 @@ public class AsciiCharacter {
      * Sets the new underline thickness.
      *
      * If the specified thickness is negative, then the thickness is set to 1.
-     * If the specified thickness is greater than the font height, then the thickness is set to the font height.
-     * If the font height is greater than Byte.MAX_VALUE, then the thickness is set to Byte.MAX_VALUE.
+     *
+     * If the specified thickness is greater than the font height, then the
+     * thickness is set to the font height.
+     *
+     * If the font height is greater than Byte.MAX_VALUE, then the thickness is
+     * set to Byte.MAX_VALUE.
      *
      * @param underlineThickness
      *         The new underline thickness.

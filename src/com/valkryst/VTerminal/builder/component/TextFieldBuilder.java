@@ -29,20 +29,40 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
     /** Whether or not the field can be edited. */
     private boolean editable;
 
-    /** Whether or not the HOME key can be used to move the caret to the first index of the field. */
+    /**
+     * Whether or not the HOME key can be used to move the caret to the first
+     * index of the field.
+     */
     private boolean homeKeyEnabled;
-    /** Whether or not the END key can be used to move the caret to the last index of the field. */
+    /**
+     * Whether or not the END key can be used to move the caret to the last index
+     * of the field.
+     */
     private boolean endKeyEnabled;
-    /** Whether or not the DELETE key can be used to erase the character that the caret is on. */
+    /**
+     * Whether or not the DELETE key can be used to erase the character that the
+     * caret is on.
+     */
     private boolean deleteKeyEnabled;
-    /** Whether or not the LEFT ARROW key can be used to move the caret one index to the left. */
+    /**
+     * Whether or not the LEFT ARROW key can be used to move the caret one index
+     * to the left.
+     */
     private boolean leftArrowKeyEnabled;
-    /** Whether or not the RIGHT ARROW key can be used to move the caret one index to the right. */
+    /**
+     * Whether or not the RIGHT ARROW key can be used to move the caret one index
+     * to the right.
+     */
     private boolean rightArrowKeyEnabled;
-    /** Whether or not the BACK SPACE key can be used to erase the character before the caret and move the caret backwards. */
+    /**
+     * Whether or not the BACK SPACE key can be used to erase the character
+     * before the caret and move the caret backwards.
+     */
     private boolean backSpaceKeyEnabled;
 
-    /** The pattern used to determine which typed characters can be entered into the field. */
+    /** The pattern used to determine which typed characters can be entered into
+     * the field.
+     */
     @NonNull private Pattern allowedCharacterPattern;
 
     @Override

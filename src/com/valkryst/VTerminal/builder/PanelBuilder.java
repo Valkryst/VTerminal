@@ -36,7 +36,10 @@ public class PanelBuilder {
     /** The image cache to retrieve character images from. */
     private ImageCache imageCache;
 
-    /** Whether or not to allow the Panel to redraw itself based on received radio transmissions. */
+    /**
+     * Whether or not to allow the Panel to redraw itself based on received radio
+     * transmissions.
+     */
     private boolean dynamicallyRedrawn;
 
     /** Constructs a new PanelBuilder. */

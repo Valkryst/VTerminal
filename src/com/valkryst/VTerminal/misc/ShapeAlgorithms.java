@@ -9,8 +9,8 @@ public final class ShapeAlgorithms {
     private ShapeAlgorithms() {}
 
     /**
-     * Constructs a list, containing the outline, of an ellipse's points
-     * by using the Bresenham algorithm,
+     * Constructs a list, containing the outline, of an ellipse's points by using
+     * the Bresenham algorithm,
      *
      * @param x
      *        The x-axis (column) coordinate of the top-left character.
@@ -78,8 +78,7 @@ public final class ShapeAlgorithms {
     }
 
     /**
-     * Constructs a list, containing the outline and fill, of an
-     * ellipse's points.
+     * Constructs a list, containing the outline and fill, of an ellipse's points.
      *
      * @param x
      *        The x-axis (column) coordinate of the top-left character.
@@ -106,8 +105,8 @@ public final class ShapeAlgorithms {
     }
 
     /**
-     * Constructs a list, containing the path, of a line's points by
-     * using the Bresenham algorithm,
+     * Constructs a list, containing the path, of a line's points by using the
+     * Bresenham algorithm,
      *
      * @param fromX
      *         The x-axis (column) coordinate of the start point of the line.
@@ -176,8 +175,7 @@ public final class ShapeAlgorithms {
     }
 
     /**
-     * Constructs a list, containing the outline, of a rectangle's
-     * points.
+     * Constructs a list, containing the outline, of a rectangle's points.
      *
      * @param x
      *         The x-axis (column) coordinate of the top-left character.
@@ -252,8 +250,7 @@ public final class ShapeAlgorithms {
     }
 
     /**
-     * Recursively fills an area on the screen bounded by the set of
-     * input points.
+     * Recursively fills an area on the screen bounded by the set of input points.
      *
      * @param points
      *        The border points.

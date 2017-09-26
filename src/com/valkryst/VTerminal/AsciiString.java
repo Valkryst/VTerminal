@@ -18,7 +18,8 @@ public class AsciiString {
     @Getter private AsciiCharacter[] characters;
 
     /**
-     * Constructs a new AsciiString of the specified length with all characters set to ' '.
+     * Constructs a new AsciiString of the specified length with all characters
+     * set to ' '.
      *
      * @param length
      *         The length to make the string.
@@ -90,8 +91,8 @@ public class AsciiString {
     }
 
     /**
-     * Determines whether or not the specified range is valid by throwing
-     * an exception if the range is invalid.
+     * Determines whether or not the specified range is valid by throwing an
+     * exception if the range is invalid.
      *
      * @param range
      *        The range.
@@ -225,7 +226,9 @@ public class AsciiString {
      * Applies a color gradient to a portion of the string.
      *
      * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the gradient between.
+     *         The x-axis (column) coordinates of the characters to begin/end
+     *         the gradient between.
+     *
      *         Includes the first index and excludes the last index.
      *
      * @param colorFrom
@@ -235,7 +238,8 @@ public class AsciiString {
      *         The color to end the gradient with.
      *
      * @param applyToBackground
-     *         Whether or not to apply the gradient to the background or foreground of the characters.
+     *         Whether or not to apply the gradient to the background or
+     *         foreground of the characters.
      *
      * @throws NullPointerException
      *         If the rande, colorFrom, or colorTo is null.
@@ -282,7 +286,8 @@ public class AsciiString {
      *         The color to start the gradient with.
      *
      * @param applyToBackground
-     *         Whether or not to apply the gradient to the background or foreground of the characters.
+     *         Whether or not to apply the gradient to the background or
+     *         foreground of the characters.
      *
      * @throws NullPointerException
      *         If the color is null.
@@ -295,14 +300,17 @@ public class AsciiString {
      * Applies a shade gradient to a portion of the string.
      *
      * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the gradient between.
+     *         The x-axis (column) coordinates of the characters to begin/end
+     *         the gradient between.
+     *
      *         Includes the first index and excludes the last index.
      *
      * @param color
      *         The color to start the gradient with.
      *
      * @param applyToBackground
-     *         Whether or not to apply the gradient to the background or foreground of the characters.
+     *         Whether or not to apply the gradient to the background or
+     *         foreground of the characters.
      *
      * @throws NullPointerException
      *         If the color is null.
@@ -333,7 +341,8 @@ public class AsciiString {
      *         The color to start the gradient with.
      *
      * @param applyToBackground
-     *         Whether or not to apply the gradient to the background or foreground of the characters.
+     *         Whether or not to apply the gradient to the background or
+     *         foreground of the characters.
      *
      * @throws NullPointerException
      *         If the color is null.
@@ -346,14 +355,17 @@ public class AsciiString {
      * Applies a tint gradient to a portion of the string.
      *
      * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the gradient between.
+     *         The x-axis (column) coordinates of the characters to begin/end the
+     *         gradient between.
+     *
      *         Includes the first index and excludes the last index.
      *
      * @param color
      *         The color to start the gradient with.
      *
      * @param applyToBackground
-     *         Whether or not to apply the gradient to the background or foreground of the characters.
+     *         Whether or not to apply the gradient to the background or
+     *         foreground of the characters.
      *
      * @throws NullPointerException
      *         If the range or color is null.
@@ -381,7 +393,8 @@ public class AsciiString {
      * Enables the blink effect for every character.
      *
      * @param millsBetweenBlinks
-     *         The amount of time, in milliseconds, before the blink effect can occur.
+     *         The amount of time, in milliseconds, before the blink effect can
+     *         occur.
      *
      * @param radio
      *         The Radio to transmit a DRAW event to whenever a blink occurs.
@@ -420,13 +433,16 @@ public class AsciiString {
      * Enables the blink effect for every character in the specified range.
      *
      * @param millsBetweenBlinks
-     *         The amount of time, in milliseconds, before the blink effect can occur.
+     *         The amount of time, in milliseconds, before the blink effect can
+     *         occur.
      *
      * @param radio
      *         The Radio to transmit a DRAW event to whenever a blink occurs.
      *
      * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the change between.
+     *         The x-axis (column) coordinates of the characters to begin/end the
+     *         change between.
+     *
      *         Includes the first index and excludes the last index.
      *
      * @throws NullPointerException
@@ -448,7 +464,9 @@ public class AsciiString {
      * Resumes the blink effect for every character in the specified range.
      *
      * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the resume between.
+     *         The x-axis (column) coordinates of the characters to begin/end the
+     *         resume between.
+     *
      *         Includes the first index and excludes the last index.
      *
      * @throws NullPointerException
@@ -467,7 +485,9 @@ public class AsciiString {
      * Pauses the blink effect for every character in the specified range.
      *
      * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the pause between.
+     *         The x-axis (column) coordinates of the characters to begin/end the
+     *         pause between.
+     *
      *         Includes the first index and excludes the last index.
      *
      * @throws NullPointerException
@@ -488,7 +508,9 @@ public class AsciiString {
      * Disables the blink effect for every character in the specified range.
      *
      * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the change between.
+     *         The x-axis (column) coordinates of the characters to begin/end the
+     *         change between.
+     *
      *         Includes the first index and excludes the last index.
      *
      * @throws NullPointerException
@@ -511,10 +533,13 @@ public class AsciiString {
     }
 
     /**
-     * Swaps the background and foreground colors of every character in the specified range.
+     * Swaps the background and foreground colors of every character in the
+     * specified range.
      *
      * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the inversion between.
+     *         The x-axis (column) coordinates of the characters to begin/end the
+     *         inversion between.
+     *
      *         Includes the first index and excludes the last index.
      *
      * @throws NullPointerException
@@ -532,8 +557,8 @@ public class AsciiString {
     }
 
     /**
-     * Tints the either the foreground or background color, of every character, by some factor,
-     * where a higher factor results in a lighter tint.
+     * Tints the either the foreground or background color, of every character,
+     * by some factor, where a higher factor results in a lighter tint.
      *
      * @param tintFactor
      *        The factor.
@@ -548,11 +573,14 @@ public class AsciiString {
     }
 
     /**
-     * Tints either the foreground or background  color, of every character in the specified
-     * range, by some factor, where a higher factor results in a lighter tint.
+     * Tints either the foreground or background  color, of every character in
+     * the specified range, by some factor, where a higher factor results in a
+     * lighter tint.
      *
      * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the tint between.
+     *         The x-axis (column) coordinates of the characters to begin/end the
+     *         tint between.
+     *
      *         Includes the first index and excludes the last index.
      *
      * @param tintFactor
@@ -561,7 +589,8 @@ public class AsciiString {
      *        Values should range from 0.0 to 1.0.
      *
      * @param applyToBackground
-     *         Whether or not to apply the tint to the background or foreground of the characters.
+     *         Whether or not to apply the tint to the background or foreground
+     *         of the characters.
      *
      * @throws NullPointerException
      *         If the range is null.
@@ -582,8 +611,8 @@ public class AsciiString {
     }
 
     /**
-     * Shades either the foreground or background  color, of every character, by some factor, where
-     * a higher factor results in a darker shade.
+     * Shades either the foreground or background  color, of every character, by
+     * some factor, where a higher factor results in a darker shade.
      *
      * @param shadeFactor
      *        The factor.
@@ -591,18 +620,22 @@ public class AsciiString {
      *        Values should range from 0.0 to 1.0.
      *
      * @param applyToBackground
-     *         Whether or not to apply the shade to the background or foreground of the characters.
+     *         Whether or not to apply the shade to the background or foreground
+     *         of the characters.
      */
     public void shadeColors(final double shadeFactor, final boolean applyToBackground) {
         shadeColors(new IntRange(0, characters.length), shadeFactor, applyToBackground);
     }
 
     /**
-     * Shades either the foreground or background  color, of every character in the specified range,
-     * by some factor, where a higher factor results in a darker shade.
+     * Shades either the foreground or background  color, of every character in
+     * the specified range, by some factor, where a higher factor results in a
+     * darker shade.
      *
      * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the shade between.
+     *         The x-axis (column) coordinates of the characters to begin/end the
+     *         shade between.
+     *
      *         Includes the first index and excludes the last index.
      *
      * @param shadeFactor
@@ -611,7 +644,8 @@ public class AsciiString {
      *        Values should range from 0.0 to 1.0.
      *
      * @param applyToBackground
-     *         Whether or not to apply the shade to the background or foreground of the characters.
+     *         Whether or not to apply the shade to the background or foreground
+     *         of the characters.
      *
      * @throws NullPointerException
      *         If the range is null.
@@ -664,7 +698,9 @@ public class AsciiString {
      *         The new background color.
      *
      * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the change between.
+     *         The x-axis (column) coordinates of the characters to begin/end the
+     *         change between.
+     *
      *         Includes the first index and excludes the last index.
      *
      * @throws NullPointerException
@@ -688,7 +724,9 @@ public class AsciiString {
      *         The new foreground color.
      *
      * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the change between.
+     *         The x-axis (column) coordinates of the characters to begin/end the
+     *         change between.
+     *
      *         Includes the first index and excludes the last index.
      *
      * @throws NullPointerException
@@ -805,7 +843,9 @@ public class AsciiString {
      * Sets the specified range of characters to be underlined when being drawn.
      *
      * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the change between.
+     *         The x-axis (column) coordinates of the characters to begin/end the
+     *         change between.
+     *
      *         Includes the first index and excludes the last index.
      *
      * @param underline

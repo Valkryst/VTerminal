@@ -131,7 +131,8 @@ public final class FontLoader {
     }
 
     /**
-     * Processes a font sprite sheet and character data into a usable HashMap of character sprites.
+     * Processes a font sprite sheet and character data into a usable HashMap of
+     * character sprites.
      *
      * @param spriteSheet
      *         The sprite sheet.

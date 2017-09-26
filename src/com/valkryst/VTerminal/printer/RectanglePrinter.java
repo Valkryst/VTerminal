@@ -49,9 +49,8 @@ public class RectanglePrinter {
     /**
      * Prints a rectangle on a screen.
      *
-     * If the function is set to perform connections, then it will attempt
-     * to connect the new rectangle with existing similar rectangles in
-     * the draw area.
+     * If the function is set to perform connections, then it will attempt to
+     * connect the new rectangle with existing similar rectangles in the draw area.
      *
      * @param screen
      *         The screen.
@@ -127,9 +126,8 @@ public class RectanglePrinter {
     /**
      * Prints a rectangle on a screen.
      *
-     * If the function is set to perform connections, then it will attempt
-     * to connect the new rectangle with existing similar rectangles in
-     * the draw area.
+     * If the function is set to perform connections, then it will attempt to
+     * connect the new rectangle with existing similar rectangles in the draw area.
      *
      * @param screen
      *         The screen.

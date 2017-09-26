@@ -38,27 +38,60 @@ public class TextArea extends Component {
     /** Whether or not the TextArea can be edited. */
     @Getter private boolean editable;
 
-    /** Whether or not the HOME key can be used to move the caret to the first index of the current line. */
+    /**
+     * Whether or not the HOME key can be used to move the caret to the first
+     * index of the current line.
+     */
     @Getter @Setter private boolean homeKeyEnabled;
-    /** Whether or not the END key can be used to move the caret to the last index of the current line. */
+    /**
+     * Whether or not the END key can be used to move the caret to the last index
+     * of the current line.
+     */
     @Getter @Setter private boolean endKeyEnabled;
-    /** Whether or not the PAGE UP key can be used to move the caret to the first row. */
+    /**
+     * Whether or not the PAGE UP key can be used to move the caret to the first
+     * row.
+     */
     @Getter @Setter private boolean pageUpKeyEnabled;
-    /** Whether or nor the PAGE DOWN key can be used to move the caret to the last row. */
+    /**
+     * Whether or nor the PAGE DOWN key can be used to move the caret to the last
+     * row.
+     */
     @Getter @Setter private boolean pageDownKeyEnabled;
-    /** Whether or not the DELETE key can be used to erase the character that the caret is on. */
+    /**
+     * Whether or not the DELETE key can be used to erase the character that the
+     * caret is on.
+     */
     @Getter @Setter private boolean deleteKeyEnabled;
-    /** Whether or not the LEFT ARROW key can be used to move the caret one index to the left. */
+    /**
+     * Whether or not the LEFT ARROW key can be used to move the caret one index
+     * to the left.
+     */
     @Getter @Setter private boolean leftArrowKeyEnabled;
-    /** Whether or not the RIGHT ARROW key can be used to move the caret one index to the right. */
+    /**
+     * Whether or not the RIGHT ARROW key can be used to move the caret one index
+     * to the right.
+     */
     @Getter @Setter private boolean rightArrowKeyEnabled;
-    /** Whether or not the UP ARROW key can be used to move the caret one index up. */
+    /**
+     * Whether or not the UP ARROW key can be used to move the caret one index
+     * up.
+     */
     @Getter @Setter private boolean upArrowKeyEnabled;
-    /** Whether or not the DOWN ARROW key can be used to move the caret one index up. */
+    /**
+     * Whether or not the DOWN ARROW key can be used to move the caret one index
+     * up.
+     */
     @Getter @Setter private boolean downArrowKeyEnabled;
-    /** Whether or not the ENTER key can be used to advance the caret to the first position of the next line. */
+    /**
+     * Whether or not the ENTER key can be used to advance the caret to the first
+     * position of the next line.
+     */
     @Getter @Setter private boolean enterKeyEnabled;
-    /** Whether or not the BACK SPACE key can be used to erase the character before the caret and move the caret backwards. */
+    /**
+     * Whether or not the BACK SPACE key can be used to erase the character
+     * before the caret and move the caret backwards.
+     */
     @Getter @Setter private boolean backSpaceKeyEnabled;
     /** Whether or not the TAB key can be used to indent by some number of spaces. */
     @Getter @Setter private boolean tabKeyEnabled;
@@ -73,9 +106,15 @@ public class TextArea extends Component {
     /** The current position of the caret, on the y-axis, in the enteredText array. */
     @Getter private int y_index_caret_actual = 0;
 
-    /** The maximum number of characters that the field can contain along the x-axis. */
+    /**
+     * The maximum number of characters that the field can contain along the
+     * x-axis.
+     */
     @Getter private int maxHorizontalCharacters;
-    /** The maximum number of characters that the field can contain along the y-axis. */
+    /**
+     * The maximum number of characters that the field can contain along the
+     * y-axis.
+     */
     @Getter private int maxVerticalCharacters;
 
     /** The amount of spaces to insert when the TAB key is pressed. */
@@ -84,7 +123,10 @@ public class TextArea extends Component {
     /** The text entered by the user. */
     @Getter private char[][] enteredText;
 
-    /** The pattern used to determine which typed characters can be entered into the field. */
+    /**
+     * The pattern used to determine which typed characters can be entered into
+     * the field.
+     */
     @Getter @Setter private Pattern allowedCharacterPattern;
 
     /**
@@ -484,13 +526,19 @@ public class TextArea extends Component {
         }
     }
 
-    /** Moves the caret to the first line. Does not change the x-axis position of the caret. */
+    /**
+     * Moves the caret to the first line. Does not change the x-axis position of
+     * the caret.
+     */
     public void moveCaretToFirstLine() {
         changeVisualCaretPosition(x_index_caret_visual, 0);
         changeActualCaretPosition(x_index_caret_actual, 0);
     }
 
-    /** Moves the caret to the last line. Does not change the x-axis position of the caret. */
+    /**
+     * Moves the caret to the last line. Does not change the x-axis position of
+     * the caret.
+     */
     public void moveCaretToLastLine() {
         changeVisualCaretPosition(x_index_caret_visual, super.getHeight() - 1);
         changeActualCaretPosition(x_index_caret_actual, maxVerticalCharacters - 1);
@@ -623,9 +671,8 @@ public class TextArea extends Component {
     /**
      * Appends text to the first empty row of the area.
      *
-     * If there are no empty rows, then the first row is discarded
-     * and all rows are moved up, then the new text is appended
-     * to the bottom row.
+     * If there are no empty rows, then the first row is discarded and all rows
+     * are moved up, then the new text is appended to the bottom row.
      *
      * @param text
      *        The new text.

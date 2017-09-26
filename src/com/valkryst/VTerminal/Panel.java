@@ -41,7 +41,10 @@ public class Panel extends Canvas implements Receiver<String> {
     /** The image cache to retrieve character images from. */
     @Getter private final ImageCache imageCache;
 
-    /** Whether or not to allow the Panel to redraw itself based on received radio transmissions. */
+    /**
+     * Whether or not to allow the Panel to redraw itself based on received radio
+     * transmissions.
+     */
     @Getter @Setter private boolean dynamicallyRedrawn;
 
     /**
@@ -123,13 +126,12 @@ public class Panel extends Canvas implements Receiver<String> {
     /**
      * Draws the canvas onto an image.
      *
-     * This calls the current screen's draw function, so the
-     * screen may look a little different if there are new
-     * updates to characters that haven't yet been drawn.
+     * This calls the current screen's draw function, so the screen may look a
+     * little different if there are new updates to characters that haven't yet
+     * been drawn.
      *
-     * This is an expensive operation as it essentially creates
-     * an in-memory screen and draws each AsciiCharacter onto
-     * that screen.
+     * This is an expensive operation as it essentially creates an in-memory
+     * screen and draws each AsciiCharacter onto that screen.
      *
      * @return
      *        An image of the canvas.
@@ -178,8 +180,7 @@ public class Panel extends Canvas implements Receiver<String> {
      *        The file.
      *
      * @param extension
-     *        The extension of the file, the file should have a
-     *        matching extension.
+     *        The extension of the file, the file should have a matching extension.
      *
      *        Ex: PNG or JPG
      *
@@ -233,8 +234,7 @@ public class Panel extends Canvas implements Receiver<String> {
     /**
      * Adds a component to the current screen.
      *
-     * Registers event listeners of the component to the panel,
-     * if required.
+     * Registers event listeners of the component to the panel, if required.
      *
      * @param component
      *          The component.
@@ -270,8 +270,7 @@ public class Panel extends Canvas implements Receiver<String> {
     /**
      * Removes a component from the current screen.
      *
-     * Removes event listeners of the component from the panel,
-     * if required.
+     * Removes event listeners of the component from the panel, if required.
      *
      * @param component
      *          The component.

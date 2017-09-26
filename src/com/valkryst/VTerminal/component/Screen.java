@@ -215,7 +215,8 @@ public class Screen extends Component {
     /**
      * Clears the specified section of the screen.
      *
-     * Does nothing if the (columnIndex, rowIndex) or (width, height) pairs point to invalid positions.
+     * Does nothing if the (columnIndex, rowIndex) or (width, height) pairs point
+     * to invalid positions.
      *
      * @param character
      *         The character to replace all characters being cleared with.
@@ -349,7 +350,8 @@ public class Screen extends Component {
     /**
      * Clears the specified section of the screen.
      *
-     * Does nothing if the (columnIndex, rowIndex) or (width, height) pairs point to invalid positions.
+     * Does nothing if the (columnIndex, rowIndex) or (width, height) pairs point
+     * to invalid positions.
      *
      * @param character
      *         The character to replace all characters being cleared with.
@@ -435,13 +437,12 @@ public class Screen extends Component {
     /**
      * Draws the screen onto an image.
      *
-     * This calls the draw function, so the screen may look a
-     * little different if there are blink effects or new updates
-     * to characters that haven't yet been drawn.
+     * This calls the draw function, so the screen may look a little different
+     * if there are blink effects or new updates to characters that haven't yet
+     * been drawn.
      *
-     * This is an expensive operation as it essentially creates
-     * an in-memory screen and draws each AsciiCharacter onto
-     * that screen.
+     * This is an expensive operation as it essentially creates an in-memory
+     * screen and draws each AsciiCharacter onto that screen.
      *
      * @param imageCache
      *         The image cache to retrieve character images from.
@@ -598,8 +599,7 @@ public class Screen extends Component {
     }
 
     /**
-     * Determines whether or not the screen contains a specific
-     * component.
+     * Determines whether or not the screen contains a specific component.
      *
      * @param component
      *        The component.
@@ -629,8 +629,8 @@ public class Screen extends Component {
     }
 
     /**
-     * Determines whether or not the screen, or any sub-screen of
-     * the screen, contains a specific component.
+     * Determines whether or not the screen, or any sub-screen of the screen,
+     * contains a specific component.
      *
      * @param component
      *        The component.
@@ -674,8 +674,7 @@ public class Screen extends Component {
     }
 
     /**
-     * Retrieves the first encountered component that uses the
-     * specified ID.
+     * Retrieves the first encountered component that uses the specified ID.
      *
      * @param id
      *        The id.
@@ -701,8 +700,8 @@ public class Screen extends Component {
     }
 
     /**
-     * Works the same as getComponentByID, but only returns
-     * if the result is a Button component.
+     * Works the same as getComponentByID, but only returns if the result is a
+     * Button component.
      *
      * @param id
      *        The id.
@@ -723,8 +722,8 @@ public class Screen extends Component {
     }
 
     /**
-     * Works the same as getComponentByID, but only returns
-     * if the result is a Check Box component.
+     * Works the same as getComponentByID, but only returns if the result is a
+     * Check Box component.
      *
      * @param id
      *        The id.
@@ -745,8 +744,8 @@ public class Screen extends Component {
     }
 
     /**
-     * Works the same as getComponentByID, but only returns
-     * if the result is a Layer component.
+     * Works the same as getComponentByID, but only returns if the result is a
+     * Layer component.
      *
      * @param id
      *        The id.
@@ -767,8 +766,8 @@ public class Screen extends Component {
     }
 
     /**
-     * Works the same as getComponentByID, but only returns
-     * if the result is a ProgressBar component.
+     * Works the same as getComponentByID, but only returns if the result is a
+     * ProgressBar component.
      *
      * @param id
      *        The id.
@@ -789,8 +788,8 @@ public class Screen extends Component {
     }
 
     /**
-     * Works the same as getComponentByID, but only returns
-     * if the result is a RadioButton component.
+     * Works the same as getComponentByID, but only returns if the result is a
+     * RadioButton component.
      *
      * @param id
      *        The id.
@@ -811,8 +810,8 @@ public class Screen extends Component {
     }
 
     /**
-     * Works the same as getComponentByID, but only returns
-     * if the result is a TextArea component.
+     * Works the same as getComponentByID, but only returns if the result is a
+     * TextArea component.
      *
      * @param id
      *        The id.
@@ -833,8 +832,8 @@ public class Screen extends Component {
     }
 
     /**
-     * Works the same as getComponentByID, but only returns
-     * if the result is a TextField component.
+     * Works the same as getComponentByID, but only returns if the result is a
+     * TextField component.
      *
      * @param id
      *        The id.

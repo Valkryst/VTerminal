@@ -41,9 +41,15 @@ public enum RectangleType {
     @Getter private final char[] validTopCharacters;
     /** The set of characters that can appear below a RectangleType character. */
     @Getter private final char[] validBottomCharacters;
-    /** The set of characters that can appear to the left of a RectangleType character. */
+    /**
+     * The set of characters that can appear to the left of a RectangleType
+     * character.
+     */
     @Getter private final char[] validLeftCharacters;
-    /** The set of characters that can appear to the right of a RectangleType character. */
+    /**
+     * The set of characters that can appear to the right of a RectangleType
+     * character.
+     */
     @Getter private final char[] validRightCharacters;
 
     /**
@@ -83,8 +89,8 @@ public enum RectangleType {
     }
 
     /**
-     * Determines if a character is in the set of characters that can
-     * appear above a RectangleType character.
+     * Determines if a character is in the set of characters that can appear above
+     * a RectangleType character.
      *
      * @param asciiCharacter
      *        The character.
@@ -98,8 +104,8 @@ public enum RectangleType {
     }
 
     /**
-     * Determines if a character is in the set of characters that can
-     * appear below a RectangleType character.
+     * Determines if a character is in the set of characters that can appear below
+     * a RectangleType character.
      *
      * @param asciiCharacter
      *        The character.
@@ -113,8 +119,8 @@ public enum RectangleType {
     }
 
     /**
-     * Determines if a character is in the set of characters that can
-     * appear to the left of a RectangleType character.
+     * Determines if a character is in the set of characters that can appear to
+     * the left of a RectangleType character.
      *
      * @param asciiCharacter
      *        The character.
@@ -128,8 +134,8 @@ public enum RectangleType {
     }
 
     /**
-     * Determines if a character is in the set of characters that can
-     * appear to the right of a RectangleType character.
+     * Determines if a character is in the set of characters that can appear to
+     * the right of a RectangleType character.
      *
      * @param asciiCharacter
      *        The character.
