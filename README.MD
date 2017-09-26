@@ -33,7 +33,7 @@ Dependency:
     <dependency>
         <groupId>com.github.Valkryst</groupId>
         <artifactId>VTerminal</artifactId>
-        <version>2.2.0-BETA</version>
+        <version>2.2.2-BETA</version>
     </dependency>
 
 ### Jar
