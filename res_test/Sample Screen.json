@@ -1,7 +1,7 @@
 {
   "type": "screen",
-  "columnIndex": 0,
-  "rowIndex": 0,
+  "column": 0,
+  "row": 0,
   "components": [
     // Outer Border
     {
@@ -39,8 +39,8 @@
     {
       "type": "button",
       "id": "Click Me Button",
-      "columnIndex": 1,
-      "rowIndex": 2,
+      "column": 1,
+      "row": 2,
       "text": "<Click Me!>"
     },
 
@@ -49,14 +49,14 @@
       "components": [
         {
           "type": "radio button",
-          "columnIndex": 1,
-          "rowIndex": 4,
+          "column": 1,
+          "row": 4,
           "text": "Group A, Option 1"
         },
         {
           "type": "radio button",
-          "columnIndex": 1,
-          "rowIndex": 5,
+          "column": 1,
+          "row": 5,
           "text": "Group A, Option 2"
         }
       ]
@@ -67,14 +67,14 @@
       "components": [
         {
           "type": "radio button",
-          "columnIndex": 1,
-          "rowIndex": 7,
+          "column": 1,
+          "row": 7,
           "text": "Group B, Option 1"
         },
         {
           "type": "radio button",
-          "columnIndex": 1,
-          "rowIndex": 8,
+          "column": 1,
+          "row": 8,
           "text": "Group B, Option 2"
         }
       ]
@@ -82,30 +82,30 @@
 
     {
       "type": "check box",
-      "columnIndex": 1,
-      "rowIndex": 10,
+      "column": 1,
+      "row": 10,
       "text": "Checkbox A"
     },
     {
       "type": "check box",
-      "columnIndex": 1,
-      "rowIndex": 11,
+      "column": 1,
+      "row": 11,
       "text": "Checkbox B"
     },
 
     // Fixed Width
     {
       "type": "text field",
-      "rowIndex": 13,
-      "columnIndex": 1,
+      "row": 13,
+      "column": 1,
       "width": 20
     },
 
     // Variable Width
     {
       "type": "text field",
-      "rowIndex": 15,
-      "columnIndex": 1,
+      "row": 15,
+      "column": 1,
       "width": 20,
       "maxCharacters": 40
     },
@@ -113,23 +113,23 @@
     {
       "type": "progress bar",
       "id": "Progress Bar",
-      "rowIndex": 18,
-      "columnIndex": 1,
+      "row": 18,
+      "column": 1,
       "width": 20
     },
 
     {
       "type": "label",
-      "rowIndex": 3,
-      "columnIndex": 23,
+      "row": 3,
+      "column": 23,
       "text": "Fixed Width & Height"
     },
 
     // Fixed Width & Height
     {
       "type": "text area",
-      "rowIndex": 4,
-      "columnIndex": 23,
+      "row": 4,
+      "column": 23,
       "width": 23,
       "height": 3,
       "maxVerticalCharacters": 3
@@ -137,16 +137,16 @@
 
     {
       "type": "label",
-      "rowIndex": 8,
-      "columnIndex": 23,
+      "row": 8,
+      "column": 23,
       "text": "Variable Width Only"
     },
 
     // Variable Width
     {
       "type": "text area",
-      "rowIndex": 9,
-      "columnIndex": 23,
+      "row": 9,
+      "column": 23,
       "width": 23,
       "height": 3,
       "maxVerticalCharacters": 3,
@@ -155,16 +155,16 @@
 
     {
       "type": "label",
-      "rowIndex": 13,
-      "columnIndex": 23,
+      "row": 13,
+      "column": 23,
       "text": "Variable Height Only"
     },
 
     // Variable Height
     {
       "type": "text area",
-      "rowIndex": 14,
-      "columnIndex": 23,
+      "row": 14,
+      "column": 23,
       "width": 23,
       "height": 3,
       "maxVerticalCharacters": 6,
@@ -173,16 +173,16 @@
 
     {
       "type": "label",
-      "rowIndex": 18,
-      "columnIndex": 23,
+      "row": 18,
+      "column": 23,
       "text": "Variable Width & Height"
     },
 
     // Variable Width & Height
     {
       "type": "text area",
-      "rowIndex": 19,
-      "columnIndex": 23,
+      "row": 19,
+      "column": 23,
       "width": 23,
       "height": 3,
       "maxVerticalCharacters": 6,
@@ -191,16 +191,16 @@
 
     {
       "type": "label",
-      "columnIndex": 50,
-      "rowIndex": 1,
+      "column": 50,
+      "row": 1,
       "text": "Layer Tests",
       "underlined": true
     },
 
     {
       "type": "layer",
-      "columnIndex": 50,
-      "rowIndex": 2,
+      "column": 50,
+      "row": 2,
       "width": 23,
       "height": 10,
       "backgroundColor": [255, 0, 0, 255]
@@ -208,8 +208,8 @@
 
     {
       "type": "layer",
-      "columnIndex": 50,
-      "rowIndex": 8,
+      "column": 50,
+      "row": 8,
       "width": 23,
       "height": 10,
       "backgroundColor": [0, 0, 255, 155]

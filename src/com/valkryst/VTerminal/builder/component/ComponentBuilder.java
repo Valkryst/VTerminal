@@ -192,8 +192,8 @@ public class ComponentBuilder<C extends Component> {
 
         final String id = (String) jsonObject.get("id");
 
-        final Integer columnIndex = JSONFunctions.getIntElement(jsonObject, "columnIndex");
-        final Integer rowIndex = JSONFunctions.getIntElement(jsonObject, "rowIndex");
+        final Integer columnIndex = JSONFunctions.getIntElement(jsonObject, "column");
+        final Integer rowIndex = JSONFunctions.getIntElement(jsonObject, "row");
         final Integer width = JSONFunctions.getIntElement(jsonObject, "width");
         final Integer height = JSONFunctions.getIntElement(jsonObject, "height");
 
