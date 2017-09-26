@@ -229,6 +229,7 @@ public final class FontLoader {
         lines.replaceAll(string -> pattern.matcher(string).replaceAll(""));
         lines.removeIf(String::isEmpty);
 
+        inputStream.close();
         return lines;
     }
 }
