@@ -24,8 +24,8 @@ public class SampleScreenOnScreen {
         Thread.sleep(100);
 
         final ScreenBuilder screenBuilder = new ScreenBuilder();
-        screenBuilder.setColumnIndex(10);
-        screenBuilder.setRowIndex(10);
+        screenBuilder.setColumnIndex(3);
+        screenBuilder.setRowIndex(3);
         screenBuilder.setWidth(panel.getWidthInCharacters() - 10);
         screenBuilder.setHeight(panel.getHeightInCharacters() - 10);
         screenBuilder.setRadio(panel.getRadio());
