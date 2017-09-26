@@ -222,10 +222,11 @@ public class Screen extends Component {
         // Draw screen components onto the screen:
         final int fontWidth = imageCache.getFont().getWidth();
         final int fontHeight = imageCache.getFont().getHeight();
-        final int screenWidth = getWidth() * fontWidth;
-        final int screenHeight = getHeight() * fontHeight;
 
         screenComponents.forEach(screen -> {
+            final int screenWidth = screen.getWidth() * fontWidth;
+            final int screenHeight = screen.getHeight() * fontHeight;
+
             // Draw sub-screen onto an image:
             final BufferedImage image = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_RGB);
             final Graphics2D gcc = (Graphics2D) image.getGraphics();
