@@ -4,6 +4,9 @@ import com.valkryst.VTerminal.component.Screen;
 import lombok.Data;
 import lombok.NonNull;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
+
+import java.io.FileNotFoundException;
 
 @Data
 public class ScreenBuilder extends ComponentBuilder<Screen> {
@@ -25,6 +28,26 @@ public class ScreenBuilder extends ComponentBuilder<Screen> {
     public ScreenBuilder(final int width, final int height) {
         super.width = width;
         super.height = height;
+    }
+
+    /**
+     * Constructs a ScreenBuilder from JSON.
+     *
+     * @see ComponentBuilder#loadFromJSON(String)
+     *
+     * @param jsonFilePath
+     *        The path to the JSON file.
+     *
+     * @throws FileNotFoundException
+     *         If the file does not exist, is a directory rather
+     *         than a regular file, or for some other reason cannot
+     *         be opened for reading.
+     *
+     * @throws ParseException
+     *         If there's an error when parsing the JSON.
+     */
+    public ScreenBuilder(final @NonNull String jsonFilePath) throws FileNotFoundException, ParseException {
+        super.loadFromJSON(jsonFilePath);
     }
 
     @Override
