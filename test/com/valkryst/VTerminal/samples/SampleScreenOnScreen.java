@@ -8,6 +8,7 @@ import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 import org.json.simple.parser.ParseException;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -23,19 +24,22 @@ public class SampleScreenOnScreen {
         Thread.sleep(100);
 
         final ScreenBuilder screenBuilder = new ScreenBuilder();
-        screenBuilder.setColumnIndex(0);
-        screenBuilder.setRowIndex(0);
-        screenBuilder.setWidth(panel.getWidthInCharacters());
-        screenBuilder.setHeight(panel.getHeightInCharacters());
-        screenBuilder.setRadio(panel.getRadio());
-
-        final Screen screenA = screenBuilder.build();
-
         screenBuilder.setColumnIndex(10);
         screenBuilder.setRowIndex(10);
         screenBuilder.setWidth(panel.getWidthInCharacters() - 10);
         screenBuilder.setHeight(panel.getHeightInCharacters() - 10);
+        screenBuilder.setRadio(panel.getRadio());
+        final Screen screenA = screenBuilder.build();
+        screenA.setBackgroundColor(Color.CYAN);
+
+
+
+        screenBuilder.setColumnIndex(0);
+        screenBuilder.setRowIndex(0);
+        screenBuilder.setWidth(panel.getWidthInCharacters());
+        screenBuilder.setHeight(panel.getHeightInCharacters());
         final Screen screenB = screenBuilder.build();
+        screenB.setBackgroundColor(Color.RED);
 
         screenA.addComponent(screenB);
         panel.swapScreen(screenA);
