@@ -1,16 +1,13 @@
 package com.valkryst.VTerminal.misc;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 
-@EqualsAndHashCode
-@ToString
+@Data
 public class IntRange {
     /** The starting value of the range. */
-    @Getter private int start;
+    private int start;
     /** The ending value of the range. */
-    @Getter private int end;
+    private int end;
 
     /**
      * Constructs a new IntRange.
