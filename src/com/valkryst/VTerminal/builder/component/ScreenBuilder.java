@@ -2,6 +2,7 @@ package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.Screen;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -9,6 +10,7 @@ import org.json.simple.parser.ParseException;
 import java.io.FileNotFoundException;
 
 @Data
+@EqualsAndHashCode(callSuper=true)
 public class ScreenBuilder extends ComponentBuilder<Screen> {
     /** The JSON definition of a GUI. */
     private JSONObject jsonObject;
