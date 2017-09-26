@@ -558,7 +558,8 @@ public class Screen extends Component {
      *         If the component is null.
      */
     public void addComponent(final @NonNull Component component) {
-        if (component instanceof Screen){
+        System.err.println("Check the addComponent methods of the Screen class. You need to make sure that there isn't any recursive screen adding going on.");
+        if (component instanceof Screen) {
             component.setScreen(this);
             screenComponents.add((Screen) component);
         } else if (component instanceof Layer) {
