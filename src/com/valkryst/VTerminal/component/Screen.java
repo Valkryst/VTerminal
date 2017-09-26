@@ -154,6 +154,13 @@ public class Screen extends Component {
                 return null;
             }
 
+            case "screen": {
+                final ScreenBuilder screenBuilder = new ScreenBuilder();
+                screenBuilder.parseJSON(jsonObject);
+                screenBuilder.setRadio(radio);
+                return screenBuilder;
+            }
+
             case "text field": {
                 final TextFieldBuilder textFieldBuilder = new TextFieldBuilder();
                 textFieldBuilder.parseJSON(jsonObject);
@@ -522,15 +529,8 @@ public class Screen extends Component {
      *
      * @throws NullPointerException
      *         If the component is null.
-     *
-     * @throws IllegalArgumentException
-     *         If the component is a screen.
      */
     public void addComponent(final @NonNull Component component) {
-        if (component instanceof Screen) {
-            throw new IllegalArgumentException("A screen cannot be added to another screen.");
-        }
-
         if (component instanceof Layer) {
             component.setScreen(this);
             layerComponents.add((Layer) component);
