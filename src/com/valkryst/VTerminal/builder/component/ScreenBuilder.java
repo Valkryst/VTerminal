@@ -2,15 +2,30 @@ package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.Screen;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.json.simple.JSONObject;
 
 @Data
-@NoArgsConstructor
 public class ScreenBuilder extends ComponentBuilder<Screen> {
     /** The JSON definition of a GUI. */
     private JSONObject jsonObject;
+
+    /** Constructs a new ScreenBuilder. */
+    public ScreenBuilder() {}
+
+    /**
+     * Constructs a new ScreenBuilder.
+     *
+     * @param width
+     *        @see ComponentBuilder#width
+     *
+     * @param height
+     *        @see ComponentBuilder#height
+     */
+    public ScreenBuilder(final int width, final int height) {
+        super.width = width;
+        super.height = height;
+    }
 
     @Override
     public Screen build() {
