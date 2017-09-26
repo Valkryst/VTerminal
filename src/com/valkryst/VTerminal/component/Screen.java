@@ -207,9 +207,7 @@ public class Screen extends Component {
         }
 
         // Draw layer components onto the screen:
-        layerComponents.forEach(layer -> {
-            layer.draw(gc, imageCache);
-        });
+        layerComponents.forEach(layer -> layer.draw(gc, imageCache));
     }
 
     /**
@@ -593,8 +591,8 @@ public class Screen extends Component {
      *         If the components are null.
      */
     public void removeComponents(final @NonNull Component ... components) {
-        for (int i = 0 ; i < components.length ; i++) {
-            removeComponent(components[i]);
+        for (final Component component : components) {
+            removeComponent(component);
         }
     }
 
@@ -621,11 +619,8 @@ public class Screen extends Component {
             }
         }
 
-        if (components.contains(component)) {
-            return true;
-        }
+        return components.contains(component);
 
-        return false;
     }
 
     /**
