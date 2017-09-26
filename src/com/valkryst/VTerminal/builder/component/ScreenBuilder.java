@@ -5,9 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
-
-import java.io.FileNotFoundException;
 
 @Data
 @EqualsAndHashCode(callSuper=true)
@@ -30,33 +27,6 @@ public class ScreenBuilder extends ComponentBuilder<Screen> {
     public ScreenBuilder(final int width, final int height) {
         super.width = width;
         super.height = height;
-    }
-
-    /**
-     * Constructs a ScreenBuilder from JSON.
-     *
-     * @see ComponentBuilder#loadFromJSON(String)
-     *
-     * @param jsonFilePath
-     *        The path to the JSON file.
-     *
-     * @param isInJar
-     *        Whether or not to load the JSON from within the Jar file.
-     *
-     * @throws FileNotFoundException
-     *         If the file does not exist, is a directory rather
-     *         than a regular file, or for some other reason cannot
-     *         be opened for reading.
-     *
-     * @throws ParseException
-     *         If there's an error when parsing the JSON.
-     */
-    public ScreenBuilder(final @NonNull String jsonFilePath, final boolean isInJar) throws FileNotFoundException, ParseException {
-        if (isInJar) {
-            super.loadFromJSONInJar(jsonFilePath);
-        } else {
-            super.loadFromJSON(jsonFilePath);
-        }
     }
 
     @Override
