@@ -3,11 +3,14 @@ package com.valkryst.VTerminal.component;
 import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
+import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.*;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ImageCache;
 import com.valkryst.VTerminal.printer.RectanglePrinter;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.ToString;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -16,11 +19,15 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.util.EventListener;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @ToString
 public class Screen extends Component {
+    /** The panel on which the screen is displayed. */
+    @Getter @Setter private Panel parentPanel;
+
     /** The non-layer components displayed on the screen. */
     private Set<Component> components = new LinkedHashSet<>();
 
@@ -39,7 +46,7 @@ public class Screen extends Component {
      * @throws NullPointerException
      *         If the builder is null.
      */
-    public Screen (final @NonNull ScreenBuilder builder) {
+    public Screen(final @NonNull ScreenBuilder builder) {
         super(builder);
 
         setBackgroundColor(new Color(45, 45, 45, 255));
@@ -549,7 +556,14 @@ public class Screen extends Component {
     }
 
     /**
-     * Adds a component to the screen.
+     * Adds a component to the screen and registers event listeners of the
+     * component, to the parent panel, if required.
+     *
+     * If the component is already present on the screen, then the component is
+     * not added.
+     *
+     * If the component is a screen and it has already been added to this screen,
+     * or any sub-screen of this screen, then the component is not added.
      *
      * @param component
      *          The component.
@@ -558,16 +572,36 @@ public class Screen extends Component {
      *         If the component is null.
      */
     public void addComponent(final @NonNull Component component) {
-        System.err.println("Check the addComponent methods of the Screen class. You need to make sure that there isn't any recursive screen adding going on.");
+        boolean wasAdded = false;
+
+        // Add the component to one of the component lists:
         if (component instanceof Screen) {
-            component.setScreen(this);
-            screenComponents.add((Screen) component);
+            if (! recursiveContainsComponent(component)) {
+                component.setScreen(this);
+                screenComponents.add((Screen) component);
+                wasAdded = true;
+            }
         } else if (component instanceof Layer) {
-            component.setScreen(this);
-            layerComponents.add((Layer) component);
+            if (! containsComponent(component)) {
+                component.setScreen(this);
+                layerComponents.add((Layer) component);
+                wasAdded = true;
+            }
         } else {
-            component.setScreen(this);
-            components.add(component);
+            if (! containsComponent(component)) {
+                component.setScreen(this);
+                components.add(component);
+                wasAdded = true;
+            }
+        }
+
+        // Set up event listeners:
+        if (wasAdded) {
+            component.createEventListeners(parentPanel);
+
+            for (final EventListener eventListener : component.getEventListeners()) {
+                parentPanel.addListener(eventListener);
+            }
         }
     }
 
@@ -587,7 +621,8 @@ public class Screen extends Component {
     }
 
     /**
-     * Removes a component from the screen.
+     * Removes a component from the screen and removes event listeners of the
+     * component from the parent panel.
      *
      * @param component
      *          The component.
@@ -612,6 +647,10 @@ public class Screen extends Component {
         } else {
             component.setScreen(null);
             components.remove(component);
+        }
+
+        for (final EventListener eventListener : component.getEventListeners()) {
+            parentPanel.removeListener(eventListener);
         }
     }
 
@@ -685,7 +724,7 @@ public class Screen extends Component {
         }
 
         if (component instanceof Screen) {
-            if (((Screen) component).containsComponent(this)) {
+            if (((Screen) component).recursiveContainsComponent(this)) {
                 return true;
             }
         }

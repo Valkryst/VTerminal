@@ -220,10 +220,12 @@ public class Panel extends Canvas implements Receiver<String> {
 
         // Unregister all of the old screen's components:
         screen.getComponents().forEach(component -> component.getEventListeners().forEach(this::removeListener));
+        screen.setParentPanel(null);
 
         // Register all of the new screen's components:
         newScreen.getComponents().forEach(component -> component.createEventListeners(this));
         newScreen.getComponents().forEach(component -> component.getEventListeners().forEach(this::addListener));
+        newScreen.setParentPanel(this);
 
         final Screen oldScreen = screen;
         screen = newScreen;
@@ -234,8 +236,6 @@ public class Panel extends Canvas implements Receiver<String> {
     /**
      * Adds a component to the current screen.
      *
-     * Registers event listeners of the component to the panel, if required.
-     *
      * @param component
      *          The component.
      *
@@ -244,11 +244,6 @@ public class Panel extends Canvas implements Receiver<String> {
      */
     public void addComponent(final @NonNull Component component) {
         screen.addComponent(component);
-        component.createEventListeners(this);
-
-        for (final EventListener eventListener : component.getEventListeners()) {
-            addListener(eventListener);
-        }
     }
 
 
@@ -270,8 +265,6 @@ public class Panel extends Canvas implements Receiver<String> {
     /**
      * Removes a component from the current screen.
      *
-     * Removes event listeners of the component from the panel, if required.
-     *
      * @param component
      *          The component.
      *
@@ -280,9 +273,20 @@ public class Panel extends Canvas implements Receiver<String> {
      */
     public void removeComponent(final @NonNull Component component) {
         screen.removeComponent(component);
+    }
 
-        for (final EventListener eventListener : component.getEventListeners()) {
-            removeListener(eventListener);
+    /**
+     * Removes one or more components from the current screen.
+     *
+     * @param components
+     *        The components.
+     *
+     * @throws NullPointerException
+     *         If the new components are null.
+     */
+    public void removeComponents(final @NonNull Component ... components) {
+        for (final Component component : components) {
+            removeComponent(component);
         }
     }
 
@@ -295,7 +299,7 @@ public class Panel extends Canvas implements Receiver<String> {
      * @throws IllegalArgumentException
      *        If the event listener isn't supported by this function.
      */
-    private void addListener(final EventListener eventListener) {
+    public void addListener(final EventListener eventListener) {
         if (eventListener instanceof KeyListener) {
             this.addKeyListener((KeyListener) eventListener);
             return;
@@ -323,7 +327,7 @@ public class Panel extends Canvas implements Receiver<String> {
      * @throws IllegalArgumentException
      *        If the event listener isn't supported by this function.
      */
-    private void removeListener(final EventListener eventListener) {
+    public void removeListener(final EventListener eventListener) {
         if (eventListener instanceof KeyListener) {
             this.removeKeyListener((KeyListener) eventListener);
             return;
@@ -340,22 +344,5 @@ public class Panel extends Canvas implements Receiver<String> {
         }
 
         throw new IllegalArgumentException("The " + eventListener.getClass().getSimpleName() + " is not supported.");
-    }
-
-
-
-    /**
-     * Removes one or more components from the current screen.
-     *
-     * @param components
-     *        The components.
-     *
-     * @throws NullPointerException
-     *         If the new components are null.
-     */
-    public void removeComponents(final @NonNull Component ... components) {
-        for (final Component component : components) {
-            removeComponent(component);
-        }
     }
 }
