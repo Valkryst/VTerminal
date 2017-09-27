@@ -66,6 +66,7 @@ public class Panel extends Canvas implements Receiver<String> {
         this.setPreferredSize(new Dimension(pixelWidth, pixelHeight));
 
         screen = builder.getScreen();
+        screen.setParentPanel(this);
 
         radio = builder.getRadio();
         radio.addReceiver("DRAW", this);
