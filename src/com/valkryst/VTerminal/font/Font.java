@@ -39,7 +39,7 @@ public class Font {
      * @throws IOException
      *         If an I/O error occurs.
      */
-    public Font(final @NonNull HashMap<Character, BufferedImage> characterImages, int scale) throws IOException {
+    public Font(final @NonNull HashMap<Character, BufferedImage> characterImages, final int scale) throws IOException {
         this.characterImages = characterImages;
 
         width = characterImages.get('X').getWidth() * scale;
