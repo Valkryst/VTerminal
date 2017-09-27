@@ -572,36 +572,29 @@ public class Screen extends Component {
      *         If the component is null.
      */
     public void addComponent(final @NonNull Component component) {
-        boolean wasAdded = false;
+        boolean containsComponent = containsComponent(component);
+
+        if (containsComponent) {
+            return;
+        }
 
         // Add the component to one of the component lists:
         if (component instanceof Screen) {
-            if (! recursiveContainsComponent(component)) {
-                component.setScreen(this);
-                screenComponents.add((Screen) component);
-                wasAdded = true;
-            }
+            component.setScreen(this);
+            screenComponents.add((Screen) component);
         } else if (component instanceof Layer) {
-            if (! containsComponent(component)) {
-                component.setScreen(this);
-                layerComponents.add((Layer) component);
-                wasAdded = true;
-            }
+            component.setScreen(this);
+            layerComponents.add((Layer) component);
         } else {
-            if (! containsComponent(component)) {
-                component.setScreen(this);
-                components.add(component);
-                wasAdded = true;
-            }
+            component.setScreen(this);
+            components.add(component);
         }
 
         // Set up event listeners:
-        if (wasAdded) {
-            component.createEventListeners(parentPanel);
+        component.createEventListeners(parentPanel);
 
-            for (final EventListener eventListener : component.getEventListeners()) {
-                parentPanel.addListener(eventListener);
-            }
+        for (final EventListener eventListener : component.getEventListeners()) {
+            parentPanel.addListener(eventListener);
         }
     }
 
@@ -697,39 +690,6 @@ public class Screen extends Component {
         }
 
         return components.contains(component);
-
-    }
-
-    /**
-     * Determines whether or not the screen, or any sub-screen of the screen,
-     * contains a specific component.
-     *
-     * @param component
-     *        The component.
-     *
-     * @return
-     *        Whether or not the component is contained within the
-     *        screen or any sub-screen.
-     *
-     * @throws NullPointerException
-     *         If the component is null.
-     */
-    public boolean recursiveContainsComponent(final @NonNull Component component) {
-        if (component == this) {
-            return false;
-        }
-
-        if (containsComponent(component)) {
-            return true;
-        }
-
-        if (component instanceof Screen) {
-            if (((Screen) component).recursiveContainsComponent(this)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**
