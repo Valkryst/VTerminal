@@ -11,7 +11,6 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.imageio.ImageIO;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -20,9 +19,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.EventListener;
 
 @ToString
@@ -122,84 +118,6 @@ public class Panel extends Canvas implements Receiver<String> {
 
             bs.show();
         } while (bs.contentsLost()); // Repeat render if drawing buffer was lost.
-    }
-
-    /**
-     * Draws the canvas onto an image.
-     *
-     * This calls the current screen's draw function, so the screen may look a
-     * little different if there are new updates to characters that haven't yet
-     * been drawn.
-     *
-     * This is an expensive operation as it essentially creates an in-memory
-     * screen and draws each AsciiCharacter onto that screen.
-     *
-     * @return
-     *        An image of the canvas.
-     */
-    public BufferedImage screenshot() {
-        return screen.screenshot(imageCache);
-    }
-
-    /**
-     * Saves a screenshot of the canvas to a PNG file.
-     *
-     * @param filename
-     *        The name of the file.
-     *
-     * @throws NullPointerException
-     *         If the filename is null.
-     *
-     * @throws IllegalArgumentException
-     *         If the filename is empty.
-     *
-     * @throws IOException
-     *         If an I/O error occurred.
-     */
-    public void screenshotToFile(final @NonNull String filename) throws IOException {
-        if (filename.isEmpty()) {
-            throw new IllegalArgumentException("The filename cannot be null.");
-        }
-
-        final File file = new File(filename + ".png");
-
-        if (file.exists() == false) {
-            if (file.createNewFile()) {
-                screenshotToFile(file, "PNG");
-            } else {
-                throw new IOException("Could not create the file " + filename + ".png.");
-            }
-        } else {
-            screenshotToFile(file, "PNG");
-        }
-    }
-
-    /**
-     * Saves a screenshot of the canvas to a file.
-     *
-     * @param file
-     *        The file.
-     *
-     * @param extension
-     *        The extension of the file, the file should have a matching extension.
-     *
-     *        Ex: PNG or JPG
-     *
-     * @throws NullPointerException
-     *         If the file or extension is null.
-     *
-     * @throws IllegalArgumentException
-     *         If the filename is empty.
-     *
-     * @throws IOException
-     *         If an error occurs during writing.
-     */
-    public void screenshotToFile(final @NonNull File file, final @NonNull String extension) throws IOException {
-        if (extension.isEmpty()) {
-            throw new IllegalArgumentException("The extension cannot be null.");
-        }
-
-        ImageIO.write(screenshot(), extension, file);
     }
 
     /**
