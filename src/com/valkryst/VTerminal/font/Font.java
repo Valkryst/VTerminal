@@ -46,9 +46,10 @@ public class Font {
         height = characterImages.get('X').getHeight() * scale;
 
         if (scale > 0) {
+            final AffineTransform tx = AffineTransform.getScaleInstance(scale, scale);
+            final AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+
             for (final Map.Entry<Character, BufferedImage> entry : characterImages.entrySet()) {
-                final AffineTransform tx = AffineTransform.getScaleInstance(scale, scale);
-                final AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
                 characterImages.put(entry.getKey(), op.filter(entry.getValue(), null));
             }
         }
