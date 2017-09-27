@@ -139,7 +139,7 @@ public class LinePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private void printLine(final @NonNull Screen screen, int fromX, int fromY, final int toX, final int toY) {
+    private void printLine(final @NonNull Screen screen, final int fromX, final int fromY, final int toX, final int toY) {
         for (final Point point : ShapeAlgorithms.getLine(fromX, fromY, toX, toY)) {
             screen.write(printChar, point);
         }
