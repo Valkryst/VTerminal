@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
+import java.awt.Dimension;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -19,10 +20,8 @@ public class Font {
      */
     private final HashMap<Character, BufferedImage> characterImages;
 
-    /** The width of the font. */
-    @Getter private final int width;
-    /** The height of the font. */
-    @Getter private final int height;
+    /** The width/height of the font. */
+    @Getter private final Dimension dimensions;
 
     /**
      * Constructs a new Font.
@@ -42,8 +41,9 @@ public class Font {
     public Font(final @NonNull HashMap<Character, BufferedImage> characterImages, final int scale) throws IOException {
         this.characterImages = characterImages;
 
-        width = characterImages.get('X').getWidth() * scale;
-        height = characterImages.get('X').getHeight() * scale;
+        final int width = characterImages.get('X').getWidth() * scale;
+        final int height = characterImages.get('X').getHeight() * scale;
+        dimensions = new Dimension(width, height);
 
         if (scale > 0) {
             final AffineTransform tx = AffineTransform.getScaleInstance(scale, scale);
@@ -82,5 +82,13 @@ public class Font {
      */
     public BufferedImage getCharacterImage(final char character) {
         return characterImages.get(character);
+    }
+
+    public int getWidth() {
+        return dimensions.width;
+    }
+
+    public int getHeight() {
+        return dimensions.height;
     }
 }
