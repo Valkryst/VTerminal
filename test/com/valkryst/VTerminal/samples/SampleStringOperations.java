@@ -7,6 +7,7 @@ import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -23,45 +24,45 @@ public class SampleStringOperations {
 
         Thread.sleep(50);
 
-        screen.write("Writing a String on Line #3", 0, 2);
+        screen.write("Writing a String on Line #3", new Point(0, 2));
 
-        screen.write("Horizontally Flipping a String on Line #4", 0, 3);
+        screen.write("Horizontally Flipping a String on Line #4", new Point(0, 3));
         screen.getString(3).setFlippedHorizontally(true);
 
-        screen.write("Vertically Flipping a String on Line #5", 0, 4);
+        screen.write("Vertically Flipping a String on Line #5", new Point(0, 4));
         screen.getString(4).setFlippedVertically(true);
 
-        screen.write("Vertically & Horizontally Flipping a String on Line #6", 0, 5);
+        screen.write("Vertically & Horizontally Flipping a String on Line #6", new Point(0, 5));
         screen.getString(5).setFlippedHorizontally(true);
         screen.getString(5).setFlippedVertically(true);
 
-        screen.write("Applying a Tint Gradient on Line #7", 0, 6);
+        screen.write("Applying a Tint Gradient on Line #7", new Point(0, 6));
         screen.getString(6).applyTintGradient(Color.CYAN, true);
 
-        screen.write("Applying a Shade Gradient on Line #8", 0, 7);
+        screen.write("Applying a Shade Gradient on Line #8", new Point(0, 7));
         screen.getString(7).applyShadeGradient(Color.CYAN, true);
 
-        screen.write("Applying a Background Color Gradient on Line #9", 0, 8);
+        screen.write("Applying a Background Color Gradient on Line #9", new Point(0, 8));
         screen.getString(8).applyColorGradient(Color.CYAN, Color.PINK, true);
 
-        screen.write("Applying a Foreground Color Gradient on Line #10", 0, 9);
+        screen.write("Applying a Foreground Color Gradient on Line #10", new Point(0, 9));
         screen.getString(9).applyColorGradient(Color.CYAN, Color.PINK, false);
 
-        screen.write("Applying a Back/Foreground Color Gradient on Line #11", 0, 10);
+        screen.write("Applying a Back/Foreground Color Gradient on Line #11", new Point(0, 10));
         screen.getString(10).applyColorGradient(Color.RED, Color.GREEN, false);
         screen.getString(10).applyColorGradient(Color.CYAN, Color.PINK, true);
 
-        screen.write("Changing Background Color on Line #12", 0, 11);
+        screen.write("Changing Background Color on Line #12", new Point(0, 11));
         screen.getString(11).setBackgroundColor(Color.RED);
 
-        screen.write("Changing Foreground Color on Line #13", 0, 12);
+        screen.write("Changing Foreground Color on Line #13", new Point(0, 12));
         screen.getString(12).setForegroundColor(Color.RED);
 
-        screen.write("Changing Back/Foreground Color on Line #14", 0, 13);
+        screen.write("Changing Back/Foreground Color on Line #14", new Point(0, 13));
         screen.getString(13).setBackgroundColor(Color.RED);
         screen.getString(13).setForegroundColor(Color.BLUE);
 
-        screen.write("Applying Underline on Line #15", 0, 14);
+        screen.write("Applying Underline on Line #15", new Point(0, 14));
         screen.getString(14).setUnderlined(true);
 
         panel.draw();
