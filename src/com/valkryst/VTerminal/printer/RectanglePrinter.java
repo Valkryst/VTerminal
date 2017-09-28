@@ -7,16 +7,15 @@ import com.valkryst.VTerminal.misc.ShapeAlgorithms;
 import lombok.*;
 import org.json.simple.JSONObject;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.Optional;
 
 @EqualsAndHashCode
 @ToString
 public class RectanglePrinter {
-    /** The width of the rectangle to print. */
-    @Getter private int width = 2;
-    /** The height of the rectangle to print. */
-    @Getter private int height = 2;
+    /** The width/height of the rectangle to print. */
+    @Getter private final Dimension dimensions = new Dimension(2, 2);
 
     /** The character to fill the rectangle with, if a filled rectangle is drawn. */
     @Getter @Setter private char fillChar = '█';
@@ -33,17 +32,14 @@ public class RectanglePrinter {
      * @param panel
      *         The panel.
      *
-     * @param column
-     *         The x-axis (column) coordinate of the top-left character.
-     *
-     * @param row
-     *         The y-axis (row) coordinate of the top-left character.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
      *         If the panel is null.
      */
-    public void print(final @NonNull Panel panel, final int column, final int row) {
-        print(panel.getScreen(), column, row);
+    public void print(final @NonNull Panel panel, final Point position) {
+        print(panel.getScreen(), position);
     }
 
     /**
@@ -55,29 +51,30 @@ public class RectanglePrinter {
      * @param screen
      *         The screen.
      *
-     * @param column
-     *         The x-axis (column) coordinate of the top-left character.
-     *
-     * @param row
-     *         The y-axis (row) coordinate of the top-left character.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
      *         If the screen is null.
      */
-    public void print(final @NonNull Screen screen, final int column, final int row) {
-        final int lastRow = row + height - 1;
-        final int lastColumn = column + width - 1;
+    public void print(final @NonNull Screen screen, final Point position) {
+        final int width = dimensions.width;
+        final int height = dimensions.height;
+        final int x = position.x;
+        final int y = position.y;
+
+        final int lastRow = y + height - 1;
+        final int lastColumn = x + width - 1;
 
         final Point writePosition = new Point(0, 0);
 
         // Draw Corners:
-        writePosition.setLocation(column, row);
-        screen.write(rectangleType.getTopLeft(), writePosition);
+        screen.write(rectangleType.getTopLeft(), position);
 
-        writePosition.setLocation(lastColumn, row);
+        writePosition.setLocation(lastColumn, y);
         screen.write(rectangleType.getTopRight(), writePosition);
 
-        writePosition.setLocation(column, lastRow);
+        writePosition.setLocation(x, lastRow);
         screen.write(rectangleType.getBottomLeft(), writePosition);
 
         writePosition.setLocation(lastColumn, lastRow);
@@ -85,19 +82,19 @@ public class RectanglePrinter {
 
         // Draw Left/Right Sides:
         for (int i = 1 ; i < height - 1 ; i++) {
-            writePosition.setLocation(column, row + i);
+            writePosition.setLocation(x, y + i);
             screen.write(rectangleType.getVertical(), writePosition);
 
-            writePosition.setLocation(lastColumn, row + i);
+            writePosition.setLocation(lastColumn, y + i);
             screen.write(rectangleType.getVertical(), writePosition);
         }
 
         // Draw Top/Bottom Sides:
         for (int i = 1 ; i < width - 1 ; i++) {
-            writePosition.setLocation(column + i, row);
+            writePosition.setLocation(x + i, y);
             screen.write(rectangleType.getHorizontal(), writePosition);
 
-            writePosition.setLocation(column + i, lastRow);
+            writePosition.setLocation(x + i, lastRow);
             screen.write(rectangleType.getHorizontal(), writePosition);
         }
 
@@ -107,20 +104,20 @@ public class RectanglePrinter {
             final char[] titleChars = title.toCharArray();
 
             for (int i = 2; i < width - 2 && i - 2 < titleChars.length; i++) {
-                writePosition.setLocation(column + i, row);
+                writePosition.setLocation(x + i, y);
                 screen.write(titleChars[i - 2], writePosition);
             }
 
             // Draw Title Borders:
-            writePosition.setLocation(column + 1, row);
+            writePosition.setLocation(x + 1, y);
             screen.write(rectangleType.getConnectorLeft(), writePosition);
 
-            writePosition.setLocation(column + titleChars.length + 2, row);
+            writePosition.setLocation(x + titleChars.length + 2, y);
             screen.write(rectangleType.getConnectorRight(), writePosition);
         }
 
         // Handle Connectors:
-        setConnectors(screen, column, row);
+        setConnectors(screen, position);
     }
 
     /**
@@ -129,17 +126,14 @@ public class RectanglePrinter {
      * @param panel
      *         The panel.
      *
-     * @param column
-     *         The x-axis (column) coordinate of the top-left character.
-     *
-     * @param row
-     *         The y-axis (row) coordinate of the top-left character.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
      *         If the panel is null.
      */
-    public void printFilled(final @NonNull Panel panel, final int column, final int row) {
-        printFilled(panel.getScreen(), column, row);
+    public void printFilled(final @NonNull Panel panel, final Point position) {
+        printFilled(panel.getScreen(), position);
     }
 
     /**
@@ -151,19 +145,19 @@ public class RectanglePrinter {
      * @param screen
      *         The screen.
      *
-     * @param column
-     *         The x-axis (column) coordinate of the top-left character.
-     *
-     * @param row
-     *         The y-axis (row) coordinate of the top-left character.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
      *         If the screen is null.
      */
-    public void printFilled(final @NonNull Screen screen, final int column, final int row) {
-        print(screen, column, row);
+    public void printFilled(final @NonNull Screen screen, final Point position) {
+        print(screen, position);
 
-        for (final Point point : ShapeAlgorithms.getFilledRectangle(column + 1, row + 1, width - 2, height - 2)) {
+        final Dimension dimension = new Dimension(this.dimensions.width - 2, this.dimensions.height - 2);
+        position.setLocation(position.x + 1, position.y + 1);
+
+        for (final Point point : ShapeAlgorithms.getFilledRectangle(position, dimension)) {
             screen.write(fillChar, point);
         }
     }
@@ -200,7 +194,7 @@ public class RectanglePrinter {
             this.rectangleType = RectangleType.valueOf(rectangleType.toUpperCase());
         }
 
-        print(screen, column, row);
+        print(screen, new Point(column, row));
     }
 
     /**
@@ -210,18 +204,15 @@ public class RectanglePrinter {
      * @param screen
      *         The screen.
      *
-     * @param column
-     *         The x-axis (column) coordinate of the top-left character.
-     *
-     * @param row
-     *         The y-axis (row) coordinate of the top-left character.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private void setConnectors(final @NonNull Screen screen, final int column, final int row) {
-        for (final Point point : ShapeAlgorithms.getRectangle(column, row, width, height)) {
-            setConnector(screen, point.x, point.y);
+    private void setConnectors(final @NonNull Screen screen, final Point position) {
+        for (final Point point : ShapeAlgorithms.getRectangle(position, dimensions)) {
+            setConnector(screen, point);
         }
     }
 
@@ -232,25 +223,22 @@ public class RectanglePrinter {
      * @param screen
      *         The screen.
      *
-     * @param column
-     *         The x-axis (column) coordinate of the character.
-     *
-     * @param row
-     *         The y-axis (row) coordinate of the character.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private void setConnector(final @NonNull Screen screen, final int column, final int row) {
-        final boolean validTop = hasValidTopNeighbour(screen, column, row);
-        final boolean validBottom = hasValidBottomNeighbour(screen, column, row);
-        final boolean validLeft = hasValidLeftNeighbour(screen, column, row);
-        final boolean validRight = hasValidRightNeighbour(screen, column, row);
+    private void setConnector(final @NonNull Screen screen, final Point position) {
+        final boolean validTop = hasValidTopNeighbour(screen, new Point(position));
+        final boolean validBottom = hasValidBottomNeighbour(screen, new Point(position));
+        final boolean validLeft = hasValidLeftNeighbour(screen, new Point(position));
+        final boolean validRight = hasValidRightNeighbour(screen, new Point(position));
 
         final boolean[] neighbourPattern = new boolean[]{validRight, validTop, validLeft, validBottom};
         final Optional<Character> optChar = rectangleType.getCharacterByNeighbourPattern(neighbourPattern);
 
-        optChar.ifPresent(character -> screen.write(character, new Point(column, row)));
+        optChar.ifPresent(character -> screen.write(character, position));
     }
 
     /**
@@ -258,11 +246,8 @@ public class RectanglePrinter {
      * RectangleType and that the character of the top-neighbour can be
      * connected to.
      *
-     * @param column
-     *         The x-axis (column) coordinate of the cell.
-     *
-     * @param row
-     *         The y-axis (row) coordinate of the cell.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @return
      *        If the top-neighbour is valid.
@@ -270,9 +255,10 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private boolean hasValidTopNeighbour(final @NonNull Screen screen, final int column, final int row) {
+    private boolean hasValidTopNeighbour(final @NonNull Screen screen, final Point position) {
         try {
-            return rectangleType.isValidTopCharacter(screen.getCharacterAt(new Point(column, row - 1)));
+            position.setLocation(position.x, position.y - 1);
+            return rectangleType.isValidTopCharacter(screen.getCharacterAt(position));
         } catch (final IllegalArgumentException e) {
             return false;
         }
@@ -283,11 +269,8 @@ public class RectanglePrinter {
      * RectangleType and that the character of the bottom-neighbour can be
      * connected to.
      *
-     * @param column
-     *         The x-axis (column) coordinate of the cell.
-     *
-     * @param row
-     *         The y-axis (row) coordinate of the cell.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @return
      *        If the bottom-neighbour is valid.
@@ -295,9 +278,10 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private boolean hasValidBottomNeighbour(final @NonNull Screen screen, final int column, final int row) {
+    private boolean hasValidBottomNeighbour(final @NonNull Screen screen, final Point position) {
         try {
-            return rectangleType.isValidBottomCharacter(screen.getCharacterAt(new Point(column, row + 1)));
+            position.setLocation(position.x, position.y + 1);
+            return rectangleType.isValidBottomCharacter(screen.getCharacterAt(position));
         } catch (final IllegalArgumentException e) {
             return false;
         }
@@ -308,11 +292,8 @@ public class RectanglePrinter {
      * RectangleType and that the character of the left-neighbour can be
      * connected to.
      *
-     * @param column
-     *         The x-axis (column) coordinate of the cell.
-     *
-     * @param row
-     *         The y-axis (row) coordinate of the cell.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the cell.
      *
      * @return
      *        If the left-neighbour is valid.
@@ -320,9 +301,10 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private boolean hasValidLeftNeighbour(final @NonNull Screen screen, final int column, final int row) {
+    private boolean hasValidLeftNeighbour(final @NonNull Screen screen, final Point position) {
         try {
-            return rectangleType.isValidLeftCharacter(screen.getCharacterAt(new Point(column - 1, row)));
+            position.setLocation(position.x - 1, position.y);
+            return rectangleType.isValidLeftCharacter(screen.getCharacterAt(position));
         } catch (final IllegalArgumentException e) {
             return false;
         }
@@ -333,11 +315,8 @@ public class RectanglePrinter {
      * RectangleType and that the character of the right-neighbour can be
      * connected to.
      *
-     * @param column
-     *         The x-axis (column) coordinate of the cell.
-     *
-     * @param row
-     *         The y-axis (row) coordinate of the cell.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the cell.
      *
      * @return
      *        If the right-neighbour is valid.
@@ -345,9 +324,10 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private boolean hasValidRightNeighbour(final @NonNull Screen screen, final int column, final int row) {
+    private boolean hasValidRightNeighbour(final @NonNull Screen screen, final Point position) {
         try {
-            return rectangleType.isValidRightCharacter(screen.getCharacterAt(new Point(column + 1, row)));
+            position.setLocation(position.x + 1, position.y);
+            return rectangleType.isValidRightCharacter(screen.getCharacterAt(position));
         } catch (final IllegalArgumentException e) {
             return false;
         }
@@ -364,7 +344,7 @@ public class RectanglePrinter {
      */
     public RectanglePrinter setWidth(final int width) {
         if (width > 0) {
-            this.width = width;
+            dimensions.setSize(width, dimensions.height);
         }
 
         return this;
@@ -381,7 +361,7 @@ public class RectanglePrinter {
      */
     public RectanglePrinter setHeight(final int height) {
         if (height > 0) {
-            this.height = height;
+            dimensions.setSize(dimensions.width, height);
         }
 
         return this;

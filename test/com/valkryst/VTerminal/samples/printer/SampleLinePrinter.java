@@ -7,6 +7,7 @@ import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.misc.ShapeAlgorithms;
 import com.valkryst.VTerminal.printer.LinePrinter;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -24,7 +25,7 @@ public class SampleLinePrinter {
         Thread.sleep(100);
 
 
-        final List<Point> circlePoints = ShapeAlgorithms.getEllipse(10, 10, 5, 5);
+        final List<Point> circlePoints = ShapeAlgorithms.getEllipse(new Point(10, 10), new Dimension(5, 5));
         final LinePrinter printer = new LinePrinter();
 
         for (final Point point : circlePoints) {

@@ -6,6 +6,7 @@ import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.printer.EllipsePrinter;
 
+import java.awt.Point;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -23,9 +24,9 @@ public class SampleEllipsePrinter {
         final EllipsePrinter printer = new EllipsePrinter();
         printer.setWidth(6);
         printer.setHeight(8);
-        printer.print(panel, 10, 10);
+        printer.print(panel, new Point(10, 10));
 
-        printer.printFilled(panel, 10, 40);
+        printer.printFilled(panel, new Point(10, 40));
 
         panel.draw();
     }

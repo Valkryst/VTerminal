@@ -15,6 +15,7 @@ import com.valkryst.VTerminal.printer.RectangleType;
 
 import javax.swing.Timer;
 import java.awt.Color;
+import java.awt.Point;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -36,13 +37,13 @@ public class SampleComponents {
         printer.setRectangleType(RectangleType.HEAVY);
         printer.setWidth(80);
         printer.setHeight(24);
-        printer.print(panel, 0, 0);
+        printer.print(panel, new Point(0, 0));
 
         printer.setWidth(24);
-        printer.print(panel, 0, 0);
+        printer.print(panel, new Point(0, 0));
 
         printer.setWidth(48);
-        printer.print(panel, 0, 0);
+        printer.print(panel, new Point(0, 0));
 
         // Title #1
         final LabelBuilder labelBuilder = new LabelBuilder();

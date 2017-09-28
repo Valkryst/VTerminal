@@ -5,15 +5,14 @@ import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.misc.ShapeAlgorithms;
 import lombok.*;
 
+import java.awt.Dimension;
 import java.awt.Point;
 
 @EqualsAndHashCode
 @ToString
 public class EllipsePrinter {
-    /** The width of the ellipse to print. */
-    @Getter private int width = 2;
-    /** The height of the ellipse to print. */
-    @Getter private int height = 2;
+    /** The width/height of the ellipse to print. */
+    @Getter private final Dimension dimensions = new Dimension(2, 2);
 
     /** The character to print the ellipse with. */
     @Getter @Setter private char printChar = '█';
@@ -24,17 +23,14 @@ public class EllipsePrinter {
      * @param panel
      *         The panel.
      *
-     * @param row
-     *         The y-axis (row) coordinate of the top-left character.
-     *
-     * @param column
-     *         The x-axis (column) coordinate of the top-left character.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
      *         If the panel is null.
      */
-    public void print(final @NonNull Panel panel, final int row, final int column) {
-        print(panel.getScreen(), row, column);
+    public void print(final @NonNull Panel panel, final Point position) {
+        print(panel.getScreen(), position);
     }
 
     /**
@@ -43,17 +39,14 @@ public class EllipsePrinter {
      * @param screen
      *         The screen.
      *
-     * @param row
-     *         The y-axis (row) coordinate of the top-left character.
-     *
-     * @param column
-     *         The x-axis (column) coordinate of the top-left character.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
      *         If the screen is null.
      */
-    public void print(final @NonNull Screen screen, final int row, final int column) {
-        for (final Point point : ShapeAlgorithms.getEllipse(column, row, width, height)) {
+    public void print(final @NonNull Screen screen, final Point position) {
+        for (final Point point : ShapeAlgorithms.getEllipse(position, dimensions)) {
             screen.write(printChar, point);
         }
     }
@@ -64,17 +57,14 @@ public class EllipsePrinter {
      * @param panel
      *         The panel.
      *
-     * @param row
-     *         The y-axis (row) coordinate of the top-left character.
-     *
-     * @param column
-     *         The x-axis (column) coordinate of the top-left character.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
      *         If the panel is null.
      */
-    public void printFilled(final @NonNull Panel panel, final int row, final int column) {
-        printFilled(panel.getScreen(), row, column);
+    public void printFilled(final @NonNull Panel panel, final Point position) {
+        printFilled(panel.getScreen(), position);
     }
 
     /**
@@ -83,17 +73,14 @@ public class EllipsePrinter {
      * @param screen
      *         The screen.
      *
-     * @param row
-     *         The y-axis (row) coordinate of the top-left character.
-     *
-     * @param column
-     *         The x-axis (column) coordinate of the top-left character.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
      *         If the screen is null.
      */
-    public void printFilled(final @NonNull Screen screen, final int row, final int column) {
-        for (final Point point : ShapeAlgorithms.getFilledEllipse(column, row, width, height)) {
+    public void printFilled(final @NonNull Screen screen, final Point position) {
+        for (final Point point : ShapeAlgorithms.getFilledEllipse(position, dimensions)) {
             screen.write(printChar, point);
         }
     }
@@ -109,7 +96,7 @@ public class EllipsePrinter {
      */
     public EllipsePrinter setWidth(final int width) {
         if (width > 0) {
-            this.width = width;
+            dimensions.setSize(width, dimensions.height);
         }
 
         return this;
@@ -126,7 +113,7 @@ public class EllipsePrinter {
      */
     public EllipsePrinter setHeight(final int height) {
         if (height > 0) {
-            this.height = height;
+            dimensions.setSize(dimensions.width, height);
         }
 
         return this;
