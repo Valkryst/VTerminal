@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal.misc;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,23 +13,22 @@ public final class ShapeAlgorithms {
      * Constructs a list, containing the outline, of an ellipse's points by using
      * the Bresenham algorithm,
      *
-     * @param x
-     *        The x-axis (column) coordinate of the top-left character.
+     * @param position
+     *        The x/y-axis (column/row) coordinates of the top-left character.
      *
-     * @param y
-     *        The y-axis (row) coordinate of the top-left character.
-     *
-     * @param width
-     *        The width.
-     *
-     * @param height
-     *        The height.
+     * @param dimension
+     *        The width/height.
      *
      * @return
      *        The list of points.
      */
-    public static List<Point> getEllipse(final int x, final int y, final int width, final int height) {
+    public static List<Point> getEllipse(final Point position, final Dimension dimension) {
         final List<Point> points = new ArrayList<>();
+
+        final int x = position.x;
+        final int y = position.y;
+        final int width = dimension.width;
+        final int height = dimension.height;
 
         int a2 = width * width;
         int b2 = height * height;
@@ -80,28 +80,23 @@ public final class ShapeAlgorithms {
     /**
      * Constructs a list, containing the outline and fill, of an ellipse's points.
      *
-     * @param x
-     *        The x-axis (column) coordinate of the top-left character.
+     * @param position
+     *        The x/y-axis (column/row) coordinates of the top-left character.
      *
-     * @param y
-     *        The y-axis (row) coordinate of the top-left character.
-     *
-     * @param width
-     *        The width.
-     *
-     * @param height
-     *        The height.
+     * @param dimension
+     *        The width/height.
      *
      * @return
      *        The list of points.
      */
-    public static List<Point> getFilledEllipse(final int x, final int y, final int width, final int height) {
-        final List<Point> points = getEllipse(x, y, width, height);
+    public static List<Point> getFilledEllipse(final Point position, final Dimension dimension) {
+        final List<Point> points = getEllipse(position, dimension);
 
-        final int xCenter = x + (width / 2);
-        final int yCenter = y + (height / 2);
+        final int xCenter = position.x + (dimension.width / 2);
+        final int yCenter = position.y + (dimension.height / 2);
+        position.setLocation(xCenter, yCenter);
 
-        return recursiveFill(points, xCenter, yCenter);
+        return recursiveFill(points, position);
     }
 
     /**
@@ -177,23 +172,22 @@ public final class ShapeAlgorithms {
     /**
      * Constructs a list, containing the outline, of a rectangle's points.
      *
-     * @param x
-     *         The x-axis (column) coordinate of the top-left character.
+     * @param position
+     *        The x/y-axis (column/row) coordinates of the top-left character.
      *
-     * @param y
-     *         The y-axis (row) coordinate of the top-left character.
-     *
-     * @param width
-     *        The width.
-     *
-     * @param height
-     *        The height.
+     * @param dimension
+     *        The width/height.
      *
      * @return
      *        The list of points.
      */
-    public static List<Point> getRectangle(final int x, final int y, final int width, final int height) {
+    public static List<Point> getRectangle(final Point position, final Dimension dimension) {
         final List<Point> points = new ArrayList<>();
+
+        final int x = position.x;
+        final int y = position.y;
+        final int width = dimension.width;
+        final int height = dimension.height;
 
         final int lastRow = y + height - 1;
         final int lastColumn = x + width - 1;
@@ -222,26 +216,20 @@ public final class ShapeAlgorithms {
     /**
      * Constructs a list containing all of rectangle's points.
      *
-     * @param x
-     *         The x-axis (column) coordinate of the top-left character.
+     * @param position
+     *        The x/y-axis (column/row) coordinates of the top-left character.
      *
-     * @param y
-     *         The y-axis (row) coordinate of the top-left character.
-     *
-     * @param width
-     *        The width.
-     *
-     * @param height
-     *        The height.
+     * @param dimension
+     *        The width/height.
      *
      * @return
      *        The list of points.
      */
-    public static List<Point> getFilledRectangle(final int x, final int y, final int width, final int height) {
+    public static List<Point> getFilledRectangle(final Point position, final Dimension dimension) {
         final List<Point> points = new ArrayList<>();
 
-        for (int xCounter = x ; xCounter < width + x ; xCounter++) {
-            for (int yCounter = y ; yCounter < height + y ; yCounter++) {
+        for (int xCounter = position.x ; xCounter < dimension.width + position.x ; xCounter++) {
+            for (int yCounter = position.y ; yCounter < dimension.height + position.y ; yCounter++) {
                 points.add(new Point(xCounter, yCounter));
             }
         }
@@ -255,17 +243,16 @@ public final class ShapeAlgorithms {
      * @param points
      *        The border points.
      *
-     * @param x
-     *         The x-axis (column) coordinate of the current point.
-     *
-     * @param y
-     *         The y-axis (row) coordinate of the current point.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the current point.
      *
      * @return
      *        The list of filled points.
      */
-    public static List<Point> recursiveFill(final List<Point> points, final int x, final int y) {
+    public static List<Point> recursiveFill(final List<Point> points, final Point position) {
         boolean pointExists = false;
+        int x = position.x;
+        int y = position.y;
 
         for (final Point point : points) {
             if (point.x == x && point.y == y) {
@@ -277,10 +264,17 @@ public final class ShapeAlgorithms {
         if (pointExists == false) {
             points.add(new Point(x, y));
 
-            recursiveFill(points, x + 1, y);
-            recursiveFill(points, x - 1, y);
-            recursiveFill(points, x, y + 1);
-            recursiveFill(points, x, y - 1);
+            position.setLocation(x + 1, y);
+            recursiveFill(points, position);
+
+            position.setLocation(x - 1, y);
+            recursiveFill(points, position);
+
+            position.setLocation(x, y + 1);
+            recursiveFill(points, position);
+
+            position.setLocation(x, y - 1);
+            recursiveFill(points, position);
         }
 
         return points;
