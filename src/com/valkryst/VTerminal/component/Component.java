@@ -12,6 +12,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
@@ -28,10 +29,8 @@ public class Component {
     /** The x/y-axis (column/row) coordinates of the top-left character. */
     @Getter private final Point position;
 
-    /** The width, in characters. */
-    @Getter private int width;
-    /** The height, in characters. */
-    @Getter private int height;
+    /** The width/height, in characters. */
+    @Getter final Dimension dimensions;
 
     /** Whether or not the component is currently the target of the user's input. */
     @Getter protected boolean isFocused = false;
@@ -63,16 +62,15 @@ public class Component {
     public Component(final @NonNull ComponentBuilder builder) {
         this.id = builder.getId();
         position = new Point(builder.getColumnIndex(), builder.getRowIndex());
-        this.width = builder.getWidth();
-        this.height = builder.getHeight();
+        dimensions = new Dimension(builder.getWidth(), builder.getHeight());
 
         boundingBox.setLocation(position);
-        boundingBox.setSize(width, height);
+        boundingBox.setSize(dimensions.width, dimensions.height);
 
-        strings = new AsciiString[height];
+        strings = new AsciiString[dimensions.height];
 
-        for (int row = 0 ; row < height ; row++) {
-            strings[row] = new AsciiString(width);
+        for (int row = 0 ; row < dimensions.height ; row++) {
+            strings[row] = new AsciiString(dimensions.width);
         }
 
         this.radio = builder.getRadio();
@@ -328,6 +326,14 @@ public class Component {
         throw new IllegalArgumentException("The position (" + position.x + " columnIndex, " + position.y + " rowIndex) is invalid.");
     }
 
+    public int getWidth() {
+        return dimensions.width;
+    }
+
+    public int getHeight() {
+        return dimensions.height;
+    }
+
     /**
      * Sets a new position.
      *
@@ -365,8 +371,8 @@ public class Component {
             throw new IllegalArgumentException("The width cannot be < columnIndex,");
         }
 
-        this.width = width;
-        boundingBox.setSize(width, height);
+        dimensions.setSize(width, dimensions.height);
+        boundingBox.setSize(dimensions);
     }
 
     /**
@@ -387,7 +393,7 @@ public class Component {
             throw new IllegalArgumentException("The height cannot be < rowIndex,");
         }
 
-        this.height = height;
-        boundingBox.setSize(width, height);
+        dimensions.setSize(dimensions.width, height);
+        boundingBox.setSize(dimensions);
     }
 }
