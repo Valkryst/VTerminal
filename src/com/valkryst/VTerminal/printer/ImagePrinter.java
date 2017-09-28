@@ -7,6 +7,7 @@ import com.valkryst.VTerminal.component.Screen;
 import lombok.*;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -98,6 +99,7 @@ public class ImagePrinter {
      */
     private void print(final @NonNull Component component, final int columnIndex, final int rowIndex) {
         final BufferedImage temp = applyTransformations();
+        final Point charPosition = new Point(0, 0);
 
         for (int y = 0 ; y < temp.getHeight() && y < component.getHeight() ; y++) {
             for (int x = 0 ; x < temp.getWidth() && x < component.getWidth() ; x++) {
@@ -108,8 +110,9 @@ public class ImagePrinter {
 
                 final int charX = x + columnIndex;
                 final int charY = y + rowIndex;
+                charPosition.setLocation(charX, charY);
 
-                final AsciiCharacter character = component.getCharacterAt(charX, charY);
+                final AsciiCharacter character = component.getCharacterAt(charPosition);
                 character.setCharacter(printChar);
                 character.setForegroundColor(new Color(red, green, blue));
             }

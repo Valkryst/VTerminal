@@ -68,22 +68,37 @@ public class RectanglePrinter {
         final int lastRow = row + height - 1;
         final int lastColumn = column + width - 1;
 
+        final Point writePosition = new Point(0, 0);
+
         // Draw Corners:
-        screen.write(rectangleType.getTopLeft(), column, row);
-        screen.write(rectangleType.getTopRight(), lastColumn, row);
-        screen.write(rectangleType.getBottomLeft(), column, lastRow);
-        screen.write(rectangleType.getBottomRight(), lastColumn, lastRow);
+        writePosition.setLocation(column, row);
+        screen.write(rectangleType.getTopLeft(), writePosition);
+
+        writePosition.setLocation(lastColumn, row);
+        screen.write(rectangleType.getTopRight(), writePosition);
+
+        writePosition.setLocation(column, lastRow);
+        screen.write(rectangleType.getBottomLeft(), writePosition);
+
+        writePosition.setLocation(lastColumn, lastRow);
+        screen.write(rectangleType.getBottomRight(), writePosition);
 
         // Draw Left/Right Sides:
         for (int i = 1 ; i < height - 1 ; i++) {
-            screen.write(rectangleType.getVertical(), column, row + i);
-            screen.write(rectangleType.getVertical(), lastColumn, row + i);
+            writePosition.setLocation(column, row + i);
+            screen.write(rectangleType.getVertical(), writePosition);
+
+            writePosition.setLocation(lastColumn, row + i);
+            screen.write(rectangleType.getVertical(), writePosition);
         }
 
         // Draw Top/Bottom Sides:
         for (int i = 1 ; i < width - 1 ; i++) {
-            screen.write(rectangleType.getHorizontal(), column + i, row);
-            screen.write(rectangleType.getHorizontal(), column + i, lastRow);
+            writePosition.setLocation(column + i, row);
+            screen.write(rectangleType.getHorizontal(), writePosition);
+
+            writePosition.setLocation(column + i, lastRow);
+            screen.write(rectangleType.getHorizontal(), writePosition);
         }
 
         // Draw title on Top Side:
@@ -92,12 +107,16 @@ public class RectanglePrinter {
             final char[] titleChars = title.toCharArray();
 
             for (int i = 2; i < width - 2 && i - 2 < titleChars.length; i++) {
-                screen.write(titleChars[i - 2], column + i, row);
+                writePosition.setLocation(column + i, row);
+                screen.write(titleChars[i - 2], writePosition);
             }
 
             // Draw Title Borders:
-            screen.write(rectangleType.getConnectorLeft(), column + 1, row);
-            screen.write(rectangleType.getConnectorRight(), column + titleChars.length + 2, row);
+            writePosition.setLocation(column + 1, row);
+            screen.write(rectangleType.getConnectorLeft(), writePosition);
+
+            writePosition.setLocation(column + titleChars.length + 2, row);
+            screen.write(rectangleType.getConnectorRight(), writePosition);
         }
 
         // Handle Connectors:
@@ -253,7 +272,7 @@ public class RectanglePrinter {
      */
     private boolean hasValidTopNeighbour(final @NonNull Screen screen, final int column, final int row) {
         try {
-            return rectangleType.isValidTopCharacter(screen.getCharacterAt(column, row - 1));
+            return rectangleType.isValidTopCharacter(screen.getCharacterAt(new Point(column, row - 1)));
         } catch (final IllegalArgumentException e) {
             return false;
         }
@@ -278,7 +297,7 @@ public class RectanglePrinter {
      */
     private boolean hasValidBottomNeighbour(final @NonNull Screen screen, final int column, final int row) {
         try {
-            return rectangleType.isValidBottomCharacter(screen.getCharacterAt(column, row + 1));
+            return rectangleType.isValidBottomCharacter(screen.getCharacterAt(new Point(column, row + 1)));
         } catch (final IllegalArgumentException e) {
             return false;
         }
@@ -303,7 +322,7 @@ public class RectanglePrinter {
      */
     private boolean hasValidLeftNeighbour(final @NonNull Screen screen, final int column, final int row) {
         try {
-            return rectangleType.isValidLeftCharacter(screen.getCharacterAt(column - 1, row));
+            return rectangleType.isValidLeftCharacter(screen.getCharacterAt(new Point(column - 1, row)));
         } catch (final IllegalArgumentException e) {
             return false;
         }
@@ -328,7 +347,7 @@ public class RectanglePrinter {
      */
     private boolean hasValidRightNeighbour(final @NonNull Screen screen, final int column, final int row) {
         try {
-            return rectangleType.isValidRightCharacter(screen.getCharacterAt(column + 1, row));
+            return rectangleType.isValidRightCharacter(screen.getCharacterAt(new Point(column + 1, row)));
         } catch (final IllegalArgumentException e) {
             return false;
         }

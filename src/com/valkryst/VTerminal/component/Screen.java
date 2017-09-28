@@ -260,11 +260,8 @@ public class Screen extends Component {
      * @param character
      *         The character to replace all characters being cleared with.
      *
-     * @param columnIndex
-     *         The x-axis (column) coordinate of the cell to clear.
-     *
-     * @param rowIndex
-     *         The y-axis (row) coordinate of the cell to clear.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the cell to clear.
      *
      * @param width
      *         The width of the area to clear.
@@ -272,18 +269,20 @@ public class Screen extends Component {
      * @param height
      *         The height of the area to clear.
      */
-    public void clear(final char character, final int columnIndex, final int rowIndex, int width, int height) {
-        boolean canProceed = isPositionValid(columnIndex, rowIndex);
+    public void clear(final char character, final Point position, int width, int height) {
+        boolean canProceed = isPositionValid(position);
         canProceed &= width >= 0;
         canProceed &= height >= 0;
 
         if (canProceed) {
-            width += columnIndex;
-            height += rowIndex;
+            width += position.x;
+            height += position.y;
 
-            for (int column = columnIndex ; column < width ; column++) {
-                for (int row = rowIndex ; row < height ; row++) {
-                    write(character, column, row);
+            final Point writePosition = new Point(0, 0);
+            for (int column = position.x ; column < width ; column++) {
+                for (int row = position.y ; row < height ; row++) {
+                    writePosition.setLocation(column, row);
+                    write(character, writePosition);
                 }
             }
         }
@@ -296,116 +295,7 @@ public class Screen extends Component {
      *         The character to replace every character on the screen with.
      */
     public void clear(final char character) {
-        clear(character, 0, 0, super.getWidth(), super.getHeight());
-    }
-
-    /**
-     * Write the specified character to the specified position.
-     *
-     * @param character
-     *         The character.
-     *
-     * @param columnIndex
-     *         The x-axis (column) coordinate to write to.
-     *
-     * @param rowIndex
-     *         The y-axis (row) coordinate to write to.
-     *
-     * @throws NullPointerException
-     *         If the character is null.
-     */
-    public void write(final @NonNull AsciiCharacter character, final int columnIndex, final int rowIndex) {
-        if (isPositionValid(columnIndex, rowIndex)) {
-            super.getString(rowIndex).setCharacter(columnIndex, character);
-        }
-    }
-
-    /**
-     * Write the specified character to the specified position.
-     *
-     * @param character
-     *         The character.
-     *
-     * @param columnIndex
-     *         The x-axis (column) coordinate to write to.
-     *
-     * @param rowIndex
-     *         The y-axis (row) coordinate to write to.
-     */
-    public void write(final char character, final int columnIndex, final int rowIndex) {
-        if (isPositionValid(columnIndex, rowIndex)) {
-            super.getString(rowIndex).setCharacter(columnIndex, character);
-        }
-    }
-
-    /**
-     * Write a string to the specified position.
-     *
-     * Does nothing if the (columnIndex, rowIndex) points to invalid position.
-     *
-     * @param string
-     *         The string.
-     *
-     * @param columnIndex
-     *         The x-axis (column) coordinate to begin writing from.
-     *
-     * @param rowIndex
-     *         The y-axis (row) coordinate to begin writing from.
-     *
-     * @throws NullPointerException
-     *         If the string is null.
-     */
-    public void write(final @NonNull AsciiString string, final int columnIndex, final int rowIndex) {
-        if (isPositionValid(columnIndex, rowIndex)) {
-            final AsciiCharacter[] characters = string.getCharacters();
-
-            for (int i = 0; i < characters.length && i < super.getWidth(); i++) {
-                write(characters[i], columnIndex + i, rowIndex);
-            }
-        }
-    }
-
-    /**
-     * Write a string to the specified position.
-     *
-     * Does nothing if the (columnIndex, rowIndex) points to invalid position.
-     *
-     * @param string
-     *         The string.
-     *
-     * @param columnIndex
-     *         The x-axis (column) coordinate to begin writing from.
-     *
-     * @param rowIndex
-     *         The y-axis (row) coordinate to begin writing from.
-     *
-     * @throws NullPointerException
-     *         If the string is null.
-     */
-    public void write(final @NonNull String string, final int columnIndex, final int rowIndex) {
-        write(new AsciiString(string), columnIndex, rowIndex);
-    }
-
-    /**
-     * Clears the specified section of the screen.
-     *
-     * Does nothing if the (columnIndex, rowIndex) or (width, height) pairs point
-     * to invalid positions.
-     *
-     * @param character
-     *         The character to replace all characters being cleared with.
-     *
-     * @param position
-     *         The x/y-axis (column/row) coordinates of the cell to clear.
-     *
-     * @param width
-     *         The width of the area to clear.
-     *
-     * @param height
-     *         The height of the area to clear.
-     */
-    public void clear(final char character, final Point position, int width, int height) {
-        clear(character, position.x, position.y, width, height);
+        clear(character, new Point(0, 0), super.getWidth(), super.getHeight());
     }
 
     /**
@@ -415,13 +305,15 @@ public class Screen extends Component {
      *         The character.
      *
      * @param position
-     *         The x/y-axis (column/row) coordinates to write to.
+     *         The x/y-axis (column/row) coordinate to write to.
      *
      * @throws NullPointerException
      *         If the character is null.
      */
     public void write(final @NonNull AsciiCharacter character, final Point position) {
-        write(character, position.x, position.y);
+        if (isPositionValid(position)) {
+            super.getString(position.y).setCharacter(position.x, character);
+        }
     }
 
     /**
@@ -434,7 +326,9 @@ public class Screen extends Component {
      *         The x/y-axis (column/row) coordinates to write to.
      */
     public void write(final char character, final Point position) {
-        write(character, position.x, position.y);
+        if (isPositionValid(position)) {
+            super.getString(position.y).setCharacter(position.x, character);
+        }
     }
 
     /**
@@ -452,7 +346,13 @@ public class Screen extends Component {
      *         If the string is null.
      */
     public void write(final @NonNull AsciiString string, final Point position) {
-        write(string, position.x, position.y);
+        if (isPositionValid(position)) {
+            final AsciiCharacter[] characters = string.getCharacters();
+
+            for (int i = 0; i < characters.length && i < super.getWidth(); i++) {
+                write(characters[i], new Point(position.x + i, position.y));
+            }
+        }
     }
 
     /**

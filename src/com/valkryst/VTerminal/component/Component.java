@@ -228,32 +228,6 @@ public class Component {
      * Determines whether or not the specified position is within the bounds of
      * the component.
      *
-     * @param columnIndex
-     *         The x-axis (column) coordinate.
-     *
-     * @param rowIndex
-     *         The y-axis (row) coordinate.
-     *
-     * @return
-     *         Whether or not the specified position is within the bounds of the
-     *         component.
-     */
-    public boolean isPositionValid(final int columnIndex, final int rowIndex) {
-        if (rowIndex < 0 || rowIndex > boundingBox.getHeight() - 1) {
-            return false;
-        }
-
-        if (columnIndex < 0 || columnIndex > boundingBox.getWidth() - 1) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Determines whether or not the specified position is within the bounds of
-     * the component.
-     *
      * @param position
      *         The x/y-axis (column/row) coordinates.
      *
@@ -262,7 +236,15 @@ public class Component {
      *         component.
      */
     public boolean isPositionValid(final Point position) {
-        return isPositionValid(position.x, position.y);
+        if (position.y < 0 || position.y > boundingBox.getHeight() - 1) {
+            return false;
+        }
+
+        if (position.x < 0 || position.x > boundingBox.getWidth() - 1) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -329,29 +311,6 @@ public class Component {
     /**
      * Retrieves the AsciiCharacter at a specific position.
      *
-     * @param columnIndex
-     *        The x-axis (column) coordinate of the position.
-     *
-     * @param rowIndex
-     *         The y-axis (row) coordinate of the position.
-     *
-     * @return
-     *        The AsciiCharacter.
-     *
-     * @throws IllegalArgumentException
-     *         If the position is invalid.
-     */
-    public AsciiCharacter getCharacterAt(final int columnIndex, final int rowIndex) {
-        if (isPositionValid(columnIndex, rowIndex)) {
-            return strings[rowIndex].getCharacters()[columnIndex];
-        }
-
-        throw new IllegalArgumentException("The position (" + columnIndex + " columnIndex, " + rowIndex + " rowIndex) is invalid.");
-    }
-
-    /**
-     * Retrieves the AsciiCharacter at a specific position.
-     *
      * @param position
      *        The x/y-axis (column/row) coordinates of the position.
      *
@@ -370,41 +329,22 @@ public class Component {
     }
 
     /**
-     * Sets a new value for the columnIndex.
+     * Sets a new position.
      *
-     * @param columnIndex
-     *         The new x-axis (column) coordinate of the top-left
-     *         character of the component.
-     *
-     * @throws IllegalArgumentException
-     *         If the columnIndex is < 0.
+     * @param position
+     *          The new position.
      */
-    public void setColumnIndex(final int columnIndex) {
-        if (columnIndex < 0) {
-            throw new IllegalArgumentException("The columnIndex cannot be < 0.");
+    public void setPosition(final Point position) {
+        if (position.x < 0) {
+            throw new IllegalArgumentException("The x-axis position cannot be < 0.");
         }
 
-        position.setLocation(columnIndex, position.y);
-        boundingBox.setLocation(columnIndex, position.y);
-    }
-
-    /**
-     * Sets a new value for the rowIndex.
-     *
-     * @param rowIndex
-     *         The y-axis (row) coordinate of the top-left character of
-     *         the component.
-     *
-     * @throws IllegalArgumentException
-     *         If the rowIndex is < 0.
-     */
-    public void setRowIndex(final int rowIndex) {
-        if (rowIndex < 0) {
-            throw new IllegalArgumentException("The rowIndex cannot be < 0.");
+        if (position.y < 0) {
+            throw new IllegalArgumentException("The y-axis position cannot be < 0.");
         }
 
-        position.setLocation(position.x, rowIndex);
-        boundingBox.setLocation(position.x, rowIndex);
+        this.position.setLocation(position);
+        this.boundingBox.setLocation(this.position);
     }
 
     /**
