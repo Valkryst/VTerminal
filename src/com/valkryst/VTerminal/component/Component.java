@@ -81,11 +81,12 @@ public class Component {
      *
      * @param panel
      *         The panel on which the Component is being drawn.
-     *
-     * @throws NullPointerException
-     *         If the panel is null.
      */
-    public void createEventListeners(final @NonNull Panel panel) {
+    public void createEventListeners(final Panel panel) {
+        if (panel == null) {
+            return;
+        }
+
         if (eventListeners.size() > 0) {
             return;
         }

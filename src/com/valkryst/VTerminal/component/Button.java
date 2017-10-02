@@ -80,7 +80,11 @@ public class Button extends Component {
     }
 
     @Override
-    public void createEventListeners(final @NonNull Panel panel) {
+    public void createEventListeners(final Panel panel) {
+        if (panel == null) {
+            return;
+        }
+
         if (super.getEventListeners().size() > 0) {
             return;
         }

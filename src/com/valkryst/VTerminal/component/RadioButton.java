@@ -45,7 +45,11 @@ public class RadioButton extends Button {
     }
 
     @Override
-    public void createEventListeners(final @NonNull Panel panel) {
+    public void createEventListeners(final Panel panel) {
+        if (panel == null) {
+            return;
+        }
+
         if (super.getEventListeners().size() > 0) {
             return;
         }
