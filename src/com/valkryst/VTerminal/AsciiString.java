@@ -10,6 +10,7 @@ import lombok.ToString;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.util.Objects;
 
 @ToString
@@ -71,17 +72,41 @@ public class AsciiString {
      *
      * @throws NullPointerException
      *         If the gc or image cache is null.
+     */
+    public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache, final int rowIndex) {
+        draw(gc, imageCache, rowIndex, new Point(0, 0));
+    }
+
+    /**
+     * Draws the characters of the string onto the specified context.
+     *
+     * @param gc
+     *         The graphics context to draw with.
+     *
+     * @param imageCache
+     *         The image cache to retrieve character images from.
+     *
+     * @param rowIndex
+     *         The y-axis (row) coordinate where the characters are to be drawn.
+     *         Includes the first index and excludes the last index.
+     *
+     * @param offset
+     *         The x/y-axis (column/row) offsets to alter the position at which the
+     *         string is drawn.
+     *
+     * @throws NullPointerException
+     *         If the gc or image cache is null.
      *
      * @throws IllegalArgumentException
      *         If the row index is below 0.
      */
-    public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache, int rowIndex) {
+    public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache, final int rowIndex, final Point offset) {
         if (rowIndex < 0) {
             throw new IllegalArgumentException("The row index cannot be below 0.");
         }
 
         for (int columnIndex = 0; columnIndex < characters.length; columnIndex++) {
-            characters[columnIndex].draw(gc, imageCache, columnIndex, rowIndex);
+            characters[columnIndex].draw(gc, imageCache, columnIndex + offset.x, rowIndex + offset.y);
         }
     }
 

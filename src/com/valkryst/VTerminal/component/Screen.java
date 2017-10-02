@@ -215,39 +215,41 @@ public class Screen extends Component {
      *         If the gc or image cache is null.
      */
     public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache) {
+        draw(gc, imageCache, getPosition());
+    }
+
+    /**
+     * Draws the screen onto the specified graphics context..
+     *
+     * @param gc
+     *         The graphics context to draw with.
+     *
+     * @param imageCache
+     *         The image cache to retrieve character images from.
+     *
+     * @param offset
+     *         The x/y-axis (column/row) offsets to alter the position at which the
+     *         screen is drawn.
+     *
+     * @throws NullPointerException
+     *         If the gc or image cache is null.
+     */
+    public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache, final Point offset) {
         // Draw non-layer components onto the screen:
         components.forEach(component -> component.draw(this));
 
         // Draw the screen onto the canvas:
         for (int row = 0 ; row < getHeight() ; row++) {
-            super.getString(row).draw(gc, imageCache, row);
+            super.getString(row).draw(gc, imageCache, row, offset);
         }
 
         // Draw layer components onto the screen:
         layerComponents.forEach(layer -> layer.draw(gc, imageCache));
 
         // Draw screen components onto the screen:
-        final int fontWidth = imageCache.getFont().getWidth();
-        final int fontHeight = imageCache.getFont().getHeight();
-
         screenComponents.forEach(screen -> {
-            final int screenWidth = screen.getWidth() * fontWidth;
-            final int screenHeight = screen.getHeight() * fontHeight;
-
-            // Draw sub-screen onto an image:
-            final BufferedImage image = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_RGB);
-            final Graphics2D gcc = (Graphics2D) image.getGraphics();
-
-            screen.draw(gcc, imageCache);
-
-            gcc.dispose();
-
-            // Draw image onto main screen:
             final Point position = screen.getPosition();
-            final int x = position.x * fontWidth;
-            final int y = position.y * fontHeight;
-
-            gc.drawImage(image, x, y, screenWidth, screenHeight, null);
+            screen.draw(gc, imageCache, position);
         });
     }
 
