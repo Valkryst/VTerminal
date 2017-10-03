@@ -99,15 +99,17 @@ public class ComponentBuilder<C extends Component> {
      * @param jsonFilePath
      *        The path to the JSON file.
      *
-     * @throws FileNotFoundException
+     * @throws ParseException
+     *         If there's an error when parsing the JSON.
+     *
+     * @throws IOException
+     *         If an IO error occurs.
+     *
      *         If the file does not exist, is a directory rather
      *         than a regular file, or for some other reason cannot
      *         be opened for reading.
-     *
-     * @throws ParseException
-     *         If there's an error when parsing the JSON.
      */
-    public void loadFromJSON(final @NonNull String jsonFilePath) throws ParseException, FileNotFoundException {
+    public void loadFromJSON(final @NonNull String jsonFilePath) throws ParseException, IOException {
         if (jsonFilePath.isEmpty()) {
             throw new IllegalArgumentException("The JSON file path cannot be empty.");
         }
@@ -121,12 +123,15 @@ public class ComponentBuilder<C extends Component> {
      * Resets the builder's state before loading.
      *
      * @param jsonFilePath
-     *        The path to the JSON file.
+     *         The path to the JSON file.
      *
      * @throws ParseException
      *         If there's an error when parsing the JSON.
+     *
+     * @throws IOException
+     *         If an IO error occurs.
      */
-    public void loadFromJSONInJar(final @NonNull String jsonFilePath) throws ParseException {
+    public void loadFromJSONInJar(final @NonNull String jsonFilePath) throws ParseException, IOException {
         if (jsonFilePath.isEmpty()) {
             throw new IllegalArgumentException("The JSON file path cannot be empty.");
         }
@@ -135,6 +140,8 @@ public class ComponentBuilder<C extends Component> {
         final InputStream jsonFileStream = classLoader.getResourceAsStream(jsonFilePath);
 
         loadFromJSON(jsonFileStream);
+
+        jsonFileStream.close();
     }
 
     /**
@@ -147,14 +154,20 @@ public class ComponentBuilder<C extends Component> {
      *
      * @throws ParseException
      *         If there's an error when parsing the JSON.
+     *
+     * @throws IOException
+     *         If an IO error occurs.
      */
-    public void loadFromJSON(final @NonNull InputStream jsonFileStream) throws ParseException {
+    public void loadFromJSON(final @NonNull InputStream jsonFileStream) throws ParseException, IOException {
         // Load lines
         final InputStreamReader isr = new InputStreamReader(jsonFileStream, StandardCharsets.UTF_8);
         final BufferedReader br = new BufferedReader(isr);
         final List<String> lines = br.lines().collect(Collectors.toList());
 
         parseJSON(String.join("\n", lines));
+
+        br.close();
+        isr.close();
     }
 
     /**
