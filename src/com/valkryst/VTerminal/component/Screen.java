@@ -469,11 +469,8 @@ public class Screen extends Component {
      *
      * @param component
      *          The component.
-     *
-     * @throws NullPointerException
-     *         If the component is null.
      */
-    public void addComponent(final @NonNull Component component) {
+    public void addComponent(final Component component) {
         boolean containsComponent = containsComponent(component);
 
         if (containsComponent) {
@@ -505,13 +502,14 @@ public class Screen extends Component {
      *
      * @param components
      *        The components.
-     *
-     * @throws NullPointerException
-     *         If the components are null.
      */
-    public void addComponents(final @NonNull Component ... components) {
-        for (int i = 0 ; i < components.length ; i++) {
-            addComponent(components[i]);
+    public void addComponents(final Component ... components) {
+        if (components == null) {
+            return;
+        }
+
+        for (final Component component : components) {
+            addComponent(component);
         }
     }
 
@@ -522,13 +520,14 @@ public class Screen extends Component {
      * @param component
      *          The component.
      *
-     * @throws NullPointerException
-     *         If the component is null.
-     *
      * @throws IllegalArgumentException
      *         If the component is this.
      */
-    public void removeComponent(final @NonNull Component component) {
+    public void removeComponent(final Component component) {
+        if (component == null) {
+            return;
+        }
+
         if (component == this) {
             throw new IllegalArgumentException("A screen cannot be removed from itself.");
         }
@@ -554,11 +553,12 @@ public class Screen extends Component {
      *
      * @param components
      *        The components.
-     *
-     * @throws NullPointerException
-     *         If the components are null.
      */
-    public void removeComponents(final @NonNull Component ... components) {
+    public void removeComponents(final Component ... components) {
+        if (components == null) {
+            return;
+        }
+
         for (final Component component : components) {
             removeComponent(component);
         }
@@ -572,11 +572,12 @@ public class Screen extends Component {
      *
      * @return
      *        Whether or not the screen contains the component.
-     *
-     * @throws NullPointerException
-     *         If the component is null.
      */
-    public boolean containsComponent(final @NonNull Component component) {
+    public boolean containsComponent(final Component component) {
+        if (component == null) {
+            return false;
+        }
+
         if (component == this) {
             return false;
         }
