@@ -550,9 +550,9 @@ public class Screen extends Component {
 
         // Reset component's characters to empty cells.
         final Point position = component.getPosition();
-        final IntRange redrawRange = new IntRange(position.x, position.x + component.getWidth());
+        final IntRange redrawRange = new IntRange(position.x, position.x + component.getWidth() + 2);
 
-        for (int y = position.y ; y < position.y + component.getHeight() ; y++) {
+        for (int y = position.y ; y < position.y + component.getHeight() + 2 ; y++) {
             final AsciiString string = super.getString(y);
 
             string.setCharacters(' ', redrawRange);
