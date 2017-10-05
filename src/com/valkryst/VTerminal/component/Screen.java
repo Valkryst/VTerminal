@@ -23,6 +23,7 @@ import java.awt.image.BufferedImage;
 import java.util.EventListener;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @ToString
 public class Screen extends Component {
@@ -37,6 +38,8 @@ public class Screen extends Component {
 
     /** The screen components displayed on the screen. */
     private Set<Screen> screenComponents = new LinkedHashSet<>();
+
+    private ReentrantReadWriteLock componentsLock = new ReentrantReadWriteLock();
 
     /**
      * Constructs a new Screen.
@@ -236,6 +239,8 @@ public class Screen extends Component {
      *         If the gc or image cache is null.
      */
     public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache, final Point offset) {
+        componentsLock.readLock().lock();
+
         // Draw non-layer components onto the screen:
         components.forEach(component -> component.draw(this));
 
@@ -252,6 +257,8 @@ public class Screen extends Component {
             final Point position = screen.getPosition();
             screen.draw(gc, imageCache, position);
         });
+
+        componentsLock.readLock().unlock();
     }
 
     /**
@@ -472,9 +479,12 @@ public class Screen extends Component {
      *          The component.
      */
     public void addComponent(final Component component) {
+        componentsLock.writeLock().lock();
+
         boolean containsComponent = containsComponent(component);
 
         if (containsComponent) {
+            componentsLock.writeLock().unlock();
             return;
         }
 
@@ -489,6 +499,8 @@ public class Screen extends Component {
             component.setScreen(this);
             components.add(component);
         }
+
+        componentsLock.writeLock().unlock();
 
         // Set up event listeners:
         component.createEventListeners(parentPanel);
@@ -525,11 +537,15 @@ public class Screen extends Component {
      *         If the component is this.
      */
     public void removeComponent(final Component component) {
+        componentsLock.writeLock().lock();
+
         if (component == null) {
+            componentsLock.writeLock().unlock();
             return;
         }
 
         if (component == this) {
+            componentsLock.writeLock().unlock();
             throw new IllegalArgumentException("A screen cannot be removed from itself.");
         }
 
@@ -543,6 +559,8 @@ public class Screen extends Component {
             component.setScreen(null);
             components.remove(component);
         }
+
+        componentsLock.writeLock().unlock();
 
         for (final EventListener eventListener : component.getEventListeners()) {
             parentPanel.removeListener(eventListener);
@@ -587,25 +605,33 @@ public class Screen extends Component {
      *        Whether or not the screen contains the component.
      */
     public boolean containsComponent(final Component component) {
+        componentsLock.readLock().lock();
+
         if (component == null) {
+            componentsLock.readLock().unlock();
             return false;
         }
 
         if (component == this) {
+            componentsLock.readLock().unlock();
             return false;
         }
 
         if (component instanceof Screen) {
             if (screenComponents.contains(component)) {
+                componentsLock.readLock().unlock();
                 return true;
             }
         } else if (component instanceof Layer) {
             if (layerComponents.contains(component)) {
+                componentsLock.readLock().unlock();
                 return true;
             }
         }
 
-        return components.contains(component);
+        final boolean result = components.contains(component);
+        componentsLock.readLock().unlock();
+        return result;
     }
 
     /**
@@ -615,9 +641,13 @@ public class Screen extends Component {
      *        The total number of components.
      */
     public int totalComponents() {
+        componentsLock.readLock().lock();
+
         int sum = components.size();
         sum += layerComponents.size();
         sum += screenComponents.size();
+
+        componentsLock.readLock().unlock();
 
         return sum;
     }
@@ -633,24 +663,30 @@ public class Screen extends Component {
      *        Else the component is returned.
      */
     public Component getComponentByID(final String id) {
+        componentsLock.readLock().lock();
+
         for (final Component component : components) {
             if (component.getId().equals(id)) {
+                componentsLock.readLock().unlock();
                 return component;
             }
         }
 
         for (final Layer layer : layerComponents) {
             if (layer.getId().equals(id)) {
+                componentsLock.readLock().unlock();
                 return layer;
             }
         }
 
         for (final Screen screen : screenComponents) {
             if (screen.getId().equals(id)) {
+                componentsLock.readLock().unlock();
                 return screen;
             }
         }
 
+        componentsLock.readLock().unlock();
         return null;
     }
 
@@ -815,9 +851,14 @@ public class Screen extends Component {
      *        A combined set of all components.
      */
     public Set<Component> getComponents() {
+        componentsLock.readLock().lock();
+
         final Set<Component> set = new LinkedHashSet<>(components);
         set.addAll(layerComponents);
         set.addAll(screenComponents);
+
+        componentsLock.readLock().unlock();
+
         return set;
     }
 }
