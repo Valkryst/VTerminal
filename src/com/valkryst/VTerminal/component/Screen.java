@@ -568,7 +568,7 @@ public class Screen extends Component {
 
         // Reset component's characters to empty cells.
         final Point position = component.getPosition();
-        final IntRange redrawRange = new IntRange(position.x, position.x + component.getWidth() + 1);
+        final IntRange redrawRange = new IntRange(position.x, position.x + component.getWidth());
 
         for (int y = position.y ; y < position.y + component.getHeight() ; y++) {
             final AsciiString string = super.getString(y);
@@ -576,6 +576,9 @@ public class Screen extends Component {
             string.setCharacters(' ', redrawRange);
             string.setBackgroundColor(new Color(45, 45, 45, 255), redrawRange);
             string.setForegroundColor(Color.WHITE, redrawRange);
+            string.setUnderlined(redrawRange, false);
+            string.setFlippedHorizontally(redrawRange, false);
+            string.setFlippedVertically(redrawRange, false);
         }
     }
 
