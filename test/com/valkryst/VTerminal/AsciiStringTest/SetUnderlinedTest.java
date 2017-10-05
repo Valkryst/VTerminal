@@ -31,7 +31,7 @@ public class SetUnderlinedTest {
     @Test
     public void toRange() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
-        string.setUnderlined(true, range);
+        string.setUnderlined(range, true);
 
         for (final AsciiCharacter character : string.getCharacters()) {
             Assert.assertTrue(character.isUnderlined());
