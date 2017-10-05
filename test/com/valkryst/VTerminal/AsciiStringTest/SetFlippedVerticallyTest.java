@@ -31,7 +31,7 @@ public class SetFlippedVerticallyTest {
     @Test
     public void toRange() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
-        string.setFlippedVertically(range, true);
+        string.setFlippedVertically(true, range);
 
         for (final AsciiCharacter character : string.getCharacters()) {
             Assert.assertTrue(character.isFlippedVertically());
