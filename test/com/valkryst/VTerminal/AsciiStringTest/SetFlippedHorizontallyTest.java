@@ -31,7 +31,7 @@ public class SetFlippedHorizontallyTest {
     @Test
     public void toRange() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
-        string.setFlippedHorizontally(range, true);
+        string.setFlippedHorizontally(true, range);
 
         for (final AsciiCharacter character : string.getCharacters()) {
             Assert.assertTrue(character.isFlippedHorizontally());
