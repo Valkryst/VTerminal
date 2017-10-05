@@ -788,7 +788,7 @@ public class AsciiString {
      *        Whether or not the characters should be flipped horizontally.
      */
     public void setFlippedHorizontally(final boolean flipHorizontally) {
-        setFlippedHorizontally(flipHorizontally, new IntRange(0, characters.length));
+        setFlippedHorizontally(new IntRange(0, characters.length), flipHorizontally);
     }
 
     /**
@@ -799,15 +799,12 @@ public class AsciiString {
      *        Whether or not the characters should be flipped vertically.
      */
     public void setFlippedVertically(final boolean flipVertically) {
-        setFlippedVertically(flipVertically, new IntRange(0, characters.length));
+        setFlippedVertically(new IntRange(0, characters.length), flipVertically);
     }
 
     /**
      * Sets the specified range of characters to either be flipped horizontally
      * or not flipped horizontally when being drawn.
-     *
-     * @param flipHorizontally
-     *          Whether or not the characters should be flipped horizontally.
      *
      * @param range
      *         The x-axis (column) coordinates of the characters to begin/end
@@ -815,10 +812,13 @@ public class AsciiString {
      *
      *         Includes the first index and excludes the last index.
      *
+     * @param flipHorizontally
+     *        Whether or not the characters should be flipped horizontally.
+     *
      * @throws NullPointerException
      *         If the range is null.
      */
-    public void setFlippedHorizontally(final boolean flipHorizontally, final @NonNull IntRange range) {
+    public void setFlippedHorizontally(final @NonNull IntRange range, final boolean flipHorizontally) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
@@ -833,9 +833,6 @@ public class AsciiString {
      * Sets the specified range of characters to either be flipped vertically
      * or not flipped vertically when being drawn.
      *
-     * @param flipVertically
-     *         Whether or not the characters should be flipped vertically.
-     *
      * @param range
      *         The x-axis (column) coordinates of the characters to begin/end
      *         the change between.
@@ -845,7 +842,7 @@ public class AsciiString {
      * @throws NullPointerException
      *         If the range is null.
      */
-    public void setFlippedVertically(final boolean flipVertically, final @NonNull IntRange range) {
+    public void setFlippedVertically(final @NonNull IntRange range, final boolean flipVertically) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
@@ -864,14 +861,11 @@ public class AsciiString {
      *        Whether or not the characters should be underlined.
      */
     public void setUnderlined(final boolean underline) {
-        setUnderlined(underline, new IntRange(0, characters.length));
+        setUnderlined(new IntRange(0, characters.length), underline);
     }
 
     /**
      * Sets the specified range of characters to be underlined when being drawn.
-     *
-     * @param underline
-     *        Whether or not the characters should be underlined.
      *
      * @param range
      *         The x-axis (column) coordinates of the characters to begin/end the
@@ -879,10 +873,13 @@ public class AsciiString {
      *
      *         Includes the first index and excludes the last index.
      *
+     * @param underline
+     *        Whether or not the characters should be underlined.
+     *
      * @throws NullPointerException
      *         If the range is null.
      */
-    public void setUnderlined(final boolean underline, final @NonNull IntRange range) {
+    public void setUnderlined(final @NonNull IntRange range, final boolean underline) {
         checkRangeValidity(range);
 
         final int beginIndex = range.getStart();
