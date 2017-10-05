@@ -7,6 +7,7 @@ import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.*;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ImageCache;
+import com.valkryst.VTerminal.misc.IntRange;
 import com.valkryst.VTerminal.printer.RectanglePrinter;
 import lombok.Getter;
 import lombok.NonNull;
@@ -545,6 +546,18 @@ public class Screen extends Component {
 
         for (final EventListener eventListener : component.getEventListeners()) {
             parentPanel.removeListener(eventListener);
+        }
+
+        // Reset component's characters to empty cells.
+        final Point position = component.getPosition();
+        final IntRange redrawRange = new IntRange(position.x, position.x + component.getWidth());
+
+        for (int y = position.y ; y < position.y + component.getHeight() ; y++) {
+            final AsciiString string = super.getString(y);
+
+            string.setCharacters(' ', redrawRange);
+            string.setBackgroundColor(new Color(45, 45, 45, 255), redrawRange);
+            string.setForegroundColor(Color.WHITE, redrawRange);
         }
     }
 
