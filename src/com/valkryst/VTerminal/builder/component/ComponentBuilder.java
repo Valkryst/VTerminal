@@ -94,8 +94,6 @@ public class ComponentBuilder<C extends Component> {
     /**
      * Loads a portion of the builder's data from JSON.
      *
-     * Resets the builder's state before loading.
-     *
      * @param jsonFilePath
      *        The path to the JSON file.
      *
@@ -122,8 +120,6 @@ public class ComponentBuilder<C extends Component> {
 
     /**
      * Loads a portion of the builder's data from a JSON file within the Jar.
-     *
-     * Resets the builder's state before loading.
      *
      * @param jsonFilePath
      *         The path to the JSON file.
@@ -153,8 +149,6 @@ public class ComponentBuilder<C extends Component> {
     /**
      * Loads a portion of the builder's data from JSON.
      *
-     * Resets the builder's state before loading.
-     *
      * @param jsonFileStream
      *        The JSON input stream.
      *
@@ -168,7 +162,6 @@ public class ComponentBuilder<C extends Component> {
      *        If the file stream is null.
      */
     public void loadFromJSON(final @NonNull InputStream jsonFileStream) throws ParseException, IOException {
-        // Load lines
         final InputStreamReader isr = new InputStreamReader(jsonFileStream, StandardCharsets.UTF_8);
         final BufferedReader br = new BufferedReader(isr);
         final List<String> lines = br.lines().collect(Collectors.toList());
@@ -181,8 +174,6 @@ public class ComponentBuilder<C extends Component> {
 
     /**
      * Loads a portion of the builder's data from JSON.
-     *
-     * Resets the builder's state before loading.
      *
      * @param jsonData
      *        The JSON.
