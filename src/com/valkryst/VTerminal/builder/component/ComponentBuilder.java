@@ -108,6 +108,9 @@ public class ComponentBuilder<C extends Component> {
      *         If the file does not exist, is a directory rather
      *         than a regular file, or for some other reason cannot
      *         be opened for reading.
+     *
+     * @throws NullPointerException
+     *        If the file path is null.
      */
     public void loadFromJSON(final @NonNull String jsonFilePath) throws ParseException, IOException {
         if (jsonFilePath.isEmpty()) {
@@ -130,6 +133,9 @@ public class ComponentBuilder<C extends Component> {
      *
      * @throws IOException
      *         If an IO error occurs.
+     *
+     * @throws NullPointerException
+     *        If the file path is null.
      */
     public void loadFromJSONInJar(final @NonNull String jsonFilePath) throws ParseException, IOException {
         if (jsonFilePath.isEmpty()) {
@@ -157,6 +163,9 @@ public class ComponentBuilder<C extends Component> {
      *
      * @throws IOException
      *         If an IO error occurs.
+     *
+     * @throws NullPointerException
+     *        If the file stream is null.
      */
     public void loadFromJSON(final @NonNull InputStream jsonFileStream) throws ParseException, IOException {
         // Load lines
@@ -180,6 +189,9 @@ public class ComponentBuilder<C extends Component> {
      *
      * @throws ParseException
      *         If there's an error when parsing the JSON.
+     *
+     * @throws NullPointerException
+     *        If the data is null.
      */
     public void parseJSON(@NonNull String jsonData) throws ParseException {
         // Remove comments from JSON:
@@ -199,6 +211,9 @@ public class ComponentBuilder<C extends Component> {
      *
      * @param jsonObject
      *        The JSON.
+     *
+     * @throws NullPointerException
+     *        If the object is null.
      */
     public void parseJSON(final @NonNull JSONObject jsonObject) {
         reset();
