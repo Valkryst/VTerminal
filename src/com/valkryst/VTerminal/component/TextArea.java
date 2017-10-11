@@ -694,9 +694,11 @@ public class TextArea extends Component {
         }
 
         // If no empty rows found, move all rows up:
-        for (int i = 0 ; i < textAreaContents.length - 1 ; i++) {
+        final AsciiString[] strings = super.getStrings();
+
+        for (int i = 0 ; i < strings.length - 1 ; i++) {
             clearText(i);
-            setText(i, textAreaContents[i + 1]);
+            setText(i, strings[i + 1]);
         }
 
         setText(textAreaContents.length - 1, text);
@@ -725,9 +727,10 @@ public class TextArea extends Component {
         }
 
         // If no empty rows found, move all rows up:
-        for (int i = 0 ; i < textAreaContents.length - 1 ; i++) {
-            clearText(i);
-            setText(i, textAreaContents[i + 1]);
+        final AsciiString[] strings = super.getStrings();
+
+        for (int i = 0 ; i < strings.length - 1 ; i++) {
+            setText(i, strings[i + 1]);
         }
 
         setText(textAreaContents.length - 1, text);
