@@ -725,6 +725,31 @@ public class TextArea extends Component {
     }
 
     /**
+     * Sets the text contained within the field.
+     *
+     * @param text
+     *          The new tet.
+     *
+     * @throws NullPointerException
+     *         If the text is null.
+     */
+    public void setText(final int rowIndex, final @NonNull AsciiString text) {
+        clearText();
+
+        final AsciiCharacter[] newCharacters = text.getCharacters();
+
+        final AsciiString existingText = super.getString(rowIndex);
+        final AsciiCharacter[] existingCharacters = existingText.getCharacters();
+
+        for (int x = 0 ; x < Math.min(maxVerticalCharacters, text.length()) ; x++) {
+            final AsciiCharacter character = existingCharacters[x];
+            character.copy(newCharacters[x]);
+        }
+
+        updateDisplayedCharacters();
+    }
+
+    /**
      * Sets the text contained within the area.
      *
      * Clears the field before setting.
@@ -743,19 +768,38 @@ public class TextArea extends Component {
         }
     }
 
+    /**
+     * Sets the text contained within the area.
+     *
+     * Clears the field before setting.
+     *
+     * @param text
+     *        The list of text.
+     *
+     * @throws NullPointerException
+     *        If the text is null.
+     */
+    public void setText_ASCII(final @NonNull List<AsciiString> text) {
+        clearText();
+
+        for (int i = 0 ; i < text.size() && i < maxVerticalCharacters ; i++) {
+            setText(i, text.get(i));
+        }
+    }
+
     /** @return The text contained within the area. */
     public String[] getText() {
         final String[] strings = new String[super.getHeight()];
 
-        String temp = "";
+        final StringBuilder sb = new StringBuilder();
 
         for (int i = 0 ; i < super.getHeight() ; i++) {
             for (final char c : enteredText[i]) {
-                temp += c;
+                sb.append(c);
             }
 
-            strings[i] = temp;
-            temp = "";
+            strings[i] = sb.toString();
+            sb.setLength(0);
         }
 
         return strings;
@@ -785,6 +829,11 @@ public class TextArea extends Component {
         if (y_index_caret_actual == y_index_caret_visual && y_index_caret_actual == rowIndex) {
             for (final AsciiCharacter character : super.getString(rowIndex).getCharacters()) {
                 character.setCharacter(' ');
+                character.setBackgroundColor(backgroundColor);
+                character.setForegroundColor(foregroundColor);
+                character.setHidden(false);
+                character.setFlippedHorizontally(false);
+                character.setFlippedVertically(false);
             }
         }
 
