@@ -687,12 +687,14 @@ public class TextArea extends Component {
 
         for (int i = 0 ; i < textAreaContents.length ; i++) {
             if (textAreaContents[i].isEmpty()) {
+                clearText(i);
                 setText(i, text);
                 return;
             }
         }
 
         for (int i = 0 ; i < textAreaContents.length - 1 ; i++) {
+            clearText(i);
             setText(i, textAreaContents[i + 1]);
         }
 
@@ -715,12 +717,14 @@ public class TextArea extends Component {
 
         for (int i = 0 ; i < textAreaContents.length ; i++) {
             if (textAreaContents[i].isEmpty()) {
+                clearText(i);
                 setText(i, text);
                 return;
             }
         }
 
         for (int i = 0 ; i < textAreaContents.length - 1 ; i++) {
+            clearText(i);
             setText(i, textAreaContents[i + 1]);
         }
 
