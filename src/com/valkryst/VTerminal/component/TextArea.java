@@ -778,7 +778,7 @@ public class TextArea extends Component {
 
         final AsciiCharacter[] newCharacters = text.getCharacters();
 
-        for (int x = 0 ; x < Math.min(maxVerticalCharacters, text.length()) ; x++) {
+        for (int x = 0 ; x < Math.min(maxHorizontalCharacters, text.length()) ; x++) {
             super.getString(rowIndex).getCharacters()[x].copy(newCharacters[x]);
 
             enteredText[rowIndex][x] = newCharacters[x].getCharacter();
