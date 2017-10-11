@@ -473,6 +473,31 @@ public class TextField extends Component {
         updateDisplayedCharacters();
     }
 
+    /**
+     * Sets the text contained within the field.
+     *
+     * @param text
+     *          The new tet.
+     *
+     * @throws NullPointerException
+     *         If the text is null.
+     */
+    public void setText(@NonNull AsciiString text) {
+        clearText();
+
+        final AsciiCharacter[] newCharacters = text.getCharacters();
+
+        final AsciiString existingText = super.getString(0);
+        final AsciiCharacter[] existingCharacters = existingText.getCharacters();
+
+        for (int x = 0 ; x < Math.min(maxCharacters, text.length()) ; x++) {
+            final AsciiCharacter character = existingCharacters[x];
+            character.copy(newCharacters[x]);
+        }
+
+        updateDisplayedCharacters();
+    }
+
     /** Clears all text from the field. */
     public void clearText() {
         Arrays.fill(enteredText, ' ');
