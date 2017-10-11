@@ -701,7 +701,8 @@ public class TextArea extends Component {
             setText(i, strings[i + 1]);
         }
 
-        setText(textAreaContents.length - 1, text);
+        clearText(strings.length - 1);
+        setText(strings.length - 1, text);
 
         updateDisplayedCharacters();
     }
@@ -733,7 +734,7 @@ public class TextArea extends Component {
             setText(i, strings[i + 1]);
         }
 
-        setText(textAreaContents.length - 1, text);
+        setText(strings.length - 1, text);
 
         updateDisplayedCharacters();
     }
