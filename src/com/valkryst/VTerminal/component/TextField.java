@@ -504,6 +504,11 @@ public class TextField extends Component {
 
         for (final AsciiCharacter character : super.getString(0).getCharacters()) {
             character.setCharacter(' ');
+            character.setBackgroundColor(backgroundColor);
+            character.setForegroundColor(foregroundColor);
+            character.setHidden(false);
+            character.setFlippedHorizontally(false);
+            character.setFlippedVertically(false);
         }
 
         updateDisplayedCharacters();
