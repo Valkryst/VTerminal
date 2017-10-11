@@ -702,6 +702,34 @@ public class TextArea extends Component {
     }
 
     /**
+     * Appends text to the first empty row of the area.
+     *
+     * If there are no empty rows, then the first row is discarded and all rows
+     * are moved up, then the new text is appended to the bottom row.
+     *
+     * @param text
+     *        The new text.
+     */
+    public void appendText(final @NonNull AsciiString text) {
+        final String[] textAreaContents = getText();
+
+        for (int i = 0 ; i < textAreaContents.length ; i++) {
+            if (textAreaContents[i].isEmpty()) {
+                setText(i, text);
+                return;
+            }
+        }
+
+        for (int i = 0 ; i < textAreaContents.length - 1 ; i++) {
+            setText(i, textAreaContents[i + 1]);
+        }
+
+        setText(textAreaContents.length - 1, text);
+
+        updateDisplayedCharacters();
+    }
+
+    /**
      * Sets the text contained within a row of the area.
      *
      * @param rowIndex
