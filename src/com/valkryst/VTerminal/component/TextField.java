@@ -487,12 +487,8 @@ public class TextField extends Component {
 
         final AsciiCharacter[] newCharacters = text.getCharacters();
 
-        final AsciiString existingText = super.getString(0);
-        final AsciiCharacter[] existingCharacters = existingText.getCharacters();
-
         for (int x = 0 ; x < Math.min(maxCharacters, text.length()) ; x++) {
-            final AsciiCharacter character = existingCharacters[x];
-            character.copy(newCharacters[x]);
+            super.getString(0).getCharacters()[x].copy(newCharacters[x]);
         }
 
         updateDisplayedCharacters();
