@@ -103,6 +103,8 @@ public class AsciiCharacter {
         isFlippedVertically = character.isFlippedVertically();
 
         foregroundAndBackgroundColorEqual = character.isForegroundAndBackgroundColorEqual();
+
+        updateCacheHash = true;
     }
 
     /** Updates the cache hash value. */
