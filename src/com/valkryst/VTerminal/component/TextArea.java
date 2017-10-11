@@ -734,6 +734,8 @@ public class TextArea extends Component {
 
         setText(strings.length - 1, text);
 
+        System.out.println(textAreaContents);
+
         updateDisplayedCharacters();
     }
 
