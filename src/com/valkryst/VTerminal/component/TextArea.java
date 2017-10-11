@@ -685,14 +685,15 @@ public class TextArea extends Component {
     public void appendText(final @NonNull String text) {
         final String[] textAreaContents = getText();
 
+        // Find first empty row and append text:
         for (int i = 0 ; i < textAreaContents.length ; i++) {
             if (textAreaContents[i].isEmpty()) {
-                clearText(i);
                 setText(i, text);
                 return;
             }
         }
 
+        // If no empty rows found, move all rows up:
         for (int i = 0 ; i < textAreaContents.length - 1 ; i++) {
             clearText(i);
             setText(i, textAreaContents[i + 1]);
@@ -715,14 +716,15 @@ public class TextArea extends Component {
     public void appendText(final @NonNull AsciiString text) {
         final String[] textAreaContents = getText();
 
+        // Find first empty row and append text:
         for (int i = 0 ; i < textAreaContents.length ; i++) {
             if (textAreaContents[i].isEmpty()) {
-                clearText(i);
                 setText(i, text);
                 return;
             }
         }
 
+        // If no empty rows found, move all rows up:
         for (int i = 0 ; i < textAreaContents.length - 1 ; i++) {
             clearText(i);
             setText(i, textAreaContents[i + 1]);
