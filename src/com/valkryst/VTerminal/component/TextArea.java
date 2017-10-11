@@ -773,7 +773,7 @@ public class TextArea extends Component {
      *         If the text is null.
      */
     public void setText(final int rowIndex, final @NonNull AsciiString text) {
-        clearText();
+        clearText(rowIndex);
 
         final AsciiCharacter[] newCharacters = text.getCharacters();
 
