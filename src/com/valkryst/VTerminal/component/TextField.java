@@ -482,7 +482,7 @@ public class TextField extends Component {
      * @throws NullPointerException
      *         If the text is null.
      */
-    public void setText(@NonNull AsciiString text) {
+    public void setText(final @NonNull AsciiString text) {
         clearText();
 
         final AsciiCharacter[] newCharacters = text.getCharacters();
