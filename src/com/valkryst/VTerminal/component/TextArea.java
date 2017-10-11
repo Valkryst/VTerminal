@@ -18,6 +18,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -779,7 +780,9 @@ public class TextArea extends Component {
      * @throws NullPointerException
      *        If the text is null.
      */
-    public void setText_ASCII(final @NonNull List<AsciiString> text) {
+    // This -must- be ArrayList, or else the method signature will clash with
+    // the other setText function.
+    public void setText(final @NonNull ArrayList<AsciiString> text) {
         clearText();
 
         for (int i = 0 ; i < text.size() && i < maxVerticalCharacters ; i++) {
