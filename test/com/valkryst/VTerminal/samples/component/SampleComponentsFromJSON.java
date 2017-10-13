@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal.samples.component;
 
+import com.valkryst.VJSON.VJSONLoader;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.builder.component.ScreenBuilder;
@@ -24,7 +25,7 @@ public class SampleComponentsFromJSON {
         Thread.sleep(100);
 
         final ScreenBuilder screenBuilder = new ScreenBuilder();
-        screenBuilder.loadFromJSON(System.getProperty("user.dir") + "/res_test/Sample Screen.json");
+        new VJSONLoader(screenBuilder).loadFromJSON(System.getProperty("user.dir") + "/res_test/Sample Screen.json");
         screenBuilder.setRadio(panel.getRadio());
 
         panel.swapScreen(screenBuilder.build());
