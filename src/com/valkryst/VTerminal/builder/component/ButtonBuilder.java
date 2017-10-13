@@ -1,9 +1,12 @@
 package com.valkryst.VTerminal.builder.component;
 
+import com.valkryst.VJSON.VJSONParser;
 import com.valkryst.VTerminal.component.Button;
 import com.valkryst.VTerminal.misc.ColorFunctions;
-import com.valkryst.VTerminal.misc.JSONFunctions;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -12,7 +15,7 @@ import java.awt.Color;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-public class ButtonBuilder extends ComponentBuilder<Button> {
+public class ButtonBuilder extends ComponentBuilder<Button> implements VJSONParser {
     /** The text to display on the button. */
     @NonNull private String text;
 
@@ -63,21 +66,21 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
     }
 
     @Override
-    public void parseJSON(final @NonNull JSONObject jsonObject) {
+    public void parse(final @NonNull JSONObject jsonObject) {
         reset();
-        super.parseJSON(jsonObject);
+        super.parse(jsonObject);
 
 
         final String text = (String) jsonObject.get("text");
 
-        final Color backgroundColor_normal = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_normal"));
-        final Color foregroundColor_normal = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_normal"));
+        final Color backgroundColor_normal = loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_normal"));
+        final Color foregroundColor_normal = loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_normal"));
 
-        final Color backgroundColor_hover = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_hover"));
-        final Color foregroundColor_hover = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_hover"));
+        final Color backgroundColor_hover = loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_hover"));
+        final Color foregroundColor_hover = loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_hover"));
 
-        final Color backgroundColor_pressed = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_pressed"));
-        final Color foregroundColor_pressed = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_pressed"));
+        final Color backgroundColor_pressed = loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_pressed"));
+        final Color foregroundColor_pressed = loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_pressed"));
 
 
         if (text != null) {
