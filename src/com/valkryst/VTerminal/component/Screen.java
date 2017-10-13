@@ -109,42 +109,42 @@ public class Screen extends Component {
         switch (componentType) {
             case "button": {
                 final ButtonBuilder buttonBuilder = new ButtonBuilder();
-                buttonBuilder.parseJSON(jsonObject);
+                buttonBuilder.parse(jsonObject);
                 buttonBuilder.setRadio(radio);
                 return buttonBuilder;
             }
 
             case "check box": {
                 final CheckBoxBuilder checkBoxBuilder = new CheckBoxBuilder();
-                checkBoxBuilder.parseJSON(jsonObject);
+                checkBoxBuilder.parse(jsonObject);
                 checkBoxBuilder.setRadio(radio);
                 return checkBoxBuilder;
             }
 
             case "label": {
                 final LabelBuilder labelBuilder = new LabelBuilder();
-                labelBuilder.parseJSON(jsonObject);
+                labelBuilder.parse(jsonObject);
                 labelBuilder.setRadio(radio);
                 return labelBuilder;
             }
 
             case "layer": {
                 final LayerBuilder layerBuilder = new LayerBuilder();
-                layerBuilder.parseJSON(jsonObject);
+                layerBuilder.parse(jsonObject);
                 layerBuilder.setRadio(radio);
                 return layerBuilder;
             }
 
             case "progress bar": {
                 final ProgressBarBuilder progressBarBuilder = new ProgressBarBuilder();
-                progressBarBuilder.parseJSON(jsonObject);
+                progressBarBuilder.parse(jsonObject);
                 progressBarBuilder.setRadio(radio);
                 return progressBarBuilder;
             }
 
             case "radio button": {
                 final RadioButtonBuilder radioButtonBuilder = new RadioButtonBuilder();
-                radioButtonBuilder.parseJSON(jsonObject);
+                radioButtonBuilder.parse(jsonObject);
                 radioButtonBuilder.setRadio(radio);
                 return radioButtonBuilder;
             }
@@ -170,21 +170,21 @@ public class Screen extends Component {
 
             case "screen": {
                 final ScreenBuilder screenBuilder = new ScreenBuilder();
-                screenBuilder.parseJSON(jsonObject);
+                screenBuilder.parse(jsonObject);
                 screenBuilder.setRadio(radio);
                 return screenBuilder;
             }
 
             case "text field": {
                 final TextFieldBuilder textFieldBuilder = new TextFieldBuilder();
-                textFieldBuilder.parseJSON(jsonObject);
+                textFieldBuilder.parse(jsonObject);
                 textFieldBuilder.setRadio(radio);
                 return textFieldBuilder;
             }
 
             case "text area": {
                 final TextAreaBuilder textAreaBuilder = new TextAreaBuilder();
-                textAreaBuilder.parseJSON(jsonObject);
+                textAreaBuilder.parse(jsonObject);
                 textAreaBuilder.setRadio(radio);
                 return textAreaBuilder;
             }
