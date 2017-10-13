@@ -1,8 +1,8 @@
 package com.valkryst.VTerminal.printer;
 
+import com.valkryst.VJSON.VJSONParser;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.component.Screen;
-import com.valkryst.VTerminal.misc.JSONFunctions;
 import com.valkryst.VTerminal.misc.ShapeAlgorithms;
 import lombok.*;
 import org.json.simple.JSONObject;
@@ -163,10 +163,12 @@ public class RectanglePrinter {
     }
 
     public void printFromJSON(final @NonNull Screen screen, final JSONObject jsonObject) {
-        final Integer column = JSONFunctions.getIntElement(jsonObject, "column");
-        final Integer row = JSONFunctions.getIntElement(jsonObject, "row");
-        final Integer width = JSONFunctions.getIntElement(jsonObject, "width");
-        final Integer height = JSONFunctions.getIntElement(jsonObject, "height");
+        final VJSONParser parser = jo -> {};
+
+        final Integer column = parser.getInteger(jsonObject, "column");
+        final Integer row = parser.getInteger(jsonObject, "row");
+        final Integer width = parser.getInteger(jsonObject, "width");
+        final Integer height = parser.getInteger(jsonObject, "height");
         final String title = (String) jsonObject.get("title");
         final String rectangleType = (String) jsonObject.get("rectangleType");
 
