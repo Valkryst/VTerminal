@@ -86,7 +86,7 @@ public class ComponentBuilder<C extends Component> implements VJSONParser {
     }
 
     @Override
-    public void parse(JSONObject jsonObject) {
+    public void parse(final @NonNull JSONObject jsonObject) {
         reset();
 
         final String id = (String) jsonObject.get("id");
