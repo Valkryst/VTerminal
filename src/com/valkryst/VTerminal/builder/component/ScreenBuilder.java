@@ -44,8 +44,8 @@ public class ScreenBuilder extends ComponentBuilder<Screen> {
     }
 
     @Override
-    public void parseJSON(final @NonNull JSONObject jsonObject) {
+    public void parse(final @NonNull JSONObject jsonObject) {
         this.jsonObject = jsonObject;
-        super.parseJSON(jsonObject);
+        super.parse(jsonObject);
     }
 }

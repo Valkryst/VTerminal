@@ -49,9 +49,9 @@ public class CheckBoxBuilder extends ButtonBuilder {
     }
 
     @Override
-    public void parseJSON(final @NonNull JSONObject jsonObject) {
+    public void parse(final @NonNull JSONObject jsonObject) {
         reset();
-        super.parseJSON(jsonObject);
+        super.parse(jsonObject);
 
 
         final String text = (String) jsonObject.get("text");
