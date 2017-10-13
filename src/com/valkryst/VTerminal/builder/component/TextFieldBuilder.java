@@ -1,8 +1,10 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.TextField;
-import com.valkryst.VTerminal.misc.JSONFunctions;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -115,17 +117,17 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
     }
 
     @Override
-    public void parseJSON(final @NonNull JSONObject jsonObject) {
+    public void parse(final @NonNull JSONObject jsonObject) {
         reset();
-        super.parseJSON(jsonObject);
+        super.parse(jsonObject);
 
-        final Integer maxCharacters = JSONFunctions.getIntElement(jsonObject, "maxCharacters");
+        final Integer maxCharacters = getInteger(jsonObject, "maxCharacters");
 
-        final Color caretForegroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("caretForegroundColor"));
-        final Color caretBackgroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("caretBackgroundColor"));
+        final Color caretForegroundColor = loadColorFromJSON((JSONArray) jsonObject.get("caretForegroundColor"));
+        final Color caretBackgroundColor = loadColorFromJSON((JSONArray) jsonObject.get("caretBackgroundColor"));
 
-        final Color foregroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor"));
-        final Color backgroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor"));
+        final Color foregroundColor = loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor"));
+        final Color backgroundColor = loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor"));
 
         final Boolean editable = (Boolean) jsonObject.get("editable");
 

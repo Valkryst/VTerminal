@@ -1,8 +1,10 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.ProgressBar;
-import com.valkryst.VTerminal.misc.JSONFunctions;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -51,19 +53,19 @@ public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
     }
 
     @Override
-    public void parseJSON(final @NonNull JSONObject jsonObject) {
+    public void parse(final @NonNull JSONObject jsonObject) {
         reset();
-        super.parseJSON(jsonObject);
+        super.parse(jsonObject);
 
 
         final Character incompleteCharacter = (Character) jsonObject.get("incompleteCharacter");
         final Character completeCharacter = (Character) jsonObject.get("completeCharacter");
 
-        final Color backgroundColor_incomplete = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_incomplete"));
-        final Color foregroundColor_incomplete = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_incomplete"));
+        final Color backgroundColor_incomplete = loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_incomplete"));
+        final Color foregroundColor_incomplete = loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_incomplete"));
 
-        final Color backgroundColor_complete = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_complete"));
-        final Color foregroundColor_complete = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_complete"));
+        final Color backgroundColor_complete = loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_complete"));
+        final Color foregroundColor_complete = loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_complete"));
 
 
         if (incompleteCharacter != null) {

@@ -1,8 +1,10 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VTerminal.component.TextArea;
-import com.valkryst.VTerminal.misc.JSONFunctions;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -179,18 +181,18 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
     }
 
     @Override
-    public void parseJSON(final  @NonNull JSONObject jsonObject) {
+    public void parse(final  @NonNull JSONObject jsonObject) {
         reset();
-        super.parseJSON(jsonObject);
+        super.parse(jsonObject);
 
-        final Integer maxHorizontalCharacters = JSONFunctions.getIntElement(jsonObject, "maxHorizontalCharacters");
-        final Integer maxVerticalCharacters = JSONFunctions.getIntElement(jsonObject, "maxVerticalCharacters");
+        final Integer maxHorizontalCharacters = getInteger(jsonObject, "maxHorizontalCharacters");
+        final Integer maxVerticalCharacters = getInteger(jsonObject, "maxVerticalCharacters");
 
-        final Color caretForegroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("caretForegroundColor"));
-        final Color caretBackgroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("caretBackgroundColor"));
+        final Color caretForegroundColor = loadColorFromJSON((JSONArray) jsonObject.get("caretForegroundColor"));
+        final Color caretBackgroundColor = loadColorFromJSON((JSONArray) jsonObject.get("caretBackgroundColor"));
 
-        final Color foregroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor"));
-        final Color backgroundColor = JSONFunctions.loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor"));
+        final Color foregroundColor = loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor"));
+        final Color backgroundColor = loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor"));
 
         final Boolean editable = (Boolean) jsonObject.get("editable");
 
@@ -205,7 +207,7 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
         final Boolean backSpaceKeyEnabled = (Boolean) jsonObject.get("backSpaceKeyEnabled");
         final Boolean tabKeyEnabled = (Boolean) jsonObject.get("tabKeyEnabled");
 
-        final Integer tabSize = JSONFunctions.getIntElement(jsonObject, "tabSize");
+        final Integer tabSize = getInteger(jsonObject, "tabSize");
 
         final String allowedCharacterPattern = (String) jsonObject.get("allowedCharacterPattern");
 
