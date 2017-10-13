@@ -25,7 +25,7 @@ public class SampleComponentsFromJSON {
         Thread.sleep(100);
 
         final ScreenBuilder screenBuilder = new ScreenBuilder();
-        new VJSONLoader(screenBuilder).loadFromJSON(System.getProperty("user.dir") + "/res_test/Sample Screen.json");
+        VJSONLoader.loadFromJSON(screenBuilder, System.getProperty("user.dir") + "/res_test/Sample Screen.json");
         screenBuilder.setRadio(panel.getRadio());
 
         panel.swapScreen(screenBuilder.build());
