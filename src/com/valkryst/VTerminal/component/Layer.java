@@ -63,8 +63,10 @@ public class Layer extends Component {
 
         // Draw the image onto the canvas:
         final Point position = super.getPosition();
-        final int xPos = (position.x * font.getWidth()) + offset.x;
-        final int yPos = (position.y * font.getHeight()) + offset.y;
+        final int fontWidth = font.getWidth();
+        final int fontHeight = font.getHeight();
+        final int xPos = (position.x * fontWidth) + (offset.x * fontWidth);
+        final int yPos = (position.y * fontHeight) + (offset.y * fontHeight);
 
         gc.drawImage(image, xPos, yPos, null);
     }
