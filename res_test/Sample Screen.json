@@ -3,7 +3,6 @@
   "column": 0,
   "row": 0,
   "components": [
-    // Outer Border
     {
       "type": "rectangle printer",
       "column": 0,
@@ -14,7 +13,6 @@
       "rectangleType": "heavy"
     },
 
-    // First Section
     {
       "type": "rectangle printer",
       "column": 22,
@@ -25,7 +23,6 @@
       "rectangleType": "heavy"
     },
 
-    // Second Section
     {
       "type": "rectangle printer",
       "column": 47,
@@ -93,7 +90,6 @@
       "text": "Checkbox B"
     },
 
-    // Fixed Width
     {
       "type": "text field",
       "row": 13,
@@ -101,7 +97,6 @@
       "width": 20
     },
 
-    // Variable Width
     {
       "type": "text field",
       "row": 15,
@@ -125,7 +120,6 @@
       "text": "Fixed Width & Height"
     },
 
-    // Fixed Width & Height
     {
       "type": "text area",
       "row": 4,
@@ -142,7 +136,6 @@
       "text": "Variable Width Only"
     },
 
-    // Variable Width
     {
       "type": "text area",
       "row": 9,
@@ -160,7 +153,6 @@
       "text": "Variable Height Only"
     },
 
-    // Variable Height
     {
       "type": "text area",
       "row": 14,
@@ -178,7 +170,6 @@
       "text": "Variable Width & Height"
     },
 
-    // Variable Width & Height
     {
       "type": "text area",
       "row": 19,
