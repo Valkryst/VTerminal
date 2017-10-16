@@ -56,8 +56,8 @@ public class LabelBuilder extends ComponentBuilder<Label> {
 
         final Boolean underlined = (Boolean) jsonObject.get("underlined");
 
-        final Color backgroundColor = loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor"));
-        final Color foregroundColor = loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor"));
+        final Color backgroundColor = getColor((JSONArray) jsonObject.get("backgroundColor"));
+        final Color foregroundColor = getColor((JSONArray) jsonObject.get("foregroundColor"));
 
 
         if (text != null) {

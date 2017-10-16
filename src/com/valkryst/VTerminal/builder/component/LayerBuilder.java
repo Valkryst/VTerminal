@@ -41,8 +41,8 @@ public class LayerBuilder extends ComponentBuilder<Layer> {
         reset();
         super.parse(jsonObject);
 
-        final Color foregroundColor = loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor"));
-        final Color backgroundColor = loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor"));
+        final Color foregroundColor = getColor((JSONArray) jsonObject.get("foregroundColor"));
+        final Color backgroundColor = getColor((JSONArray) jsonObject.get("backgroundColor"));
 
         if (foregroundColor != null) {
             this.foregroundColor = foregroundColor;

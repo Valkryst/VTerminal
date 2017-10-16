@@ -73,14 +73,14 @@ public class ButtonBuilder extends ComponentBuilder<Button> implements VJSONPars
 
         final String text = (String) jsonObject.get("text");
 
-        final Color backgroundColor_normal = loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_normal"));
-        final Color foregroundColor_normal = loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_normal"));
+        final Color backgroundColor_normal = getColor((JSONArray) jsonObject.get("backgroundColor_normal"));
+        final Color foregroundColor_normal = getColor((JSONArray) jsonObject.get("foregroundColor_normal"));
 
-        final Color backgroundColor_hover = loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_hover"));
-        final Color foregroundColor_hover = loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_hover"));
+        final Color backgroundColor_hover = getColor((JSONArray) jsonObject.get("backgroundColor_hover"));
+        final Color foregroundColor_hover = getColor((JSONArray) jsonObject.get("foregroundColor_hover"));
 
-        final Color backgroundColor_pressed = loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_pressed"));
-        final Color foregroundColor_pressed = loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_pressed"));
+        final Color backgroundColor_pressed = getColor((JSONArray) jsonObject.get("backgroundColor_pressed"));
+        final Color foregroundColor_pressed = getColor((JSONArray) jsonObject.get("foregroundColor_pressed"));
 
 
         if (text != null) {

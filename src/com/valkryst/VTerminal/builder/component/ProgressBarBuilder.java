@@ -61,11 +61,11 @@ public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
         final Character incompleteCharacter = (Character) jsonObject.get("incompleteCharacter");
         final Character completeCharacter = (Character) jsonObject.get("completeCharacter");
 
-        final Color backgroundColor_incomplete = loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_incomplete"));
-        final Color foregroundColor_incomplete = loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_incomplete"));
+        final Color backgroundColor_incomplete = getColor((JSONArray) jsonObject.get("backgroundColor_incomplete"));
+        final Color foregroundColor_incomplete = getColor((JSONArray) jsonObject.get("foregroundColor_incomplete"));
 
-        final Color backgroundColor_complete = loadColorFromJSON((JSONArray) jsonObject.get("backgroundColor_complete"));
-        final Color foregroundColor_complete = loadColorFromJSON((JSONArray) jsonObject.get("foregroundColor_complete"));
+        final Color backgroundColor_complete = getColor((JSONArray) jsonObject.get("backgroundColor_complete"));
+        final Color foregroundColor_complete = getColor((JSONArray) jsonObject.get("foregroundColor_complete"));
 
 
         if (incompleteCharacter != null) {
