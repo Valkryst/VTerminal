@@ -250,7 +250,7 @@ public class Screen extends Component {
         }
 
         // Draw layer components onto the screen:
-        layerComponents.forEach(layer -> layer.draw(gc, imageCache));
+        layerComponents.forEach(layer -> layer.draw(gc, imageCache, offset));
 
         // Draw screen components onto the screen:
         screenComponents.forEach(screen -> {
