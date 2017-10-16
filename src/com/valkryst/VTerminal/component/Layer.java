@@ -42,10 +42,14 @@ public class Layer extends Component {
      * @param imageCache
      *         The image cache to retrieve the character image from.
      *
+     * @param offset
+     *         The x/y-axis (column/row) offsets to alter the position at which the
+     *         layer is drawn.
+     *
      * @throws NullPointerException
      *         If the gc or image cache is null.
      */
-    public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache) {
+    public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache, final Point offset) {
         final Font font = imageCache.getFont();
 
         final int iWidth = getWidth() * font.getWidth();
@@ -59,8 +63,8 @@ public class Layer extends Component {
 
         // Draw the image onto the canvas:
         final Point position = super.getPosition();
-        final int xPos = position.x * font.getWidth();
-        final int yPos = position.y * font.getHeight();
+        final int xPos = (position.x * font.getWidth()) + offset.x;
+        final int yPos = (position.y * font.getHeight()) + offset.y;
 
         gc.drawImage(image, xPos, yPos, null);
     }
