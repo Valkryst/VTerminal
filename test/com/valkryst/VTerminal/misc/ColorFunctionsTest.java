@@ -94,8 +94,42 @@ public class ColorFunctionsTest {
 
     @Test
     public void testTint_withOneTintFactor() {
-        final Color color = new Color(0, 0, 0);
+        final Color color = new Color(0, 0, 0, 255);
         final Color tintedColor = ColorFunctions.tint(color, 1);
         Assert.assertEquals(Color.WHITE, tintedColor);
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testAlphaBlend_colorParams_withNullSource() {
+        final Color destination = new Color(0, 0, 0);
+        final Color result = ColorFunctions.alphaBlend(null, destination);
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testAlphaBlend_colorParams_withNullDestination() {
+        final Color source = new Color(255, 255, 255, 255);
+        final Color result = ColorFunctions.alphaBlend(source, null);
+    }
+
+    @Test
+    public void testAlphaBlend_colorParams_withValidColors() {
+        final Color source = new Color(0, 255, 0, 100);
+        final Color destination = new Color(255, 0, 0, 255);
+
+        final Color result = ColorFunctions.alphaBlend(source, destination);
+        final Color expected = new Color(101, 156, 0, 255);
+
+        Assert.assertEquals(expected, result);
+    }
+
+    @Test
+    public void testAlphaBlend_intParams_withValidColors() {
+        final Color source = new Color(0, 255, 0, 100);
+        final Color destination = new Color(255, 0, 0, 255);
+
+        final int result = ColorFunctions.alphaBlend(source.getRGB(), destination.getRGB());
+        final Color expected = new Color(101, 156, 0, 255);
+
+        Assert.assertEquals(expected, new Color(result));
     }
 }
