@@ -668,7 +668,7 @@ public class Screen extends Component {
      *          The component that is being moved.
      */
     public void moveComponentBelow(final Component stationary, final Component moving) {
-        moveComponentAbove(stationary, moving);
+        moveComponentAbove(moving, stationary);
     }
 
     /**
