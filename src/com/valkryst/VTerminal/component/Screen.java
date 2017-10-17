@@ -229,14 +229,14 @@ public class Screen extends Component {
      *         The graphics context to draw with.
      *
      * @param imageCache
-     *         The image cache to retrieve character images from.
+     *          The image cache to retrieve character images from.
      *
      * @param offset
-     *         The x/y-axis (column/row) offsets to alter the position at which the
-     *         screen is drawn.
+     *          The x/y-axis (column/row) offsets to alter the position at which the
+     *          screen is drawn.
      *
      * @throws NullPointerException
-     *         If the gc or image cache is null.
+     *          If the gc or image cache is null.
      */
     public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache, final Point offset) {
         componentsLock.readLock().lock();
@@ -245,8 +245,28 @@ public class Screen extends Component {
         components.forEach(component -> component.draw(this));
 
         // Draw the screen onto the canvas:
-        for (int row = 0 ; row < getHeight() ; row++) {
-            super.getString(row).draw(gc, imageCache, row, offset);
+        final AsciiString[] strings = super.getStrings();
+
+        final Thread threadA = new Thread(() -> {
+            for (int row = 0; row < (getHeight() / 3); row++) {
+                strings[row].draw(gc, imageCache, row, offset);
+            }
+        });
+
+        final Thread threadB = new Thread(() -> {
+            for (int row = (getHeight() / 3); row < getHeight(); row++) {
+                strings[row].draw(gc, imageCache, row, offset);
+            }
+        });
+
+        threadA.run();
+        threadB.run();
+
+        try {
+            threadA.join();
+            threadB.join();
+        } catch(final InterruptedException e) {
+            e.printStackTrace();
         }
 
         // Draw layer components onto the screen:
