@@ -20,9 +20,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.util.EventListener;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @ToString
@@ -31,13 +29,13 @@ public class Screen extends Component {
     @Getter @Setter private Panel parentPanel;
 
     /** The non-layer components displayed on the screen. */
-    private Set<Component> components = new LinkedHashSet<>();
+    private ArrayList<Component> components = new ArrayList<>();
 
     /** The layer components displayed on the screen. */
-    private Set<Layer> layerComponents = new LinkedHashSet<>();
+    private ArrayList<Layer> layerComponents = new ArrayList<>();
 
     /** The screen components displayed on the screen. */
-    private Set<Screen> screenComponents = new LinkedHashSet<>();
+    private ArrayList<Screen> screenComponents = new ArrayList<>();
 
     private ReentrantReadWriteLock componentsLock = new ReentrantReadWriteLock();
 
@@ -616,6 +614,61 @@ public class Screen extends Component {
         for (final Component component : components) {
             removeComponent(component);
         }
+    }
+
+    /**
+     * Moves one component above another component, in the
+     * draw order.
+     *
+     * Does nothing if either component is null.
+     *
+     * Does nothing if components are not of the same type.
+     *
+     * @param stationary
+     *          The component that is not being moved.
+     *
+     * @param moving
+     *          The component that is being moved.
+     */
+    public void moveComponentAbove(final Component stationary, final Component moving) {
+        if (stationary == null || moving == null) {
+            return;
+        }
+
+        if (stationary.getClass().equals(moving.getClass()) == false) {
+            return;
+        }
+
+        final List list;
+
+        if (stationary instanceof Screen) {
+            list = screenComponents;
+        } else if (stationary instanceof Layer) {
+            list = layerComponents;
+        } else {
+            list = components;
+        }
+
+        final int index = list.indexOf(stationary);
+
+        if (index != -1) {
+            list.remove(moving);
+            list.add(index, moving);
+        }
+    }
+
+    /**
+     * Moves one component below another component, in the
+     * draw order.
+     *
+     * @param stationary
+     *          The component that is not being moved.
+     *
+     * @param moving
+     *          The component that is being moved.
+     */
+    public void moveComponentBelow(final Component stationary, final Component moving) {
+        moveComponentAbove(stationary, moving);
     }
 
     /**
