@@ -630,7 +630,7 @@ public class Screen extends Component {
      * @param moving
      *          The component that is being moved.
      */
-    public void moveComponentAbove(final Component stationary, final Component moving) {
+    public void changeDrawOrder(final Component stationary, final Component moving) {
         if (stationary == null || moving == null) {
             return;
         }
@@ -655,20 +655,6 @@ public class Screen extends Component {
             list.remove(moving);
             list.add(index, moving);
         }
-    }
-
-    /**
-     * Moves one component below another component, in the
-     * draw order.
-     *
-     * @param stationary
-     *          The component that is not being moved.
-     *
-     * @param moving
-     *          The component that is being moved.
-     */
-    public void moveComponentBelow(final Component stationary, final Component moving) {
-        moveComponentAbove(moving, stationary);
     }
 
     /**
