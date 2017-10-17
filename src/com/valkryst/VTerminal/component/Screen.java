@@ -248,13 +248,13 @@ public class Screen extends Component {
         final AsciiString[] strings = super.getStrings();
 
         final Thread threadA = new Thread(() -> {
-            for (int row = 0; row < (getHeight() / 3); row++) {
+            for (int row = 0; row < getHeight() / 2; row++) {
                 strings[row].draw(gc, imageCache, row, offset);
             }
         });
 
         final Thread threadB = new Thread(() -> {
-            for (int row = (getHeight() / 3); row < getHeight(); row++) {
+            for (int row = getHeight() / 2; row < getHeight(); row++) {
                 strings[row].draw(gc, imageCache, row, offset);
             }
         });
