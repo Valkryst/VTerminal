@@ -116,8 +116,19 @@ public final class ColorFunctions {
      *
      * @return
      *         The blended RGBA value.
+     *
+     * @throws IllegalArgumentException
+     *         If either color value is negative.
      */
     public static int alphaBlend(final int sourceRGBA, final int destinationRGBA) {
+        if (sourceRGBA < 0) {
+            throw new IllegalArgumentException("The source color value cannot be negative.");
+        }
+
+        if (destinationRGBA < 0) {
+            throw new IllegalArgumentException("The destination color value cannot be negative.");
+        }
+
         final int destinationA = (destinationRGBA >> 24) & 0xFF;
         final int destinationR = (destinationRGBA >> 16) & 0xFF;
         final int destinationG = (destinationRGBA >> 8) & 0xFF;
