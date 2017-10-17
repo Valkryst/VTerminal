@@ -188,12 +188,6 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
         final Integer maxHorizontalCharacters = getInteger(jsonObject, "maxHorizontalCharacters");
         final Integer maxVerticalCharacters = getInteger(jsonObject, "maxVerticalCharacters");
 
-        final Color caretForegroundColor = getColor((JSONArray) jsonObject.get("caretForegroundColor"));
-        final Color caretBackgroundColor = getColor((JSONArray) jsonObject.get("caretBackgroundColor"));
-
-        final Color foregroundColor = getColor((JSONArray) jsonObject.get("foregroundColor"));
-        final Color backgroundColor = getColor((JSONArray) jsonObject.get("backgroundColor"));
-
         final Boolean editable = (Boolean) jsonObject.get("editable");
 
         final Boolean homeKeyEnabled = (Boolean) jsonObject.get("homeKeyEnabled");
@@ -221,22 +215,22 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
         }
 
 
-        if (caretForegroundColor != null) {
-            this.caretForegroundColor = caretForegroundColor;
-        }
+        try {
+            this.caretBackgroundColor = getColor((JSONArray) jsonObject.get("caretBackgroundColor"));
+        } catch (final NullPointerException ignored) {}
 
-        if (caretBackgroundColor != null) {
-            this.caretBackgroundColor = caretBackgroundColor;
-        }
+        try {
+            this.caretForegroundColor = getColor((JSONArray) jsonObject.get("caretForegroundColor"));
+        } catch (final NullPointerException ignored) {}
 
 
-        if (foregroundColor != null) {
-            this.foregroundColor = foregroundColor;
-        }
+        try {
+            this.backgroundColor = getColor((JSONArray) jsonObject.get("backgroundColor"));
+        } catch (final NullPointerException ignored) {}
 
-        if (backgroundColor != null) {
-            this.backgroundColor = backgroundColor;
-        }
+        try {
+            this.foregroundColor = getColor((JSONArray) jsonObject.get("foregroundColor"));
+        } catch (final NullPointerException ignored) {}
 
 
         if (editable != null) {

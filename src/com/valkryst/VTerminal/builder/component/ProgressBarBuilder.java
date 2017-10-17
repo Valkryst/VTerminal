@@ -61,12 +61,6 @@ public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
         final Character incompleteCharacter = (Character) jsonObject.get("incompleteCharacter");
         final Character completeCharacter = (Character) jsonObject.get("completeCharacter");
 
-        final Color backgroundColor_incomplete = getColor((JSONArray) jsonObject.get("backgroundColor_incomplete"));
-        final Color foregroundColor_incomplete = getColor((JSONArray) jsonObject.get("foregroundColor_incomplete"));
-
-        final Color backgroundColor_complete = getColor((JSONArray) jsonObject.get("backgroundColor_complete"));
-        final Color foregroundColor_complete = getColor((JSONArray) jsonObject.get("foregroundColor_complete"));
-
 
         if (incompleteCharacter != null) {
             this.incompleteCharacter = incompleteCharacter;
@@ -77,23 +71,21 @@ public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
         }
 
 
+        try {
+            this.backgroundColor_incomplete = getColor((JSONArray) jsonObject.get("backgroundColor_incomplete"));
+        } catch (final NullPointerException ignored) {}
 
-        if (backgroundColor_incomplete != null) {
-            this.backgroundColor_incomplete = backgroundColor_incomplete;
-        }
-
-        if (foregroundColor_incomplete != null) {
-            this.foregroundColor_incomplete = foregroundColor_incomplete;
-        }
-
+        try {
+            this.foregroundColor_incomplete = getColor((JSONArray) jsonObject.get("foregroundColor_incomplete"));
+        } catch (final NullPointerException ignored) {}
 
 
-        if (backgroundColor_complete != null) {
-            this.backgroundColor_complete = backgroundColor_complete;
-        }
+        try {
+            this.backgroundColor_complete = getColor((JSONArray) jsonObject.get("backgroundColor_complete"));
+        } catch (final NullPointerException ignored) {}
 
-        if (foregroundColor_complete != null) {
-            this.foregroundColor_complete = foregroundColor_complete;
-        }
+        try {
+            this.foregroundColor_complete = getColor((JSONArray) jsonObject.get("foregroundColor_complete"));
+        } catch (final NullPointerException ignored) {}
     }
 }

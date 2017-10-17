@@ -56,9 +56,6 @@ public class LabelBuilder extends ComponentBuilder<Label> {
 
         final Boolean underlined = (Boolean) jsonObject.get("underlined");
 
-        final Color backgroundColor = getColor((JSONArray) jsonObject.get("backgroundColor"));
-        final Color foregroundColor = getColor((JSONArray) jsonObject.get("foregroundColor"));
-
 
         if (text != null) {
             this.text = text;
@@ -70,12 +67,12 @@ public class LabelBuilder extends ComponentBuilder<Label> {
         }
 
 
-        if (backgroundColor != null) {
-            this.backgroundColor = backgroundColor;
-        }
+        try {
+            this.backgroundColor = getColor((JSONArray) jsonObject.get("backgroundColor"));
+        } catch (final NullPointerException ignored) {}
 
-        if (foregroundColor != null) {
-            this.foregroundColor = foregroundColor;
-        }
+        try {
+            this.foregroundColor = getColor((JSONArray) jsonObject.get("foregroundColor"));
+        } catch (final NullPointerException ignored) {}
     }
 }

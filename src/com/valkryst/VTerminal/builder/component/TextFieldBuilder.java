@@ -123,12 +123,6 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
 
         final Integer maxCharacters = getInteger(jsonObject, "maxCharacters");
 
-        final Color caretForegroundColor = getColor((JSONArray) jsonObject.get("caretForegroundColor"));
-        final Color caretBackgroundColor = getColor((JSONArray) jsonObject.get("caretBackgroundColor"));
-
-        final Color foregroundColor = getColor((JSONArray) jsonObject.get("foregroundColor"));
-        final Color backgroundColor = getColor((JSONArray) jsonObject.get("backgroundColor"));
-
         final Boolean editable = (Boolean) jsonObject.get("editable");
 
         final Boolean homeKeyEnabled = (Boolean) jsonObject.get("homeKeyEnabled");
@@ -146,18 +140,23 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
         }
 
 
-        if (caretForegroundColor != null) {
-            this.caretForegroundColor = caretForegroundColor;
-        }
+        try {
+            this.caretBackgroundColor = getColor((JSONArray) jsonObject.get("caretBackgroundColor"));
+        } catch (final NullPointerException ignored) {}
 
-        if (caretBackgroundColor != null) {
-            this.caretBackgroundColor = caretBackgroundColor;
-        }
+        try {
+            this.caretForegroundColor = getColor((JSONArray) jsonObject.get("caretForegroundColor"));
+        } catch (final NullPointerException ignored) {}
 
 
-        if (foregroundColor != null) {
-            this.foregroundColor = foregroundColor;
-        }
+        try {
+            this.backgroundColor = getColor((JSONArray) jsonObject.get("backgroundColor"));
+        } catch (final NullPointerException ignored) {}
+
+        try {
+            this.foregroundColor = getColor((JSONArray) jsonObject.get("foregroundColor"));
+        } catch (final NullPointerException ignored) {}
+
 
 
         if (editable != null) {
@@ -186,7 +185,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
         }
 
         if (backSpaceKeyEnabled != null) {
-            this.backgroundColor = backgroundColor;
+            this.backSpaceKeyEnabled = backSpaceKeyEnabled;
         }
 
 

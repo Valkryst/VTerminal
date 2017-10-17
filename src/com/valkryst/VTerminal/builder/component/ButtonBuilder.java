@@ -73,48 +73,38 @@ public class ButtonBuilder extends ComponentBuilder<Button> implements VJSONPars
 
         final String text = (String) jsonObject.get("text");
 
-        final Color backgroundColor_normal = getColor((JSONArray) jsonObject.get("backgroundColor_normal"));
-        final Color foregroundColor_normal = getColor((JSONArray) jsonObject.get("foregroundColor_normal"));
-
-        final Color backgroundColor_hover = getColor((JSONArray) jsonObject.get("backgroundColor_hover"));
-        final Color foregroundColor_hover = getColor((JSONArray) jsonObject.get("foregroundColor_hover"));
-
-        final Color backgroundColor_pressed = getColor((JSONArray) jsonObject.get("backgroundColor_pressed"));
-        final Color foregroundColor_pressed = getColor((JSONArray) jsonObject.get("foregroundColor_pressed"));
-
 
         if (text != null) {
             this.text = text;
         }
 
 
+        try {
+            this.backgroundColor_normal = getColor((JSONArray) jsonObject.get("backgroundColor_normal"));
+        } catch (final NullPointerException ignored) {}
 
-        if (backgroundColor_normal != null) {
-            this.backgroundColor_normal = backgroundColor_normal;
-        }
-
-        if (foregroundColor_normal != null) {
-            this.foregroundColor_normal = foregroundColor_normal;
-        }
-
-
-
-        if (backgroundColor_hover != null) {
-            this.backgroundColor_hover = backgroundColor_hover;
-        }
-
-        if (foregroundColor_hover != null) {
-            this.foregroundColor_hover = foregroundColor_hover;
-        }
+        try {
+            this.foregroundColor_normal = getColor((JSONArray) jsonObject.get("foregroundColor_normal"));
+        } catch (final NullPointerException ignored) {}
 
 
 
-        if (backgroundColor_pressed != null) {
-            this.backgroundColor_pressed = backgroundColor_pressed;
-        }
+        try {
+            this.backgroundColor_hover = getColor((JSONArray) jsonObject.get("backgroundColor_hover"));
+        } catch (final NullPointerException ignored) {}
 
-        if (foregroundColor_pressed != null) {
-            this.backgroundColor_pressed = backgroundColor_pressed;
-        }
+        try {
+            this.foregroundColor_hover = getColor((JSONArray) jsonObject.get("foregroundColor_hover"));
+        } catch (final NullPointerException ignored) {}
+
+
+
+        try {
+            this.backgroundColor_pressed = getColor((JSONArray) jsonObject.get("backgroundColor_pressed"));
+        } catch (final NullPointerException ignored) {}
+
+        try {
+            this.backgroundColor_pressed = getColor((JSONArray) jsonObject.get("backgroundColor_pressed"));
+        } catch (final NullPointerException ignored) {}
     }
 }
