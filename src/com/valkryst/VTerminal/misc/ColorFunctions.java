@@ -97,8 +97,11 @@ public final class ColorFunctions {
      *
      * @return
      *         The blended color.
+     *
+     * @throws NullPointerException
+     *         If either color is null.
      */
-    public static Color alphaBlend(final Color source, final Color destination) {
+    public static Color alphaBlend(final @NonNull Color source, final @NonNull Color destination) {
         return new Color(alphaBlend(source.getRGB(), destination.getRGB()));
     }
 
