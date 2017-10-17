@@ -29,6 +29,22 @@ public class ImageCacheTest {
     }
 
     @Test
+    public void testConstructor_twoParams_withValidData() {
+        final ImageCache cache = new ImageCache(font, 1);
+        Assert.assertEquals(font, cache.getFont());
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void testConstructor_twoParams_withNullFont() {
+        new ImageCache(null, 1);
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testConstructor_twoParams_withInvalidDuration() {
+        new ImageCache(font, 0);
+    }
+
+    @Test
     public void testRetrieveFromCache_withValidInput() {
         final ImageCache cache = new ImageCache(font);
         final Image image = cache.retrieveFromCache(new AsciiCharacter('A'));
