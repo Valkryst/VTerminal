@@ -11,7 +11,6 @@ import java.net.URISyntaxException;
 
 public class SampleTileSheet {
     public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
-        //final Font font = FontLoader.loadFontFromJar("Tiles/Jerom/bitmap.png", "Tiles/Jerom/data.fnt", 2);
         final Font font = FontLoader.loadFontFromJar("Tiles/Nevanda Nethack/bitmap.png", "Tiles/Nevanda Nethack/data.fnt", 1);
 
         final PanelBuilder builder = new PanelBuilder();
