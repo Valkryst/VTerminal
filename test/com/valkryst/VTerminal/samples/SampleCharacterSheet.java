@@ -30,8 +30,15 @@ public class SampleCharacterSheet {
             final AsciiCharacter[] characters = string.getCharacters();
 
             for (int x = 0 ; x < panel.getWidthInCharacters() ; x++) {
-                characters[x].setCharacter(counter);
-                counter++;
+                for (char i = counter ; i < Character.MAX_VALUE ; i++) {
+                    if (font.isCharacterSupported(i)) {
+                        characters[x].setCharacter(counter);
+                        counter++;
+                        break;
+                    }
+
+                    counter++;
+                }
             }
         }
 
