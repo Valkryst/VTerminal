@@ -245,24 +245,20 @@ public class Screen extends Component {
         // Draw the screen onto the canvas:
         final AsciiString[] strings = super.getStrings();
 
-        final Thread threadA = new Thread(() -> {
-            for (int row = 0; row < getHeight() / 2; row++) {
+        final Thread thread = new Thread(() -> {
+            for (int row = 0 ; row < getHeight()/2 ; row++) {
                 strings[row].draw(gc, imageCache, row, offset);
             }
         });
 
-        final Thread threadB = new Thread(() -> {
-            for (int row = getHeight() / 2; row < getHeight(); row++) {
-                strings[row].draw(gc, imageCache, row, offset);
-            }
-        });
+        thread.start();
 
-        threadA.run();
-        threadB.run();
+        for (int row = getHeight()/2 ; row < getHeight() ; row++) {
+            strings[row].draw(gc, imageCache, row, offset);
+        }
 
         try {
-            threadA.join();
-            threadB.join();
+            thread.join();
         } catch(final InterruptedException e) {
             e.printStackTrace();
         }
