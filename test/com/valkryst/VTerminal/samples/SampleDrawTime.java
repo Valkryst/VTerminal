@@ -49,11 +49,10 @@ public class SampleDrawTime {
 
             panel.draw();
 
-            final long timeAfterDraw = System.nanoTime();
-            final long timeDifference = timeAfterDraw - timeBeforeDraw;
+            final long timeDifference = System.nanoTime() - timeBeforeDraw;
             measurements.add(timeDifference);
 
-            if (i % 50 == 0) {
+            if (i % 100 == 0) {
                 double averageDrawTime = measurements.stream().mapToLong(Long::longValue).sum() / (double) i;
                 averageDrawTime /= 1_000_000;
 
