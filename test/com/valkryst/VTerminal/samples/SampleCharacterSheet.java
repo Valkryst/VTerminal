@@ -16,8 +16,8 @@ public class SampleCharacterSheet {
 
         final PanelBuilder builder = new PanelBuilder();
         builder.setFont(font);
-        builder.setWidthInCharacters(160);
-        builder.setHeightInCharacters(50);
+        builder.setWidthInCharacters(100);
+        builder.setHeightInCharacters(40);
 
         final Panel panel = builder.build();
 
