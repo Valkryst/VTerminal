@@ -74,8 +74,8 @@ public class RadioButtonBuilder extends ButtonBuilder {
 
         final String text = (String) jsonObject.get("text");
 
-        final Character emptyButtonChar = (Character) jsonObject.get("emptyButtonChar");
-        final Character checkedButtonChar = (Character) jsonObject.get("checkedButtonChar");
+        final Character emptyButtonChar = getChar(jsonObject, "emptyButtonChar");
+        final Character checkedButtonChar = getChar(jsonObject, "checkedButtonChar");
 
 
         if (text != null) {
