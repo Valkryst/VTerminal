@@ -58,8 +58,8 @@ public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
         super.parse(jsonObject);
 
 
-        final Character incompleteCharacter = (Character) jsonObject.get("incompleteCharacter");
-        final Character completeCharacter = (Character) jsonObject.get("completeCharacter");
+        final Character incompleteCharacter = getChar(jsonObject, "incompleteCharacter");
+        final Character completeCharacter = getChar(jsonObject, "completeCharacter");
 
 
         if (incompleteCharacter != null) {
