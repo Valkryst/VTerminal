@@ -192,6 +192,8 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
 
         final Boolean homeKeyEnabled = (Boolean) jsonObject.get("homeKeyEnabled");
         final Boolean endKeyEnabled = (Boolean) jsonObject.get("endKeyEnabled");
+        final Boolean pageUpKeyEnabled = (Boolean) jsonObject.get("pageUpKeyEnabled");
+        final Boolean pageDownKeyEnabled = (Boolean) jsonObject.get("pageDownKeyEnabled");
         final Boolean deleteKeyEnabled = (Boolean) jsonObject.get("deleteKeyEnabled");
         final Boolean leftArrowKeyEnabled = (Boolean) jsonObject.get("leftArrowKeyEnabled");
         final Boolean rightArrowKeyEnabled = (Boolean) jsonObject.get("rightArrowKeyEnabled");
@@ -244,6 +246,14 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
 
         if (endKeyEnabled != null) {
             this.endKeyEnabled = endKeyEnabled;
+        }
+
+        if (pageUpKeyEnabled != null) {
+            this.pageUpKeyEnabled = pageUpKeyEnabled;
+        }
+
+        if (pageDownKeyEnabled != null) {
+            this.pageDownKeyEnabled = pageDownKeyEnabled;
         }
 
         if (deleteKeyEnabled != null) {
