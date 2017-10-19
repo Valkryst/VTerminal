@@ -54,10 +54,10 @@ public class CheckBoxBuilder extends ButtonBuilder {
         super.parse(jsonObject);
 
 
-        final String text = (String) jsonObject.get("text");
+        final String text = getString(jsonObject, "text");
 
-        final Character emptyBoxChar = (Character) jsonObject.get("emptyBoxChar");
-        final Character checkedBoxChar = (Character) jsonObject.get("checkedBoxChar");
+        final Character emptyBoxChar = getChar(jsonObject, "emptyBoxChar");
+        final Character checkedBoxChar = getChar(jsonObject, "checkedBoxChar");
 
         final Boolean isChecked = (Boolean) jsonObject.get("isChecked");
 
@@ -67,7 +67,6 @@ public class CheckBoxBuilder extends ButtonBuilder {
         }
 
 
-
         if (emptyBoxChar != null) {
             this.emptyBoxChar = emptyBoxChar;
         }
@@ -75,7 +74,6 @@ public class CheckBoxBuilder extends ButtonBuilder {
         if (checkedBoxChar != null) {
             this.checkedBoxChar = checkedBoxChar;
         }
-
 
 
         if (isChecked != null) {
