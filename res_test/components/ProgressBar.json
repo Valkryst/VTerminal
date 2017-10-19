@@ -1,5 +1,5 @@
 {
-  "type": "button",
+  "type": "progress bar",
   "id": "Test",
   "column": 0,
   "row": 0,
