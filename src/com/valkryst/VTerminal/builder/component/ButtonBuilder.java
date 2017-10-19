@@ -104,7 +104,7 @@ public class ButtonBuilder extends ComponentBuilder<Button> implements VJSONPars
         } catch (final NullPointerException ignored) {}
 
         try {
-            this.backgroundColor_pressed = getColor((JSONArray) jsonObject.get("backgroundColor_pressed"));
+            this.foregroundColor_pressed = getColor((JSONArray) jsonObject.get("foregroundColor_pressed"));
         } catch (final NullPointerException ignored) {}
     }
 }
