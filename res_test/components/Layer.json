@@ -1,0 +1,8 @@
+{
+  "type": "layer",
+  "id": "Test",
+  "column": 0,
+  "row": 0,
+  "backgroundColor": [255, 0, 0],
+  "foregroundColor": [0, 0, 255],
+}
