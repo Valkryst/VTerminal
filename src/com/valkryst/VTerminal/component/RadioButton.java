@@ -18,7 +18,7 @@ public class RadioButton extends Button {
     /** The character to display when the radio button is not checked. */
     @Getter @Setter private char emptyBoxChar;
     /** The character to display when the radio button is checked. */
-    @Getter @Setter private char checkedBoxChar;
+    @Getter @Setter private char checkedButtonChar;
 
     /** Whether or not the radio button is checked. */
     @Getter private boolean isChecked = false;
@@ -39,7 +39,7 @@ public class RadioButton extends Button {
         super(builder);
 
         this.emptyBoxChar = builder.getEmptyButtonChar();
-        this.checkedBoxChar = builder.getCheckedButtonChar();
+        this.checkedButtonChar = builder.getCheckedButtonChar();
 
         this.group = builder.getGroup();
     }
@@ -130,7 +130,7 @@ public class RadioButton extends Button {
      *         The new checked button character.
      */
     public void setEndingCharacter(final char checkedButtonChar) {
-        this.checkedBoxChar = checkedButtonChar;
+        this.checkedButtonChar = checkedButtonChar;
 
         final AsciiCharacter[] characters = super.getString(0).getCharacters();
         super.getString(0).setCharacter(characters.length - 1, checkedButtonChar);
@@ -140,7 +140,7 @@ public class RadioButton extends Button {
         this.isChecked = isChecked;
 
         if (isChecked) {
-            super.getString(0).setCharacter(0, checkedBoxChar);
+            super.getString(0).setCharacter(0, checkedButtonChar);
         } else {
             super.getString(0).setCharacter(0, emptyBoxChar);
         }
