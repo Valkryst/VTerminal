@@ -25,7 +25,7 @@ public class LayerBuilder extends ComponentBuilder<Layer> {
         return new Layer(this);
     }
 
-    /** Resets the builder to it's default state. */
+    @Override
     public void reset() {
         super.reset();
 

@@ -47,7 +47,7 @@ public class ButtonBuilder extends ComponentBuilder<Button> implements VJSONPars
         return new Button(this);
     }
 
-    /** Resets the builder to it's default state. */
+    @Override
     public void reset() {
         super.reset();
 

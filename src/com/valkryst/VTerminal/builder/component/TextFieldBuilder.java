@@ -91,7 +91,7 @@ public class TextFieldBuilder extends ComponentBuilder<TextField> {
         }
     }
 
-    /** Resets the builder to it's default state. */
+    @Override
     public void reset() {
         super.reset();
 

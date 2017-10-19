@@ -34,7 +34,7 @@ public class LabelBuilder extends ComponentBuilder<Label> {
         return new Label(this);
     }
 
-    /** Resets the builder to it's default state. */
+    @Override
     public void reset() {
         super.reset();
 

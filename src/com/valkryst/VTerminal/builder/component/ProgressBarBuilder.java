@@ -35,7 +35,7 @@ public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
         return new ProgressBar(this);
     }
 
-    /** Resets the builder to it's default state. */
+    @Override
     public void reset() {
         super.reset();
 

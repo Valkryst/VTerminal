@@ -51,7 +51,7 @@ public class RadioButtonBuilder extends ButtonBuilder {
         }
     }
 
-    /** Resets the builder to it's default state. */
+    @Override
     public void reset() {
         super.reset();
 

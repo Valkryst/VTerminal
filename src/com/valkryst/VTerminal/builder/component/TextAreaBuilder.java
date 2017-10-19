@@ -145,7 +145,7 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
         }
     }
 
-    /** Resets the builder to it's default state. */
+    @Override
     public void reset() {
         super.reset();
 

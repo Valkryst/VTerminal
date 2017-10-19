@@ -35,7 +35,7 @@ public class ScreenBuilder extends ComponentBuilder<Screen> {
         return new Screen(this);
     }
 
-    /** Resets the builder to it's default state. */
+    @Override
     public void reset() {
         super.reset();
 

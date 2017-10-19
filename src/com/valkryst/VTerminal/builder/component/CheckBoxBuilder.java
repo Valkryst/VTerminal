@@ -33,7 +33,7 @@ public class CheckBoxBuilder extends ButtonBuilder {
         return new CheckBox(this);
     }
 
-    /** Resets the builder to it's default state. */
+    @Override
     public void reset() {
         super.reset();
 
