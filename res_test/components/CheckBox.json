@@ -1,0 +1,10 @@
+{
+  "type": "checkbox",
+  "id": "Test",
+  "column": 0,
+  "row": 0,
+  "text": "1234",
+  "emptyBoxChar": "/",
+  "checkedBoxChar": "?",
+  "isChecked": true
+}
