@@ -71,7 +71,7 @@ public class ButtonBuilder extends ComponentBuilder<Button> implements VJSONPars
         super.parse(jsonObject);
 
 
-        final String text = (String) jsonObject.get("text");
+        final String text = getString(jsonObject, "text");
 
 
         if (text != null) {
