@@ -1,5 +1,5 @@
 {
-  "type": "button",
+  "type": "radio button",
   "id": "Test",
   "column": 0,
   "row": 0,
