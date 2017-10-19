@@ -16,7 +16,7 @@ import java.awt.event.MouseMotionListener;
 @ToString
 public class RadioButton extends Button {
     /** The character to display when the radio button is not checked. */
-    @Getter @Setter private char emptyBoxChar;
+    @Getter @Setter private char emptyButtonChar;
     /** The character to display when the radio button is checked. */
     @Getter @Setter private char checkedButtonChar;
 
@@ -38,7 +38,7 @@ public class RadioButton extends Button {
     public RadioButton(final @NonNull RadioButtonBuilder builder) {
         super(builder);
 
-        this.emptyBoxChar = builder.getEmptyButtonChar();
+        this.emptyButtonChar = builder.getEmptyButtonChar();
         this.checkedButtonChar = builder.getCheckedButtonChar();
 
         this.group = builder.getGroup();
@@ -118,7 +118,7 @@ public class RadioButton extends Button {
      *         The new empty button character.
      */
     public void setEmptyBoxCharacter(final char emptyButtonChar) {
-        this.emptyBoxChar = emptyButtonChar;
+        this.emptyButtonChar = emptyButtonChar;
 
         super.getString(0).getCharacters()[0].setCharacter(emptyButtonChar);
     }
@@ -142,7 +142,7 @@ public class RadioButton extends Button {
         if (isChecked) {
             super.getString(0).setCharacter(0, checkedButtonChar);
         } else {
-            super.getString(0).setCharacter(0, emptyBoxChar);
+            super.getString(0).setCharacter(0, emptyButtonChar);
         }
 
         transmitDraw();
