@@ -102,13 +102,13 @@ public class ColorFunctionsTest {
     @Test(expected=NullPointerException.class)
     public void testAlphaBlend_colorParams_withNullSource() {
         final Color destination = new Color(0, 0, 0);
-        final Color result = ColorFunctions.alphaBlend(null, destination);
+        ColorFunctions.alphaBlend(null, destination);
     }
 
     @Test(expected=NullPointerException.class)
     public void testAlphaBlend_colorParams_withNullDestination() {
         final Color source = new Color(255, 255, 255, 255);
-        final Color result = ColorFunctions.alphaBlend(source, null);
+        ColorFunctions.alphaBlend(source, null);
     }
 
     @Test
