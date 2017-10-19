@@ -33,9 +33,9 @@ public class CheckBoxBuilderTest {
         }
 
         Assert.assertEquals(builder.getText(), text);
-        Assert.assertEquals(builder.getEmptyBoxChar(), '/');
-        Assert.assertEquals(builder.getCheckedBoxChar(), '?');
-        Assert.assertTrue(builder.isChecked());
+        Assert.assertEquals(checkBox.getEmptyBoxChar(), '/');
+        Assert.assertEquals(checkBox.getCheckedBoxChar(), '?');
+        Assert.assertTrue(checkBox.isChecked());
     }
 
     @Test
