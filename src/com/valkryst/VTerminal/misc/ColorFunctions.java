@@ -35,7 +35,7 @@ public final class ColorFunctions {
             shadeFactor = 0.0;
         }
 
-        int a = color.getAlpha();
+        final int a = color.getAlpha();
         int r = color.getRed();
         int g = color.getGreen();
         int b = color.getBlue();
@@ -74,7 +74,7 @@ public final class ColorFunctions {
             tintFactor = 0.0;
         }
 
-        int a = color.getAlpha();
+        final int a = color.getAlpha();
         int r = color.getRed();
         int g = color.getGreen();
         int b = color.getBlue();
@@ -137,10 +137,10 @@ public final class ColorFunctions {
         int greenBlend = destinationG * (255 - sourceA) + (sourceG * sourceA);
         int blueBlend = destinationB * (255 - sourceA) + (sourceB * sourceA);
 
-        alphaBlend = alphaBlend & 0xFF;
-        redBlend = redBlend & 0xFF;
-        greenBlend = greenBlend & 0xFF;
-        blueBlend = blueBlend & 0xFF;
+        alphaBlend &= 0xFF;
+        redBlend &= 0xFF;
+        greenBlend &= 0xFF;
+        blueBlend &= 0xFF;
 
         return (alphaBlend << 24) + (redBlend << 16) + (greenBlend << 8) + blueBlend;
     }
