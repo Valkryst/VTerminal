@@ -108,7 +108,7 @@ public class CheckBox extends Button {
     }
 
     /**
-     * Sets the starting character of the box's text.
+     * Sets the empty box character of the box's text.
      *
      * @param emptyBoxChar
      *         The new empty box character.
@@ -120,7 +120,7 @@ public class CheckBox extends Button {
     }
 
     /**
-     * Sets the ending character of the box's text.
+     * Sets the checked character of the box's text.
      *
      * @param checkedBoxChar
      *         The new checked box character.
@@ -128,7 +128,7 @@ public class CheckBox extends Button {
      * @throws NullPointerException
      *         If the color is null.
      */
-    public void setEndingCharacter(final char checkedBoxChar) {
+    public void setCheckedBoxCharacter(final char checkedBoxChar) {
         this.checkedBoxChar = checkedBoxChar;
 
         final AsciiCharacter[] characters = super.getString(0).getCharacters();
