@@ -75,4 +75,18 @@ public class LabelBuilder extends ComponentBuilder<Label> {
             this.foregroundColor = getColor((JSONArray) jsonObject.get("foregroundColor"));
         } catch (final NullPointerException ignored) {}
     }
+
+    /**
+     * Sets the text for the label to display..
+     *
+     * @param text
+     *          The text.
+     */
+    public void setText(final String text) {
+        this.text = text;
+
+        if (text != null && text.isEmpty() == false) {
+            super.width = text.length();
+        }
+    }
 }
