@@ -51,7 +51,7 @@
         <dependency>
             <groupId>com.github.Valkryst</groupId>
             <artifactId>VJSON</artifactId>
-            <version>1300463</version>
+            <version>d3313e4</version>
         </dependency>
     </dependencies>
 
