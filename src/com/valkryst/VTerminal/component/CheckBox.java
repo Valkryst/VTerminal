@@ -7,7 +7,6 @@ import com.valkryst.VTerminal.builder.component.CheckBoxBuilder;
 import com.valkryst.VTerminal.font.Font;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.awt.event.MouseEvent;
@@ -17,9 +16,9 @@ import java.awt.event.MouseMotionListener;
 @ToString
 public class CheckBox extends Button {
     /** The character to display when the checkbox is not checked. */
-    @Getter @Setter private char emptyBoxChar;
+    @Getter private char emptyBoxChar;
     /** The character to display when the checkbox is checked. */
-    @Getter @Setter private char checkedBoxChar;
+    @Getter private char checkedBoxChar;
 
     /** Whether or not the check box is checked. */
     @Getter private boolean isChecked;
