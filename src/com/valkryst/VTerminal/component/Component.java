@@ -42,7 +42,7 @@ public class Component {
     @Getter private AsciiString[] strings;
 
     /** The radio to transmit events to. */
-    @Getter private final Radio<String> radio;
+    @Getter protected Radio<String> radio;
 
     /** The screen that the component is on. */
     @Getter @Setter private Screen screen;
@@ -73,7 +73,7 @@ public class Component {
             strings[row] = new AsciiString(dimensions.width);
         }
 
-        this.radio = builder.getRadio();
+        this.radio = new Radio<>();
     }
 
     /**
