@@ -186,10 +186,10 @@ public class Component {
      *         Whether or not the point intersects with this component.
      */
     public boolean intersects(final Point position) {
-        boolean intersects = position.x >= this.position.x;
-        intersects &= position.x < (boundingBox.getWidth() + this.position.x);
-        intersects &= position.y >= this.position.y;
-        intersects &= position.y < (boundingBox.getHeight() + this.position.y);
+        boolean intersects = position.x >= boundingBox.x;
+        intersects &= position.x < (boundingBox.getWidth() + boundingBox.x);
+        intersects &= position.y >= boundingBox.y;
+        intersects &= position.y < (boundingBox.getHeight() + boundingBox.y);
 
         return intersects;
     }
