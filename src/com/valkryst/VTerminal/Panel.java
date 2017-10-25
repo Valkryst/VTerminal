@@ -140,11 +140,13 @@ public class Panel extends Canvas implements Receiver<String> {
         // Unregister all of the old screen's components:
         screen.getComponents().forEach(component -> component.getEventListeners().forEach(this::removeListener));
         screen.setParentPanel(null);
+        screen.setRadio(null);
 
         // Register all of the new screen's components:
         newScreen.getComponents().forEach(component -> component.createEventListeners(this));
         newScreen.getComponents().forEach(component -> component.getEventListeners().forEach(this::addListener));
         newScreen.setParentPanel(this);
+        newScreen.setRadio(radio);
 
         final Screen oldScreen = screen;
         screen = newScreen;
