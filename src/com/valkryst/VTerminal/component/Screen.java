@@ -77,11 +77,8 @@ public class Screen extends Component implements Receiver<String> {
                     final ComponentBuilder componentBuilder = loadElementFromJSON(arrayElement);
 
                     if (componentBuilder != null) {
-                        if (componentBuilder instanceof LayerBuilder) {
-                            layerComponents.add((Layer) componentBuilder.build());
-                        } else {
-                            this.components.add(componentBuilder.build());
-                        }
+                        final Component component = componentBuilder.build();
+                        addComponent(component);
                     }
                 }
             }
