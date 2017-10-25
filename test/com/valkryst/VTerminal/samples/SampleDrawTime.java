@@ -71,8 +71,8 @@ public class SampleDrawTime {
         // Remove the bottom and top 10% (outliers) of results:
         Collections.sort(measurements);
         final long middleElement = measurements.get(measurements.size() / 2);
-        final double lowestElement = middleElement * 0.80;
-        final double highestElement = middleElement + (middleElement * 0.80);
+        final double lowestElement = middleElement * 0.90;
+        final double highestElement = middleElement + (middleElement * 0.90);
 
         measurements = measurements.stream().filter(val -> val >= lowestElement && val <= highestElement).collect(Collectors.toList());
         double averageDrawTime = measurements.stream().mapToLong(Long::longValue).sum() / (double) measurements.size();
