@@ -247,9 +247,6 @@ public class Component {
      *
      * @param millsBetweenBlinks
      *         The amount of time, in milliseconds, before the blink effect can
-     *
-     * @throws NullPointerException
-     *        If the radio is null.
      */
     public void enableBlinkEffect(final short millsBetweenBlinks) {
         for (final AsciiString s: strings) {
