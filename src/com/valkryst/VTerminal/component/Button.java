@@ -108,9 +108,7 @@ public class Button extends Component {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    System.out.println("Pressed");
                     if (intersects(e, fontWidth, fontHeight)) {
-                        System.out.println("Pressed & intersects");
                         setStatePressed();
                     }
                 }
@@ -120,15 +118,12 @@ public class Button extends Component {
             public void mouseReleased(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     if (isInPressedState) {
-                        System.out.println("Released & Running");
                         onClickFunction.run();
                     }
 
                     if (intersects(e, fontWidth, fontHeight)) {
-                        System.out.println("Released & Hovering");
                         setStateHovered();
                     } else {
-                        System.out.println("Released & Normal");
                         setStateNormal();
                     }
                 }
