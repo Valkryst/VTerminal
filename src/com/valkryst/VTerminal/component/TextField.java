@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal.component;
 
 
-import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.Panel;
@@ -365,8 +364,6 @@ public class TextField extends Component {
         if (editable) {
             characters[newIndex].setForegroundColor(caretForegroundColor);
             characters[newIndex].setBackgroundColor(caretBackgroundColor);
-
-            final Radio<String> radio = super.getRadio();
 
             characters[index_caret_visual].disableBlinkEffect();
             characters[index_caret_visual].setHidden(false);

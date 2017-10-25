@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal.component;
 
 
-import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.Panel;
@@ -577,8 +576,6 @@ public class TextArea extends Component {
      *         The new row index for the caret.
      */
     private void changeVisualCaretPosition(final int newColumnIndex, final int newRowIndex) {
-        final Radio<String> radio = super.getRadio();
-
         // Reset current position's fore/background:
         AsciiCharacter[] characters = super.getString(y_index_caret_visual).getCharacters();
         characters[x_index_caret_visual].setForegroundColor(foregroundColor);
