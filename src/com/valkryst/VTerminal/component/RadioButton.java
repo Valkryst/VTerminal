@@ -1,6 +1,5 @@
 package com.valkryst.VTerminal.component;
 
-import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.RadioButtonBuilder;
 import com.valkryst.VTerminal.font.Font;
@@ -112,30 +111,11 @@ public class RadioButton extends Button {
     }
 
     /**
-     * Sets the starting character of the button's text.
+     * Sets the radio button as checked.
      *
-     * @param emptyButtonChar
-     *         The new empty button character.
+     * @param isChecked
+     *          Whether or not the radio button is checked.
      */
-    public void setEmptyBoxCharacter(final char emptyButtonChar) {
-        this.emptyButtonChar = emptyButtonChar;
-
-        super.getString(0).getCharacters()[0].setCharacter(emptyButtonChar);
-    }
-
-    /**
-     * Sets the ending character of the button's text.
-     *
-     * @param checkedButtonChar
-     *         The new checked button character.
-     */
-    public void setEndingCharacter(final char checkedButtonChar) {
-        this.checkedButtonChar = checkedButtonChar;
-
-        final AsciiCharacter[] characters = super.getString(0).getCharacters();
-        super.getString(0).setCharacter(characters.length - 1, checkedButtonChar);
-    }
-
     public void setChecked(final boolean isChecked) {
         this.isChecked = isChecked;
 
