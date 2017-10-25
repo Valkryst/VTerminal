@@ -1,6 +1,5 @@
 package com.valkryst.VTerminal.component;
 
-import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.builder.component.ButtonBuilder;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,7 +16,6 @@ public class ButtonTest {
         final ButtonBuilder builder = new ButtonBuilder();
         builder.setText("Testing");
         builder.setOnClickFunction(function);
-        builder.setRadio(new Radio<>());
         button = builder.build();
     }
 

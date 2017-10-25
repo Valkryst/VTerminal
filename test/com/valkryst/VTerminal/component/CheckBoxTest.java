@@ -1,6 +1,5 @@
 package com.valkryst.VTerminal.component;
 
-import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.builder.component.CheckBoxBuilder;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,7 +14,6 @@ public class CheckBoxTest {
         final CheckBoxBuilder builder = new CheckBoxBuilder();
         builder.setText("Testing");
         builder.setOnClickFunction(function);
-        builder.setRadio(new Radio<>());
         checkBox = builder.build();
     }
 
@@ -29,7 +27,6 @@ public class CheckBoxTest {
         final CheckBoxBuilder builder = new CheckBoxBuilder();
         builder.setText("Testing");
         builder.setOnClickFunction(function);
-        builder.setRadio(new Radio<>());
         new CheckBox(builder);
     }
 

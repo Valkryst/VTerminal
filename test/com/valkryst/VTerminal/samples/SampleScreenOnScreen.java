@@ -28,7 +28,6 @@ public class SampleScreenOnScreen {
         screenBuilder.setRowIndex(3);
         screenBuilder.setWidth(panel.getWidthInCharacters() - 10);
         screenBuilder.setHeight(panel.getHeightInCharacters() - 10);
-        screenBuilder.setRadio(panel.getRadio());
 
         final Screen screenA = screenBuilder.build();
         screenA.setBackgroundColor(Color.CYAN);

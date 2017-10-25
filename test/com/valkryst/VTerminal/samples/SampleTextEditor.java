@@ -28,7 +28,6 @@ public class SampleTextEditor {
 
         // Create text area:
         final TextAreaBuilder textAreaBuilder = new TextAreaBuilder();
-        textAreaBuilder.setRadio(panel.getRadio());
         textAreaBuilder.setColumnIndex(0);
         textAreaBuilder.setRowIndex(1);
         textAreaBuilder.setWidth(80);
@@ -39,7 +38,6 @@ public class SampleTextEditor {
 
         // Create NEW button:
         final ButtonBuilder buttonBuilder = new ButtonBuilder();
-        buttonBuilder.setRadio(panel.getRadio());
         buttonBuilder.setColumnIndex(0);
         buttonBuilder.setRowIndex(0);
         buttonBuilder.setText("New");

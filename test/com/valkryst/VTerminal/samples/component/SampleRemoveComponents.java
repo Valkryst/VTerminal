@@ -25,7 +25,6 @@ public class SampleRemoveComponents {
 
          final ScreenBuilder screenBuilder = new ScreenBuilder();
          VJSONLoader.loadFromJSON(screenBuilder, System.getProperty("user.dir") + "/res_test/Sample Screen.json");
-         screenBuilder.setRadio(panel.getRadio());
 
          panel.swapScreen(screenBuilder.build());
 
