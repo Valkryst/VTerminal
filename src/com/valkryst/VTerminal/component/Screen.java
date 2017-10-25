@@ -393,6 +393,19 @@ public class Screen extends Component implements Receiver<String> {
         write(new AsciiString(string), position);
     }
 
+    @Override
+    public void setPosition(final Point position) {
+        super.setPosition(position);
+
+        // Recalculate bounding box positions.
+        for (final Component component : getComponents()) {
+            final Rectangle boundingBox = component.getBoundingBox();
+            final int x = boundingBox.x - super.getPosition().x + position.x;
+            final int y = boundingBox.y - super.getPosition().y + position.y;
+            component.getBoundingBox().setLocation(x, y);
+        }
+    }
+
     /**
      * Draws the screen onto an image.
      *
