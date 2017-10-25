@@ -116,42 +116,36 @@ public class Screen extends Component implements Receiver<String> {
             case "button": {
                 final ButtonBuilder buttonBuilder = new ButtonBuilder();
                 buttonBuilder.parse(jsonObject);
-                buttonBuilder.setRadio(radio);
                 return buttonBuilder;
             }
 
             case "check box": {
                 final CheckBoxBuilder checkBoxBuilder = new CheckBoxBuilder();
                 checkBoxBuilder.parse(jsonObject);
-                checkBoxBuilder.setRadio(radio);
                 return checkBoxBuilder;
             }
 
             case "label": {
                 final LabelBuilder labelBuilder = new LabelBuilder();
                 labelBuilder.parse(jsonObject);
-                labelBuilder.setRadio(radio);
                 return labelBuilder;
             }
 
             case "layer": {
                 final LayerBuilder layerBuilder = new LayerBuilder();
                 layerBuilder.parse(jsonObject);
-                layerBuilder.setRadio(radio);
                 return layerBuilder;
             }
 
             case "progress bar": {
                 final ProgressBarBuilder progressBarBuilder = new ProgressBarBuilder();
                 progressBarBuilder.parse(jsonObject);
-                progressBarBuilder.setRadio(radio);
                 return progressBarBuilder;
             }
 
             case "radio button": {
                 final RadioButtonBuilder radioButtonBuilder = new RadioButtonBuilder();
                 radioButtonBuilder.parse(jsonObject);
-                radioButtonBuilder.setRadio(radio);
                 return radioButtonBuilder;
             }
 
@@ -177,21 +171,18 @@ public class Screen extends Component implements Receiver<String> {
             case "screen": {
                 final ScreenBuilder screenBuilder = new ScreenBuilder();
                 screenBuilder.parse(jsonObject);
-                screenBuilder.setRadio(radio);
                 return screenBuilder;
             }
 
             case "text field": {
                 final TextFieldBuilder textFieldBuilder = new TextFieldBuilder();
                 textFieldBuilder.parse(jsonObject);
-                textFieldBuilder.setRadio(radio);
                 return textFieldBuilder;
             }
 
             case "text area": {
                 final TextAreaBuilder textAreaBuilder = new TextAreaBuilder();
                 textAreaBuilder.parse(jsonObject);
-                textAreaBuilder.setRadio(radio);
                 return textAreaBuilder;
             }
 
@@ -511,6 +502,8 @@ public class Screen extends Component implements Receiver<String> {
         }
 
         // Add the component to one of the component lists:
+        component.getRadio().addReceiver("DRAW", this);
+
         if (component instanceof Screen) {
             ((Screen) component).setParentPanel(parentPanel);
             component.setScreen(this);
@@ -571,6 +564,8 @@ public class Screen extends Component implements Receiver<String> {
             componentsLock.writeLock().unlock();
             throw new IllegalArgumentException("A screen cannot be removed from itself.");
         }
+
+        component.getRadio().removeReceiver("DRAW", this);
 
         if (component instanceof Screen) {
             component.getEventListeners().forEach(listener -> parentPanel.removeListener(listener));
@@ -928,5 +923,9 @@ public class Screen extends Component implements Receiver<String> {
         componentsLock.readLock().unlock();
 
         return set;
+    }
+
+    public void setRadio(final Radio<String> radio) {
+        super.radio = radio;
     }
 }
