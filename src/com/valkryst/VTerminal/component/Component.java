@@ -247,15 +247,11 @@ public class Component {
      *
      * @param millsBetweenBlinks
      *         The amount of time, in milliseconds, before the blink effect can
-     *         occur.
-     *
-     * @param radio
-     *         The Radio to transmit a DRAW event to whenever a blink occurs.
      *
      * @throws NullPointerException
      *        If the radio is null.
      */
-    public void enableBlinkEffect(final short millsBetweenBlinks, final @NonNull Radio<String> radio) {
+    public void enableBlinkEffect(final short millsBetweenBlinks) {
         for (final AsciiString s: strings) {
             for (final AsciiCharacter c : s.getCharacters()) {
                 c.enableBlinkEffect(millsBetweenBlinks, radio);
