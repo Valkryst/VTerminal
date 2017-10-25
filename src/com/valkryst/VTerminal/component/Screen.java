@@ -20,6 +20,7 @@ import org.json.simple.JSONObject;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.*;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -509,6 +510,12 @@ public class Screen extends Component implements Receiver<String> {
             components.add(component);
         }
 
+        // Add screen position as offset to bounding box position of component.
+        final Rectangle boundingBox = component.getBoundingBox();
+        final int x = boundingBox.x + super.getPosition().x;
+        final int y = boundingBox.y + super.getPosition().y;
+        component.getBoundingBox().setLocation(x, y);
+
         componentsLock.writeLock().unlock();
 
         // Set up event listeners:
@@ -568,6 +575,12 @@ public class Screen extends Component implements Receiver<String> {
         } else {
             components.remove(component);
         }
+
+        // Remove screen position as offset to bounding box position of component.
+        final Rectangle boundingBox = component.getBoundingBox();
+        final int boundingBoxX = boundingBox.x - super.getPosition().x;
+        final int boundingBoxY = boundingBox.y - super.getPosition().y;
+        component.getBoundingBox().setLocation(boundingBoxX, boundingBoxY);
 
         componentsLock.writeLock().unlock();
 
