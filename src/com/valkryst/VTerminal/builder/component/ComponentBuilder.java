@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal.builder.component;
 
 import com.valkryst.VJSON.VJSONParser;
-import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.component.Component;
 import lombok.Data;
 import lombok.NonNull;
@@ -23,9 +22,6 @@ public class ComponentBuilder<C extends Component> implements VJSONParser {
     protected int width;
     /** The height, in characters. */
     protected int height;
-
-    /** The radio to transmit events to. */
-    @NonNull private Radio<String> radio;
 
     /** Constructs a new ComponentBuilder. */
     public ComponentBuilder() {
@@ -81,8 +77,6 @@ public class ComponentBuilder<C extends Component> implements VJSONParser {
         rowIndex = 0;
         width = 1;
         height = 1;
-
-        radio = null;
     }
 
     @Override
