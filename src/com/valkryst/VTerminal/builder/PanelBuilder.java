@@ -101,7 +101,6 @@ public class PanelBuilder {
 
         if (screen == null) {
             final ScreenBuilder screenBuilder = new ScreenBuilder();
-            screenBuilder.setRadio(radio);
             screenBuilder.setColumnIndex(0);
             screenBuilder.setRowIndex(0);
             screenBuilder.setWidth(widthInCharacters);
