@@ -346,13 +346,8 @@ public class Component {
             throw new IllegalArgumentException("The y-axis position cannot be < 0.");
         }
 
-        // Recalculate bounding box position:
-        final int x = boundingBox.x - this.position.x + position.x;
-        final int y = boundingBox.y - this.position.y + position.y;
-        this.boundingBox.setLocation(x, y);
-        System.out.println("Moved to " + boundingBox.x + " " + boundingBox.y);
-
         this.position.setLocation(position);
+        this.boundingBox.setLocation(position);
     }
 
     /**
