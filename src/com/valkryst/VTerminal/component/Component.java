@@ -9,7 +9,6 @@ import com.valkryst.VTerminal.builder.component.ComponentBuilder;
 import com.valkryst.VTerminal.font.Font;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.awt.Dimension;
@@ -43,9 +42,6 @@ public class Component {
 
     /** The radio to transmit events to. */
     @Getter protected Radio<String> radio;
-
-    /** The screen that the component is on. */
-    @Getter @Setter private Screen screen;
 
     /** The event listeners. */
     @Getter private final Set<EventListener> eventListeners = new HashSet<>();

@@ -502,13 +502,10 @@ public class Screen extends Component implements Receiver<String> {
 
         if (component instanceof Screen) {
             ((Screen) component).setParentPanel(parentPanel);
-            component.setScreen(this);
             screenComponents.add((Screen) component);
         } else if (component instanceof Layer) {
-            component.setScreen(this);
             layerComponents.add((Layer) component);
         } else {
-            component.setScreen(this);
             components.add(component);
         }
 
@@ -565,13 +562,10 @@ public class Screen extends Component implements Receiver<String> {
 
         if (component instanceof Screen) {
             component.getEventListeners().forEach(listener -> parentPanel.removeListener(listener));
-            component.setScreen(null);
             screenComponents.remove(component);
         } else if (component instanceof Layer) {
-            component.setScreen(null);
             layerComponents.remove(component);
         } else {
-            component.setScreen(null);
             components.remove(component);
         }
 
