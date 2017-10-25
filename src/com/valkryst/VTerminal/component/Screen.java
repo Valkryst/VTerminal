@@ -513,8 +513,10 @@ public class Screen extends Component implements Receiver<String> {
 
         // Set up event listeners:
         component.createEventListeners(parentPanel);
+        System.out.println("Listeners created using " + (parentPanel == null) + " panel.");
 
         for (final EventListener eventListener : component.getEventListeners()) {
+            System.out.println("Added " + eventListener.getClass().getSimpleName() + " for " + component.getClass().getSimpleName());
             parentPanel.addListener(eventListener);
         }
     }
