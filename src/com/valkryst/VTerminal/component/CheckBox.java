@@ -65,10 +65,10 @@ public class CheckBox extends Button {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     if (intersects(e, fontWidth, fontHeight)) {
                         if (isChecked) {
-                            uncheck();
+                            setChecked(false);
                         } else {
                             CheckBox.super.getOnClickFunction().run();
-                            check();
+                            setChecked(true);
                         }
                     }
                 }
@@ -106,19 +106,21 @@ public class CheckBox extends Button {
         super.getEventListeners().add(mouseMotionListener);
     }
 
-    /** Checks the check box. */
-    public void check() {
-        isChecked = true;
-        super.getString(0).setCharacter(0, checkedBoxChar);
+    /**
+     * Sets the check box as checked.
+     *
+     * @param isChecked
+     *          Whether or not the check box is checked.
+     */
+    public void setChecked(final boolean isChecked) {
+        this.isChecked = isChecked;
 
-        super.transmitDraw();
-    }
+        if (isChecked) {
+            super.getString(0).setCharacter(0, checkedBoxChar);
+        } else {
+            super.getString(0).setCharacter(0, emptyBoxChar);
+        }
 
-    /** Unchecks the check box. */
-    public void uncheck() {
-        isChecked = false;
-        super.getString(0).setCharacter(0, emptyBoxChar);
-
-        super.transmitDraw();
+        transmitDraw();
     }
 }
