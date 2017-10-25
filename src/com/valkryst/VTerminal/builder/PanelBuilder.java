@@ -69,6 +69,8 @@ public class PanelBuilder {
         frame.setBackground(backgroundColor);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        screen.setParentPanel(panel);
+
         panel.setIgnoreRepaint(true);
         panel.createBufferStrategy(2);
         panel.setFocusable(true);
