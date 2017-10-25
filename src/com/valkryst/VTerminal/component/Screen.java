@@ -504,6 +504,7 @@ public class Screen extends Component {
 
         // Add the component to one of the component lists:
         if (component instanceof Screen) {
+            ((Screen) component).setParentPanel(parentPanel);
             component.setScreen(this);
             screenComponents.add((Screen) component);
         } else if (component instanceof Layer) {
@@ -564,6 +565,7 @@ public class Screen extends Component {
         }
 
         if (component instanceof Screen) {
+            component.getEventListeners().forEach(listener -> parentPanel.removeListener(listener));
             component.setScreen(null);
             screenComponents.remove(component);
         } else if (component instanceof Layer) {
