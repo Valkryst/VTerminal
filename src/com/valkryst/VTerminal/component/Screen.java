@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.component;
 
 import com.valkryst.VRadio.Radio;
+import com.valkryst.VRadio.Receiver;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.Panel;
@@ -24,7 +25,7 @@ import java.util.*;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @ToString
-public class Screen extends Component {
+public class Screen extends Component implements Receiver<String> {
     /** The panel on which the screen is displayed. */
     @Getter @Setter private Panel parentPanel;
 
@@ -55,6 +56,13 @@ public class Screen extends Component {
 
         if (builder.getJsonObject() != null) {
             parseJSON(builder.getJsonObject());
+        }
+    }
+
+    @Override
+    public void receive(final String event, final String data) {
+        if (event.equals("DRAW")) {
+            transmitDraw();
         }
     }
 
