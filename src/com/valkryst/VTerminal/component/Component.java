@@ -342,48 +342,4 @@ public class Component {
         this.position.setLocation(position);
         this.boundingBox.setLocation(position);
     }
-
-    /**
-     * Sets a new value for the width.
-     *
-     * @param width
-     *         The new width, in characters, of the component.
-     *
-     * @throws IllegalArgumentException
-     *         If the width is < 0 or the width is < columnIndex.
-     */
-    public void setWidth(final int width) {
-        if (width < 0) {
-            throw new IllegalArgumentException("The width cannot be < 0.");
-        }
-
-        if (width < position.x) {
-            throw new IllegalArgumentException("The width cannot be < columnIndex,");
-        }
-
-        dimensions.setSize(width, dimensions.height);
-        boundingBox.setSize(dimensions);
-    }
-
-    /**
-     * Sets a new value for the height.
-     *
-     * @param height
-     *         The new height, in characters, of the component.
-     *
-     * @throws java.lang.IllegalArgumentException
-     *         If the height is < 0 or the height is < rowIndex.
-     */
-    public void setHeight(final int height) {
-        if (height < 0) {
-            throw new IllegalArgumentException("The height cannot be < 0.");
-        }
-
-        if (height < position.y) {
-            throw new IllegalArgumentException("The height cannot be < rowIndex,");
-        }
-
-        dimensions.setSize(dimensions.width, height);
-        boundingBox.setSize(dimensions);
-    }
 }
