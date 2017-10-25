@@ -74,7 +74,7 @@ public class Screen extends Component implements Receiver<String> {
                 final JSONObject arrayElement = (JSONObject) obj;
 
                 if (arrayElement != null) {
-                    final ComponentBuilder componentBuilder = loadElementFromJSON(arrayElement, super.getRadio());
+                    final ComponentBuilder componentBuilder = loadElementFromJSON(arrayElement);
 
                     if (componentBuilder != null) {
                         if (componentBuilder instanceof LayerBuilder) {
@@ -94,16 +94,13 @@ public class Screen extends Component implements Receiver<String> {
      * @param jsonObject
      *        The JSON.
      *
-     * @param radio
-     *        The radio for the element to use, if necessary.
-     *
      * @return
      *        The component.
      *
      * @throws IllegalArgumentException
      *        If the type of the element isn't supported.
      */
-    private ComponentBuilder loadElementFromJSON(final @NonNull JSONObject jsonObject, final @NonNull Radio<String> radio) {
+    private ComponentBuilder loadElementFromJSON(final @NonNull JSONObject jsonObject) {
         String componentType = (String) jsonObject.get("type");
 
         if (componentType == null) {
@@ -158,7 +155,7 @@ public class Screen extends Component implements Receiver<String> {
                     for (final Object object : radioButtons) {
                         final JSONObject buttonJSON = (JSONObject) object;
 
-                        final RadioButtonBuilder builder = (RadioButtonBuilder) loadElementFromJSON(buttonJSON, radio);
+                        final RadioButtonBuilder builder = (RadioButtonBuilder) loadElementFromJSON(buttonJSON);
                         builder.setGroup(radioButtonGroup);
 
                         components.add(builder.build());
