@@ -149,10 +149,8 @@ public class Button extends Component {
             @Override
             public void mouseMoved(MouseEvent e) {
                 if (intersects(e, fontWidth, fontHeight)) {
-                    System.out.println("Moved & Hovering");
                     setStateHovered();
                 } else {
-                    System.out.println("Moved & Normal");
                     setStateNormal();
                 }
             }
