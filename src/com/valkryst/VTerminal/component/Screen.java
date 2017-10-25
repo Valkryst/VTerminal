@@ -395,8 +395,6 @@ public class Screen extends Component implements Receiver<String> {
 
     @Override
     public void setPosition(final Point position) {
-        super.setPosition(position);
-
         // Recalculate bounding box positions.
         for (final Component component : getComponents()) {
             final Rectangle boundingBox = component.getBoundingBox();
@@ -404,6 +402,8 @@ public class Screen extends Component implements Receiver<String> {
             final int y = boundingBox.y - super.getPosition().y + position.y;
             component.getBoundingBox().setLocation(x, y);
         }
+
+        super.setPosition(position);
     }
 
     /**
