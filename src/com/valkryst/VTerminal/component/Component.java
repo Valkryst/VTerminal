@@ -350,6 +350,7 @@ public class Component {
         final int x = boundingBox.x - this.position.x + position.x;
         final int y = boundingBox.y - this.position.y + position.y;
         this.boundingBox.setLocation(x, y);
+        System.out.println("Moved to " + boundingBox.x + " " + boundingBox.y);
 
         this.position.setLocation(position);
     }
