@@ -107,6 +107,7 @@ public class PanelBuilder {
             screenBuilder.setHeight(heightInCharacters);
 
             screen = screenBuilder.build();
+            screen.setRadio(radio);
         }
 
         if (frame == null) {
