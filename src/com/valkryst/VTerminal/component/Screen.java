@@ -61,8 +61,10 @@ public class Screen extends Component implements Receiver<String> {
 
     @Override
     public void receive(final String event, final String data) {
-        if (event.equals("DRAW")) {
-            transmitDraw();
+        if (radio != null) {
+            if (event.equals("DRAW")) {
+                transmitDraw();
+            }
         }
     }
 
