@@ -58,7 +58,7 @@ public class PanelBuilder {
     public Panel build() {
         checkState();
 
-        final Color backgroundColor = new Color(255, 0, 255, 255);
+        final Color backgroundColor = new Color(45, 45, 45, 255);
 
         final Panel panel = new Panel(this);
         frame.add(panel);
