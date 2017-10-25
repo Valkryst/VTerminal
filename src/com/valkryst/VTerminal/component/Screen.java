@@ -581,6 +581,7 @@ public class Screen extends Component implements Receiver<String> {
         final int boundingBoxX = boundingBox.x - super.getPosition().x;
         final int boundingBoxY = boundingBox.y - super.getPosition().y;
         component.getBoundingBox().setLocation(boundingBoxX, boundingBoxY);
+        System.out.println("Placed at " + boundingBox.x + " " + boundingBox.y);
 
         componentsLock.writeLock().unlock();
 
