@@ -158,7 +158,7 @@ public class Screen extends Component implements Receiver<String> {
                         final RadioButtonBuilder builder = (RadioButtonBuilder) loadElementFromJSON(buttonJSON);
                         builder.setGroup(radioButtonGroup);
 
-                        components.add(builder.build());
+                        addComponent(builder.build());
                     }
                 }
 
