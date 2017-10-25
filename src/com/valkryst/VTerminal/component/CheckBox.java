@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal.component;
 
 
-import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.CheckBoxBuilder;
 import com.valkryst.VTerminal.font.Font;
@@ -105,34 +104,6 @@ public class CheckBox extends Button {
 
         super.getEventListeners().add(mouseListener);
         super.getEventListeners().add(mouseMotionListener);
-    }
-
-    /**
-     * Sets the empty box character of the box's text.
-     *
-     * @param emptyBoxChar
-     *         The new empty box character.
-     */
-    public void setEmptyBoxCharacter(final char emptyBoxChar) {
-        this.emptyBoxChar = emptyBoxChar;
-
-        super.getString(0).getCharacters()[0].setCharacter(emptyBoxChar);
-    }
-
-    /**
-     * Sets the checked character of the box's text.
-     *
-     * @param checkedBoxChar
-     *         The new checked box character.
-     *
-     * @throws NullPointerException
-     *         If the color is null.
-     */
-    public void setCheckedBoxCharacter(final char checkedBoxChar) {
-        this.checkedBoxChar = checkedBoxChar;
-
-        final AsciiCharacter[] characters = super.getString(0).getCharacters();
-        super.getString(0).setCharacter(characters.length - 1, checkedBoxChar);
     }
 
     /** Checks the check box. */
