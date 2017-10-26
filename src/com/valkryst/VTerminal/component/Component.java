@@ -298,14 +298,6 @@ public class Component {
         throw new IllegalArgumentException("The position (" + position.x + " columnIndex, " + position.y + " rowIndex) is invalid.");
     }
 
-    public int getWidth() {
-        return dimensions.width;
-    }
-
-    public int getHeight() {
-        return dimensions.height;
-    }
-
     /**
      * Sets a new position.
      *
@@ -323,5 +315,25 @@ public class Component {
 
         this.position.setLocation(position);
         this.boundingBox.setLocation(position);
+    }
+
+    /**
+     * Retrieves the width of the component.
+     *
+     * @return
+     *         The width.
+     */
+    public int getWidth() {
+        return dimensions.width;
+    }
+
+    /**
+     * Retrieves the height of the component.
+     *
+     * @return
+     *         The height.
+     */
+    public int getHeight() {
+        return dimensions.height;
     }
 }
