@@ -126,7 +126,7 @@ public class SampleComponents {
         // Variable Width Text Field
         textFieldBuilder.setRowIndex(16);
         textFieldBuilder.setWidth(20);
-        textFieldBuilder.setMaxCharacters(40);
+        textFieldBuilder.setMaxHorizontalCharacters(40);
 
         panel.addComponent(textFieldBuilder.build());
 
