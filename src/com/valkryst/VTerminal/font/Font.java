@@ -84,10 +84,22 @@ public class Font {
         return characterImages.get(character);
     }
 
+    /**
+     * Retrieves the width of a character cell.
+     *
+     * @return
+     *         The width of a character cell.
+     */
     public int getWidth() {
         return dimensions.width;
     }
 
+    /**
+     * Retrieves the height of a character cell.
+     *
+     * @return
+     *         The height of a character cell.
+     */
     public int getHeight() {
         return dimensions.height;
     }
