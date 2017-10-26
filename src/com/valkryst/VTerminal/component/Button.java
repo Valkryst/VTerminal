@@ -5,7 +5,6 @@ import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.ButtonBuilder;
 import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.misc.IntRange;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -101,9 +100,7 @@ public class Button extends Component {
 
         final MouseListener mouseListener = new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
+            public void mouseClicked(MouseEvent e) {}
 
             @Override
             public void mousePressed(MouseEvent e) {
@@ -130,21 +127,15 @@ public class Button extends Component {
             }
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
+            public void mouseEntered(MouseEvent e) {}
 
             @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
+            public void mouseExited(MouseEvent e) {}
         };
 
         final MouseMotionListener mouseMotionListener = new MouseMotionListener() {
             @Override
-            public void mouseDragged(MouseEvent e) {
-
-            }
+            public void mouseDragged(MouseEvent e) {}
 
             @Override
             public void mouseMoved(MouseEvent e) {
@@ -231,34 +222,6 @@ public class Button extends Component {
             s.setBackgroundColor(backgroundColor);
             s.setForegroundColor(foregroundColor);
         }
-    }
-
-    /**
-     * Enables the blink effect on the button's text, but not on the starting and
-     * ending characters.
-     *
-     * @param millsBetweenBlinks
-     *         The amount of time, in milliseconds, before the blink effect can
-     *         occur.
-     */
-    public void enableBlinkEffect(final short millsBetweenBlinks) {
-        final int beginIndex = 1;
-        final int endIndex = super.getString(0).getCharacters().length - 1;
-        final IntRange range = new IntRange(beginIndex, endIndex);
-
-        super.getString(0).enableBlinkEffect(millsBetweenBlinks, getRadio(), range);
-    }
-
-    /**
-     * Disables the blink effect on the button's text, but not on the starting
-     * and ending characters.
-     */
-    public void disableBlinkEffect() {
-        final int beginIndex = 1;
-        final int endIndex = super.getString(0).getCharacters().length - 1;
-        final IntRange range = new IntRange(beginIndex, endIndex);
-
-        super.getString(0).disableBlinkEffect(range);
     }
 
     /**
