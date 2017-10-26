@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal;
 
 import com.valkryst.VRadio.Radio;
-import com.valkryst.VTerminal.misc.ColorFunctions;
 import com.valkryst.VTerminal.misc.ImageCache;
 import lombok.Getter;
 import lombok.NonNull;
@@ -220,99 +219,6 @@ public class AsciiCharacter {
         final Color temp = backgroundColor;
         setBackgroundColor(foregroundColor);
         setForegroundColor(temp);
-    }
-
-    /**
-     * Shades the background color by some factor, where a higher factor results
-     * in a darker shade.
-     *
-     * @param tintFactor
-     *        The factor.
-     *
-     *        Values should range from 0.0 to 1.0.
-     */
-    public void tintBackgroundColor(final double tintFactor) {
-        backgroundColor = ColorFunctions.tint(backgroundColor, tintFactor);
-        updateCacheHash = true;
-        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
-    }
-
-
-    /**
-     * Shades the foreground color by some factor, where a higher factor results
-     * in a darker shade.
-     *
-     * @param tintFactor
-     *        The factor.
-     *
-     *        Values should range from 0.0 to 1.0.
-     */
-    public void tintForegroundColor(final double tintFactor) {
-        foregroundColor = ColorFunctions.tint(foregroundColor, tintFactor);
-        updateCacheHash = true;
-        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
-    }
-
-    /**
-     * Shades the background and foreground color by some factor, where a higher
-     * factor results in a darker shade.
-     *
-     * @param tintFactor
-     *        The factor.
-     *
-     *        Values should range from 0.0 to 1.0.
-     */
-    public void tintBackgroundAndForegroundColor(final double tintFactor) {
-        tintBackgroundColor(tintFactor);
-        tintForegroundColor(tintFactor);
-        updateCacheHash = true;
-        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
-    }
-
-    /**
-     * Tints the background color by some factor, where a higher factor results
-     * in a lighter tint.
-     *
-     * @param shadeFactor
-     *        The factor.
-     *
-     *        Values should range from 0.0 to 1.0.
-     */
-    public void shadeBackgroundColor(final double shadeFactor) {
-        backgroundColor = ColorFunctions.shade(backgroundColor, shadeFactor);
-        updateCacheHash = true;
-        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
-    }
-
-    /**
-     * Tints the foreground color by some factor, where a higher factor results
-     * in a lighter tint.
-     *
-     * @param shadeFactor
-     *        The factor.
-     *
-     *        Values should range from 0.0 to 1.0.
-     */
-    public void shadeForegroundColor(final double shadeFactor) {
-        foregroundColor = ColorFunctions.shade(foregroundColor, shadeFactor);
-        updateCacheHash = true;
-        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
-    }
-
-    /**
-     * Tints the background and foreground color by some factor, where a higher
-     * factor results in a lighter tint.
-     *
-     * @param shadeFactor
-     *        The factor.
-     *
-     *        Values should range from 0.0 to 1.0.
-     */
-    public void shadeBackgroundAndForegroundColor(final double shadeFactor) {
-        shadeBackgroundColor(shadeFactor);
-        shadeForegroundColor(shadeFactor);
-        updateCacheHash = true;
-        foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
     }
 
     /**
