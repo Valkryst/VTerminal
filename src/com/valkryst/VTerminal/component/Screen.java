@@ -56,7 +56,22 @@ public class Screen extends Component implements Receiver<String> {
         setBackgroundColor(new Color(45, 45, 45, 255));
 
         if (builder.getJsonObject() != null) {
-            parseJSON(builder.getJsonObject());
+            final JSONArray components = (JSONArray) builder.getJsonObject().get("components");
+
+            if (components != null) {
+                for (final Object obj : components) {
+                    final JSONObject arrayElement = (JSONObject) obj;
+
+                    if (arrayElement != null) {
+                        final ComponentBuilder componentBuilder = loadElementFromJSON(arrayElement);
+
+                        if (componentBuilder != null) {
+                            final Component component = componentBuilder.build();
+                            addComponent(component);
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -65,25 +80,6 @@ public class Screen extends Component implements Receiver<String> {
         if (radio != null) {
             if (event.equals("DRAW")) {
                 transmitDraw();
-            }
-        }
-    }
-
-    private void parseJSON(final @NonNull JSONObject jsonObject) {
-        final JSONArray components = (JSONArray) jsonObject.get("components");
-
-        if (components != null) {
-            for (final Object obj : components) {
-                final JSONObject arrayElement = (JSONObject) obj;
-
-                if (arrayElement != null) {
-                    final ComponentBuilder componentBuilder = loadElementFromJSON(arrayElement);
-
-                    if (componentBuilder != null) {
-                        final Component component = componentBuilder.build();
-                        addComponent(component);
-                    }
-                }
             }
         }
     }
