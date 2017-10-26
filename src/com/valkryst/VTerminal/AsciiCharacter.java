@@ -191,21 +191,6 @@ public class AsciiCharacter {
         blinkTimer.start();
     }
 
-    /** Resumes the blink effect. */
-    public void resumeBlinkEffect() {
-        if (blinkTimer != null && blinkTimer.isRunning() == false) {
-            blinkTimer.start();
-        }
-    }
-
-    /** Pauses the blink effect. */
-    public void pauseBlinkEffect() {
-        if (blinkTimer != null && blinkTimer.isRunning()) {
-            isHidden = false;
-            blinkTimer.stop();
-        }
-    }
-
     /** Disables the blink effect. */
     public void disableBlinkEffect() {
         if (blinkTimer != null) {
