@@ -46,6 +46,7 @@ public class AsciiCharacter {
 	/** The amount of time, in milliseconds, before the blink effect can occur. */
 	@Getter private short millsBetweenBlinks = 1000;
 
+	/** Whether or not the foreground and background colors are equal. */
 	@Getter private boolean foregroundAndBackgroundColorEqual = false;
 
     /**
