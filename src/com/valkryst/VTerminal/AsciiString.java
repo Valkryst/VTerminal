@@ -798,7 +798,7 @@ public class AsciiString {
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            characters[columnIndex].setFlippedVertically(true);
+            characters[columnIndex].setFlippedVertically(flipVertically);
         }
     }
 
