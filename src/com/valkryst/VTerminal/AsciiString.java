@@ -628,9 +628,13 @@ public class AsciiString {
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             if (applyToBackground) {
-                characters[columnIndex].tintBackgroundColor(tintFactor);
+                Color color = characters[columnIndex].getBackgroundColor();
+                color = ColorFunctions.tint(color, tintFactor);
+                characters[columnIndex].setBackgroundColor(color);
             } else {
-                characters[columnIndex].tintForegroundColor(tintFactor);
+                Color color = characters[columnIndex].getForegroundColor();
+                color = ColorFunctions.tint(color, tintFactor);
+                characters[columnIndex].setForegroundColor(color);
             }
         }
     }
@@ -683,9 +687,13 @@ public class AsciiString {
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             if (applyToBackground) {
-                characters[columnIndex].shadeBackgroundColor(shadeFactor);
+                Color color = characters[columnIndex].getBackgroundColor();
+                color = ColorFunctions.shade(color, shadeFactor);
+                characters[columnIndex].setBackgroundColor(color);
             } else {
-                characters[columnIndex].shadeForegroundColor(shadeFactor);
+                Color color = characters[columnIndex].getForegroundColor();
+                color = ColorFunctions.shade(color, shadeFactor);
+                characters[columnIndex].setForegroundColor(color);
             }
         }
     }
