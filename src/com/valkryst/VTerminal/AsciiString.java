@@ -433,20 +433,6 @@ public class AsciiString {
         }
     }
 
-    /** Resumes the blink effect for every character. */
-    public void resumeBlinkEffect() {
-        for (final AsciiCharacter c : characters) {
-            c.resumeBlinkEffect();
-        }
-    }
-
-    /** Pauses the blink effect for every character. */
-    public void pauseBlinkEffect() {
-        for (final AsciiCharacter c : characters) {
-            c.pauseBlinkEffect();
-        }
-    }
-
     /** Disables the blink effect for every character. */
     public void disableBlinkEffect() {
         for (final AsciiCharacter c : characters) {
@@ -481,51 +467,6 @@ public class AsciiString {
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             characters[columnIndex].enableBlinkEffect(millsBetweenBlinks, radio);
-        }
-    }
-
-
-    /**
-     * Resumes the blink effect for every character in the specified range.
-     *
-     * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the
-     *         resume between.
-     *
-     *         Includes the first index and excludes the last index.
-     *
-     * @throws NullPointerException
-     *         If the range is null.
-     */
-    public void resumeBlinkEffect(final @NonNull IntRange range) {
-        final int beginIndex = range.getStart();
-        final int endIndex = range.getEnd();
-
-        for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            characters[columnIndex].resumeBlinkEffect();
-        }
-    }
-
-    /**
-     * Pauses the blink effect for every character in the specified range.
-     *
-     * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end the
-     *         pause between.
-     *
-     *         Includes the first index and excludes the last index.
-     *
-     * @throws NullPointerException
-     *         If the range is null.
-     */
-    public void pauseBlinkEffect(final @NonNull IntRange range) {
-        checkRangeValidity(range);
-
-        final int beginIndex = range.getStart();
-        final int endIndex = range.getEnd();
-
-        for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            characters[columnIndex].pauseBlinkEffect();
         }
     }
 
