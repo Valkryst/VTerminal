@@ -197,7 +197,7 @@ public class Screen extends Component implements Receiver<String> {
     }
 
     /**
-     * Draws the screen onto the specified graphics context..
+     * Draws the screen onto the specified graphics context.
      *
      * @param gc
      *         The graphics context to draw with.
@@ -213,7 +213,7 @@ public class Screen extends Component implements Receiver<String> {
     }
 
     /**
-     * Draws the screen onto the specified graphics context..
+     * Draws the screen onto the specified graphics context.
      *
      * @param gc
      *         The graphics context to draw with.
@@ -462,25 +462,6 @@ public class Screen extends Component implements Receiver<String> {
     public void setForegroundColor(final @NonNull Color color) {
         for (final AsciiString string : getStrings()) {
             string.setForegroundColor(color);
-        }
-    }
-
-    /**
-     * Sets the background and foreground color of all characters.
-     *
-     * @param background
-     *         The new background color.
-     *
-     * @param foreground
-     *         The new foreground color.
-     *
-     * @throws NullPointerException
-     *         If the background or foreground color is null.
-     */
-    public void setBackgroundAndForegroundColor(final @NonNull Color background, final @NonNull Color foreground) {
-        for (final AsciiString string : getStrings()) {
-            string.setBackgroundColor(background);
-            string.setForegroundColor(foreground);
         }
     }
 
