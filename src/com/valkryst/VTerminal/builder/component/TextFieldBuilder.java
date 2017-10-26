@@ -24,6 +24,8 @@ public class TextFieldBuilder extends TextAreaBuilder {
     protected void checkState() throws NullPointerException {
         super.checkState();
 
+        super.setHeight(1);
+
         if (super.getMaxHorizontalCharacters() < 1) {
             throw new IllegalArgumentException("The maximum characters cannot be less than one.");
         }
@@ -47,6 +49,8 @@ public class TextFieldBuilder extends TextAreaBuilder {
     public void reset() {
         super.reset();
 
+        super.setHeight(1);
+        
         super.setMaxVerticalCharacters(1);
 
         super.setPageUpKeyEnabled(false);
