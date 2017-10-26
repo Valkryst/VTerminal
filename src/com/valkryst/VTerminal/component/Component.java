@@ -256,24 +256,6 @@ public class Component {
         }
     }
 
-    /** Resumes the blink effect for every character. */
-    public void resumeBlinkEffect() {
-        for (final AsciiString s: strings) {
-            for (final AsciiCharacter c : s.getCharacters()) {
-                c.resumeBlinkEffect();
-            }
-        }
-    }
-
-    /** Pauses the blink effect for every character. */
-    public void pauseBlinkEffect() {
-        for (final AsciiString s: strings) {
-            for (final AsciiCharacter c : s.getCharacters()) {
-                c.pauseBlinkEffect();
-            }
-        }
-    }
-
     /** Disables the blink effect for every character. */
     public void disableBlinkEffect() {
         for (final AsciiString s: strings) {
