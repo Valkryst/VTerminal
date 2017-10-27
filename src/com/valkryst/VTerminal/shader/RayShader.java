@@ -8,7 +8,7 @@ import lombok.NonNull;
 import java.awt.image.BufferedImage;
 
 @Data
-public class RaysShader implements Shader {
+public class RayShader implements Shader {
     private float opacity = 1.0F;
     private float threshold = 0.0F;
     private float strength = 0.5F;
