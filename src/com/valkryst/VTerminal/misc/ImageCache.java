@@ -272,7 +272,7 @@ public final class ImageCache {
      * @throws NullPointerException
      *         If the image is null.
      */
-    private static BufferedImage cloneImage(final @NonNull BufferedImage image) {
+    public static BufferedImage cloneImage(final @NonNull BufferedImage image) {
         final BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
         final Graphics g = newImage.getGraphics();
         g.drawImage(image, 0, 0, null);
