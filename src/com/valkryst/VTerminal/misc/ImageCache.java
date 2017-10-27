@@ -133,7 +133,7 @@ public final class ImageCache {
     public VolatileImage loadIntoCache(final @NonNull AsciiCharacter character) {
         BufferedImage bufferedImage;
         bufferedImage = applyColorSwap(character, font);
-        bufferedImage = applyFlips(character, font, bufferedImage);
+        bufferedImage = applyFlips(character, bufferedImage);
 
         for (final Shader shader : shaders) {
             bufferedImage = shader.run(bufferedImage);
@@ -234,24 +234,21 @@ public final class ImageCache {
      * @param character
      *        The character.
      *
-     * @param font
-     *        The font to retrieve the base character image from.
-     *
      * @param image
      *        The character image.
      *
      * @return
      *        The flipped character image.
      */
-    private static BufferedImage applyFlips(final @NonNull AsciiCharacter character, final @NonNull Font font, final @NonNull BufferedImage image) {
+    private static BufferedImage applyFlips(final @NonNull AsciiCharacter character, final @NonNull BufferedImage image) {
         final boolean isFlippedHorizontally = character.isFlippedHorizontally();
         final boolean isFlippedVertically = character.isFlippedVertically();
 
         if (isFlippedHorizontally || isFlippedVertically) {
             final double scaleX = isFlippedHorizontally ? -1 : 1;
             final double scaleY = isFlippedVertically ? -1 : 1;
-            final double translateX = isFlippedHorizontally ? -font.getWidth() : 0;
-            final double translateY = isFlippedVertically ? -font.getHeight() : 0;
+            final double translateX = isFlippedHorizontally ? -image.getWidth() : 0;
+            final double translateY = isFlippedVertically ? -image.getHeight() : 0;
 
             final AffineTransform tx = AffineTransform.getScaleInstance(scaleX, scaleY);
             tx.translate(translateX, translateY);
