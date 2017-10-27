@@ -161,7 +161,7 @@ public final class ImageCache {
      * @throws NullPointerException
      *         If the character or font are null.
      */
-    public static BufferedImage applyColorSwap(final @NonNull AsciiCharacter character, final @NonNull Font font) {
+    private static BufferedImage applyColorSwap(final @NonNull AsciiCharacter character, final @NonNull Font font) {
         BufferedImage image;
 
         try {
