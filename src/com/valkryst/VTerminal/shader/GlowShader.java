@@ -1,0 +1,21 @@
+package com.valkryst.VTerminal.shader;
+
+import com.jhlabs.image.GlowFilter;
+import lombok.Data;
+import lombok.NonNull;
+
+import java.awt.image.BufferedImage;
+
+@Data
+public class GlowShader implements Shader {
+    private float amount = 0.5f;
+    private int radius = 2;
+
+    @Override
+    public BufferedImage run(@NonNull BufferedImage bufferedImage) {
+        final GlowFilter filter = new GlowFilter();
+        filter.setAmount(amount);
+        filter.setRadius(radius);
+        return filter.filter(bufferedImage, null);
+    }
+}
