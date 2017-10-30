@@ -4,6 +4,7 @@ import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.misc.ColorFunctions;
 import com.valkryst.VTerminal.misc.ImageCache;
 import com.valkryst.VTerminal.misc.IntRange;
+import com.valkryst.VTerminal.shader.Shader;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -836,6 +837,60 @@ public class AsciiString {
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             characters[columnIndex].setUnderlined(underline);
+        }
+    }
+
+    /**
+     * Adds one or more shaders to all characters.
+     *
+     * @param shaders
+     *          The shaders.
+     */
+    public void addShaders(final @NonNull Shader ... shaders) {
+        addShaders(new IntRange(0, characters.length), shaders);
+    }
+
+    /**
+     * Adds one or more shaders to a range of characters.
+     *
+     * @param shaders
+     *          The shaders.
+     */
+    public void addShaders(final @NonNull IntRange range, final @NonNull Shader ... shaders) {
+        checkRangeValidity(range);
+
+        final int beginIndex = range.getStart();
+        final int endIndex = range.getEnd();
+
+        for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+            characters[columnIndex].addShaders(shaders);
+        }
+    }
+
+    /**
+     * Removes one or more shaders from a range of characters.
+     *
+     * @param shaders
+     *          The shaders.
+     */
+    public void removeShaders(final @NonNull Shader ... shaders) {
+        removeShaders(new IntRange(0, characters.length), shaders);
+    }
+
+    /**
+     * Removes one or more shaders to a range of characters.
+     *
+     * @param shaders
+     *          The shaders.
+     */
+    public void removeShaders(final @NonNull IntRange range, final @NonNull Shader ... shaders) {
+        checkRangeValidity(range);
+
+        final int beginIndex = range.getStart();
+        final int endIndex = range.getEnd();
+
+        for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+            characters[columnIndex].removeShaders(shaders);
         }
     }
 }
