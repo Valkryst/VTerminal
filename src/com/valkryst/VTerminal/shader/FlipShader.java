@@ -15,6 +15,23 @@ public class FlipShader implements Shader {
     /** Whether or not the image should be flipped vertically. */
     private boolean isFlippedVertically = false;
 
+    /** Constructs a new FlipShader. */
+    public FlipShader() {}
+
+    /**
+     * Constructs a new FlipShader.
+     *
+     * @param isFlippedHorizontally
+     *          Whether or not the image should be flipped horizontally.
+     *
+     * @param isFlippedVertically
+     *          Whether or not the image should be flipped vertically.
+     */
+    public FlipShader(final boolean isFlippedHorizontally, final boolean isFlippedVertically) {
+        this.isFlippedHorizontally = isFlippedHorizontally;
+        this.isFlippedVertically = isFlippedVertically;
+    }
+
     @Override
     public BufferedImage run(final @NonNull BufferedImage image) {
         if (isFlippedHorizontally || isFlippedVertically) {
