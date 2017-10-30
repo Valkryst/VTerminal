@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.shader;
 
 import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.AsciiTile;
 import lombok.NonNull;
 
 import java.awt.Color;
@@ -10,6 +11,14 @@ import java.awt.image.BufferedImage;
 public class TextBoldShader implements Shader {
     @Override
     public BufferedImage run(final @NonNull BufferedImage image, final @NonNull AsciiCharacter character) {
+        if (character instanceof AsciiTile) {
+            return image;
+        }
+
+        if (character.isForegroundAndBackgroundColorEqual()) {
+            return image;
+        }
+
         try {
             // Get the character image:
             final BufferedImage charImage = swapColor(image, character.getBackgroundColor(), new Color(0, 0, 0, 0));

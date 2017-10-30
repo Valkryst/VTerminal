@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.shader;
 
 import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.AsciiTile;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -17,6 +18,14 @@ public class TextShadowShader implements Shader {
 
     @Override
     public BufferedImage run(final @NonNull BufferedImage image, final @NonNull AsciiCharacter character) {
+        if (character instanceof AsciiTile) {
+            return image;
+        }
+
+        if (character.isForegroundAndBackgroundColorEqual()) {
+            return image;
+        }
+
         // Get the normal & background character images:
         final BufferedImage normalChar = swapColor(image, character.getBackgroundColor(), new Color(0, 0, 0, 0));
         final BufferedImage shadowChar = swapColor(normalChar, character.getForegroundColor(), Color.BLACK);
