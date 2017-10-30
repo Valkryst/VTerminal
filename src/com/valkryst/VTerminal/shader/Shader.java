@@ -20,10 +20,10 @@ public interface Shader {
     BufferedImage run(final @NonNull BufferedImage image);
 
     /**
-     * Creates a copy of the shader.
+     * Returns a copy of the shader.
      *
      * @return
-     *         A copy of the shader.
+     *
      */
     Shader copy();
 
