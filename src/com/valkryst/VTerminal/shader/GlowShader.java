@@ -12,10 +12,10 @@ public class GlowShader implements Shader {
     private int radius = 2;
 
     @Override
-    public BufferedImage run(@NonNull BufferedImage bufferedImage) {
+    public BufferedImage run(final @NonNull BufferedImage image) {
         final GlowFilter filter = new GlowFilter();
         filter.setAmount(amount);
         filter.setRadius(radius);
-        return filter.filter(bufferedImage, null);
+        return filter.filter(image, null);
     }
 }
