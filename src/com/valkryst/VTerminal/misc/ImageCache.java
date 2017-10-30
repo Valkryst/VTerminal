@@ -11,10 +11,7 @@ import lombok.NonNull;
 import lombok.ToString;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
 import java.awt.image.VolatileImage;
 import java.util.concurrent.TimeUnit;
 
@@ -128,7 +125,6 @@ public final class ImageCache {
     public VolatileImage loadIntoCache(final @NonNull AsciiCharacter character) {
         BufferedImage bufferedImage;
         bufferedImage = applyColorSwap(character, font);
-        bufferedImage = applyFlips(character, bufferedImage);
 
         for (final Shader shader : character.getShaders()) {
             bufferedImage = shader.run(bufferedImage);
@@ -218,38 +214,6 @@ public final class ImageCache {
                     }
                 }
             }
-        }
-
-        return image;
-    }
-
-    /**
-     * Performs a vertical and/or horizontal flip on a character's image.
-     *
-     * @param character
-     *        The character.
-     *
-     * @param image
-     *        The character image.
-     *
-     * @return
-     *        The flipped character image.
-     */
-    private static BufferedImage applyFlips(final @NonNull AsciiCharacter character, final @NonNull BufferedImage image) {
-        final boolean isFlippedHorizontally = character.isFlippedHorizontally();
-        final boolean isFlippedVertically = character.isFlippedVertically();
-
-        if (isFlippedHorizontally || isFlippedVertically) {
-            final double scaleX = isFlippedHorizontally ? -1 : 1;
-            final double scaleY = isFlippedVertically ? -1 : 1;
-            final double translateX = isFlippedHorizontally ? -image.getWidth() : 0;
-            final double translateY = isFlippedVertically ? -image.getHeight() : 0;
-
-            final AffineTransform tx = AffineTransform.getScaleInstance(scaleX, scaleY);
-            tx.translate(translateX, translateY);
-
-            final BufferedImageOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-            return op.filter(image, null);
         }
 
         return image;
