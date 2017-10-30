@@ -7,6 +7,7 @@ import com.valkryst.VTerminal.AsciiTile;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.ComponentBuilder;
 import com.valkryst.VTerminal.font.Font;
+import com.valkryst.VTerminal.shader.Shader;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -262,6 +263,30 @@ public class Component {
             for (final AsciiCharacter c : s.getCharacters()) {
                 c.disableBlinkEffect();
             }
+        }
+    }
+
+    /**
+     * Adds one or more shaders to every character of the component.
+     *
+     * @param shaders
+     *          The shaders.
+     */
+    public void addShaders(final @NonNull Shader... shaders) {
+        for (final AsciiString string : strings) {
+            string.addShaders(shaders);
+        }
+    }
+
+    /**
+     * Removes one or more shaders from every character of the component.
+     *
+     * @param shaders
+     *          The shaders.
+     */
+    public void removeShaders(final @NonNull Shader ... shaders) {
+        for (final AsciiString string : strings) {
+            string.removeShaders(shaders);
         }
     }
 
