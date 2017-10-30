@@ -99,6 +99,13 @@ public class SampleShaders {
         label.addShaders(new TextGlowShader());
         screen.addComponent(label);
 
+
+        labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
+        labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using TextBoldShader.");
+        label = labelBuilder.build();
+        label.addShaders(new TextBoldShader());
+        screen.addComponent(label);
+
         panel.draw();
     }
 }
