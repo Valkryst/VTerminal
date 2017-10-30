@@ -7,9 +7,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-/**
- * The TextGlowShader cannot be combined with the TextShadowShader.
- */
 public class TextGlowShader implements Shader {
     @Override
     public BufferedImage run(final @NonNull BufferedImage image) {
