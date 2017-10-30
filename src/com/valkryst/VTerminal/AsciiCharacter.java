@@ -89,6 +89,10 @@ public class AsciiCharacter {
      *        The other AsciiCharacter.
      */
     public void copy(final @NonNull AsciiCharacter character) {
+        for (final Shader shader : character.getShaders()) {
+            shaders.add(shader.copy());
+        }
+
         this.character = character.getCharacter();
 
         isHidden = character.isHidden();
