@@ -98,7 +98,7 @@ public class TextShadowShader implements Shader {
      *          The result image.
      */
     private static BufferedImage swapColor(final @NonNull BufferedImage image, final @NonNull Color oldColor, final @NonNull Color newColor) {
-        BufferedImage result = ImageCache.cloneImage(image);
+        final BufferedImage result = ImageCache.cloneImage(image);
 
         final int newRGB = newColor.getRGB();
         final int oldRGB = oldColor.getRGB();
