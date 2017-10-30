@@ -7,6 +7,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+/**
+ * The TextShadowShader cannot be combined with the TextGlowShader.
+ */
 @Data
 public class TextShadowShader implements Shader {
     /** The offset to draw the shadow at, on the x-axis. */
