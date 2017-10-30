@@ -14,6 +14,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -311,36 +312,13 @@ public class AsciiCharacter {
     }
 
     /**
-     * Adds a shader to the character.
-     *
-     * @param shader
-     *          The shader.
-     */
-    public void addShader(final @NonNull Shader shader) {
-        shaders.add(shader);
-        updateCacheHash = true;
-    }
-
-    /**
      * Adds one or more shaders to the character.
      *
      * @param shaders
      *          The shaders.
      */
     public void addShaders(final @NonNull Shader ... shaders) {
-        for (final Shader shader : shaders) {
-            addShader(shader);
-        }
-    }
-
-    /**
-     * Removes a shader from the character.
-     *
-     * @param shader
-     *          The shader.
-     */
-    public void removeShader(final @NonNull Shader shader) {
-        shaders.remove(shader);
+        this.shaders.addAll(Arrays.asList(shaders));
         updateCacheHash = true;
     }
 
@@ -351,8 +329,7 @@ public class AsciiCharacter {
      *          The shaders.
      */
     public void removeShaders(final @NonNull Shader ... shaders) {
-        for (final Shader shader : shaders) {
-            removeShader(shader);
-        }
+        this.shaders.removeAll(Arrays.asList(shaders));
+        updateCacheHash = true;
     }
 }
