@@ -589,8 +589,7 @@ public class Screen extends Component implements Receiver<String> {
             string.setBackgroundColor(new Color(45, 45, 45, 255), redrawRange);
             string.setForegroundColor(Color.WHITE, redrawRange);
             string.setUnderlined(redrawRange, false);
-            string.setFlippedHorizontally(redrawRange, false);
-            string.setFlippedVertically(redrawRange, false);
+            string.removeAllShaders(redrawRange);
         }
     }
 
