@@ -43,7 +43,5 @@ public class ConstructorTest {
         Assert.assertEquals(69, character.getBoundingBox().y);
         Assert.assertEquals(true, character.isUnderlined());
         Assert.assertEquals(1, character.getUnderlineThickness());
-        Assert.assertEquals(true, character.isFlippedHorizontally());
-        Assert.assertEquals(true, character.isFlippedVertically());
     }
 }

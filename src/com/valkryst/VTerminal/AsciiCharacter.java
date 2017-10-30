@@ -2,6 +2,7 @@ package com.valkryst.VTerminal;
 
 import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.misc.ImageCache;
+import com.valkryst.VTerminal.shader.FlipShader;
 import com.valkryst.VTerminal.shader.Shader;
 import lombok.Getter;
 import lombok.NonNull;
@@ -43,11 +44,6 @@ public class AsciiCharacter {
 	@Getter @Setter private boolean isUnderlined = false;
     /** The thickness of the underline to draw beneath the character. */
 	@Getter private int underlineThickness = 2;
-
-	/** Whether or not the character should be flipped horizontally when drawn. */
-	@Getter private boolean isFlippedHorizontally = false;
-	/** Whether or not the character should be flipped vertically when drawn. */
-	@Getter private boolean isFlippedVertically = false;
 
 	private Timer blinkTimer;
 	/** The amount of time, in milliseconds, before the blink effect can occur. */
@@ -106,9 +102,6 @@ public class AsciiCharacter {
         isUnderlined = character.isUnderlined();
         underlineThickness = character.getUnderlineThickness();
 
-        isFlippedHorizontally = character.isFlippedHorizontally();
-        isFlippedVertically = character.isFlippedVertically();
-
         foregroundAndBackgroundColorEqual = character.isForegroundAndBackgroundColorEqual();
 
         updateCacheHash = true;
@@ -116,7 +109,7 @@ public class AsciiCharacter {
 
     /** Updates the cache hash value. */
     protected void updateCacheHash() {
-        cacheHash = Objects.hash(character, backgroundColor, foregroundColor, isFlippedHorizontally, isFlippedVertically, shaders);
+        cacheHash = Objects.hash(character, backgroundColor, foregroundColor, shaders);
     }
 
     /**
@@ -268,10 +261,16 @@ public class AsciiCharacter {
      *        Whether or not the character is flipped horizontally.
      */
     public void setFlippedHorizontally(final boolean isFlippedHorizontally) {
-        if (this.isFlippedHorizontally != isFlippedHorizontally) {
-            this.isFlippedHorizontally = isFlippedHorizontally;
-            updateCacheHash = true;
+        for (final Shader shader : shaders) {
+            if (shader instanceof FlipShader) {
+                ((FlipShader) shader).setFlippedHorizontally(isFlippedHorizontally);
+                return;
+            }
         }
+
+        final FlipShader flipShader = new FlipShader();
+        flipShader.setFlippedHorizontally(isFlippedHorizontally);
+        shaders.add(flipShader);
     }
 
     /**
@@ -281,10 +280,16 @@ public class AsciiCharacter {
      *        Whether or not the character is flipped vertically.
      */
     public void setFlippedVertically(final boolean isFlippedVertically) {
-        if (this.isFlippedVertically != isFlippedVertically) {
-            this.isFlippedVertically = isFlippedVertically;
-            updateCacheHash = true;
+        for (final Shader shader : shaders) {
+            if (shader instanceof FlipShader) {
+                ((FlipShader) shader).setFlippedVertically(isFlippedVertically);
+                return;
+            }
         }
+
+        final FlipShader flipShader = new FlipShader();
+        flipShader.setFlippedVertically(isFlippedVertically);
+        shaders.add(flipShader);
     }
 
     /**

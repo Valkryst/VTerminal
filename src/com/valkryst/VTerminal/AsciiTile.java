@@ -47,15 +47,11 @@ public class AsciiTile extends AsciiCharacter {
 
         super.setUnderlined(character.isUnderlined());
         super.setUnderlineThickness(character.getUnderlineThickness());
-
-        super.setFlippedHorizontally(character.isFlippedHorizontally());
-        super.setFlippedVertically(character.isFlippedVertically());
     }
 
     @Override
     protected void updateCacheHash() {
-        super.cacheHash = Objects.hash(super.getCharacter(), super.getBackgroundColor(), Color.WHITE,
-                                       super.isFlippedHorizontally(), super.isFlippedVertically());
+        super.cacheHash = Objects.hash(super.getCharacter(), super.getBackgroundColor(), Color.WHITE, super.getShaders());
     }
 
     /**

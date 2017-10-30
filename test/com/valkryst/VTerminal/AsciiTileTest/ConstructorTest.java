@@ -28,8 +28,6 @@ public class ConstructorTest {
         character.getBoundingBox().setLocation(68, 69);
         character.setUnderlined(true);
         character.setUnderlineThickness(1);
-        character.setFlippedHorizontally(true);
-        character.setFlippedVertically(true);
 
         final AsciiTile tile = new AsciiTile(character);
         Assert.assertEquals(true, tile.isHidden());
@@ -41,7 +39,5 @@ public class ConstructorTest {
         Assert.assertEquals(69, tile.getBoundingBox().y);
         Assert.assertEquals(true, tile.isUnderlined());
         Assert.assertEquals(1, tile.getUnderlineThickness());
-        Assert.assertEquals(true, tile.isFlippedHorizontally());
-        Assert.assertEquals(true, tile.isFlippedVertically());
     }
 }
