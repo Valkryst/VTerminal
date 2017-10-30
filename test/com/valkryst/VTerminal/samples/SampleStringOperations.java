@@ -5,6 +5,7 @@ import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
+import com.valkryst.VTerminal.shader.FlipShader;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -27,14 +28,13 @@ public class SampleStringOperations {
         screen.write("Writing a String on Line #3", new Point(0, 2));
 
         screen.write("Horizontally Flipping a String on Line #4", new Point(0, 3));
-        screen.getString(3).setFlippedHorizontally(true);
+        screen.getString(3).addShaders(new FlipShader(true, false));
 
         screen.write("Vertically Flipping a String on Line #5", new Point(0, 4));
-        screen.getString(4).setFlippedVertically(true);
+        screen.getString(4).addShaders(new FlipShader(false, true));
 
         screen.write("Vertically & Horizontally Flipping a String on Line #6", new Point(0, 5));
-        screen.getString(5).setFlippedHorizontally(true);
-        screen.getString(5).setFlippedVertically(true);
+        screen.getString(5).addShaders(new FlipShader(true, true));
 
         screen.write("Applying a Tint Gradient on Line #7", new Point(0, 6));
         screen.getString(6).applyTintGradient(Color.CYAN, true);
