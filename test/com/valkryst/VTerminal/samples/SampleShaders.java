@@ -66,6 +66,34 @@ public class SampleShaders {
 
 
         labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
+        labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using FlipShader.");
+        label = labelBuilder.build();
+        FlipShader flipShader = new FlipShader();
+        flipShader.setFlippedVertically(true);
+        label.addShaders(flipShader);
+        screen.addComponent(label);
+
+
+        labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
+        labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using FlipShader.");
+        label = labelBuilder.build();
+        flipShader = new FlipShader();
+        flipShader.setFlippedHorizontally(true);
+        label.addShaders(flipShader);
+        screen.addComponent(label);
+
+
+        labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
+        labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using FlipShader.");
+        label = labelBuilder.build();
+        flipShader = new FlipShader();
+        flipShader.setFlippedHorizontally(true);
+        flipShader.setFlippedVertically(true);
+        label.addShaders(flipShader);
+        screen.addComponent(label);
+
+
+        labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using GlowShader.");
         label = labelBuilder.build();
         label.addShaders(new GlowShader());
