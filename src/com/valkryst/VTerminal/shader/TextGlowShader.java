@@ -1,19 +1,13 @@
 package com.valkryst.VTerminal.shader;
 
 import com.jhlabs.image.GaussianFilter;
-import com.valkryst.VTerminal.shader.blur.GaussianBlurShader;
 import lombok.NonNull;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-public class TextGlowShader extends GaussianBlurShader {
-    /** Constructs a new TextGlowShader. */
-    public TextGlowShader() {
-        super.setRadius(4);
-    }
-
+public class TextGlowShader implements Shader {
     @Override
     public BufferedImage run(final @NonNull BufferedImage image) {
         try {
@@ -23,7 +17,7 @@ public class TextGlowShader extends GaussianBlurShader {
 
             // Generate glow image:
             final GaussianFilter filter = new GaussianFilter();
-            filter.setRadius(super.getRadius());
+            filter.setRadius(5);
             final BufferedImage glowImage = filter.filter(charImage, null);
 
             // Combine images and background:
