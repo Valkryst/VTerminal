@@ -731,79 +731,6 @@ public class AsciiString {
     }
 
     /**
-     * Sets all characters to either be flipped horizontally or not flipped
-     * horizontally when being drawn.
-     *
-     * @param flipHorizontally
-     *        Whether or not the characters should be flipped horizontally.
-     */
-    public void setFlippedHorizontally(final boolean flipHorizontally) {
-        setFlippedHorizontally(new IntRange(0, characters.length), flipHorizontally);
-    }
-
-    /**
-     * Sets all characters to either be flipped vertically or not flipped
-     * vertically when being drawn.
-     *
-     * @param flipVertically
-     *        Whether or not the characters should be flipped vertically.
-     */
-    public void setFlippedVertically(final boolean flipVertically) {
-        setFlippedVertically(new IntRange(0, characters.length), flipVertically);
-    }
-
-    /**
-     * Sets the specified range of characters to either be flipped horizontally
-     * or not flipped horizontally when being drawn.
-     *
-     * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end
-     *         the change between.
-     *
-     *         Includes the first index and excludes the last index.
-     *
-     * @param flipHorizontally
-     *        Whether or not the characters should be flipped horizontally.
-     *
-     * @throws NullPointerException
-     *         If the range is null.
-     */
-    public void setFlippedHorizontally(final @NonNull IntRange range, final boolean flipHorizontally) {
-        checkRangeValidity(range);
-
-        final int beginIndex = range.getStart();
-        final int endIndex = range.getEnd();
-
-        for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            characters[columnIndex].setFlippedHorizontally(flipHorizontally);
-        }
-    }
-
-    /**
-     * Sets the specified range of characters to either be flipped vertically
-     * or not flipped vertically when being drawn.
-     *
-     * @param range
-     *         The x-axis (column) coordinates of the characters to begin/end
-     *         the change between.
-     *
-     *         Includes the first index and excludes the last index.
-     *
-     * @throws NullPointerException
-     *         If the range is null.
-     */
-    public void setFlippedVertically(final @NonNull IntRange range, final boolean flipVertically) {
-        checkRangeValidity(range);
-
-        final int beginIndex = range.getStart();
-        final int endIndex = range.getEnd();
-
-        for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            characters[columnIndex].setFlippedVertically(flipVertically);
-        }
-    }
-
-    /**
      * Sets all characters to either be underlined or not underlined when
      * being drawn.
      *
@@ -853,6 +780,12 @@ public class AsciiString {
     /**
      * Adds one or more shaders to a range of characters.
      *
+     * @param range
+     *         The x-axis (column) coordinates of the characters to begin/end the
+     *         change between.
+     *
+     *         Includes the first index and excludes the last index.
+     *
      * @param shaders
      *          The shaders.
      */
@@ -880,6 +813,12 @@ public class AsciiString {
     /**
      * Removes one or more shaders to a range of characters.
      *
+     * @param range
+     *         The x-axis (column) coordinates of the characters to begin/end the
+     *         change between.
+     *
+     *         Includes the first index and excludes the last index.
+     *
      * @param shaders
      *          The shaders.
      */
@@ -891,6 +830,29 @@ public class AsciiString {
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
             characters[columnIndex].removeShaders(shaders);
+        }
+    }
+
+    /**
+     * Removes all of the shaders from a range of characters.
+     *
+     * @param range
+     *         The x-axis (column) coordinates of the characters to begin/end the
+     *         change between.
+     *
+     *         Includes the first index and excludes the last index.
+     *
+     * @param range
+     *          The range.
+     */
+    public void removeAllShaders(final @NonNull IntRange range) {
+        checkRangeValidity(range);
+
+        final int beginIndex = range.getStart();
+        final int endIndex = range.getEnd();
+
+        for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+            characters[columnIndex].removeAllShaders();
         }
     }
 }

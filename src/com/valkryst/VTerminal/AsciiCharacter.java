@@ -341,4 +341,10 @@ public class AsciiCharacter {
         this.shaders.removeAll(Arrays.asList(shaders));
         updateCacheHash = true;
     }
+
+    /** Removes all shaders from the character. */
+    public void removeAllShaders() {
+        shaders.clear();
+        updateCacheHash = true;
+    }
 }
