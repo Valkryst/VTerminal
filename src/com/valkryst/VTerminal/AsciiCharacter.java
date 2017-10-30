@@ -2,6 +2,7 @@ package com.valkryst.VTerminal;
 
 import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.misc.ImageCache;
+import com.valkryst.VTerminal.shader.Shader;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -12,6 +13,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @ToString
@@ -20,6 +23,9 @@ public class AsciiCharacter {
     @Getter protected int cacheHash;
     /** Whether or not to update the cache hash. */
     protected boolean updateCacheHash = true;
+
+    /** The shaders to run on each image. */
+    @Getter private final List<Shader> shaders = new ArrayList<>();
 
     /** The character. */
 	@Getter private char character;
@@ -109,7 +115,7 @@ public class AsciiCharacter {
 
     /** Updates the cache hash value. */
     protected void updateCacheHash() {
-        cacheHash = Objects.hash(character, backgroundColor, foregroundColor, isFlippedHorizontally, isFlippedVertically);
+        cacheHash = Objects.hash(character, backgroundColor, foregroundColor, isFlippedHorizontally, isFlippedVertically, shaders);
     }
 
     /**
@@ -301,6 +307,52 @@ public class AsciiCharacter {
             this.underlineThickness = 1;
         } else {
             this.underlineThickness = underlineThickness;
+        }
+    }
+
+    /**
+     * Adds a shader to the character.
+     *
+     * @param shader
+     *          The shader.
+     */
+    public void addShader(final @NonNull Shader shader) {
+        shaders.add(shader);
+        updateCacheHash = true;
+    }
+
+    /**
+     * Adds one or more shaders to the character.
+     *
+     * @param shaders
+     *          The shaders.
+     */
+    public void addShaders(final @NonNull Shader ... shaders) {
+        for (final Shader shader : shaders) {
+            addShader(shader);
+        }
+    }
+
+    /**
+     * Removes a shader from the character.
+     *
+     * @param shader
+     *          The shader.
+     */
+    public void removeShader(final @NonNull Shader shader) {
+        shaders.remove(shader);
+        updateCacheHash = true;
+    }
+
+    /**
+     * Removes one or more shaders from the character.
+     *
+     * @param shaders
+     *          The shaders.
+     */
+    public void removeShaders(final @NonNull Shader ... shaders) {
+        for (final Shader shader : shaders) {
+            removeShader(shader);
         }
     }
 }

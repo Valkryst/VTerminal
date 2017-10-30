@@ -16,8 +16,6 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.awt.image.VolatileImage;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @ToString
@@ -27,9 +25,6 @@ public final class ImageCache {
 
     /** The font of the character images. */
     @Getter private final Font font;
-
-    /** The shaders to run on each image. */
-    private final List<Shader> shaders = new ArrayList<>();
 
     /**
      * Constructs a new ImageCache.
@@ -135,7 +130,7 @@ public final class ImageCache {
         bufferedImage = applyColorSwap(character, font);
         bufferedImage = applyFlips(character, bufferedImage);
 
-        for (final Shader shader : shaders) {
+        for (final Shader shader : character.getShaders()) {
             bufferedImage = shader.run(bufferedImage);
         }
 
@@ -302,35 +297,5 @@ public final class ImageCache {
         g2d.dispose();
 
         return destination;
-    }
-
-    /**
-     * Adds a shader to the set of shaders.
-     *
-     * The order in which shaders are added determines the order in which the
-     * shaders are run.
-     *
-     * Shaders cannot be removed once added.
-     *
-     * @param shader
-     *          The shader to add.
-     */
-    public void addShader(final @NonNull Shader shader) {
-        shaders.add(shader);
-    }
-
-    /**
-     * Removes the first occurrence of the specified shader from this set of shaders.
-     *
-     * If a shader is removed, then the cache is cleared. This is an extremely
-     * expensive operation, so it is advised that you do not use this function under
-     * normal circumstances.
-     *
-     * @param shader
-     *          The shader to remove.
-     */
-    public void removeShader(final @NonNull Shader shader) {
-        shaders.remove(shader);
-        cachedImages.invalidateAll();
     }
 }
