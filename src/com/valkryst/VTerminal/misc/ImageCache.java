@@ -127,7 +127,7 @@ public final class ImageCache {
         bufferedImage = applyColorSwap(character, font);
 
         for (final Shader shader : character.getShaders()) {
-            bufferedImage = shader.run(bufferedImage);
+            bufferedImage = shader.run(bufferedImage, character);
         }
 
         final VolatileImage result = convertToVolatileImage(bufferedImage);

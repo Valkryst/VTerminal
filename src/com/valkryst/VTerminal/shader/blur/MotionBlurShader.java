@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.shader.blur;
 
 import com.jhlabs.image.MotionBlurFilter;
+import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.shader.Shader;
 import lombok.Data;
 import lombok.NonNull;
@@ -16,7 +17,7 @@ public class MotionBlurShader implements Shader {
     private boolean wrapEdges = false;
 
     @Override
-    public BufferedImage run(@NonNull BufferedImage bufferedImage) {
+    public BufferedImage run(@NonNull BufferedImage bufferedImage, final @NonNull AsciiCharacter character) {
         final MotionBlurFilter filter = new MotionBlurFilter();
         filter.setAngle(angle);
         filter.setDistance(distance);

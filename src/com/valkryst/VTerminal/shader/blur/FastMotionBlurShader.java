@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.shader.blur;
 
 import com.jhlabs.image.MotionBlurOp;
+import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.shader.Shader;
 import lombok.Data;
 import lombok.NonNull;
@@ -17,7 +18,7 @@ public class FastMotionBlurShader implements Shader {
     private float rotation = 0.0f;
 
     @Override
-    public BufferedImage run(@NonNull BufferedImage bufferedImage) {
+    public BufferedImage run(@NonNull BufferedImage bufferedImage, final @NonNull AsciiCharacter character) {
         final MotionBlurOp filter = new MotionBlurOp();
         filter.setCentreX(centreX);
         filter.setCentreY(centreY);

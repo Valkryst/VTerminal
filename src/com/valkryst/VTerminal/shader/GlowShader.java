@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.shader;
 
 import com.jhlabs.image.GlowFilter;
+import com.valkryst.VTerminal.AsciiCharacter;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -12,7 +13,7 @@ public class GlowShader implements Shader {
     private int radius = 2;
 
     @Override
-    public BufferedImage run(final @NonNull BufferedImage image) {
+    public BufferedImage run(final @NonNull BufferedImage image, final @NonNull AsciiCharacter character) {
         final GlowFilter filter = new GlowFilter();
         filter.setAmount(amount);
         filter.setRadius(radius);
