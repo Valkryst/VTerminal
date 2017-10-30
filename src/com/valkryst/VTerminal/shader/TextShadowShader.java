@@ -38,4 +38,12 @@ public class TextShadowShader implements Shader {
             return image;
         }
     }
+
+    @Override
+    public Shader copy() {
+        final TextShadowShader textShadowShader = new TextShadowShader();
+        textShadowShader.setXOffset(xOffset);
+        textShadowShader.setYOffset(yOffset);
+        return textShadowShader;
+    }
 }

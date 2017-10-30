@@ -25,4 +25,14 @@ public class MotionBlurShader implements Shader {
         filter.setWrapEdges(wrapEdges);
         return filter.filter(bufferedImage, null);
     }
+
+    @Override
+    public Shader copy() {
+        final MotionBlurShader motionBlurShader = new MotionBlurShader();
+        motionBlurShader.setAngle(angle);
+        motionBlurShader.setDistance(distance);
+        motionBlurShader.setZoom(zoom);
+        motionBlurShader.setRotation(rotation);
+        return motionBlurShader;
+    }
 }

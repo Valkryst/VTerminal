@@ -35,4 +35,9 @@ public class TextGlowShader implements Shader {
             return image;
         }
     }
+
+    @Override
+    public Shader copy() {
+        return new TextGlowShader();
+    }
 }

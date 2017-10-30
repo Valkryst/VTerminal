@@ -27,4 +27,16 @@ public class FastMotionBlurShader implements Shader {
         filter.setRotation(rotation);
         return filter.filter(bufferedImage, null);
     }
+
+    @Override
+    public Shader copy() {
+        final FastMotionBlurShader fastMotionBlurShader = new FastMotionBlurShader();
+        fastMotionBlurShader.setCentreX(centreX);
+        fastMotionBlurShader.setCentreY(centreY);
+        fastMotionBlurShader.setAngle(angle);
+        fastMotionBlurShader.setDistance(distance);
+        fastMotionBlurShader.setZoom(zoom);
+        fastMotionBlurShader.setRotation(rotation);
+        return fastMotionBlurShader;
+    }
 }

@@ -25,4 +25,15 @@ public class RayShader implements Shader {
         filter.setColormap(colormap);
         return filter.filter(bufferedImage, null);
     }
+
+    @Override
+    public Shader copy() {
+        final RayShader rayShader = new RayShader();
+        rayShader.setOpacity(opacity);
+        rayShader.setThreshold(threshold);
+        rayShader.setStrength(strength);
+        rayShader.setRaysOnly(raysOnly);
+        rayShader.setColormap(colormap); // May need a custom copy here eventually.
+        return rayShader;
+    }
 }

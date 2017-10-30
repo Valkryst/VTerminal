@@ -17,4 +17,11 @@ public class GaussianBlurShader implements Shader {
         filter.setRadius(radius);
         return filter.filter(bufferedImage, null);
     }
+
+    @Override
+    public Shader copy() {
+        final GaussianBlurShader gaussianBlurShader = new GaussianBlurShader();
+        gaussianBlurShader.setRadius(radius);
+        return gaussianBlurShader;
+    }
 }

@@ -18,4 +18,12 @@ public class GlowShader implements Shader {
         filter.setRadius(radius);
         return filter.filter(image, null);
     }
+
+    @Override
+    public Shader copy() {
+        final GlowShader glowShader = new GlowShader();
+        glowShader.setAmount(amount);
+        glowShader.setRadius(radius);
+        return glowShader;
+    }
 }

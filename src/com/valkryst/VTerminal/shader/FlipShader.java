@@ -32,4 +32,12 @@ public class FlipShader implements Shader {
 
         return image;
     }
+
+    @Override
+    public Shader copy() {
+        final FlipShader flipShader = new FlipShader();
+        flipShader.setFlippedHorizontally(isFlippedHorizontally);
+        flipShader.setFlippedVertically(isFlippedVertically);
+        return flipShader;
+    }
 }

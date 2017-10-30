@@ -18,4 +18,12 @@ public class SharpenShader implements Shader {
         filter.setThreshold(threshold);
         return filter.filter(bufferedImage, null);
     }
+
+    @Override
+    public Shader copy() {
+        final SharpenShader sharpenShader = new SharpenShader();
+        sharpenShader.setAmount(amount);
+        sharpenShader.setThreshold(threshold);
+        return sharpenShader;
+    }
 }
