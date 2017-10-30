@@ -59,6 +59,12 @@ public class TextShadowShader implements Shader {
             foregroundColor = new Color(keySet[0]);
         }
 
+        // There's no character to add a shadow for, if the back/foreground colors
+        // are the same.
+        if (backgroundColor.equals(foregroundColor)) {
+            return image;
+        }
+
         // Get the normal & background character images:
         final BufferedImage normalChar = swapColor(image, backgroundColor, new Color(0, 0, 0, 0));
         final BufferedImage shadowChar = swapColor(normalChar, foregroundColor, Color.BLACK);
