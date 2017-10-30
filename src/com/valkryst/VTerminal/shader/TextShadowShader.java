@@ -1,6 +1,5 @@
 package com.valkryst.VTerminal.shader;
 
-import com.valkryst.VTerminal.misc.ImageCache;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -78,40 +77,6 @@ public class TextShadowShader implements Shader {
         gc.drawImage(shadowChar, xOffset, yOffset, null);
         gc.drawImage(normalChar, 0, 0, null);
         gc.dispose();
-
-        return result;
-    }
-
-    /**
-     * Swaps two colors on an image.
-     *
-     * @param image
-     *          The image.
-     *
-     * @param oldColor
-     *          The color to swap out.
-     *
-     * @param newColor
-     *          The color to swap in.
-     *
-     * @return
-     *          The result image.
-     */
-    private static BufferedImage swapColor(final @NonNull BufferedImage image, final @NonNull Color oldColor, final @NonNull Color newColor) {
-        final BufferedImage result = ImageCache.cloneImage(image);
-
-        final int newRGB = newColor.getRGB();
-        final int oldRGB = oldColor.getRGB();
-
-        for (int y = 0; y < result.getHeight(); y++) {
-            for (int x = 0; x < result.getWidth(); x++) {
-                int pixel = result.getRGB(x, y);
-
-                if (pixel == oldRGB) {
-                    result.setRGB(x, y, newRGB);
-                }
-            }
-        }
 
         return result;
     }
