@@ -145,19 +145,6 @@ public class Panel extends Canvas implements Receiver<String> {
         return oldScreen;
     }
 
-    /**
-     * Adds a component to the current screen.
-     *
-     * @param component
-     *          The component.
-     *
-     * @throws NullPointerException
-     *         If the new component is null.
-     */
-    public void addComponent(final @NonNull Component component) {
-        screen.addComponent(component);
-    }
-
 
     /**
      * Adds one or more components to the current screen.
@@ -170,21 +157,8 @@ public class Panel extends Canvas implements Receiver<String> {
      */
     public void addComponents(final @NonNull Component ... components) {
         for (final Component component : components) {
-            addComponent(component);
+            screen.addComponent(component);
         }
-    }
-
-    /**
-     * Removes a component from the current screen.
-     *
-     * @param component
-     *          The component.
-     *
-     * @throws NullPointerException
-     *         If the new component is null.
-     */
-    public void removeComponent(final @NonNull Component component) {
-        screen.removeComponent(component);
     }
 
     /**
@@ -198,7 +172,7 @@ public class Panel extends Canvas implements Receiver<String> {
      */
     public void removeComponents(final @NonNull Component ... components) {
         for (final Component component : components) {
-            removeComponent(component);
+            screen.removeComponent(component);
         }
     }
 
