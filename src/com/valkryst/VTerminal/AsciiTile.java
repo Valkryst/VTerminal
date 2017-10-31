@@ -74,7 +74,7 @@ public class AsciiTile extends AsciiCharacter {
      */
     @Override
     public void draw(final @NonNull Graphics2D gc, @NonNull final ImageCache imageCache, int columnIndex, int rowIndex) {
-        if (super.updateCacheHash && super.isHidden()) {
+        if (super.updateCacheHash && super.isHidden() == false) {
             updateCacheHash();
             super.updateCacheHash = false;
         }
