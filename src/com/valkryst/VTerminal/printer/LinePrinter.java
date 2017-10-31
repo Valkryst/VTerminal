@@ -19,23 +19,17 @@ public class LinePrinter {
      * @param panel
      *         The panel.
      *
-     * @param fromX
-     *         The x-axis (column) coordinate of the start point of the line.
+     * @param from
+     *         The start point of the line.
      *
-     * @param fromY
-     *         The y-axis (row) coordinate of the start point of the line.
-     *
-     * @param toX
-     *         The x-axis (column) coordinate of the end point of the line.
-     *
-     * @param toY
-     *         The y-axis (row) coordinate of the end point of the line.
+     * @param to
+     *         The end point of the line.
      *
      * @throws NullPointerException
      *         If the panel is null.
      */
-    public void print(final @NonNull Panel panel, final int fromX, final int fromY, final int toX, final int toY) {
-        print(panel.getScreen(), fromX, fromY, toX, toY);
+    public void print(final @NonNull Panel panel, final Point from, final Point to) {
+        print(panel.getScreen(), from, to);
     }
 
 
@@ -45,23 +39,17 @@ public class LinePrinter {
      * @param screen
      *         The screen.
      *
-     * @param fromX
-     *         The x-axis (column) coordinate of the start point of the line.
+     * @param from
+     *         The start point of the line.
      *
-     * @param fromY
-     *         The y-axis (row) coordinate of the start point of the line.
-     *
-     * @param toX
-     *         The x-axis (column) coordinate of the end point of the line.
-     *
-     * @param toY
-     *         The y-axis (row) coordinate of the end point of the line.
+     * @param to
+     *         The end point of the line.
      *
      * @throws NullPointerException
      *         If the panel is null.
      */
-    public void print(final @NonNull Screen screen, int fromX, int fromY, final int toX, final int toY) {
-        printLine(screen, fromX, fromY, toX, toY);
+    public void print(final @NonNull Screen screen,final Point from, final Point to) {
+        printLine(screen, from, to);
     }
 
     /**
@@ -114,7 +102,7 @@ public class LinePrinter {
             final Point previous = points[i - 1];
             final Point current = points[i];
 
-            print(screen, previous.x, previous.y, current.x, current.y);
+            print(screen, previous, current);
         }
     }
 
@@ -124,23 +112,17 @@ public class LinePrinter {
      * @param screen
      *        The screen.
      *
-     * @param fromX
-     *         The x-axis (column) coordinate of the start point of the line.
+     * @param from
+     *         The start point of the line.
      *
-     * @param fromY
-     *         The y-axis (row) coordinate of the start point of the line.
-     *
-     * @param toX
-     *         The x-axis (column) coordinate of the end point of the line.
-     *
-     * @param toY
-     *         The y-axis (row) coordinate of the end point of the line.
+     * @param to
+     *         The end point of the line.
      *
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private void printLine(final @NonNull Screen screen, final int fromX, final int fromY, final int toX, final int toY) {
-        for (final Point point : ShapeAlgorithms.getLine(fromX, fromY, toX, toY)) {
+    private void printLine(final @NonNull Screen screen, final Point from, final Point to) {
+        for (final Point point : ShapeAlgorithms.getLine(from.x, from.y, to.x, to.y)) {
             screen.write(printChar, point);
         }
     }
