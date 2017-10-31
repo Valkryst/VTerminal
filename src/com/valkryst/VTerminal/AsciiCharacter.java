@@ -204,13 +204,6 @@ public class AsciiCharacter {
         }
     }
 
-    /** Swaps the background and foreground colors. */
-    public void invertColors() {
-        final Color temp = backgroundColor;
-        setBackgroundColor(foregroundColor);
-        setForegroundColor(temp);
-    }
-
     /**
      * Sets the new character.
      *

@@ -515,7 +515,10 @@ public class AsciiString {
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            characters[columnIndex].invertColors();
+            final Color background = characters[columnIndex].getBackgroundColor();
+            final Color foreground = characters[columnIndex].getForegroundColor();
+            characters[columnIndex].setBackgroundColor(foreground);
+            characters[columnIndex].setForegroundColor(background);
         }
     }
 
