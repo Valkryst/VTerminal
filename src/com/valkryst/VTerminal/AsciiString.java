@@ -1,10 +1,11 @@
 package com.valkryst.VTerminal;
 
 import com.valkryst.VRadio.Radio;
-import com.valkryst.VTerminal.misc.ColorFunctions;
 import com.valkryst.VTerminal.misc.ImageCache;
 import com.valkryst.VTerminal.misc.IntRange;
+import com.valkryst.VTerminal.shader.ShadeShader;
 import com.valkryst.VTerminal.shader.Shader;
+import com.valkryst.VTerminal.shader.TintShader;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -308,9 +309,6 @@ public class AsciiString {
     /**
      * Applies a shade gradient to the entire string.
      *
-     * @param color
-     *         The color to start the gradient with.
-     *
      * @param applyToBackground
      *         Whether or not to apply the gradient to the background or
      *         foreground of the characters.
@@ -318,8 +316,8 @@ public class AsciiString {
      * @throws NullPointerException
      *         If the color is null.
      */
-    public void applyShadeGradient(final @NonNull Color color, final boolean applyToBackground) {
-        applyShadeGradient(new IntRange(0, characters.length), color, applyToBackground);
+    public void applyShadeGradient(final boolean applyToBackground) {
+        applyShadeGradient(new IntRange(0, characters.length), applyToBackground);
     }
 
     /**
@@ -331,9 +329,6 @@ public class AsciiString {
      *
      *         Includes the first index and excludes the last index.
      *
-     * @param color
-     *         The color to start the gradient with.
-     *
      * @param applyToBackground
      *         Whether or not to apply the gradient to the background or
      *         foreground of the characters.
@@ -341,31 +336,31 @@ public class AsciiString {
      * @throws NullPointerException
      *         If the color is null.
      */
-    public void applyShadeGradient(final @NonNull IntRange range, @NonNull Color color, final boolean applyToBackground) {
+    public void applyShadeGradient(final @NonNull IntRange range, final boolean applyToBackground) {
         checkRangeValidity(range);
 
-        // Set the new color values:
         final int beginIndex = range.getStart();
         final int endIndex = range.getEnd();
-        final double shadeFactor = 1 / (double) endIndex;
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+            final ShadeShader shadeShader = new ShadeShader();
+            double shadeFactor = (endIndex - columnIndex) / (double) endIndex;
+
             if (applyToBackground) {
-                characters[columnIndex].setBackgroundColor(color);
+                shadeShader.setShadeBackground(true);
+                shadeShader.setBackgroundShadeFactor(shadeFactor);
             } else {
-                characters[columnIndex].setForegroundColor(color);
+                shadeShader.setShadeForeground(true);
+                shadeShader.setForegroundShadeFactor(shadeFactor);
             }
 
-            color = ColorFunctions.shade(color, shadeFactor);
+            characters[columnIndex].addShaders(shadeShader);
         }
     }
 
     /**
      * Applies a tint gradient to the entire string.
      *
-     * @param color
-     *         The color to start the gradient with.
-     *
      * @param applyToBackground
      *         Whether or not to apply the gradient to the background or
      *         foreground of the characters.
@@ -373,8 +368,8 @@ public class AsciiString {
      * @throws NullPointerException
      *         If the color is null.
      */
-    public void applyTintGradient(final @NonNull Color color, final boolean applyToBackground) {
-        applyTintGradient(new IntRange(0, characters.length), color, applyToBackground);
+    public void applyTintGradient(final boolean applyToBackground) {
+        applyTintGradient(new IntRange(0, characters.length), applyToBackground);
     }
 
     /**
@@ -386,9 +381,6 @@ public class AsciiString {
      *
      *         Includes the first index and excludes the last index.
      *
-     * @param color
-     *         The color to start the gradient with.
-     *
      * @param applyToBackground
      *         Whether or not to apply the gradient to the background or
      *         foreground of the characters.
@@ -396,22 +388,26 @@ public class AsciiString {
      * @throws NullPointerException
      *         If the range or color is null.
      */
-    public void applyTintGradient(final @NonNull IntRange range, @NonNull Color color, final boolean applyToBackground) {
+    public void applyTintGradient(final @NonNull IntRange range, final boolean applyToBackground) {
         checkRangeValidity(range);
 
-        // Set the new color values:
         final int beginIndex = range.getStart();
         final int endIndex = range.getEnd();
-        final double tintFactor = 1 / (double) endIndex;
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
+            final TintShader tintShader = new TintShader();
+            double tintFactor = columnIndex / (double) endIndex;
+
+
             if (applyToBackground) {
-                characters[columnIndex].setBackgroundColor(color);
+                tintShader.setTintBackground(true);
+                tintShader.setBackgroundTintFactor(tintFactor);
             } else {
-                characters[columnIndex].setForegroundColor(color);
+                tintShader.setTintForeground(true);
+                tintShader.setForegroundTintFactor(tintFactor);
             }
 
-            color = ColorFunctions.tint(color, tintFactor);
+            characters[columnIndex].addShaders(tintShader);
         }
     }
 
