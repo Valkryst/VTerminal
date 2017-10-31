@@ -86,10 +86,10 @@ public class SampleStringOperations {
 
 
         labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
-        labelBuilder.setText("Writing a string with a foreground color gradient.");
+        labelBuilder.setText("Writing a string with a fore/background color gradient.");
         label = labelBuilder.build();
         label.getString(0).applyColorGradient(Color.RED, Color.GREEN, false);
-        label.getString(0).applyColorGradient(Color.CYAN, Color.PINK, false);
+        label.getString(0).applyColorGradient(Color.CYAN, Color.PINK, true);
         screen.addComponent(label);
 
 
@@ -111,7 +111,7 @@ public class SampleStringOperations {
         labelBuilder.setText("Writing a string with a different back/foreground color.");
         label = labelBuilder.build();
         label.getString(0).setForegroundColor(Color.RED);
-        label.getString(0).setForegroundColor(Color.BLUE);
+        label.getString(0).setBackgroundColor(Color.BLUE);
         screen.addComponent(label);
 
 
