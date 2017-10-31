@@ -19,6 +19,9 @@ public interface Shader {
      *
      * @return
      *          The processed character image.
+     *
+     * @throws NullPointerException
+     *           If the image or character is null.
      */
     BufferedImage run(final @NonNull BufferedImage image, final @NonNull AsciiCharacter character);
 
@@ -44,6 +47,9 @@ public interface Shader {
      *
      * @return
      *          The result image.
+     *
+     * @throws NullPointerException
+     *           If the image or either color is null.
      */
     default BufferedImage swapColor(final @NonNull BufferedImage image, final @NonNull Color oldColor, final @NonNull Color newColor) {
         final BufferedImage result = ImageCache.cloneImage(image);
