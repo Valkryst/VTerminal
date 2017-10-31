@@ -29,7 +29,7 @@ public class SampleLinePrinter {
         final LinePrinter printer = new LinePrinter();
 
         for (final Point point : circlePoints) {
-            printer.print(panel, 10, 10, point.x, point.y);
+            printer.print(panel, new Point(10, 10), point);
         }
 
         panel.draw();
