@@ -34,7 +34,7 @@ public class SampleTextEditor {
         textAreaBuilder.setHeight(23);
         textAreaBuilder.setMaxVerticalCharacters(23);
         final TextArea textArea = textAreaBuilder.build();
-        panel.addComponent(textArea);
+        panel.addComponents(textArea);
 
         // Create NEW button:
         final ButtonBuilder buttonBuilder = new ButtonBuilder();
@@ -46,7 +46,7 @@ public class SampleTextEditor {
             textArea.moveCaretToStartOfLine();
             textArea.moveCaretToFirstLine();
         });
-        panel.addComponent(buttonBuilder.build());
+        panel.addComponents(buttonBuilder.build());
 
         // Add spacer between buttons:
         panel.getScreen().getString(0).getCharacters()[3].setCharacter('|');
@@ -76,7 +76,7 @@ public class SampleTextEditor {
                 }
             }
         });
-        panel.addComponent(buttonBuilder.build());
+        panel.addComponents(buttonBuilder.build());
 
         panel.draw();
     }

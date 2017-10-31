@@ -32,7 +32,7 @@ public class SampleScreenOnScreen {
         final Screen screenA = screenBuilder.build();
         screenA.setBackgroundColor(Color.CYAN);
 
-        panel.addComponent(screenA);
+        panel.addComponents(screenA);
 
         panel.draw();
     }

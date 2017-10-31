@@ -34,7 +34,7 @@ public class SampleRemoveComponents {
          Thread.sleep(3000);
 
          for (final Component component : panel.getScreen().getComponents()) {
-             panel.removeComponent(component);
+             panel.removeComponents(component);
          }
 
          panel.draw();
