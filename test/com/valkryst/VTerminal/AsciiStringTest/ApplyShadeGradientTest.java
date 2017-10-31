@@ -21,7 +21,7 @@ public class ApplyShadeGradientTest {
 
     @Test
     public void toBackgroundOfAllCharacters() {
-        string.applyShadeGradient(Color.RED, true);
+        string.applyShadeGradient(true);
 
         for (final AsciiCharacter character : string.getCharacters()) {
             Assert.assertNotEquals(Color.WHITE, character.getBackgroundColor());
@@ -31,7 +31,7 @@ public class ApplyShadeGradientTest {
 
     @Test
     public void toForegroundOfAllCharacters() {
-        string.applyShadeGradient(Color.RED,  false);
+        string.applyShadeGradient( false);
 
         for (final AsciiCharacter character : string.getCharacters()) {
             Assert.assertEquals(Color.WHITE, character.getBackgroundColor());
@@ -43,7 +43,7 @@ public class ApplyShadeGradientTest {
     public void toBackgroundOfRange() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
 
-        string.applyShadeGradient(range, Color.RED,  true);
+        string.applyShadeGradient(range,  true);
 
         for (final AsciiCharacter character : string.getCharacters()) {
             Assert.assertNotEquals(Color.WHITE, character.getBackgroundColor());
@@ -55,18 +55,11 @@ public class ApplyShadeGradientTest {
     public void toForegroundOfRange() {
         final IntRange range = new IntRange(0, string.getCharacters().length);
 
-        string.applyShadeGradient(range, Color.RED,  false);
+        string.applyShadeGradient(range,  false);
 
         for (final AsciiCharacter character : string.getCharacters()) {
             Assert.assertEquals(Color.WHITE, character.getBackgroundColor());
             Assert.assertNotEquals(Color.BLACK, character.getForegroundColor());
         }
-    }
-
-    @Test(expected=NullPointerException.class)
-    public void toRange_withNullColor() {
-        final IntRange range = new IntRange(0, string.getCharacters().length);
-
-        string.applyShadeGradient(range, null, true);
     }
 }
