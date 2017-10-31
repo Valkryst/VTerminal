@@ -135,7 +135,7 @@ public class AsciiCharacter {
      *         If the gc or image cache are null.
      */
     public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache, int columnIndex, int rowIndex) {
-        if (updateCacheHash) {
+        if (updateCacheHash && isHidden == false) {
             updateCacheHash();
             updateCacheHash = false;
         }
