@@ -607,8 +607,8 @@ public class AsciiString {
      *         Whether or not the characters are to be hidden.
      */
     public void setHidden(final boolean isHidden) {
-        for (int columnIndex = 0 ; columnIndex < characters.length ; columnIndex++) {
-            characters[columnIndex].setHidden(isHidden);
+        for (final AsciiCharacter character : characters) {
+            character.setHidden(isHidden);
         }
     }
 
