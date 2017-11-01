@@ -10,10 +10,7 @@ import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.shader.blur.FastMotionBlurShader;
 import com.valkryst.VTerminal.shader.blur.GaussianBlurShader;
 import com.valkryst.VTerminal.shader.blur.MotionBlurShader;
-import com.valkryst.VTerminal.shader.character.CharBoldShader;
-import com.valkryst.VTerminal.shader.character.CharEdgeDetectionShader;
-import com.valkryst.VTerminal.shader.character.CharGlowShader;
-import com.valkryst.VTerminal.shader.character.CharShadowShader;
+import com.valkryst.VTerminal.shader.character.*;
 import com.valkryst.VTerminal.shader.misc.*;
 
 import java.io.IOException;
@@ -164,6 +161,27 @@ public class SampleShaders {
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using CharEdgeDetectionShader.");
         label = labelBuilder.build();
         label.addShaders(new CharEdgeDetectionShader());
+        screen.addComponent(label);
+
+
+        labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
+        labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using PixelateShader.");
+        label = labelBuilder.build();
+        label.addShaders(new PixelateShader());
+        screen.addComponent(label);
+
+
+        labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
+        labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using ChromeShader.");
+        label = labelBuilder.build();
+        label.addShaders(new ChromeShader());
+        screen.addComponent(label);
+
+
+        labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
+        labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using CharChromeShader.");
+        label = labelBuilder.build();
+        label.addShaders(new CharChromeShader());
         screen.addComponent(label);
 
         panel.draw();
