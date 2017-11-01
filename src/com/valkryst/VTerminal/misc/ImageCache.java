@@ -5,7 +5,7 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiTile;
 import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.shader.CharacterShader;
+import com.valkryst.VTerminal.shader.character.CharacterShader;
 import com.valkryst.VTerminal.shader.Shader;
 import lombok.Getter;
 import lombok.NonNull;

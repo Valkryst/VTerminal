@@ -2,7 +2,7 @@ package com.valkryst.VTerminal;
 
 import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.misc.ImageCache;
-import com.valkryst.VTerminal.shader.FlipShader;
+import com.valkryst.VTerminal.shader.misc.FlipShader;
 import com.valkryst.VTerminal.shader.Shader;
 import lombok.Getter;
 import lombok.NonNull;

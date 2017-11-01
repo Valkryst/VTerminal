@@ -1,8 +1,9 @@
-package com.valkryst.VTerminal.shader;
+package com.valkryst.VTerminal.shader.character;
 
 import com.jhlabs.image.GaussianFilter;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiTile;
+import com.valkryst.VTerminal.shader.Shader;
 import lombok.NonNull;
 
 import java.awt.Color;

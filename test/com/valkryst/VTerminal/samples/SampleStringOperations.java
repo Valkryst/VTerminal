@@ -7,7 +7,7 @@ import com.valkryst.VTerminal.component.Label;
 import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
-import com.valkryst.VTerminal.shader.FlipShader;
+import com.valkryst.VTerminal.shader.misc.FlipShader;
 
 import java.awt.Color;
 import java.io.IOException;

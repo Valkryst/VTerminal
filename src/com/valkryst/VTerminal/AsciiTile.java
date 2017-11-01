@@ -1,7 +1,7 @@
 package com.valkryst.VTerminal;
 
 import com.valkryst.VTerminal.misc.ImageCache;
-import com.valkryst.VTerminal.shader.CharacterShader;
+import com.valkryst.VTerminal.shader.character.CharacterShader;
 import com.valkryst.VTerminal.shader.Shader;
 import lombok.NonNull;
 import lombok.ToString;

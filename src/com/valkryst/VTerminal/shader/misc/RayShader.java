@@ -1,7 +1,8 @@
-package com.valkryst.VTerminal.shader;
+package com.valkryst.VTerminal.shader.misc;
 
 import com.jhlabs.image.Colormap;
 import com.jhlabs.image.RaysFilter;
+import com.valkryst.VTerminal.shader.Shader;
 import lombok.Data;
 import lombok.NonNull;
 

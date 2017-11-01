@@ -7,10 +7,16 @@ import com.valkryst.VTerminal.component.Label;
 import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
-import com.valkryst.VTerminal.shader.*;
 import com.valkryst.VTerminal.shader.blur.FastMotionBlurShader;
 import com.valkryst.VTerminal.shader.blur.GaussianBlurShader;
 import com.valkryst.VTerminal.shader.blur.MotionBlurShader;
+import com.valkryst.VTerminal.shader.character.CharBoldShader;
+import com.valkryst.VTerminal.shader.character.CharGlowShader;
+import com.valkryst.VTerminal.shader.character.CharShadowShader;
+import com.valkryst.VTerminal.shader.misc.FlipShader;
+import com.valkryst.VTerminal.shader.misc.GlowShader;
+import com.valkryst.VTerminal.shader.misc.RayShader;
+import com.valkryst.VTerminal.shader.misc.SharpenShader;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
