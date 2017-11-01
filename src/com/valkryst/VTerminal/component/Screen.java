@@ -31,13 +31,13 @@ public class Screen extends Component implements Receiver<String> {
     @Getter @Setter private Panel parentPanel;
 
     /** The non-layer components displayed on the screen. */
-    private ArrayList<Component> components = new ArrayList<>();
+    private ArrayList<Component> components = new ArrayList<>(0);
 
     /** The layer components displayed on the screen. */
-    private ArrayList<Layer> layerComponents = new ArrayList<>();
+    private ArrayList<Layer> layerComponents = new ArrayList<>(0);
 
     /** The screen components displayed on the screen. */
-    private ArrayList<Screen> screenComponents = new ArrayList<>();
+    private ArrayList<Screen> screenComponents = new ArrayList<>(0);
 
     private ReentrantReadWriteLock componentsLock = new ReentrantReadWriteLock();
 
