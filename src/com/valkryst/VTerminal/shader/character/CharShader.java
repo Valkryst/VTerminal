@@ -6,7 +6,7 @@ import lombok.NonNull;
 
 import java.awt.image.BufferedImage;
 
-public interface CharacterShader extends Shader {
+public interface CharShader extends Shader {
     @Override
     default BufferedImage run(final @NonNull BufferedImage image) {
         throw new IllegalStateException("A CharacterShader must be run using the run(BufferedImage, AsciiCharacter) function.");

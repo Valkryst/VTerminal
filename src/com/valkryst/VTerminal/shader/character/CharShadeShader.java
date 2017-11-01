@@ -11,7 +11,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 @Data
-public class CharShadeShader implements CharacterShader {
+public class CharShadeShader implements CharShader {
     /** Whether or not to shade the background color. */
     private boolean shadeBackground = false;
     /** Whether or not to shade the foreground color. */

@@ -10,7 +10,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-public class CharGlowShader implements CharacterShader {
+public class CharGlowShader implements CharShader {
     @Override
     public BufferedImage run(final @NonNull BufferedImage image, final @NonNull AsciiCharacter character) {
         if (character instanceof AsciiTile) {

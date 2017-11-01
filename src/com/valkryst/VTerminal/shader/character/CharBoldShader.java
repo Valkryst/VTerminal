@@ -9,7 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-public class CharBoldShader implements CharacterShader {
+public class CharBoldShader implements CharShader {
     @Override
     public BufferedImage run(final @NonNull BufferedImage image, final @NonNull AsciiCharacter character) {
         if (character instanceof AsciiTile) {

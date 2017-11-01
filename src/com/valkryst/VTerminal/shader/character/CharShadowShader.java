@@ -11,7 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 @Data
-public class CharShadowShader implements CharacterShader {
+public class CharShadowShader implements CharShader {
     /** The offset to draw the shadow at, on the x-axis. */
     private int xOffset = 2;
     /** The offset to draw the shadow at, on the y-axis. */

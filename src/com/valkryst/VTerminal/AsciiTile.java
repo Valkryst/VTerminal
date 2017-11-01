@@ -1,7 +1,7 @@
 package com.valkryst.VTerminal;
 
 import com.valkryst.VTerminal.misc.ImageCache;
-import com.valkryst.VTerminal.shader.character.CharacterShader;
+import com.valkryst.VTerminal.shader.character.CharShader;
 import com.valkryst.VTerminal.shader.Shader;
 import lombok.NonNull;
 import lombok.ToString;
@@ -108,7 +108,7 @@ public class AsciiTile extends AsciiCharacter {
     @Override
     public void addShaders(final @NonNull Shader... shaders) {
         for (final Shader shader : shaders) {
-            if (shader instanceof CharacterShader == false) {
+            if (shader instanceof CharShader == false) {
                 super.addShaders(shader);
             }
         }
