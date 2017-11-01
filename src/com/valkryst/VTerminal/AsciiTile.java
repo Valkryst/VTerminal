@@ -1,6 +1,8 @@
 package com.valkryst.VTerminal;
 
 import com.valkryst.VTerminal.misc.ImageCache;
+import com.valkryst.VTerminal.shader.CharacterShader;
+import com.valkryst.VTerminal.shader.Shader;
 import lombok.NonNull;
 import lombok.ToString;
 
@@ -35,6 +37,10 @@ public class AsciiTile extends AsciiCharacter {
      */
     public AsciiTile(final @NonNull AsciiCharacter character) {
 	    super(character.getCharacter());
+
+	    for (final Shader shader : character.getShaders()) {
+	        addShaders(shader);
+        }
 
 	    super.setHidden(character.isHidden());
 
@@ -96,5 +102,17 @@ public class AsciiTile extends AsciiCharacter {
             final Image image = imageCache.retrieveFromCache(this);
             gc.drawImage(image, columnIndex, rowIndex, null);
         }
+    }
+
+
+    @Override
+    public void addShaders(final @NonNull Shader... shaders) {
+        for (final Shader shader : shaders) {
+            if (shader instanceof CharacterShader == false) {
+                super.addShaders(shader);
+            }
+        }
+
+        updateCacheHash = true;
     }
 }
