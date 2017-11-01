@@ -9,7 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-public class TextGlowShader implements Shader {
+public class CharGlowShader implements CharacterShader {
     @Override
     public BufferedImage run(final @NonNull BufferedImage image, final @NonNull AsciiCharacter character) {
         if (character instanceof AsciiTile) {
@@ -43,6 +43,6 @@ public class TextGlowShader implements Shader {
 
     @Override
     public Shader copy() {
-        return new TextGlowShader();
+        return new CharGlowShader();
     }
 }

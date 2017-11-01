@@ -1,6 +1,5 @@
 package com.valkryst.VTerminal.shader;
 
-import com.valkryst.VTerminal.AsciiCharacter;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -34,7 +33,7 @@ public class FlipShader implements Shader {
     }
 
     @Override
-    public BufferedImage run(final @NonNull BufferedImage image, final @NonNull AsciiCharacter character) {
+    public BufferedImage run(final @NonNull BufferedImage image) {
         if (isFlippedHorizontally || isFlippedVertically) {
             final double scaleX = isFlippedHorizontally ? -1 : 1;
             final double scaleY = isFlippedVertically ? -1 : 1;

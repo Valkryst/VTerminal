@@ -1,6 +1,5 @@
 package com.valkryst.VTerminal.shader;
 
-import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.misc.ImageCache;
 import lombok.NonNull;
 
@@ -9,21 +8,18 @@ import java.awt.image.BufferedImage;
 
 public interface Shader {
     /**
-     * Runs the shader on a character image.
+     * Runs the shader on an image.
      *
      * @param image
-     *          The character image.
-     *
-     * @param character
-     *          The character.
+     *          The image.
      *
      * @return
-     *          The processed character image.
+     *          The processed image.
      *
      * @throws NullPointerException
-     *           If the image or character is null.
+     *           If the image is null.
      */
-    BufferedImage run(final @NonNull BufferedImage image, final @NonNull AsciiCharacter character);
+    BufferedImage run(final @NonNull BufferedImage image);
 
     /**
      * Returns a copy of the shader.

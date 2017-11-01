@@ -10,7 +10,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 @Data
-public class TintShader implements Shader {
+public class CharTintShader implements CharacterShader {
     /** Whether or not to tint the background color. */
     private boolean tintBackground = false;
     /** Whether or not to tint the foreground color. */
@@ -43,7 +43,7 @@ public class TintShader implements Shader {
 
     @Override
     public Shader copy() {
-        final TintShader tintShader = new TintShader();
+        final CharTintShader tintShader = new CharTintShader();
         tintShader.setTintBackground(tintBackground);
         tintShader.setTintForeground(tintForeground);
         tintShader.setBackgroundTintFactor(backgroundTintFactor);

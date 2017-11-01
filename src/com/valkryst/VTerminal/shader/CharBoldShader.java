@@ -8,7 +8,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-public class TextBoldShader implements Shader {
+public class CharBoldShader implements CharacterShader {
     @Override
     public BufferedImage run(final @NonNull BufferedImage image, final @NonNull AsciiCharacter character) {
         if (character instanceof AsciiTile) {
@@ -41,6 +41,6 @@ public class TextBoldShader implements Shader {
 
     @Override
     public Shader copy() {
-        return new TextBoldShader();
+        return new CharBoldShader();
     }
 }

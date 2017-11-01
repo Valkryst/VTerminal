@@ -10,7 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 @Data
-public class TextShadowShader implements Shader {
+public class CharShadowShader implements CharacterShader {
     /** The offset to draw the shadow at, on the x-axis. */
     private int xOffset = 2;
     /** The offset to draw the shadow at, on the y-axis. */
@@ -45,7 +45,7 @@ public class TextShadowShader implements Shader {
 
     @Override
     public Shader copy() {
-        final TextShadowShader textShadowShader = new TextShadowShader();
+        final CharShadowShader textShadowShader = new CharShadowShader();
         textShadowShader.setXOffset(xOffset);
         textShadowShader.setYOffset(yOffset);
         return textShadowShader;

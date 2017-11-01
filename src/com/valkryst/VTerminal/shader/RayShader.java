@@ -2,7 +2,6 @@ package com.valkryst.VTerminal.shader;
 
 import com.jhlabs.image.Colormap;
 import com.jhlabs.image.RaysFilter;
-import com.valkryst.VTerminal.AsciiCharacter;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -17,7 +16,7 @@ public class RayShader implements Shader {
     private Colormap colormap;
 
     @Override
-    public BufferedImage run(@NonNull BufferedImage bufferedImage, final @NonNull AsciiCharacter character) {
+    public BufferedImage run(@NonNull BufferedImage bufferedImage) {
         final RaysFilter filter = new RaysFilter();
         filter.setOpacity(opacity);
         filter.setThreshold(threshold);

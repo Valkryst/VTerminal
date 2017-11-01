@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal.shader;
 
 import com.jhlabs.image.UnsharpFilter;
-import com.valkryst.VTerminal.AsciiCharacter;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -13,7 +12,7 @@ public class SharpenShader implements Shader {
     private int threshold = 1;
 
     @Override
-    public BufferedImage run(@NonNull BufferedImage bufferedImage, final @NonNull AsciiCharacter character) {
+    public BufferedImage run(@NonNull BufferedImage bufferedImage) {
         final UnsharpFilter filter = new UnsharpFilter();
         filter.setAmount(amount);
         filter.setThreshold(threshold);

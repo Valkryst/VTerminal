@@ -10,7 +10,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 @Data
-public class ShadeShader implements Shader {
+public class CharShadeShader implements CharacterShader {
     /** Whether or not to shade the background color. */
     private boolean shadeBackground = false;
     /** Whether or not to shade the foreground color. */
@@ -43,7 +43,7 @@ public class ShadeShader implements Shader {
 
     @Override
     public Shader copy() {
-        final ShadeShader shadeShader = new ShadeShader();
+        final CharShadeShader shadeShader = new CharShadeShader();
         shadeShader.setShadeBackground(shadeBackground);
         shadeShader.setShadeForeground(shadeForeground);
         shadeShader.setBackgroundShadeFactor(backgroundShadeFactor);
