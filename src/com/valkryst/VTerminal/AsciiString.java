@@ -3,9 +3,9 @@ package com.valkryst.VTerminal;
 import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.misc.ImageCache;
 import com.valkryst.VTerminal.misc.IntRange;
-import com.valkryst.VTerminal.shader.ShadeShader;
+import com.valkryst.VTerminal.shader.CharShadeShader;
 import com.valkryst.VTerminal.shader.Shader;
-import com.valkryst.VTerminal.shader.TintShader;
+import com.valkryst.VTerminal.shader.CharTintShader;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -343,7 +343,7 @@ public class AsciiString {
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            final ShadeShader shadeShader = new ShadeShader();
+            final CharShadeShader shadeShader = new CharShadeShader();
             double shadeFactor = (endIndex - columnIndex) / (double) endIndex;
 
             if (applyToBackground) {
@@ -395,7 +395,7 @@ public class AsciiString {
         final int endIndex = range.getEnd();
 
         for (int columnIndex = beginIndex ; columnIndex < endIndex ; columnIndex++) {
-            final TintShader tintShader = new TintShader();
+            final CharTintShader tintShader = new CharTintShader();
             double tintFactor = columnIndex / (double) endIndex;
 
 

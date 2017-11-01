@@ -5,6 +5,7 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiTile;
 import com.valkryst.VTerminal.font.Font;
+import com.valkryst.VTerminal.shader.CharacterShader;
 import com.valkryst.VTerminal.shader.Shader;
 import lombok.Getter;
 import lombok.NonNull;
@@ -127,7 +128,11 @@ public final class ImageCache {
         bufferedImage = applyColorSwap(character, font);
 
         for (final Shader shader : character.getShaders()) {
-            bufferedImage = shader.run(bufferedImage, character);
+            if (shader instanceof CharacterShader) {
+                bufferedImage = ((CharacterShader) shader).run(bufferedImage, character);
+            } else {
+                bufferedImage = shader.run(bufferedImage);
+            }
         }
 
         final VolatileImage result = convertToVolatileImage(bufferedImage);

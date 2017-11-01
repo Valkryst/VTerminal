@@ -117,21 +117,21 @@ public class SampleShaders {
         labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using TextShadowShader.");
         label = labelBuilder.build();
-        label.addShaders(new TextShadowShader());
+        label.addShaders(new CharShadowShader());
         screen.addComponent(label);
 
 
         labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using TextGlowShader.");
         label = labelBuilder.build();
-        label.addShaders(new TextGlowShader());
+        label.addShaders(new CharGlowShader());
         screen.addComponent(label);
 
 
         labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using TextBoldShader.");
         label = labelBuilder.build();
-        label.addShaders(new TextBoldShader());
+        label.addShaders(new CharBoldShader());
         screen.addComponent(label);
 
         panel.draw();
