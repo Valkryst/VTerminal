@@ -14,10 +14,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @ToString
 public class AsciiCharacter {
@@ -27,7 +24,7 @@ public class AsciiCharacter {
     protected boolean updateCacheHash = true;
 
     /** The shaders to run on each image. */
-    @Getter private final List<Shader> shaders = new ArrayList<>();
+    @Getter private final List<Shader> shaders = new LinkedList<>();
 
     /** The character. */
 	@Getter private char character;

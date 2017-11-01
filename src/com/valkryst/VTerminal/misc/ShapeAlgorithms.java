@@ -2,7 +2,7 @@ package com.valkryst.VTerminal.misc;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public final class ShapeAlgorithms {
@@ -23,7 +23,7 @@ public final class ShapeAlgorithms {
      *        The list of points.
      */
     public static List<Point> getEllipse(final Point position, final Dimension dimension) {
-        final List<Point> points = new ArrayList<>();
+        final List<Point> points = new LinkedList<>();
 
         final int x = position.x;
         final int y = position.y;
@@ -119,7 +119,7 @@ public final class ShapeAlgorithms {
      *        The list of points.
      */
     public static List<Point> getLine(int fromX, int fromY, final int toX, final int toY) {
-        final List<Point> points = new ArrayList<>();
+        final List<Point> points = new LinkedList<>();
 
         int d = 0;
 
@@ -182,7 +182,7 @@ public final class ShapeAlgorithms {
      *        The list of points.
      */
     public static List<Point> getRectangle(final Point position, final Dimension dimension) {
-        final List<Point> points = new ArrayList<>();
+        final List<Point> points = new LinkedList<>();
 
         final int x = position.x;
         final int y = position.y;
@@ -226,7 +226,7 @@ public final class ShapeAlgorithms {
      *        The list of points.
      */
     public static List<Point> getFilledRectangle(final Point position, final Dimension dimension) {
-        final List<Point> points = new ArrayList<>();
+        final List<Point> points = new LinkedList<>();
 
         for (int xCounter = position.x ; xCounter < dimension.width + position.x ; xCounter++) {
             for (int yCounter = position.y ; yCounter < dimension.height + position.y ; yCounter++) {

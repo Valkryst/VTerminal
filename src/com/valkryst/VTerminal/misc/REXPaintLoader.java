@@ -11,7 +11,7 @@ import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.file.Files;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
@@ -92,7 +92,7 @@ public final class REXPaintLoader {
         final int fileVersion = byteBuffer.getInt(); // Ignore this. It's only used by REXPaint itself.
         final int totalLayers = byteBuffer.getInt();
 
-        final List<Layer> layers = new ArrayList<>();
+        final List<Layer> layers = new LinkedList<>();
 
         final LayerBuilder layerBuilder = new LayerBuilder();
 
