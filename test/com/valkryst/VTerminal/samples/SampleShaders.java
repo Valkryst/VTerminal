@@ -11,12 +11,10 @@ import com.valkryst.VTerminal.shader.blur.FastMotionBlurShader;
 import com.valkryst.VTerminal.shader.blur.GaussianBlurShader;
 import com.valkryst.VTerminal.shader.blur.MotionBlurShader;
 import com.valkryst.VTerminal.shader.character.CharBoldShader;
+import com.valkryst.VTerminal.shader.character.CharEdgeDetectionShader;
 import com.valkryst.VTerminal.shader.character.CharGlowShader;
 import com.valkryst.VTerminal.shader.character.CharShadowShader;
-import com.valkryst.VTerminal.shader.misc.FlipShader;
-import com.valkryst.VTerminal.shader.misc.GlowShader;
-import com.valkryst.VTerminal.shader.misc.RayShader;
-import com.valkryst.VTerminal.shader.misc.SharpenShader;
+import com.valkryst.VTerminal.shader.misc.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -138,6 +136,34 @@ public class SampleShaders {
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using TextBoldShader.");
         label = labelBuilder.build();
         label.addShaders(new CharBoldShader());
+        screen.addComponent(label);
+
+
+        labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
+        labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using EmbossShader.");
+        label = labelBuilder.build();
+        label.addShaders(new EmbossShader());
+        screen.addComponent(label);
+
+
+        labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
+        labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using OilPaintShader.");
+        label = labelBuilder.build();
+        label.addShaders(new OilPaintShader());
+        screen.addComponent(label);
+
+
+        labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
+        labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using EdgeDetectionShader.");
+        label = labelBuilder.build();
+        label.addShaders(new EdgeDetectionShader());
+        screen.addComponent(label);
+
+
+        labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
+        labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using CharEdgeDetectionShader.");
+        label = labelBuilder.build();
+        label.addShaders(new CharEdgeDetectionShader());
         screen.addComponent(label);
 
         panel.draw();
