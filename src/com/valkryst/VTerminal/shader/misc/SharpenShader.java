@@ -13,7 +13,7 @@ public class SharpenShader implements Shader {
     private int threshold = 1;
 
     @Override
-    public BufferedImage run(@NonNull BufferedImage bufferedImage) {
+    public BufferedImage run(final @NonNull BufferedImage bufferedImage) {
         final UnsharpFilter filter = new UnsharpFilter();
         filter.setAmount(amount);
         filter.setThreshold(threshold);
