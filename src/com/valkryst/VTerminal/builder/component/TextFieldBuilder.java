@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.builder.component;
 
-import com.valkryst.VTerminal.component.TextArea;
+import com.valkryst.VTerminal.component.TextField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper=true)
 public class TextFieldBuilder extends TextAreaBuilder {
     @Override
-    public TextArea build() {
+    public TextField build() {
         checkState();
-        return new TextArea(this);
+        return new TextField(this);
     }
 
     /**
