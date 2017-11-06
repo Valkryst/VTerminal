@@ -10,10 +10,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
-import java.awt.Canvas;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -61,6 +58,11 @@ public class Panel extends Canvas implements Receiver<String> {
         radio.addReceiver("DRAW", this);
 
         imageCache = builder.getImageCache();
+    }
+
+    @Override
+    public Font getFont() {
+        throw new IllegalStateException("To retrieve the font, do 'panel.getImageCache().getFont().");
     }
 
     @Override
