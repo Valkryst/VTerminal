@@ -47,8 +47,7 @@ public class SampleComponents {
 
         // Title #1
         final LabelBuilder labelBuilder = new LabelBuilder();
-        labelBuilder.setColumnIndex(1);
-        labelBuilder.setRowIndex(1);
+        labelBuilder.setPosition(1, 1);
         labelBuilder.setText("Component Library Test");
 
         Label label = labelBuilder.build();
@@ -58,8 +57,7 @@ public class SampleComponents {
 
         // Button
         final ButtonBuilder buttonBuilder = new ButtonBuilder();
-        buttonBuilder.setColumnIndex(1);
-        buttonBuilder.setRowIndex(3);
+        buttonBuilder.setPosition(1, 3);
         buttonBuilder.setText("<Click Me>");
         buttonBuilder.setOnClickFunction(() -> System.out.println("Clicked!"));
 
@@ -69,8 +67,7 @@ public class SampleComponents {
         final RadioButtonGroup groupA = new RadioButtonGroup();
 
         final RadioButtonBuilder radioButtonBuilder = new RadioButtonBuilder();
-        radioButtonBuilder.setColumnIndex(1);
-        radioButtonBuilder.setRowIndex(5);
+        radioButtonBuilder.setPosition(1, 5);
         radioButtonBuilder.setGroup(groupA);
         radioButtonBuilder.setText("Group A, Option 1");
 
@@ -103,8 +100,7 @@ public class SampleComponents {
 
         // Check Boxes
         final CheckBoxBuilder checkBoxBuilder = new CheckBoxBuilder();
-        checkBoxBuilder.setColumnIndex(1);
-        checkBoxBuilder.setRowIndex(11);
+        checkBoxBuilder.setPosition(1, 11);
         checkBoxBuilder.setText("Checkbox A");
 
         panel.addComponents(checkBoxBuilder.build());
@@ -132,8 +128,7 @@ public class SampleComponents {
 
         // Loading Bar
         final ProgressBarBuilder loadingBarBuilder = new ProgressBarBuilder();
-        loadingBarBuilder.setColumnIndex(1);
-        loadingBarBuilder.setRowIndex(19);
+        loadingBarBuilder.setPosition(1, 19);
         loadingBarBuilder.setWidth(20);
 
         final ProgressBar loadingBar = loadingBarBuilder.build();
