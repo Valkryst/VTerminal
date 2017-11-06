@@ -126,4 +126,18 @@ public class ComponentBuilder<C extends Component> implements VJSONParser {
         this.columnIndex = columnIndex;
         this.rowIndex = rowIndex;
     }
+
+    /**
+     * Sets the width & height.
+     *
+     * @param width
+     *          The new width.
+     *
+     * @param height
+     *          The new height.
+     */
+    public void setDimensions(final int width, final int height) {
+        this.width = width;
+        this.height = height;
+    }
 }
