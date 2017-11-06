@@ -791,6 +791,28 @@ public class Screen extends Component implements Receiver<String> {
 
     /**
      * Works the same as getComponentByID, but only returns if the result is a
+     * Label component.
+     *
+     * @param id
+     *        The id.
+     *
+     * @return
+     *        If no component matches the ID, then null is returned.
+     *        If no label component matches the ID, then null is returned.
+     *        Else the component is returned.
+     */
+    public Label getLabelByID(final String id) {
+        final Component component = getComponentByID(id);
+
+        if (component instanceof Label) {
+            return (Label) component;
+        }
+
+        return null;
+    }
+
+    /**
+     * Works the same as getComponentByID, but only returns if the result is a
      * Layer component.
      *
      * @param id
