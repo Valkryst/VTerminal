@@ -61,11 +61,6 @@ public class Panel extends Canvas implements Receiver<String> {
     }
 
     @Override
-    public Font getFont() {
-        throw new IllegalStateException("To retrieve the font, do 'panel.getImageCache().getFont().");
-    }
-
-    @Override
     public void receive(final String event, final String data) {
         if (event.equals("DRAW")) {
             draw();
