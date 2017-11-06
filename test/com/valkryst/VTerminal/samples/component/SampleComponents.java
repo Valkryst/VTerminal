@@ -1,11 +1,8 @@
 package com.valkryst.VTerminal.samples.component;
 
-import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.builder.component.*;
-import com.valkryst.VTerminal.component.Label;
-import com.valkryst.VTerminal.component.Layer;
 import com.valkryst.VTerminal.component.ProgressBar;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
 import com.valkryst.VTerminal.font.Font;
@@ -32,8 +29,20 @@ public class SampleComponents {
 
         panel.getScreen().setBackgroundColor(new Color(45, 45, 45, 255));
 
-        // Border
+
+        // Declare Builders & Printers:
+        final ButtonBuilder buttonBuilder = new ButtonBuilder();
+        final CheckBoxBuilder checkBoxBuilder = new CheckBoxBuilder();
+        final ProgressBarBuilder loadingBarBuilder = new ProgressBarBuilder();
+        final RadioButtonBuilder radioButtonBuilder = new RadioButtonBuilder();
+        final LabelBuilder labelBuilder = new LabelBuilder();
+        final LayerBuilder layerBuilder = new LayerBuilder();
+        final TextFieldBuilder textFieldBuilder = new TextFieldBuilder();
+
         final RectanglePrinter printer = new RectanglePrinter();
+
+
+        // Print the main and section borders:
         printer.setRectangleType(RectangleType.HEAVY);
         printer.setWidth(80);
         printer.setHeight(24);
@@ -46,17 +55,13 @@ public class SampleComponents {
         printer.print(panel, new Point(0, 0));
 
         // Title #1
-        final LabelBuilder labelBuilder = new LabelBuilder();
         labelBuilder.setPosition(1, 1);
         labelBuilder.setText("Component Library Test");
+        labelBuilder.setUnderlined(true);
 
-        Label label = labelBuilder.build();
-        label.getString(0).setUnderlined(true);
-
-        panel.addComponents(label);
+        panel.addComponents(labelBuilder.build());
 
         // Button
-        final ButtonBuilder buttonBuilder = new ButtonBuilder();
         buttonBuilder.setPosition(1, 3);
         buttonBuilder.setText("<Click Me>");
         buttonBuilder.setOnClickFunction(() -> System.out.println("Clicked!"));
@@ -66,18 +71,15 @@ public class SampleComponents {
         // First Radio Button Group
         final RadioButtonGroup groupA = new RadioButtonGroup();
 
-        final RadioButtonBuilder radioButtonBuilder = new RadioButtonBuilder();
         radioButtonBuilder.setPosition(1, 5);
         radioButtonBuilder.setGroup(groupA);
         radioButtonBuilder.setText("Group A, Option 1");
-
         panel.addComponents(radioButtonBuilder.build());
 
 
         radioButtonBuilder.setRowIndex(6);
         radioButtonBuilder.setGroup(groupA);
         radioButtonBuilder.setText("Group A, Option 2");
-
         panel.addComponents(radioButtonBuilder.build());
 
 
@@ -87,47 +89,38 @@ public class SampleComponents {
         radioButtonBuilder.setRowIndex(8);
         radioButtonBuilder.setGroup(groupB);
         radioButtonBuilder.setText("Group B, Option 1");
-
         panel.addComponents(radioButtonBuilder.build());
 
 
         radioButtonBuilder.setRowIndex(9);
         radioButtonBuilder.setGroup(groupB);
         radioButtonBuilder.setText("Group B, Option 2");
-
         panel.addComponents(radioButtonBuilder.build());
 
 
         // Check Boxes
-        final CheckBoxBuilder checkBoxBuilder = new CheckBoxBuilder();
         checkBoxBuilder.setPosition(1, 11);
         checkBoxBuilder.setText("Checkbox A");
-
         panel.addComponents(checkBoxBuilder.build());
 
 
         checkBoxBuilder.setRowIndex(12);
         checkBoxBuilder.setText("Checkbox B");
-
         panel.addComponents(checkBoxBuilder.build());
 
         // Fixed Width Text Field
-        final TextFieldBuilder textFieldBuilder = new TextFieldBuilder();
         textFieldBuilder.setColumnIndex(1);
         textFieldBuilder.setRowIndex(14);
         textFieldBuilder.setWidth(20);
-
         panel.addComponents(textFieldBuilder.build());
 
         // Variable Width Text Field
         textFieldBuilder.setRowIndex(16);
         textFieldBuilder.setWidth(20);
         textFieldBuilder.setMaxHorizontalCharacters(40);
-
         panel.addComponents(textFieldBuilder.build());
 
         // Loading Bar
-        final ProgressBarBuilder loadingBarBuilder = new ProgressBarBuilder();
         loadingBarBuilder.setPosition(1, 19);
         loadingBarBuilder.setWidth(20);
 
@@ -155,27 +148,18 @@ public class SampleComponents {
         labelBuilder.setColumnIndex(24);
         labelBuilder.setRowIndex(1);
         labelBuilder.setText("TextArea Tests");
-
-        label = labelBuilder.build();
-        label.getString(0).setUnderlined(true);
-
-        panel.addComponents(label);
+        panel.addComponents(labelBuilder.build());
 
 
         // Fixed Width & Height Text Area:
         labelBuilder.setRowIndex(3);
         labelBuilder.setText("Fixed Width & Height");
-
-        label = labelBuilder.build();
-        label.getString(0).setUnderlined(true);
-
-        panel.addComponents(label);
+        panel.addComponents(labelBuilder.build());
 
         final TextAreaBuilder textAreaBuilder = new TextAreaBuilder();
         textAreaBuilder.setColumnIndex(24);
         textAreaBuilder.setRowIndex(4);
-        textAreaBuilder.setWidth(23);
-        textAreaBuilder.setHeight(3);
+        textAreaBuilder.setDimensions(23, 3);
         textAreaBuilder.setMaxVerticalCharacters(3);
 
         panel.addComponents(textAreaBuilder.build());
@@ -183,11 +167,7 @@ public class SampleComponents {
         // Variable Width Text Area:
         labelBuilder.setRowIndex(8);
         labelBuilder.setText("Variable Width Only");
-
-        label = labelBuilder.build();
-        label.getString(0).setUnderlined(true);
-
-        panel.addComponents(label);
+        panel.addComponents(labelBuilder.build());
 
 
         textAreaBuilder.setRowIndex(9);
@@ -198,11 +178,7 @@ public class SampleComponents {
         // Variable Height Text Area:
         labelBuilder.setRowIndex(13);
         labelBuilder.setText("Variable Height Only");
-
-        label = labelBuilder.build();
-        label.getString(0).setUnderlined(true);
-
-        panel.addComponents(label);
+        panel.addComponents(labelBuilder.build());
 
 
         textAreaBuilder.setRowIndex(14);
@@ -214,48 +190,32 @@ public class SampleComponents {
         // Variable Width & HeightText Area:
         labelBuilder.setRowIndex(18);
         labelBuilder.setText("Variable Width & Height");
-
-        label = labelBuilder.build();
-        label.getString(0).setUnderlined(true);
-
-        panel.addComponents(label);
+        panel.addComponents(labelBuilder.build());
 
 
         textAreaBuilder.setRowIndex(19);
         textAreaBuilder.setMaxVerticalCharacters(6);
         textAreaBuilder.setMaxHorizontalCharacters(40);
-
         panel.addComponents(textAreaBuilder.build());
 
 
 
 
-        // Layer
-        labelBuilder.setColumnIndex(50);
-        labelBuilder.setRowIndex(1);
+        // Add layer section title:
+        labelBuilder.setPosition(50, 1);
         labelBuilder.setText("Layer Test");
         panel.addComponents(labelBuilder.build());
 
-        final LayerBuilder layerBuilder = new LayerBuilder();
+        // Construct layers:
         layerBuilder.setColumnIndex(50);
         layerBuilder.setRowIndex(2);
-        layerBuilder.setWidth(23);
-        layerBuilder.setHeight(10);
-        final Layer layerA = layerBuilder.build();
-        for (final AsciiString string : layerA.getStrings()) {
-            string.setBackgroundColor(new Color(255, 0, 0, 255));
-        }
+        layerBuilder.setDimensions(23, 10);
+        layerBuilder.setBackgroundColor(Color.RED);
+        panel.addComponents(layerBuilder.build());
 
-        layerBuilder.setColumnIndex(50);
         layerBuilder.setRowIndex(8);
-        layerBuilder.setWidth(23);
-        layerBuilder.setHeight(10);
-        final Layer layerB = layerBuilder.build();
-        for (final AsciiString string : layerB.getStrings()) {
-            string.setBackgroundColor(new Color(0, 0, 255, 155));
-        }
-
-        panel.addComponents(layerA, layerB);
+        layerBuilder.setBackgroundColor(new Color(0, 0, 255, 155));
+        panel.addComponents(layerBuilder.build());
 
 
         panel.draw();
