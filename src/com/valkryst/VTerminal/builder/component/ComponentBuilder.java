@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NonNull;
 import org.json.simple.JSONObject;
 
+import java.awt.Point;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Data
@@ -110,6 +111,19 @@ public class ComponentBuilder<C extends Component> implements VJSONParser {
 
         if (height != null) {
             this.height = height;
+        }
+    }
+
+    /**
+     * Sets the column/row index.
+     *
+     * @param position
+     *          The new column/rowIndex.
+     */
+    public void setPosition(final Point position) {
+        if (position != null) {
+            columnIndex = position.x;
+            rowIndex = position.y;
         }
     }
 }
