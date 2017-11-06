@@ -33,7 +33,7 @@ Dependency:
     <dependency>
         <groupId>com.github.Valkryst</groupId>
         <artifactId>VTerminal</artifactId>
-        <version>2.17.1-BETA</version>
+        <version>2.17.2-BETA</version>
     </dependency>
     
 You may also need to add VRadio as a dependency:
