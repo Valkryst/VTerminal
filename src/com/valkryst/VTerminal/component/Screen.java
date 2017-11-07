@@ -508,9 +508,7 @@ public class Screen extends Component implements Receiver<String> {
 
         componentsLock.writeLock().unlock();
 
-        // Set up event listeners:
-        component.createEventListeners();
-
+        // Add listeners to parent panel:
         if (parentPanel != null) {
             for (final EventListener eventListener : component.getEventListeners()) {
                 parentPanel.addListener(eventListener);

@@ -74,10 +74,12 @@ public class Component {
         }
 
         this.radio = new Radio<>();
+
+        createEventListeners();
     }
 
     /** Creates all required event listeners for the component. */
-    public void createEventListeners() {
+    protected void createEventListeners() {
         if (eventListeners.size() > 0) {
             return;
         }
