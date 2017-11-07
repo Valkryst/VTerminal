@@ -138,6 +138,18 @@ public class Panel implements Receiver<String> {
         newScreen.setParentPanel(this);
         newScreen.setRadio(radio);
 
+        // Unset the font for the old screen and it's components:
+        screen.setFont(null);
+        for (final Component component : screen.getComponents()) {
+            component.setFont(null);
+        }
+
+        // Set the font for the new screen and it's components:
+        newScreen.setFont(imageCache.getFont());
+        for (final Component component : screen.getComponents()) {
+            component.setFont(imageCache.getFont());
+        }
+
         final Screen oldScreen = screen;
         screen = newScreen;
         draw();
