@@ -50,17 +50,14 @@ public class ImagePrinter {
      * @param panel
      *         The panel.
      *
-     * @param columnIndex
-     *         The x-axis (column) coordinate of the top-left character.
-     *
-     * @param rowIndex
-     *         The y-axis (row) coordinate of the top-left character.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
      *         If the panel is null.
      */
-    public void print(final @NonNull Panel panel, final int columnIndex, final int rowIndex) {
-        print((Component) panel.getScreen(), columnIndex, rowIndex);
+    public void print(final @NonNull Panel panel, final Point position) {
+        print((Component) panel.getScreen(), position);
     }
 
     /**
@@ -69,17 +66,14 @@ public class ImagePrinter {
      * @param screen
      *         The screen.
      *
-     * @param columnIndex
-     *         The x-axis (column) coordinate of the top-left character.
-     *
-     * @param rowIndex
-     *         The y-axis (row) coordinate of the top-left character.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
      *         If the screen is null.
      */
-    public void print(final @NonNull Screen screen, final int columnIndex, final int rowIndex) {
-        print((Component) screen, columnIndex, rowIndex);
+    public void print(final @NonNull Screen screen, final Point position) {
+        print((Component) screen, position);
     }
 
     /**
@@ -88,16 +82,13 @@ public class ImagePrinter {
      * @param component
      *         The component.
      *
-     * @param columnIndex
-     *         The x-axis (column) coordinate of the top-left character.
-     *
-     * @param rowIndex
-     *         The y-axis (row) coordinate of the top-left character.
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private void print(final @NonNull Component component, final int columnIndex, final int rowIndex) {
+    private void print(final @NonNull Component component, final Point position) {
         final BufferedImage temp = applyTransformations();
         final Point charPosition = new Point(0, 0);
 
@@ -108,8 +99,8 @@ public class ImagePrinter {
                 final int green = (hexColor & 0x0000ff00) >> 8;
                 final int blue =  hexColor & 0x000000ff;
 
-                final int charX = x + columnIndex;
-                final int charY = y + rowIndex;
+                final int charX = x + position.x;
+                final int charY = y + position.y;
                 charPosition.setLocation(charX, charY);
 
                 final AsciiCharacter character = component.getCharacterAt(charPosition);
