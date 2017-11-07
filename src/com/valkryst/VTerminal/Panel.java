@@ -18,7 +18,9 @@ import java.awt.image.BufferStrategy;
 import java.util.EventListener;
 
 @ToString
-public class Panel extends Canvas implements Receiver<String> {
+public class Panel implements Receiver<String> {
+    @Getter private final Canvas canvas = new Canvas();
+
     /** The width of the panel, in characters. */
     @Getter private int widthInCharacters;
     /** The height of the panel, in characters. */
@@ -49,7 +51,12 @@ public class Panel extends Canvas implements Receiver<String> {
         int pixelWidth = widthInCharacters * builder.getFont().getWidth();
         int pixelHeight = heightInCharacters * builder.getFont().getHeight();
 
-        this.setPreferredSize(new Dimension(pixelWidth, pixelHeight));
+        canvas.setPreferredSize(new Dimension(pixelWidth, pixelHeight));
+        canvas.setIgnoreRepaint(true);
+        canvas.createBufferStrategy(2);
+        canvas.setFocusable(true);
+        canvas.setFocusTraversalKeysEnabled(false);
+        canvas.setBackground(new Color(45, 45, 45, 255));
 
         screen = builder.getScreen();
         screen.setParentPanel(this);
@@ -69,7 +76,7 @@ public class Panel extends Canvas implements Receiver<String> {
 
     /** Draws every character of every row onto the canvas. */
     public void draw() {
-        final BufferStrategy bs = this.getBufferStrategy();
+        final BufferStrategy bs = canvas.getBufferStrategy();
 
         do {
             do {
@@ -184,17 +191,17 @@ public class Panel extends Canvas implements Receiver<String> {
      */
     public void addListener(final EventListener eventListener) {
         if (eventListener instanceof KeyListener) {
-            this.addKeyListener((KeyListener) eventListener);
+            canvas.addKeyListener((KeyListener) eventListener);
             return;
         }
 
         if (eventListener instanceof MouseListener) {
-            this.addMouseListener((MouseListener) eventListener);
+            canvas.addMouseListener((MouseListener) eventListener);
             return;
         }
 
         if (eventListener instanceof MouseMotionListener) {
-            this.addMouseMotionListener((MouseMotionListener) eventListener);
+            canvas.addMouseMotionListener((MouseMotionListener) eventListener);
             return;
         }
 
@@ -212,17 +219,17 @@ public class Panel extends Canvas implements Receiver<String> {
      */
     public void removeListener(final EventListener eventListener) {
         if (eventListener instanceof KeyListener) {
-            this.removeKeyListener((KeyListener) eventListener);
+            canvas.removeKeyListener((KeyListener) eventListener);
             return;
         }
 
         if (eventListener instanceof MouseListener) {
-            this.removeMouseListener((MouseListener) eventListener);
+            canvas.removeMouseListener((MouseListener) eventListener);
             return;
         }
 
         if (eventListener instanceof MouseMotionListener) {
-            this.removeMouseMotionListener((MouseMotionListener) eventListener);
+            canvas.removeMouseMotionListener((MouseMotionListener) eventListener);
             return;
         }
 

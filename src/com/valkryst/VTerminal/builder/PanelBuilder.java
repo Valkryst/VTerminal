@@ -55,7 +55,8 @@ public class PanelBuilder {
         final Color backgroundColor = new Color(45, 45, 45, 255);
 
         final Panel panel = new Panel(this);
-        frame.add(panel);
+
+        frame.add(panel.getCanvas());
         frame.setResizable(false);
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -65,11 +66,6 @@ public class PanelBuilder {
 
         screen.setParentPanel(panel);
 
-        panel.setIgnoreRepaint(true);
-        panel.createBufferStrategy(2);
-        panel.setFocusable(true);
-        panel.setFocusTraversalKeysEnabled(false);
-        panel.setBackground(backgroundColor);
         return panel;
     }
 
