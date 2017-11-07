@@ -8,10 +8,9 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.swing.event.MouseInputListener;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 @ToString
 public class Button extends Component {
@@ -88,7 +87,19 @@ public class Button extends Component {
             return;
         }
 
-        final MouseListener mouseListener = new MouseListener() {
+        final MouseInputListener mouseListener = new MouseInputListener() {
+            @Override
+            public void mouseDragged(final MouseEvent e) {}
+
+            @Override
+            public void mouseMoved(final MouseEvent e) {
+                if (intersects(e)) {
+                    setStateHovered();
+                } else {
+                    setStateNormal();
+                }
+            }
+
             @Override
             public void mouseClicked(MouseEvent e) {}
 
@@ -123,22 +134,7 @@ public class Button extends Component {
             public void mouseExited(MouseEvent e) {}
         };
 
-        final MouseMotionListener mouseMotionListener = new MouseMotionListener() {
-            @Override
-            public void mouseDragged(MouseEvent e) {}
-
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                if (intersects(e)) {
-                    setStateHovered();
-                } else {
-                    setStateNormal();
-                }
-            }
-        };
-
         super.getEventListeners().add(mouseListener);
-        super.getEventListeners().add(mouseMotionListener);
     }
 
     /**

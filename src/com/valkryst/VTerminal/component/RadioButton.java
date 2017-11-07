@@ -6,9 +6,8 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 @ToString
 public class RadioButton extends Button {
@@ -51,7 +50,23 @@ public class RadioButton extends Button {
 
         final RadioButton thisButton = this;
 
-        final MouseListener mouseListener = new MouseListener() {
+        final MouseInputListener mouseListener = new MouseInputListener() {
+            @Override
+            public void mouseDragged(final MouseEvent e) {}
+
+            @Override
+            public void mouseMoved(final MouseEvent e) {
+                if (intersects(e)) {
+                    setStateHovered();
+                } else {
+                    if (isChecked) {
+                        setStatePressed();
+                    } else {
+                        setStateNormal();
+                    }
+                }
+            }
+
             @Override
             public void mouseClicked(final MouseEvent e) {}
 
@@ -78,26 +93,7 @@ public class RadioButton extends Button {
             public void mouseExited(final MouseEvent e) {}
         };
 
-        final MouseMotionListener mouseMotionListener = new MouseMotionListener() {
-            @Override
-            public void mouseDragged(final MouseEvent e) {}
-
-            @Override
-            public void mouseMoved(final MouseEvent e) {
-                if (intersects(e)) {
-                    setStateHovered();
-                } else {
-                    if (isChecked) {
-                        setStatePressed();
-                    } else {
-                        setStateNormal();
-                    }
-                }
-            }
-        };
-
         super.getEventListeners().add(mouseListener);
-        super.getEventListeners().add(mouseMotionListener);
     }
 
     /**
