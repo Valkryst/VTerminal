@@ -511,8 +511,10 @@ public class Screen extends Component implements Receiver<String> {
         // Set up event listeners:
         component.createEventListeners();
 
-        for (final EventListener eventListener : component.getEventListeners()) {
-            parentPanel.addListener(eventListener);
+        if (parentPanel != null) {
+            for (final EventListener eventListener : component.getEventListeners()) {
+                parentPanel.addListener(eventListener);
+            }
         }
 
         // Set the component's font
