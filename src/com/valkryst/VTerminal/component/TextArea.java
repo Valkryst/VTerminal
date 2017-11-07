@@ -181,7 +181,7 @@ public class TextArea extends Component {
     }
 
     @Override
-    public void createEventListeners() {
+    protected void createEventListeners() {
         if (super.getEventListeners().size() > 0) {
             return;
         }

@@ -76,7 +76,7 @@ public class Button extends Component {
     }
 
     @Override
-    public void createEventListeners() {
+    protected void createEventListeners() {
         if (super.getEventListeners().size() > 0) {
             return;
         }
