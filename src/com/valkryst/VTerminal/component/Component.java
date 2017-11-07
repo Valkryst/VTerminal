@@ -100,7 +100,7 @@ public class Component {
             @Override
             public void mouseClicked(final MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    isFocused = intersects(e, fontWidth, fontHeight);
+                    isFocused = intersects(e);
                 }
             }
 
@@ -206,21 +206,15 @@ public class Component {
      * @param event
      *         The event.
      *
-     * @param fontWidth
-     *         The width of the font being used to draw the component's characters.
-     *
-     * @param fontHeight
-     *         The height of the font being used to draw the component's characters.
-     *
      * @return
      *         Whether or not the mouse event is at a point that intersects this component.
      *
      * @throws NullPointerException
      *         If the event is null.
      */
-    public boolean intersects(final @NonNull MouseEvent event, final int fontWidth, final int fontHeight) {
-        final int mouseX = event.getX() / fontWidth;
-        final int mouseY = event.getY() / fontHeight;
+    public boolean intersects(final @NonNull MouseEvent event) {
+        final int mouseX = event.getX() / font.getWidth();
+        final int mouseY = event.getY() / font.getHeight();
         return intersects(new Point(mouseX, mouseY));
     }
 
