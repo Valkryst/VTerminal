@@ -1,9 +1,7 @@
 package com.valkryst.VTerminal.component;
 
 
-import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.CheckBoxBuilder;
-import com.valkryst.VTerminal.font.Font;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -41,20 +39,12 @@ public class CheckBox extends Button {
     }
 
     @Override
-    public void createEventListeners(final Panel panel) {
-        if (panel == null) {
-            return;
-        }
-
+    public void createEventListeners() {
         if (super.getEventListeners().size() > 0) {
             return;
         }
 
-        super.createEventListeners(panel);
-
-        final Font font = panel.getImageCache().getFont();
-        final int fontWidth = font.getWidth();
-        final int fontHeight = font.getHeight();
+        super.createEventListeners();
 
         final MouseListener mouseListener = new MouseListener() {
             @Override
@@ -63,7 +53,7 @@ public class CheckBox extends Button {
             @Override
             public void mousePressed(final MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    if (intersects(e, fontWidth, fontHeight)) {
+                    if (intersects(e)) {
                         if (isChecked) {
                             setChecked(false);
                         } else {
@@ -90,7 +80,7 @@ public class CheckBox extends Button {
 
             @Override
             public void mouseMoved(final MouseEvent e) {
-                if (intersects(e, fontWidth, fontHeight)) {
+                if (intersects(e)) {
                     setStateHovered();
                 } else {
                     if (isChecked) {

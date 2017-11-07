@@ -2,9 +2,7 @@ package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
-import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.ButtonBuilder;
-import com.valkryst.VTerminal.font.Font;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -79,24 +77,16 @@ public class Button extends Component {
     }
 
     @Override
-    public void createEventListeners(final Panel panel) {
-        if (panel == null) {
-            return;
-        }
-
+    public void createEventListeners() {
         if (super.getEventListeners().size() > 0) {
             return;
         }
 
-        super.createEventListeners(panel);
+        super.createEventListeners();
 
         if (this instanceof CheckBox || this instanceof RadioButton) {
             return;
         }
-
-        final Font font = panel.getImageCache().getFont();
-        final int fontWidth = font.getWidth();
-        final int fontHeight = font.getHeight();
 
         final MouseListener mouseListener = new MouseListener() {
             @Override
@@ -105,7 +95,7 @@ public class Button extends Component {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    if (intersects(e, fontWidth, fontHeight)) {
+                    if (intersects(e)) {
                         setStatePressed();
                     }
                 }
@@ -118,7 +108,7 @@ public class Button extends Component {
                         onClickFunction.run();
                     }
 
-                    if (intersects(e, fontWidth, fontHeight)) {
+                    if (intersects(e)) {
                         setStateHovered();
                     } else {
                         setStateNormal();
@@ -139,7 +129,7 @@ public class Button extends Component {
 
             @Override
             public void mouseMoved(MouseEvent e) {
-                if (intersects(e, fontWidth, fontHeight)) {
+                if (intersects(e)) {
                     setStateHovered();
                 } else {
                     setStateNormal();

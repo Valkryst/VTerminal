@@ -3,9 +3,7 @@ package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
-import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.TextAreaBuilder;
-import com.valkryst.VTerminal.font.Font;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -183,11 +181,7 @@ public class TextArea extends Component {
     }
 
     @Override
-    public void createEventListeners(final Panel panel) {
-        if (panel == null) {
-            return;
-        }
-
+    public void createEventListeners() {
         if (super.getEventListeners().size() > 0) {
             return;
         }
@@ -197,10 +191,6 @@ public class TextArea extends Component {
         // the user to move the caret with the mouse.
         // super.createEventListeners(panel);
 
-        final Font font = panel.getImageCache().getFont();
-        final int fontWidth = font.getWidth();
-        final int fontHeight = font.getHeight();
-
         final MouseListener mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(final MouseEvent e) {
@@ -209,12 +199,12 @@ public class TextArea extends Component {
                 }
 
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    TextArea.super.isFocused = intersects(e, fontWidth, fontHeight);
+                    TextArea.super.isFocused = intersects(e);
 
                     if (TextArea.super.isFocused()) {
                         final Point position = TextArea.super.getPosition();
-                        final int columnIndexInArea = (e.getX() / fontWidth) - position.x;
-                        final int rowIndexInArea = (e.getY() / fontHeight) - position.y;
+                        final int columnIndexInArea = (e.getX() / TextArea.super.getFont().getWidth()) - position.x;
+                        final int rowIndexInArea = (e.getY() / TextArea.super.getFont().getHeight()) - position.y;
 
                         int dx = columnIndexInArea - x_index_caret_visual;
                         int dy = rowIndexInArea - y_index_caret_visual;
