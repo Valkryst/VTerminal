@@ -4,7 +4,6 @@ import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.AsciiTile;
-import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.ComponentBuilder;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.shader.Shader;
@@ -77,24 +76,11 @@ public class Component {
         this.radio = new Radio<>();
     }
 
-    /**
-     * Creates all required event listeners for the component.
-     *
-     * @param panel
-     *         The panel on which the Component is being drawn.
-     */
-    public void createEventListeners(final Panel panel) {
-        if (panel == null) {
-            return;
-        }
-
+    /** Creates all required event listeners for the component. */
+    public void createEventListeners() {
         if (eventListeners.size() > 0) {
             return;
         }
-
-        final Font font = panel.getImageCache().getFont();
-        final int fontWidth = font.getWidth();
-        final int fontHeight = font.getHeight();
 
         final MouseListener mouseListener = new MouseListener() {
             @Override
