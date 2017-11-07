@@ -52,11 +52,6 @@ public class Panel implements Receiver<String> {
         int pixelHeight = heightInCharacters * builder.getFont().getHeight();
 
         canvas.setPreferredSize(new Dimension(pixelWidth, pixelHeight));
-        canvas.setIgnoreRepaint(true);
-        canvas.createBufferStrategy(2);
-        canvas.setFocusable(true);
-        canvas.setFocusTraversalKeysEnabled(false);
-        canvas.setBackground(new Color(45, 45, 45, 255));
 
         screen = builder.getScreen();
         screen.setParentPanel(this);

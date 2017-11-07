@@ -12,6 +12,7 @@ import lombok.Getter;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
+import java.awt.Canvas;
 import java.awt.Color;
 
 @Data
@@ -55,7 +56,9 @@ public class PanelBuilder {
         final Color backgroundColor = new Color(45, 45, 45, 255);
 
         final Panel panel = new Panel(this);
+        final Canvas canvas = panel.getCanvas();
 
+        // Setup Frame
         frame.add(panel.getCanvas());
         frame.setResizable(false);
         frame.pack();
@@ -63,6 +66,13 @@ public class PanelBuilder {
         frame.setVisible(true);
         frame.setBackground(backgroundColor);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        // Setup Canvas:
+        canvas.setIgnoreRepaint(true);
+        canvas.createBufferStrategy(2);
+        canvas.setFocusable(true);
+        canvas.setFocusTraversalKeysEnabled(false);
+        canvas.setBackground(new Color(45, 45, 45, 255));
 
         screen.setParentPanel(panel);
 
