@@ -133,7 +133,6 @@ public class Panel implements Receiver<String> {
         screen.setRadio(null);
 
         // Register all of the new screen's components:
-        newScreen.getComponents().forEach(Component::createEventListeners);
         newScreen.getComponents().forEach(component -> component.getEventListeners().forEach(this::addListener));
         newScreen.setParentPanel(this);
         newScreen.setRadio(radio);
