@@ -514,6 +514,9 @@ public class Screen extends Component implements Receiver<String> {
         for (final EventListener eventListener : component.getEventListeners()) {
             parentPanel.addListener(eventListener);
         }
+
+        // Set the component's font
+        component.setFont(super.getFont());
     }
 
     /**
@@ -591,6 +594,9 @@ public class Screen extends Component implements Receiver<String> {
             string.setUnderlined(redrawRange, false);
             string.removeAllShaders(redrawRange);
         }
+
+        // Unset the component's font
+        component.setFont(null);
     }
 
     /**

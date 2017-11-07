@@ -75,6 +75,7 @@ public class PanelBuilder {
         canvas.setBackground(new Color(45, 45, 45, 255));
 
         screen.setParentPanel(panel);
+        screen.setFont(imageCache.getFont());
 
         return panel;
     }

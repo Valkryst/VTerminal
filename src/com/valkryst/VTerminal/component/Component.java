@@ -10,6 +10,7 @@ import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.shader.Shader;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.awt.Dimension;
@@ -46,6 +47,9 @@ public class Component {
 
     /** The event listeners. */
     @Getter private final Set<EventListener> eventListeners = new HashSet<>();
+
+    /** The font being used to draw the component. */
+    @Getter @Setter private Font font;
 
     /**
      * Constructs a new AsciiComponent.
