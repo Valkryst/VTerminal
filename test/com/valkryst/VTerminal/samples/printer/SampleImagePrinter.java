@@ -7,6 +7,7 @@ import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.printer.ImagePrinter;
 
 import javax.imageio.ImageIO;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class SampleImagePrinter {
         final BufferedImage image = ImageIO.read(new File(filePath));
 
         final ImagePrinter printer = new ImagePrinter(image);
-        printer.print(panel, 0, 0);
+        printer.print(panel, new Point(0, 0));
 
         panel.draw();
     }
