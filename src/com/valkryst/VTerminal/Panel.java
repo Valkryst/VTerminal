@@ -5,6 +5,7 @@ import com.valkryst.VRadio.Receiver;
 import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.component.Screen;
+import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ImageCache;
 import lombok.Getter;
 import lombok.NonNull;
@@ -144,11 +145,15 @@ public class Panel implements Receiver<String> {
         }
 
         // Set the font for the new screen and it's components:
-        newScreen.setFont(imageCache.getFont());
+        final Font font = imageCache.getFont();
+
+        newScreen.setFont(font);
+
         for (final Component component : screen.getComponents()) {
-            component.setFont(imageCache.getFont());
+            component.setFont(font);
         }
 
+        // Finish the swap and redraw:
         final Screen oldScreen = screen;
         screen = newScreen;
         draw();
