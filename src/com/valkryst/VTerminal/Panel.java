@@ -132,11 +132,13 @@ public class Panel implements Receiver<String> {
         screen.getComponents().forEach(component -> component.getEventListeners().forEach(this::removeListener));
         screen.setParentPanel(null);
         screen.setRadio(null);
+        System.out.println("Nulled shit");
 
         // Register all of the new screen's components:
         newScreen.getComponents().forEach(component -> component.getEventListeners().forEach(this::addListener));
         newScreen.setParentPanel(this);
         newScreen.setRadio(radio);
+        System.out.println("Set shit");
 
         // Unset the font for the old screen and it's components:
         screen.setFont(null);
@@ -149,7 +151,7 @@ public class Panel implements Receiver<String> {
 
         newScreen.setFont(font);
 
-        for (final Component component : screen.getComponents()) {
+        for (final Component component : newScreen.getComponents()) {
             component.setFont(font);
         }
 
