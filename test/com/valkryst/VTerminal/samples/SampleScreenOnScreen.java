@@ -21,8 +21,6 @@ public class SampleScreenOnScreen {
 
         final Panel panel = builder.build();
 
-        Thread.sleep(100);
-
         final ScreenBuilder screenBuilder = new ScreenBuilder();
         screenBuilder.setColumnIndex(3);
         screenBuilder.setRowIndex(3);

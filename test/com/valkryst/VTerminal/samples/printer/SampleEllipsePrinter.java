@@ -11,15 +11,13 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class SampleEllipsePrinter {
-    public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
+    public static void main(final String[] args) throws IOException, URISyntaxException {
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
 
         final PanelBuilder builder = new PanelBuilder();
         builder.setFont(font);
 
         final Panel panel = builder.build();
-
-        Thread.sleep(100);
 
         final EllipsePrinter printer = new EllipsePrinter();
         printer.setWidth(6);

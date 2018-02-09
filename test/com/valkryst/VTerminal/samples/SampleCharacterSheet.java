@@ -21,8 +21,6 @@ public class SampleCharacterSheet {
 
         final Panel panel = builder.build();
 
-        Thread.sleep(50);
-
         char counter = 0;
 
         for (int y = 0 ; y < panel.getHeightInCharacters() ; y++) {

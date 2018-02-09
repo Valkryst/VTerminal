@@ -14,15 +14,13 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class SampleComponentsFromJSON {
-    public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException, ParseException {
+    public static void main(final String[] args) throws IOException, URISyntaxException, ParseException {
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
 
         final PanelBuilder builder = new PanelBuilder();
         builder.setFont(font);
 
         final Panel panel = builder.build();
-
-        Thread.sleep(100);
 
         final ScreenBuilder screenBuilder = new ScreenBuilder();
         VJSONLoader.loadFromJSON(screenBuilder, System.getProperty("user.dir") + "/res_test/Sample Screen.json");

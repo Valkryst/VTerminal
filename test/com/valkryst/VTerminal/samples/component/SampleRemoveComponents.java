@@ -21,8 +21,6 @@ public class SampleRemoveComponents {
 
          final Panel panel = builder.build();
 
-         Thread.sleep(100);
-
          final ScreenBuilder screenBuilder = new ScreenBuilder();
          VJSONLoader.loadFromJSON(screenBuilder, System.getProperty("user.dir") + "/res_test/Sample Screen.json");
 

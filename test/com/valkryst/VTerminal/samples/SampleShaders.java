@@ -28,8 +28,6 @@ public class SampleShaders {
 
         final Screen screen = panel.getScreen();
 
-        Thread.sleep(50);
-
         final LabelBuilder labelBuilder = new LabelBuilder();
         labelBuilder.setColumnIndex(0);
         labelBuilder.setRowIndex(0);

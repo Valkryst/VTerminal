@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class SampleTileSheet {
-    public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
+    public static void main(final String[] args) throws IOException, URISyntaxException {
         final Font font = FontLoader.loadFontFromJar("Tiles/Nevanda Nethack/bitmap.png", "Tiles/Nevanda Nethack/data.fnt", 1);
 
         final PanelBuilder builder = new PanelBuilder();
@@ -19,8 +19,6 @@ public class SampleTileSheet {
         builder.setHeightInCharacters(22);
 
         final Panel panel = builder.build();
-
-        Thread.sleep(50);
 
         char counter = 0;
 

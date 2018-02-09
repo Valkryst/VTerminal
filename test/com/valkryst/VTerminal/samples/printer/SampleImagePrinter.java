@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class SampleImagePrinter {
-    public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
+    public static void main(final String[] args) throws IOException, URISyntaxException {
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png",
                                                     "Fonts/DejaVu Sans Mono/20pt/data.fnt",
                                                               1);
@@ -22,8 +22,6 @@ public class SampleImagePrinter {
         final PanelBuilder builder = new PanelBuilder();
         builder.setFont(font);
         final Panel panel = builder.build();
-
-        Thread.sleep(50);
 
         final String filePath = System.getProperty("user.dir") + "/res_test/ImagePrinterTest.png";
         final BufferedImage image = ImageIO.read(new File(filePath));
