@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 public class EmbossShader implements Shader {
     /** What do do at the image edges. */
     private int edgeAction = ConvolveFilter.CLAMP_EDGES;
-    /** Whether to promultiply the alpha before convolving. */
+    /** Whether to premultiply the alpha before convolving. */
     private boolean premultiplyAlpha = true;
     /** Whether to convolve alpha. */
     private boolean useAlpha = true;
