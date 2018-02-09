@@ -5,8 +5,6 @@ import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.builder.component.ButtonBuilder;
 import com.valkryst.VTerminal.builder.component.TextAreaBuilder;
 import com.valkryst.VTerminal.component.TextArea;
-import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.font.FontLoader;
 
 import javax.swing.JFileChooser;
 import java.io.File;
@@ -17,12 +15,7 @@ import java.net.URISyntaxException;
 
 public class SampleTextEditor {
     public static void main(final String[] args) throws IOException, URISyntaxException {
-        final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
-
-        final PanelBuilder builder = new PanelBuilder();
-        builder.setFont(font);
-
-        final Panel panel = builder.build();
+        final Panel panel = new PanelBuilder().build();
 
         // Create text area:
         final TextAreaBuilder textAreaBuilder = new TextAreaBuilder();

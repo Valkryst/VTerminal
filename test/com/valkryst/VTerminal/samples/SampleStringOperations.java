@@ -5,8 +5,6 @@ import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.builder.component.LabelBuilder;
 import com.valkryst.VTerminal.component.Label;
 import com.valkryst.VTerminal.component.Screen;
-import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.font.FontLoader;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -14,12 +12,7 @@ import java.net.URISyntaxException;
 
 public class SampleStringOperations {
     public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
-        final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
-
-        final PanelBuilder builder = new PanelBuilder();
-        builder.setFont(font);
-
-        final Panel panel = builder.build();
+        final Panel panel = new PanelBuilder().build();
 
         final Screen screen = panel.getScreen();
 

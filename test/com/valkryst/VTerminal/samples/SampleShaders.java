@@ -5,8 +5,6 @@ import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.builder.component.LabelBuilder;
 import com.valkryst.VTerminal.component.Label;
 import com.valkryst.VTerminal.component.Screen;
-import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.shader.blur.FastMotionBlurShader;
 import com.valkryst.VTerminal.shader.blur.GaussianBlurShader;
 import com.valkryst.VTerminal.shader.blur.MotionBlurShader;
@@ -18,13 +16,7 @@ import java.net.URISyntaxException;
 
 public class SampleShaders {
     public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
-        final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
-
-        final PanelBuilder builder = new PanelBuilder();
-        builder.setFont(font);
-        builder.setWidthInCharacters(90);
-
-        final Panel panel = builder.build();
+        final Panel panel = new PanelBuilder().build();
 
         final Screen screen = panel.getScreen();
 

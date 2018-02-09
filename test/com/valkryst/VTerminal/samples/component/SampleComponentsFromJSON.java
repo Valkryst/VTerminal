@@ -5,8 +5,6 @@ import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.builder.component.ScreenBuilder;
 import com.valkryst.VTerminal.component.ProgressBar;
-import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.font.FontLoader;
 import org.json.simple.parser.ParseException;
 
 import javax.swing.Timer;
@@ -15,12 +13,7 @@ import java.net.URISyntaxException;
 
 public class SampleComponentsFromJSON {
     public static void main(final String[] args) throws IOException, URISyntaxException, ParseException {
-        final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
-
-        final PanelBuilder builder = new PanelBuilder();
-        builder.setFont(font);
-
-        final Panel panel = builder.build();
+        final Panel panel = new PanelBuilder().build();
 
         final ScreenBuilder screenBuilder = new ScreenBuilder();
         VJSONLoader.loadFromJSON(screenBuilder, System.getProperty("user.dir") + "/res_test/Sample Screen.json");

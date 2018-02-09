@@ -4,8 +4,6 @@ import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.AsciiString;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
-import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.font.FontLoader;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -18,12 +16,7 @@ import java.util.stream.Collectors;
 
 public class SampleDrawTime {
     public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
-        final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
-
-        final PanelBuilder builder = new PanelBuilder();
-        builder.setFont(font);
-
-        final Panel panel = builder.build();
+        final Panel panel = new PanelBuilder().build();
 
         List<Long> measurements = new ArrayList<>();
 
