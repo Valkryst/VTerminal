@@ -7,7 +7,6 @@ import com.valkryst.VTerminal.component.Label;
 import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
-import com.valkryst.VTerminal.shader.misc.FlipShader;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -33,27 +32,6 @@ public class SampleStringOperations {
 
         labelBuilder.setText("Writing a regular string.");
         Label label = labelBuilder.build();
-        screen.addComponent(label);
-
-
-        labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
-        labelBuilder.setText("Writing a horizontally flipped string.");
-        label = labelBuilder.build();
-        label.addShaders(new FlipShader(true, false));
-        screen.addComponent(label);
-
-
-        labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
-        labelBuilder.setText("Writing a vertically flipped string.");
-        label = labelBuilder.build();
-        label.addShaders(new FlipShader(false, true));
-        screen.addComponent(label);
-
-
-        labelBuilder.setRowIndex(labelBuilder.getRowIndex() + 1);
-        labelBuilder.setText("Writing a horizontally & vertically flipped string.");
-        label = labelBuilder.build();
-        label.addShaders(new FlipShader(true, true));
         screen.addComponent(label);
 
 
