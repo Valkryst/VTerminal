@@ -244,6 +244,12 @@ public class Panel implements Receiver<String> {
             return;
         }
 
+        if (eventListener instanceof MouseInputListener) {
+            canvas.removeMouseListener((MouseListener) eventListener);
+            canvas.removeMouseMotionListener((MouseMotionListener) eventListener);
+            return;
+        }
+
         if (eventListener instanceof MouseListener) {
             canvas.removeMouseListener((MouseListener) eventListener);
             return;
