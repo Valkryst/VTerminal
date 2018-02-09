@@ -11,7 +11,11 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
-import java.awt.*;
+import javax.swing.event.MouseInputListener;
+import java.awt.Canvas;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -203,6 +207,12 @@ public class Panel implements Receiver<String> {
     public void addListener(final EventListener eventListener) {
         if (eventListener instanceof KeyListener) {
             canvas.addKeyListener((KeyListener) eventListener);
+            return;
+        }
+
+        if (eventListener instanceof MouseInputListener) {
+            canvas.addMouseListener((MouseListener) eventListener);
+            canvas.addMouseMotionListener((MouseMotionListener) eventListener);
             return;
         }
 
