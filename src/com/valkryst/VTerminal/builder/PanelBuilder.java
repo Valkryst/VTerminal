@@ -5,6 +5,7 @@ import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.component.ScreenBuilder;
 import com.valkryst.VTerminal.component.Screen;
 import com.valkryst.VTerminal.font.Font;
+import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.misc.ImageCache;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,6 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 @Data
 @EqualsAndHashCode
@@ -37,8 +40,16 @@ public class PanelBuilder {
     /** The image cache to retrieve character images from. */
     private ImageCache imageCache;
 
-    /** Constructs a new PanelBuilder. */
-    public PanelBuilder() {
+    /**
+     * Constructs a new PanelBuilder.
+     *
+     * @throws IOException
+     *         If an IOException occurs while loading the default font.
+     *
+     * @throws URISyntaxException
+     *         If a URISyntaxException occurs while loading the default font.
+     */
+    public PanelBuilder() throws IOException, URISyntaxException {
         reset();
     }
 
@@ -123,11 +134,19 @@ public class PanelBuilder {
         }
     }
 
-    /** Resets the builder to it's default state. */
-    public void reset() {
+    /**
+     * Resets the builder to it's default state.
+     *
+     * @throws IOException
+     *         If an IOException occurs while loading the default font.
+     *
+     * @throws URISyntaxException
+     *         If a URISyntaxException occurs while loading the default font.
+     */
+    public void reset() throws IOException, URISyntaxException {
         widthInCharacters = 80;
         heightInCharacters = 24;
-        font = null;
+        font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
         screen = null;
         frame = null;
     }
