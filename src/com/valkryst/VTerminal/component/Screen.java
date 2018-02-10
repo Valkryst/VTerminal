@@ -237,22 +237,8 @@ public class Screen extends Component implements Receiver<String> {
         // Draw the screen onto the canvas:
         final AsciiString[] strings = super.getStrings();
 
-        final Thread thread = new Thread(() -> {
-            for (int row = 0 ; row < getHeight()/2 ; row++) {
-                strings[row].draw(gc, imageCache, row, offset);
-            }
-        });
-
-        thread.start();
-
-        for (int row = getHeight()/2 ; row < getHeight() ; row++) {
+        for (int row = 0 ; row < getHeight() ; row++) {
             strings[row].draw(gc, imageCache, row, offset);
-        }
-
-        try {
-            thread.join();
-        } catch(final InterruptedException e) {
-            e.printStackTrace();
         }
 
         // Draw layer components onto the screen:
