@@ -97,7 +97,7 @@ public final class ImageCache {
      * @throws NullPointerException
      *         If the character is null.
      */
-    public VolatileImage retrieveFromCache(final @NonNull AsciiCharacter character) {
+    public VolatileImage retrieve(final @NonNull AsciiCharacter character) {
         final int hash = character.getCacheHash();
 
         VolatileImage image = cachedImages.getIfPresent(hash);

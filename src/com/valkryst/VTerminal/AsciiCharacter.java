@@ -151,7 +151,7 @@ public class AsciiCharacter {
             gc.setColor(backgroundColor);
             gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
         } else {
-            final Image image = imageCache.retrieveFromCache(this);
+            final Image image = imageCache.retrieve(this);
             gc.drawImage(image, columnIndex, rowIndex, null);
 
             // Draw underline:

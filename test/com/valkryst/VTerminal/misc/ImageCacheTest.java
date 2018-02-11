@@ -47,20 +47,20 @@ public class ImageCacheTest {
     @Test
     public void testRetrieveFromCache_withValidInput() {
         final ImageCache cache = new ImageCache(font);
-        final Image image = cache.retrieveFromCache(new AsciiCharacter('A'));
+        final Image image = cache.retrieve(new AsciiCharacter('A'));
         Assert.assertNotNull(image);
     }
 
     @Test
     public void testRetrieveFromCache_withInvalidInput() {
         final ImageCache cache = new ImageCache(font);
-        final Image image = cache.retrieveFromCache(new AsciiCharacter('\u1F5E'));
+        final Image image = cache.retrieve(new AsciiCharacter('\u1F5E'));
         Assert.assertNotNull(image);
     }
 
     @Test(expected=NullPointerException.class)
     public void testRetrieveFromCache_withNullCharacter() {
         final ImageCache cache = new ImageCache(font);
-        cache.retrieveFromCache(null);
+        cache.retrieve(null);
     }
 }
