@@ -291,6 +291,20 @@ public class TileGrid {
     }
 
     /**
+     * Determines whether or not the grid contains a specific child.
+     *
+     * @param child
+     *          The child.
+     *
+     * @return
+     *          Whether or not the grid contains the child.
+     */
+    public boolean containsChild(final TileGrid child) {
+        return child != null && childGrids.contains(child);
+
+    }
+
+    /**
      * Retrieves a row of tiles.
      *
      * If the index is less than 0, then an empty array is returned.
