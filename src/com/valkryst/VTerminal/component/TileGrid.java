@@ -1,15 +1,24 @@
 package com.valkryst.VTerminal.component;
 
-import com.valkryst.VTerminal.AsciiTile;
+import com.valkryst.VTerminal.AsciiCharacter;
 
+import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class TileGrid {
     /** An empty array of tiles. */
-    private final static AsciiTile[] EMPTY_ARRAY = new AsciiTile[0];
+    private final static AsciiCharacter[] EMPTY_ARRAY = new AsciiCharacter[0];
+
+    /** The position of the grid within it's parent. */
+    private final Point position;
 
     /** A grid of tiles. */
-    private final AsciiTile[][] tiles;
+    private final AsciiCharacter[][] tiles;
+
+    /** The child grids that reside on the grid. */
+    private final List<TileGrid> childGrids = new ArrayList<>();
 
     /**
      * Constructs a new TileGrid.
@@ -29,15 +38,167 @@ public class TileGrid {
             height = 1;
         }
 
-        tiles = new AsciiTile[height][width];
+        position = new Point(0, 0);
+        tiles = new AsciiCharacter[height][width];
 
         for (int y = 0 ; y < tiles.length ; y++) {
-            tiles[y] = new AsciiTile[width];
+            tiles[y] = new AsciiCharacter[width];
 
             for (int x = 0 ; x < tiles[0].length ; x++) {
-                tiles[y][x] = new AsciiTile(' ');
+                tiles[y][x] = new AsciiCharacter(' ');
             }
         }
+    }
+
+    /**
+     * Constructs a new TileGrid.
+     *
+     * @param width
+     *          The width of the grid.
+     *
+     * @param height
+     *          The height of the grid.
+     *
+     * @param position
+     *          The position of the grid within it's parent.
+     */
+    public TileGrid(int width, int height, final Point position) {
+        this(width, height);
+
+        if (position == null) {
+            return;
+        }
+
+        if (position.x < 0) {
+            this.position.x = 0;
+        }
+
+        if (position.y == 0) {
+            this.position.y = 0;
+        }
+    }
+
+    /**
+     * Adds one or more child grids to the grid.
+     *
+     * The child is ignored if it's null.
+     *
+     * @param children
+     *          The children to add.
+     */
+    public void addChildren(final TileGrid ... children) {
+        for (final TileGrid child : children) {
+            if (child != null) {
+                addChild(child);
+            }
+        }
+    }
+
+    /**
+     * Removes one or more child grids from the grid.
+     *
+     * The child is ignored if it's null.
+     *
+     * @param children
+     *          The children to remove.
+     */
+    public void removeChildren(final TileGrid ... children) {
+        for (final TileGrid child : children) {
+            if (child != null) {
+                removeChild(child);
+            }
+        }
+    }
+
+    /**
+     * Adds a child grid to the grid, so that it renders before all other
+     * children.
+     *
+     * The child is ignored if it's null.
+     *
+     * @param child
+     *          The child.
+     */
+    public void addChild(final TileGrid child) {
+        if (child == null) {
+            return;
+        }
+
+        childGrids.add(child);
+    }
+
+    /**
+     * Adds a child grid to the grid, so that it renders before an existing
+     * child in the grid.
+     *
+     * The new child is ignored if it's null.
+     *
+     * If the existing child is null, or if it's not in the grid, then the
+     * function falls back to the addChlld function.
+     *
+     * @param newChild
+     *          The new child.
+     *
+     * @param existingChild
+     *          The existing child.
+     */
+    public void addChildAfter(final TileGrid newChild, final TileGrid existingChild) {
+        if (newChild == null) {
+            return;
+        }
+
+        if (existingChild == null || ! childGrids.contains(existingChild)) {
+            addChild(newChild);
+            return;
+        }
+
+        int indexOfExisting = childGrids.indexOf(existingChild);
+        childGrids.add(indexOfExisting + 1, newChild);
+    }
+
+    /**
+     * Adds a child grid to the grid, so that it renders after an existing
+     * child in the grid.
+     *
+     * The child is ignored if it's null.
+     *
+     * If the existing child is null, of if it's not in the grid, then the
+     * function falls back to the addChild function.
+     *
+     * @param newChild
+     *          The new child.
+     *
+     * @param existingChild
+     *          The existing child.
+     */
+    public void addChildBefore(final TileGrid newChild, final TileGrid existingChild) {
+        if (newChild == null) {
+            return;
+        }
+
+        if (existingChild == null || ! childGrids.contains(existingChild)) {
+            addChild(newChild);
+            return;
+        }
+
+        int indexOfExisting = childGrids.indexOf(existingChild);
+        childGrids.add(indexOfExisting, newChild);
+    }
+
+    /**
+     * Removes a child grid from the grid.
+     *
+     * The child is ignored if it's null.
+     *
+     * @param child
+     *          The child.
+     */
+    public void removeChild(final TileGrid child) {
+        if (child == null) {
+            return;
+        }
+
+        childGrids.remove(child);
     }
 
     /**
@@ -52,7 +213,7 @@ public class TileGrid {
      * @return
      *          The row of tiles.
      */
-    public AsciiTile[] getRow(final int index) {
+    public AsciiCharacter[] getRow(final int index) {
         if (index >= tiles.length || index < 0) {
             return EMPTY_ARRAY;
         }
@@ -72,12 +233,12 @@ public class TileGrid {
      * @return
      *          The column of tiles.
      */
-    public AsciiTile[] getColumn(final int columnIndex) {
+    public AsciiCharacter[] getColumn(final int columnIndex) {
         if (columnIndex >= tiles[0].length || columnIndex < 0) {
             return EMPTY_ARRAY;
         }
 
-        final AsciiTile[] columnTiles = new AsciiTile[tiles.length];
+        final AsciiCharacter[] columnTiles = new AsciiCharacter[tiles.length];
 
         for (int rowIndex = 0 ; rowIndex < tiles.length ; rowIndex++) {
             columnTiles[rowIndex] = tiles[rowIndex][columnIndex];
@@ -109,7 +270,7 @@ public class TileGrid {
      * @return
      *          The subset.
      */
-    public AsciiTile[] getRowSubset(final int rowIndex, final int columnIndex, final int length) {
+    public AsciiCharacter[] getRowSubset(final int rowIndex, final int columnIndex, final int length) {
         // Don't allow the use of negative coordinates.
         if (columnIndex < 0 || rowIndex < 0) {
             return EMPTY_ARRAY;
@@ -162,7 +323,7 @@ public class TileGrid {
      * @return
      *          The subset.
      */
-    public AsciiTile[] getColumnSubset(final int rowIndex, final int columnIndex, final int length) {
+    public AsciiCharacter[] getColumnSubset(final int rowIndex, final int columnIndex, final int length) {
         // Don't allow the use of negative coordinates.
         if (columnIndex < 0 || rowIndex < 0) {
             return EMPTY_ARRAY;
@@ -185,8 +346,8 @@ public class TileGrid {
 
         int endRow = (rowIndex + length) >= tiles.length ? tiles.length : (rowIndex + length);
 
-        final AsciiTile[] columnTiles = getColumn(columnIndex);
-        final AsciiTile[] resultTiles = new AsciiTile[endRow];
+        final AsciiCharacter[] columnTiles = getColumn(columnIndex);
+        final AsciiCharacter[] resultTiles = new AsciiCharacter[endRow];
 
         System.arraycopy(columnTiles, rowIndex, resultTiles, 0, endRow - rowIndex);
 
