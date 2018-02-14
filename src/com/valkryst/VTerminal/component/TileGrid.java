@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
-import lombok.Getter;
 import lombok.Setter;
 
 import java.awt.Point;
@@ -17,7 +16,7 @@ public class TileGrid {
     private final Point position;
 
     /** If a grid needs to be redrawn onto it's parent. */
-    @Getter @Setter private boolean requiresRedraw = false;
+    @Setter private boolean requiresRedraw = false;
 
     /** A grid of tiles. */
     private final AsciiCharacter[][] tiles;
@@ -116,6 +115,31 @@ public class TileGrid {
                 if (childTile != null) {
                     tiles[y][x] = childTile;
                 }
+            }
+        }
+    }
+
+    /**
+     * Checks the grid's children for children that need to be redrawn.
+     *
+     * If even one child needs to be redrawn, then the grid is reset and
+     * all children are redrawn.
+     */
+    public void updateGridTiles() {
+        boolean performRedraw = false;
+
+        for (final TileGrid child : childGrids) {
+            if (child.requiresRedraw()) {
+                performRedraw = true;
+                child.setRequiresRedraw(false);
+            }
+        }
+
+        if (performRedraw) {
+            resetGridTiles();
+
+            for (final TileGrid c : childGrids) {
+                drawChildOnGrid(c);
             }
         }
     }
@@ -433,6 +457,16 @@ public class TileGrid {
      */
     public int getYPosition() {
         return position.y;
+    }
+
+    /**
+     * Retrieves whether or not grid needs to be redrawn onto it's parent.
+     *
+     * @return
+     *          If a grid needs to be redrawn onto it's parent.
+     */
+    public boolean requiresRedraw() {
+        return requiresRedraw;
     }
 
     /**
