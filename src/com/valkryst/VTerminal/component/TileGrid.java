@@ -75,10 +75,14 @@ public class TileGrid {
 
         if (position.x < 0) {
             this.position.x = 0;
+        } else {
+            this.position.x = position.x;
         }
 
-        if (position.y == 0) {
+        if (position.y < 0) {
             this.position.y = 0;
+        } else {
+            this.position.y = position.y;
         }
     }
 
