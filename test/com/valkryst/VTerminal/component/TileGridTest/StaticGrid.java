@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.component.TileGridTest;
 
-import com.valkryst.VTerminal.AsciiTile;
+import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.component.TileGrid;
 
 public class StaticGrid {
@@ -20,7 +20,7 @@ public class StaticGrid {
         TILE_GRID = new TileGrid(6, 6);
 
         for (int y = 0 ; y < TILE_GRID.getHeight() ; y++) {
-            final AsciiTile[] row = TILE_GRID.getRow(y);
+            final AsciiCharacter[] row = TILE_GRID.getRow(y);
 
             for (int x = 0 ; x < TILE_GRID.getWidth() ; x++) {
                 row[x].setCharacter((char) (x + 65));

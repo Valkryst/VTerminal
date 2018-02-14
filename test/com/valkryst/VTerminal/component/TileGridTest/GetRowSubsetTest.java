@@ -1,13 +1,13 @@
 package com.valkryst.VTerminal.component.TileGridTest;
 
-import com.valkryst.VTerminal.AsciiTile;
+import com.valkryst.VTerminal.AsciiCharacter;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class GetRowSubsetTest {
     @Test
     public void testGetRowSubset_withValidParams() {
-        final AsciiTile[] rowSubset = StaticGrid.TILE_GRID.getRowSubset(0, 1, 4);
+        final AsciiCharacter[] rowSubset = StaticGrid.TILE_GRID.getRowSubset(0, 1, 4);
         Assert.assertEquals(rowSubset.length, 4);
         Assert.assertEquals(rowSubset[0].getCharacter(), 'B');
         Assert.assertEquals(rowSubset[1].getCharacter(), 'C');
@@ -18,7 +18,7 @@ public class GetRowSubsetTest {
     @Test
     public void testGetRowSubset_withLengthExceedingGridWidth() {
         int gridWidth = StaticGrid.TILE_GRID.getWidth() + 10;
-        final AsciiTile[] rowSubset = StaticGrid.TILE_GRID.getRowSubset(0, 0, gridWidth);
+        final AsciiCharacter[] rowSubset = StaticGrid.TILE_GRID.getRowSubset(0, 0, gridWidth);
         Assert.assertEquals(rowSubset.length, 6);
         Assert.assertEquals(rowSubset[0].getCharacter(), 'A');
         Assert.assertEquals(rowSubset[1].getCharacter(), 'B');
@@ -30,33 +30,33 @@ public class GetRowSubsetTest {
 
     @Test
     public void testGetRowSubset_withRowIndexLessThanZero() {
-        final AsciiTile[] rowSubset = StaticGrid.TILE_GRID.getRowSubset(-1, 1, 4);
+        final AsciiCharacter[] rowSubset = StaticGrid.TILE_GRID.getRowSubset(-1, 1, 4);
         Assert.assertEquals(rowSubset.length, 0);
     }
 
     @Test
     public void testGetRowSubset_withColumnIndexLessThanZero() {
-        final AsciiTile[] rowSubset = StaticGrid.TILE_GRID.getRowSubset(0, -1, 4);
+        final AsciiCharacter[] rowSubset = StaticGrid.TILE_GRID.getRowSubset(0, -1, 4);
         Assert.assertEquals(rowSubset.length, 0);
     }
 
     @Test
     public void testGetRowSubset_withLengthLessThanOne() {
-        final AsciiTile[] rowSubset = StaticGrid.TILE_GRID.getRowSubset(0, 1, 0);
+        final AsciiCharacter[] rowSubset = StaticGrid.TILE_GRID.getRowSubset(0, 1, 0);
         Assert.assertEquals(rowSubset.length, 0);
     }
 
     @Test
     public void testGetRowSubset_withRowIndexExceedingGridHeight() {
         int gridHeight = StaticGrid.TILE_GRID.getHeight() + 1;
-        final AsciiTile[] rowSubset = StaticGrid.TILE_GRID.getRowSubset(gridHeight, 1, 0);
+        final AsciiCharacter[] rowSubset = StaticGrid.TILE_GRID.getRowSubset(gridHeight, 1, 0);
         Assert.assertEquals(rowSubset.length, 0);
     }
 
     @Test
     public void testGetRowSubset_withColumnIndexExceedingGridWidth() {
         int gridWidth = StaticGrid.TILE_GRID.getWidth() + 1;
-        final AsciiTile[] rowSubset = StaticGrid.TILE_GRID.getRowSubset(0, gridWidth, 0);
+        final AsciiCharacter[] rowSubset = StaticGrid.TILE_GRID.getRowSubset(0, gridWidth, 0);
         Assert.assertEquals(rowSubset.length, 0);
     }
 }

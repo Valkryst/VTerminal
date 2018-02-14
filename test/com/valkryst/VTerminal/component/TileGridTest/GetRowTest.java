@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.component.TileGridTest;
 
-import com.valkryst.VTerminal.AsciiTile;
+import com.valkryst.VTerminal.AsciiCharacter;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -8,7 +8,7 @@ public class GetRowTest {
     @Test
     public void testGetRow_withValidIndices() {
         for (int y = 0 ; y < StaticGrid.TILE_GRID.getHeight() ; y++) {
-            final AsciiTile[] row = StaticGrid.TILE_GRID.getRow(y);
+            final AsciiCharacter[] row = StaticGrid.TILE_GRID.getRow(y);
 
             Assert.assertEquals(row[0].getCharacter(), 'A');
             Assert.assertEquals(row[1].getCharacter(), 'B');
@@ -21,14 +21,14 @@ public class GetRowTest {
 
     @Test
     public void testGetRow_withNegativeIndex() {
-        final AsciiTile[] row = StaticGrid.TILE_GRID.getRow(-1);
+        final AsciiCharacter[] row = StaticGrid.TILE_GRID.getRow(-1);
         Assert.assertEquals(row.length, 0);
     }
 
     @Test
     public void testGetRow_withIndexExceedingGridHeight() {
         int index = StaticGrid.TILE_GRID.getHeight() + 1;
-        final AsciiTile[] row = StaticGrid.TILE_GRID.getRow(index);
+        final AsciiCharacter[] row = StaticGrid.TILE_GRID.getRow(index);
         Assert.assertEquals(row.length, 0);
     }
 }

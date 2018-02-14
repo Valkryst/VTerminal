@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.component.TileGridTest;
 
-import com.valkryst.VTerminal.AsciiTile;
+import com.valkryst.VTerminal.AsciiCharacter;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ public class GetHeightTest {
         final int length = StaticGrid.TILE_GRID.getColumn(0).length;
 
         for (int x = 0 ; x < StaticGrid.TILE_GRID.getHeight() ; x++) {
-            final AsciiTile[] column = StaticGrid.TILE_GRID.getColumn(x);
+            final AsciiCharacter[] column = StaticGrid.TILE_GRID.getColumn(x);
             Assert.assertEquals(column.length, length);
         }
     }
