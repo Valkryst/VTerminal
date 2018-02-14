@@ -79,6 +79,52 @@ public class TileGrid {
     }
 
     /**
+     * Draws a child's tiles onto the grid.
+     *
+     * If they overlap an existing child's tiles, then the existing tiles
+     * are replaced by the new ones.
+     *
+     * If a child's tile is outside the bounds of the grid, then it is not
+     * drawn to the grid.
+     *
+     * @param child
+     *          The child.
+     */
+    private void drawChildOnGrid(final TileGrid child) {
+        final int startX = child.getXPosition();
+        final int startY = child.getYPosition();
+        int endX = startX + child.getWidth();
+        int endY = startY + child.getHeight();
+
+        if (endX > tiles[0].length) {
+            endX = tiles[0].length;
+        }
+
+        if (endY > tiles.length) {
+            endY = tiles.length;
+        }
+
+        for (int y = startY ; y < endY ; y++) {
+            for (int x = startX; x < endX ; x++) {
+                final AsciiCharacter childTile = child.getTileAt(x - startX, y - startY);
+
+                if (childTile != null) {
+                    tiles[y][x] = childTile;
+                }
+            }
+        }
+    }
+
+    /** Resets all of the grid's tiles to their default state. */
+    private void resetGridTiles() {
+        for (int y = 0 ; y < tiles[0].length ; y++) {
+            for (int x = 0; x < tiles.length ; x++) {
+                tiles[y][x].reset();
+            }
+        }
+    }
+
+    /**
      * Adds one or more child grids to the grid.
      *
      * The child is ignored if it's null.
@@ -125,6 +171,7 @@ public class TileGrid {
         }
 
         childGrids.add(child);
+        drawChildOnGrid(child);
     }
 
     /**
@@ -154,6 +201,7 @@ public class TileGrid {
 
         int indexOfExisting = childGrids.indexOf(existingChild);
         childGrids.add(indexOfExisting + 1, newChild);
+        drawChildOnGrid(newChild);
     }
 
     /**
@@ -183,6 +231,7 @@ public class TileGrid {
 
         int indexOfExisting = childGrids.indexOf(existingChild);
         childGrids.add(indexOfExisting, newChild);
+        drawChildOnGrid(newChild);
     }
 
     /**
@@ -199,6 +248,13 @@ public class TileGrid {
         }
 
         childGrids.remove(child);
+
+        // Reset grid and redraw all tiles:
+        resetGridTiles();
+
+        for (final TileGrid c : childGrids) {
+            drawChildOnGrid(c);
+        }
     }
 
     /**
@@ -355,6 +411,26 @@ public class TileGrid {
     }
 
     /**
+     * Retrieves the x-axis coordinate of the grid within it's parent.
+     *
+     * @return
+     *          The x-axis coordinate of the grid within it's parent.
+     */
+    public int getXPosition() {
+        return position.x;
+    }
+
+    /**
+     * Retrieves the y-axis coordinate of the grid within it's parent.
+     *
+     * @return
+     *          The y-axis coordinate of the grid within it's parent.
+     */
+    public int getYPosition() {
+        return position.y;
+    }
+
+    /**
      * Retrieves the width, also known as the total number of columns, in the grid.
      *
      * @return
@@ -372,5 +448,30 @@ public class TileGrid {
      */
     public int getHeight() {
         return tiles.length;
+    }
+
+    /**
+     * Retrieves a tile from the grid.
+     *
+     * @param x
+     *          The x-axis coordinate of the tile to retrieve.
+     *
+     * @param y
+     *          The y-axis coordinate of the tile to retrieve.
+     *
+     * @return
+     *          The tile, or null if the coordinates are outside the bounds
+     *          of the grid.
+     */
+    public AsciiCharacter getTileAt(final int x, final int y) {
+        if (x < 0 || x >= tiles[0].length) {
+            return null;
+        }
+
+        if (y < 0 || y >= tiles.length) {
+            return null;
+        }
+
+        return tiles[x][y];
     }
 }
