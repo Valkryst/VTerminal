@@ -183,12 +183,12 @@ public class TileGrid {
             return EMPTY_ARRAY;
         }
 
-        int endRow = (rowIndex + length) >= tiles.length ? tiles.length - 1 : (rowIndex + length);
+        int endRow = (rowIndex + length) >= tiles.length ? tiles.length : (rowIndex + length);
 
         final AsciiTile[] columnTiles = getColumn(columnIndex);
-        final AsciiTile[] resultTiles = new AsciiTile[length];
+        final AsciiTile[] resultTiles = new AsciiTile[endRow];
 
-        System.arraycopy(resultTiles, rowIndex, resultTiles, 0, endRow - rowIndex);
+        System.arraycopy(columnTiles, rowIndex, resultTiles, 0, endRow - rowIndex);
 
         return resultTiles;
     }
