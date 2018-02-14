@@ -158,38 +158,6 @@ public class TileGrid {
     }
 
     /**
-     * Adds one or more child grids to the grid.
-     *
-     * The child is ignored if it's null.
-     *
-     * @param children
-     *          The children to add.
-     */
-    public void addChildren(final TileGrid ... children) {
-        for (final TileGrid child : children) {
-            if (child != null) {
-                addChild(child);
-            }
-        }
-    }
-
-    /**
-     * Removes one or more child grids from the grid.
-     *
-     * The child is ignored if it's null.
-     *
-     * @param children
-     *          The children to remove.
-     */
-    public void removeChildren(final TileGrid ... children) {
-        for (final TileGrid child : children) {
-            if (child != null) {
-                removeChild(child);
-            }
-        }
-    }
-
-    /**
      * Adds a child grid to the grid, so that it renders before all other
      * children.
      *
