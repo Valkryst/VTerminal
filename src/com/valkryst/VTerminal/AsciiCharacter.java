@@ -21,7 +21,7 @@ public class AsciiCharacter {
     /** The hash value, of the character, used by the image cache. */
     @Getter protected int cacheHash;
     /** Whether or not to update the cache hash. */
-    protected boolean updateCacheHash = true;
+    protected boolean updateCacheHash;
 
     /** The shaders to run on each image. */
     @Getter private final List<Shader> shaders = new LinkedList<>();
@@ -29,25 +29,25 @@ public class AsciiCharacter {
     /** The character. */
 	@Getter private char character;
 	/** Whether or not the foreground should be drawn using the background color. */
-	@Getter @Setter private boolean isHidden = false;
+	@Getter @Setter private boolean isHidden;
     /** The background color. Defaults to black. */
-    @Getter private Color backgroundColor = Color.BLACK;
+    @Getter private Color backgroundColor;
 	/** The foreground color. Defaults to white. */
-	@Getter private Color foregroundColor = Color.WHITE;
+	@Getter private Color foregroundColor;
 	/** The bounding box of the character's area. */
 	@Getter private final Rectangle boundingBox;
 
 	/** Whether or not to draw the character as underlined. */
-	@Getter @Setter private boolean isUnderlined = false;
+	@Getter @Setter private boolean isUnderlined;
     /** The thickness of the underline to draw beneath the character. */
-	@Getter private int underlineThickness = 2;
+	@Getter private int underlineThickness;
 
 	private Timer blinkTimer;
 	/** The amount of time, in milliseconds, before the blink effect can occur. */
-	@Getter private short millsBetweenBlinks = 1000;
+	@Getter private short millsBetweenBlinks;
 
 	/** Whether or not the foreground and background colors are equal. */
-	@Getter private boolean foregroundAndBackgroundColorEqual = false;
+	@Getter private boolean foregroundAndBackgroundColorEqual;
 
     /**
      * Constructs a new AsciiCharacter.
@@ -56,6 +56,7 @@ public class AsciiCharacter {
      *         The character.
      */
 	public AsciiCharacter(final char character) {
+	    reset();
 	    this.character = character;
         boundingBox = new Rectangle();
     }
@@ -72,9 +73,28 @@ public class AsciiCharacter {
      *        If the character is null.
      */
     public AsciiCharacter(final @NonNull AsciiCharacter character) {
+        reset();
         boundingBox = new Rectangle();
 
         copy(character);
+    }
+
+    /** Resets the character to it's default state. */
+    public void reset() {
+        removeAllShaders();
+
+        character = ' ';
+        isHidden = false;
+        backgroundColor = Color.BLACK;
+        foregroundColor = Color.WHITE;
+
+        isUnderlined = false;
+        underlineThickness = 2;
+
+        disableBlinkEffect();
+        millsBetweenBlinks = 1000;
+
+        foregroundAndBackgroundColorEqual = false;
     }
 
     /**
