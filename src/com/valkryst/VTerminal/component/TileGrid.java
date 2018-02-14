@@ -99,52 +99,33 @@ public class TileGrid {
      *          The child.
      */
     private void drawChildOnGrid(final TileGrid child) {
-        final int startX = child.getXPosition();
-        final int startY = child.getYPosition();
-        int endX = startX + child.getWidth();
-        int endY = startY + child.getHeight();
+        int childX = 0;
+        int childY = 0;
+        int childHeight = child.getHeight();
+        int childWidth = child.getWidth();
 
-        if (endX > tiles[0].length) {
-            endX = tiles[0].length;
-        }
+        int parentX = child.getXPosition();
+        int parentY = child.getYPosition();
+        int parentHeight = tiles.length;
+        int parentWidth = tiles[0].length;
 
-        if (endY > tiles.length) {
-            endY = tiles.length;
-        }
+        while (childY < childHeight && parentY < parentHeight) {
+            if (parentY >= 0) {
+                while (childX < childWidth && parentX < parentWidth) {
+                    if (parentX >= 0) {
+                        tiles[parentY][parentX] = child.getTileAt(childX, childY);
+                    }
 
-        for (int y = startY ; y < endY ; y++) {
-            for (int x = startX; x < endX ; x++) {
-                final AsciiCharacter childTile = child.getTileAt(x - startX, y - startY);
-
-                if (childTile != null) {
-                    tiles[y][x] = childTile;
+                    childX++;
+                    parentX++;
                 }
             }
-        }
-    }
 
-    /**
-     * Checks the grid's children for children that need to be redrawn.
-     *
-     * If even one child needs to be redrawn, then the grid is reset and
-     * all children are redrawn.
-     */
-    public void updateGridTiles() {
-        boolean performRedraw = false;
+            childX = 0;
+            parentX = child.getXPosition();
 
-        for (final TileGrid child : childGrids) {
-            if (child.requiresRedraw()) {
-                performRedraw = true;
-                child.setRequiresRedraw(false);
-            }
-        }
-
-        if (performRedraw) {
-            resetGridTiles();
-
-            for (final TileGrid c : childGrids) {
-                drawChildOnGrid(c);
-            }
+            childY++;
+            parentY++;
         }
     }
 
