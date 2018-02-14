@@ -1,6 +1,8 @@
 package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -13,6 +15,9 @@ public class TileGrid {
 
     /** The position of the grid within it's parent. */
     private final Point position;
+
+    /** If a grid needs to be redrawn onto it's parent. */
+    @Getter @Setter private boolean requiresRedraw = false;
 
     /** A grid of tiles. */
     private final AsciiCharacter[][] tiles;
@@ -472,6 +477,36 @@ public class TileGrid {
             return null;
         }
 
-        return tiles[x][y];
+        return tiles[y][x];
+    }
+
+    /**
+     * Sets the new x-axis coordinate of the grid within it's parent.
+     *
+     * Negative coordinates are ignored.
+     *
+     * @param x
+     *          The new coordinate.
+     */
+    public void setXPosition(final int x) {
+        if (x >= 0) {
+            position.x = x;
+            requiresRedraw = true;
+        }
+    }
+
+    /**
+     * Sets the new y-axis coordinate of the grid within it's parent.
+     *
+     * Negative coordinates are ignored.
+     *
+     * @param y
+     *          The new coordinate.
+     */
+    public void setYPosition(final int y) {
+        if (y >= 0) {
+            position.y = y;
+            requiresRedraw = true;
+        }
     }
 }
