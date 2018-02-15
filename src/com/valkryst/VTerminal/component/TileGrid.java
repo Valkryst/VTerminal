@@ -89,6 +89,8 @@ public class TileGrid {
     /**
      * Draws a child's tiles onto the grid.
      *
+     * The child is ignored if it's null.
+     *
      * If they overlap an existing child's tiles, then the existing tiles
      * are replaced by the new ones.
      *
@@ -99,6 +101,10 @@ public class TileGrid {
      *          The child.
      */
     private void drawChildOnGrid(final TileGrid child) {
+        if (child == null) {
+            return;
+        }
+
         int childX = 0;
         int childY = 0;
         final int childHeight = child.getHeight();
