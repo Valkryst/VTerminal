@@ -101,13 +101,13 @@ public class TileGrid {
     private void drawChildOnGrid(final TileGrid child) {
         int childX = 0;
         int childY = 0;
-        int childHeight = child.getHeight();
-        int childWidth = child.getWidth();
+        final int childHeight = child.getHeight();
+        final int childWidth = child.getWidth();
 
         int parentX = child.getXPosition();
         int parentY = child.getYPosition();
-        int parentHeight = tiles.length;
-        int parentWidth = tiles[0].length;
+        final int parentHeight = tiles.length;
+        final int parentWidth = tiles[0].length;
 
         while (childY < childHeight && parentY < parentHeight) {
             if (parentY >= 0) {
