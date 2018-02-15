@@ -17,5 +17,8 @@ public class GetXPositionTest {
         grid.setXPosition(5);
         Assert.assertEquals(5, grid.getXPosition());
         Assert.assertEquals(0, grid.getYPosition());
+
+        // Reset position.
+        grid.setXPosition(0);
     }
 }

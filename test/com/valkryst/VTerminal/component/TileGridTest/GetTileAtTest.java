@@ -13,7 +13,6 @@ public class GetTileAtTest {
         for (int y = 0 ; y < gridHeight ; y++) {
             for (int x = 0 ; x < gridWidth ; x++) {
                 final AsciiCharacter character = StaticGrid.TILE_GRID.getTileAt(x, y);
-                System.out.print(character.getCharacter());
 
                 switch (x) {
                     case 0: {
@@ -42,7 +41,6 @@ public class GetTileAtTest {
                     }
                 }
             }
-            System.out.println();
         }
         final AsciiCharacter character = StaticGrid.TILE_GRID.getTileAt(0, 0);
         Assert.assertEquals('A', character.getCharacter());
