@@ -87,7 +87,15 @@ public class TileGrid {
 
     public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache) {
         // Create a grid to draw, using this parent grid and it's children.
-        final TileGrid drawGrid = new TileGrid(tiles.length, tiles[0].length);
+        final AsciiCharacter[][] drawTiles = new AsciiCharacter[tiles.length][tiles[0].length];
+
+        for (int y = 0 ; y < drawTiles.length ; y++) {
+            drawTiles[y] = new AsciiCharacter[drawTiles[0].length];
+
+            for (int x = 0 ; x < drawTiles[0].length ; x++) {
+                drawTiles[y][x] = new AsciiCharacter(' ');
+            }
+        }
 
         for (final TileGrid child : childGrids) {
             if (child == null) {
@@ -101,14 +109,14 @@ public class TileGrid {
 
             int parentX = child.getXPosition();
             int parentY = child.getYPosition();
-            final int parentHeight = drawGrid.getHeight();
-            final int parentWidth =  drawGrid.getWidth();
+            final int parentHeight = drawTiles.length;
+            final int parentWidth =  drawTiles[0].length;
 
             while (childY < childHeight && parentY < parentHeight) {
                 if (parentY >= 0) {
                     while (childX < childWidth && parentX < parentWidth) {
                         if (parentX >= 0) {
-                            drawGrid.getTileAt(parentX, parentY).copy(child.getTileAt(childX, childY));
+                            drawTiles[parentY][parentX].copy(child.getTileAt(childX, childY));
                         }
 
                         childX++;
@@ -125,9 +133,9 @@ public class TileGrid {
         }
 
         // Draw the grid to the screen
-        for (int y = 0 ; y < drawGrid.getHeight() ; y++) {
-            for (int x = 0; x < drawGrid.getWidth(); x++) {
-                drawGrid.getTileAt(x, y).draw(gc, imageCache, x, y);
+        for (int y = 0 ; y < drawTiles.length ; y++) {
+            for (int x = 0; x < drawTiles[0].length ; x++) {
+                drawTiles[y][x].draw(gc, imageCache, x, y);
             }
         }
     }
