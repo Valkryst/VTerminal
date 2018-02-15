@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class AddChildBeforeTest {
-    public  TileGrid parentGrid;
+    private TileGrid parentGrid;
 
     @Before
     public void initGrid() {
