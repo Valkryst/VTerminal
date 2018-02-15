@@ -86,57 +86,16 @@ public class TileGrid {
     }
 
     public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache) {
-        // Create a grid to draw, using this parent grid and it's children.
-        final AsciiCharacter[][] drawTiles = new AsciiCharacter[tiles.length][tiles[0].length];
-
-        for (int y = 0 ; y < drawTiles.length ; y++) {
-            drawTiles[y] = new AsciiCharacter[drawTiles[0].length];
-
-            for (int x = 0 ; x < drawTiles[0].length ; x++) {
-                drawTiles[y][x] = new AsciiCharacter(' ');
-            }
-        }
-
-        for (final TileGrid child : childGrids) {
-            if (child == null) {
-                continue;
-            }
-
-            int childX = 0;
-            int childY = 0;
-            final int childHeight = child.getHeight();
-            final int childWidth = child.getWidth();
-
-            int parentX = child.getXPosition();
-            int parentY = child.getYPosition();
-            final int parentHeight = drawTiles.length;
-            final int parentWidth =  drawTiles[0].length;
-
-            while (childY < childHeight && parentY < parentHeight) {
-                if (parentY >= 0) {
-                    while (childX < childWidth && parentX < parentWidth) {
-                        if (parentX >= 0) {
-                            drawTiles[parentY][parentX].copy(child.getTileAt(childX, childY));
-                        }
-
-                        childX++;
-                        parentX++;
-                    }
-                }
-
-                childX = 0;
-                parentX = child.getXPosition();
-
-                childY++;
-                parentY++;
-            }
-        }
-
         // Draw the grid to the screen
-        for (int y = 0 ; y < drawTiles.length ; y++) {
-            for (int x = 0; x < drawTiles[0].length ; x++) {
-                drawTiles[y][x].draw(gc, imageCache, x, y);
+        for (int y = 0 ; y < tiles.length ; y++) {
+            for (int x = 0; x < tiles[0].length ; x++) {
+                tiles[y][x].draw(gc, imageCache, x, y);
             }
+        }
+
+        // Draw the child grids to the screen
+        for (final TileGrid child : childGrids) {
+            child.draw(gc, imageCache);
         }
     }
 
