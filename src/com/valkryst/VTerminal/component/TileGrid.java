@@ -1,8 +1,10 @@
 package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
-import lombok.Setter;
+import com.valkryst.VTerminal.misc.ImageCache;
+import lombok.NonNull;
 
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,9 +16,6 @@ public class TileGrid {
 
     /** The position of the grid within it's parent. */
     private final Point position;
-
-    /** If a grid needs to be redrawn onto it's parent. */
-    @Setter private boolean requiresRedraw = false;
 
     /** A grid of tiles. */
     private final AsciiCharacter[][] tiles;
@@ -86,52 +85,50 @@ public class TileGrid {
         }
     }
 
-    /**
-     * Draws a child's tiles onto the grid.
-     *
-     * The child is ignored if it's null.
-     *
-     * If they overlap an existing child's tiles, then the existing tiles
-     * are replaced by the new ones.
-     *
-     * If a child's tile is outside the bounds of the grid, then it is not
-     * drawn to the grid.
-     *
-     * @param child
-     *          The child.
-     */
-    private void drawChildOnGrid(final TileGrid child) {
-        if (child == null) {
-            return;
-        }
+    public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache) {
+        // Create a grid to draw, using this parent grid and it's children.
+        final TileGrid drawGrid = new TileGrid(tiles.length, tiles[0].length);
 
-        int childX = 0;
-        int childY = 0;
-        final int childHeight = child.getHeight();
-        final int childWidth = child.getWidth();
-
-        int parentX = child.getXPosition();
-        int parentY = child.getYPosition();
-        final int parentHeight = tiles.length;
-        final int parentWidth = tiles[0].length;
-
-        while (childY < childHeight && parentY < parentHeight) {
-            if (parentY >= 0) {
-                while (childX < childWidth && parentX < parentWidth) {
-                    if (parentX >= 0) {
-                        tiles[parentY][parentX].copy(child.getTileAt(childX, childY));
-                    }
-
-                    childX++;
-                    parentX++;
-                }
+        for (final TileGrid child : childGrids) {
+            if (child == null) {
+                continue;
             }
 
-            childX = 0;
-            parentX = child.getXPosition();
+            int childX = 0;
+            int childY = 0;
+            final int childHeight = child.getHeight();
+            final int childWidth = child.getWidth();
 
-            childY++;
-            parentY++;
+            int parentX = child.getXPosition();
+            int parentY = child.getYPosition();
+            final int parentHeight = drawGrid.getHeight();
+            final int parentWidth =  drawGrid.getWidth();
+
+            while (childY < childHeight && parentY < parentHeight) {
+                if (parentY >= 0) {
+                    while (childX < childWidth && parentX < parentWidth) {
+                        if (parentX >= 0) {
+                            drawGrid.getTileAt(parentX, parentY).copy(child.getTileAt(childX, childY));
+                        }
+
+                        childX++;
+                        parentX++;
+                    }
+                }
+
+                childX = 0;
+                parentX = child.getXPosition();
+
+                childY++;
+                parentY++;
+            }
+        }
+
+        // Draw the grid to the screen
+        for (int y = 0 ; y < drawGrid.getHeight() ; y++) {
+            for (int x = 0; x < drawGrid.getWidth(); x++) {
+                drawGrid.getTileAt(x, y).draw(gc, imageCache, x, y);
+            }
         }
     }
 
@@ -159,7 +156,6 @@ public class TileGrid {
         }
 
         childGrids.add(child);
-        drawChildOnGrid(child);
     }
 
     /**
@@ -189,7 +185,6 @@ public class TileGrid {
 
         int indexOfExisting = childGrids.indexOf(existingChild);
         childGrids.add(indexOfExisting + 1, newChild);
-        drawChildOnGrid(newChild);
     }
 
     /**
@@ -219,7 +214,6 @@ public class TileGrid {
 
         int indexOfExisting = childGrids.indexOf(existingChild);
         childGrids.add(indexOfExisting, newChild);
-        drawChildOnGrid(newChild);
     }
 
     /**
@@ -236,13 +230,6 @@ public class TileGrid {
         }
 
         childGrids.remove(child);
-
-        // Reset grid and redraw all tiles:
-        resetGridTiles();
-
-        for (final TileGrid c : childGrids) {
-            drawChildOnGrid(c);
-        }
     }
 
     /**
@@ -433,16 +420,6 @@ public class TileGrid {
     }
 
     /**
-     * Retrieves whether or not grid needs to be redrawn onto it's parent.
-     *
-     * @return
-     *          If a grid needs to be redrawn onto it's parent.
-     */
-    public boolean requiresRedraw() {
-        return requiresRedraw;
-    }
-
-    /**
      * Retrieves the width, also known as the total number of columns, in the grid.
      *
      * @return
@@ -497,7 +474,6 @@ public class TileGrid {
      */
     public void setXPosition(final int x) {
         position.x = x;
-        requiresRedraw = true;
     }
 
     /**
@@ -510,6 +486,5 @@ public class TileGrid {
      */
     public void setYPosition(final int y) {
         position.y = y;
-        requiresRedraw = true;
     }
 }
