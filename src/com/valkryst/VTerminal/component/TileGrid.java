@@ -496,10 +496,8 @@ public class TileGrid {
      *          The new coordinate.
      */
     public void setXPosition(final int x) {
-        if (x >= 0) {
-            position.x = x;
-            requiresRedraw = true;
-        }
+        position.x = x;
+        requiresRedraw = true;
     }
 
     /**
@@ -511,9 +509,7 @@ public class TileGrid {
      *          The new coordinate.
      */
     public void setYPosition(final int y) {
-        if (y >= 0) {
-            position.y = y;
-            requiresRedraw = true;
-        }
+        position.y = y;
+        requiresRedraw = true;
     }
 }
