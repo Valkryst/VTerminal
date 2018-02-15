@@ -113,7 +113,7 @@ public class TileGrid {
             if (parentY >= 0) {
                 while (childX < childWidth && parentX < parentWidth) {
                     if (parentX >= 0) {
-                        tiles[parentY][parentX] = child.getTileAt(childX, childY);
+                        tiles[parentY][parentX].copy(child.getTileAt(childX, childY));
                     }
 
                     childX++;
