@@ -99,15 +99,6 @@ public class TileGrid {
         }
     }
 
-    /** Resets all of the grid's tiles to their default state. */
-    private void resetGridTiles() {
-        for (int y = 0 ; y < tiles[0].length ; y++) {
-            for (int x = 0; x < tiles.length ; x++) {
-                tiles[y][x].reset();
-            }
-        }
-    }
-
     /**
      * Adds a child grid to the grid, so that it renders before all other
      * children.
