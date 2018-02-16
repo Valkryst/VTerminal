@@ -4,6 +4,7 @@ import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.misc.ImageCache;
 import lombok.NonNull;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -26,26 +27,26 @@ public class TileGrid {
     /**
      * Constructs a new TileGrid.
      *
-     * @param width
-     *          The width of the grid.
+     * @param dimensions
+     *          The dimensions of the grid.
      *
-     * @param height
-     *          The height of the grid.
+     * @throws NullPointerException
+     *         If the dimensions is null.
      */
-    public TileGrid(int width, int height) {
-        if (width < 1) {
-            width = 1;
+    public TileGrid(final @NonNull Dimension dimensions) {
+        if (dimensions.width < 1) {
+            dimensions.width = 1;
         }
 
-        if (height < 1) {
-            height = 1;
+        if (dimensions.height < 1) {
+            dimensions.height = 1;
         }
 
         position = new Point(0, 0);
-        tiles = new AsciiCharacter[height][width];
+        tiles = new AsciiCharacter[dimensions.height][dimensions.width];
 
         for (int y = 0 ; y < tiles.length ; y++) {
-            tiles[y] = new AsciiCharacter[width];
+            tiles[y] = new AsciiCharacter[dimensions.width];
 
             for (int x = 0 ; x < tiles[0].length ; x++) {
                 tiles[y][x] = new AsciiCharacter(' ');
@@ -56,17 +57,17 @@ public class TileGrid {
     /**
      * Constructs a new TileGrid.
      *
-     * @param width
-     *          The width of the grid.
-     *
-     * @param height
-     *          The height of the grid.
+     * @param dimensions
+     *          The dimensions of the grid.
      *
      * @param position
      *          The position of the grid within it's parent.
+     *
+     * @throws NullPointerException
+     *         If the dimensions or position is null.
      */
-    public TileGrid(int width, int height, final Point position) {
-        this(width, height);
+    public TileGrid(final @NonNull Dimension dimensions, final @NonNull Point position) {
+        this(dimensions);
 
         if (position == null) {
             return;
