@@ -1,4 +1,4 @@
-package com.valkryst.VTerminal.component;
+package com.valkryst.VTerminal.revamp.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
 import com.valkryst.VTerminal.misc.ImageCache;
