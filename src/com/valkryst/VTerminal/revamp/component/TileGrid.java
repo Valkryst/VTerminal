@@ -14,6 +14,8 @@ import java.util.List;
 public final class TileGrid {
     /** An empty array of tiles. */
     private final static AsciiCharacter[] EMPTY_ARRAY = new AsciiCharacter[0];
+    /** An empty 2D array of tiles. */
+    private final static AsciiCharacter[][] EMPTY_2D_ARRAY = new AsciiCharacter[0][0];
 
     /** The position of the grid within it's parent. */
     private final Point position;
@@ -354,6 +356,89 @@ public final class TileGrid {
         final AsciiCharacter[] resultTiles = new AsciiCharacter[endRow];
 
         System.arraycopy(columnTiles, rowIndex, resultTiles, 0, endRow - rowIndex);
+
+        return resultTiles;
+    }
+
+    /**
+     * Retrieves a rectangular subset of tiles from the grid. The tiles are
+     * ordered first by row, then by column. The point (5x, 10y) would be
+     * at 'subset[10][5]'.
+     *
+     * If the width or height are less than 1, then an empty array is returned.
+     *
+     * If the start row or column is greater than the width/height of the grid,
+     * then an empty array is returned.
+     *
+     * @param startRow
+     *          The index of the column to begin the subset at.
+     *
+     * @param startColumn
+     *          The index of the row to begin the subset at.
+     *
+     * @param width
+     *          The width of the subset to retrieve.
+     *
+     * @param height
+     *          The height of the subset to retrieve.
+     *
+     * @return
+     *          The subset.
+     */
+    public AsciiCharacter[][] getRectangularSubset(int startRow, int startColumn, final int width, final int height) {
+        int endColumn = width + startColumn;
+        int endRow = height + startRow;
+
+        // Don't allow the use of negative coordinates.
+        if (startRow < 0 || startColumn < 0) {
+            startRow = 0;
+        }
+
+        if (startColumn < 0) {
+            startColumn = 0;
+        }
+
+        // Don't allow the dimensions to be below 1 tile.
+        if (width < 1 || height < 1) {
+            return EMPTY_2D_ARRAY;
+        }
+
+        // Don't allow the starting row value to be beyond the grid's height.
+        if (startRow > tiles.length) {
+            return EMPTY_2D_ARRAY;
+        }
+
+        // Don't allow the starting column value to be beyond the grid's width.
+        if (startColumn > tiles[0].length) {
+            return EMPTY_2D_ARRAY;
+        }
+
+        // Don't allow the ending row value to be beyond the grid's height.
+        if (endRow > tiles.length) {
+            endRow = tiles.length;
+        }
+
+        // Don't allow the ending column value to be beyond the grid's width.
+        if (endColumn > tiles[0].length) {
+            endColumn = tiles[0].length;
+        }
+
+        // Don't allow the start/ending column values to be equal.
+        if (startColumn == endColumn) {
+            return EMPTY_2D_ARRAY;
+        }
+
+        // Don't allow the start/ending row values to be equal.
+        if (startRow == endRow) {
+            return EMPTY_2D_ARRAY;
+        }
+
+        // Create array.
+        final AsciiCharacter[][] resultTiles = new AsciiCharacter[endRow - startRow][endColumn - startColumn];
+
+        for (int y = startRow ; y < endRow ; y++) {
+            System.arraycopy(tiles[y], startColumn, resultTiles[y - startRow], 0, endColumn - startColumn);
+        }
 
         return resultTiles;
     }
