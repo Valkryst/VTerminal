@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TileGrid {
+public final class TileGrid {
     /** An empty array of tiles. */
     private final static AsciiCharacter[] EMPTY_ARRAY = new AsciiCharacter[0];
 
