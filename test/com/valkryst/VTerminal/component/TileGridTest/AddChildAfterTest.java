@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.Dimension;
+
 public class AddChildAfterTest {
     private TileGrid parentGrid;
 
@@ -21,7 +23,7 @@ public class AddChildAfterTest {
          * ABCDEF
          * ABCDEF
          */
-        parentGrid = new TileGrid(6, 6);
+        parentGrid = new TileGrid(new Dimension(6, 6));
 
         for (int y = 0 ; y < parentGrid.getHeight() ; y++) {
             final AsciiCharacter[] row = parentGrid.getRow(y);
@@ -34,8 +36,8 @@ public class AddChildAfterTest {
 
     @Test
     public void testAddChildAfter_withValidParams() {
-        final TileGrid gridA = new TileGrid(1, 1);
-        final TileGrid gridB = new TileGrid(1, 1);
+        final TileGrid gridA = new TileGrid(new Dimension(1, 1));
+        final TileGrid gridB = new TileGrid(new Dimension(1, 1));
 
         parentGrid.addChild(gridA);
         parentGrid.addChildAfter(gridB, gridA);
@@ -46,7 +48,7 @@ public class AddChildAfterTest {
 
     @Test
     public void testAddChildAfter_withNullNewChild() {
-        final TileGrid gridA = new TileGrid(1, 1);
+        final TileGrid gridA = new TileGrid(new Dimension(1, 1));
 
         parentGrid.addChild(gridA);
         parentGrid.addChildAfter(null, gridA);
@@ -56,7 +58,7 @@ public class AddChildAfterTest {
 
     @Test
     public void testAddChildAfter_withNullExistingChild() {
-        final TileGrid gridA = new TileGrid(1, 1);
+        final TileGrid gridA = new TileGrid(new Dimension(1, 1));
 
         parentGrid.addChildAfter(gridA, null);
 
@@ -65,8 +67,8 @@ public class AddChildAfterTest {
 
     @Test
     public void testAddChildAfter_whereExistingChildNotAChildOfParent() {
-        final TileGrid gridA = new TileGrid(1, 1);
-        final TileGrid gridB = new TileGrid(1, 1);
+        final TileGrid gridA = new TileGrid(new Dimension(1, 1));
+        final TileGrid gridB = new TileGrid(new Dimension(1, 1));
 
         parentGrid.addChildAfter(gridB, gridA);
 
