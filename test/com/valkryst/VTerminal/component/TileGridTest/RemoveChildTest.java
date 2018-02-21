@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.Dimension;
+
 public class RemoveChildTest {
     private TileGrid parentGrid;
 
@@ -21,7 +23,7 @@ public class RemoveChildTest {
          * ABCDEF
          * ABCDEF
          */
-        parentGrid = new TileGrid(6, 6);
+        parentGrid = new TileGrid(new Dimension(6, 6));
 
         for (int y = 0 ; y < parentGrid.getHeight() ; y++) {
             final AsciiCharacter[] row = parentGrid.getRow(y);
@@ -34,7 +36,7 @@ public class RemoveChildTest {
 
     @Test
     public void testRemoveChild_withValidChild() {
-        final TileGrid grid = new TileGrid(1, 1);
+        final TileGrid grid = new TileGrid(new Dimension(1, 1));
 
         parentGrid.addChild(grid);
         Assert.assertTrue(parentGrid.containsChild(grid));
@@ -45,7 +47,7 @@ public class RemoveChildTest {
 
     @Test
     public void testRemoveChild_withValidChildThatIsntAChildOfTheGrid() {
-        final TileGrid grid = new TileGrid(1, 1);
+        final TileGrid grid = new TileGrid(new Dimension(1, 1));
 
         parentGrid.removeChild(grid);
         Assert.assertFalse(parentGrid.containsChild(grid));
