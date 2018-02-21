@@ -1,7 +1,7 @@
 package com.valkryst.VTerminal.component.TileGridTest;
 
 import com.valkryst.VTerminal.AsciiCharacter;
-import com.valkryst.VTerminal.component.TileGrid;
+import com.valkryst.VTerminal.revamp.component.TileGrid;
 
 import java.awt.Dimension;
 

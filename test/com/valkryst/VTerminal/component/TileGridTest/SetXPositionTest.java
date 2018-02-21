@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.component.TileGridTest;
 
-import com.valkryst.VTerminal.component.TileGrid;
+import com.valkryst.VTerminal.revamp.component.TileGrid;
 import org.junit.Assert;
 import org.junit.Test;
 
