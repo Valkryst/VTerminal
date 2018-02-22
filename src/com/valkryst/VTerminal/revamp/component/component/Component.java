@@ -5,10 +5,14 @@ import com.valkryst.VTerminal.revamp.component.Screen;
 import com.valkryst.VTerminal.revamp.component.TileGrid;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.util.*;
+import java.util.Collections;
+import java.util.EventListener;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Component {
     /** The tiles. */
@@ -16,6 +20,9 @@ public class Component {
 
     /** The event listeners. */
     private final List<EventListener> eventListeners = new LinkedList<>();
+
+    /** The function used to redraw the parent of the component. */
+    @Setter @NonNull protected Runnable redrawFunction = () -> {};
 
     /**
      * Constructs a new Component.
