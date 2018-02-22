@@ -25,4 +25,9 @@ public class ColorPalette {
 
     @Getter private Color layer_defaultBackground = defaultBackground;
     @Getter private Color layer_defaultForeground = defaultForeground;
+
+    @Getter private Color progressBar_incompleteBackground = defaultBackground;
+    @Getter private Color progressBar_incompleteForeground = new Color(0xFFFF2D55, true);
+    @Getter private Color progressBar_completeBackground = defaultBackground;
+    @Getter private Color progressBar_completeForeground = new Color(0xFF2DFF6E, true);
 }
