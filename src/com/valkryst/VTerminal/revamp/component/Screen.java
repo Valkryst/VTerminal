@@ -28,7 +28,7 @@ public class Screen {
     @Getter private final Canvas canvas = new Canvas();
 
     /** The image cache. */
-    private final ImageCache imageCache;
+    @Getter private final ImageCache imageCache;
 
     /** The tiles. */
     private final TileGrid tiles;
