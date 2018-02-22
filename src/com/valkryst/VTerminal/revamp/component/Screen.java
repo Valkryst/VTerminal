@@ -201,6 +201,9 @@ public class Screen {
         components.add(component);
         componentsLock.writeLock().unlock();
 
+        // Set the component's redraw function
+        component.setRedrawFunction(this::draw);
+
         // Create the component's event listeners
         component.createEventListeners(this);
 
@@ -225,6 +228,9 @@ public class Screen {
         componentsLock.writeLock().lock();
         components.remove(component);
         componentsLock.writeLock().unlock();
+
+        // Unset the component's redraw function
+        component.setRedrawFunction(() -> {});
 
         // Remove the component's event listeners
         for (final EventListener listener : component.getEventListeners()) {
