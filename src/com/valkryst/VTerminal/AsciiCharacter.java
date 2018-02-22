@@ -129,8 +129,11 @@ public class AsciiCharacter {
     }
 
     /** Updates the cache hash value. */
-    protected void updateCacheHash() {
-        cacheHash = Objects.hash(character, backgroundColor, foregroundColor, shaders);
+    public void updateCacheHash() {
+        if (updateCacheHash) {
+            updateCacheHash = false;
+            cacheHash = Objects.hash(character, backgroundColor, foregroundColor, shaders);
+        }
     }
 
     /**
@@ -152,11 +155,6 @@ public class AsciiCharacter {
      *         If the gc or image cache are null.
      */
     public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache, int columnIndex, int rowIndex) {
-        if (updateCacheHash && isHidden == false) {
-            updateCacheHash();
-            updateCacheHash = false;
-        }
-
         final int fontWidth = imageCache.getFont().getWidth();
         final int fontHeight = imageCache.getFont().getHeight();
 

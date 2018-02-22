@@ -56,8 +56,11 @@ public class AsciiTile extends AsciiCharacter {
     }
 
     @Override
-    protected void updateCacheHash() {
-        super.cacheHash = Objects.hash(super.getCharacter(), super.getBackgroundColor(), Color.WHITE, super.getShaders());
+    public void updateCacheHash() {
+        if (updateCacheHash) {
+            super.updateCacheHash = false;
+            super.cacheHash = Objects.hash(super.getCharacter(), super.getBackgroundColor(), Color.WHITE, super.getShaders());
+        }
     }
 
     /**
@@ -80,11 +83,6 @@ public class AsciiTile extends AsciiCharacter {
      */
     @Override
     public void draw(final @NonNull Graphics2D gc, @NonNull final ImageCache imageCache, int columnIndex, int rowIndex) {
-        if (super.updateCacheHash && super.isHidden() == false) {
-            updateCacheHash();
-            super.updateCacheHash = false;
-        }
-
         final int fontWidth = imageCache.getFont().getWidth();
         final int fontHeight = imageCache.getFont().getHeight();
 
