@@ -43,6 +43,16 @@ public class Screen {
     private final Point mousePosition = new Point(0, 0);
 
     /**
+     * Constructs a new 80x40 Screen.
+     *
+     * @param font
+     *          The font.
+     */
+    public Screen(final @NonNull Font font) {
+        this(new Dimension(80, 40), font);
+    }
+
+    /**
      * Constructs a new Screen.
      *
      * @param width
