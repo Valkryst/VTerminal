@@ -167,14 +167,27 @@ public class Screen {
                     // If alpha is used in the character images, we want computations related to drawing them to be fast.
                     gc.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
 
-                    // Draw every tile onto the canvas.
+                    // Draw every tile, whose hash has changed, onto the canvas.
+                    AsciiCharacter tile;
+                    int xPosition, yPosition;
+                    int oldHash, newHash;
+
                     for (int y = 0 ; y < tiles.getHeight() ; y++) {
-                        final int yPosition = tiles.getYPosition() + y;
+                        yPosition = tiles.getYPosition() + y;
 
                         for (int x = 0 ; x < tiles.getWidth() ; x++) {
-                            final int xPosition = tiles.getXPosition() + x;
+                            xPosition = tiles.getXPosition() + x;
 
-                            tiles.getTileAt(x, y).draw(gc, imageCache, xPosition, yPosition);
+                            tile = tiles.getTileAt(x, y);
+
+                            // Determine if hash has changed.
+                            oldHash = tile.getCacheHash();
+                            tile.updateCacheHash();
+                            newHash = tile.getCacheHash();
+
+                            if (oldHash != newHash) {
+                                tiles.getTileAt(x, y).draw(gc, imageCache, xPosition, yPosition);
+                            }
                         }
                     }
 
