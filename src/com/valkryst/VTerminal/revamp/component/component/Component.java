@@ -64,6 +64,9 @@ public class Component {
      *
      * @param parentScreen
      *          The parent screen.
+     *
+     * @throws NullPointerException
+     *         If the screen is null.
      */
     public void createEventListeners(final @NonNull Screen parentScreen) {}
 
@@ -72,8 +75,11 @@ public class Component {
      *
      * @param screen
      *          The screen.
+     *
+     * @throws NullPointerException
+     *         If the screen is null.
      */
-    public void draw(final Screen screen) {
+    public void draw(final @NonNull Screen screen) {
         if (screen == null) {
             return;
         }
@@ -104,6 +110,10 @@ public class Component {
      *          Whether or not the point intersects this component.
      */
     protected boolean intersects(final Point point) {
+        if (point == null) {
+            return false;
+        }
+
         boolean intersects = point.x >= tiles.getXPosition();
         intersects &= point.x < (tiles.getWidth() + tiles.getXPosition());
         intersects &= point.y >= tiles.getYPosition();
