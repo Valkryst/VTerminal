@@ -201,6 +201,9 @@ public class Screen {
         components.add(component);
         componentsLock.writeLock().unlock();
 
+        // Create the component's event listeners
+        component.createEventListeners(this);
+
         // Add the component's event listeners
         for (final EventListener listener : component.getEventListeners()) {
             addListener(listener);
