@@ -1,10 +1,11 @@
 package com.valkryst.VTerminal.samples;
 
 import com.valkryst.VTerminal.AsciiCharacter;
-import com.valkryst.VTerminal.AsciiString;
-import com.valkryst.VTerminal.Panel;
-import com.valkryst.VTerminal.builder.PanelBuilder;
+import com.valkryst.VTerminal.font.Font;
+import com.valkryst.VTerminal.font.FontLoader;
+import com.valkryst.VTerminal.revamp.component.Screen;
 
+import javax.swing.JFrame;
 import java.awt.Color;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -15,32 +16,42 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public class SampleDrawTime {
-    public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
-        final Panel panel = new PanelBuilder().build();
+    public static void main(final String[] args) throws InterruptedException, IOException, URISyntaxException {
+        final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
+
+        final Screen screen = new Screen(font);
+        final JFrame frame = screen.addCanvasToJFrame();
+        frame.setVisible(true);
 
         List<Long> measurements = new ArrayList<>();
 
         for(int i = 1 ; i != 10_001 ; i++) {
             final int colorVal = ThreadLocalRandom.current().nextInt(45, 56 + (i / 500));
-            panel.getScreen().setForegroundColor(new Color(colorVal, 155, 255, 255));
-            panel.getScreen().setBackgroundColor(new Color(colorVal, colorVal, colorVal, 255));
 
+            // Random colors, chars, flips, and underlines
+            final Color foregroundColor = new Color(colorVal, 155, 255, 255);
+            final Color backgroundColor = new Color(colorVal, colorVal, colorVal, 255);
+            AsciiCharacter tile;
 
-            // Random Characters, Flips, and Underlines:
-            for (final AsciiString string : panel.getScreen().getStrings()) {
-                for (final AsciiCharacter character : string.getCharacters()) {
-                    character.setCharacter(((char)ThreadLocalRandom.current().nextInt(45, 126)));
-                    character.setFlippedVertically(ThreadLocalRandom.current().nextBoolean());
-                    character.setFlippedHorizontally(ThreadLocalRandom.current().nextBoolean());
-                    character.setUnderlined(ThreadLocalRandom.current().nextBoolean());
-                    character.setHidden(ThreadLocalRandom.current().nextBoolean());
+            for (int y = 0 ; y < screen.getHeight() ; y++) {
+                for (int x = 0 ; x < screen.getWidth() ; x++) {
+                    tile = screen.getTileAt(x, y);
+
+                    tile.setBackgroundColor(backgroundColor);
+                    tile.setForegroundColor(foregroundColor);
+
+                    tile.setCharacter(((char)ThreadLocalRandom.current().nextInt(45, 126)));
+                    tile.setFlippedVertically(ThreadLocalRandom.current().nextBoolean());
+                    tile.setFlippedHorizontally(ThreadLocalRandom.current().nextBoolean());
+                    tile.setUnderlined(ThreadLocalRandom.current().nextBoolean());
+                    tile.setHidden(ThreadLocalRandom.current().nextBoolean());
                 }
             }
 
             // Draw and deal with calculations:
             final long timeBeforeDraw = System.nanoTime();
 
-            panel.draw();
+            screen.draw();
 
             final long timeDifference = System.nanoTime() - timeBeforeDraw;
             measurements.add(timeDifference);
@@ -54,7 +65,7 @@ public class SampleDrawTime {
                             averageDrawTime,
                             1000 / averageDrawTime,
                             i,
-                            panel.getImageCache().totalCachedImages())
+                            screen.getImageCache().totalCachedImages())
                 );
             }
 
@@ -77,7 +88,7 @@ public class SampleDrawTime {
                         averageDrawTime,
                         1000 / averageDrawTime,
                         measurements.size(),
-                        panel.getImageCache().totalCachedImages())
+                        screen.getImageCache().totalCachedImages())
         );
 
         System.exit(0);
