@@ -22,6 +22,21 @@ public class Button extends Component {
     /** Whether or not the button is in the pressed state. */
     private boolean isInPressedState = false;
 
+    /** The background color for when the button is in the normal state. */
+    protected Color backgroundColor_normal;
+    /** The foreground color for when the button is in the normal state. */
+    protected Color foregroundColor_normal;
+
+    /** The background color for when the button is in the hover state. */
+    protected Color backgroundColor_hover;
+    /** The foreground color for when the button is in the hover state. */
+    protected Color foregroundColor_hover;
+
+    /** The background color for when the button is in the pressed state. */
+    protected Color backgroundColor_pressed;
+    /** The foreground color for when the button is in the pressed state. */
+    protected Color foregroundColor_pressed;
+
     /** The color palette. */
     @Getter @Setter @NonNull private ColorPalette colorPalette;
 
@@ -42,6 +57,15 @@ public class Button extends Component {
 
         colorPalette = builder.getColorPalette();
 
+        backgroundColor_normal = colorPalette.getButton_defaultBackground();
+        foregroundColor_normal = colorPalette.getButton_defaultForeground();
+
+        backgroundColor_hover = colorPalette.getButton_hoverBackground();
+        foregroundColor_hover = colorPalette.getButton_hoverForeground();
+
+        backgroundColor_pressed = colorPalette.getButton_pressedBackground();
+        foregroundColor_pressed = colorPalette.getButton_pressedForeground();
+
         this.onClickFunction = builder.getOnClickFunction();
 
         // Set the button's text:
@@ -50,8 +74,8 @@ public class Button extends Component {
 
         for (int x = 0; x < tiles.length; x++) {
             tiles[x].setCharacter(text[x]);
-            tiles[x].setBackgroundColor(colorPalette.getButton_defaultBackground());
-            tiles[x].setForegroundColor(colorPalette.getButton_defaultForeground());
+            tiles[x].setBackgroundColor(backgroundColor_normal);
+            tiles[x].setForegroundColor(foregroundColor_normal);
         }
     }
 
@@ -124,7 +148,7 @@ public class Button extends Component {
             isInHoveredState = false;
             isInPressedState = false;
 
-            setColors(colorPalette.getButton_defaultBackground(), colorPalette.getButton_defaultForeground());
+            setColors(backgroundColor_normal, foregroundColor_normal);
             redrawFunction.run();
         }
     }
@@ -142,7 +166,7 @@ public class Button extends Component {
             isInHoveredState = true;
             isInPressedState = false;
 
-            setColors(colorPalette.getButton_hoverBackground(), colorPalette.getButton_hoverForeground());
+            setColors(backgroundColor_hover, foregroundColor_hover);
             redrawFunction.run();
         }
     }
@@ -160,7 +184,7 @@ public class Button extends Component {
             isInHoveredState = false;
             isInPressedState = true;
 
-            setColors(colorPalette.getButton_pressedBackground(), colorPalette.getButton_pressedForeground());
+            setColors(backgroundColor_pressed, foregroundColor_pressed);
             redrawFunction.run();
         }
     }
