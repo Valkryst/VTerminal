@@ -88,22 +88,19 @@ public class Component {
     }
 
     /**
-     * Determines whether or not a point intersects a tile grid.
+     * Determines whether or not a point intersects this component.
      *
      * @param point
      *          The tile-based point position.
      *
-     * @param tileGrid
-     *          The tile grid.
-     *
      * @return
-     *          Whether or not the point intersects the tile grid.
+     *          Whether or not the point intersects this component.
      */
-    protected boolean intersects(final Point point, final TileGrid tileGrid) {
-        boolean intersects = point.x >= tileGrid.getXPosition();
-        intersects &= point.x < (tileGrid.getWidth() + tileGrid.getXPosition());
-        intersects &= point.y >= tileGrid.getYPosition();
-        intersects &= point.y < (tileGrid.getHeight() + tileGrid.getYPosition());
+    protected boolean intersects(final Point point) {
+        boolean intersects = point.x >= tiles.getXPosition();
+        intersects &= point.x < (tiles.getWidth() + tiles.getXPosition());
+        intersects &= point.y >= tiles.getYPosition();
+        intersects &= point.y < (tiles.getHeight() + tiles.getYPosition());
         return intersects;
     }
 
