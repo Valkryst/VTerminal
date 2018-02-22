@@ -15,4 +15,11 @@ public class ColorPalette {
     @Getter private Color button_hoverForeground = ColorFunctions.shade(button_hoverBackground, 0.5);
     @Getter private Color button_pressedBackground = ColorFunctions.shade(button_hoverBackground, 0.25);
     @Getter private Color button_pressedForeground = ColorFunctions.shade(button_hoverForeground, 0.25);
+
+    @Getter private Color checkBox_defaultBackground = new Color(45, 45, 45, 255);
+    @Getter private Color checkBox_defaultForeground = new Color(0xFF2DBEFF, true);
+    @Getter private Color checkBox_hoverBackground = new Color(0xFF2DFF63, true);
+    @Getter private Color checkBox_hoverForeground = ColorFunctions.shade(button_hoverBackground, 0.5);
+    @Getter private Color checkBox_pressedBackground = ColorFunctions.shade(button_hoverBackground, 0.25);
+    @Getter private Color checkBox_pressedForeground = defaultForeground;
 }
