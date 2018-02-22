@@ -53,6 +53,14 @@ public class Component {
     }
 
     /**
+     * Creates the event listeners.
+     *
+     * @param parentScreen
+     *          The parent screen.
+     */
+    protected void createEventListeners(final @NonNull Screen parentScreen) {}
+
+    /**
      * Draws the component onto a screen.
      *
      * @param screen
@@ -77,6 +85,26 @@ public class Component {
                 screenTile.copy(componentTile);
             }
         }
+    }
+
+    /**
+     * Determines whether or not a point intersects a tile grid.
+     *
+     * @param point
+     *          The tile-based point position.
+     *
+     * @param tileGrid
+     *          The tile grid.
+     *
+     * @return
+     *          Whether or not the point intersects the tile grid.
+     */
+    protected boolean intersects(final Point point, final TileGrid tileGrid) {
+        boolean intersects = point.x >= tileGrid.getXPosition();
+        intersects &= point.x < (tileGrid.getWidth() + tileGrid.getXPosition());
+        intersects &= point.y >= tileGrid.getYPosition();
+        intersects &= point.y < (tileGrid.getHeight() + tileGrid.getYPosition());
+        return intersects;
     }
 
     /**
