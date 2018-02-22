@@ -58,7 +58,7 @@ public class Component {
      * @param parentScreen
      *          The parent screen.
      */
-    protected void createEventListeners(final @NonNull Screen parentScreen) {}
+    public void createEventListeners(final @NonNull Screen parentScreen) {}
 
     /**
      * Draws the component onto a screen.
