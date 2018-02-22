@@ -22,4 +22,7 @@ public class ColorPalette {
     @Getter private Color checkBox_hoverForeground = button_hoverForeground;
     @Getter private Color checkBox_checkedBackground = button_defaultBackground;
     @Getter private Color checkBox_checkedForeground = defaultForeground;
+
+    @Getter private Color layer_defaultBackground = defaultBackground;
+    @Getter private Color layer_defaultForeground = defaultForeground;
 }
