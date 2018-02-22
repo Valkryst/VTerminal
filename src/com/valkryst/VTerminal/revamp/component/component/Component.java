@@ -19,7 +19,7 @@ public class Component {
     @Getter protected final TileGrid tiles;
 
     /** The event listeners. */
-    private final List<EventListener> eventListeners = new LinkedList<>();
+    protected final List<EventListener> eventListeners = new LinkedList<>();
 
     /** The function used to redraw the parent of the component. */
     @Setter @NonNull protected Runnable redrawFunction = () -> {};
