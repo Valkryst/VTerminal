@@ -46,8 +46,8 @@ public class CheckBox extends Button {
         backgroundColor_hover = colorPalette.getCheckBox_hoverBackground();
         foregroundColor_hover = colorPalette.getCheckBox_hoverForeground();
 
-        backgroundColor_pressed = colorPalette.getCheckBox_pressedBackground();
-        foregroundColor_pressed = colorPalette.getCheckBox_pressedForeground();
+        backgroundColor_pressed = colorPalette.getCheckBox_checkedBackground();
+        foregroundColor_pressed = colorPalette.getCheckBox_checkedForeground();
     }
 
     @Override
