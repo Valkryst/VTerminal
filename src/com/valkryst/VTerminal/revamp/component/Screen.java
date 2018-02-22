@@ -51,14 +51,14 @@ public class Screen {
      * @param height
      *          The height, in tiles, of the screen.
      *
-     * @param imageCache
-     *          The image cache.
+     * @param font
+     *          The font.
      *
      * @throws NullPointerException
      *         If the imageCache is null.
      */
-    public Screen(final int width, final int height, final @NonNull ImageCache imageCache) {
-        this(new Dimension(width, height), imageCache);
+    public Screen(final int width, final int height, final @NonNull Font font) {
+        this(new Dimension(width, height), font);
     }
 
     /**
@@ -67,16 +67,16 @@ public class Screen {
      * @param dimensions
      *          The dimensions, in tiles, of the screen
      *
-     * @param imageCache
-     *          The image cache.
+     * @param font
+     *          The font.
      *
      * @throws NullPointerException
      *         If the dimensions or imageCache is null.
      */
-    public Screen(final @NonNull Dimension dimensions, final @NonNull ImageCache imageCache) {
+    public Screen(final @NonNull Dimension dimensions, final @NonNull Font font) {
         tiles = new TileGrid(dimensions, new Point(0, 0));
 
-        this.imageCache = imageCache;
+        this.imageCache = new ImageCache(font);
 
         // Initialize canvas.
         final int pixelWidth = dimensions.width * imageCache.getFont().getWidth();
