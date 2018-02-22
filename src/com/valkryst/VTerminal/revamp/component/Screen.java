@@ -39,7 +39,7 @@ public class Screen {
     /** The lock used to control access to the components. */
     private final ReentrantReadWriteLock componentsLock = new ReentrantReadWriteLock();
 
-    /** The tile-based position of the user's mouse. */
+    /** The last known tile-based position of the mouse. */
     private final Point mousePosition = new Point(0, 0);
 
     /**
@@ -312,6 +312,16 @@ public class Screen {
         }
 
         throw new IllegalArgumentException("The " + eventListener.getClass().getSimpleName() + " is not supported.");
+    }
+
+    /**
+     * Retrieves the last known tile-based position of the mouse.
+     *
+     * @return
+     *          The last known tile-based position of the mouse.
+     */
+    public Point getMousePosition() {
+        return new Point(mousePosition);
     }
 
     /**
