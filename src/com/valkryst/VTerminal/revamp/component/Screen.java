@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.revamp.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ImageCache;
 import com.valkryst.VTerminal.revamp.component.component.Component;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import javax.swing.WindowConstants;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
@@ -36,6 +38,9 @@ public class Screen {
 
     /** The lock used to control access to the components. */
     private final ReentrantReadWriteLock componentsLock = new ReentrantReadWriteLock();
+
+    /** The tile-based position of the user's mouse. */
+    private final Point mousePosition = new Point(0, 0);
 
     /**
      * Constructs a new Screen.
@@ -78,6 +83,22 @@ public class Screen {
         final int pixelHeight = dimensions.height * imageCache.getFont().getHeight();
 
         canvas.setPreferredSize(new Dimension(pixelWidth, pixelHeight));
+
+        // Add mouse movement listener.
+        addListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(final MouseEvent e) {}
+
+            @Override
+            public void mouseMoved(final MouseEvent e) {
+                final Font font = imageCache.getFont();
+
+                final int mouseX = e.getX() / font.getWidth();
+                final int mouseY = e.getY() / font.getHeight();
+
+                mousePosition.setLocation(mouseX, mouseY);
+            }
+        });
     }
 
     /**
