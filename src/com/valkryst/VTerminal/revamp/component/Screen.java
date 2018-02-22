@@ -32,7 +32,7 @@ public class Screen {
     private final TileGrid tiles;
 
     /** The components on the screen. */
-    private final List<com.valkryst.VTerminal.revamp.component.component.Component> components = new ArrayList<>(0);
+    private final List<Component> components = new ArrayList<>(0);
 
     /** The lock used to control access to the components. */
     private final ReentrantReadWriteLock componentsLock = new ReentrantReadWriteLock();
@@ -105,7 +105,7 @@ public class Screen {
         // Draw components on screen.
         componentsLock.readLock().lock();
 
-        for (final com.valkryst.VTerminal.revamp.component.component.Component component : components) {
+        for (final Component component : components) {
             component.draw(this);
         }
 
@@ -170,7 +170,7 @@ public class Screen {
      * @param component
      *          The component.
      */
-    public void addComponent(final com.valkryst.VTerminal.revamp.component.component.Component component) {
+    public void addComponent(final Component component) {
         if (component == null) {
             return;
         }
@@ -192,7 +192,7 @@ public class Screen {
      * @param component
      *          The component.
      */
-    public void removeComponent(final com.valkryst.VTerminal.revamp.component.component.Component component) {
+    public void removeComponent(final Component component) {
         if (component == null) {
             return;
         }
