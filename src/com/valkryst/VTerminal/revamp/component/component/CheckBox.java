@@ -100,7 +100,7 @@ public class CheckBox extends Button {
             public void mouseExited(final MouseEvent e) {}
         };
 
-        super.getEventListeners().add(mouseListener);
+        super.eventListeners.add(mouseListener);
     }
 
     /**
