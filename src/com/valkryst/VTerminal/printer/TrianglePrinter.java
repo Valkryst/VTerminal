@@ -49,6 +49,12 @@ public class TrianglePrinter {
         linePrinter.print(component, points);
     }
 
+    /**
+     * Sets the new print character.
+     *
+     * @param printChar
+     *          The character to print the triangle with.
+     */
     public void setPrintChar(final char printChar) {
         this.printChar = printChar;
         linePrinter.setPrintChar(printChar);
