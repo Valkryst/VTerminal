@@ -1,7 +1,7 @@
 package com.valkryst.VTerminal.printer;
 
 import com.valkryst.VTerminal.Tile;
-import com.valkryst.VTerminal.component.Component;
+import com.valkryst.VTerminal.TileGrid;
 import com.valkryst.VTerminal.misc.ShapeAlgorithms;
 import lombok.*;
 
@@ -18,10 +18,10 @@ public class EllipsePrinter {
     @Getter @Setter private char printChar = '█';
 
     /**
-     * Prints an ellipse on a component.
+     * Prints an ellipse on a tile grid.
      *
-     * @param component
-     *         The component.
+     * @param grid
+     *         The grid.
      *
      * @param position
      *         The x/y-axis (column/row) coordinates of the top-left character.
@@ -29,9 +29,9 @@ public class EllipsePrinter {
      * @throws NullPointerException
      *         If the component or position is null.
      */
-    public void print(final @NonNull Component component, final @NonNull Point position) {
+    public void print(final @NonNull TileGrid grid, final @NonNull Point position) {
         for (final Point point : ShapeAlgorithms.getEllipse(position, dimensions)) {
-            final Tile tile = component.getTiles().getTileAt(position);
+            final Tile tile = grid.getTileAt(point);
 
             if (tile != null) {
                 tile.setCharacter(printChar);
@@ -40,20 +40,20 @@ public class EllipsePrinter {
     }
 
     /**
-     * Prints a filled ellipse on a component.
+     * Prints a filled ellipse on a tile grid.
      *
-     * @param component
-     *         The component.
+     * @param grid
+     *         The grid.
      *
      * @param position
      *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
-     *         If the component or position is null.
+     *         If the grid or position is null.
      */
-    public void printFilled(final @NonNull Component component, final @NonNull Point position) {
+    public void printFilled(final @NonNull TileGrid grid, final @NonNull Point position) {
         for (final Point point : ShapeAlgorithms.getFilledEllipse(position, dimensions)) {
-            final Tile tile = component.getTiles().getTileAt(position);
+            final Tile tile = grid.getTileAt(point);
 
             if (tile != null) {
                 tile.setCharacter(printChar);
