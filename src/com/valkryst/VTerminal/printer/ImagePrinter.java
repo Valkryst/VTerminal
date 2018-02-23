@@ -1,7 +1,7 @@
 package com.valkryst.VTerminal.printer;
 
 import com.valkryst.VTerminal.Tile;
-import com.valkryst.VTerminal.component.Component;
+import com.valkryst.VTerminal.TileGrid;
 import lombok.*;
 
 import java.awt.Color;
@@ -43,10 +43,10 @@ public class ImagePrinter {
     }
 
     /**
-     * Prints an image on a component.
+     * Prints an image on a grid.
      *
-     * @param component
-     *         The component.
+     * @param grid
+     *         The grid.
      *
      * @param position
      *         The x/y-axis (column/row) coordinates of the top-left character.
@@ -54,12 +54,11 @@ public class ImagePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    public void print(final @NonNull Component component, final Point position) {
+    public void print(final @NonNull TileGrid grid, final Point position) {
         final BufferedImage temp = applyTransformations();
-        final Point charPosition = new Point(0, 0);
 
-        for (int y = 0 ; y < temp.getHeight() && y < component.getTiles().getHeight() ; y++) {
-            for (int x = 0 ; x < temp.getWidth() && x < component.getTiles().getWidth() ; x++) {
+        for (int y = 0 ; y < temp.getHeight() && y < grid.getHeight() ; y++) {
+            for (int x = 0 ; x < temp.getWidth() && x < grid.getWidth() ; x++) {
                 final int hexColor = temp.getRGB(x,y);
                 final int red = (hexColor & 0x00ff0000) >> 16;
                 final int green = (hexColor & 0x0000ff00) >> 8;
@@ -68,7 +67,7 @@ public class ImagePrinter {
                 final int charX = x + position.x;
                 final int charY = y + position.y;
 
-                final Tile character = component.getTiles().getTileAt(charX, charY);
+                final Tile character = grid.getTileAt(charX, charY);
                 character.setCharacter(printChar);
                 character.setForegroundColor(new Color(red, green, blue));
             }
