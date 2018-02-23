@@ -1,8 +1,8 @@
 package com.valkryst.VTerminal.misc;
 
 import com.valkryst.VTerminal.AsciiCharacter;
-import com.valkryst.VTerminal.revamp.component.builder.LayerBuilder;
-import com.valkryst.VTerminal.revamp.component.component.Layer;
+import com.valkryst.VTerminal.builder.LayerBuilder;
+import com.valkryst.VTerminal.component.Layer;
 import lombok.NonNull;
 
 import java.awt.Color;

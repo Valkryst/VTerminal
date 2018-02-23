@@ -1,7 +1,7 @@
 package com.valkryst.VTerminal.component;
 
 
-import com.valkryst.VTerminal.builder.component.TextFieldBuilder;
+import com.valkryst.VTerminal.builder.TextFieldBuilder;
 import lombok.NonNull;
 import lombok.ToString;
 
