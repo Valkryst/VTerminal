@@ -1,9 +1,8 @@
 package com.valkryst.VTerminal.misc;
 
 import com.valkryst.VTerminal.AsciiCharacter;
-import com.valkryst.VTerminal.AsciiString;
-import com.valkryst.VTerminal.builder.component.LayerBuilder;
-import com.valkryst.VTerminal.component.Layer;
+import com.valkryst.VTerminal.revamp.component.builder.LayerBuilder;
+import com.valkryst.VTerminal.revamp.component.component.Layer;
 import lombok.NonNull;
 
 import java.awt.Color;
@@ -100,16 +99,13 @@ public final class REXPaintLoader {
             final int width = byteBuffer.getInt();
             final int height = byteBuffer.getInt();
 
-            layerBuilder.setColumnIndex(0);
-            layerBuilder.setRowIndex(0);
-            layerBuilder.setWidth(width);
-            layerBuilder.setHeight(height);
+            layerBuilder.getPosition().setLocation(0, 0);
+            layerBuilder.getDimensions().setSize(width, height);
 
             final Layer layer = layerBuilder.build();
-            final AsciiString[] strings = layer.getStrings();
 
-            for (int column = 0 ; column < layer.getWidth() ; column++) {
-                for (int row = 0 ; row < layer.getHeight() ; row++) {
+            for (int y = 0 ; y < layer.getTiles().getHeight() ; y++) {
+                for (int x = 0 ; x < layer.getTiles().getWidth() ; x++) {
                     final char character = (char) byteBuffer.getInt();
 
                     final byte foregroundR = byteBuffer.get();
@@ -133,7 +129,7 @@ public final class REXPaintLoader {
                         backgroundColor = new Color(packedBackgroundColor);
                     }
 
-                    final AsciiCharacter asciiCharacter = strings[row].getCharacters()[column];
+                    final AsciiCharacter asciiCharacter = layer.getTiles().getTileAt(x, y);
                     asciiCharacter.setForegroundColor(foregroundColor);
                     asciiCharacter.setBackgroundColor(backgroundColor);
                     asciiCharacter.setCharacter(character);
