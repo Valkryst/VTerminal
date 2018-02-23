@@ -30,4 +30,11 @@ public class ColorPalette {
     @Getter private Color progressBar_incompleteForeground = new Color(0xFFFF2D55, true);
     @Getter private Color progressBar_completeBackground = defaultBackground;
     @Getter private Color progressBar_completeForeground = new Color(0xFF2DFF6E, true);
+
+    @Getter private Color radioButton_defaultBackground = button_defaultBackground;
+    @Getter private Color radioButton_defaultForeground = button_defaultForeground;
+    @Getter private Color radioButton_hoverBackground = button_hoverBackground;
+    @Getter private Color radioButton_hoverForeground = button_hoverForeground;
+    @Getter private Color radioButton_pressedBackground = defaultBackground;
+    @Getter private Color radioButton_pressedForeground = defaultForeground;
 }
