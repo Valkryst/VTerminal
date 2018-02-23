@@ -1,4 +1,4 @@
-package com.valkryst.VTerminal.AsciiCharacterTest;
+package com.valkryst.VTerminal.TileTest;
 
 import com.valkryst.VTerminal.Tile;
 import org.junit.Assert;

@@ -1,4 +1,4 @@
-package com.valkryst.VTerminal.AsciiTileTest;
+package com.valkryst.VTerminal.GraphicTileTest;
 
 import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.GraphicTile;
