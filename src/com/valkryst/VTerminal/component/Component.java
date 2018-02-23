@@ -71,16 +71,13 @@ public class Component {
     public void createEventListeners(final @NonNull Screen parentScreen) {}
 
     /**
-     * Draws the component onto a screen.
+     * Draws the component onto a tile grid.
      *
-     * @param screen
-     *          The screen.
-     *
-     * @throws NullPointerException
-     *         If the screen is null.
+     * @param grid
+     *          The grid.
      */
-    public void draw(final @NonNull Screen screen) {
-        if (screen == null) {
+    public void draw(final TileGrid grid) {
+        if (grid == null) {
             return;
         }
 
@@ -94,7 +91,7 @@ public class Component {
                 final int xPosition = xOffset + x;
 
                 final Tile componentTile = tiles.getTileAt(x, y);
-                final Tile screenTile = screen.getTileAt(xPosition, yPosition);
+                final Tile screenTile = grid.getTileAt(xPosition, yPosition);
                 screenTile.copy(componentTile);
             }
         }
@@ -132,7 +129,7 @@ public class Component {
     }
 
     /**
-     * Retrieves a tile from the component.
+     * Retrieves a tile from the screen.
      *
      * @param x
      *          The x-axis coordinate of the tile to retrieve.
@@ -149,7 +146,7 @@ public class Component {
     }
 
     /**
-     * Retrieves a tile from the component.
+     * Retrieves a tile from the screen.
      *
      * @param position
      *          The x/y-axis coordinates of the tile to retrieve.
