@@ -167,7 +167,7 @@ public class Screen {
                     gc.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
 
                     // Draw every tile, whose hash has changed, onto the canvas.
-                    AsciiCharacter tile;
+                    Tile tile;
                     int xPosition, yPosition;
                     int oldHash, newHash;
 
@@ -390,7 +390,7 @@ public class Screen {
      *          The tile, or null if the coordinates are outside the bounds
      *          of the component.
      */
-    public AsciiCharacter getTileAt(final int x, final int y) {
+    public Tile getTileAt(final int x, final int y) {
         return tiles.getTileAt(x, y);
     }
 }

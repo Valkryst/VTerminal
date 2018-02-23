@@ -2,8 +2,8 @@ package com.valkryst.VTerminal;
 
 import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.misc.ImageCache;
-import com.valkryst.VTerminal.shader.misc.FlipShader;
 import com.valkryst.VTerminal.shader.Shader;
+import com.valkryst.VTerminal.shader.misc.FlipShader;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -13,11 +13,13 @@ import javax.swing.Timer;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Rectangle;
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 
 @ToString
-public class AsciiCharacter {
+public class Tile {
     /** The hash value, of the character, used by the image cache. */
     @Getter protected int cacheHash;
     /** Whether or not to update the cache hash. */
@@ -34,8 +36,6 @@ public class AsciiCharacter {
     @Getter private Color backgroundColor;
 	/** The foreground color. Defaults to white. */
 	@Getter private Color foregroundColor;
-	/** The bounding box of the character's area. */
-	@Getter private final Rectangle boundingBox;
 
 	/** Whether or not to draw the character as underlined. */
 	@Getter @Setter private boolean isUnderlined;
@@ -55,10 +55,9 @@ public class AsciiCharacter {
      * @param character
      *         The character.
      */
-	public AsciiCharacter(final char character) {
+	public Tile(final char character) {
 	    reset();
 	    this.character = character;
-        boundingBox = new Rectangle();
     }
 
     /**
@@ -72,9 +71,8 @@ public class AsciiCharacter {
      * @throws NullPointerException
      *        If the character is null.
      */
-    public AsciiCharacter(final @NonNull AsciiCharacter character) {
+    public Tile(final @NonNull Tile character) {
         reset();
-        boundingBox = new Rectangle();
 
         copy(character);
     }
@@ -105,7 +103,7 @@ public class AsciiCharacter {
      * @param character
      *        The other AsciiCharacter.
      */
-    public void copy(final @NonNull AsciiCharacter character) {
+    public void copy(final @NonNull Tile character) {
         for (final Shader shader : character.getShaders()) {
             shaders.add(shader.copy());
         }
@@ -116,9 +114,6 @@ public class AsciiCharacter {
 
         backgroundColor = character.getBackgroundColor();
         foregroundColor = character.getForegroundColor();
-
-        boundingBox.setSize(character.getBoundingBox().getSize());
-        boundingBox.setLocation(character.getBoundingBox().getLocation());
 
         isUnderlined = character.isUnderlined();
         underlineThickness = character.getUnderlineThickness();
@@ -161,9 +156,6 @@ public class AsciiCharacter {
         columnIndex *= fontWidth;
         rowIndex *= fontHeight;
 
-        boundingBox.setLocation(columnIndex, rowIndex);
-        boundingBox.setSize(fontWidth, fontHeight);
-
         // Handle hidden state:
         if (isHidden || foregroundAndBackgroundColorEqual) {
             gc.setColor(backgroundColor);
@@ -175,6 +167,10 @@ public class AsciiCharacter {
             // Draw underline:
             if (isUnderlined) {
                 gc.setColor(foregroundColor);
+
+                if (underlineThickness > fontHeight) {
+                    underlineThickness = fontHeight;
+                }
 
                 final int y = rowIndex + fontHeight - underlineThickness;
                 gc.fillRect(columnIndex, y, fontWidth, underlineThickness);
@@ -309,9 +305,6 @@ public class AsciiCharacter {
      *
      * If the specified thickness is negative, then the thickness is set to 1.
      *
-     * If the specified thickness is greater than the font height, then the
-     * thickness is set to the font height.
-     *
      * If the font height is greater than Byte.MAX_VALUE, then the thickness is
      * set to Byte.MAX_VALUE.
      *
@@ -319,9 +312,7 @@ public class AsciiCharacter {
      *         The new underline thickness.
      */
     public void setUnderlineThickness(final int underlineThickness) {
-        if (underlineThickness > boundingBox.getHeight()) {
-            this.underlineThickness = (int) boundingBox.getHeight();
-        } else if (underlineThickness <= 0) {
+        if (underlineThickness <= 0) {
             this.underlineThickness = 1;
         } else {
             this.underlineThickness = underlineThickness;

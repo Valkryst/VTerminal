@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal.printer;
 
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.misc.ShapeAlgorithms;
 import lombok.*;
@@ -30,7 +31,11 @@ public class EllipsePrinter {
      */
     public void print(final @NonNull Component component, final @NonNull Point position) {
         for (final Point point : ShapeAlgorithms.getEllipse(position, dimensions)) {
-            component.getTiles().getTileAt(point).setCharacter(printChar);
+            final Tile tile = component.getTiles().getTileAt(position);
+
+            if (tile != null) {
+                tile.setCharacter(printChar);
+            }
         }
     }
 
@@ -48,7 +53,11 @@ public class EllipsePrinter {
      */
     public void printFilled(final @NonNull Component component, final @NonNull Point position) {
         for (final Point point : ShapeAlgorithms.getFilledEllipse(position, dimensions)) {
-            component.getTiles().getTileAt(point).setCharacter(printChar);
+            final Tile tile = component.getTiles().getTileAt(position);
+
+            if (tile != null) {
+                tile.setCharacter(printChar);
+            }
         }
     }
 

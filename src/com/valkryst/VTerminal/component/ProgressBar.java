@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.component;
 
-import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.builder.ProgressBarBuilder;
 import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.Getter;
@@ -39,7 +39,7 @@ public class ProgressBar extends Component {
         completeCharacter = builder.getCompleteCharacter();
 
         // Set all chars to incomplete state:
-        for (final AsciiCharacter tile : super.tiles.getRow(0)) {
+        for (final Tile tile : super.tiles.getRow(0)) {
             tile.setCharacter(incompleteCharacter);
             tile.setBackgroundColor(colorPalette.getProgressBar_incompleteBackground());
             tile.setForegroundColor(colorPalette.getProgressBar_incompleteForeground());
@@ -63,7 +63,7 @@ public class ProgressBar extends Component {
         }
 
         final int numberOfCompleteChars = (int) (super.tiles.getWidth() * (percentComplete / 100f));
-        AsciiCharacter[] tileRow;
+        Tile[] tileRow;
 
         for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
             tileRow = super.tiles.getRow(y);

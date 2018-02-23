@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal.printer;
 
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.misc.ShapeAlgorithms;
 import lombok.*;
@@ -38,7 +39,7 @@ public class LinePrinter {
             final Point previous = points[i - 1];
             final Point current = points[i];
 
-            printLine(component, previous, current);
+            print(component, previous, current);
         }
     }
 
@@ -57,9 +58,13 @@ public class LinePrinter {
      * @throws NullPointerException
      *         If the component or either point is null.
      */
-    private void printLine(final @NonNull Component component, final Point from, final Point to) {
+    public void print(final @NonNull Component component, final Point from, final Point to) {
         for (final Point point : ShapeAlgorithms.getLine(from.x, from.y, to.x, to.y)) {
-            component.getTiles().getTileAt(point).setCharacter(printChar);
+            final Tile tile = component.getTiles().getTileAt(point);
+
+            if (tile != null) {
+                tile.setCharacter(printChar);
+            }
         }
     }
 }

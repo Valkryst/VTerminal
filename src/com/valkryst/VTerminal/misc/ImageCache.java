@@ -2,8 +2,8 @@ package com.valkryst.VTerminal.misc;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.valkryst.VTerminal.AsciiCharacter;
-import com.valkryst.VTerminal.AsciiTile;
+import com.valkryst.VTerminal.Tile;
+import com.valkryst.VTerminal.GraphicTile;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.shader.character.CharShader;
 import com.valkryst.VTerminal.shader.Shader;
@@ -97,7 +97,7 @@ public final class ImageCache {
      * @throws NullPointerException
      *         If the character is null.
      */
-    public VolatileImage retrieve(final @NonNull AsciiCharacter character) {
+    public VolatileImage retrieve(final @NonNull Tile character) {
         final int hash = character.getCacheHash();
 
         VolatileImage image = cachedImages.getIfPresent(hash);
@@ -123,7 +123,7 @@ public final class ImageCache {
      * @return
      *         The resulting character image.
      */
-    public VolatileImage loadIntoCache(final @NonNull AsciiCharacter character) {
+    public VolatileImage loadIntoCache(final @NonNull Tile character) {
         BufferedImage bufferedImage;
         bufferedImage = applyColorSwap(character, font);
 
@@ -157,7 +157,7 @@ public final class ImageCache {
      * @throws NullPointerException
      *         If the character or font are null.
      */
-    private static BufferedImage applyColorSwap(final @NonNull AsciiCharacter character, final @NonNull Font font) {
+    private static BufferedImage applyColorSwap(final @NonNull Tile character, final @NonNull Font font) {
         BufferedImage image;
 
         try {
@@ -182,7 +182,7 @@ public final class ImageCache {
         final int foregroundG = (foregroundRGB >> 8) & 0xFF;
         final int foregroundB = foregroundRGB & 0xFF;
 
-        final boolean isTile = character instanceof AsciiTile;
+        final boolean isTile = character instanceof GraphicTile;
 
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {

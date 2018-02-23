@@ -12,15 +12,15 @@ import java.util.List;
 
 public final class TileGrid {
     /** An empty array of tiles. */
-    private final static AsciiCharacter[] EMPTY_ARRAY = new AsciiCharacter[0];
+    private final static Tile[] EMPTY_ARRAY = new Tile[0];
     /** An empty 2D array of tiles. */
-    private final static AsciiCharacter[][] EMPTY_2D_ARRAY = new AsciiCharacter[0][0];
+    private final static Tile[][] EMPTY_2D_ARRAY = new Tile[0][0];
 
     /** The position of the grid within it's parent. */
     private final Point position;
 
     /** A grid of tiles. */
-    private final AsciiCharacter[][] tiles;
+    private final Tile[][] tiles;
 
     /** The child grids that reside on the grid. */
     private final List<TileGrid> childGrids = new ArrayList<>();
@@ -44,13 +44,13 @@ public final class TileGrid {
         }
 
         position = new Point(0, 0);
-        tiles = new AsciiCharacter[dimensions.height][dimensions.width];
+        tiles = new Tile[dimensions.height][dimensions.width];
 
         for (int y = 0 ; y < tiles.length ; y++) {
-            tiles[y] = new AsciiCharacter[dimensions.width];
+            tiles[y] = new Tile[dimensions.width];
 
             for (int x = 0 ; x < tiles[0].length ; x++) {
-                tiles[y][x] = new AsciiCharacter(' ');
+                tiles[y][x] = new Tile(' ');
             }
         }
     }
@@ -218,7 +218,7 @@ public final class TileGrid {
      * @return
      *          The row of tiles.
      */
-    public AsciiCharacter[] getRow(final int index) {
+    public Tile[] getRow(final int index) {
         if (index >= tiles.length || index < 0) {
             return EMPTY_ARRAY;
         }
@@ -238,12 +238,12 @@ public final class TileGrid {
      * @return
      *          The column of tiles.
      */
-    public AsciiCharacter[] getColumn(final int columnIndex) {
+    public Tile[] getColumn(final int columnIndex) {
         if (columnIndex >= tiles[0].length || columnIndex < 0) {
             return EMPTY_ARRAY;
         }
 
-        final AsciiCharacter[] columnTiles = new AsciiCharacter[tiles.length];
+        final Tile[] columnTiles = new Tile[tiles.length];
 
         for (int rowIndex = 0 ; rowIndex < tiles.length ; rowIndex++) {
             columnTiles[rowIndex] = tiles[rowIndex][columnIndex];
@@ -275,7 +275,7 @@ public final class TileGrid {
      * @return
      *          The subset.
      */
-    public AsciiCharacter[] getRowSubset(final int rowIndex, final int columnIndex, final int length) {
+    public Tile[] getRowSubset(final int rowIndex, final int columnIndex, final int length) {
         // Don't allow the use of negative coordinates.
         if (columnIndex < 0 || rowIndex < 0) {
             return EMPTY_ARRAY;
@@ -328,7 +328,7 @@ public final class TileGrid {
      * @return
      *          The subset.
      */
-    public AsciiCharacter[] getColumnSubset(final int rowIndex, final int columnIndex, final int length) {
+    public Tile[] getColumnSubset(final int rowIndex, final int columnIndex, final int length) {
         // Don't allow the use of negative coordinates.
         if (columnIndex < 0 || rowIndex < 0) {
             return EMPTY_ARRAY;
@@ -351,8 +351,8 @@ public final class TileGrid {
 
         int endRow = (rowIndex + length) >= tiles.length ? tiles.length : (rowIndex + length);
 
-        final AsciiCharacter[] columnTiles = getColumn(columnIndex);
-        final AsciiCharacter[] resultTiles = new AsciiCharacter[endRow];
+        final Tile[] columnTiles = getColumn(columnIndex);
+        final Tile[] resultTiles = new Tile[endRow];
 
         System.arraycopy(columnTiles, rowIndex, resultTiles, 0, endRow - rowIndex);
 
@@ -384,7 +384,7 @@ public final class TileGrid {
      * @return
      *          The subset.
      */
-    public AsciiCharacter[][] getRectangularSubset(int startRow, int startColumn, final int width, final int height) {
+    public Tile[][] getRectangularSubset(int startRow, int startColumn, final int width, final int height) {
         int endColumn = width + startColumn;
         int endRow = height + startRow;
 
@@ -433,7 +433,7 @@ public final class TileGrid {
         }
 
         // Create array.
-        final AsciiCharacter[][] resultTiles = new AsciiCharacter[endRow - startRow][endColumn - startColumn];
+        final Tile[][] resultTiles = new Tile[endRow - startRow][endColumn - startColumn];
 
         for (int y = startRow ; y < endRow ; y++) {
             System.arraycopy(tiles[y], startColumn, resultTiles[y - startRow], 0, endColumn - startColumn);
@@ -495,7 +495,7 @@ public final class TileGrid {
      *          The tile, or null if the coordinates are outside the bounds
      *          of the grid.
      */
-    public AsciiCharacter getTileAt(final int x, final int y) {
+    public Tile getTileAt(final int x, final int y) {
         if (x < 0 || x >= tiles[0].length) {
             return null;
         }
@@ -517,7 +517,7 @@ public final class TileGrid {
      *          The tile, or null if the coordinates are outside the bounds
      *          of the grid.
      */
-    public AsciiCharacter getTileAt(final Point position) {
+    public Tile getTileAt(final Point position) {
         if (position == null) {
             return null;
         }

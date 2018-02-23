@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.component;
 
-import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.builder.LabelBuilder;
 import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.NonNull;
@@ -23,7 +23,7 @@ public class Label extends Component {
         final ColorPalette colorPalette = builder.getColorPalette();
 
         final char[] text = builder.getText().toCharArray();
-        final AsciiCharacter[] tiles = super.tiles.getRow(0);
+        final Tile[] tiles = super.tiles.getRow(0);
 
         for (int x = 0 ; x < tiles.length ; x++) {
             tiles[x].setCharacter(text[x]);

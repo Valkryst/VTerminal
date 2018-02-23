@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.component;
 
-import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.Screen;
 import com.valkryst.VTerminal.builder.ButtonBuilder;
 import com.valkryst.VTerminal.palette.ColorPalette;
@@ -70,7 +70,7 @@ public class Button extends Component {
 
         // Set the button's text:
         final char[] text = builder.getText().toCharArray();
-        final AsciiCharacter[] tiles = super.tiles.getRow(0);
+        final Tile[] tiles = super.tiles.getRow(0);
 
         for (int x = 0; x < tiles.length; x++) {
             tiles[x].setCharacter(text[x]);
@@ -202,7 +202,7 @@ public class Button extends Component {
      *         If the background or foreground color is null.
      */
     private void setColors(final @NonNull Color backgroundColor, final @NonNull Color foregroundColor) {
-        for (final AsciiCharacter tile : super.tiles.getRow(0)) {
+        for (final Tile tile : super.tiles.getRow(0)) {
             tile.setBackgroundColor(backgroundColor);
             tile.setForegroundColor(foregroundColor);
         }

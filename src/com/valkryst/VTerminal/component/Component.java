@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.component;
 
-import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.Screen;
 import com.valkryst.VTerminal.TileGrid;
 import lombok.Getter;
@@ -93,8 +93,8 @@ public class Component {
             for (int x = 0 ; x < tiles.getWidth() ; x++) {
                 final int xPosition = xOffset + x;
 
-                final AsciiCharacter componentTile = tiles.getTileAt(x, y);
-                final AsciiCharacter screenTile = screen.getTileAt(xPosition, yPosition);
+                final Tile componentTile = tiles.getTileAt(x, y);
+                final Tile screenTile = screen.getTileAt(xPosition, yPosition);
                 screenTile.copy(componentTile);
             }
         }

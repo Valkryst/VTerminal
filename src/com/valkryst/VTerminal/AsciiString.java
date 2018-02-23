@@ -18,7 +18,7 @@ import java.util.Objects;
 @ToString
 public class AsciiString {
     /** The characters of the string. */
-    @Getter private AsciiCharacter[] characters;
+    @Getter private Tile[] characters;
 
     /**
      * Constructs a new AsciiString of the specified length with all characters
@@ -35,10 +35,10 @@ public class AsciiString {
             throw new IllegalArgumentException("The length cannot be below 0.");
         }
 
-        characters = new AsciiCharacter[length];
+        characters = new Tile[length];
 
         for (int columnIndex = 0 ; columnIndex < length ; columnIndex++) {
-            characters[columnIndex] = new AsciiCharacter(' ');
+            characters[columnIndex] = new Tile(' ');
         }
     }
 
@@ -52,10 +52,10 @@ public class AsciiString {
      *        If the string is null.
      */
     public AsciiString(final @NonNull String string) {
-        characters = new AsciiCharacter[string.length()];
+        characters = new Tile[string.length()];
 
         for (int columnIndex = 0 ; columnIndex < string.length() ; columnIndex++) {
-            characters[columnIndex] = new AsciiCharacter(string.charAt(columnIndex));
+            characters[columnIndex] = new Tile(string.charAt(columnIndex));
         }
     }
 
@@ -158,7 +158,7 @@ public class AsciiString {
      *         If the column is less than 0.
      *         If the column is greater than the length of the string.
      */
-    public void setCharacter(final int column, final @NonNull AsciiCharacter character) {
+    public void setCharacter(final int column, final @NonNull Tile character) {
         if (column < 0) {
             throw new IllegalArgumentException("The column index " + column + " cannot be below 0.");
         }
@@ -225,7 +225,7 @@ public class AsciiString {
      *         The character to change to.
      */
     public void setAllCharacters(final char character) {
-        for (final AsciiCharacter c : characters) {
+        for (final Tile c : characters) {
             c.setCharacter(character);
         }
     }
@@ -425,14 +425,14 @@ public class AsciiString {
      *         If the radio is null.
      */
     public void enableBlinkEffect(final short millsBetweenBlinks, final @NonNull Radio<String> radio) {
-        for (final AsciiCharacter c : characters) {
+        for (final Tile c : characters) {
             c.enableBlinkEffect(millsBetweenBlinks, radio);
         }
     }
 
     /** Disables the blink effect for every character. */
     public void disableBlinkEffect() {
-        for (final AsciiCharacter c : characters) {
+        for (final Tile c : characters) {
             c.disableBlinkEffect();
         }
     }
@@ -607,7 +607,7 @@ public class AsciiString {
      *         Whether or not the characters are to be hidden.
      */
     public void setHidden(final boolean isHidden) {
-        for (final AsciiCharacter character : characters) {
+        for (final Tile character : characters) {
             character.setHidden(isHidden);
         }
     }

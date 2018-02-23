@@ -1,12 +1,12 @@
 package com.valkryst.VTerminal.misc;
 
-import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.Tile;
 import lombok.NonNull;
 
 import java.awt.Color;
 
 public class TileFunctions {
-    public void applyColorGradient(final @NonNull Color colorFrom, final @NonNull Color colorTo, final boolean applyToBackground, final AsciiCharacter ... tiles) {
+    public void applyColorGradient(final @NonNull Color colorFrom, final @NonNull Color colorTo, final boolean applyToBackground, final Tile... tiles) {
         if (tiles == null || tiles.length == 0) {
             return;
         }
@@ -27,7 +27,7 @@ public class TileFunctions {
         float blueCurrent = colorFrom.getBlue() / 255f;
 
         // Set the new color values:
-        for (final AsciiCharacter tile : tiles) {
+        for (final Tile tile : tiles) {
             if (applyToBackground) {
                 tile.setBackgroundColor(new Color(redCurrent, greenCurrent, blueCurrent));
             } else {

@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.printer;
 
-import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.component.Component;
 import lombok.*;
 
@@ -54,7 +54,7 @@ public class ImagePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private void print(final @NonNull Component component, final Point position) {
+    public void print(final @NonNull Component component, final Point position) {
         final BufferedImage temp = applyTransformations();
         final Point charPosition = new Point(0, 0);
 
@@ -68,7 +68,7 @@ public class ImagePrinter {
                 final int charX = x + position.x;
                 final int charY = y + position.y;
 
-                final AsciiCharacter character = component.getTiles().getTileAt(charX, charY);
+                final Tile character = component.getTiles().getTileAt(charX, charY);
                 character.setCharacter(printChar);
                 character.setForegroundColor(new Color(red, green, blue));
             }

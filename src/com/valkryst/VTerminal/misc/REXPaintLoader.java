@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.misc;
 
-import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.builder.LayerBuilder;
 import com.valkryst.VTerminal.component.Layer;
 import lombok.NonNull;
@@ -129,7 +129,7 @@ public final class REXPaintLoader {
                         backgroundColor = new Color(packedBackgroundColor);
                     }
 
-                    final AsciiCharacter asciiCharacter = layer.getTiles().getTileAt(x, y);
+                    final Tile asciiCharacter = layer.getTiles().getTileAt(x, y);
                     asciiCharacter.setForegroundColor(foregroundColor);
                     asciiCharacter.setBackgroundColor(backgroundColor);
                     asciiCharacter.setCharacter(character);

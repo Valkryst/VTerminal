@@ -1,26 +1,25 @@
 package com.valkryst.VTerminal;
 
 import com.valkryst.VTerminal.misc.ImageCache;
-import com.valkryst.VTerminal.shader.character.CharShader;
 import com.valkryst.VTerminal.shader.Shader;
+import com.valkryst.VTerminal.shader.character.CharShader;
 import lombok.NonNull;
 import lombok.ToString;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.util.Objects;
 
 @ToString
-public class AsciiTile extends AsciiCharacter {
+public class GraphicTile extends Tile {
     /**
      * Constructs a new AsciiTile.
      *
      * @param character
      *         The character.
      */
-	public AsciiTile(final char character) {
+	public GraphicTile(final char character) {
 	    super(character);
     }
 
@@ -35,7 +34,7 @@ public class AsciiTile extends AsciiCharacter {
      * @throws NullPointerException
      *        If the character is null.
      */
-    public AsciiTile(final @NonNull AsciiCharacter character) {
+    public GraphicTile(final @NonNull Tile character) {
 	    super(character.getCharacter());
 
 	    for (final Shader shader : character.getShaders()) {
@@ -46,10 +45,6 @@ public class AsciiTile extends AsciiCharacter {
 
 	    super.setBackgroundColor(character.getBackgroundColor());
 	    super.setForegroundColor(character.getForegroundColor());
-
-	    final Rectangle boundingBox = character.getBoundingBox();
-	    super.getBoundingBox().setSize(boundingBox.width, boundingBox.height);
-	    super.getBoundingBox().setLocation(boundingBox.x, boundingBox.y);
 
         super.setUnderlined(character.isUnderlined());
         super.setUnderlineThickness(character.getUnderlineThickness());
@@ -88,9 +83,6 @@ public class AsciiTile extends AsciiCharacter {
 
         columnIndex *= fontWidth;
         rowIndex *= fontHeight;
-
-        super.getBoundingBox().setLocation(columnIndex, rowIndex);
-        super.getBoundingBox().setSize(fontWidth, fontHeight);
 
         // Handle hidden state:
         if (super.isHidden()) {
