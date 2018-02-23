@@ -2,7 +2,8 @@ package com.valkryst.VTerminal.samples.component;
 
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
-import com.valkryst.VTerminal.builder.component.*;
+import com.valkryst.VTerminal.builder.TextAreaBuilder;
+import com.valkryst.VTerminal.builder.TextFieldBuilder;
 import com.valkryst.VTerminal.component.ProgressBar;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
 import com.valkryst.VTerminal.printer.RectanglePrinter;

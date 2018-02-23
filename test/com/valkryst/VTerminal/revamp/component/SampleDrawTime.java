@@ -1,9 +1,9 @@
-package com.valkryst.VTerminal.samples;
+package com.valkryst.VTerminal.revamp.component;
 
 import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.Screen;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
-import com.valkryst.VTerminal.revamp.component.Screen;
 
 import javax.swing.JFrame;
 import java.awt.Color;

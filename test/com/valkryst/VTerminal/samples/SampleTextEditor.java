@@ -3,7 +3,7 @@ package com.valkryst.VTerminal.samples;
 import com.valkryst.VTerminal.Panel;
 import com.valkryst.VTerminal.builder.PanelBuilder;
 import com.valkryst.VTerminal.builder.component.ButtonBuilder;
-import com.valkryst.VTerminal.builder.component.TextAreaBuilder;
+import com.valkryst.VTerminal.builder.TextAreaBuilder;
 import com.valkryst.VTerminal.component.TextArea;
 
 import javax.swing.JFileChooser;
