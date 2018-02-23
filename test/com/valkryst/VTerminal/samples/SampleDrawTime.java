@@ -1,5 +1,7 @@
-package com.valkryst.VTerminal;
+package com.valkryst.VTerminal.samples;
 
+import com.valkryst.VTerminal.Tile;
+import com.valkryst.VTerminal.Screen;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 
@@ -29,7 +31,7 @@ public class SampleDrawTime {
             // Random colors, chars, flips, and underlines
             final Color foregroundColor = new Color(colorVal, 155, 255, 255);
             final Color backgroundColor = new Color(colorVal, colorVal, colorVal, 255);
-            AsciiCharacter tile;
+            Tile tile;
 
             for (int y = 0 ; y < screen.getHeight() ; y++) {
                 for (int x = 0 ; x < screen.getWidth() ; x++) {

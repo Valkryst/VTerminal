@@ -1,16 +1,16 @@
 package com.valkryst.VTerminal.AsciiCharacterTest;
 
 import com.valkryst.VRadio.Radio;
-import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.Tile;
 import org.junit.Before;
 import org.junit.Test;
 
 public class DisableBlinkEffectTest {
-    private AsciiCharacter character;
+    private Tile character;
 
     @Before
     public void initializeCharacter() {
-        character = new AsciiCharacter('A');
+        character = new Tile('A');
     }
 
     @Test

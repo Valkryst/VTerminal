@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.AsciiCharacterTest;
 
-import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.misc.ImageCache;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class DrawTest {
-    private AsciiCharacter character;
+    private Tile character;
     private Font font;
 
     public DrawTest() throws IOException, URISyntaxException {
@@ -23,7 +23,7 @@ public class DrawTest {
 
     @Before
     public void initializeCharacter() {
-        character = new AsciiCharacter('?');
+        character = new Tile('?');
         character.setBackgroundColor(Color.BLACK);
         character.setForegroundColor(Color.WHITE);
     }

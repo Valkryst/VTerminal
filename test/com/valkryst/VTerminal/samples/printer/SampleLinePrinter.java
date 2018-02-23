@@ -1,7 +1,10 @@
 package com.valkryst.VTerminal.samples.printer;
 
-import com.valkryst.VTerminal.Panel;
-import com.valkryst.VTerminal.builder.PanelBuilder;
+import com.valkryst.VTerminal.Screen;
+import com.valkryst.VTerminal.builder.LayerBuilder;
+import com.valkryst.VTerminal.component.Layer;
+import com.valkryst.VTerminal.font.Font;
+import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.misc.ShapeAlgorithms;
 import com.valkryst.VTerminal.printer.LinePrinter;
 
@@ -13,16 +16,26 @@ import java.util.List;
 
 public class SampleLinePrinter {
     public static void main(final String[] args) throws IOException, URISyntaxException {
-        final Panel panel = new PanelBuilder().build();
+        final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1);
+
+        final Dimension dimensions = new Dimension(60, 26);
+        final Screen screen = new Screen(dimensions, font);
+
+        final LayerBuilder layerBuilder = new LayerBuilder();
+        layerBuilder.getDimensions().setSize(60, 26);
+        final Layer layer = layerBuilder.build();
+        screen.addComponent(layer);
 
 
         final List<Point> circlePoints = ShapeAlgorithms.getEllipse(new Point(10, 10), new Dimension(5, 5));
         final LinePrinter printer = new LinePrinter();
 
         for (final Point point : circlePoints) {
-            printer.print(panel, new Point(10, 10), point);
+            printer.print(layer, new Point(10, 10), point);
         }
 
-        panel.draw();
+
+        screen.addCanvasToJFrame().setVisible(true);
+        screen.draw();
     }
 }

@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.TileGridTest;
 
-import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.TileGrid;
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,7 +26,7 @@ public class RemoveChildTest {
         parentGrid = new TileGrid(new Dimension(6, 6));
 
         for (int y = 0 ; y < parentGrid.getHeight() ; y++) {
-            final AsciiCharacter[] row = parentGrid.getRow(y);
+            final Tile[] row = parentGrid.getRow(y);
 
             for (int x = 0 ; x < parentGrid.getWidth() ; x++) {
                 row[x].setCharacter((char) (x + 65));
