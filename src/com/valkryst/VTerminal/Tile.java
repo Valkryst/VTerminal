@@ -1,6 +1,5 @@
 package com.valkryst.VTerminal;
 
-import com.valkryst.VRadio.Radio;
 import com.valkryst.VTerminal.misc.ImageCache;
 import com.valkryst.VTerminal.shader.Shader;
 import com.valkryst.VTerminal.shader.misc.FlipShader;
@@ -20,7 +19,7 @@ import java.util.Objects;
 
 @ToString
 public class Tile {
-    /** The hash value, of the character, used by the image cache. */
+    /** The hash value, of the tile, used by the image cache. */
     @Getter protected int cacheHash;
     /** Whether or not to update the cache hash. */
     protected boolean updateCacheHash;
@@ -37,9 +36,9 @@ public class Tile {
 	/** The foreground color. Defaults to white. */
 	@Getter private Color foregroundColor;
 
-	/** Whether or not to draw the character as underlined. */
+	/** Whether or not to draw the tile as underlined. */
 	@Getter @Setter private boolean isUnderlined;
-    /** The thickness of the underline to draw beneath the character. */
+    /** The thickness of the underline to draw beneath the tile. */
 	@Getter private int underlineThickness;
 
 	private Timer blinkTimer;
@@ -50,10 +49,10 @@ public class Tile {
 	@Getter private boolean foregroundAndBackgroundColorEqual;
 
     /**
-     * Constructs a new AsciiCharacter.
+     * Constructs a new Tile.
      *
      * @param character
-     *         The character.
+     *          The character.
      */
 	public Tile(final char character) {
 	    reset();
@@ -61,23 +60,22 @@ public class Tile {
     }
 
     /**
-     * Constructs a new AsciiCharacter by copying the data of an AsciiCharacter.
+     * Constructs a new tile by copying the data of a tile.
      *
      * Does not copy the blinkTimer.
      *
-     * @param character
-     *         The AsciiCharacter.
+     * @param otherTile
+     *          The tile.
      *
      * @throws NullPointerException
-     *        If the character is null.
+     *          If the tile is null.
      */
-    public Tile(final @NonNull Tile character) {
+    public Tile(final @NonNull Tile otherTile) {
         reset();
-
-        copy(character);
+        copy(otherTile);
     }
 
-    /** Resets the character to it's default state. */
+    /** Resets the tile to it's default state. */
     public void reset() {
         removeAllShaders();
 
@@ -96,31 +94,31 @@ public class Tile {
     }
 
     /**
-     * Copies the settings of an AsciiCharacter to this AsciiCharacter.
+     * Copies the settings of a tile to this tile.
      *
      * Does not copy the blinkTimer.
      *
-     * @param character
-     *        The other AsciiCharacter.
+     * @param otherTile
+     *          The other tile.
      */
-    public void copy(final @NonNull Tile character) {
-        for (final Shader shader : character.getShaders()) {
+    public void copy(final @NonNull Tile otherTile) {
+        for (final Shader shader : otherTile.getShaders()) {
             shaders.add(shader.copy());
         }
 
-        this.character = character.getCharacter();
+        this.character = otherTile.getCharacter();
 
-        isHidden = character.isHidden();
+        isHidden = otherTile.isHidden();
 
-        backgroundColor = character.getBackgroundColor();
-        foregroundColor = character.getForegroundColor();
+        backgroundColor = otherTile.getBackgroundColor();
+        foregroundColor = otherTile.getForegroundColor();
 
-        isUnderlined = character.isUnderlined();
-        underlineThickness = character.getUnderlineThickness();
+        isUnderlined = otherTile.isUnderlined();
+        underlineThickness = otherTile.getUnderlineThickness();
 
-        foregroundAndBackgroundColorEqual = character.isForegroundAndBackgroundColorEqual();
+        foregroundAndBackgroundColorEqual = otherTile.isForegroundAndBackgroundColorEqual();
 
-        cacheHash = character.getCacheHash();
+        cacheHash = otherTile.getCacheHash();
         updateCacheHash = false;
     }
 
@@ -133,19 +131,19 @@ public class Tile {
     }
 
     /**
-     * Draws the character onto the specified context.
+     * Draws the tile onto the specified context.
      *
      * @param gc
      *         The graphics context to draw with.
      *
      * @param imageCache
-     *         The image cache to retrieve character images from.
+     *         The image cache to retrieve tile images from.
      *
      * @param columnIndex
-     *         The x-axis (column) coordinate where the character is to be drawn.
+     *         The x-axis (column) coordinate where the tile is to be drawn.
      *
      * @param rowIndex
-     *         The y-axis (row) coordinate where the character is to be drawn.
+     *         The y-axis (row) coordinate where the tile is to be drawn.
      *
      * @throws NullPointerException
      *         If the gc or image cache are null.
@@ -183,16 +181,12 @@ public class Tile {
      * Enables the blink effect.
      *
      * @param millsBetweenBlinks
-     *         The amount of time, in milliseconds, before the blink effect can occur.
+     *          The amount of time, in milliseconds, before the blink effect can occur.
      *
-     * @param radio
-     *         The Radio to transmit a DRAW event to whenever a blink occurs.
+     * @param redrawFunction
+     *          The redraw function to call whenever a blink occurs.
      */
-    public void enableBlinkEffect(final short millsBetweenBlinks, final Radio<String> radio) {
-        if (radio == null) {
-            throw new NullPointerException("You must specify a Radio when enabling a blink effect.");
-        }
-
+    public void enableBlinkEffect(final short millsBetweenBlinks, final @NonNull Runnable redrawFunction) {
         if (millsBetweenBlinks <= 0) {
             this.millsBetweenBlinks = 1000;
         } else {
@@ -201,7 +195,7 @@ public class Tile {
 
         blinkTimer = new Timer(this.millsBetweenBlinks, e -> {
             isHidden = !isHidden;
-            radio.transmit("DRAW");
+            redrawFunction.run();
         });
         blinkTimer.setInitialDelay(this.millsBetweenBlinks);
         blinkTimer.setRepeats(true);
@@ -264,10 +258,10 @@ public class Tile {
     }
 
     /**
-     * Sets whether or not the character is flipped horizontally.
+     * Sets whether or not the tile is flipped horizontally.
      *
      * @param isFlippedHorizontally
-     *        Whether or not the character is flipped horizontally.
+     *        Whether or not the tile is flipped horizontally.
      */
     public void setFlippedHorizontally(final boolean isFlippedHorizontally) {
         for (final Shader shader : shaders) {
@@ -283,10 +277,10 @@ public class Tile {
     }
 
     /**
-     * Sets whether or not the character is flipped vertically.
+     * Sets whether or not the tile is flipped vertically.
      *
      * @param isFlippedVertically
-     *        Whether or not the character is flipped vertically.
+     *        Whether or not the tile is flipped vertically.
      */
     public void setFlippedVertically(final boolean isFlippedVertically) {
         for (final Shader shader : shaders) {
@@ -310,7 +304,7 @@ public class Tile {
      * set to Byte.MAX_VALUE.
      *
      * @param underlineThickness
-     *         The new underline thickness.
+     *          The new underline thickness.
      */
     public void setUnderlineThickness(final int underlineThickness) {
         if (underlineThickness <= 0) {
@@ -321,7 +315,7 @@ public class Tile {
     }
 
     /**
-     * Adds one or more shaders to the character.
+     * Adds one or more shaders to the tile.
      *
      * @param shaders
      *          The shaders.
@@ -332,7 +326,7 @@ public class Tile {
     }
 
     /**
-     * Removes one or more shaders from the character.
+     * Removes one or more shaders from the tile.
      *
      * @param shaders
      *          The shaders.
@@ -342,7 +336,7 @@ public class Tile {
         updateCacheHash = true;
     }
 
-    /** Removes all shaders from the character. */
+    /** Removes all shaders from the tile. */
     public void removeAllShaders() {
         shaders.clear();
         updateCacheHash = true;
