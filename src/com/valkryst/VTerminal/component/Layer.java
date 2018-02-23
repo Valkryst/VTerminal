@@ -1,10 +1,9 @@
 package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.Tile;
-import com.valkryst.VTerminal.Screen;
+import com.valkryst.VTerminal.TileGrid;
 import com.valkryst.VTerminal.builder.LayerBuilder;
 import com.valkryst.VTerminal.palette.ColorPalette;
-import lombok.NonNull;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -41,12 +40,12 @@ public class Layer extends Component {
     }
 
     @Override
-    public void draw(final @NonNull Screen screen) {
-        super.draw(screen);
+    public void draw(final TileGrid grid) {
+        super.draw(grid);
 
         componentsLock.readLock().lock();
         for (final Component component : components) {
-            component.draw(screen);
+            component.draw(grid);
         }
         componentsLock.readLock().unlock();
     }
