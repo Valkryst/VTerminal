@@ -136,7 +136,7 @@ public class Screen {
         componentsLock.readLock().lock();
 
         for (final Component component : components) {
-            component.draw(this);
+            component.draw(tiles);
         }
 
         componentsLock.readLock().unlock();
