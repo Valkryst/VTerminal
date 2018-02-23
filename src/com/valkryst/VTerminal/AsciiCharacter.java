@@ -165,7 +165,7 @@ public class AsciiCharacter {
         boundingBox.setSize(fontWidth, fontHeight);
 
         // Handle hidden state:
-        if (isHidden || isForegroundAndBackgroundColorEqual()) {
+        if (isHidden || foregroundAndBackgroundColorEqual) {
             gc.setColor(backgroundColor);
             gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
         } else {
