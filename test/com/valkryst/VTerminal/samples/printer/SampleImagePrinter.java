@@ -1,8 +1,6 @@
 package com.valkryst.VTerminal.samples.printer;
 
 import com.valkryst.VTerminal.Screen;
-import com.valkryst.VTerminal.builder.LayerBuilder;
-import com.valkryst.VTerminal.component.Layer;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.printer.ImagePrinter;
@@ -22,17 +20,12 @@ public class SampleImagePrinter {
         final Dimension dimensions = new Dimension(60, 26);
         final Screen screen = new Screen(dimensions, font);
 
-        final LayerBuilder layerBuilder = new LayerBuilder();
-        layerBuilder.getDimensions().setSize(60, 26);
-        final Layer layer = layerBuilder.build();
-        screen.addComponent(layer);
-
 
         final String filePath = System.getProperty("user.dir") + "/res_test/ImagePrinterTest.png";
         final BufferedImage image = ImageIO.read(new File(filePath));
 
         final ImagePrinter printer = new ImagePrinter(image);
-        printer.print(layer, new Point(0, 0));
+        printer.print(screen.getTiles(), new Point(0, 0));
 
 
         screen.addCanvasToJFrame().setVisible(true);
