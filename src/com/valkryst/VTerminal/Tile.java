@@ -2,6 +2,7 @@ package com.valkryst.VTerminal;
 
 import com.valkryst.VTerminal.misc.ImageCache;
 import com.valkryst.VTerminal.shader.Shader;
+import com.valkryst.VTerminal.shader.misc.FlipShader;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -254,6 +255,44 @@ public class Tile {
             updateCacheHash = true;
             foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
         }
+    }
+
+    /**
+     * Sets whether or not the tile is flipped horizontally.
+     *
+     * @param isFlippedHorizontally
+     *        Whether or not the tile is flipped horizontally.
+     */
+    public void setFlippedHorizontally(final boolean isFlippedHorizontally) {
+        for (final Shader shader : shaders) {
+            if (shader instanceof FlipShader) {
+                ((FlipShader) shader).setFlippedHorizontally(isFlippedHorizontally);
+                return;
+            }
+        }
+
+        final FlipShader flipShader = new FlipShader();
+        flipShader.setFlippedHorizontally(isFlippedHorizontally);
+        shaders.add(flipShader);
+    }
+
+    /**
+     * Sets whether or not the tile is flipped vertically.
+     *
+     * @param isFlippedVertically
+     *        Whether or not the tile is flipped vertically.
+     */
+    public void setFlippedVertically(final boolean isFlippedVertically) {
+        for (final Shader shader : shaders) {
+            if (shader instanceof FlipShader) {
+                ((FlipShader) shader).setFlippedVertically(isFlippedVertically);
+                return;
+            }
+        }
+
+        final FlipShader flipShader = new FlipShader();
+        flipShader.setFlippedVertically(isFlippedVertically);
+        shaders.add(flipShader);
     }
 
     /**
