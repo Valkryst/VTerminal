@@ -29,7 +29,7 @@ public class LinePrinter {
      *         If there are fewer than two points.
      *
      * @throws NullPointerException
-     *         If the screen or points array is null.
+     *         If the grid or points array is null.
      */
     public void print(final @NonNull TileGrid grid, final @NonNull Point[] points) {
         if (points.length < 2) {
@@ -57,9 +57,9 @@ public class LinePrinter {
      *         The end point of the line.
      *
      * @throws NullPointerException
-     *         If the component or either point is null.
+     *         If the grid or either point is null.
      */
-    public void print(final @NonNull TileGrid grid, final Point from, final Point to) {
+    public void print(final @NonNull TileGrid grid, final @NonNull Point from, final @NonNull Point to) {
         for (final Point point : ShapeAlgorithms.getLine(from.x, from.y, to.x, to.y)) {
             final Tile tile = grid.getTileAt(point);
 
