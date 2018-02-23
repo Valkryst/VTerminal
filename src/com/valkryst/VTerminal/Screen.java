@@ -378,7 +378,7 @@ public class Screen {
     }
 
     /**
-     * Retrieves a tile from the component.
+     * Retrieves a tile from the screen.
      *
      * @param x
      *          The x-axis coordinate of the tile to retrieve.
@@ -388,9 +388,23 @@ public class Screen {
      *
      * @return
      *          The tile, or null if the coordinates are outside the bounds
-     *          of the component.
+     *          of the screen.
      */
     public Tile getTileAt(final int x, final int y) {
         return tiles.getTileAt(x, y);
+    }
+
+    /**
+     * Retrieves a tile from the screen.
+     *
+     * @param position
+     *          The x/y-axis coordinates of the tile to retrieve.
+     *
+     * @return
+     *          The tile, or null if the coordinates are outside the bounds
+     *          of the screen.
+     */
+    public Tile getTileAt(final Point position) {
+        return tiles.getTileAt(position);
     }
 }
