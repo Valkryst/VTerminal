@@ -81,7 +81,7 @@ public class Button extends Component {
 
     @Override
     public void createEventListeners(final @NonNull Screen parentScreen) {
-        if (super.getEventListeners().size() > 0) {
+        if (super.eventListeners.size() > 0) {
             return;
         }
 

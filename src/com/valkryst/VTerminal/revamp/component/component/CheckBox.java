@@ -40,19 +40,19 @@ public class CheckBox extends Button {
 
         final ColorPalette colorPalette = builder.getColorPalette();
 
-        backgroundColor_normal = colorPalette.getCheckBox_defaultBackground();
-        foregroundColor_normal = colorPalette.getCheckBox_defaultForeground();
+        super.backgroundColor_normal = colorPalette.getCheckBox_defaultBackground();
+        super.foregroundColor_normal = colorPalette.getCheckBox_defaultForeground();
 
-        backgroundColor_hover = colorPalette.getCheckBox_hoverBackground();
-        foregroundColor_hover = colorPalette.getCheckBox_hoverForeground();
+        super.backgroundColor_hover = colorPalette.getCheckBox_hoverBackground();
+        super.foregroundColor_hover = colorPalette.getCheckBox_hoverForeground();
 
-        backgroundColor_pressed = colorPalette.getCheckBox_checkedBackground();
-        foregroundColor_pressed = colorPalette.getCheckBox_checkedForeground();
+        super.backgroundColor_pressed = colorPalette.getCheckBox_checkedBackground();
+        super.foregroundColor_pressed = colorPalette.getCheckBox_checkedForeground();
     }
 
     @Override
     public void createEventListeners(final @NonNull Screen parentScreen) {
-        if (super.getEventListeners().size() > 0) {
+        if (super.eventListeners.size() > 0) {
             return;
         }
 
