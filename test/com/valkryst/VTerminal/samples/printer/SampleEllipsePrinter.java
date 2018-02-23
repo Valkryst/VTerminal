@@ -1,8 +1,6 @@
 package com.valkryst.VTerminal.samples.printer;
 
 import com.valkryst.VTerminal.Screen;
-import com.valkryst.VTerminal.builder.LayerBuilder;
-import com.valkryst.VTerminal.component.Layer;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.printer.EllipsePrinter;
@@ -19,18 +17,13 @@ public class SampleEllipsePrinter {
         final Dimension dimensions = new Dimension(60, 26);
         final Screen screen = new Screen(dimensions, font);
 
-        final LayerBuilder layerBuilder = new LayerBuilder();
-        layerBuilder.getDimensions().setSize(60, 26);
-        final Layer layer = layerBuilder.build();
-        screen.addComponent(layer);
-
 
         final EllipsePrinter printer = new EllipsePrinter();
         printer.setWidth(6);
         printer.setHeight(8);
-        printer.print(layer, new Point(10, 10));
+        printer.print(screen.getTiles(), new Point(10, 10));
 
-        printer.printFilled(layer, new Point(10, 40));
+        printer.printFilled(screen.getTiles(), new Point(10, 40));
 
 
         screen.addCanvasToJFrame().setVisible(true);

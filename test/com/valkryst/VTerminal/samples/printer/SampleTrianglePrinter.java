@@ -1,8 +1,6 @@
 package com.valkryst.VTerminal.samples.printer;
 
 import com.valkryst.VTerminal.Screen;
-import com.valkryst.VTerminal.builder.LayerBuilder;
-import com.valkryst.VTerminal.component.Layer;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.printer.TrianglePrinter;
@@ -19,11 +17,6 @@ public class SampleTrianglePrinter {
         final Dimension dimensions = new Dimension(60, 26);
         final Screen screen = new Screen(dimensions, font);
 
-        final LayerBuilder layerBuilder = new LayerBuilder();
-        layerBuilder.getDimensions().setSize(60, 26);
-        final Layer layer = layerBuilder.build();
-        screen.addComponent(layer);
-
 
         final Point[] points = new Point[] {
                 new Point(20, 2),
@@ -32,7 +25,7 @@ public class SampleTrianglePrinter {
         };
 
         final TrianglePrinter printer = new TrianglePrinter();
-        printer.print(layer, points);
+        printer.print(screen.getTiles(), points);
 
 
         screen.addCanvasToJFrame().setVisible(true);
