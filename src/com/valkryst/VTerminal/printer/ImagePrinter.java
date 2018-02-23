@@ -1,9 +1,7 @@
 package com.valkryst.VTerminal.printer;
 
 import com.valkryst.VTerminal.AsciiCharacter;
-import com.valkryst.VTerminal.Panel;
-import com.valkryst.VTerminal.component.Component;
-import com.valkryst.VTerminal.component.Screen;
+import com.valkryst.VTerminal.revamp.component.component.Component;
 import lombok.*;
 
 import java.awt.Color;
@@ -45,38 +43,6 @@ public class ImagePrinter {
     }
 
     /**
-     * Prints an image on the screen of a panel.
-     *
-     * @param panel
-     *         The panel.
-     *
-     * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
-     *
-     * @throws NullPointerException
-     *         If the panel is null.
-     */
-    public void print(final @NonNull Panel panel, final Point position) {
-        print((Component) panel.getScreen(), position);
-    }
-
-    /**
-     * Prints an image on a screen.
-     *
-     * @param screen
-     *         The screen.
-     *
-     * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
-     *
-     * @throws NullPointerException
-     *         If the screen is null.
-     */
-    public void print(final @NonNull Screen screen, final Point position) {
-        print((Component) screen, position);
-    }
-
-    /**
      * Prints an image on a component.
      *
      * @param component
@@ -92,8 +58,8 @@ public class ImagePrinter {
         final BufferedImage temp = applyTransformations();
         final Point charPosition = new Point(0, 0);
 
-        for (int y = 0 ; y < temp.getHeight() && y < component.getHeight() ; y++) {
-            for (int x = 0 ; x < temp.getWidth() && x < component.getWidth() ; x++) {
+        for (int y = 0 ; y < temp.getHeight() && y < component.getTiles().getHeight() ; y++) {
+            for (int x = 0 ; x < temp.getWidth() && x < component.getTiles().getWidth() ; x++) {
                 final int hexColor = temp.getRGB(x,y);
                 final int red = (hexColor & 0x00ff0000) >> 16;
                 final int green = (hexColor & 0x0000ff00) >> 8;
@@ -101,9 +67,8 @@ public class ImagePrinter {
 
                 final int charX = x + position.x;
                 final int charY = y + position.y;
-                charPosition.setLocation(charX, charY);
 
-                final AsciiCharacter character = component.getCharacterAt(charPosition);
+                final AsciiCharacter character = component.getTiles().getTileAt(charX, charY);
                 character.setCharacter(printChar);
                 character.setForegroundColor(new Color(red, green, blue));
             }
