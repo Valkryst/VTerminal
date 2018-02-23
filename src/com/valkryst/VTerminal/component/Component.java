@@ -130,4 +130,35 @@ public class Component {
     public List<EventListener> getEventListeners() {
         return Collections.unmodifiableList(eventListeners);
     }
+
+    /**
+     * Retrieves a tile from the component.
+     *
+     * @param x
+     *          The x-axis coordinate of the tile to retrieve.
+     *
+     * @param y
+     *          The y-axis coordinate of the tile to retrieve.
+     *
+     * @return
+     *          The tile, or null if the coordinates are outside the bounds
+     *          of the component.
+     */
+    public Tile getTileAt(final int x, final int y) {
+        return tiles.getTileAt(x, y);
+    }
+
+    /**
+     * Retrieves a tile from the component.
+     *
+     * @param position
+     *          The x/y-axis coordinates of the tile to retrieve.
+     *
+     * @return
+     *          The tile, or null if the coordinates are outside the bounds
+     *          of the component.
+     */
+    public Tile getTileAt(final Point position) {
+        return tiles.getTileAt(position);
+    }
 }
