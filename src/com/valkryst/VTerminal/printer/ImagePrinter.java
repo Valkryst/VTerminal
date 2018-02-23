@@ -1,7 +1,7 @@
 package com.valkryst.VTerminal.printer;
 
 import com.valkryst.VTerminal.AsciiCharacter;
-import com.valkryst.VTerminal.revamp.component.component.Component;
+import com.valkryst.VTerminal.component.Component;
 import lombok.*;
 
 import java.awt.Color;

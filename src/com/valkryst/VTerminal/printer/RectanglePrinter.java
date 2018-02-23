@@ -1,11 +1,8 @@
 package com.valkryst.VTerminal.printer;
 
-import com.valkryst.VJSON.VJSONParser;
-import com.valkryst.VTerminal.Panel;
-import com.valkryst.VTerminal.component.Screen;
+import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.misc.ShapeAlgorithms;
 import lombok.*;
-import org.json.simple.JSONObject;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -25,31 +22,15 @@ public class RectanglePrinter {
 
     /** The type of rectangle to print. */
     @Getter @Setter private RectangleType rectangleType = RectangleType.HEAVY;
-
-    /**
-     * Prints a rectangle on the screen of a panel.
-     *
-     * @param panel
-     *         The panel.
-     *
-     * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
-     *
-     * @throws NullPointerException
-     *         If the panel is null.
-     */
-    public void print(final @NonNull Panel panel, final Point position) {
-        print(panel.getScreen(), position);
-    }
-
+    
     /**
      * Prints a rectangle on a screen.
      *
      * If the function is set to perform connections, then it will attempt to
      * connect the new rectangle with existing similar rectangles in the draw area.
      *
-     * @param screen
-     *         The screen.
+     * @param component
+     *         The component.
      *
      * @param position
      *         The x/y-axis (column/row) coordinates of the top-left character.
@@ -57,7 +38,7 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    public void print(final @NonNull Screen screen, final Point position) {
+    public void print(final @NonNull Component component, final Point position) {
         final int width = dimensions.width;
         final int height = dimensions.height;
         final int x = position.x;
@@ -69,33 +50,33 @@ public class RectanglePrinter {
         final Point writePosition = new Point(0, 0);
 
         // Draw Corners:
-        screen.write(rectangleType.getTopLeft(), position);
+        component.getTiles().getTileAt(writePosition).setCharacter(rectangleType.getTopLeft());
 
         writePosition.setLocation(lastColumn, y);
-        screen.write(rectangleType.getTopRight(), writePosition);
+        component.getTiles().getTileAt(writePosition).setCharacter(rectangleType.getTopRight());
 
         writePosition.setLocation(x, lastRow);
-        screen.write(rectangleType.getBottomLeft(), writePosition);
+        component.getTiles().getTileAt(writePosition).setCharacter(rectangleType.getBottomLeft());
 
         writePosition.setLocation(lastColumn, lastRow);
-        screen.write(rectangleType.getBottomRight(), writePosition);
+        component.getTiles().getTileAt(writePosition).setCharacter(rectangleType.getBottomRight());
 
         // Draw Left/Right Sides:
         for (int i = 1 ; i < height - 1 ; i++) {
             writePosition.setLocation(x, y + i);
-            screen.write(rectangleType.getVertical(), writePosition);
+            component.getTiles().getTileAt(writePosition).setCharacter(rectangleType.getVertical());
 
             writePosition.setLocation(lastColumn, y + i);
-            screen.write(rectangleType.getVertical(), writePosition);
+            component.getTiles().getTileAt(writePosition).setCharacter(rectangleType.getVertical());
         }
 
         // Draw Top/Bottom Sides:
         for (int i = 1 ; i < width - 1 ; i++) {
             writePosition.setLocation(x + i, y);
-            screen.write(rectangleType.getHorizontal(), writePosition);
+            component.getTiles().getTileAt(writePosition).setCharacter(rectangleType.getHorizontal());
 
             writePosition.setLocation(x + i, lastRow);
-            screen.write(rectangleType.getHorizontal(), writePosition);
+            component.getTiles().getTileAt(writePosition).setCharacter(rectangleType.getHorizontal());
         }
 
         // Draw title on Top Side:
@@ -105,45 +86,29 @@ public class RectanglePrinter {
 
             for (int i = 2; i < width - 2 && i - 2 < titleChars.length; i++) {
                 writePosition.setLocation(x + i, y);
-                screen.write(titleChars[i - 2], writePosition);
+                component.getTiles().getTileAt(writePosition).setCharacter(titleChars[i - 2]);
             }
 
             // Draw Title Borders:
             writePosition.setLocation(x + 1, y);
-            screen.write(rectangleType.getConnectorLeft(), writePosition);
+            component.getTiles().getTileAt(writePosition).setCharacter(rectangleType.getConnectorLeft());
 
             writePosition.setLocation(x + titleChars.length + 2, y);
-            screen.write(rectangleType.getConnectorRight(), writePosition);
+            component.getTiles().getTileAt(writePosition).setCharacter(rectangleType.getConnectorRight());
         }
 
         // Handle Connectors:
-        setConnectors(screen, position);
+        setConnectors(component, position);
     }
 
     /**
-     * Prints a filled rectangle on the screen of a panel.
-     *
-     * @param panel
-     *         The panel.
-     *
-     * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
-     *
-     * @throws NullPointerException
-     *         If the panel is null.
-     */
-    public void printFilled(final @NonNull Panel panel, final Point position) {
-        printFilled(panel.getScreen(), position);
-    }
-
-    /**
-     * Prints a rectangle on a screen.
+     * Prints a rectangle on a component.
      *
      * If the function is set to perform connections, then it will attempt to
      * connect the new rectangle with existing similar rectangles in the draw area.
      *
-     * @param screen
-     *         The screen.
+     * @param component
+     *         The component.
      *
      * @param position
      *         The x/y-axis (column/row) coordinates of the top-left character.
@@ -151,60 +116,23 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    public void printFilled(final @NonNull Screen screen, final Point position) {
-        print(screen, position);
+    public void printFilled(final @NonNull Component component, final Point position) {
+        print(component, position);
 
         final Dimension dimension = new Dimension(this.dimensions.width - 2, this.dimensions.height - 2);
         position.setLocation(position.x + 1, position.y + 1);
 
         for (final Point point : ShapeAlgorithms.getFilledRectangle(position, dimension)) {
-            screen.write(fillChar, point);
+            component.getTiles().getTileAt(position).setCharacter(fillChar);
         }
-    }
-
-    public void printFromJSON(final @NonNull Screen screen, final JSONObject jsonObject) {
-        final VJSONParser parser = jo -> {};
-
-        final Integer column = parser.getInteger(jsonObject, "column");
-        final Integer row = parser.getInteger(jsonObject, "row");
-        final Integer width = parser.getInteger(jsonObject, "width");
-        final Integer height = parser.getInteger(jsonObject, "height");
-        final String title = (String) jsonObject.get("title");
-        final String rectangleType = (String) jsonObject.get("rectangleType");
-
-        if (column == null) {
-            throw new IllegalArgumentException("A rectangle printer requires that a column be set.");
-        }
-
-        if (row == null) {
-            throw new IllegalArgumentException("A rectangle printer requires that a row be set.");
-        }
-
-        if (width != null) {
-            setWidth(width);
-        }
-
-        if (height != null) {
-            setHeight(height);
-        }
-
-        if (title != null) {
-            this.title = title;
-        }
-
-        if (rectangleType != null) {
-            this.rectangleType = RectangleType.valueOf(rectangleType.toUpperCase());
-        }
-
-        print(screen, new Point(column, row));
     }
 
     /**
      * Checks for, and sets, all positions of the printed rectangle where a
      * connector character is required.
      *
-     * @param screen
-     *         The screen.
+     * @param component
+     *         The component.
      *
      * @param position
      *         The x/y-axis (column/row) coordinates of the top-left character.
@@ -212,9 +140,9 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private void setConnectors(final @NonNull Screen screen, final Point position) {
+    private void setConnectors(final @NonNull Component component, final Point position) {
         for (final Point point : ShapeAlgorithms.getRectangle(position, dimensions)) {
-            setConnector(screen, point);
+            setConnector(component, point);
         }
     }
 
@@ -222,8 +150,8 @@ public class RectanglePrinter {
      * Checks if a character should be a connector and changes it to the
      * appropriate connector character if it should be.
      *
-     * @param screen
-     *         The screen.
+     * @param component
+     *         The component.
      *
      * @param position
      *         The x/y-axis (column/row) coordinates of the top-left character.
@@ -231,16 +159,16 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private void setConnector(final @NonNull Screen screen, final Point position) {
-        final boolean validTop = hasValidTopNeighbour(screen, new Point(position));
-        final boolean validBottom = hasValidBottomNeighbour(screen, new Point(position));
-        final boolean validLeft = hasValidLeftNeighbour(screen, new Point(position));
-        final boolean validRight = hasValidRightNeighbour(screen, new Point(position));
+    private void setConnector(final @NonNull Component component, final Point position) {
+        final boolean validTop = hasValidTopNeighbour(component, new Point(position));
+        final boolean validBottom = hasValidBottomNeighbour(component, new Point(position));
+        final boolean validLeft = hasValidLeftNeighbour(component, new Point(position));
+        final boolean validRight = hasValidRightNeighbour(component, new Point(position));
 
         final boolean[] neighbourPattern = new boolean[]{validRight, validTop, validLeft, validBottom};
         final Optional<Character> optChar = rectangleType.getCharacterByNeighbourPattern(neighbourPattern);
 
-        optChar.ifPresent(character -> screen.write(character, position));
+        optChar.ifPresent(character -> component.getTiles().getTileAt(position).setCharacter(character));
     }
 
     /**
@@ -257,10 +185,10 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private boolean hasValidTopNeighbour(final @NonNull Screen screen, final Point position) {
+    private boolean hasValidTopNeighbour(final @NonNull Component component, final Point position) {
         try {
             position.setLocation(position.x, position.y - 1);
-            return rectangleType.isValidTopCharacter(screen.getCharacterAt(position));
+            return rectangleType.isValidTopCharacter(component.getTiles().getTileAt(position));
         } catch (final IllegalArgumentException e) {
             return false;
         }
@@ -280,10 +208,10 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private boolean hasValidBottomNeighbour(final @NonNull Screen screen, final Point position) {
+    private boolean hasValidBottomNeighbour(final @NonNull Component component, final Point position) {
         try {
             position.setLocation(position.x, position.y + 1);
-            return rectangleType.isValidBottomCharacter(screen.getCharacterAt(position));
+            return rectangleType.isValidBottomCharacter(component.getTiles().getTileAt(position));
         } catch (final IllegalArgumentException e) {
             return false;
         }
@@ -303,10 +231,10 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private boolean hasValidLeftNeighbour(final @NonNull Screen screen, final Point position) {
+    private boolean hasValidLeftNeighbour(final @NonNull Component component, final Point position) {
         try {
             position.setLocation(position.x - 1, position.y);
-            return rectangleType.isValidLeftCharacter(screen.getCharacterAt(position));
+            return rectangleType.isValidLeftCharacter(component.getTiles().getTileAt(position));
         } catch (final IllegalArgumentException e) {
             return false;
         }
@@ -326,10 +254,10 @@ public class RectanglePrinter {
      * @throws NullPointerException
      *         If the screen is null.
      */
-    private boolean hasValidRightNeighbour(final @NonNull Screen screen, final Point position) {
+    private boolean hasValidRightNeighbour(final @NonNull Component component, final Point position) {
         try {
             position.setLocation(position.x + 1, position.y);
-            return rectangleType.isValidRightCharacter(screen.getCharacterAt(position));
+            return rectangleType.isValidRightCharacter(component.getTiles().getTileAt(position));
         } catch (final IllegalArgumentException e) {
             return false;
         }

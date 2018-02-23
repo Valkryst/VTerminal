@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal.printer;
 
-import com.valkryst.VTerminal.Panel;
-import com.valkryst.VTerminal.component.Screen;
+import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.misc.ShapeAlgorithms;
 import lombok.*;
 
@@ -18,70 +17,38 @@ public class EllipsePrinter {
     @Getter @Setter private char printChar = '█';
 
     /**
-     * Prints an ellipse on the screen of a panel.
+     * Prints an ellipse on a component.
      *
-     * @param panel
-     *         The panel.
-     *
-     * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
-     *
-     * @throws NullPointerException
-     *         If the panel is null.
-     */
-    public void print(final @NonNull Panel panel, final Point position) {
-        print(panel.getScreen(), position);
-    }
-
-    /**
-     * Prints an ellipse on a screen.
-     *
-     * @param screen
-     *         The screen.
+     * @param component
+     *         The component.
      *
      * @param position
      *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
-     *         If the screen is null.
+     *         If the component or position is null.
      */
-    public void print(final @NonNull Screen screen, final Point position) {
+    public void print(final @NonNull Component component, final @NonNull Point position) {
         for (final Point point : ShapeAlgorithms.getEllipse(position, dimensions)) {
-            screen.write(printChar, point);
+            component.getTiles().getTileAt(point).setCharacter(printChar);
         }
     }
 
     /**
-     * Prints a filled ellipse on the screen of a panel.
+     * Prints a filled ellipse on a component.
      *
-     * @param panel
-     *         The panel.
-     *
-     * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
-     *
-     * @throws NullPointerException
-     *         If the panel is null.
-     */
-    public void printFilled(final @NonNull Panel panel, final Point position) {
-        printFilled(panel.getScreen(), position);
-    }
-
-    /**
-     * Prints a filled ellipse on a screen.
-     *
-     * @param screen
-     *         The screen.
+     * @param component
+     *         The component.
      *
      * @param position
      *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
-     *         If the screen is null.
+     *         If the component or position is null.
      */
-    public void printFilled(final @NonNull Screen screen, final Point position) {
+    public void printFilled(final @NonNull Component component, final @NonNull Point position) {
         for (final Point point : ShapeAlgorithms.getFilledEllipse(position, dimensions)) {
-            screen.write(printChar, point);
+            component.getTiles().getTileAt(point).setCharacter(printChar);
         }
     }
 
