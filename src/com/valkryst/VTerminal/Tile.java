@@ -120,7 +120,8 @@ public class Tile {
 
         foregroundAndBackgroundColorEqual = character.isForegroundAndBackgroundColorEqual();
 
-        updateCacheHash = true;
+        cacheHash = character.getCacheHash();
+        updateCacheHash = false;
     }
 
     /** Updates the cache hash value. */
