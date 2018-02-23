@@ -30,7 +30,7 @@ public class Screen {
     @Getter private final ImageCache imageCache;
 
     /** The tiles. */
-    private final TileGrid tiles;
+    @Getter private final TileGrid tiles;
 
     /** The components on the screen. */
     private final List<Component> components = new ArrayList<>(0);
