@@ -79,6 +79,8 @@ public class Tile {
     public void reset() {
         removeAllShaders();
 
+        updateCacheHash = true;
+
         character = ' ';
         isHidden = false;
         backgroundColor = Color.BLACK;
@@ -119,7 +121,7 @@ public class Tile {
         foregroundAndBackgroundColorEqual = otherTile.isForegroundAndBackgroundColorEqual();
 
         cacheHash = otherTile.getCacheHash();
-        updateCacheHash = false;
+        updateCacheHash = true;
     }
 
     /** Updates the cache hash value. */
@@ -156,7 +158,7 @@ public class Tile {
         rowIndex *= fontHeight;
 
         // Handle hidden state:
-        if (isHidden || foregroundAndBackgroundColorEqual) {
+        if (isHidden || foregroundAndBackgroundColorEqual || character == ' ') {
             gc.setColor(backgroundColor);
             gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
         } else {
