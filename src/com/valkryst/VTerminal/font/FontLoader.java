@@ -6,7 +6,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
@@ -77,11 +76,8 @@ public final class FontLoader {
      *
      * @throws IOException
      *         If an IOException occurs while loading the font.
-     *
-     * @throws URISyntaxException
-     *         If a URISyntaxException occurs while loading the font.
      */
-    public static Font loadFontFromJar(final @NonNull String spriteSheetPath, final @NonNull String characterDataPath, final int scale) throws IOException, URISyntaxException {
+    public static Font loadFontFromJar(final @NonNull String spriteSheetPath, final @NonNull String characterDataPath, final int scale) throws IOException {
         if (spriteSheetPath.isEmpty()) {
             throw new IllegalArgumentException("The sprite sheet path cannot be empty.");
         }
