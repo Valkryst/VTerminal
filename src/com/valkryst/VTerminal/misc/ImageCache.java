@@ -66,27 +66,27 @@ public final class ImageCache {
     }
 
     /**
-     * Retrieves a character image from the cache.
+     * Retrieves a tile image from the cache.
      *
      * If no image could be found, then one is created, inserted into the cache,
      * and then returned.
      *
-     * @param character
-     *        The character.
+     * @param tile
+     *        The tile.
      *
      * @return
      *        The character image.
      *
      * @throws NullPointerException
-     *         If the character is null.
+     *         If the tile is null.
      */
-    public VolatileImage retrieve(final @NonNull Tile character) {
-        final int hash = character.getCacheHash();
+    public VolatileImage retrieve(final @NonNull Tile tile) {
+        final int hash = tile.getCacheHash();
 
         VolatileImage image = cachedImages.getIfPresent(hash);
 
         if (image == null || image.contentsLost()) {
-            image = loadIntoCache(character);
+            image = loadIntoCache(tile);
         }
 
         return image;
@@ -98,28 +98,31 @@ public final class ImageCache {
     }
 
     /**
-     * Loads a character into the cache.
+     * Loads a tile into the cache.
      *
-     * @param character
-     *         The character.
+     * @param tile
+     *         The tile.
      *
      * @return
-     *         The resulting character image.
+     *         The resulting tile image.
+     *
+     * @throws NullPointerException
+     *         If the tile is null.
      */
-    public VolatileImage loadIntoCache(final @NonNull Tile character) {
+    public VolatileImage loadIntoCache(final @NonNull Tile tile) {
         BufferedImage bufferedImage;
-        bufferedImage = applyColorSwap(character, font);
+        bufferedImage = applyColorSwap(tile, font);
 
-        for (final Shader shader : character.getShaders()) {
+        for (final Shader shader : tile.getShaders()) {
             if (shader instanceof CharShader) {
-                bufferedImage = ((CharShader) shader).run(bufferedImage, character);
+                bufferedImage = ((CharShader) shader).run(bufferedImage, tile);
             } else {
                 bufferedImage = shader.run(bufferedImage);
             }
         }
 
         final VolatileImage result = convertToVolatileImage(bufferedImage);
-        cachedImages.put(character.getCacheHash(), result);
+        cachedImages.put(tile.getCacheHash(), result);
 
         return result;
     }
