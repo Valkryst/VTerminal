@@ -21,14 +21,14 @@ public class SampleShaders {
         final Screen screen = new Screen(100, 33, font);
 
         final LabelBuilder labelBuilder = new LabelBuilder();
-        labelBuilder.getPosition().setLocation(0, 0);
+        labelBuilder.setPosition(0, 0);
 
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using No Shader.");
         Label label = labelBuilder.build();
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using FastMotionBlurShader (Angle 90, Distance 5).");
         label = labelBuilder.build();
         final FastMotionBlurShader fastMotionBlurShader = new FastMotionBlurShader();
@@ -40,7 +40,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using GaussianBlurShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
@@ -49,7 +49,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using MotionBlurShader (Angle 90, Distance 5).");
         label = labelBuilder.build();
         final MotionBlurShader motionBlurShader = new MotionBlurShader();
@@ -61,7 +61,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using FlipShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
@@ -70,7 +70,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using FlipShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
@@ -79,7 +79,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using FlipShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
@@ -89,7 +89,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using GlowShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
@@ -98,7 +98,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using RayShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
@@ -107,7 +107,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using SharpenShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
@@ -116,7 +116,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using TextShadowShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
@@ -125,7 +125,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using TextGlowShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
@@ -134,7 +134,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using TextBoldShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
@@ -143,7 +143,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using EmbossShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
@@ -152,7 +152,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using OilPaintShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
@@ -161,7 +161,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using EdgeDetectionShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
@@ -170,7 +170,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using CharEdgeDetectionShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
@@ -179,7 +179,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using PixelateShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
@@ -188,7 +188,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using ChromeShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
@@ -197,7 +197,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        labelBuilder.getPosition().setLocation(0, labelBuilder.getPosition().y + 1);
+        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using CharChromeShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
