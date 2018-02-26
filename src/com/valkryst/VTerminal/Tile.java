@@ -266,6 +266,8 @@ public class Tile {
      *        Whether or not the tile is flipped horizontally.
      */
     public void setFlippedHorizontally(final boolean isFlippedHorizontally) {
+        updateCacheHash = true;
+
         for (final Shader shader : shaders) {
             if (shader instanceof FlipShader) {
                 ((FlipShader) shader).setFlippedHorizontally(isFlippedHorizontally);
@@ -285,6 +287,8 @@ public class Tile {
      *        Whether or not the tile is flipped vertically.
      */
     public void setFlippedVertically(final boolean isFlippedVertically) {
+        updateCacheHash = true;
+
         for (final Shader shader : shaders) {
             if (shader instanceof FlipShader) {
                 ((FlipShader) shader).setFlippedVertically(isFlippedVertically);
