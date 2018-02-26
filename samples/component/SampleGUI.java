@@ -58,7 +58,7 @@ public class SampleGUI {
 
         // Populate the Button section.
         final ButtonBuilder buttonBuilder = new ButtonBuilder();
-        buttonBuilder.setPosition(new Point(1, 1));
+        buttonBuilder.setPosition(1, 1);
         buttonBuilder.setText("<Click Me!>");
         buttonBuilder.setOnClickFunction(() -> System.out.println("You clicked the button."));
 
@@ -73,21 +73,21 @@ public class SampleGUI {
 
         radioButtonBuilder.setGroup(groupA);
         radioButtonBuilder.setText("Group A - Button #1");
-        radioButtonBuilder.setPosition(new Point(1, 3));
+        radioButtonBuilder.setPosition(1, 3);
         layer.addComponent(radioButtonBuilder.build());
 
         radioButtonBuilder.setText("Group A - Button #2");
-        radioButtonBuilder.setPosition(new Point(1, 4));
+        radioButtonBuilder.setPosition(1, 4);
         layer.addComponent(radioButtonBuilder.build());
 
 
         radioButtonBuilder.setGroup(groupB);
         radioButtonBuilder.setText("Group B - Button #1");
-        radioButtonBuilder.setPosition(new Point(1, 6));
+        radioButtonBuilder.setPosition(1, 6);
         layer.addComponent(radioButtonBuilder.build());
 
         radioButtonBuilder.setText("Group B - Button #2");
-        radioButtonBuilder.setPosition(new Point(1, 7));
+        radioButtonBuilder.setPosition(1, 7);
         final RadioButton radioButton = radioButtonBuilder.build();
         groupB.setCheckedButton(radioButton);
         layer.addComponent(radioButton);
@@ -99,20 +99,20 @@ public class SampleGUI {
 
         checkBoxBuilder.setText("Check Box #1");
         checkBoxBuilder.setChecked(true);
-        checkBoxBuilder.setPosition(new Point(1, 9));
+        checkBoxBuilder.setPosition(1, 9);
         layer.addComponent(checkBoxBuilder.build());
 
         checkBoxBuilder.setText("Check Box #2");
         checkBoxBuilder.setChecked(false);
-        checkBoxBuilder.setPosition(new Point(1, 10));
+        checkBoxBuilder.setPosition(1, 10);
         layer.addComponent(checkBoxBuilder.build());
 
 
 
         // Populate the Progress Bar section.
         final ProgressBarBuilder progressBarBuilder = new ProgressBarBuilder();
-        progressBarBuilder.setPosition(new Point(1, 12));
-        progressBarBuilder.setDimensions(new Dimension(20, 1));
+        progressBarBuilder.setPosition(1, 12);
+        progressBarBuilder.setDimensions(20, 1);
 
         final ProgressBar progressBar = progressBarBuilder.build();
         layer.addComponent(progressBar);
@@ -135,7 +135,7 @@ public class SampleGUI {
         // Populate the Label section.
         final LabelBuilder labelBuilder = new LabelBuilder();
         labelBuilder.setText("This is a label.");
-        labelBuilder.setPosition(new Point(1, 14));
+        labelBuilder.setPosition(1, 14);
         layer.addComponent(labelBuilder.build());
 
 
