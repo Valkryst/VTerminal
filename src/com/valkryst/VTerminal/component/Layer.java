@@ -7,6 +7,7 @@ import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.ToString;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EventListener;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -118,5 +119,15 @@ public class Layer extends Component {
         }
 
         componentsLock.writeLock().unlock();
+    }
+
+    /**
+     * Retrieves an unmodifiable list of the layer's components.
+     *
+     * @return
+     *          An unmodifiable list of the layer's components.
+     */
+    public List<Component> getComponents() {
+        return Collections.unmodifiableList(components);
     }
 }
