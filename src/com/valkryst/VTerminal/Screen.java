@@ -111,17 +111,10 @@ public class Screen {
      * Adds the screen's canvas to a JFrame and sets the frame to
      * visible.
      *
-     * The program will sleep until the frame becomes visible.
-     *
      * @return
      *          A JFrame with the canvas on it.
-     *
-     * @throws InterruptedException
-     *          If any thread has interrupted the current thread. The
-     *          <i>interrupted status</i> of the current thread is
-     *          cleared when this exception is thrown.
      */
-    public JFrame addCanvasToJFrame() throws InterruptedException {
+    public JFrame addCanvasToJFrame() {
         final JFrame frame = new JFrame();
         frame.add(canvas);
         frame.setResizable(false);
@@ -129,10 +122,6 @@ public class Screen {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-
-        while (frame.isVisible() == false) {
-            Thread.sleep(1000);
-        }
 
         return frame;
     }
