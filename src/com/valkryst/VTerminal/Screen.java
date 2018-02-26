@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal;
 
+import com.valkryst.VTerminal.component.Layer;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ImageCache;
 import com.valkryst.VTerminal.component.Component;
@@ -125,6 +126,15 @@ public class Screen {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
+        // May be a bit of a hack, but this resolves the issue where the
+        // subsequent draw call completes before the canvas can be drawn
+        // to.
+        while (frame.isVisible() == false || canvas.isVisible() == false) {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException ignored) {}
+        }
+
         draw();
 
         return frame;
@@ -218,6 +228,12 @@ public class Screen {
             return;
         }
 
+        if (component instanceof Layer) {
+            for (final Component layerComponent : ((Layer) component).getComponents()) {
+                addComponent(layerComponent);
+            }
+        }
+
         // Add the component
         componentsLock.writeLock().lock();
         components.add(component);
@@ -244,6 +260,12 @@ public class Screen {
     public void removeComponent(final Component component) {
         if (component == null) {
             return;
+        }
+
+        if (component instanceof Layer) {
+            for (final Component layerComponent : ((Layer) component).getComponents()) {
+                removeComponent(layerComponent);
+            }
         }
 
         // Remove the component
