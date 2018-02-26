@@ -48,6 +48,10 @@ public class CheckBox extends Button {
 
         super.backgroundColor_pressed = colorPalette.getCheckBox_checkedBackground();
         super.foregroundColor_pressed = colorPalette.getCheckBox_checkedForeground();
+
+        if (isChecked) {
+            super.tiles.getTileAt(0, 0).setCharacter(checkedBoxChar);
+        }
     }
 
     @Override
