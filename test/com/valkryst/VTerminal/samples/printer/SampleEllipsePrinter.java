@@ -27,6 +27,5 @@ public class SampleEllipsePrinter {
 
 
         screen.addCanvasToJFrame();
-        screen.draw();
     }
 }

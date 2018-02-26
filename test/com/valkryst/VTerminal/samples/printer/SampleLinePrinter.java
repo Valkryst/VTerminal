@@ -29,6 +29,5 @@ public class SampleLinePrinter {
 
 
         screen.addCanvasToJFrame();
-        screen.draw();
     }
 }

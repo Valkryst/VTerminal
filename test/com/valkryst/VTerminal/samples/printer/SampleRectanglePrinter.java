@@ -88,6 +88,5 @@ public class SampleRectanglePrinter {
 
 
         screen.addCanvasToJFrame();
-        screen.draw();
     }
 }

@@ -29,6 +29,5 @@ public class SampleTrianglePrinter {
 
 
         screen.addCanvasToJFrame();
-        screen.draw();
     }
 }

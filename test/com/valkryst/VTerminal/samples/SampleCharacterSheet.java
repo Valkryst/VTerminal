@@ -13,7 +13,6 @@ public class SampleCharacterSheet {
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
 
         final Screen screen = new Screen(100, 33, font);
-        screen.addCanvasToJFrame();
 
         char counter = 0;
         Tile tile;
@@ -34,6 +33,6 @@ public class SampleCharacterSheet {
             }
         }
 
-        screen.draw();
+        screen.addCanvasToJFrame();
     }
 }
