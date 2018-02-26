@@ -75,7 +75,7 @@ public class Layer extends Component {
         componentsLock.writeLock().unlock();
 
         // Add the component's event listeners
-        eventListeners.addAll(component.getEventListeners());
+        super.eventListeners.addAll(component.getEventListeners());
     }
 
     /**
@@ -99,7 +99,7 @@ public class Layer extends Component {
 
         // Remove the component's event listeners
         for (final EventListener listener : component.getEventListeners()) {
-            eventListeners.remove(listener);
+            super.eventListeners.remove(listener);
         }
     }
 
@@ -113,7 +113,7 @@ public class Layer extends Component {
 
             // Remove the component's event listeners
             for (final EventListener listener : component.getEventListeners()) {
-                eventListeners.remove(listener);
+                super.eventListeners.remove(listener);
             }
         }
 
