@@ -87,6 +87,20 @@ public final class TileGrid {
         }
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+
+        for (final Tile[] tileRow : tiles) {
+            for (final Tile tile : tileRow) {
+                sb.append(tile.getCharacter());
+            }
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
+
     public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache) {
         // Draw the grid to the screen
         for (int y = 0 ; y < tiles.length ; y++) {
