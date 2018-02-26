@@ -2,13 +2,13 @@ package com.valkryst.VTerminal.builder;
 
 import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.palette.ColorPalette;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 import java.awt.Dimension;
 import java.awt.Point;
 
-@Data
 public class ComponentBuilder<C extends Component> {
     /** The position of the component within it's parent. */
     @NonNull private Point position = new Point(0, 0);
@@ -17,7 +17,7 @@ public class ComponentBuilder<C extends Component> {
     @NonNull private Dimension dimensions = new Dimension(1, 1);
 
     /** The color palette to color the label with. */
-    @NonNull private ColorPalette colorPalette;
+    @Getter @Setter @NonNull private ColorPalette colorPalette;
 
     /** Constructs a new ComponentBuilder. */
     public ComponentBuilder() {
@@ -62,5 +62,103 @@ public class ComponentBuilder<C extends Component> {
         position.setLocation(0, 0);
         dimensions.setSize(1, 1);
         colorPalette = new ColorPalette();
+    }
+
+    /**
+     * Sets the new position of the component within it's parent.
+     *
+     * @param point
+     *          The new position.
+     */
+    public void setPosition(final Point point) {
+        setPosition(point.x, point.y);
+    }
+
+    /**
+     * Sets the new position of the component within it's parent.
+     *
+     * @param x
+     *          The x-axis position.
+     *
+     * @param y
+     *          The y-axis position.
+     */
+    public void setPosition(final int x, final int y) {
+        if (x >= 0 && y >= 0) {
+            position.setLocation(x, y);
+        }
+    }
+
+    /**
+     * Sets the new x-axis position of the component within it's parent.
+     *
+     * @param x
+     *          The new x-axis position.
+     */
+    public void setXPosition(final int x) {
+        if (x >= 0) {
+            position.setLocation(x, position.y);
+        }
+    }
+
+    /**
+     * Sets the new y-axis position of the component within it's parent.
+     *
+     * @param y
+     *          The new y-axis position.
+     */
+    public void setYPosition(final int y) {
+        if (y >= 0) {
+            position.setLocation(position.x, y);
+        }
+    }
+
+    /**
+     * Sets the new dimensions of the component.
+     *
+     * @param dimensions
+     *          The new dimensions.
+     */
+    public void setDimensions(final Dimension dimensions) {
+        setDimensions(dimensions.width, dimensions.height);
+    }
+
+    /**
+     * Sets the new dimensions of the component.
+     *
+     * @param width
+     *          The new width.
+     *
+     * @param height
+     *          The new height.
+     */
+    public void setDimensions(final int width, final int height) {
+        if (width > 0 && height > 0) {
+            dimensions.setSize(width, height);
+        }
+    }
+
+    /**
+     * Sets the new width of the component.
+     *
+     * @param width
+     *          The new width.
+     */
+    public void setWidth(final int width) {
+        if (width > 0) {
+            dimensions.setSize(width, dimensions.height);
+        }
+    }
+
+    /**
+     * Sets the new height of the component.
+     *
+     * @param height
+     *          The new height.
+     */
+    public void setHeight(final int height) {
+        if (height > 0) {
+            dimensions.setSize(dimensions.width, height);
+        }
     }
 }
