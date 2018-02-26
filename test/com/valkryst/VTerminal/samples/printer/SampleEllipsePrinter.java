@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class SampleEllipsePrinter {
-    public static void main(final String[] args) throws IOException, URISyntaxException {
+    public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1);
 
         final Dimension dimensions = new Dimension(60, 26);
@@ -26,7 +26,7 @@ public class SampleEllipsePrinter {
         printer.printFilled(screen.getTiles(), new Point(10, 40));
 
 
-        screen.addCanvasToJFrame().setVisible(true);
+        screen.addCanvasToJFrame();
         screen.draw();
     }
 }

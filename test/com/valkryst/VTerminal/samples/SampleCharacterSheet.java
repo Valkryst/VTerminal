@@ -1,11 +1,10 @@
 package com.valkryst.VTerminal.samples;
 
-import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.Screen;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 
-import javax.swing.JFrame;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -14,8 +13,7 @@ public class SampleCharacterSheet {
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
 
         final Screen screen = new Screen(100, 33, font);
-        final JFrame frame = screen.addCanvasToJFrame();
-        frame.setVisible(true);
+        screen.addCanvasToJFrame();
 
         char counter = 0;
         Tile tile;

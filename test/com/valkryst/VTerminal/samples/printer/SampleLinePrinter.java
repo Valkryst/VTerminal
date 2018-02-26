@@ -13,7 +13,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 public class SampleLinePrinter {
-    public static void main(final String[] args) throws IOException, URISyntaxException {
+    public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1);
 
         final Dimension dimensions = new Dimension(60, 26);
@@ -28,7 +28,7 @@ public class SampleLinePrinter {
         }
 
 
-        screen.addCanvasToJFrame().setVisible(true);
+        screen.addCanvasToJFrame();
         screen.draw();
     }
 }
