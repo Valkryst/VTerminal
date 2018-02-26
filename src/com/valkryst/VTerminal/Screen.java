@@ -12,10 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.EventListener;
@@ -111,21 +108,31 @@ public class Screen {
     }
 
     /**
-     * Adds the screen's canvas to a JFrame.
+     * Adds the screen's canvas to a JFrame and sets the frame to
+     * visible.
      *
-     * This does not set the JFrame to visible, so it will not appear on-
-     * screen until you do 'JFrame.setVisible(true);'.
+     * The program will sleep until the frame becomes visible.
      *
      * @return
      *          A JFrame with the canvas on it.
+     *
+     * @throws InterruptedException
+     *          If any thread has interrupted the current thread. The
+     *          <i>interrupted status</i> of the current thread is
+     *          cleared when this exception is thrown.
      */
-    public JFrame addCanvasToJFrame() {
+    public JFrame addCanvasToJFrame() throws InterruptedException {
         final JFrame frame = new JFrame();
         frame.add(canvas);
         frame.setResizable(false);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+
+        while (frame.isVisible() == false) {
+            Thread.sleep(1000);
+        }
 
         return frame;
     }
