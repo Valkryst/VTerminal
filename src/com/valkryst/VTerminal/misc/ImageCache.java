@@ -66,23 +66,6 @@ public final class ImageCache {
     }
 
     /**
-     * Constructs a new ImageCache.
-     *
-     * @param font
-     *         The font.
-     *
-     * @param cache
-     *        The cache.
-     *
-     * @throws NullPointerException
-     *         If the font or cache is null.
-     */
-    public ImageCache(final @NonNull Font font, final @NonNull Cache<Integer, VolatileImage> cache) {
-        this.font = font;
-        this.cachedImages = cache;
-    }
-
-    /**
      * Retrieves a character image from the cache.
      *
      * If no image could be found, then one is created, inserted into the cache,
