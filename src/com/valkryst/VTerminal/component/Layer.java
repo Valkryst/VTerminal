@@ -75,9 +75,7 @@ public class Layer extends Component {
         componentsLock.writeLock().unlock();
 
         // Add the component's event listeners
-        for (final EventListener listener : component.getEventListeners()) {
-            eventListeners.add(listener);
-        }
+        eventListeners.addAll(component.getEventListeners());
     }
 
     /**
