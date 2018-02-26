@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.Screen;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.builder.RadioButtonBuilder;
 import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.Getter;
@@ -118,8 +119,18 @@ public class RadioButton extends Button {
 
         if (isChecked) {
             super.getTiles().getTileAt(0, 0).setCharacter(checkedButtonChar);
+
+            for (final Tile tile : super.tiles.getRow(0)) {
+                tile.setBackgroundColor(backgroundColor_pressed);
+                tile.setForegroundColor(foregroundColor_pressed);
+            }
         } else {
             super.getTiles().getTileAt(0, 0).setCharacter(emptyButtonChar);
+
+            for (final Tile tile : super.tiles.getRow(0)) {
+                tile.setBackgroundColor(backgroundColor_normal);
+                tile.setForegroundColor(foregroundColor_normal);
+            }
         }
 
         super.redrawFunction.run();
