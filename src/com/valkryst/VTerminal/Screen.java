@@ -115,13 +115,8 @@ public class Screen {
      *
      * @return
      *          A JFrame with the canvas on it.
-     *
-     * @throws  InterruptedException
-     *          If any thread has interrupted the current thread. The
-     *          <i>interrupted status</i> of the current thread is
-     *          cleared when this exception is thrown.
      */
-    public JFrame addCanvasToJFrame() throws InterruptedException {
+    public JFrame addCanvasToJFrame() {
         final JFrame frame = new JFrame();
         frame.add(canvas);
         frame.setResizable(false);
@@ -130,8 +125,6 @@ public class Screen {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
-        draw();
-        Thread.sleep(500);
         draw();
 
         return frame;
