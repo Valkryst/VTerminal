@@ -1,4 +1,4 @@
-package com.valkryst.VTerminal.samples.printer;
+package printer;
 
 import com.valkryst.VTerminal.Screen;
 import com.valkryst.VTerminal.font.Font;

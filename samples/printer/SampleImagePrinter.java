@@ -1,16 +1,19 @@
-package com.valkryst.VTerminal.samples.printer;
+package printer;
 
 import com.valkryst.VTerminal.Screen;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
-import com.valkryst.VTerminal.printer.EllipsePrinter;
+import com.valkryst.VTerminal.printer.ImagePrinter;
 
+import javax.imageio.ImageIO;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-public class SampleEllipsePrinter {
+public class SampleImagePrinter {
     public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1);
 
@@ -18,12 +21,11 @@ public class SampleEllipsePrinter {
         final Screen screen = new Screen(dimensions, font);
 
 
-        final EllipsePrinter printer = new EllipsePrinter();
-        printer.setWidth(6);
-        printer.setHeight(8);
-        printer.print(screen.getTiles(), new Point(10, 10));
+        final String filePath = System.getProperty("user.dir") + "/res_test/ImagePrinterTest.png";
+        final BufferedImage image = ImageIO.read(new File(filePath));
 
-        printer.printFilled(screen.getTiles(), new Point(10, 40));
+        final ImagePrinter printer = new ImagePrinter(image);
+        printer.print(screen.getTiles(), new Point(0, 0));
 
 
         screen.addCanvasToJFrame();
