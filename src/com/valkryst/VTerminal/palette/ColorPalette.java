@@ -24,7 +24,7 @@ public class ColorPalette {
     @Getter private Color checkBox_checkedForeground = defaultForeground;
 
     @Getter private Color layer_defaultBackground = defaultBackground;
-    @Getter private Color layer_defaultForeground = defaultForeground;
+    @Getter private Color layer_defaultForeground = Color.WHITE;
 
     @Getter private Color progressBar_incompleteBackground = defaultBackground;
     @Getter private Color progressBar_incompleteForeground = new Color(0xFFFF2D55, true);
