@@ -92,7 +92,10 @@ public class Component {
 
                 final Tile componentTile = tiles.getTileAt(x, y);
                 final Tile screenTile = grid.getTileAt(xPosition, yPosition);
-                screenTile.copy(componentTile);
+
+                if (componentTile != null && screenTile != null) {
+                    screenTile.copy(componentTile);
+                }
             }
         }
     }
