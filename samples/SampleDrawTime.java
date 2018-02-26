@@ -1,4 +1,4 @@
-package com.valkryst.VTerminal.samples;
+
 
 import com.valkryst.VTerminal.Screen;
 import com.valkryst.VTerminal.Tile;
@@ -7,7 +7,6 @@ import com.valkryst.VTerminal.font.FontLoader;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public class SampleDrawTime {
-    public static void main(final String[] args) throws InterruptedException, IOException, URISyntaxException {
+    public static void main(final String[] args) throws InterruptedException, IOException {
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
 
         final Screen screen = new Screen(font);

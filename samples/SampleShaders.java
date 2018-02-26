@@ -1,4 +1,4 @@
-package com.valkryst.VTerminal.samples;
+
 
 import com.valkryst.VTerminal.Screen;
 import com.valkryst.VTerminal.Tile;
@@ -13,10 +13,9 @@ import com.valkryst.VTerminal.shader.character.*;
 import com.valkryst.VTerminal.shader.misc.*;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class SampleShaders {
-    public static void main(final String[] args) throws IOException, URISyntaxException, InterruptedException {
+    public static void main(final String[] args) throws IOException {
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
 
         final Screen screen = new Screen(100, 33, font);

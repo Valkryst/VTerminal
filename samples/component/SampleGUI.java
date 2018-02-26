@@ -15,10 +15,9 @@ import javax.swing.Timer;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class SampleGUI {
-    public static void main(final String[] args) throws IOException, URISyntaxException {
+    public static void main(final String[] args) throws IOException {
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1);
 
         final Dimension dimensions = new Dimension(80, 24);
