@@ -8,7 +8,6 @@ import java.awt.Dimension;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,11 +33,8 @@ public class Font {
      *
      * @throws NullPointerException
      *         If the characterImages is null.
-     *
-     * @throws IOException
-     *         If an I/O error occurs.
      */
-    public Font(final @NonNull HashMap<Character, BufferedImage> characterImages, final int scale) throws IOException {
+    public Font(final @NonNull HashMap<Character, BufferedImage> characterImages, final int scale) {
         this.characterImages = characterImages;
 
         final int width = characterImages.get('X').getWidth() * scale;
