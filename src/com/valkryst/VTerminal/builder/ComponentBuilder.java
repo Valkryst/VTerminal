@@ -65,6 +65,46 @@ public class ComponentBuilder<C extends Component> {
     }
 
     /**
+     * Retrieves the x-axis position of the component within it's parent.
+     *
+     * @return
+     *          The x-axis position of the component within it's parent.
+     */
+    public int getXPosition() {
+        return position.x;
+    }
+
+    /**
+     * Retrieves the y-axis position of the component within it's parent.
+     *
+     * @return
+     *          The y-axis position of the component within it's parent.
+     */
+    public int getYPosition() {
+        return position.y;
+    }
+
+    /**
+     * Retrieves the width of the component.
+     *
+     * @return
+     *          The width of the component.
+     */
+    public int getWidth() {
+        return dimensions.width;
+    }
+
+    /**
+     * Retrieves the height of the component.
+     *
+     * @return
+     *          The height of the component.
+     */
+    public int getHeight() {
+        return dimensions.height;
+    }
+
+    /**
      * Sets the new position of the component within it's parent.
      *
      * @param point
