@@ -90,24 +90,6 @@ public class SampleShaders {
 
 
         labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
-        labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using GlowShader.");
-        label = labelBuilder.build();
-        for (final Tile tile : label.getTiles().getRow(0)) {
-            tile.addShaders(new GlowShader());
-        }
-        screen.addComponent(label);
-
-
-        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
-        labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using RayShader.");
-        label = labelBuilder.build();
-        for (final Tile tile : label.getTiles().getRow(0)) {
-            tile.addShaders(new RayShader());
-        }
-        screen.addComponent(label);
-
-
-        labelBuilder.setPosition(0, labelBuilder.getYPosition() + 1);
         labelBuilder.setText("Sample text 123456789!@#$%^&*()_+-=. Using SharpenShader.");
         label = labelBuilder.build();
         for (final Tile tile : label.getTiles().getRow(0)) {
