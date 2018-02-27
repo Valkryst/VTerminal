@@ -7,7 +7,7 @@ import com.valkryst.VTerminal.font.FontLoader;
 
 import java.io.IOException;
 
-public class SampleCharacterSheet {
+public class SampleTileSheet {
     public static void main(final String[] args) throws IOException {
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
 
