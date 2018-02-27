@@ -65,6 +65,26 @@ public class ComponentBuilder<C extends Component> {
     }
 
     /**
+     * Retrieves a copy of the component's position.
+     *
+     * @return
+     *          A copy of the component's position.
+     */
+    public Point getPosition() {
+        return new Point(position);
+    }
+
+    /**
+     * Retrieves a copy of the component's dimensions.
+     *
+     * @return
+     *          A copy of the component's dimensions.
+     */
+    public Dimension getDimensions() {
+        return new Dimension(dimensions);
+    }
+
+    /**
      * Retrieves the x-axis position of the component within it's parent.
      *
      * @return

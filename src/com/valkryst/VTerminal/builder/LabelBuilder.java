@@ -17,7 +17,7 @@ public class LabelBuilder extends ComponentBuilder<Label> {
     public Label build() {
         checkState();
 
-        super.getDimensions().setSize(text.length(), 1);
+        super.setDimensions(text.length(), 1);
 
         return new Label(this);
     }
@@ -39,7 +39,7 @@ public class LabelBuilder extends ComponentBuilder<Label> {
         this.text = text;
 
         if (text != null && text.isEmpty() == false) {
-            super.getDimensions().setSize(text.length(), 1);
+            super.setWidth(text.length());
         }
     }
 }

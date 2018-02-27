@@ -19,6 +19,6 @@ public class LayerBuilder extends ComponentBuilder<Layer> {
     public void reset() {
         super.reset();
 
-        super.getDimensions().setSize(1, 1);
+        super.setDimensions(1, 1);
     }
 }

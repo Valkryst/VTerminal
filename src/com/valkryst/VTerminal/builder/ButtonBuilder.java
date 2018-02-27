@@ -20,7 +20,7 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
     public Button build() {
         checkState();
 
-        super.getDimensions().setSize(text.length(), 1);
+        super.setDimensions(text.length(), 1);
 
         return new Button(this);
     }
@@ -44,7 +44,7 @@ public class ButtonBuilder extends ComponentBuilder<Button> {
         this.text = text;
 
         if (text != null && text.isEmpty() == false) {
-            super.getDimensions().setSize(text.length(), 1);
+            super.setWidth(text.length());
         }
     }
 }

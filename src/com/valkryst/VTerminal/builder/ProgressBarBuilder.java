@@ -24,7 +24,7 @@ public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
     public void reset() {
         super.reset();
 
-        super.getDimensions().setSize(10, 1);
+        super.setDimensions(10, 1);
 
         incompleteCharacter = '█';
         completeCharacter = '█';

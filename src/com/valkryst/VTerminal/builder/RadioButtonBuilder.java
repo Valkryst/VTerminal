@@ -26,7 +26,7 @@ public class RadioButtonBuilder extends ButtonBuilder {
     public RadioButton build() {
         checkState();
 
-        super.getDimensions().setSize(text.length() + 2, 1);
+        super.setDimensions(text.length() + 2, 1);
 
         text = emptyButtonChar + " " + text;
 

@@ -25,7 +25,7 @@ public class CheckBoxBuilder extends ButtonBuilder {
     public CheckBox build() {
         checkState();
 
-        super.getDimensions().setSize(text.length() + 2, 1);
+        super.setDimensions(text.length() + 2, 1);
 
         text = emptyBoxChar + " " + text;
 
