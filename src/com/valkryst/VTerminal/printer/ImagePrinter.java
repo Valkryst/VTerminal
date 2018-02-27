@@ -76,7 +76,7 @@ public class ImagePrinter {
 
     /**
      * Prints an image on a grid using special characters in order to display
-     * multiple pixels per tile.
+     * 2x2 pixels per tile.
      *
      * @param grid
      *         The grid.
