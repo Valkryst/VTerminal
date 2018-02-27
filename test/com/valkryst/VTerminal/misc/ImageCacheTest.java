@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.misc;
 
-import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 import org.junit.Assert;
@@ -47,14 +47,14 @@ public class ImageCacheTest {
     @Test
     public void testRetrieveFromCache_withValidInput() {
         final ImageCache cache = new ImageCache(font);
-        final Image image = cache.retrieve(new AsciiCharacter('A'));
+        final Image image = cache.retrieve(new Tile('A'));
         Assert.assertNotNull(image);
     }
 
     @Test
     public void testRetrieveFromCache_withInvalidInput() {
         final ImageCache cache = new ImageCache(font);
-        final Image image = cache.retrieve(new AsciiCharacter('\u1F5E'));
+        final Image image = cache.retrieve(new Tile('\u1F5E'));
         Assert.assertNotNull(image);
     }
 

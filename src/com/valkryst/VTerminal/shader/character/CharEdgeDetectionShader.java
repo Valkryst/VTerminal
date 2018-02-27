@@ -1,7 +1,7 @@
 package com.valkryst.VTerminal.shader.character;
 
 import com.jhlabs.image.EdgeFilter;
-import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.shader.Shader;
 import lombok.NonNull;
 
@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 
 public class CharEdgeDetectionShader implements CharShader {
     @Override
-    public BufferedImage run(final @NonNull BufferedImage image, final @NonNull AsciiCharacter character) {
+    public BufferedImage run(final @NonNull BufferedImage image, final @NonNull Tile character) {
         // Get the character image and filter it:
         BufferedImage charImage = swapColor(image, character.getBackgroundColor(), new Color(0, 0, 0, 0));
         charImage = new EdgeFilter().filter(charImage, null);

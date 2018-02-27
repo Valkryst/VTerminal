@@ -1,12 +1,10 @@
 package com.valkryst.VTerminal.component;
 
 import lombok.NonNull;
-import lombok.ToString;
 
 import java.util.LinkedList;
 import java.util.List;
 
-@ToString
 public class RadioButtonGroup {
     /** The buttons in the group. */
     private final List<RadioButton> buttons = new LinkedList<>();

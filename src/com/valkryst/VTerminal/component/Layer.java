@@ -1,18 +1,25 @@
 package com.valkryst.VTerminal.component;
 
-import com.valkryst.VTerminal.AsciiString;
-import com.valkryst.VTerminal.builder.component.LayerBuilder;
-import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.misc.ImageCache;
-import lombok.NonNull;
+import com.valkryst.VTerminal.Tile;
+import com.valkryst.VTerminal.TileGrid;
+import com.valkryst.VTerminal.builder.LayerBuilder;
+import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.ToString;
 
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EventListener;
+import java.util.List;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @ToString
 public class Layer extends Component {
+    /** The components on the layer. */
+    private final List<Component> components = new ArrayList<>(0);
+
+    /** The lock used to control access to the components. */
+    private final ReentrantReadWriteLock componentsLock = new ReentrantReadWriteLock();
+
     /**
      * Constructs a new Layer.
      *
@@ -20,54 +27,107 @@ public class Layer extends Component {
      *        The builder to use.
      */
     public Layer(final LayerBuilder builder) {
-        super(builder);
+        super(builder.getDimensions(), builder.getPosition());
 
-        for (final AsciiString string : super.getStrings()) {
-            string.setBackgroundColor(builder.getBackgroundColor());
-            string.setForegroundColor(builder.getForegroundColor());
+        final ColorPalette colorPalette = builder.getColorPalette();
+
+        for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
+            for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
+                final Tile tile = super.tiles.getTileAt(x, y);
+                tile.setBackgroundColor(colorPalette.getLayer_defaultBackground());
+                tile.setForegroundColor(colorPalette.getLayer_defaultForeground());
+            }
         }
     }
 
     @Override
-    public void draw(final @NonNull Screen screen) {
-        throw new UnsupportedOperationException("A Layer must be drawn using the draw(canvas, font) method.");
+    public void draw(final TileGrid grid) {
+        super.draw(grid);
+
+        componentsLock.readLock().lock();
+        for (final Component component : components) {
+            component.draw(grid);
+        }
+        componentsLock.readLock().unlock();
     }
 
     /**
-     * Draws the layer onto the specified canvas using the specified font.
+     * Adds a component to the layer.
      *
-     * @param gc
-     *         The graphics context to draw with.
-     *
-     * @param imageCache
-     *         The image cache to retrieve the character image from.
-     *
-     * @param offset
-     *         The x/y-axis (column/row) offsets to alter the position at which the
-     *         layer is drawn.
-     *
-     * @throws NullPointerException
-     *         If the gc or image cache is null.
+     * @param component
+     *          The component.
      */
-    public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache, final Point offset) {
-        final Font font = imageCache.getFont();
-
-        final int iWidth = getWidth() * font.getWidth();
-        final int iHeight = getHeight() * font.getHeight();
-        final BufferedImage image = new BufferedImage(iWidth, iHeight, BufferedImage.TYPE_INT_ARGB);
-
-        // Draw the layer onto the image:
-        for (int row = 0 ; row < getHeight() ; row++) {
-            super.getString(row).draw((Graphics2D) image.getGraphics(), imageCache, row);
+    public void addComponent(final Component component) {
+        if (component == null) {
+            return;
         }
 
-        // Draw the image onto the canvas:
-        final Point position = super.getPosition();
-        final int fontWidth = font.getWidth();
-        final int fontHeight = font.getHeight();
-        final int xPos = (position.x * fontWidth) + (offset.x * fontWidth);
-        final int yPos = (position.y * fontHeight) + (offset.y * fontHeight);
+        if (component.equals(this)) {
+            return;
+        }
 
-        gc.drawImage(image, xPos, yPos, null);
+        if (component instanceof Layer) {
+            return;
+        }
+
+        // Add the component
+        componentsLock.writeLock().lock();
+        components.add(component);
+        componentsLock.writeLock().unlock();
+
+        // Add the component's event listeners
+        super.eventListeners.addAll(component.getEventListeners());
+    }
+
+    /**
+     * Removes a component from the layer.
+     *
+     * @param component
+     *          The component.
+     */
+    public void removeComponent(final Component component) {
+        if (component == null) {
+            return;
+        }
+
+        // Remove the component
+        componentsLock.writeLock().lock();
+        components.remove(component);
+        componentsLock.writeLock().unlock();
+
+        // Unset the component's redraw function
+        component.setRedrawFunction(() -> {});
+
+        // Remove the component's event listeners
+        for (final EventListener listener : component.getEventListeners()) {
+            super.eventListeners.remove(listener);
+        }
+    }
+
+    /** Removes all components from the layer. */
+    public void removeAllComponents() {
+        componentsLock.writeLock().lock();
+
+        for (final Component component : components) {
+            // Remove the component
+            components.remove(component);
+
+            // Remove the component's event listeners
+            for (final EventListener listener : component.getEventListeners()) {
+                super.eventListeners.remove(listener);
+            }
+        }
+
+        componentsLock.writeLock().unlock();
+    }
+
+    /**
+     * Retrieves an unmodifiable list of the layer's components.
+     *
+     * @return
+     *          An unmodifiable list of the layer's components.
+     */
+    public List<Component> getComponents() {
+        return Collections.unmodifiableList(components);
     }
 }

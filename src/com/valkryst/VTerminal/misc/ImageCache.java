@@ -2,18 +2,20 @@ package com.valkryst.VTerminal.misc;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.valkryst.VTerminal.AsciiCharacter;
-import com.valkryst.VTerminal.AsciiTile;
+import com.valkryst.VTerminal.GraphicTile;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.shader.character.CharShader;
 import com.valkryst.VTerminal.shader.Shader;
+import com.valkryst.VTerminal.shader.character.CharShader;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
 import java.awt.image.VolatileImage;
+import java.awt.image.WritableRaster;
 import java.util.concurrent.TimeUnit;
 
 @ToString
@@ -66,44 +68,27 @@ public final class ImageCache {
     }
 
     /**
-     * Constructs a new ImageCache.
-     *
-     * @param font
-     *         The font.
-     *
-     * @param cache
-     *        The cache.
-     *
-     * @throws NullPointerException
-     *         If the font or cache is null.
-     */
-    public ImageCache(final @NonNull Font font, final @NonNull Cache<Integer, VolatileImage> cache) {
-        this.font = font;
-        this.cachedImages = cache;
-    }
-
-    /**
-     * Retrieves a character image from the cache.
+     * Retrieves a tile image from the cache.
      *
      * If no image could be found, then one is created, inserted into the cache,
      * and then returned.
      *
-     * @param character
-     *        The character.
+     * @param tile
+     *        The tile.
      *
      * @return
      *        The character image.
      *
      * @throws NullPointerException
-     *         If the character is null.
+     *         If the tile is null.
      */
-    public VolatileImage retrieve(final @NonNull AsciiCharacter character) {
-        final int hash = character.getCacheHash();
+    public VolatileImage retrieve(final @NonNull Tile tile) {
+        final int hash = tile.getCacheHash();
 
         VolatileImage image = cachedImages.getIfPresent(hash);
 
         if (image == null || image.contentsLost()) {
-            image = loadIntoCache(character);
+            image = loadIntoCache(tile);
         }
 
         return image;
@@ -115,28 +100,31 @@ public final class ImageCache {
     }
 
     /**
-     * Loads a character into the cache.
+     * Loads a tile into the cache.
      *
-     * @param character
-     *         The character.
+     * @param tile
+     *         The tile.
      *
      * @return
-     *         The resulting character image.
+     *         The resulting tile image.
+     *
+     * @throws NullPointerException
+     *         If the tile is null.
      */
-    public VolatileImage loadIntoCache(final @NonNull AsciiCharacter character) {
+    public VolatileImage loadIntoCache(final @NonNull Tile tile) {
         BufferedImage bufferedImage;
-        bufferedImage = applyColorSwap(character, font);
+        bufferedImage = applyColorSwap(tile, font);
 
-        for (final Shader shader : character.getShaders()) {
+        for (final Shader shader : tile.getShaders()) {
             if (shader instanceof CharShader) {
-                bufferedImage = ((CharShader) shader).run(bufferedImage, character);
+                bufferedImage = ((CharShader) shader).run(bufferedImage, tile);
             } else {
                 bufferedImage = shader.run(bufferedImage);
             }
         }
 
         final VolatileImage result = convertToVolatileImage(bufferedImage);
-        cachedImages.put(character.getCacheHash(), result);
+        cachedImages.put(tile.getCacheHash(), result);
 
         return result;
     }
@@ -157,7 +145,7 @@ public final class ImageCache {
      * @throws NullPointerException
      *         If the character or font are null.
      */
-    private static BufferedImage applyColorSwap(final @NonNull AsciiCharacter character, final @NonNull Font font) {
+    private static BufferedImage applyColorSwap(final @NonNull Tile character, final @NonNull Font font) {
         BufferedImage image;
 
         try {
@@ -182,7 +170,7 @@ public final class ImageCache {
         final int foregroundG = (foregroundRGB >> 8) & 0xFF;
         final int foregroundB = foregroundRGB & 0xFF;
 
-        final boolean isTile = character instanceof AsciiTile;
+        final boolean isTile = character instanceof GraphicTile;
 
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
@@ -237,11 +225,10 @@ public final class ImageCache {
      *         If the image is null.
      */
     public static BufferedImage cloneImage(final @NonNull BufferedImage image) {
-        final BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        final Graphics g = newImage.getGraphics();
-        g.drawImage(image, 0, 0, null);
-        g.dispose();
-        return newImage;
+        final ColorModel colorModel = image.getColorModel();
+        final boolean isAlphaPremultiplied = colorModel.isAlphaPremultiplied();
+        final WritableRaster writableRaster = image.copyData(null);
+        return new BufferedImage(colorModel, writableRaster, isAlphaPremultiplied, null);
     }
 
     /**

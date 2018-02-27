@@ -1,13 +1,12 @@
 package com.valkryst.VTerminal.component;
 
-import com.valkryst.VTerminal.AsciiString;
-import com.valkryst.VTerminal.builder.component.ProgressBarBuilder;
-import com.valkryst.VTerminal.misc.IntRange;
+import com.valkryst.VTerminal.Tile;
+import com.valkryst.VTerminal.builder.ProgressBarBuilder;
+import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.ToString;
-
-import java.awt.Color;
 
 @ToString
 public class ProgressBar extends Component {
@@ -19,15 +18,8 @@ public class ProgressBar extends Component {
     /** The character that represents a complete cell. */
     @Getter private char completeCharacter;
 
-    /** The background color for incomplete cells. */
-    @Getter private Color backgroundColor_incomplete;
-    /** The foreground color for incomplete cells. */
-    @Getter private Color foregroundColor_incomplete;
-
-    /** The background color for complete cells. */
-    @Getter private Color backgroundColor_complete;
-    /** The foreground color for complete cells. */
-    @Getter private Color foregroundColor_complete;
+    /** The color palette. */
+    @Getter @Setter @NonNull private ColorPalette colorPalette;
 
     /**
      * Constructs a new LoadingBar.
@@ -39,22 +31,18 @@ public class ProgressBar extends Component {
      *         If the builder is null.
      */
     public ProgressBar(final @NonNull ProgressBarBuilder builder) {
-        super(builder);
+        super(builder.getDimensions(), builder.getPosition());
+
+        colorPalette = builder.getColorPalette();
 
         incompleteCharacter = builder.getIncompleteCharacter();
         completeCharacter = builder.getCompleteCharacter();
 
-        backgroundColor_incomplete = builder.getBackgroundColor_incomplete();
-        foregroundColor_incomplete = builder.getForegroundColor_incomplete();
-
-        backgroundColor_complete = builder.getBackgroundColor_complete();
-        foregroundColor_complete = builder.getForegroundColor_complete();
-
         // Set all chars to incomplete state:
-        for (final AsciiString string : super.getStrings()) {
-            string.setAllCharacters(incompleteCharacter);
-            string.setBackgroundColor(backgroundColor_incomplete);
-            string.setForegroundColor(foregroundColor_incomplete);
+        for (final Tile tile : super.tiles.getRow(0)) {
+            tile.setCharacter(incompleteCharacter);
+            tile.setBackgroundColor(colorPalette.getProgressBar_incompleteBackground());
+            tile.setForegroundColor(colorPalette.getProgressBar_incompleteForeground());
         }
     }
 
@@ -74,20 +62,26 @@ public class ProgressBar extends Component {
             percentComplete = 100;
         }
 
-        final int numberOfCompleteChars = (int) (super.getWidth() * (percentComplete / 100f));
-        final IntRange range = new IntRange(0, numberOfCompleteChars);
+        final int numberOfCompleteChars = (int) (super.tiles.getWidth() * (percentComplete / 100f));
+        Tile[] tileRow;
 
-        for (final AsciiString string : super.getStrings()) {
-            string.setBackgroundColor(backgroundColor_incomplete);
-            string.setForegroundColor(foregroundColor_incomplete);
-            string.setAllCharacters(incompleteCharacter);
+        for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
+            tileRow = super.tiles.getRow(y);
 
-            string.setBackgroundColor(backgroundColor_complete, range);
-            string.setForegroundColor(foregroundColor_complete, range);
-            string.setCharacters(completeCharacter, range);
+            for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
+                if (x <= numberOfCompleteChars) {
+                    tileRow[x].setCharacter(completeCharacter);
+                    tileRow[x].setBackgroundColor(colorPalette.getProgressBar_completeBackground());
+                    tileRow[x].setForegroundColor(colorPalette.getProgressBar_completeForeground());
+                } else {
+                    tileRow[x].setCharacter(incompleteCharacter);
+                    tileRow[x].setBackgroundColor(colorPalette.getProgressBar_incompleteBackground());
+                    tileRow[x].setForegroundColor(colorPalette.getProgressBar_incompleteForeground());
+                }
+            }
         }
 
         this.percentComplete = percentComplete;
-        super.transmitDraw();
+        super.redrawFunction.run();
     }
 }

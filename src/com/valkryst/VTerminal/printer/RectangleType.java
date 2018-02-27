@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.printer;
 
-import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.Tile;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -98,7 +98,7 @@ public enum RectangleType {
      * @return
      *        If the character is in the set.
      */
-    public boolean isValidTopCharacter(final AsciiCharacter asciiCharacter) {
+    public boolean isValidTopCharacter(final Tile asciiCharacter) {
         return asciiCharacter != null && isValidCharacter(asciiCharacter.getCharacter(), validTopCharacters);
 
     }
@@ -113,7 +113,7 @@ public enum RectangleType {
      * @return
      *        If the character is in the set.
      */
-    public boolean isValidBottomCharacter(final AsciiCharacter asciiCharacter) {
+    public boolean isValidBottomCharacter(final Tile asciiCharacter) {
         return asciiCharacter != null && isValidCharacter(asciiCharacter.getCharacter(), validBottomCharacters);
 
     }
@@ -128,7 +128,7 @@ public enum RectangleType {
      * @return
      *        If the character is in the set.
      */
-    public boolean isValidLeftCharacter(final AsciiCharacter asciiCharacter) {
+    public boolean isValidLeftCharacter(final Tile asciiCharacter) {
         return asciiCharacter != null && isValidCharacter(asciiCharacter.getCharacter(), validLeftCharacters);
 
     }
@@ -143,7 +143,7 @@ public enum RectangleType {
      * @return
      *        If the character is in the set.
      */
-    public boolean isValidRightCharacter(final AsciiCharacter asciiCharacter) {
+    public boolean isValidRightCharacter(final Tile asciiCharacter) {
         return asciiCharacter != null && isValidCharacter(asciiCharacter.getCharacter(), validRightCharacters);
 
     }

@@ -1,9 +1,7 @@
 package com.valkryst.VTerminal.printer;
 
-import com.valkryst.VTerminal.AsciiCharacter;
-import com.valkryst.VTerminal.Panel;
-import com.valkryst.VTerminal.component.Component;
-import com.valkryst.VTerminal.component.Screen;
+import com.valkryst.VTerminal.Tile;
+import com.valkryst.VTerminal.TileGrid;
 import lombok.*;
 
 import java.awt.Color;
@@ -24,11 +22,11 @@ public class ImagePrinter {
     @Getter @Setter private boolean flipVertically = false;
 
     /** The amount to scale the image by, horizontally, when printing. */
-    @Getter private int scaleX = 2;
+    @Getter private double scaleX = 2;
     /** The amount to scale the image by, vertically, when printing. */
-    @Getter private int scaleY = 1;
+    @Getter private double scaleY = 1;
 
-    /** The character to print the ellipse with. */
+    /** The character to print the image with. */
     @Getter @Setter private char printChar = '█';
 
     /**
@@ -45,55 +43,22 @@ public class ImagePrinter {
     }
 
     /**
-     * Prints an image on the screen of a panel.
+     * Prints an image on a grid.
      *
-     * @param panel
-     *         The panel.
-     *
-     * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
-     *
-     * @throws NullPointerException
-     *         If the panel is null.
-     */
-    public void print(final @NonNull Panel panel, final Point position) {
-        print((Component) panel.getScreen(), position);
-    }
-
-    /**
-     * Prints an image on a screen.
-     *
-     * @param screen
-     *         The screen.
+     * @param grid
+     *         The grid.
      *
      * @param position
      *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
-     *         If the screen is null.
+     *         If the screen or position is null.
      */
-    public void print(final @NonNull Screen screen, final Point position) {
-        print((Component) screen, position);
-    }
-
-    /**
-     * Prints an image on a component.
-     *
-     * @param component
-     *         The component.
-     *
-     * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
-     *
-     * @throws NullPointerException
-     *         If the screen is null.
-     */
-    private void print(final @NonNull Component component, final Point position) {
+    public void print(final @NonNull TileGrid grid, final @NonNull Point position) {
         final BufferedImage temp = applyTransformations();
-        final Point charPosition = new Point(0, 0);
 
-        for (int y = 0 ; y < temp.getHeight() && y < component.getHeight() ; y++) {
-            for (int x = 0 ; x < temp.getWidth() && x < component.getWidth() ; x++) {
+        for (int y = 0 ; y < temp.getHeight() && y < grid.getHeight() ; y++) {
+            for (int x = 0 ; x < temp.getWidth() && x < grid.getWidth() ; x++) {
                 final int hexColor = temp.getRGB(x,y);
                 final int red = (hexColor & 0x00ff0000) >> 16;
                 final int green = (hexColor & 0x0000ff00) >> 8;
@@ -101,11 +66,213 @@ public class ImagePrinter {
 
                 final int charX = x + position.x;
                 final int charY = y + position.y;
-                charPosition.setLocation(charX, charY);
 
-                final AsciiCharacter character = component.getCharacterAt(charPosition);
+                final Tile character = grid.getTileAt(charX, charY);
                 character.setCharacter(printChar);
                 character.setForegroundColor(new Color(red, green, blue));
+            }
+        }
+    }
+
+    /**
+     * Prints an image on a grid using special characters in order to display
+     * 2x2 pixels per tile.
+     *
+     * @param grid
+     *         The grid.
+     *
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the top-left character.
+     *
+     * @throws NullPointerException
+     *         If the screen or position is null.
+     *
+     * @throws IllegalArgumentException
+     *          If the image'ss width/height isn't divisible by 2. This check
+     *          is performed after any transformations/scaling.
+     *
+     * @throws IllegalStateException
+     *          If a 2x2 chunk of the image contains more than 2 unique
+     *          colors.
+     */
+    public void printDetailed(final @NonNull TileGrid grid, final @NonNull Point position) {
+        final BufferedImage temp = applyTransformations();
+
+        if (temp.getWidth() % 2 != 0) {
+            throw new IllegalArgumentException("The image must have a width that is divisible by 2. The width is currently " + temp.getWidth() + ".");
+        }
+
+        if (temp.getHeight() % 2 != 0) {
+            throw new IllegalArgumentException("The image must have a height that is divisible by 2. The height is currently " + temp.getHeight() + ".");
+        }
+
+        for (int imageY = 0 ; imageY < temp.getHeight() ; imageY += 2) {
+            for (int imageX = 0 ; imageX < temp.getWidth() ; imageX += 2) {
+                // Retrieve pixel values for this 4x4 chunk of the image.
+                int rgb_topLeft = temp.getRGB(imageX, imageY);
+                int rgb_topRight = temp.getRGB(imageX + 1 , imageY);
+                int rgb_botLeft = temp.getRGB(imageX, imageY + 1);
+                int rgb_botRight = temp.getRGB(imageX + 1, imageY + 1);
+
+                int rgb_firstUniqueColor = rgb_topLeft;
+                int rgb_secondUniqueColor;
+
+                /*
+                 * Ensure there are only two RGB values in this 2x2 chunk
+                 * of pixels.
+                 *
+                 * We assume that the Top Left value is unique.
+                 * If we have a unique color in the Top Right value, then
+                 * the bottom values must be equal to either the Top Left
+                 * or Top Right values.
+                */
+                if (rgb_topRight != rgb_topLeft) {
+                    /*
+                     * If the Bottom Left value isn't equal to either of the
+                     * top values, then we have a third unique color.
+                     */
+                    if (rgb_botLeft != rgb_topLeft && rgb_botLeft != rgb_topRight) {
+                        throw new IllegalStateException("The 2x2 pixel chunk, starting at (" + imageX + ", " + imageY + ") contains more than two colors.");
+                    }
+
+                    /*
+                     * If the Bottom Right value isn't equal to either of the
+                     * top values, then we have a third unique color.
+                     */
+                    if (rgb_botRight != rgb_topLeft && rgb_botRight != rgb_topRight) {
+                        throw new IllegalStateException("The 2x2 pixel chunk, starting at (" + imageX + ", " + imageY + ") contains more than two colors.");
+                    }
+
+                    rgb_secondUniqueColor = rgb_topRight;
+                } else {
+                    /*
+                     * If the Bottom Right value isn't equal to the Bottom
+                     * Left value and it's not equal to the Top Left value
+                     * (when the Top Left & Top Right are equal), then
+                     * we have a third unique color.
+                     */
+                    if (rgb_botRight != rgb_botLeft) {
+                        throw new IllegalStateException("The 2x2 pixel chunk, starting at (" + imageX + ", " + imageY + ") contains more than two colors.");
+                    }
+
+                    rgb_secondUniqueColor = rgb_botRight;
+                }
+
+                /*
+                 * Calculate a unique value to represent the 2x2 chunk of
+                 * pixels.
+                 *
+                 * Starting from the Top Left, we add a specific power of
+                 * 2 to our value, for every pixel that matches the color
+                 * of the Top Left RGB value.
+                 *
+                 * Powers of Two
+                 *      Top Left = 1
+                 *      Top Right = 2
+                 *      Bottom Right = 4
+                 *      Bottom Left = 8
+                 */
+                int chunkValue = 1;
+
+                if (rgb_topLeft == rgb_topRight) {
+                    chunkValue += 2;
+                }
+
+                if (rgb_topLeft == rgb_botRight) {
+                    chunkValue += 4;
+                }
+
+                if (rgb_topLeft == rgb_botLeft) {
+                    chunkValue += 8;
+                }
+
+                // Determine the character to use, based on the chunkValue.
+                char printChar;
+
+                switch (chunkValue) {
+                    case 1: {
+                        printChar = '▘';
+                        break;
+                    }
+                    case 3: {
+                        printChar = '▀';
+                        break;
+                    }
+                    case 2: {
+                        printChar = '▝';
+                        break;
+                    }
+                    case 4: {
+                        printChar = '▗';
+                        break;
+                    }
+                    case 5: {
+                        printChar = '▚';
+                        break;
+                    }
+                    case 6: {
+                        printChar = '▌';
+                        break;
+                    }
+                    case 7: {
+                        printChar = '▜';
+                        break;
+                    }
+                    case 8: {
+                        printChar = '▖';
+                        break;
+                    }
+                    case 9: {
+                        printChar = '▐';
+                        break;
+                    }
+                    case 10: {
+                        printChar = '▞';
+                        break;
+                    }
+                    case 11: {
+                        printChar = '▛';
+                        break;
+                    }
+                    case 12: {
+                        printChar = '▄';
+                        break;
+                    }
+                    case 13: {
+                        printChar = '▙';
+                        break;
+                    }
+                    case 14: {
+                        printChar = '▟';
+                        break;
+                    }
+                    case 15: {
+                        printChar = '█';
+                        break;
+                    }
+                    default: {
+                        printChar = '?';
+                        break;
+                    }
+                }
+
+                // Update the TileGrid
+                final Color backgroundColor = new Color(rgb_secondUniqueColor);
+                final Color foregroundColor = new Color(rgb_firstUniqueColor);
+
+                final int gridX = imageX / 2;
+                final int gridY = imageY / 2;
+
+                final int tileX = gridX + position.x;
+                final int tileY = gridY + position.y;
+
+                final Tile tile = grid.getTileAt(tileX, tileY);
+
+                if (tile != null) {
+                    tile.setCharacter(printChar);
+                    tile.setBackgroundColor(backgroundColor);
+                    tile.setForegroundColor(foregroundColor);
+                }
             }
         }
     }
@@ -136,14 +303,14 @@ public class ImagePrinter {
         return op.filter(image, null);
     }
 
-    public void setScaleX(final int scaleX) {
-        if (scaleX >= 1) {
+    public void setScaleX(final double scaleX) {
+        if (scaleX > 0) {
             this.scaleX = scaleX;
         }
     }
 
-    public void setScaleY(final int scaleY) {
-        if (scaleY >= 1) {
+    public void setScaleY(final double scaleY) {
+        if (scaleY > 0) {
             this.scaleY = scaleY;
         }
     }

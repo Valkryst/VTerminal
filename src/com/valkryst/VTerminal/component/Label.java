@@ -1,22 +1,15 @@
 package com.valkryst.VTerminal.component;
 
-import com.valkryst.VTerminal.AsciiString;
-import com.valkryst.VTerminal.builder.component.LabelBuilder;
-import lombok.Getter;
+import com.valkryst.VTerminal.Tile;
+import com.valkryst.VTerminal.builder.LabelBuilder;
+import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.NonNull;
 import lombok.ToString;
 
-import java.awt.Color;
-
 @ToString
 public class Label extends Component {
-    /** The background color for when the label. */
-    @Getter private Color backgroundColor;
-    /** The foreground color for when the label. */
-    @Getter private Color foregroundColor;
-
     /**
-     * Constructs a new AsciiLabel.
+     * Constructs a new Label.
      *
      * @param builder
      *         The builder to use.
@@ -25,24 +18,18 @@ public class Label extends Component {
      *         If the builder is null.
      */
     public Label(final @NonNull LabelBuilder builder) {
-        super(builder);
+        super(builder.getDimensions(), builder.getPosition());
 
-        this.backgroundColor = builder.getBackgroundColor();
-        this.foregroundColor = builder.getForegroundColor();
+        final ColorPalette colorPalette = builder.getColorPalette();
 
-        // Set the label's text:
         final char[] text = builder.getText().toCharArray();
-        final AsciiString string = super.getString(0);
+        final Tile[] tiles = super.tiles.getRow(0);
 
-        for (int column = 0 ; column < text.length ; column++) {
-            string.setCharacter(column, text[column]);
+        for (int x = 0 ; x < tiles.length ; x++) {
+            tiles[x].setCharacter(text[x]);
+
+            tiles[x].setBackgroundColor(colorPalette.getDefaultBackground());
+            tiles[x].setForegroundColor(colorPalette.getDefaultForeground());
         }
-
-        if (builder.isUnderlined()) {
-            string.setUnderlined(true);
-        }
-
-        string.setBackgroundColor(backgroundColor);
-        string.setForegroundColor(foregroundColor);
     }
 }

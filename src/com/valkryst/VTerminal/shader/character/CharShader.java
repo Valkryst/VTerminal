@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.shader.character;
 
-import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.shader.Shader;
 import lombok.NonNull;
 
@@ -27,5 +27,5 @@ public interface CharShader extends Shader {
      * @throws NullPointerException
      *           If the image or character is null.
      */
-    BufferedImage run(final @NonNull BufferedImage image, final @NonNull AsciiCharacter character);
+    BufferedImage run(final @NonNull BufferedImage image, final @NonNull Tile character);
 }

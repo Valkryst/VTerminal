@@ -1,7 +1,7 @@
 package com.valkryst.VTerminal.shader.character;
 
 import com.jhlabs.image.ChromeFilter;
-import com.valkryst.VTerminal.AsciiCharacter;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.shader.Shader;
 import lombok.Data;
 import lombok.NonNull;
@@ -18,7 +18,7 @@ public class CharChromeShader implements CharShader {
     private float exposure = 0.85f;
 
     @Override
-    public BufferedImage run(final @NonNull BufferedImage image, final @NonNull AsciiCharacter character) {
+    public BufferedImage run(final @NonNull BufferedImage image, final @NonNull Tile character) {
         final ChromeFilter filter = new ChromeFilter();
         filter.setAmount(amount);
         filter.setExposure(exposure);

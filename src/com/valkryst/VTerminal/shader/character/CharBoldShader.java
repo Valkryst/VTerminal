@@ -1,7 +1,7 @@
 package com.valkryst.VTerminal.shader.character;
 
-import com.valkryst.VTerminal.AsciiCharacter;
-import com.valkryst.VTerminal.AsciiTile;
+import com.valkryst.VTerminal.Tile;
+import com.valkryst.VTerminal.GraphicTile;
 import com.valkryst.VTerminal.shader.Shader;
 import lombok.NonNull;
 
@@ -11,8 +11,8 @@ import java.awt.image.BufferedImage;
 
 public class CharBoldShader implements CharShader {
     @Override
-    public BufferedImage run(final @NonNull BufferedImage image, final @NonNull AsciiCharacter character) {
-        if (character instanceof AsciiTile) {
+    public BufferedImage run(final @NonNull BufferedImage image, final @NonNull Tile character) {
+        if (character instanceof GraphicTile) {
             return image;
         }
 

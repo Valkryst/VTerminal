@@ -1,7 +1,10 @@
 package com.valkryst.VTerminal.component;
 
 
-import com.valkryst.VTerminal.builder.component.CheckBoxBuilder;
+import com.valkryst.VTerminal.Screen;
+import com.valkryst.VTerminal.Tile;
+import com.valkryst.VTerminal.builder.CheckBoxBuilder;
+import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -35,15 +38,33 @@ public class CheckBox extends Button {
         this.checkedBoxChar = builder.getCheckedBoxChar();
 
         this.isChecked = builder.isChecked();
+
+        final ColorPalette colorPalette = builder.getColorPalette();
+
+        super.backgroundColor_normal = colorPalette.getCheckBox_defaultBackground();
+        super.foregroundColor_normal = colorPalette.getCheckBox_defaultForeground();
+
+        super.backgroundColor_hover = colorPalette.getCheckBox_hoverBackground();
+        super.foregroundColor_hover = colorPalette.getCheckBox_hoverForeground();
+
+        super.backgroundColor_pressed = colorPalette.getCheckBox_checkedBackground();
+        super.foregroundColor_pressed = colorPalette.getCheckBox_checkedForeground();
+
+        if (isChecked) {
+            super.tiles.getTileAt(0, 0).setCharacter(checkedBoxChar);
+
+            for (final Tile tile : super.tiles.getRow(0)) {
+                tile.setBackgroundColor(backgroundColor_pressed);
+                tile.setForegroundColor(foregroundColor_pressed);
+            }
+        }
     }
 
     @Override
-    protected void createEventListeners() {
-        if (super.getEventListeners().size() > 0) {
+    public void createEventListeners(final @NonNull Screen parentScreen) {
+        if (super.eventListeners.size() > 0) {
             return;
         }
-
-        super.createEventListeners();
 
         final MouseInputListener mouseListener = new MouseInputListener() {
             @Override
@@ -51,7 +72,7 @@ public class CheckBox extends Button {
 
             @Override
             public void mouseMoved(final MouseEvent e) {
-                if (intersects(e)) {
+                if (intersects(parentScreen.getMousePosition())) {
                     setStateHovered();
                 } else {
                     if (isChecked) {
@@ -68,7 +89,7 @@ public class CheckBox extends Button {
             @Override
             public void mousePressed(final MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    if (intersects(e)) {
+                    if (intersects(parentScreen.getMousePosition())) {
                         if (isChecked) {
                             setChecked(false);
                         } else {
@@ -89,11 +110,11 @@ public class CheckBox extends Button {
             public void mouseExited(final MouseEvent e) {}
         };
 
-        super.getEventListeners().add(mouseListener);
+        super.eventListeners.add(mouseListener);
     }
 
     /**
-     * Sets the check box as checked.
+     * Sets the checked state.
      *
      * @param isChecked
      *          Whether or not the check box is checked.
@@ -102,11 +123,11 @@ public class CheckBox extends Button {
         this.isChecked = isChecked;
 
         if (isChecked) {
-            super.getString(0).setCharacter(0, checkedBoxChar);
+            super.tiles.getTileAt(0, 0).setCharacter(checkedBoxChar);
         } else {
-            super.getString(0).setCharacter(0, emptyBoxChar);
+            super.tiles.getTileAt(0, 0).setCharacter(emptyBoxChar);
         }
 
-        transmitDraw();
+        super.redrawFunction.run();
     }
 }
