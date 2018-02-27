@@ -2,18 +2,20 @@ package com.valkryst.VTerminal.misc;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.GraphicTile;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.shader.character.CharShader;
 import com.valkryst.VTerminal.shader.Shader;
+import com.valkryst.VTerminal.shader.character.CharShader;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
 import java.awt.image.VolatileImage;
+import java.awt.image.WritableRaster;
 import java.util.concurrent.TimeUnit;
 
 @ToString
@@ -223,11 +225,10 @@ public final class ImageCache {
      *         If the image is null.
      */
     public static BufferedImage cloneImage(final @NonNull BufferedImage image) {
-        final BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        final Graphics g = newImage.getGraphics();
-        g.drawImage(image, 0, 0, null);
-        g.dispose();
-        return newImage;
+        final ColorModel colorModel = image.getColorModel();
+        final boolean isAlphaPremultiplied = colorModel.isAlphaPremultiplied();
+        final WritableRaster writableRaster = image.copyData(null);
+        return new BufferedImage(colorModel, writableRaster, isAlphaPremultiplied, null);
     }
 
     /**
