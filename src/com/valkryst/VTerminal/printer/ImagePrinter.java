@@ -26,7 +26,7 @@ public class ImagePrinter {
     /** The amount to scale the image by, vertically, when printing. */
     @Getter private double scaleY = 1;
 
-    /** The character to print the ellipse with. */
+    /** The character to print the image with. */
     @Getter @Setter private char printChar = '█';
 
     /**
