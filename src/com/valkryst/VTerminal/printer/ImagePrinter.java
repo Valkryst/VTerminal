@@ -75,6 +75,190 @@ public class ImagePrinter {
     }
 
     /**
+     * Prints an image on a grid using special characters in order to display
+     * multiple pixels per tile.
+     *
+     * @param grid
+     *         The grid.
+     *
+     * @param position
+     *         The x/y-axis (column/row) coordinates of the top-left character.
+     *
+     * @throws NullPointerException
+     *         If the screen or position is null.
+     */
+    public void printDetailed(final @NonNull TileGrid grid, final @NonNull Point position) {
+        final BufferedImage temp = applyTransformations();
+
+        for (int imageY = 0 ; imageY < temp.getHeight() ; imageY += 2) {
+            for (int imageX = 0 ; imageX < temp.getWidth() ; imageX += 2) {
+                // Retrieve pixel values for this 4x4 chunk of the image.
+                int rgb_topLeft = temp.getRGB(imageX, imageY);
+                int rgb_topRight = temp.getRGB(imageX + 1 , imageY);
+                int rgb_botLeft = temp.getRGB(imageX, imageY + 1);
+                int rgb_botRight = temp.getRGB(imageX + 1, imageY + 1);
+
+                int rgb_firstUniqueColor = rgb_topLeft;
+                int rgb_secondUniqueColor;
+
+                /*
+                 * Ensure there are only two RGB values in this 2x2 chunk
+                 * of pixels.
+                 *
+                 * We assume that the Top Left value is unique.
+                 * If we have a unique color in the Top Right value, then
+                 * the bottom values must be equal to either the Top Left
+                 * or Top Right values.
+                */
+                if (rgb_topRight != rgb_topLeft) {
+                    /*
+                     * If the Bottom Left value isn't equal to either of the
+                     * top values, then we have a third unique color.
+                     */
+                    if (rgb_botLeft != rgb_topLeft && rgb_botLeft != rgb_topRight) {
+                        throw new IllegalStateException("The 2x2 pixel chunk, starting at (" + imageX + ", " + imageY + ") contains more than two colors.");
+                    }
+
+                    /*
+                     * If the Bottom Right value isn't equal to either of the
+                     * top values, then we have a third unique color.
+                     */
+                    if (rgb_botRight != rgb_topLeft && rgb_botRight != rgb_topRight) {
+                        throw new IllegalStateException("The 2x2 pixel chunk, starting at (" + imageX + ", " + imageY + ") contains more than two colors.");
+                    }
+
+                    rgb_secondUniqueColor = rgb_topRight;
+                } else {
+                    /*
+                     * If the Bottom Right value isn't equal to the Bottom
+                     * Left value and it's not equal to the Top Left value
+                     * (when the Top Left & Top Right are equal), then
+                     * we have a third unique color.
+                     */
+                    if (rgb_botRight != rgb_botLeft) {
+                        throw new IllegalStateException("The 2x2 pixel chunk, starting at (" + imageX + ", " + imageY + ") contains more than two colors.");
+                    }
+
+                    rgb_secondUniqueColor = rgb_botRight;
+                }
+
+                /*
+                 * Calculate a unique value to represent the 2x2 chunk of
+                 * pixels.
+                 *
+                 * Starting from the Top Left, we add a specific power of
+                 * 2 to our value, for every pixel that matches the color
+                 * of the Top Left RGB value.
+                 *
+                 * Powers of Two
+                 *      Top Left = 1
+                 *      Top Right = 2
+                 *      Bottom Right = 4
+                 *      Bottom Left = 8
+                 */
+                int chunkValue = 1;
+
+                if (rgb_topLeft == rgb_topRight) {
+                    chunkValue += 2;
+                }
+
+                if (rgb_topLeft == rgb_botRight) {
+                    chunkValue += 4;
+                }
+
+                if (rgb_topLeft == rgb_botLeft) {
+                    chunkValue += 8;
+                }
+
+                // Determine the character to use, based on the chunkValue.
+                char printChar;
+
+                switch (chunkValue) {
+                    case 1: {
+                        printChar = '▘';
+                        break;
+                    }
+                    case 3: {
+                        printChar = '▀';
+                        break;
+                    }
+                    case 2: {
+                        printChar = '▝';
+                        break;
+                    }
+                    case 4: {
+                        printChar = '▗';
+                        break;
+                    }
+                    case 5: {
+                        printChar = '▚';
+                        break;
+                    }
+                    case 6: {
+                        printChar = '▌';
+                        break;
+                    }
+                    case 7: {
+                        printChar = '▜';
+                        break;
+                    }
+                    case 8: {
+                        printChar = '▖';
+                        break;
+                    }
+                    case 9: {
+                        printChar = '▐';
+                        break;
+                    }
+                    case 10: {
+                        printChar = '▞';
+                        break;
+                    }
+                    case 11: {
+                        printChar = '▛';
+                        break;
+                    }
+                    case 12: {
+                        printChar = '▄';
+                        break;
+                    }
+                    case 13: {
+                        printChar = '▙';
+                        break;
+                    }
+                    case 14: {
+                        printChar = '▟';
+                        break;
+                    }
+                    case 15: {
+                        printChar = '█';
+                        break;
+                    }
+                    default: {
+                        printChar = '?';
+                        break;
+                    }
+                }
+
+                // Update the TileGrid
+                final Color backgroundColor = new Color(rgb_secondUniqueColor);
+                final Color foregroundColor = new Color(rgb_firstUniqueColor);
+
+                final int gridX = imageX / 2;
+                final int gridY = imageY / 2;
+
+                final int charX = gridX + position.x;
+                final int charY = gridY + position.y;
+
+                final Tile character = grid.getTileAt(charX, charY);
+                character.setCharacter(printChar);
+                character.setBackgroundColor(backgroundColor);
+                character.setForegroundColor(foregroundColor);
+            }
+        }
+    }
+
+    /**
      * Flips and scales the image.
      *
      * @return
