@@ -6,7 +6,6 @@ import com.valkryst.VTerminal.shader.character.CharShader;
 import lombok.NonNull;
 import lombok.ToString;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.Objects;
@@ -54,7 +53,7 @@ public class GraphicTile extends Tile {
     public void updateCacheHash() {
         if (updateCacheHash) {
             super.updateCacheHash = false;
-            super.cacheHash = Objects.hash(super.getCharacter(), super.getBackgroundColor(), Color.WHITE, super.getShaders());
+            super.cacheHash = Objects.hash(super.getCharacter(), super.getBackgroundColor(), super.getShaders());
         }
     }
 
