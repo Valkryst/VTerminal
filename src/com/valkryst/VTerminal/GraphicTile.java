@@ -25,8 +25,6 @@ public class GraphicTile extends Tile {
     /**
      * Constructs a new GraphicTile by copying the data of a Tile.
      *
-     * Does not copy the blinkTimer.
-     *
      * @param tile
      *         The tile.
      *
