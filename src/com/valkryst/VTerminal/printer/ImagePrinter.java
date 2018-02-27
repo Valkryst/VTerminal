@@ -52,9 +52,9 @@ public class ImagePrinter {
      *         The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws NullPointerException
-     *         If the screen is null.
+     *         If the screen or position is null.
      */
-    public void print(final @NonNull TileGrid grid, final Point position) {
+    public void print(final @NonNull TileGrid grid, final @NonNull Point position) {
         final BufferedImage temp = applyTransformations();
 
         for (int y = 0 ; y < temp.getHeight() && y < grid.getHeight() ; y++) {
