@@ -116,6 +116,34 @@ public final class TileGrid {
     }
 
     /**
+     * Converts this TileGrid and all of it's children to use GraphicTiles,
+     * rather than regular Tiles.
+     */
+    public void convertToGraphicTileGrid() {
+        for (int y = 0 ; y < tiles.length ; y++) {
+            for (int x = 0 ; x < tiles[0].length ; x++) {
+                if (tiles[y][x] instanceof GraphicTile == false) {
+                    tiles[y][x] = new GraphicTile(tiles[y][x]);
+                }
+            }
+        }
+    }
+
+    /**
+     * Converts this TileGrid and all of it's children to use Tiles, rather
+     * than GraphicTiles.
+     */
+    public void convertToTileGrid() {
+        for (int y = 0 ; y < tiles.length ; y++) {
+            for (int x = 0 ; x < tiles[0].length ; x++) {
+                if (tiles[y][x] instanceof GraphicTile) {
+                    tiles[y][x] = new Tile(tiles[y][x]);
+                }
+            }
+        }
+    }
+
+    /**
      * Adds a child grid to the grid, so that it renders before all other
      * children.
      *
