@@ -8,7 +8,6 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.swing.Timer;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -41,10 +40,6 @@ public class Tile {
     /** The thickness of the underline to draw beneath the tile. */
 	@Getter private int underlineThickness;
 
-	private Timer blinkTimer;
-	/** The amount of time, in milliseconds, before the blink effect can occur. */
-	@Getter private short millsBetweenBlinks;
-
 	/** Whether or not the foreground and background colors are equal. */
 	@Getter private boolean foregroundAndBackgroundColorEqual;
 
@@ -61,8 +56,6 @@ public class Tile {
 
     /**
      * Constructs a new tile by copying the data of a tile.
-     *
-     * Does not copy the blinkTimer.
      *
      * @param otherTile
      *          The tile.
@@ -89,16 +82,11 @@ public class Tile {
         isUnderlined = false;
         underlineThickness = 2;
 
-        disableBlinkEffect();
-        millsBetweenBlinks = 1000;
-
         foregroundAndBackgroundColorEqual = false;
     }
 
     /**
      * Copies the settings of a tile to this tile.
-     *
-     * Does not copy the blinkTimer.
      *
      * @param otherTile
      *          The other tile.
@@ -176,39 +164,6 @@ public class Tile {
                 final int y = rowIndex + fontHeight - underlineThickness;
                 gc.fillRect(columnIndex, y, fontWidth, underlineThickness);
             }
-        }
-    }
-
-    /**
-     * Enables the blink effect.
-     *
-     * @param millsBetweenBlinks
-     *          The amount of time, in milliseconds, before the blink effect can occur.
-     *
-     * @param redrawFunction
-     *          The redraw function to call whenever a blink occurs.
-     */
-    public void enableBlinkEffect(final short millsBetweenBlinks, final @NonNull Runnable redrawFunction) {
-        if (millsBetweenBlinks <= 0) {
-            this.millsBetweenBlinks = 1000;
-        } else {
-            this.millsBetweenBlinks = millsBetweenBlinks;
-        }
-
-        blinkTimer = new Timer(this.millsBetweenBlinks, e -> {
-            isHidden = !isHidden;
-            redrawFunction.run();
-        });
-        blinkTimer.setInitialDelay(this.millsBetweenBlinks);
-        blinkTimer.setRepeats(true);
-        blinkTimer.start();
-    }
-
-    /** Disables the blink effect. */
-    public void disableBlinkEffect() {
-        if (blinkTimer != null) {
-            blinkTimer.stop();
-            blinkTimer = null;
         }
     }
 
