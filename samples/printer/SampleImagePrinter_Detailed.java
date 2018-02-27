@@ -20,7 +20,7 @@ public class SampleImagePrinter_Detailed {
         final Screen screen = new Screen(dimensions, font);
 
 
-        final String filePath = System.getProperty("user.dir") + "/res_test/test.png";
+        final String filePath = System.getProperty("user.dir") + "/res_test/ImagePrinterTest.png";
         final BufferedImage image = ImageIO.read(new File(filePath));
 
         final ImagePrinter printer = new ImagePrinter(image);
