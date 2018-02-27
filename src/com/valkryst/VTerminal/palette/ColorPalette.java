@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.awt.Color;
 
 public class ColorPalette {
-    @Getter private Color defaultBackground =  new Color(45, 45, 45, 255);
+    @Getter private Color defaultBackground = new Color(45, 45, 45, 255);
     @Getter private Color defaultForeground = new Color(0xFFF9CA00, true);
 
     @Getter private Color button_defaultBackground = defaultBackground;
