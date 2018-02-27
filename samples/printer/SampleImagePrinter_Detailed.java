@@ -24,8 +24,6 @@ public class SampleImagePrinter_Detailed {
         final BufferedImage image = ImageIO.read(new File(filePath));
 
         final ImagePrinter printer = new ImagePrinter(image);
-        printer.setScaleX(0.5);
-        printer.setScaleY(0.25);
         printer.printDetailed(screen.getTiles(), new Point(0, 0));
 
         screen.addCanvasToJFrame();
