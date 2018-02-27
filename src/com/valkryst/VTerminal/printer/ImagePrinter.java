@@ -22,9 +22,9 @@ public class ImagePrinter {
     @Getter @Setter private boolean flipVertically = false;
 
     /** The amount to scale the image by, horizontally, when printing. */
-    @Getter private int scaleX = 2;
+    @Getter private double scaleX = 2;
     /** The amount to scale the image by, vertically, when printing. */
-    @Getter private int scaleY = 1;
+    @Getter private double scaleY = 1;
 
     /** The character to print the ellipse with. */
     @Getter @Setter private char printChar = '█';
@@ -86,9 +86,25 @@ public class ImagePrinter {
      *
      * @throws NullPointerException
      *         If the screen or position is null.
+     *
+     * @throws IllegalArgumentException
+     *          If the image'ss width/height isn't divisible by 2. This check
+     *          is performed after any transformations/scaling.
+     *
+     * @throws IllegalStateException
+     *          If a 2x2 chunk of the image contains more than 2 unique
+     *          colors.
      */
     public void printDetailed(final @NonNull TileGrid grid, final @NonNull Point position) {
         final BufferedImage temp = applyTransformations();
+
+        if (temp.getWidth() % 2 != 0) {
+            throw new IllegalArgumentException("The image must have a width that is divisible by 2. The width is currently " + temp.getWidth() + ".");
+        }
+
+        if (temp.getHeight() % 2 != 0) {
+            throw new IllegalArgumentException("The image must have a height that is divisible by 2. The height is currently " + temp.getHeight() + ".");
+        }
 
         for (int imageY = 0 ; imageY < temp.getHeight() ; imageY += 2) {
             for (int imageX = 0 ; imageX < temp.getWidth() ; imageX += 2) {
@@ -247,13 +263,16 @@ public class ImagePrinter {
                 final int gridX = imageX / 2;
                 final int gridY = imageY / 2;
 
-                final int charX = gridX + position.x;
-                final int charY = gridY + position.y;
+                final int tileX = gridX + position.x;
+                final int tileY = gridY + position.y;
 
-                final Tile character = grid.getTileAt(charX, charY);
-                character.setCharacter(printChar);
-                character.setBackgroundColor(backgroundColor);
-                character.setForegroundColor(foregroundColor);
+                final Tile tile = grid.getTileAt(tileX, tileY);
+
+                if (tile != null) {
+                    tile.setCharacter(printChar);
+                    tile.setBackgroundColor(backgroundColor);
+                    tile.setForegroundColor(foregroundColor);
+                }
             }
         }
     }
@@ -284,14 +303,14 @@ public class ImagePrinter {
         return op.filter(image, null);
     }
 
-    public void setScaleX(final int scaleX) {
-        if (scaleX >= 1) {
+    public void setScaleX(final double scaleX) {
+        if (scaleX > 0) {
             this.scaleX = scaleX;
         }
     }
 
-    public void setScaleY(final int scaleY) {
-        if (scaleY >= 1) {
+    public void setScaleY(final double scaleY) {
+        if (scaleY > 0) {
             this.scaleY = scaleY;
         }
     }
