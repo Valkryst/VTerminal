@@ -1,16 +1,14 @@
 package com.valkryst.VTerminal;
 
+import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.component.Layer;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ImageCache;
-import com.valkryst.VTerminal.component.Component;
 import lombok.Getter;
 import lombok.NonNull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.*;
@@ -90,6 +88,7 @@ public class Screen {
         final int pixelHeight = dimensions.height * imageCache.getFont().getHeight();
 
         canvas.setPreferredSize(new Dimension(pixelWidth, pixelHeight));
+        canvas.setIgnoreRepaint(true);
 
         // Add mouse movement listener.
         addListener(new MouseMotionListener() {
@@ -117,23 +116,19 @@ public class Screen {
      * @return
      *          A JFrame with the canvas on it.
      */
-    public JFrame addCanvasToJFrame() {
-        final JFrame frame = new JFrame();
+    public Frame addCanvasToJFrame() {
+        final Frame frame = new Frame();
         frame.add(canvas);
         frame.setResizable(false);
         frame.pack();
         frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setIgnoreRepaint(true);
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(final WindowEvent e) {
+             frame.dispose();
+            }
+        });
         frame.setVisible(true);
-
-        // May be a bit of a hack, but this resolves the issue where the
-        // subsequent draw call completes before the canvas can be drawn
-        // to.
-        while (frame.isVisible() == false || canvas.isVisible() == false) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException ignored) {}
-        }
 
         draw();
 
