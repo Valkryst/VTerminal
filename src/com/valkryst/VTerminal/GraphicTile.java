@@ -13,7 +13,7 @@ import java.util.Objects;
 @ToString
 public class GraphicTile extends Tile {
     /**
-     * Constructs a new AsciiTile.
+     * Constructs a new GraphicTile.
      *
      * @param character
      *         The character.
@@ -23,30 +23,30 @@ public class GraphicTile extends Tile {
     }
 
     /**
-     * Constructs a new AsciiTile by copying the data of an AsciiCharacter.
+     * Constructs a new GraphicTile by copying the data of a Tile.
      *
      * Does not copy the blinkTimer.
      *
-     * @param character
-     *         The AsciiCharacter.
+     * @param tile
+     *         The tile.
      *
      * @throws NullPointerException
-     *        If the character is null.
+     *         If the tile is null.
      */
-    public GraphicTile(final @NonNull Tile character) {
-	    super(character.getCharacter());
+    public GraphicTile(final @NonNull Tile tile) {
+	    super(tile.getCharacter());
 
-	    for (final Shader shader : character.getShaders()) {
+	    for (final Shader shader : tile.getShaders()) {
 	        addShaders(shader);
         }
 
-	    super.setHidden(character.isHidden());
+	    super.setHidden(tile.isHidden());
 
-	    super.setBackgroundColor(character.getBackgroundColor());
-	    super.setForegroundColor(character.getForegroundColor());
+	    super.setBackgroundColor(tile.getBackgroundColor());
+	    super.setForegroundColor(tile.getForegroundColor());
 
-        super.setUnderlined(character.isUnderlined());
-        super.setUnderlineThickness(character.getUnderlineThickness());
+        super.setUnderlined(tile.isUnderlined());
+        super.setUnderlineThickness(tile.getUnderlineThickness());
     }
 
     @Override
