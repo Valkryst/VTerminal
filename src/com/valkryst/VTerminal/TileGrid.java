@@ -127,6 +127,10 @@ public final class TileGrid {
                 }
             }
         }
+
+        for (final TileGrid child : childGrids) {
+            child.convertToGraphicTileGrid();
+        }
     }
 
     /**
@@ -140,6 +144,10 @@ public final class TileGrid {
                     tiles[y][x] = new Tile(tiles[y][x]);
                 }
             }
+        }
+
+        for (final TileGrid child : childGrids) {
+            child.convertToTileGrid();
         }
     }
 
