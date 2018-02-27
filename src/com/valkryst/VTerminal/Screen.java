@@ -303,7 +303,7 @@ public class Screen {
      * @throws IllegalArgumentException
      *        If the event listener isn't supported by this function.
      */
-    private void addListener(final EventListener eventListener) {
+    public void addListener(final EventListener eventListener) {
         if (eventListener instanceof KeyListener) {
             canvas.addKeyListener((KeyListener) eventListener);
             return;
@@ -337,7 +337,7 @@ public class Screen {
      * @throws IllegalArgumentException
      *        If the event listener isn't supported by this function.
      */
-    private void removeListener(final EventListener eventListener) {
+    public void removeListener(final EventListener eventListener) {
         if (eventListener instanceof KeyListener) {
             canvas.removeKeyListener((KeyListener) eventListener);
             return;
