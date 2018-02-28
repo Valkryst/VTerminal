@@ -319,7 +319,16 @@ public class Screen {
                 }
             } while (bs.contentsRestored()); // Repeat render if drawing buffer contents were restored.
 
-            bs.show();
+            try {
+                bs.show();
+            } catch (final IllegalStateException e) {
+                if (canvas.getParent() == null || canvas.getParent() instanceof Frame == false) {
+                    LogManager.getLogger().error(e);
+                } else {
+                    ((Frame) canvas.getParent()).dispose();
+                    System.exit(0);
+                }
+            }
         } while (bs.contentsLost()); // Repeat render if drawing buffer was lost.
     }
 
