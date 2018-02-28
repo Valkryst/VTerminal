@@ -34,15 +34,36 @@ public class Font {
      * @throws NullPointerException
      *         If the characterImages is null.
      */
-    public Font(final @NonNull HashMap<Character, BufferedImage> characterImages, final int scale) {
+    public Font(final @NonNull HashMap<Character, BufferedImage> characterImages, final double scale) {
         this.characterImages = characterImages;
 
-        final int width = characterImages.get('X').getWidth() * scale;
-        final int height = characterImages.get('X').getHeight() * scale;
+        final int width = (int) (characterImages.get('X').getWidth() * scale);
+        final int height = (int) (characterImages.get('X').getHeight() * scale);
         dimensions = new Dimension(width, height);
 
-        if (scale > 0) {
-            final AffineTransform tx = AffineTransform.getScaleInstance(scale, scale);
+        resize(scale, scale);
+    }
+
+    /**
+     * Resizes the font.
+     *
+     * You probably shouldn't be calling this function, it exists specifically
+     * for when full screen mode is enabled and the font needs to be
+     * resized to fit the screen.
+     *
+     * @param scaleX
+     *          The amount to scale the font width by.
+     *
+     * @param scaleY
+     *          The amount to scale the font height by.
+     */
+    public void resize(final double scaleX, final double scaleY) {
+        if (scaleX > 0 && scaleY > 0) {
+            final int width = (int) (characterImages.get('X').getWidth() * scaleX);
+            final int height = (int) (characterImages.get('X').getHeight() * scaleY);
+            dimensions.setSize(width, height);
+
+            final AffineTransform tx = AffineTransform.getScaleInstance(scaleX, scaleY);
             final AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
 
             for (final Map.Entry<Character, BufferedImage> entry : characterImages.entrySet()) {
