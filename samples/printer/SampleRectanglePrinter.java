@@ -1,21 +1,15 @@
 package printer;
 
 import com.valkryst.VTerminal.Screen;
-import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.printer.RectanglePrinter;
 import com.valkryst.VTerminal.printer.RectangleType;
 
-import java.awt.Dimension;
 import java.awt.Point;
 import java.io.IOException;
 
 public class SampleRectanglePrinter {
     public static void main(final String[] args) throws IOException {
-        final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1);
-
-        final Dimension dimensions = new Dimension(80, 24);
-        final Screen screen = new Screen(dimensions, font);
+        final Screen screen = new Screen(80, 24);
         
 
         final RectanglePrinter printer = new RectanglePrinter();

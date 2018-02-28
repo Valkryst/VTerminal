@@ -4,8 +4,6 @@ import com.valkryst.VTerminal.Screen;
 import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.builder.LabelBuilder;
 import com.valkryst.VTerminal.component.Label;
-import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.shader.blur.FastMotionBlurShader;
 import com.valkryst.VTerminal.shader.blur.GaussianBlurShader;
 import com.valkryst.VTerminal.shader.blur.MotionBlurShader;
@@ -16,9 +14,7 @@ import java.io.IOException;
 
 public class SampleShaders {
     public static void main(final String[] args) throws IOException {
-        final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
-
-        final Screen screen = new Screen(100, 33, font);
+        final Screen screen = new Screen(100, 33);
 
         final LabelBuilder labelBuilder = new LabelBuilder();
         labelBuilder.setPosition(0, 0);
