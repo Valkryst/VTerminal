@@ -113,15 +113,12 @@ public class Screen {
     }
 
     /**
-     * Adds the screen's canvas to a JFrame and sets the frame to
-     * visible.
-     *
-     * Also performs the first draw of the canvas.
+     * Adds the screen's canvas to a Frame and sets the frame to visible.
      *
      * @return
-     *          A JFrame with the canvas on it.
+     *          A frame with the canvas on it.
      */
-    public Frame addCanvasToJFrame() {
+    public Frame addCanvasToFrame() {
         final Frame frame = new Frame();
         frame.add(canvas);
         frame.setResizable(false);
@@ -136,6 +133,68 @@ public class Screen {
         frame.setBackground(colorPalette.getDefaultBackground());
         frame.setForeground(colorPalette.getDefaultForeground());
         frame.setVisible(true);
+
+        // There's a rare, hard to reproduce, issue where, on the first
+        // render of a Screen, it may just display a blank white canvas.
+        // This sleep is meant to fix that issue by giving the Canvas time
+        // to initialize, or something like that.
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        draw();
+
+        return frame;
+    }
+
+    /**
+     * Adds the screen's canvas to a Frame, sets the frame to visible,
+     * and enables full-screen exclusive mode on the Frame, for a
+     * specific device (monitor).
+     *
+     * @param device
+     *          The device (monitor) to enable full-screen for.
+     *
+     * @return
+     *          A full-screened frame with the canvas on it.
+     */
+    public Frame addCanvasToFullScreenFrame(final @NonNull GraphicsDevice device) {
+        if (! device.isFullScreenSupported()) {
+            throw new IllegalStateException("Full screen is not supported for the device '" + device.getIDstring() + "'.");
+        }
+
+        // Resize the font, so that it fills the screen properly.
+        final DisplayMode displayMode = device.getDisplayMode();
+
+        final double scaleX = displayMode.getWidth() / canvas.getPreferredSize().getWidth();
+        final double scaleY = displayMode.getHeight() / canvas.getPreferredSize().getHeight();
+        imageCache.getFont().resize(scaleX, scaleY);
+
+        // Resize the canvas, so that it has enough room to fit the resized font.
+        final int pixelWidth = tiles.getWidth() * imageCache.getFont().getWidth();
+        final int pixelHeight = tiles.getHeight() * imageCache.getFont().getHeight();
+
+        canvas.setPreferredSize(new Dimension(pixelWidth, pixelHeight));
+
+        // Create the frame.
+        final Frame frame = new Frame();
+        frame.add(canvas);
+        frame.setUndecorated(true);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setIgnoreRepaint(true);
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(final WindowEvent e) {
+                frame.dispose();
+            }
+        });
+        frame.setBackground(colorPalette.getDefaultBackground());
+        frame.setForeground(colorPalette.getDefaultForeground());
+        frame.setVisible(true);
+
+        device.setFullScreenWindow(frame);
 
         // There's a rare, hard to reproduce, issue where, on the first
         // render of a Screen, it may just display a blank white canvas.
@@ -193,10 +252,10 @@ public class Screen {
                     int xPosition, yPosition;
                     int oldHash, newHash;
 
-                    for (int y = 0 ; y < tiles.getHeight() ; y++) {
+                    for (int y = 0; y < tiles.getHeight(); y++) {
                         yPosition = tiles.getYPosition() + y;
 
-                        for (int x = 0 ; x < tiles.getWidth() ; x++) {
+                        for (int x = 0; x < tiles.getWidth(); x++) {
                             xPosition = tiles.getXPosition() + x;
 
                             tile = tiles.getTileAt(x, y);
