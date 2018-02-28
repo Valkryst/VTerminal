@@ -25,6 +25,6 @@ public class SampleEllipsePrinter {
         printer.printFilled(screen.getTiles(), new Point(10, 40));
 
 
-        screen.addCanvasToJFrame();
+        screen.addCanvasToFrame();
     }
 }

@@ -188,7 +188,7 @@ public class SampleShaders {
         screen.addComponent(label);
 
 
-        screen.addCanvasToJFrame();
+        screen.addCanvasToFrame();
         screen.draw();
     }
 }

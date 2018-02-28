@@ -5,10 +5,11 @@ import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 
+import java.awt.GraphicsEnvironment;
 import java.io.IOException;
 
 public class SampleTileSheet {
-    public static void main(final String[] args) throws IOException {
+    public static void main(final String[] args) throws IOException, InterruptedException {
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
 
         final Screen screen = new Screen(100, 33, font);
@@ -32,6 +33,10 @@ public class SampleTileSheet {
             }
         }
 
-        screen.addCanvasToJFrame();
+        screen.addCanvasToFrame();
+
+        screen.enableFullScreenExclusiveMode(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice());
+        Thread.sleep(3000);
+        screen.disableFullScreenExclusiveMode();
     }
 }

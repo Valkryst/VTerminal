@@ -28,6 +28,6 @@ public class SampleGraphicTileSheet {
             }
         }
 
-        screen.addCanvasToJFrame();
+        screen.addCanvasToFrame();
     }
 }

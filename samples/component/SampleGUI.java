@@ -144,6 +144,6 @@ public class SampleGUI {
         // listeners of the components to itself.
         screen.addComponent(layer);
 
-        screen.addCanvasToJFrame();
+        screen.addCanvasToFrame();
     }
 }

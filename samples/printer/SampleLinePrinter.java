@@ -27,6 +27,6 @@ public class SampleLinePrinter {
         }
 
 
-        screen.addCanvasToJFrame();
+        screen.addCanvasToFrame();
     }
 }

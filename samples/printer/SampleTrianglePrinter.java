@@ -27,6 +27,6 @@ public class SampleTrianglePrinter {
         printer.print(screen.getTiles(), points);
 
 
-        screen.addCanvasToJFrame();
+        screen.addCanvasToFrame();
     }
 }

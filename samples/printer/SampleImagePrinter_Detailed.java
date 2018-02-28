@@ -26,6 +26,6 @@ public class SampleImagePrinter_Detailed {
         final ImagePrinter printer = new ImagePrinter(image);
         printer.printDetailed(screen.getTiles(), new Point(0, 0));
 
-        screen.addCanvasToJFrame();
+        screen.addCanvasToFrame();
     }
 }

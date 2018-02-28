@@ -27,6 +27,6 @@ public class SampleImagePrinter {
         printer.print(screen.getTiles(), new Point(0, 0));
 
 
-        screen.addCanvasToJFrame();
+        screen.addCanvasToFrame();
     }
 }

@@ -86,6 +86,6 @@ public class SampleRectanglePrinter {
         printer.print(screen.getTiles(), new Point(59, 3));
 
 
-        screen.addCanvasToJFrame();
+        screen.addCanvasToFrame();
     }
 }
