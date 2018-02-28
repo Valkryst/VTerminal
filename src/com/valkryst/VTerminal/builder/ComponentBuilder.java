@@ -1,15 +1,17 @@
 package com.valkryst.VTerminal.builder;
 
+import com.valkryst.VJSON.VJSONParser;
 import com.valkryst.VTerminal.component.Component;
-import com.valkryst.VTerminal.palette.ColorPalette;
+import com.valkryst.VTerminal.palette.*;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import org.json.simple.JSONObject;
 
 import java.awt.Dimension;
 import java.awt.Point;
 
-public class ComponentBuilder<C extends Component> {
+public class ComponentBuilder<C extends Component> implements VJSONParser {
     /** The position of the component within it's parent. */
     @NonNull private Point position = new Point(0, 0);
 
@@ -62,6 +64,76 @@ public class ComponentBuilder<C extends Component> {
         position.setLocation(0, 0);
         dimensions.setSize(1, 1);
         colorPalette = new ColorPalette();
+    }
+
+    @Override
+    public void parse(final @NonNull JSONObject jsonObject) {
+        reset();
+
+        final Integer xPosition = getInteger(jsonObject, "x");
+        final Integer yPosition = getInteger(jsonObject, "y");
+        final Integer width = getInteger(jsonObject, "width");
+        final Integer height = getInteger(jsonObject, "height");
+        final String colorPalette = getString(jsonObject, "palette");
+
+        if (xPosition == null) {
+            throw new NullPointerException("The 'x' value was not found.");
+        } else {
+            position.x = xPosition;
+        }
+
+        if (yPosition == null) {
+            throw new NullPointerException("The 'y' value was not found.");
+        } else {
+            position.y = yPosition;
+        }
+
+        if (width == null) {
+            throw new NullPointerException("The 'width' value was not found.");
+        } else {
+            dimensions.width = width;
+        }
+
+        if (height == null) {
+            throw new NullPointerException("The 'height' value was not found.");
+        } else {
+            dimensions.height = height;
+        }
+
+        // todo Support custom themes or maybe some generic way of writing the theme, rather than hardcoding them like this.
+        switch (colorPalette) {
+            case "P1Phosphor": {
+                this.colorPalette = new P1PhosphorColorPalette();
+                break;
+            }
+            case "P3Phosphor": {
+                this.colorPalette = new P3PhosphorColorPalette();
+                break;
+            }
+            case "P12Phosphor": {
+                this.colorPalette = new P12PhosphorColorPalette();
+                break;
+            }
+            case "P20Phosphor": {
+                this.colorPalette = new P20PhosphorColorPalette();
+                break;
+            }
+            case "P21Phosphor": {
+                this.colorPalette = new P21PhosphorColorPalette();
+                break;
+            }
+            case "P24Phosphor": {
+                this.colorPalette = new P24PhosphorColorPalette();
+                break;
+            }
+            case "P26Phosphor": {
+                this.colorPalette = new P26PhosphorColorPalette();
+                break;
+            }
+            default: {
+                this.colorPalette = new ColorPalette();
+            }
+        }
     }
 
     /**
