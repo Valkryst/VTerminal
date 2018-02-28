@@ -81,6 +81,7 @@ public class Screen {
      */
     public Screen(final @NonNull Dimension dimensions, final @NonNull Font font) {
         tiles = new TileGrid(dimensions, new Point(0, 0));
+        setColorPalette(new ColorPalette());
 
         this.imageCache = new ImageCache(font);
 
