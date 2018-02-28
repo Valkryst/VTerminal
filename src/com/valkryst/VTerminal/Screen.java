@@ -3,6 +3,7 @@ package com.valkryst.VTerminal;
 import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.component.Layer;
 import com.valkryst.VTerminal.font.Font;
+import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.misc.ImageCache;
 import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
@@ -40,6 +42,18 @@ public class Screen {
 
     /** The color palette of the Screen. Does not apply to child components. */
     private ColorPalette colorPalette;
+
+    /**
+     * Constructs a new 80x40 Screen with the 18pt DejaVu Sans Mono
+     * font.
+     *
+     * @throws IOException
+     *          If an IOException occurs while loading the font.
+     *
+     */
+    public Screen() throws IOException {
+        this(FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1));
+    }
 
     /**
      * Constructs a new 80x40 Screen.
