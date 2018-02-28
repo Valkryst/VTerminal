@@ -23,6 +23,9 @@ public class P1PhosphorColorPalette extends ColorPalette {
     @Getter private final Color checkBox_checkedBackground = button_defaultBackground;
     @Getter private final Color checkBox_checkedForeground = defaultForeground;
 
+    @Getter private final Color label_defaultBackground = defaultBackground;
+    @Getter private final Color label_defaultForeground = defaultForeground;
+
     @Getter private final Color layer_defaultBackground = defaultBackground;
     @Getter private final Color layer_defaultForeground = defaultForeground;
 

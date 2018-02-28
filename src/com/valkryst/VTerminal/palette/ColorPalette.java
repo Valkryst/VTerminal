@@ -7,7 +7,7 @@ import java.awt.Color;
 
 public class ColorPalette {
     @Getter private final Color defaultBackground = new Color(45, 45, 45, 255);
-    @Getter private final Color defaultForeground = new Color(0xFFF9CA00, true);
+    @Getter private final Color defaultForeground = Color.WHITE;
 
     @Getter private final Color button_defaultBackground = defaultBackground;
     @Getter private final Color button_defaultForeground = new Color(0xFF2DBEFF, true);
@@ -21,7 +21,10 @@ public class ColorPalette {
     @Getter private final Color checkBox_hoverBackground = button_hoverBackground;
     @Getter private final Color checkBox_hoverForeground = button_hoverForeground;
     @Getter private final Color checkBox_checkedBackground = button_defaultBackground;
-    @Getter private final Color checkBox_checkedForeground = defaultForeground;
+    @Getter private final Color checkBox_checkedForeground = new Color(0xFFF9CA00, true);
+
+    @Getter private final Color label_defaultBackground = defaultBackground;
+    @Getter private final Color label_defaultForeground = new Color(0xFFF9CA00, true);
 
     @Getter private final Color layer_defaultBackground = defaultBackground;
     @Getter private final Color layer_defaultForeground = Color.WHITE;
@@ -36,7 +39,7 @@ public class ColorPalette {
     @Getter private final Color radioButton_hoverBackground = button_hoverBackground;
     @Getter private final Color radioButton_hoverForeground = button_hoverForeground;
     @Getter private final Color radioButton_pressedBackground = defaultBackground;
-    @Getter private final Color radioButton_pressedForeground = defaultForeground;
+    @Getter private final Color radioButton_pressedForeground = new Color(0xFFF9CA00, true);
 
     @Getter private final Color textArea_defaultBackground = new Color(0xFF68D0FF, true);
     @Getter private final Color textArea_defaultForeground = new Color(0xFF8E999E, true);
