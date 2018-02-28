@@ -61,7 +61,7 @@ public class Tile {
      *          The tile.
      *
      * @throws NullPointerException
-     *          If the tile is null.
+     *          If the otherTile is null.
      */
     public Tile(final @NonNull Tile otherTile) {
         reset();
@@ -90,6 +90,9 @@ public class Tile {
      *
      * @param otherTile
      *          The other tile.
+     *
+     * @throws NullPointerException
+     *         If the otherTile is null.
      */
     public void copy(final @NonNull Tile otherTile) {
         for (final Shader shader : otherTile.getShaders()) {
