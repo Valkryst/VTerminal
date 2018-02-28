@@ -146,7 +146,7 @@ public class Tile {
         rowIndex *= fontHeight;
 
         // Handle hidden state:
-        if (isHidden || foregroundAndBackgroundColorEqual || character == ' ') {
+        if (isHidden || foregroundAndBackgroundColorEqual || Character.isSpaceChar(character)) {
             gc.setColor(backgroundColor);
             gc.fillRect(columnIndex, rowIndex, fontWidth, fontHeight);
         } else {
