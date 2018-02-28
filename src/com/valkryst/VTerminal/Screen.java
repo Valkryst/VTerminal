@@ -4,6 +4,7 @@ import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.component.Layer;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.misc.ImageCache;
+import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.Getter;
 import lombok.NonNull;
 import org.apache.logging.log4j.LogManager;
@@ -304,6 +305,10 @@ public class Screen {
      *        If the event listener isn't supported by this function.
      */
     public void addListener(final EventListener eventListener) {
+        if (eventListener == null) {
+            return;
+        }
+
         if (eventListener instanceof KeyListener) {
             canvas.addKeyListener((KeyListener) eventListener);
             return;
@@ -338,6 +343,10 @@ public class Screen {
      *        If the event listener isn't supported by this function.
      */
     public void removeListener(final EventListener eventListener) {
+        if (eventListener == null) {
+            return;
+        }
+
         if (eventListener instanceof KeyListener) {
             canvas.removeKeyListener((KeyListener) eventListener);
             return;
@@ -419,9 +428,37 @@ public class Screen {
      *
      * @return
      *          The tile, or null if the coordinates are outside the bounds
-     *          of the screen.
+     *          of the screen or if the position is null.
      */
     public Tile getTileAt(final Point position) {
+        if (position == null) {
+            return null;
+        }
+
         return tiles.getTileAt(position);
+    }
+
+    /**
+     * Sets the fore/background color of every tile on the screen to the
+     * default fore/background colors of a ColorPalette.
+     *
+     * This does not affect child components and this is not permanent.
+     * These color changes may be overwritten during a draw call.
+     *
+     * @param colorPalette
+     *          The color palette.
+     */
+    public void setColorPalette(final @NonNull ColorPalette colorPalette) {
+        if (colorPalette == null) {
+            return;
+        }
+
+        for (int y = 0 ; y < tiles.getHeight() ; y++) {
+            for (int x = 0 ; x < tiles.getWidth() ; x++) {
+                final Tile tile = tiles.getTileAt(x, y);
+                tile.setForegroundColor(colorPalette.getDefaultForeground());
+                tile.setBackgroundColor(colorPalette.getDefaultBackground());
+            }
+        }
     }
 }
