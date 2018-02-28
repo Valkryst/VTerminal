@@ -159,8 +159,14 @@ public class Screen {
      *
      * @return
      *          A full-screened frame with the canvas on it.
+     *
+     * @throws NullPointerException
+     *          If the device is null.
+     *
+     * @throws IllegalStateException
+     *          If full-screen exclusive mode is not supported on the device.
      */
-    public Frame addCanvasToFullScreenFrame(final @NonNull GraphicsDevice device) {
+    public Frame addCanvasToFullScreenFrame(final @NonNull GraphicsDevice device) throws IllegalStateException {
         if (! device.isFullScreenSupported()) {
             throw new IllegalStateException("Full screen is not supported for the device '" + device.getIDstring() + "'.");
         }
