@@ -28,8 +28,8 @@ public class Label extends Component {
         for (int x = 0 ; x < tiles.length ; x++) {
             tiles[x].setCharacter(text[x]);
 
-            tiles[x].setBackgroundColor(colorPalette.getDefaultBackground());
-            tiles[x].setForegroundColor(colorPalette.getDefaultForeground());
+            tiles[x].setBackgroundColor(colorPalette.getLabel_defaultBackground());
+            tiles[x].setForegroundColor(colorPalette.getLabel_defaultForeground());
         }
     }
 }
