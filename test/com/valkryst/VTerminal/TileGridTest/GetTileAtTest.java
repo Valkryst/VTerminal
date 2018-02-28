@@ -4,6 +4,8 @@ import com.valkryst.VTerminal.Tile;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.awt.Point;
+
 public class GetTileAtTest {
     @Test
     public void testGetTileAt_withAllValidCoordinates() {
@@ -70,5 +72,16 @@ public class GetTileAtTest {
         int gridHeight = StaticGrid.TILE_GRID.getHeight() + 1;
         final Tile character = StaticGrid.TILE_GRID.getTileAt(0, gridHeight);
         Assert.assertNull(character);
+    }
+
+    @Test
+    public void testGetTileAt_withValidPointCoordinates() {
+        final Tile character = StaticGrid.TILE_GRID.getTileAt(new Point(0, 0));
+        Assert.assertEquals('A', character.getCharacter());
+    }
+
+    @Test
+    public void testGetTileAt_withNullPointCoordinates() {
+        Assert.assertNull(StaticGrid.TILE_GRID.getTileAt(null));
     }
 }
