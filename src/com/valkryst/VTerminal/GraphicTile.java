@@ -74,7 +74,7 @@ public class GraphicTile extends Tile {
      *         If the gc or image cache are null.
      */
     @Override
-    public void draw(final @NonNull Graphics2D gc, @NonNull final ImageCache imageCache, int columnIndex, int rowIndex) {
+    public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache, int columnIndex, int rowIndex) {
         final int fontWidth = imageCache.getFont().getWidth();
         final int fontHeight = imageCache.getFont().getHeight();
 
@@ -93,13 +93,15 @@ public class GraphicTile extends Tile {
 
 
     @Override
-    public void addShaders(final @NonNull Shader... shaders) {
-        for (final Shader shader : shaders) {
-            if (shader instanceof CharShader == false) {
-                super.addShaders(shader);
+    public void addShaders(final Shader... shaders) {
+        if (shaders != null) {
+            for (final Shader shader : shaders) {
+                if (shader instanceof CharShader == false) {
+                    super.addShaders(shader);
+                }
             }
-        }
 
-        updateCacheHash = true;
+            updateCacheHash = true;
+        }
     }
 }
