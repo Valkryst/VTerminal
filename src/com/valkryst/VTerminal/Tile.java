@@ -185,15 +185,14 @@ public class Tile {
      *
      * @param color
      *         The new background color.
-     *
-     * @throws NullPointerException
-     *         If the color is null.
      */
-    public void setBackgroundColor(final @NonNull Color color) {
-        if (backgroundColor.equals(color) == false) {
-            backgroundColor = color;
-            updateCacheHash = true;
-            foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
+    public void setBackgroundColor(final Color color) {
+        if (color != null) {
+            if (backgroundColor.equals(color) == false) {
+                backgroundColor = color;
+                updateCacheHash = true;
+                foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
+            }
         }
     }
 
@@ -202,15 +201,14 @@ public class Tile {
      *
      * @param color
      *         The new foreground color.
-     *
-     * @throws NullPointerException
-     *         If the color is null.
      */
-    public void setForegroundColor(final @NonNull Color color) {
-        if (foregroundColor.equals(color) == false) {
-            foregroundColor = color;
-            updateCacheHash = true;
-            foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
+    public void setForegroundColor(final Color color) {
+        if (color != null) {
+            if (foregroundColor.equals(color) == false) {
+                foregroundColor = color;
+                updateCacheHash = true;
+                foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
+            }
         }
     }
 
