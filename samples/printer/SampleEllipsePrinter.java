@@ -16,7 +16,7 @@ public class SampleEllipsePrinter {
         printer.setHeight(8);
         printer.print(screen.getTiles(), new Point(10, 10));
 
-        printer.printFilled(screen.getTiles(), new Point(10, 40));
+        printer.printFilled(screen.getTiles(), new Point(30, 10));
 
 
         screen.addCanvasToFrame();
