@@ -137,11 +137,16 @@ public class Screen {
         frame.setForeground(colorPalette.getDefaultForeground());
         frame.setVisible(true);
 
+        // There's a rare, hard to reproduce, issue where, on the first
+        // render of a Screen, it may just display a blank white canvas.
+        // This sleep is meant to fix that issue by giving the Canvas time
+        // to initialize, or something like that.
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         draw();
 
         return frame;
