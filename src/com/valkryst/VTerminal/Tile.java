@@ -279,9 +279,11 @@ public class Tile {
      * @param shaders
      *          The shaders.
      */
-    public void addShaders(final @NonNull Shader ... shaders) {
-        this.shaders.addAll(Arrays.asList(shaders));
-        updateCacheHash = true;
+    public void addShaders(final Shader ... shaders) {
+        if (shaders != null) {
+            this.shaders.addAll(Arrays.asList(shaders));
+            updateCacheHash = true;
+        }
     }
 
     /**
@@ -290,9 +292,11 @@ public class Tile {
      * @param shaders
      *          The shaders.
      */
-    public void removeShaders(final @NonNull Shader ... shaders) {
-        this.shaders.removeAll(Arrays.asList(shaders));
-        updateCacheHash = true;
+    public void removeShaders(final Shader ... shaders) {
+        if (shaders != null) {
+            this.shaders.removeAll(Arrays.asList(shaders));
+            updateCacheHash = true;
+        }
     }
 
     /** Removes all shaders from the tile. */
