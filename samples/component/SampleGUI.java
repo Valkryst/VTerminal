@@ -13,6 +13,7 @@ import com.valkryst.VTerminal.printer.RectangleType;
 
 import javax.swing.Timer;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.io.IOException;
 
@@ -112,7 +113,7 @@ public class SampleGUI {
         // Populate the Progress Bar section.
         final ProgressBarBuilder progressBarBuilder = new ProgressBarBuilder();
         progressBarBuilder.setPosition(1, 12);
-        progressBarBuilder.setDimensions(20, 1);
+        progressBarBuilder.setDimensions(21, 1);
 
         final ProgressBar progressBar = progressBarBuilder.build();
         layer.addComponent(progressBar);
@@ -144,6 +145,6 @@ public class SampleGUI {
         // listeners of the components to itself.
         screen.addComponent(layer);
 
-        screen.addCanvasToFrame();
+        screen.addCanvasToFullScreenFrame(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice());
     }
 }
