@@ -45,10 +45,14 @@ public interface Shader {
      *          The result image.
      *
      * @throws NullPointerException
-     *           If the image or either color is null.
+     *           If the image is null.
      */
-    default BufferedImage swapColor(final @NonNull BufferedImage image, final @NonNull Color oldColor, final @NonNull Color newColor) {
+    default BufferedImage swapColor(final @NonNull BufferedImage image, final Color oldColor, final Color newColor) {
         final BufferedImage result = ImageCache.cloneImage(image);
+
+        if (oldColor == null || newColor == null) {
+            return result;
+        }
 
         final int newRGB = newColor.getRGB();
         final int oldRGB = oldColor.getRGB();
