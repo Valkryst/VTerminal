@@ -38,6 +38,9 @@ public class Screen {
     /** The last known tile-based position of the mouse. */
     private final Point mousePosition = new Point(0, 0);
 
+    /** The color palette of the Screen. Does not apply to child components. */
+    private ColorPalette colorPalette;
+
     /**
      * Constructs a new 80x40 Screen.
      *
@@ -130,8 +133,15 @@ public class Screen {
              frame.dispose();
             }
         });
+        frame.setBackground(colorPalette.getDefaultBackground());
+        frame.setForeground(colorPalette.getDefaultForeground());
         frame.setVisible(true);
 
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         draw();
 
         return frame;
@@ -453,6 +463,8 @@ public class Screen {
         if (colorPalette == null) {
             return;
         }
+
+        this.colorPalette = colorPalette;
 
         for (int y = 0 ; y < tiles.getHeight() ; y++) {
             for (int x = 0 ; x < tiles.getWidth() ; x++) {
