@@ -44,8 +44,7 @@ public class Screen {
     private ColorPalette colorPalette;
 
     /**
-     * Constructs a new 80x40 Screen with the 18pt DejaVu Sans Mono
-     * font.
+     * Constructs a new 80x40 Screen with the 18pt DejaVu Sans Mono font.
      *
      * @throws IOException
      *          If an IOException occurs while loading the font.
@@ -53,6 +52,22 @@ public class Screen {
      */
     public Screen() throws IOException {
         this(FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1));
+    }
+
+    /**
+     * Constructs a new Screen with the 18pt DejaVu Sans Mono font.
+     *
+     * @param width
+     *          The width, in tiles, of the screen.
+     *
+     * @param height
+     *          The height, in tiles, of the screen.
+     *
+     * @throws IOException
+     *          If an IOException occurs while loading the font.
+     */
+    public Screen(final int width, final int height) throws IOException {
+        this(width, height, FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1));
     }
 
     /**
