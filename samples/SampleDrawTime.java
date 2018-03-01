@@ -1,11 +1,12 @@
-
-
 import com.valkryst.VTerminal.Screen;
 import com.valkryst.VTerminal.Tile;
+import com.valkryst.VTerminal.builder.LayerBuilder;
+import com.valkryst.VTerminal.component.Layer;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +19,12 @@ public class SampleDrawTime {
         final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
 
         final Screen screen = new Screen(font);
+
+        final LayerBuilder layerBuilder = new LayerBuilder();
+        layerBuilder.setDimensions(new Dimension(screen.getWidth(), screen.getHeight()));
+        final Layer layer = layerBuilder.build();
+        screen.addComponent(layer);
+
         screen.addCanvasToFrame();
 
         List<Long> measurements = new ArrayList<>();
@@ -32,7 +39,7 @@ public class SampleDrawTime {
 
             for (int y = 0 ; y < screen.getHeight() ; y++) {
                 for (int x = 0 ; x < screen.getWidth() ; x++) {
-                    tile = screen.getTileAt(x, y);
+                    tile = layer.getTileAt(x, y);
 
                     tile.setBackgroundColor(backgroundColor);
                     tile.setForegroundColor(foregroundColor);
