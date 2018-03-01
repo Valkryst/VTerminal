@@ -21,12 +21,6 @@ public class SetForegroundColorTest {
         Assert.assertEquals(character.getForegroundColor(), Color.RED);
     }
 
-    @Test(expected=NullPointerException.class)
-    public void withNullColor() {
-        character.setForegroundColor(Color.RED);
-        character.setForegroundColor(null);
-    }
-
     @Test
     public void withColorThatIsTheSameAsTheExistingForegroundColor() {
         character.setForegroundColor(character.getForegroundColor());
