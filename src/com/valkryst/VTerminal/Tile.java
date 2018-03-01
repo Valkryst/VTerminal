@@ -72,6 +72,7 @@ public class Tile {
     public void reset() {
         removeAllShaders();
 
+        cacheHash = 0;
         updateCacheHash = true;
 
         character = ' ';
@@ -111,8 +112,10 @@ public class Tile {
 
         foregroundAndBackgroundColorEqual = otherTile.isForegroundAndBackgroundColorEqual();
 
-        cacheHash = otherTile.getCacheHash();
-        updateCacheHash = true;
+        if (cacheHash != otherTile.getCacheHash()) {
+            cacheHash = otherTile.getCacheHash();
+            updateCacheHash = true;
+        }
     }
 
     /** Updates the cache hash value. */
