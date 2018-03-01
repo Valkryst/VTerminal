@@ -41,7 +41,7 @@ public final class FontLoader {
      * @throws IOException
      *         If an IOException occurs while loading the font.
      */
-    public static Font loadFont(final @NonNull String spriteSheetPath, final @NonNull String characterDataPath, final int scale) throws IOException {
+    public static Font loadFont(final @NonNull String spriteSheetPath, final @NonNull String characterDataPath, final double scale) throws IOException {
         if (spriteSheetPath.isEmpty()) {
             throw new IllegalArgumentException("The sprite sheet path cannot be empty.");
         }
@@ -77,7 +77,7 @@ public final class FontLoader {
      * @throws IOException
      *         If an IOException occurs while loading the font.
      */
-    public static Font loadFontFromJar(final @NonNull String spriteSheetPath, final @NonNull String characterDataPath, final int scale) throws IOException {
+    public static Font loadFontFromJar(final @NonNull String spriteSheetPath, final @NonNull String characterDataPath, final double scale) throws IOException {
         if (spriteSheetPath.isEmpty()) {
             throw new IllegalArgumentException("The sprite sheet path cannot be empty.");
         }
@@ -115,8 +115,8 @@ public final class FontLoader {
      * @throws IOException
      *         If an IOException occurs while loading the font.
      */
-    public static Font loadFont(final @NonNull InputStream spriteSheet, final @NonNull InputStream characterData, int scale) throws IOException {
-        if (scale < 1) {
+    public static Font loadFont(final @NonNull InputStream spriteSheet, final @NonNull InputStream characterData, double scale) throws IOException {
+        if (scale <= 0) {
             scale = 1;
         }
 
