@@ -55,11 +55,6 @@
         </dependency>
         <dependency>
             <groupId>com.github.Valkryst</groupId>
-            <artifactId>VRadio</artifactId>
-            <version>1.2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.Valkryst</groupId>
             <artifactId>VJSON</artifactId>
             <version>d3313e4</version>
         </dependency>
