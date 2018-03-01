@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class SampleGUI {
     public static void main(final String[] args) throws IOException {
-        final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1);
+        final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/bitmap.png", "Fonts/DejaVu Sans Mono/data.fnt", 0.41);
 
         final Dimension dimensions = new Dimension(80, 24);
         final Screen screen = new Screen(dimensions, font);
@@ -145,7 +145,7 @@ public class SampleGUI {
         // listeners of the components to itself.
         screen.addComponent(layer);
 
-        //screen.addCanvasToFrame();
-        screen.addCanvasToFullScreenFrame(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice());
+        screen.addCanvasToFrame();
+        //screen.addCanvasToFullScreenFrame(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice());
     }
 }
