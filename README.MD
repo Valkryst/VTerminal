@@ -10,6 +10,7 @@ The project is currently in it's BETA phase. During this phase, the API is being
 * [JavaDoc Documentation](https://valkryst.github.io/VTerminal/)
 * [Usage Guide](https://github.com/Valkryst/VTerminal/wiki)
     * [More Examples](https://github.com/Valkryst/VTerminal/tree/master/test/com/valkryst/VTerminal/samples)
+* [Resolving Compatibility & Render Issues](https://github.com/Valkryst/VTerminal/wiki/Resolving-Compatibility-&-Render-Issues)
 
 
 ## Jar Files & Maven
