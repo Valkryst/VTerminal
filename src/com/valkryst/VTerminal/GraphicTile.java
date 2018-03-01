@@ -45,14 +45,8 @@ public class GraphicTile extends Tile {
 
         super.setUnderlined(tile.isUnderlined());
         super.setUnderlineThickness(tile.getUnderlineThickness());
-    }
 
-    @Override
-    public void updateCacheHash() {
-        if (updateCacheHash) {
-            super.updateCacheHash = false;
-            super.cacheHash = Objects.hash(super.getCharacter(), super.getBackgroundColor(), super.getShaders());
-        }
+        cacheHash = Objects.hash(super.getCharacter(), super.getBackgroundColor(), super.getForegroundColor(), super.getShaders());
     }
 
     /**
@@ -101,7 +95,7 @@ public class GraphicTile extends Tile {
                 }
             }
 
-            updateCacheHash = true;
+            cacheHash = Objects.hash(super.getCharacter(), super.getBackgroundColor(), super.getForegroundColor(), shaders);
         }
     }
 }
