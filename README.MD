@@ -35,14 +35,6 @@ Dependency:
         <artifactId>VTerminal</artifactId>
         <version>2.20.0-BETA</version>
     </dependency>
-    
-You may also need to add VRadio as a dependency:
-
-    <dependency>
-	    <groupId>com.github.Valkryst</groupId>
-	    <artifactId>VRadio</artifactId>
-	    <version>1.2.0</version>
-	</dependency>
 
 ### Jar
 
