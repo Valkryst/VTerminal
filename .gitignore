@@ -71,6 +71,7 @@ $RECYCLE.BIN/
 
 
 # Project Specific
+*.iml
 out/
 log/
 .idea/
