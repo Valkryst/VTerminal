@@ -94,6 +94,7 @@ public class Component {
                 final Tile screenTile = grid.getTileAt(xPosition, yPosition);
 
                 if (componentTile != null && screenTile != null) {
+                    componentTile.updateCacheHash();
                     screenTile.copy(componentTile);
                 }
             }
