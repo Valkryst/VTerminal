@@ -20,8 +20,6 @@ import java.util.Objects;
 public class Tile {
     /** The hash value, of the tile, used by the image cache. */
     @Getter protected int cacheHash;
-    /** Whether or not to update the cache hash. */
-    protected boolean updateCacheHash;
 
     /** The shaders to run on each image. */
     @Getter private final List<Shader> shaders = new LinkedList<>();
@@ -72,9 +70,6 @@ public class Tile {
     public void reset() {
         removeAllShaders();
 
-        cacheHash = 0;
-        updateCacheHash = true;
-
         character = ' ';
         isHidden = false;
         backgroundColor = Color.BLACK;
@@ -84,6 +79,8 @@ public class Tile {
         underlineThickness = 2;
 
         foregroundAndBackgroundColorEqual = false;
+
+        cacheHash = Objects.hash(character, backgroundColor, foregroundColor, shaders);
     }
 
     /**
@@ -112,16 +109,9 @@ public class Tile {
 
         foregroundAndBackgroundColorEqual = otherTile.isForegroundAndBackgroundColorEqual();
 
-        if (cacheHash != otherTile.getCacheHash()) {
+        if (cacheHash == otherTile.getCacheHash()) {
             cacheHash = otherTile.getCacheHash();
-            updateCacheHash = true;
-        }
-    }
-
-    /** Updates the cache hash value. */
-    public void updateCacheHash() {
-        if (updateCacheHash) {
-            updateCacheHash = false;
+        } else {
             cacheHash = Objects.hash(character, backgroundColor, foregroundColor, shaders);
         }
     }
@@ -182,7 +172,8 @@ public class Tile {
     public void setCharacter(final char character) {
         if (this.character != character) {
             this.character = character;
-            updateCacheHash = true;
+
+            cacheHash = Objects.hash(character, backgroundColor, foregroundColor, shaders);
         }
     }
 
@@ -196,8 +187,9 @@ public class Tile {
         if (color != null) {
             if (backgroundColor.equals(color) == false) {
                 backgroundColor = color;
-                updateCacheHash = true;
                 foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
+
+                cacheHash = Objects.hash(character, backgroundColor, foregroundColor, shaders);
             }
         }
     }
@@ -212,8 +204,9 @@ public class Tile {
         if (color != null) {
             if (foregroundColor.equals(color) == false) {
                 foregroundColor = color;
-                updateCacheHash = true;
                 foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
+
+                cacheHash = Objects.hash(character, backgroundColor, foregroundColor, shaders);
             }
         }
     }
@@ -225,11 +218,11 @@ public class Tile {
      *        Whether or not the tile is flipped horizontally.
      */
     public void setFlippedHorizontally(final boolean isFlippedHorizontally) {
-        updateCacheHash = true;
-
         for (final Shader shader : shaders) {
             if (shader instanceof FlipShader) {
                 ((FlipShader) shader).setFlippedHorizontally(isFlippedHorizontally);
+
+                cacheHash = Objects.hash(character, backgroundColor, foregroundColor, shaders);
                 return;
             }
         }
@@ -237,6 +230,8 @@ public class Tile {
         final FlipShader flipShader = new FlipShader();
         flipShader.setFlippedHorizontally(isFlippedHorizontally);
         shaders.add(flipShader);
+
+        cacheHash = Objects.hash(character, backgroundColor, foregroundColor, shaders);
     }
 
     /**
@@ -246,11 +241,11 @@ public class Tile {
      *        Whether or not the tile is flipped vertically.
      */
     public void setFlippedVertically(final boolean isFlippedVertically) {
-        updateCacheHash = true;
-
         for (final Shader shader : shaders) {
             if (shader instanceof FlipShader) {
                 ((FlipShader) shader).setFlippedVertically(isFlippedVertically);
+
+                cacheHash = Objects.hash(character, backgroundColor, foregroundColor, shaders);
                 return;
             }
         }
@@ -258,6 +253,8 @@ public class Tile {
         final FlipShader flipShader = new FlipShader();
         flipShader.setFlippedVertically(isFlippedVertically);
         shaders.add(flipShader);
+
+        cacheHash = Objects.hash(character, backgroundColor, foregroundColor, shaders);
     }
 
     /**
@@ -283,7 +280,8 @@ public class Tile {
     public void addShaders(final Shader ... shaders) {
         if (shaders != null) {
             this.shaders.addAll(Arrays.asList(shaders));
-            updateCacheHash = true;
+
+            cacheHash = Objects.hash(character, backgroundColor, foregroundColor, shaders);
         }
     }
 
@@ -296,13 +294,15 @@ public class Tile {
     public void removeShaders(final Shader ... shaders) {
         if (shaders != null) {
             this.shaders.removeAll(Arrays.asList(shaders));
-            updateCacheHash = true;
+
+            cacheHash = Objects.hash(character, backgroundColor, foregroundColor, shaders);
         }
     }
 
     /** Removes all shaders from the tile. */
     public void removeAllShaders() {
         shaders.clear();
-        updateCacheHash = true;
+
+        cacheHash = Objects.hash(character, backgroundColor, foregroundColor, shaders);
     }
 }
