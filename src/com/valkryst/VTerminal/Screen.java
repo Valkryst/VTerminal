@@ -8,6 +8,7 @@ import com.valkryst.VTerminal.misc.ImageCache;
 import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.Getter;
 import lombok.NonNull;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,6 +32,8 @@ public class Screen {
     /** The tiles. */
     @Getter private final TileGrid tiles;
 
+    private final int[][] tileHashes;
+
     /** The components on the screen. */
     private final List<Component> components = new ArrayList<>(0);
 
@@ -42,6 +45,8 @@ public class Screen {
 
     /** The color palette of the Screen. Does not apply to child components. */
     private ColorPalette colorPalette;
+
+    private boolean isInFullScreenExclusiveMode = false;
 
     /**
      * Constructs a new 80x40 Screen with the 18pt DejaVu Sans Mono font.
@@ -113,6 +118,7 @@ public class Screen {
      */
     public Screen(final @NonNull Dimension dimensions, final @NonNull Font font) {
         tiles = new TileGrid(dimensions, new Point(0, 0));
+        tileHashes = new int[dimensions.height][dimensions.width];
         setColorPalette(new ColorPalette());
 
         this.imageCache = new ImageCache(font);
@@ -156,7 +162,8 @@ public class Screen {
         frame.setIgnoreRepaint(true);
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(final WindowEvent e) {
-             frame.dispose();
+                frame.dispose();
+                System.exit(0);
             }
         });
         frame.setBackground(colorPalette.getDefaultBackground());
@@ -169,9 +176,7 @@ public class Screen {
         // to initialize, or something like that.
         try {
             Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        } catch (final InterruptedException ignored) {}
 
         draw();
 
@@ -191,13 +196,11 @@ public class Screen {
      *
      * @throws NullPointerException
      *          If the device is null.
-     *
-     * @throws IllegalStateException
-     *          If full-screen exclusive mode is not supported on the device.
      */
-    public Frame addCanvasToFullScreenFrame(final @NonNull GraphicsDevice device) throws IllegalStateException {
+    public Frame addCanvasToFullScreenFrame(final @NonNull GraphicsDevice device) {
         if (! device.isFullScreenSupported()) {
-            throw new IllegalStateException("Full screen is not supported for the device '" + device.getIDstring() + "'.");
+            LogManager.getLogger().error("Full screen is not supported for the device '" + device.getIDstring() + "'.");
+            addCanvasToFrame();
         }
 
         // Resize the font, so that it fills the screen properly.
@@ -215,21 +218,23 @@ public class Screen {
 
         // Create the frame.
         final Frame frame = new Frame();
-        frame.add(canvas);
         frame.setUndecorated(true);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setIgnoreRepaint(true);
-        frame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(final WindowEvent e) {
-                frame.dispose();
-            }
-        });
         frame.setBackground(colorPalette.getDefaultBackground());
         frame.setForeground(colorPalette.getDefaultForeground());
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(final WindowEvent e) {
+                device.setFullScreenWindow(null);
+                frame.dispose();
+                System.exit(0);
+            }
+        });
+        frame.add(canvas);
+        frame.setResizable(false);
+        frame.setIgnoreRepaint(true);
         frame.setVisible(true);
 
         device.setFullScreenWindow(frame);
+        isInFullScreenExclusiveMode = true;
 
         // There's a rare, hard to reproduce, issue where, on the first
         // render of a Screen, it may just display a blank white canvas.
@@ -237,9 +242,7 @@ public class Screen {
         // to initialize, or something like that.
         try {
             Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        } catch (final InterruptedException ignored) {}
 
         draw();
 
@@ -283,24 +286,17 @@ public class Screen {
                     gc.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
 
                     // Draw every tile, whose hash has changed, onto the canvas.
-                    Tile tile;
-                    int xPosition, yPosition;
-                    int oldHash, newHash;
-
                     for (int y = 0; y < tiles.getHeight(); y++) {
-                        yPosition = tiles.getYPosition() + y;
+                        final int yPosition = tiles.getYPosition() + y;
 
                         for (int x = 0; x < tiles.getWidth(); x++) {
-                            xPosition = tiles.getXPosition() + x;
+                            final int xPosition = tiles.getXPosition() + x;
 
-                            tile = tiles.getTileAt(x, y);
+                            final Tile tile = tiles.getTileAt(x, y);
 
                             // Determine if hash has changed.
-                            oldHash = tile.getCacheHash();
-                            tile.updateCacheHash();
-                            newHash = tile.getCacheHash();
-
-                            if (oldHash != newHash) {
+                            if (tileHashes[y][x] == 0 || tileHashes[y][x] != tile.getCacheHash()) {
+                                tileHashes[y][x] = tile.getCacheHash();
                                 tiles.getTileAt(x, y).draw(gc, imageCache, xPosition, yPosition);
                             }
                         }
@@ -309,7 +305,13 @@ public class Screen {
                     gc.dispose();
                 } catch (final NullPointerException | IllegalStateException e) {
                     if (bs == null) {
-                        canvas.createBufferStrategy(2);
+                        // Create Canvas BufferStrategy
+                        if (isInFullScreenExclusiveMode && SystemUtils.IS_OS_WINDOWS) {
+                            canvas.createBufferStrategy(1);
+                        } else {
+                            canvas.createBufferStrategy(2);
+                        }
+
                         draw();
                         return;
                     }
@@ -319,16 +321,7 @@ public class Screen {
                 }
             } while (bs.contentsRestored()); // Repeat render if drawing buffer contents were restored.
 
-            try {
-                bs.show();
-            } catch (final IllegalStateException e) {
-                if (canvas.getParent() == null || canvas.getParent() instanceof Frame == false) {
-                    LogManager.getLogger().error(e);
-                } else {
-                    ((Frame) canvas.getParent()).dispose();
-                    System.exit(0);
-                }
-            }
+            bs.show();
         } while (bs.contentsLost()); // Repeat render if drawing buffer was lost.
     }
 
