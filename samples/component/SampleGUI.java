@@ -145,6 +145,7 @@ public class SampleGUI {
         // listeners of the components to itself.
         screen.addComponent(layer);
 
+        //screen.addCanvasToFrame();
         screen.addCanvasToFullScreenFrame(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice());
     }
 }
