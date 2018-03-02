@@ -159,18 +159,18 @@ public final class ImageCache {
 
 
         final int backgroundRGB = character.getBackgroundColor().getRGB();
-        final int backgroundA = (backgroundRGB >> 24) & 0xFF;
-        final int backgroundR = (backgroundRGB >> 16) & 0xFF;
-        final int backgroundG = (backgroundRGB >> 8) & 0xFF;
-        final int backgroundB = backgroundRGB & 0xFF;
+        // final int backgroundA = (backgroundRGB >> 24) & 0xFF;
+        // final int backgroundR = (backgroundRGB >> 16) & 0xFF;
+        // final int backgroundG = (backgroundRGB >> 8) & 0xFF;
+        // final int backgroundB = backgroundRGB & 0xFF;
 
         final int foregroundRGB = character.getForegroundColor().getRGB();
-        final int foregroundA = (foregroundRGB >> 24) & 0xFF;
+        // final int foregroundA = (foregroundRGB >> 24) & 0xFF;
         final int foregroundR = (foregroundRGB >> 16) & 0xFF;
         final int foregroundG = (foregroundRGB >> 8) & 0xFF;
         final int foregroundB = foregroundRGB & 0xFF;
 
-        final boolean isTile = character instanceof GraphicTile;
+        final boolean isTile = ! (character instanceof GraphicTile);
 
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
@@ -187,22 +187,14 @@ public final class ImageCache {
 
                 if (isTransparent) {
                     image.setRGB(x, y, backgroundRGB);
-                } else if (isTile == false) {
+                    continue;
+                }
+
+                if (isTile) {
                     if (alpha == 255) {
                         image.setRGB(x, y, foregroundRGB);
                     } else {
-                        // Blend the fore/background colors using alpha blending
-                        int alphaBlend = backgroundA * (255 - foregroundA) + foregroundA;
-                        int redBlend = backgroundR * (255 - foregroundA) + (foregroundR * foregroundA);
-                        int greenBlend = backgroundG * (255 - foregroundA) + (foregroundG * foregroundA);
-                        int blueBlend = backgroundB * (255 - foregroundA) + (foregroundB * foregroundA);
-
-                        alphaBlend = alphaBlend & 0xFF;
-                        redBlend = redBlend & 0xFF;
-                        greenBlend = greenBlend & 0xFF;
-                        blueBlend = blueBlend & 0xFF;
-
-                        final int blendedRGBA = (alphaBlend << 24) + (redBlend << 16) + (greenBlend << 8) + blueBlend;
+                        final int blendedRGBA = (alpha << 24) + (foregroundR << 16) + (foregroundG << 8) + foregroundB;
                         image.setRGB(x, y, blendedRGBA);
                     }
                 }
