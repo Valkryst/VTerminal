@@ -56,7 +56,7 @@ public class Screen {
      *
      */
     public Screen() throws IOException {
-        this(FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 0.41));
+        this(FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1));
     }
 
     /**
@@ -72,7 +72,7 @@ public class Screen {
      *          If an IOException occurs while loading the font.
      */
     public Screen(final int width, final int height) throws IOException {
-        this(width, height, FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 0.41));
+        this(width, height, FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1));
     }
 
     /**
