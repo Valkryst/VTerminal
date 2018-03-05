@@ -3,7 +3,9 @@ package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.Screen;
 import com.valkryst.VTerminal.Tile;
+import com.valkryst.VTerminal.TileGrid;
 import com.valkryst.VTerminal.builder.TextAreaBuilder;
+import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.Getter;
 import lombok.NonNull;
@@ -32,7 +34,7 @@ public class TextArea extends Component {
     @Getter @Setter private Color backgroundColor;
 
     /** Whether or not the TextArea can be edited. */
-    @Getter private boolean editable;
+    @Getter @Setter private boolean editable;
 
     /** The current position of the caret. */
     @Getter private Point caretPosition = new Point(0, 0);
@@ -91,6 +93,8 @@ public class TextArea extends Component {
         if (super.getEventListeners().size() > 0) {
             return;
         }
+        
+        final TileGrid tiles = super.tiles;
 
         final MouseListener mouseListener = new MouseListener() {
             @Override
@@ -103,8 +107,9 @@ public class TextArea extends Component {
                     return;
                 }
 
-                final int columnIndexInArea = (e.getX() / parentScreen.getImageCache().getFont().getWidth()) - TextArea.super.tiles.getXPosition();
-                final int rowIndexInArea = (e.getY() / parentScreen.getImageCache().getFont().getHeight()) - TextArea.super.tiles.getYPosition();
+                final Font font = parentScreen.getImageCache().getFont();
+                final int columnIndexInArea = (e.getX() / font.getWidth()) - tiles.getXPosition();
+                final int rowIndexInArea = (e.getY() / font.getHeight()) - tiles.getYPosition();
 
                 int dx = columnIndexInArea - caretPosition.x;
                 int dy = rowIndexInArea - caretPosition.y;
@@ -156,12 +161,13 @@ public class TextArea extends Component {
                 final Matcher matcher = allowedCharacterPattern.matcher(character + "");
 
                 if (matcher.matches()) {
-                    changeCharacter(caretPosition.x, caretPosition.y, character);
+                    tiles.getTileAt(caretPosition.x, caretPosition.y).setCharacter(character);
+                    enteredText[caretPosition.y][caretPosition.x] = character;
 
-                    final boolean caretAtEndOfLine = caretPosition.x == TextArea.super.tiles.getWidth() - 1;
+                    final boolean caretAtEndOfLine = caretPosition.x == tiles.getWidth() - 1;
 
                     if (caretAtEndOfLine) {
-                        if (caretPosition.y < TextArea.super.tiles.getHeight() - 1) {
+                        if (caretPosition.y < tiles.getHeight() - 1) {
                             moveCaretDown();
                             moveCaretToStartOfLine();
                         }
@@ -184,7 +190,7 @@ public class TextArea extends Component {
                 switch (keyCode) {
                     // Move the caret to the first position of the next row:
                     case KeyEvent.VK_ENTER: {
-                        boolean canWork = caretPosition.y < TextArea.super.tiles.getHeight() - 1;
+                        boolean canWork = caretPosition.y < tiles.getHeight() - 1;
 
                         if (canWork) {
                             moveCaretDown();
@@ -197,7 +203,7 @@ public class TextArea extends Component {
                     // Delete the character to the left of the caret, then move the caret one position left:
                     case KeyEvent.VK_BACK_SPACE: {
                         final boolean caretAtStartOfLine = caretPosition.x == 0;
-                        final boolean caretAtEndOfLine = caretPosition.x == TextArea.super.tiles.getWidth() - 1;
+                        final boolean caretAtEndOfLine = caretPosition.x == tiles.getWidth() - 1;
 
                         if (caretAtStartOfLine) {
                             if (caretPosition.y > 0) {
@@ -205,7 +211,7 @@ public class TextArea extends Component {
                                 moveCaretToEndOfLine();
                             }
                         } else if (caretAtEndOfLine) {
-                            final Tile currentChar = TextArea.super.tiles.getTileAt(caretPosition.x, caretPosition.y);
+                            final Tile currentChar = tiles.getTileAt(caretPosition.x, caretPosition.y);
 
                             if (currentChar.getCharacter() == ' ') {
                                 moveCaretLeft();
@@ -284,8 +290,8 @@ public class TextArea extends Component {
 
                     // Move the caret one position to the right:
                     case KeyEvent.VK_RIGHT: {
-                        boolean moveToNextLine = caretPosition.x == TextArea.super.tiles.getWidth() - 1;
-                        moveToNextLine &= caretPosition.y < TextArea.super.tiles.getHeight() - 1;
+                        boolean moveToNextLine = caretPosition.x == tiles.getWidth() - 1;
+                        moveToNextLine &= caretPosition.y < tiles.getHeight() - 1;
 
                         if (moveToNextLine) {
                             moveCaretDown();
@@ -396,23 +402,6 @@ public class TextArea extends Component {
         }
     }
 
-    /**
-     * Changes the visual character at the specified location.
-     *
-     * @param columnIndex
-     *         The column index.
-     *
-     * @param rowIndex
-     *         The row index.
-     *
-     * @param character
-     *         The new character.
-     */
-    private void changeCharacter(final int columnIndex, final int rowIndex, final char character) {
-        super.tiles.getTileAt(columnIndex, rowIndex).setCharacter(character);
-        enteredText[rowIndex][columnIndex] = character;
-    }
-
     private void updateDisplayedCharacters() {
         for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
             for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
@@ -420,17 +409,6 @@ public class TextArea extends Component {
             }
         }
 
-        TextArea.super.redrawFunction.run();
-    }
-
-    /**
-     * Sets whether or not the area is editable.
-     *
-     * @param isEditable
-     *        Whether or not the area is editable.
-     */
-    public void setEditable(final boolean isEditable) {
-        this.editable = isEditable;
-        changeCaretPosition(caretPosition.x, caretPosition.y);
+        super.redrawFunction.run();
     }
 }
