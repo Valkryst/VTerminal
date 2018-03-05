@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public final class TileGrid {
     /** An empty array of tiles. */
@@ -22,6 +23,9 @@ public final class TileGrid {
 
     /** The child grids that reside on the grid. */
     private final List<TileGrid> childGrids = new ArrayList<>();
+
+    /** The lock used to control access to the children. */
+    private final ReentrantReadWriteLock childLock = new ReentrantReadWriteLock();
 
     /**
      * Constructs a new TileGrid.
@@ -98,9 +102,13 @@ public final class TileGrid {
         }
 
         // Draw all children onto this grid.
+        childLock.readLock().lock();
+
         for (final TileGrid child : childGrids) {
             child.copyOnto(this);
         }
+
+        childLock.readLock().unlock();
 
 
         // Draw this grid onto the input grid.
@@ -150,9 +158,13 @@ public final class TileGrid {
             }
         }
 
+        childLock.readLock().lock();
+
         for (final TileGrid child : childGrids) {
             child.convertToGraphicTileGrid();
         }
+
+        childLock.readLock().unlock();
     }
 
     /**
@@ -168,9 +180,13 @@ public final class TileGrid {
             }
         }
 
+        childLock.readLock().lock();
+
         for (final TileGrid child : childGrids) {
             child.convertToTileGrid();
         }
+
+        childLock.readLock().unlock();
     }
 
     /**
@@ -187,7 +203,9 @@ public final class TileGrid {
             return;
         }
 
+        childLock.writeLock().lock();
         childGrids.add(child);
+        childLock.writeLock().unlock();
     }
 
     /**
@@ -210,13 +228,17 @@ public final class TileGrid {
             return;
         }
 
+        childLock.writeLock().lock();
+
         if (existingChild == null || ! childGrids.contains(existingChild)) {
             addChild(newChild);
+            childLock.writeLock().unlock();
             return;
         }
 
         int indexOfExisting = childGrids.indexOf(existingChild);
         childGrids.add(indexOfExisting + 1, newChild);
+        childLock.writeLock().unlock();
     }
 
     /**
@@ -239,13 +261,17 @@ public final class TileGrid {
             return;
         }
 
+        childLock.writeLock().lock();
+
         if (existingChild == null || ! childGrids.contains(existingChild)) {
             addChild(newChild);
+            childLock.writeLock().unlock();
             return;
         }
 
         int indexOfExisting = childGrids.indexOf(existingChild);
         childGrids.add(indexOfExisting, newChild);
+        childLock.writeLock().unlock();
     }
 
     /**
@@ -261,7 +287,9 @@ public final class TileGrid {
             return;
         }
 
+        childLock.writeLock().unlock();
         childGrids.remove(child);
+        childLock.writeLock().unlock();
     }
 
     /**
@@ -274,7 +302,15 @@ public final class TileGrid {
      *          Whether or not the grid contains the child.
      */
     public boolean containsChild(final TileGrid child) {
-        return child != null && childGrids.contains(child);
+        if (child == null) {
+            return false;
+        }
+
+        childLock.readLock().lock();
+        final boolean containsChild = childGrids.contains(child);
+        childLock.readLock().unlock();
+
+        return containsChild;
 
     }
 
