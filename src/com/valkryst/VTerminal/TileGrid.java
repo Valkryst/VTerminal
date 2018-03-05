@@ -662,9 +662,20 @@ public final class TileGrid {
     }
 
     /**
-     * Sets the new x-axis coordinate of the grid within it's parent.
+     * Sets the new x/y-axis coordinates of the grid within it's parent.
      *
-     * Negative coordinates are ignored.
+     * @param x
+     *          The new x-axis coordinate.
+     *
+     * @param y
+     *          The new y-axis coordinate.
+     */
+    public void setPosition(final int x, final int y) {
+        position.setLocation(x, y);
+    }
+
+    /**
+     * Sets the new x-axis coordinate of the grid within it's parent.
      *
      * @param x
      *          The new coordinate.
@@ -675,8 +686,6 @@ public final class TileGrid {
 
     /**
      * Sets the new y-axis coordinate of the grid within it's parent.
-     *
-     * Negative coordinates are ignored.
      *
      * @param y
      *          The new coordinate.
