@@ -27,25 +27,6 @@ public class Component {
     /**
      * Constructs a new Component.
      *
-     * @param width
-     *          The width.
-     *
-     * @param height
-     *          The height.
-     *
-     * @param x
-     *          The x-axis position of the component within it's parent.
-     *
-     * @param y
-     *          The y-axis position of the component within it's parent.
-     */
-    public Component(final int width, final int height, final int x, final int y) {
-        this(new Dimension(width, height), new Point(x, y));
-    }
-
-    /**
-     * Constructs a new Component.
-     *
      * @param dimensions
      *          The dimensions of the component
      *
