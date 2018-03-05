@@ -241,10 +241,4 @@ public final class ImageCache {
 
         return destination;
     }
-
-    /** Invalidates all entries in the cache. */
-    public void invalidate() {
-        cachedImages.invalidateAll();
-        cachedImages.cleanUp();
-    }
 }

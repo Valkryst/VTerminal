@@ -209,7 +209,6 @@ public class Screen {
         final double scaleX = displayMode.getWidth() / canvas.getPreferredSize().getWidth();
         final double scaleY = displayMode.getHeight() / canvas.getPreferredSize().getHeight();
         imageCache.getFont().resize(scaleX, scaleY);
-        imageCache.invalidate();
 
         // Resize the canvas, so that it has enough room to fit the resized font.
         final int pixelWidth = tiles.getWidth() * imageCache.getFont().getWidth();
