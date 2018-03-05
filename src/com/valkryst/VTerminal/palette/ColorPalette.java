@@ -41,8 +41,8 @@ public class ColorPalette {
     @Getter private final Color radioButton_pressedBackground = defaultBackground;
     @Getter private final Color radioButton_pressedForeground = new Color(0xFFF9CA00, true);
 
-    @Getter private final Color textArea_defaultBackground = new Color(0xFF68D0FF, true);
-    @Getter private final Color textArea_defaultForeground = new Color(0xFF8E999E, true);
+    @Getter private final Color textArea_defaultBackground = new Color(0xFF8E999E, true);
+    @Getter private final Color textArea_defaultForeground = new Color(0xFF68D0FF, true);
     @Getter private final Color textArea_caretBackground = textArea_defaultForeground;
     @Getter private final Color textArea_caretForeground = textArea_defaultBackground;
 }
