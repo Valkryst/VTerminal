@@ -59,12 +59,8 @@ public class SampleGUI {
         printer.print(layer.getTiles(), new Point(22, 0));
 
         printer.setHeight(18);
-        printer.setTitle("Dynamic Text Area");
-        printer.print(layer.getTiles(), new Point(22, 7));
-
-        printer.setHeight(15);
         printer.setTitle("Field Text Area");
-        printer.print(layer.getTiles(), new Point(22, 11));
+        printer.print(layer.getTiles(), new Point(22, 7));
 
 
 
@@ -158,16 +154,9 @@ public class SampleGUI {
         textAreaBuilder.setPosition(23, 1);
         layer.addComponent(textAreaBuilder.build());
 
-        // Populate the Dynamic Text Area Section.
-        textAreaBuilder.setHeight(3);
-        textAreaBuilder.setMaxVerticalCharacters(6);
-        textAreaBuilder.setPosition(23, 8);
-        layer.addComponent(textAreaBuilder.build());
-
         // Populate the Field Text Area section.
         textAreaBuilder.setHeight(1);
-        textAreaBuilder.setMaxVerticalCharacters(1);
-        textAreaBuilder.setPosition(23, 12);
+        textAreaBuilder.setPosition(23, 8);
         layer.addComponent(textAreaBuilder.build());
 
 
