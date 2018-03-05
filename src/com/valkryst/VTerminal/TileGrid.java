@@ -548,16 +548,6 @@ public final class TileGrid {
             endColumn = tiles[0].length;
         }
 
-        // Don't allow the start/ending column values to be equal.
-        if (startColumn == endColumn) {
-            return EMPTY_2D_ARRAY;
-        }
-
-        // Don't allow the start/ending row values to be equal.
-        if (startRow == endRow) {
-            return EMPTY_2D_ARRAY;
-        }
-
         // Create array.
         final Tile[][] resultTiles = new Tile[endRow - startRow][endColumn - startColumn];
 
