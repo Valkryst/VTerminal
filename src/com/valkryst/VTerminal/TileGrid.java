@@ -85,6 +85,44 @@ public final class TileGrid {
         }
     }
 
+    /**
+     * Draws all of this grid's children onto itself, then draws this grid
+     * onto another grid.
+     *
+     * @param grid
+     *          The grid to draw this grid onto.
+     */
+    public void drawOnto(final TileGrid grid) {
+        if (grid == null) {
+            return;
+        }
+
+        // Draw all children onto this grid.
+        for (final TileGrid child : childGrids) {
+            child.drawOnto(this);
+        }
+
+
+        // Draw this grid onto the input grid.
+        final int xOffset = position.x;
+        final int yOffset = position.y;
+
+        for (int y = 0 ; y < tiles.length ; y++) {
+            final int yPosition = yOffset + y;
+
+            for (int x = 0 ; x < tiles[0].length ; x++) {
+                final int xPosition = xOffset + x;
+
+                final Tile componentTile = tiles[y][x];
+                final Tile screenTile = grid.getTileAt(xPosition, yPosition);
+
+                if (componentTile != null && screenTile != null) {
+                    screenTile.copy(componentTile);
+                }
+            }
+        }
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
