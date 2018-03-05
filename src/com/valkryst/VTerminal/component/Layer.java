@@ -1,7 +1,6 @@
 package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.Tile;
-import com.valkryst.VTerminal.TileGrid;
 import com.valkryst.VTerminal.builder.LayerBuilder;
 import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.ToString;
@@ -40,17 +39,6 @@ public class Layer extends Component {
         }
     }
 
-    @Override
-    public void draw(final TileGrid grid) {
-        super.draw(grid);
-
-        componentsLock.readLock().lock();
-        for (final Component component : components) {
-            component.draw(grid);
-        }
-        componentsLock.readLock().unlock();
-    }
-
     /**
      * Adds a component to the layer.
      *
@@ -72,6 +60,7 @@ public class Layer extends Component {
 
         // Add the component
         componentsLock.writeLock().lock();
+        super.tiles.addChild(component.getTiles());
         components.add(component);
         componentsLock.writeLock().unlock();
 
@@ -92,6 +81,7 @@ public class Layer extends Component {
 
         // Remove the component
         componentsLock.writeLock().lock();
+        super.tiles.removeChild(component.getTiles());
         components.remove(component);
         componentsLock.writeLock().unlock();
 
@@ -110,6 +100,7 @@ public class Layer extends Component {
 
         for (final Component component : components) {
             // Remove the component
+            super.tiles.removeChild(component.getTiles());
             components.remove(component);
 
             // Remove the component's event listeners
