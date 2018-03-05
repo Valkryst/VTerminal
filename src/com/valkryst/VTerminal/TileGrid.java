@@ -86,20 +86,20 @@ public final class TileGrid {
     }
 
     /**
-     * Draws all of this grid's children onto itself, then draws this grid
-     * onto another grid.
+     * Copies the tiles of this grid's children onto this grid, then copies
+     * this grid's tiles onto another grid.
      *
      * @param grid
      *          The grid to draw this grid onto.
      */
-    public void drawOnto(final TileGrid grid) {
+    public void copyOnto(final TileGrid grid) {
         if (grid == null) {
             return;
         }
 
         // Draw all children onto this grid.
         for (final TileGrid child : childGrids) {
-            child.drawOnto(this);
+            child.copyOnto(this);
         }
 
 

@@ -255,7 +255,7 @@ public class Screen {
         componentsLock.readLock().lock();
 
         for (final Component component : components) {
-            component.getTiles().drawOnto(tiles);
+            component.getTiles().copyOnto(tiles);
         }
 
         componentsLock.readLock().unlock();
