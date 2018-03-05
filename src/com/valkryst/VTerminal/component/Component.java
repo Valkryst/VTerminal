@@ -52,36 +52,6 @@ public class Component {
     public void createEventListeners(final @NonNull Screen parentScreen) {}
 
     /**
-     * Draws the component onto a tile grid.
-     *
-     * @param grid
-     *          The grid.
-     */
-    public void draw(final TileGrid grid) {
-        if (grid == null) {
-            return;
-        }
-
-        final int xOffset = tiles.getXPosition();
-        final int yOffset = tiles.getYPosition();
-
-        for (int y = 0 ; y < tiles.getHeight() ; y++) {
-            final int yPosition = yOffset + y;
-
-            for (int x = 0 ; x < tiles.getWidth() ; x++) {
-                final int xPosition = xOffset + x;
-
-                final Tile componentTile = tiles.getTileAt(x, y);
-                final Tile screenTile = grid.getTileAt(xPosition, yPosition);
-
-                if (componentTile != null && screenTile != null) {
-                    screenTile.copy(componentTile);
-                }
-            }
-        }
-    }
-
-    /**
      * Determines whether or not a point intersects this component.
      *
      * @param point
