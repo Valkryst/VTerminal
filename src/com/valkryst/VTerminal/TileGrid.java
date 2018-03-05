@@ -204,7 +204,13 @@ public final class TileGrid {
         }
 
         childLock.writeLock().lock();
+
         childGrids.add(child);
+
+        for (final TileGrid c : childGrids) {
+            c.copyOnto(this);
+        }
+
         childLock.writeLock().unlock();
     }
 
@@ -238,6 +244,11 @@ public final class TileGrid {
 
         int indexOfExisting = childGrids.indexOf(existingChild);
         childGrids.add(indexOfExisting + 1, newChild);
+
+        for (final TileGrid child : childGrids) {
+            child.copyOnto(this);
+        }
+
         childLock.writeLock().unlock();
     }
 
@@ -271,6 +282,11 @@ public final class TileGrid {
 
         int indexOfExisting = childGrids.indexOf(existingChild);
         childGrids.add(indexOfExisting, newChild);
+
+        for (final TileGrid child : childGrids) {
+            child.copyOnto(this);
+        }
+
         childLock.writeLock().unlock();
     }
 
@@ -306,6 +322,10 @@ public final class TileGrid {
 
         // Remove the child.
         childGrids.remove(child);
+
+        for (final TileGrid c : childGrids) {
+            c.copyOnto(this);
+        }
 
         childLock.writeLock().unlock();
     }
