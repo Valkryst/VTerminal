@@ -94,11 +94,6 @@ public final class ImageCache {
         return image;
     }
 
-    /** @return The total number of cached images. */
-    public long totalCachedImages() {
-        return cachedImages.estimatedSize();
-    }
-
     /**
      * Loads a tile into the cache.
      *
@@ -245,5 +240,11 @@ public final class ImageCache {
         g2d.dispose();
 
         return destination;
+    }
+
+    /** Invalidates all entries in the cache. */
+    public void invalidate() {
+        cachedImages.invalidateAll();
+        cachedImages.cleanUp();
     }
 }
