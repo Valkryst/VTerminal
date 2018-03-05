@@ -130,7 +130,6 @@ public class TextArea extends Component {
                 }
 
                 updateDisplayedCharacters();
-                TextArea.super.redrawFunction.run();
             }
 
             @Override
@@ -171,7 +170,6 @@ public class TextArea extends Component {
                     }
 
                     updateDisplayedCharacters();
-                    TextArea.super.redrawFunction.run();
                 }
             }
 
@@ -192,7 +190,6 @@ public class TextArea extends Component {
                             moveCaretDown();
                             moveCaretToStartOfLine();
                             updateDisplayedCharacters();
-                            TextArea.super.redrawFunction.run();
                         }
                         break;
                     }
@@ -219,7 +216,6 @@ public class TextArea extends Component {
 
                         clearCurrentCell();
                         updateDisplayedCharacters();
-                        TextArea.super.redrawFunction.run();
                         break;
                     }
                 }
@@ -238,7 +234,6 @@ public class TextArea extends Component {
                     case KeyEvent.VK_DELETE: {
                         clearCurrentCell();
                         updateDisplayedCharacters();
-                        TextArea.super.redrawFunction.run();
                         break;
                     }
 
@@ -246,7 +241,6 @@ public class TextArea extends Component {
                     case KeyEvent.VK_HOME: {
                         moveCaretToStartOfLine();
                         updateDisplayedCharacters();
-                        TextArea.super.redrawFunction.run();
                         break;
                     }
 
@@ -254,7 +248,6 @@ public class TextArea extends Component {
                     case KeyEvent.VK_END: {
                         moveCaretToEndOfLine();
                         updateDisplayedCharacters();
-                        TextArea.super.redrawFunction.run();
                         break;
                     }
 
@@ -262,7 +255,6 @@ public class TextArea extends Component {
                     case KeyEvent.VK_PAGE_UP: {
                         moveCaretToFirstLine();
                         updateDisplayedCharacters();
-                        TextArea.super.redrawFunction.run();
                         break;
                     }
 
@@ -270,7 +262,6 @@ public class TextArea extends Component {
                     case KeyEvent.VK_PAGE_DOWN: {
                         moveCaretToLastLine();
                         updateDisplayedCharacters();
-                        TextArea.super.redrawFunction.run();
                         break;
                     }
 
@@ -287,7 +278,6 @@ public class TextArea extends Component {
                         }
 
                         updateDisplayedCharacters();
-                        TextArea.super.redrawFunction.run();
 
                         break;
                     }
@@ -305,7 +295,6 @@ public class TextArea extends Component {
                         }
 
                         updateDisplayedCharacters();
-                        TextArea.super.redrawFunction.run();
 
                         break;
                     }
@@ -314,7 +303,6 @@ public class TextArea extends Component {
                     case KeyEvent.VK_UP: {
                         moveCaretUp();
                         updateDisplayedCharacters();
-                        TextArea.super.redrawFunction.run();
                         break;
                     }
 
@@ -322,7 +310,6 @@ public class TextArea extends Component {
                     case KeyEvent.VK_DOWN: {
                         moveCaretDown();
                         updateDisplayedCharacters();
-                        TextArea.super.redrawFunction.run();
                         break;
                     }
                 }
@@ -432,6 +419,8 @@ public class TextArea extends Component {
                 super.tiles.getTileAt(x, y).setCharacter(enteredText[y][x]);
             }
         }
+
+        TextArea.super.redrawFunction.run();
     }
 
     /**
