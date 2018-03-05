@@ -239,35 +239,30 @@ public class TextArea extends Component {
                     // Erase the current character:
                     case KeyEvent.VK_DELETE: {
                         clearCurrentCell();
-                        updateDisplayedCharacters();
                         break;
                     }
 
                     // Move the caret to the first position on the left:
                     case KeyEvent.VK_HOME: {
                         moveCaretToStartOfLine();
-                        updateDisplayedCharacters();
                         break;
                     }
 
                     // Move the caret to the last position on the right:
                     case KeyEvent.VK_END: {
                         moveCaretToEndOfLine();
-                        updateDisplayedCharacters();
                         break;
                     }
 
                     // Move the caret to the first row:
                     case KeyEvent.VK_PAGE_UP: {
                         moveCaretToFirstLine();
-                        updateDisplayedCharacters();
                         break;
                     }
 
                     // Move the caret to the last row:
                     case KeyEvent.VK_PAGE_DOWN: {
                         moveCaretToLastLine();
-                        updateDisplayedCharacters();
                         break;
                     }
 
@@ -282,8 +277,6 @@ public class TextArea extends Component {
                         } else {
                             moveCaretLeft();
                         }
-
-                        updateDisplayedCharacters();
 
                         break;
                     }
@@ -300,25 +293,23 @@ public class TextArea extends Component {
                             moveCaretRight();
                         }
 
-                        updateDisplayedCharacters();
-
                         break;
                     }
 
                     // Move the caret one position up:
                     case KeyEvent.VK_UP: {
                         moveCaretUp();
-                        updateDisplayedCharacters();
                         break;
                     }
 
                     // Move the caret one position down:
                     case KeyEvent.VK_DOWN: {
                         moveCaretDown();
-                        updateDisplayedCharacters();
                         break;
                     }
                 }
+
+                updateDisplayedCharacters();
             }
         };
 
