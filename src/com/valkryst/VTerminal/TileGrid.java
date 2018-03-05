@@ -231,8 +231,8 @@ public final class TileGrid {
         childLock.writeLock().lock();
 
         if (existingChild == null || ! childGrids.contains(existingChild)) {
-            addChild(newChild);
             childLock.writeLock().unlock();
+            addChild(newChild);
             return;
         }
 
@@ -264,8 +264,8 @@ public final class TileGrid {
         childLock.writeLock().lock();
 
         if (existingChild == null || ! childGrids.contains(existingChild)) {
-            addChild(newChild);
             childLock.writeLock().unlock();
+            addChild(newChild);
             return;
         }
 
@@ -287,8 +287,26 @@ public final class TileGrid {
             return;
         }
 
-        childLock.writeLock().unlock();
+        childLock.writeLock().lock();
+
+        // Reset the tiles on which the child may have been drawn.
+        final int startY = child.getYPosition();
+        final int endY = Math.min(startY + child.getHeight(), tiles.length);
+
+        final int startX = child.getXPosition();
+        final int endX = Math.min(startX + child.getWidth(), tiles[0].length);
+
+        for (int y = startY ; y < endY ; y++) {
+            for (int x = startX ; x < endX ; x++) {
+                if (y < tiles.length && x < tiles[0].length) {
+                    tiles[y][x].reset();
+                }
+            }
+        }
+
+        // Remove the child.
         childGrids.remove(child);
+
         childLock.writeLock().unlock();
     }
 
