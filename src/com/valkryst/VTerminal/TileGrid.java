@@ -1,10 +1,8 @@
 package com.valkryst.VTerminal;
 
-import com.valkryst.VTerminal.misc.ImageCache;
 import lombok.NonNull;
 
 import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -99,20 +97,6 @@ public final class TileGrid {
         }
 
         return sb.toString();
-    }
-
-    public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache) {
-        // Draw the grid to the screen
-        for (int y = 0 ; y < tiles.length ; y++) {
-            for (int x = 0; x < tiles[0].length ; x++) {
-                tiles[y][x].draw(gc, imageCache, x, y);
-            }
-        }
-
-        // Draw the child grids to the screen
-        for (final TileGrid child : childGrids) {
-            child.draw(gc, imageCache);
-        }
     }
 
     /**
