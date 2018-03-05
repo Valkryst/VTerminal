@@ -1,7 +1,5 @@
 [![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg)](https://github.com/Valkryst/VTerminal/blob/master/LICENSE.md) ![](https://travis-ci.org/Valkryst/VTerminal.svg?branch=master) [![codecov](https://codecov.io/gh/Valkryst/VTerminal/branch/master/graph/badge.svg)](https://codecov.io/gh/Valkryst/VTerminal) [![Release](https://jitpack.io/v/Valkryst/VTerminal.svg)](https://jitpack.io/#Valkryst/VTerminal)
 
-VPanel simulates a Unicode terminal display. It supports arbitrary fore/background colors,  terminal sizes, and allows
-the use of any font.
 
 The project is currently in it's BETA phase. During this phase, the API is being heavily reworked and refined. Code breaking changes will be committed.
 
