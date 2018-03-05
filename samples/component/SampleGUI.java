@@ -13,7 +13,6 @@ import com.valkryst.VTerminal.printer.RectangleType;
 
 import javax.swing.Timer;
 import java.awt.Dimension;
-import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.io.IOException;
 
@@ -54,6 +53,18 @@ public class SampleGUI {
         printer.setHeight(11);
         printer.setTitle("Label");
         printer.print(layer.getTiles(), new Point(0, 13));
+
+        printer.setHeight(24);
+        printer.setTitle("Fixed Text Area");
+        printer.print(layer.getTiles(), new Point(22, 0));
+
+        printer.setHeight(18);
+        printer.setTitle("Dynamic Text Area");
+        printer.print(layer.getTiles(), new Point(22, 7));
+
+        printer.setHeight(15);
+        printer.setTitle("Field Text Area");
+        printer.print(layer.getTiles(), new Point(22, 11));
 
 
 
@@ -138,6 +149,26 @@ public class SampleGUI {
         labelBuilder.setText("This is a label.");
         labelBuilder.setPosition(1, 14);
         layer.addComponent(labelBuilder.build());
+
+
+        // Populate the Fixed Text Area section.
+        final TextAreaBuilder textAreaBuilder = new TextAreaBuilder();
+        textAreaBuilder.setWidth(21);
+        textAreaBuilder.setHeight(6);
+        textAreaBuilder.setPosition(23, 1);
+        layer.addComponent(textAreaBuilder.build());
+
+        // Populate the Dynamic Text Area Section.
+        textAreaBuilder.setHeight(3);
+        textAreaBuilder.setMaxVerticalCharacters(6);
+        textAreaBuilder.setPosition(23, 8);
+        layer.addComponent(textAreaBuilder.build());
+
+        // Populate the Field Text Area section.
+        textAreaBuilder.setHeight(1);
+        textAreaBuilder.setMaxVerticalCharacters(1);
+        textAreaBuilder.setPosition(23, 12);
+        layer.addComponent(textAreaBuilder.build());
 
 
         // Add the layer to the Screen only after all components have been
