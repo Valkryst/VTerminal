@@ -1,11 +1,10 @@
 package com.valkryst.VTerminal.misc;
 
 import com.valkryst.VTerminal.Tile;
-import com.valkryst.VTerminal.builder.LayerBuilder;
 import com.valkryst.VTerminal.component.Layer;
 import lombok.NonNull;
 
-import java.awt.Color;
+import java.awt.*;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -93,16 +92,11 @@ public final class REXPaintLoader {
 
         final List<Layer> layers = new LinkedList<>();
 
-        final LayerBuilder layerBuilder = new LayerBuilder();
-
         for (int i = 0 ; i < totalLayers ; i++) {
             final int width = byteBuffer.getInt();
             final int height = byteBuffer.getInt();
 
-            layerBuilder.getPosition().setLocation(0, 0);
-            layerBuilder.getDimensions().setSize(width, height);
-
-            final Layer layer = layerBuilder.build();
+            final Layer layer = new Layer(new Dimension(width, height));
 
             for (int y = 0 ; y < layer.getTiles().getHeight() ; y++) {
                 for (int x = 0 ; x < layer.getTiles().getWidth() ; x++) {

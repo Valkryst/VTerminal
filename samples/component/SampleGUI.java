@@ -24,9 +24,7 @@ public class SampleGUI {
         final Screen screen = new Screen(dimensions, font);
 
         // Construct the main layer:
-        final LayerBuilder layerBuilder = new LayerBuilder();
-        layerBuilder.setDimensions(new Dimension(screen.getWidth(), screen.getHeight()));
-        final Layer layer = layerBuilder.build();
+        final Layer layer = new Layer(new Dimension(screen.getWidth(), screen.getHeight()));
 
 
         // Print the section borders.
