@@ -530,7 +530,7 @@ public class Screen {
      *          All components using the ID.
      */
     public List<Component> getComponentsByID(final String id) {
-        if (id == null || id.isEmpty()) {
+        if (id == null || id.isEmpty() || components.size() == 0) {
             return new ArrayList<>(0);
         }
 
