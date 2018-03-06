@@ -675,6 +675,16 @@ public final class TileGrid {
     }
 
     /**
+     * Sets the new x/y-axis coordinates of the grid within it's parent.
+     *
+     * @param position
+     *          The new x/y-axis coordinates.
+     */
+    public void setPosition(final Point position) {
+        this.position.setLocation(position);
+    }
+
+    /**
      * Sets the new x-axis coordinate of the grid within it's parent.
      *
      * @param x
