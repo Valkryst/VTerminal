@@ -9,12 +9,12 @@ import lombok.Setter;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.util.Collections;
-import java.util.EventListener;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Component {
+    /** The ID of the component. Not guaranteed to be unique. */
+    @Getter @Setter private String id = UUID.randomUUID().toString();
+
     /** The tiles. */
     @Getter protected final TileGrid tiles;
 
