@@ -149,6 +149,31 @@ public class Layer extends Component {
     }
 
     /**
+     * Retrieves all components which use a specific ID.
+     *
+     * @param id
+     *          The ID to search for.
+     *
+     * @return
+     *          All components using the ID.
+     */
+    public List<Component> getComponentsByID(final String id) {
+        if (id == null || id.isEmpty() || components.size() == 0) {
+            return new ArrayList<>(0);
+        }
+
+        final List<Component> results = new ArrayList<>(1);
+
+        for (final Component component : components) {
+            if (component.getId().equals(id)) {
+                results.add(component);
+            }
+        }
+
+        return results;
+    }
+
+    /**
      * Retrieves an unmodifiable list of the layer's components.
      *
      * @return
