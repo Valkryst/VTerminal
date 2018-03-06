@@ -521,6 +521,31 @@ public class Screen {
     }
 
     /**
+     * Retrieves all components which use a specific ID.
+     *
+     * @param id
+     *          The ID to search for.
+     *
+     * @return
+     *          All components using the ID.
+     */
+    public List<Component> getComponentsByID(final String id) {
+        if (id == null || id.isEmpty()) {
+            return new ArrayList<>(0);
+        }
+
+        final List<Component> results = new ArrayList<>(1);
+
+        for (final Component component : components) {
+            if (component.getId().equals(id)) {
+                results.add(component);
+            }
+        }
+
+        return results;
+    }
+
+    /**
      * Retrieves the last known tile-based position of the mouse.
      *
      * @return
