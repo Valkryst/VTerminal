@@ -1,5 +1,0 @@
-Source:
-	https://www.gnu.org/software/freefont/
-
-License:
-	https://www.gnu.org/software/freefont/license.html
