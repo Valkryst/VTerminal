@@ -18,6 +18,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -401,5 +402,103 @@ public class TextArea extends Component {
         }
 
         super.redrawFunction.run();
+    }
+
+    /**
+     * Appends text to the first empty row of the area.
+     *
+     * If there are no empty rows, then the first row is discarded and all rows
+     * are moved up, then the new text is appended to the bottom row.
+     *
+     * @param text
+     *        The new text.
+     */
+    public void appendText(final @NonNull Tile[] text) {
+        // Find first empty row and append text:
+        for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
+            boolean rowIsEmpty = true;
+
+            for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
+                final char character = super.tiles.getTileAt(x, y).getCharacter();
+                rowIsEmpty &= Character.isSpaceChar(character);
+            }
+
+            if (rowIsEmpty) {
+                setText(y, text);
+                return;
+            }
+        }
+
+        // If no empty rows found, move all rows up:
+        for (int y = 0 ; y < super.tiles.getHeight() - 1 ;y++) {
+            setText(y, super.tiles.getRow(y + 1));
+        }
+
+        setText(super.tiles.getHeight() - 1, text);
+
+        updateDisplayedCharacters();
+    }
+
+
+    /**
+     * Sets the text contained within a row of the area.
+     *
+     * @param rowIndex
+     *        The row index.
+     *
+     * @param text
+     *        The text.
+     *
+     * @throws NullPointerException
+     *        If the text is null.
+     */
+    public void setText(final int rowIndex, @NonNull Tile[] text) {
+        clearText(rowIndex);
+
+        for (int x = 0 ; x < Math.min(super.tiles.getWidth(), text.length) ; x++) {
+            super.tiles.getTileAt(x, rowIndex).copy(text[x]);
+            enteredText[rowIndex][x] = text[x].getCharacter();
+        }
+
+        updateDisplayedCharacters();
+    }
+
+    /**
+     * Clears text from a row.
+     *
+     * @param rowIndex
+     *        The row index.
+     */
+    public void clearText(final int rowIndex) {
+        if (rowIndex < 0 || rowIndex > super.tiles.getHeight()) {
+            return;
+        }
+
+        Arrays.fill(enteredText[rowIndex], ' ');
+
+
+        for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
+            final Tile tile = super.tiles.getTileAt(x, rowIndex);
+            tile.reset();
+            tile.setBackgroundColor(backgroundColor);
+            tile.setForegroundColor(foregroundColor);
+        }
+
+        updateDisplayedCharacters();
+    }
+
+    /** Clears all text from the field. */
+    public void clearText() {
+        for (final char[] line : enteredText) {
+            Arrays.fill(line, ' ');
+        }
+
+        for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
+            for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
+                super.tiles.getTileAt(x, y).setCharacter(' ');
+            }
+        }
+
+        updateDisplayedCharacters();
     }
 }
