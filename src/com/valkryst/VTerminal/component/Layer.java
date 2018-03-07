@@ -90,9 +90,7 @@ public class Layer extends Component {
             return;
         }
 
-        if (component instanceof Layer) {
-            return;
-        }
+        // todo Recursive check to ensure layer isn't a child of the layer being added.
 
         // Add the component
         componentsLock.writeLock().lock();
