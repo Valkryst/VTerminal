@@ -116,6 +116,12 @@
                 <groupId>org.apache.maven.surefire</groupId>
                 <artifactId>surefire</artifactId>
                 <version>2.21.0</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/TileTest/DrawTest.java</exclude>
+                        <exclude>**/misc/ImageCacheTest.java</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
