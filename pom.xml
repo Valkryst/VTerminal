@@ -118,8 +118,8 @@
                 <version>2.21.0</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/TileTest/DrawTest.java</exclude>
-                        <exclude>**/misc/ImageCacheTest.java</exclude>
+                        <exclude>**/DrawTest.java</exclude>
+                        <exclude>**/ImageCacheTest.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>
