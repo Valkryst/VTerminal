@@ -10,10 +10,10 @@ import java.awt.Image;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-public class ImageCacheTest {
+public class ImageCacheIT {
     private final Font font;
 
-    public ImageCacheTest() throws IOException, URISyntaxException {
+    public ImageCacheIT() throws IOException, URISyntaxException {
         font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1);
     }
 
