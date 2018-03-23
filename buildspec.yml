@@ -12,12 +12,9 @@ phases:
   build:
     commands:
       - echo Build started on `date`.
-      - mvn install
-      - mvn cobertura:cobertura
 
   post_build:
     commands:
-      - bash <(curl -s https://codecov.io/bash)
       - echo Nothing to do in the post_build phase.
 
 cache:
