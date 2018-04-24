@@ -28,10 +28,10 @@ public class ConstructorTest {
         character.setUnderlineThickness(1);
 
         final GraphicTile tile = new GraphicTile(character);
-        Assert.assertEquals(true, tile.isHidden());
+        Assert.assertTrue(tile.isHidden());
         Assert.assertEquals(Color.BLUE, tile.getBackgroundColor());
         Assert.assertEquals(Color.RED, tile.getForegroundColor());
-        Assert.assertEquals(true, tile.isUnderlined());
+        Assert.assertTrue(tile.isUnderlined());
         Assert.assertEquals(1, tile.getUnderlineThickness());
     }
 }
