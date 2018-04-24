@@ -8,12 +8,11 @@ import org.junit.Test;
 
 import java.awt.Image;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class ImageCacheIT {
     private final Font font;
 
-    public ImageCacheIT() throws IOException, URISyntaxException {
+    public ImageCacheIT() throws IOException {
         font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1);
     }
 
