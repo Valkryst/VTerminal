@@ -11,13 +11,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class DrawIT {
     private GraphicTile character;
     private Font font;
 
-    public DrawIT() throws IOException, URISyntaxException {
+    public DrawIT() throws IOException {
         font = FontLoader.loadFontFromJar("Tiles/Nevanda Nethack/bitmap.png", "Tiles/Nevanda Nethack/data.fnt", 1);
     }
 
