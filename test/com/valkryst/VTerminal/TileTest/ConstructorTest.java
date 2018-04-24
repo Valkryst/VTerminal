@@ -32,10 +32,10 @@ public class ConstructorTest {
         tile.setFlippedVertically(true);
 
         final Tile character = new Tile(tile);
-        Assert.assertEquals(true, character.isHidden());
+        Assert.assertTrue(character.isHidden());
         Assert.assertEquals(Color.BLUE, character.getBackgroundColor());
         Assert.assertEquals(Color.RED, character.getForegroundColor());
-        Assert.assertEquals(true, character.isUnderlined());
+        Assert.assertTrue(character.isUnderlined());
         Assert.assertEquals(1, character.getUnderlineThickness());
     }
 }
