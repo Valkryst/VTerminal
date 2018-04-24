@@ -11,13 +11,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class DrawIT {
     private Tile character;
     private Font font;
 
-    public DrawIT() throws IOException, URISyntaxException {
+    public DrawIT() throws IOException {
         font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1);
     }
 
