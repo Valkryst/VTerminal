@@ -25,7 +25,7 @@ public class Tile {
     @Getter private final List<Shader> shaders = new LinkedList<>();
 
     /** The character. */
-	@Getter private char character;
+	@Getter private char character = ' ';
 	/** Whether or not the foreground should be drawn using the background color. */
 	@Getter @Setter private boolean isHidden;
     /** The background color. Defaults to black. */
