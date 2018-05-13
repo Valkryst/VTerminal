@@ -20,6 +20,5 @@
     <orderEntry type="library" name="Maven: com.github.Valkryst:VJSON:d3313e4" level="project" />
     <orderEntry type="library" name="Maven: com.jhlabs:filters:2.0.235-1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.7" level="project" />
-    <orderEntry type="library" name="lombok-edge" level="project" />
   </component>
 </module>
