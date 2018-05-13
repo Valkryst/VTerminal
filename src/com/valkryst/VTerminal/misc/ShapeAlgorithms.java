@@ -30,10 +30,10 @@ public final class ShapeAlgorithms {
         final int width = dimension.width;
         final int height = dimension.height;
 
-        int a2 = width * width;
-        int b2 = height * height;
-        int fa2 = 4 * a2;
-        int fb2 = 4 * b2;
+        final int a2 = width * width;
+        final int b2 = height * height;
+        final int fa2 = 4 * a2;
+        final int fb2 = 4 * b2;
 
         int dx = 0;
         int dy = height;
@@ -123,14 +123,14 @@ public final class ShapeAlgorithms {
 
         int d = 0;
 
-        int dx = Math.abs(toX - fromX);
-        int dy = Math.abs(toY - fromY);
+        final int dx = Math.abs(toX - fromX);
+        final int dy = Math.abs(toY - fromY);
 
-        int dx2 = dx << 1;
-        int dy2 = dy << 1;
+        final int dx2 = dx << 1;
+        final int dy2 = dy << 1;
 
-        int ix = fromX < toX ? 1 : -1;
-        int iy = fromY < toY ? 1 : -1;
+        final int ix = fromX < toX ? 1 : -1;
+        final int iy = fromY < toY ? 1 : -1;
 
         if (dy <= dx) {
             while(true) {
