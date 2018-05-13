@@ -169,11 +169,11 @@ public final class ImageCache {
 
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
-                int pixel = image.getRGB(x, y);
-                int alpha = (pixel >> 24) & 0xFF;
-                int red = (pixel >> 16) & 0xFF;
-                int green = (pixel >> 8) & 0xFF;
-                int blue = (pixel) & 0xFF;
+                final int pixel = image.getRGB(x, y);
+                final int alpha = (pixel >> 24) & 0xFF;
+                final int red = (pixel >> 16) & 0xFF;
+                final int green = (pixel >> 8) & 0xFF;
+                final int blue = (pixel) & 0xFF;
 
                 boolean isTransparent = alpha == 0;
                 isTransparent &= red == 0;
