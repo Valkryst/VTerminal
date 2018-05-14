@@ -158,6 +158,17 @@ public class SampleGUI {
         layer.addComponent(textAreaBuilder.build());
 
 
+
+        // Create a Layer with Components on it.
+        final Layer buttonLayer = new Layer(new Dimension(20, 10), new Point(45, 1));
+
+        buttonBuilder.setText("Button On A Layer");
+        buttonBuilder.setPosition(0, 0);
+        buttonLayer.addComponent(buttonBuilder.build());
+
+        layer.addComponent(buttonLayer);
+
+
         // Add the layer to the Screen only after all components have been
         // added to the layer, or else the screen won't add the event
         // listeners of the components to itself.
