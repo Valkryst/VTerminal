@@ -417,6 +417,7 @@ public class Screen {
                 component.setBoundingBoxOffset(tmp);
                 addLayerComponent((Layer) component, tmp);
             } else {
+                component.setBoundingBoxOffset(boundingBoxOffset);
                 addComponent(component);
             }
         }
