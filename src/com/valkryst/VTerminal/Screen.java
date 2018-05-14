@@ -412,10 +412,11 @@ public class Screen {
             if (component instanceof Layer) {
                 final int x = boundingBoxOffset.x + component.getTiles().getXPosition();
                 final int y = boundingBoxOffset.y + component.getTiles().getYPosition();
+                final Point tmp = new Point(x, y);
 
-                addLayerComponent((Layer) component, new Point(x, y));
+                component.setBoundingBoxOffset(tmp);
+                addLayerComponent((Layer) component, tmp);
             } else {
-                component.setBoundingBoxOffset(boundingBoxOffset);
                 addComponent(component);
             }
         }

@@ -100,6 +100,9 @@ public class Layer extends Component {
 
         // Add the component's event listeners
         super.eventListeners.addAll(component.getEventListeners());
+
+        // Set the component to use the offset of this Layer
+        component.setBoundingBoxOffset(super.getBoundingBoxOffset());
     }
 
     /**
