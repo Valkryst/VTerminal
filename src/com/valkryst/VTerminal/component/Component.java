@@ -18,6 +18,9 @@ public class Component {
     /** The tiles. */
     @Getter protected final TileGrid tiles;
 
+    // todo Java Doc
+    @Getter @Setter private Point boundingBoxOffset = new Point(0, 0);
+
     /** The event listeners. */
     protected final List<EventListener> eventListeners = new LinkedList<>();
 
@@ -67,10 +70,10 @@ public class Component {
             return false;
         }
 
-        boolean intersects = point.x >= tiles.getXPosition();
-        intersects &= point.x < (tiles.getWidth() + tiles.getXPosition());
-        intersects &= point.y >= tiles.getYPosition();
-        intersects &= point.y < (tiles.getHeight() + tiles.getYPosition());
+        boolean intersects = point.x >= (tiles.getXPosition() + boundingBoxOffset.x);
+        intersects &= point.x < (tiles.getWidth() + tiles.getXPosition() + boundingBoxOffset.x);
+        intersects &= point.y >= (tiles.getYPosition() + boundingBoxOffset.y);
+        intersects &= point.y < (tiles.getHeight() + tiles.getYPosition() + boundingBoxOffset.y);
         return intersects;
     }
 

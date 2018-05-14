@@ -365,6 +365,9 @@ public class Screen {
     /**
      * Adds a component to the screen.
      *
+     * This function should never be called when the parameter is a layer within a layer. It will throw-off
+     * the algorithm that adjusts the bounding box offsets for all of the components.
+     *
      * @param component
      *          The component.
      */
@@ -374,9 +377,7 @@ public class Screen {
         }
 
         if (component instanceof Layer) {
-            for (final Component layerComponent : ((Layer) component).getComponents()) {
-                addComponent(layerComponent);
-            }
+            addLayerComponent((Layer) component, new Point(0, 0));
         }
 
         // Add the component
@@ -393,6 +394,30 @@ public class Screen {
         // Add the component's event listeners
         for (final EventListener listener : component.getEventListeners()) {
             addListener(listener);
+        }
+    }
+
+    /**
+     * Adds the components of a layer to the screen.
+     *
+     * @param layer
+     *          The layer.
+     *
+     * @param boundingBoxOffset
+     *          The offset to apply to each of the layer's components, so their intersection functions work
+     *          correctly.
+     */
+    private void addLayerComponent(final Layer layer, final Point boundingBoxOffset) {
+        for (final Component component : layer.getComponents()) {
+            if (component instanceof Layer) {
+                final int x = boundingBoxOffset.x + component.getTiles().getXPosition();
+                final int y = boundingBoxOffset.y + component.getTiles().getYPosition();
+
+                addLayerComponent((Layer) component, new Point(x, y));
+            } else {
+                component.setBoundingBoxOffset(boundingBoxOffset);
+                addComponent(component);
+            }
         }
     }
 
