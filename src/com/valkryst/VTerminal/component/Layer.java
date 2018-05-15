@@ -97,6 +97,11 @@ public class Layer extends Component {
 
         // todo Recursive check to ensure layer isn't a child of the layer being added.
 
+        if (component instanceof Layer) {
+            ((Layer) component).setRootScreen(rootScreen);
+            addLayerComponent((Layer) component, new Point(0, 0));
+        }
+
         // Add the component
         componentsLock.writeLock().lock();
         super.tiles.addChild(component.getTiles());
@@ -105,23 +110,36 @@ public class Layer extends Component {
 
         // Add the component's event listeners
         super.eventListeners.addAll(component.getEventListeners());
+    }
 
-        // If the Layer has already been added to a screen, then we need to do
-        // some special steps to ensure that new components are correctly set-up
-        // to work with the screen.
-        if (rootScreen != null) {
-            // Set the component to use the offset of this Layer
-            component.setBoundingBoxOffset(super.getBoundingBoxOffset());
+    private void addLayerComponent(final Layer layer, final Point boundingBoxOffset) {
+        for (final Component component : layer.getComponents()) {
+            if (component instanceof Layer) {
+                final int x = boundingBoxOffset.x + component.getTiles().getXPosition();
+                final int y = boundingBoxOffset.y + component.getTiles().getYPosition();
+                final Point tmp = new Point(x, y);
 
-            // Set the component's redraw function
-            component.setRedrawFunction(() -> rootScreen.draw());
+                component.setBoundingBoxOffset(tmp);
+                ((Layer) component).setRootScreen(rootScreen);
+                addLayerComponent((Layer) component, tmp);
+            } else {
+                // Set the component to use the offset of this Layer
+                final int x = this.getTiles().getXPosition() + boundingBoxOffset.x + component.getTiles().getXPosition() + layer.getTiles().getXPosition();
+                final int y = this.getTiles().getYPosition() + boundingBoxOffset.y + component.getTiles().getYPosition() + layer.getTiles().getYPosition();
+                component.setBoundingBoxOffset(new Point(x, y));
 
-            // Create the component's event listeners
-            component.createEventListeners(rootScreen);
+                if (rootScreen != null) {
+                    // Set the component's redraw function
+                    component.setRedrawFunction(() -> rootScreen.draw());
 
-            // Add component's event listeners to root screen.
-            for (final EventListener listener : component.getEventListeners()) {
-                rootScreen.addListener(listener);
+                    // Create the component's event listeners
+                    component.createEventListeners(rootScreen);
+
+                    // Add component's event listeners to root screen.
+                    for (final EventListener listener : component.getEventListeners()) {
+                        rootScreen.addListener(listener);
+                    }
+                }
             }
         }
     }
