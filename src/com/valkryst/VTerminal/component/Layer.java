@@ -96,10 +96,6 @@ public class Layer extends Component {
         }
 
         // todo Recursive check to ensure layer isn't a child of the layer being added.
-        if (component instanceof Layer) {
-            ((Layer) component).setRootScreen(rootScreen);
-            addLayerComponent((Layer) component, new Point(0, 0));
-        }
 
         // Add the component
         componentsLock.writeLock().lock();
@@ -126,32 +122,6 @@ public class Layer extends Component {
             // Add component's event listeners to root screen.
             for (final EventListener listener : component.getEventListeners()) {
                 rootScreen.addListener(listener);
-            }
-        }
-    }
-
-    /**
-     * Adds the components of a layer to the layer.
-     *
-     * @param layer
-     *          The layer.
-     *
-     * @param boundingBoxOffset
-     *          The offset to apply to each of the layer's components, so their intersection functions work
-     *          correctly.
-     */
-    private void addLayerComponent(final Layer layer, final Point boundingBoxOffset) {
-        for (final Component component : layer.getComponents()) {
-            if (component instanceof Layer) {
-                final int x = boundingBoxOffset.x + component.getTiles().getXPosition();
-                final int y = boundingBoxOffset.y + component.getTiles().getYPosition();
-                final Point tmp = new Point(x, y);
-
-                component.setBoundingBoxOffset(tmp);
-                addLayerComponent((Layer) component, tmp);
-            } else {
-                component.setBoundingBoxOffset(boundingBoxOffset);
-                addComponent(component);
             }
         }
     }
