@@ -113,8 +113,10 @@ public class Layer extends Component {
             // Set the component to use the offset of this Layer
             component.setBoundingBoxOffset(super.getBoundingBoxOffset());
 
-            // Add the component to the root screen
-            rootScreen.addComponent(component);
+            // Add component event listeners to root screen.
+            for (final EventListener e : component.getEventListeners()) {
+                rootScreen.addListener(e);
+            }
         }
     }
 
