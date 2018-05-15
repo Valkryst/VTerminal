@@ -113,9 +113,15 @@ public class Layer extends Component {
             // Set the component to use the offset of this Layer
             component.setBoundingBoxOffset(super.getBoundingBoxOffset());
 
-            // Add component event listeners to root screen.
-            for (final EventListener e : component.getEventListeners()) {
-                rootScreen.addListener(e);
+            // Set the component's redraw function
+            component.setRedrawFunction(() -> rootScreen.draw());
+
+            // Create the component's event listeners
+            component.createEventListeners(rootScreen);
+
+            // Add component's event listeners to root screen.
+            for (final EventListener listener : component.getEventListeners()) {
+                rootScreen.addListener(listener);
             }
         }
     }
