@@ -1,8 +1,10 @@
 package com.valkryst.VTerminal.component;
 
+import com.valkryst.VTerminal.Screen;
 import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.awt.*;
@@ -19,6 +21,9 @@ public class Layer extends Component {
 
     /** The lock used to control access to the components. */
     private final ReentrantReadWriteLock componentsLock = new ReentrantReadWriteLock();
+
+    /** The screen that the layer resides on. */
+    @Setter private Screen rootScreen;
 
     /**
      * Constructs a new Layer at position (0, 0) with the default color palette.
@@ -101,8 +106,16 @@ public class Layer extends Component {
         // Add the component's event listeners
         super.eventListeners.addAll(component.getEventListeners());
 
-        // Set the component to use the offset of this Layer
-        component.setBoundingBoxOffset(super.getBoundingBoxOffset());
+        // If the Layer has already been added to a screen, then we need to do
+        // some special steps to ensure that new components are correctly set-up
+        // to work with the screen.
+        if (rootScreen != null) {
+            // Set the component to use the offset of this Layer
+            component.setBoundingBoxOffset(super.getBoundingBoxOffset());
+
+            // Add the component to the root screen
+            rootScreen.addComponent(component);
+        }
     }
 
     /**
