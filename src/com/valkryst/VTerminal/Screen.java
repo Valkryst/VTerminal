@@ -416,6 +416,7 @@ public class Screen {
                 final Point tmp = new Point(x, y);
 
                 component.setBoundingBoxOffset(tmp);
+                ((Layer) component).setRootScreen(this);
                 addLayerComponent((Layer) component, tmp);
             } else {
                 component.setBoundingBoxOffset(boundingBoxOffset);
