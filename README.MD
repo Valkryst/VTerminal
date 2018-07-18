@@ -1,13 +1,13 @@
 ![](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiUXp5M3NYSlJRQlpUQ0hCdFkvUXdka0YrYnhMNzRlMWoySlVSOGM1RndVdFNHSGdQdTZiMFdjcHk5Ti9xa3daV2xLSkkwMDdxZStWMDNoN3RVc1dxN29zPSIsIml2UGFyYW1ldGVyU3BlYyI6Ik1ZK0pnK3pxcGE1d21JbFYiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master) [![Release](https://jitpack.io/v/Valkryst/VTerminal.svg)](https://jitpack.io/#Valkryst/VTerminal)
 
 
-The project is currently in it's SOFT phase. During this phase, there *may* be code breaking changes if required.
+The project is currently in it's Soft release phase. During this phase, there *may* be code breaking changes if required.
 
 ## Links
 
 * [JavaDoc Documentation](https://valkryst.github.io/VTerminal/)
 * [Usage Guide](https://github.com/Valkryst/VTerminal/wiki)
-    * [More Examples](https://github.com/Valkryst/VTerminal/tree/master/test/com/valkryst/VTerminal/samples)
+    * [More Examples](https://github.com/Valkryst/VTerminal/tree/master/samples)
 * [Resolving Compatibility & Render Issues](https://github.com/Valkryst/VTerminal/wiki/Resolving-Compatibility-&-Render-Issues)
 
 
