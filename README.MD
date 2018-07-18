@@ -1,7 +1,7 @@
 ![](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiUXp5M3NYSlJRQlpUQ0hCdFkvUXdka0YrYnhMNzRlMWoySlVSOGM1RndVdFNHSGdQdTZiMFdjcHk5Ti9xa3daV2xLSkkwMDdxZStWMDNoN3RVc1dxN29zPSIsIml2UGFyYW1ldGVyU3BlYyI6Ik1ZK0pnK3pxcGE1d21JbFYiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master) [![Release](https://jitpack.io/v/Valkryst/VTerminal.svg)](https://jitpack.io/#Valkryst/VTerminal)
 
 
-The project is currently in it's BETA phase. During this phase, the API is being heavily reworked and refined. Code breaking changes will be committed.
+The project is currently in it's SOFT phase. During this phase, there *may* be code breaking changes if required.
 
 ## Links
 
