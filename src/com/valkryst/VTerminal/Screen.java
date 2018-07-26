@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class Screen {
@@ -462,9 +463,13 @@ public class Screen {
     public void removeAllComponents() {
         componentsLock.writeLock().lock();
 
-        for (final Component component : components) {
+        final ListIterator<Component> iterator = components.listIterator();
+
+        while(iterator.hasNext()) {
+            final Component component = iterator.next();
+
             // Remove the component
-            components.remove(component);
+            iterator.remove();
 
             // Remove the component's event listeners
             for (final EventListener listener : component.getEventListeners()) {
