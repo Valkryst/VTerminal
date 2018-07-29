@@ -60,16 +60,17 @@ public class ImagePrinter {
         for (int y = 0 ; y < temp.getHeight() && y < grid.getHeight() ; y++) {
             for (int x = 0 ; x < temp.getWidth() && x < grid.getWidth() ; x++) {
                 final int hexColor = temp.getRGB(x,y);
-                final int red = (hexColor & 0x00ff0000) >> 16;
-                final int green = (hexColor & 0x0000ff00) >> 8;
-                final int blue =  hexColor & 0x000000ff;
+                final int alpha = (hexColor >> 24) & 0xFF;
+                final int red = (hexColor >> 16) & 0xFF;
+                final int green = (hexColor >> 8) & 0xFF;
+                final int blue = (hexColor) & 0xFF;
 
                 final int charX = x + position.x;
                 final int charY = y + position.y;
 
                 final Tile character = grid.getTileAt(charX, charY);
                 character.setCharacter(printChar);
-                character.setForegroundColor(new Color(red, green, blue));
+                character.setForegroundColor(new Color(red, green, blue, alpha));
             }
         }
     }
@@ -257,8 +258,8 @@ public class ImagePrinter {
                 }
 
                 // Update the TileGrid
-                final Color backgroundColor = new Color(rgb_secondUniqueColor);
-                final Color foregroundColor = new Color(rgb_firstUniqueColor);
+                final Color backgroundColor = new Color(rgb_secondUniqueColor, true);
+                final Color foregroundColor = new Color(rgb_firstUniqueColor, true);
 
                 final int gridX = imageX / 2;
                 final int gridY = imageY / 2;
