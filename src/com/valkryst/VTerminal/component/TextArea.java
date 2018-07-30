@@ -49,6 +49,39 @@ public class TextArea extends Component {
      */
     @Getter @Setter private Pattern allowedCharacterPattern;
 
+    /** Whether the special listener code for the Enter key is enabled. */
+    @Getter @Setter private boolean isEnterKeyEnabled;
+
+    /** Whether the special listener code for the Backspace key is enabled. */
+    @Getter @Setter private boolean isBackspaceKeyEnabled;
+
+    /** Whether the special listener code for the Delete key is enabled. */
+    @Getter @Setter private boolean isDeleteKeyEnabled;
+
+    /** Whether the special listener code for the Home key is enabled. */
+    @Getter @Setter private boolean isHomeKeyEnabled;
+
+    /** Whether the special listener code for the End key is enabled. */
+    @Getter @Setter private boolean isEndKeyEnabled;
+
+    /** Whether the special listener code for the Page Up key is enabled. */
+    @Getter @Setter private boolean isPageUpKeyEnabled;
+
+    /** Whether the special listener code for the Page Down key is enabled. */
+    @Getter @Setter private boolean isPageDownKeyEnabled;
+
+    /** Whether the special listener code for the Up Arrow key is enabled. */
+    @Getter @Setter private boolean isUpArrowKeyEnabled;
+
+    /** Whether the special listener code for the Down Arrow key is enabled. */
+    @Getter @Setter private boolean isDownArrowKeyEnabled;
+
+    /** Whether the special listener code for the Left Arrow key is enabled. */
+    @Getter @Setter private boolean isLeftArrowKeyEnabled;
+
+    /** Whether the special listener code for the Right Arrow key is enabled. */
+    @Getter @Setter private boolean isRightArrowKeyEnabled;
+
     /**
      * Constructs a new AsciiTextField.
      *
@@ -73,6 +106,18 @@ public class TextArea extends Component {
         enteredText = new char[builder.getHeight()][builder.getWidth()];
 
         allowedCharacterPattern = builder.getAllowedCharacterPattern();
+
+        isEnterKeyEnabled = builder.isEnterKeyEnabled();
+        isBackspaceKeyEnabled = builder.isBackspaceKeyEnabled();
+        isDeleteKeyEnabled = builder.isDeleteKeyEnabled();
+        isHomeKeyEnabled = builder.isHomeKeyEnabled();
+        isEndKeyEnabled = builder.isEndKeyEnabled();
+        isPageUpKeyEnabled = builder.isPageUpKeyEnabled();
+        isPageDownKeyEnabled = builder.isPageDownKeyEnabled();
+        isUpArrowKeyEnabled = builder.isUpArrowKeyEnabled();
+        isDownArrowKeyEnabled = builder.isDownArrowKeyEnabled();
+        isLeftArrowKeyEnabled = builder.isLeftArrowKeyEnabled();
+        isRightArrowKeyEnabled = builder.isRightArrowKeyEnabled();
 
         // Set the area's initial colors:
         for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
@@ -191,6 +236,10 @@ public class TextArea extends Component {
                 switch (keyCode) {
                     // Move the caret to the first position of the next row:
                     case KeyEvent.VK_ENTER: {
+                        if (isEnterKeyEnabled == false) {
+                            return;
+                        }
+
                         boolean canWork = caretPosition.y < tiles.getHeight() - 1;
 
                         if (canWork) {
@@ -203,6 +252,10 @@ public class TextArea extends Component {
 
                     // Delete the character to the left of the caret, then move the caret one position left:
                     case KeyEvent.VK_BACK_SPACE: {
+                        if (isBackspaceKeyEnabled == false) {
+                            return;
+                        }
+
                         final boolean caretAtStartOfLine = caretPosition.x == 0;
                         final boolean caretAtEndOfLine = caretPosition.x == tiles.getWidth() - 1;
 
@@ -239,36 +292,50 @@ public class TextArea extends Component {
                 switch (keyCode) {
                     // Erase the current character:
                     case KeyEvent.VK_DELETE: {
-                        clearCurrentCell();
+                        if (isDeleteKeyEnabled) {
+                            clearCurrentCell();
+                        }
                         break;
                     }
 
                     // Move the caret to the first position on the left:
                     case KeyEvent.VK_HOME: {
-                        moveCaretToStartOfLine();
+                        if (isHomeKeyEnabled) {
+                            moveCaretToStartOfLine();
+                        }
                         break;
                     }
 
                     // Move the caret to the last position on the right:
                     case KeyEvent.VK_END: {
-                        moveCaretToEndOfLine();
+                        if (isEndKeyEnabled) {
+                            moveCaretToEndOfLine();
+                        }
                         break;
                     }
 
                     // Move the caret to the first row:
                     case KeyEvent.VK_PAGE_UP: {
-                        moveCaretToFirstLine();
+                        if (isPageUpKeyEnabled) {
+                            moveCaretToFirstLine();
+                        }
                         break;
                     }
 
                     // Move the caret to the last row:
                     case KeyEvent.VK_PAGE_DOWN: {
-                        moveCaretToLastLine();
+                        if (isPageDownKeyEnabled) {
+                            moveCaretToLastLine();
+                        }
                         break;
                     }
 
                     // Move the caret one position to the left:
                     case KeyEvent.VK_LEFT: {
+                        if (isLeftArrowKeyEnabled) {
+                            return;
+                        }
+
                         boolean moveToPreviousLine = caretPosition.x == 0;
                         moveToPreviousLine &= caretPosition.y > 0;
 
@@ -284,6 +351,10 @@ public class TextArea extends Component {
 
                     // Move the caret one position to the right:
                     case KeyEvent.VK_RIGHT: {
+                        if (isRightArrowKeyEnabled) {
+                            return;
+                        }
+
                         boolean moveToNextLine = caretPosition.x == tiles.getWidth() - 1;
                         moveToNextLine &= caretPosition.y < tiles.getHeight() - 1;
 
@@ -299,13 +370,17 @@ public class TextArea extends Component {
 
                     // Move the caret one position up:
                     case KeyEvent.VK_UP: {
-                        moveCaretUp();
+                        if (isUpArrowKeyEnabled) {
+                            moveCaretUp();
+                        }
                         break;
                     }
 
                     // Move the caret one position down:
                     case KeyEvent.VK_DOWN: {
-                        moveCaretDown();
+                        if (isDownArrowKeyEnabled) {
+                            moveCaretDown();
+                        }
                         break;
                     }
                 }
