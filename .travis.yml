@@ -1,0 +1,24 @@
+sudo: false
+
+language: java
+jdk:
+  - oraclejdk8
+env:
+  global:
+    - secure: ""
+cache:
+  directories:
+    - $HOME/.m2
+  
+script: 
+  - "mvn cobertura:cobertura"
+  - "mvn javadoc:javadoc"
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+  - bash Deploy_JavaDoc.sh
+
+notification:
+  email:
+    on_success: never
+    on_failure: always
