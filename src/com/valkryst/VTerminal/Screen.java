@@ -290,13 +290,15 @@ public class Screen {
     /** Draws all of the screen's tiles onto the canvas. */
     public void draw() {
         // Draw components on screen.
-        componentsLock.readLock().lock();
+        if (components.size() > 0) {
+            componentsLock.readLock().lock();
 
-        for (final Component component : components) {
-            component.getTiles().copyOnto(tiles);
+            for (final Component component : components) {
+                component.getTiles().copyOnto(tiles);
+            }
+
+            componentsLock.readLock().unlock();
         }
-
-        componentsLock.readLock().unlock();
 
         // Draw screen on canvas.
         final BufferStrategy bs = canvas.getBufferStrategy();
