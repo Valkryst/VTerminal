@@ -165,7 +165,7 @@ public class Screen {
                     }
 
                     componentsLock.readLock().unlock();
-            }
+                }
             }
 
             @Override
