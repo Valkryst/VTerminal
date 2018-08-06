@@ -26,7 +26,7 @@ public class ColorPalette {
     @Getter private final Color label_defaultBackground = defaultBackground;
     @Getter private final Color label_defaultForeground = new Color(0xFFF9CA00, true);
 
-    @Getter private final Color layer_defaultBackground = new Color(0, 0, 0, 0);
+    @Getter private final Color layer_defaultBackground = defaultBackground;
     @Getter private final Color layer_defaultForeground = Color.WHITE;
 
     @Getter private final Color progressBar_incompleteBackground = defaultBackground;
