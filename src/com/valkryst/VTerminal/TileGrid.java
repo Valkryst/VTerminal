@@ -1,9 +1,9 @@
 package com.valkryst.VTerminal;
 
+import com.valkryst.VTerminal.misc.ImageCache;
 import lombok.NonNull;
 
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -90,45 +90,56 @@ public final class TileGrid {
     }
 
     /**
-     * Copies the tiles of this grid's children onto this grid, then copies
-     * this grid's tiles onto another grid.
+     * Draws a specific tile to the screen.
      *
-     * @param grid
-     *          The grid to draw this grid onto.
+     * If there are any child grids which have tiles overlapping the position of the tile to draw, then those
+     * tiles are drawn as well.
+     *
+     * @param gc
+     *         The graphics context to draw with.
+     *
+     * @param imageCache
+     *         The image cache to retrieve tile images from.
+     *
+     * @param tileX
+     *          The x-axis position of the tile, on this grid, to draw.
+     *
+     * @param tileY
+     *          The y-axis position of the tile, on this grid, to draw.
+     *
+     * @param drawX
+     *          The x-axis position, on the screen, to draw the tile at.
+     *
+     * @param drawY
+     *          The y-axis position, on the screen, to draw the tile at.
      */
-    public void copyOnto(final TileGrid grid) {
-        if (grid == null) {
+    public void drawTile(final Graphics2D gc, final ImageCache imageCache, final int tileX, final int tileY, final int drawX, final int drawY) {
+        // Draw the tile if it exists on this grid:
+        if (tileX < 0 || tileX >= tiles[0].length) {
             return;
         }
 
-        // Draw all children onto this grid.
+        if (tileY < 0 || tileY >= tiles.length) {
+            return;
+        }
+
+        final Tile tile = tiles[tileY][tileX];
+        tile.draw(gc, imageCache, drawX, drawY);
+
+        // Because the tile exists on this grid, it may exist on the child grids:
         childLock.readLock().lock();
 
-        for (final TileGrid child : childGrids) {
-            child.copyOnto(this);
+        for (final TileGrid childGrid : childGrids) {
+            final int childXPos = childGrid.getXPosition();
+            final int childYPos = childGrid.getYPosition();
+
+            final int tempX = tileX - (childXPos == position.x ? 0 : childXPos);
+            final int tempY = tileY - (childYPos == position.y ? 0 : childYPos);
+
+            childGrid.drawTile(gc, imageCache, tempX, tempY, drawX, drawY);
         }
 
         childLock.readLock().unlock();
-
-
-        // Draw this grid onto the input grid.
-        final int xOffset = position.x;
-        final int yOffset = position.y;
-
-        for (int y = 0 ; y < tiles.length ; y++) {
-            final int yPosition = yOffset + y;
-
-            for (int x = 0 ; x < tiles[0].length ; x++) {
-                final int xPosition = xOffset + x;
-
-                final Tile componentTile = tiles[y][x];
-                final Tile screenTile = grid.getTileAt(xPosition, yPosition);
-
-                if (componentTile != null && screenTile != null) {
-                    screenTile.copy(componentTile);
-                }
-            }
-        }
     }
 
     @Override
@@ -207,10 +218,6 @@ public final class TileGrid {
 
         childGrids.add(child);
 
-        for (final TileGrid c : childGrids) {
-            c.copyOnto(this);
-        }
-
         childLock.writeLock().unlock();
     }
 
@@ -245,10 +252,6 @@ public final class TileGrid {
         int indexOfExisting = childGrids.indexOf(existingChild);
         childGrids.add(indexOfExisting + 1, newChild);
 
-        for (final TileGrid child : childGrids) {
-            child.copyOnto(this);
-        }
-
         childLock.writeLock().unlock();
     }
 
@@ -282,10 +285,6 @@ public final class TileGrid {
 
         int indexOfExisting = childGrids.indexOf(existingChild);
         childGrids.add(indexOfExisting, newChild);
-
-        for (final TileGrid child : childGrids) {
-            child.copyOnto(this);
-        }
 
         childLock.writeLock().unlock();
     }
@@ -323,10 +322,6 @@ public final class TileGrid {
         // Remove the child.
         childGrids.remove(child);
 
-        for (final TileGrid c : childGrids) {
-            c.copyOnto(this);
-        }
-
         childLock.writeLock().unlock();
     }
 
@@ -350,6 +345,49 @@ public final class TileGrid {
 
         return containsChild;
 
+    }
+
+    /**
+     * Calculates the hash value of a specific tile.
+     *
+     * If there are any child grids which have tiles overlapping the position of the tile to calculate the hash
+     * for, then the hashes of those tiles are added to the hash of the tile.
+     *
+     * @param tileX
+     *          The x-axis position of the tile, on this grid, to calculate the hash for.
+     *
+     * @param tileY
+     *          The y-axis position of the tile, on this grid, to calculate the hash for.
+     */
+    public long getPositionHash(final int tileX, final int tileY) {
+        // Return nothing if the tile doesn't exist on this grid.
+        if (tileX < 0 || tileX >= tiles[0].length) {
+            return 0;
+        }
+
+        if (tileY < 0 || tileY >= tiles.length) {
+            return 0;
+        }
+
+        // Because the tile exists on this grid, it may exist on the child grids, so we need to add the hash of
+        // the tile from this grid to the hashes of the tiles from the child grids.
+        long hash = tiles[tileY][tileX].getCacheHash();
+
+        childLock.readLock().lock();
+
+        for (final TileGrid childGrid : childGrids) {
+            final int childXPos = childGrid.getXPosition();
+            final int childYPos = childGrid.getYPosition();
+
+            final int tempX = tileX - (childXPos == position.x ? 0 : childXPos);
+            final int tempY = tileY - (childYPos == position.y ? 0 : childYPos);
+
+            hash += childGrid.getPositionHash(tempX, tempY);
+        }
+
+        childLock.readLock().unlock();
+
+        return hash;
     }
 
     /**
