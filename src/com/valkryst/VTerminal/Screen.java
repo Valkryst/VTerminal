@@ -10,17 +10,14 @@ import lombok.Getter;
 import lombok.NonNull;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.EventListener;
+import java.util.*;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class Screen {
@@ -33,7 +30,8 @@ public class Screen {
     /** The tiles. */
     @Getter private final TileGrid tiles;
 
-    private final int[][] tileHashes;
+    private long[][] positionHashes_previous;
+    private long[][] positionHashes_current;
 
     /** The components on the screen. */
     private final List<Component> components = new ArrayList<>(0);
@@ -119,7 +117,8 @@ public class Screen {
      */
     public Screen(final @NonNull Dimension dimensions, final @NonNull Font font) {
         tiles = new TileGrid(dimensions, new Point(0, 0));
-        tileHashes = new int[dimensions.height][dimensions.width];
+        positionHashes_previous = new long[dimensions.width][dimensions.height];
+        positionHashes_current = new long[dimensions.width][dimensions.height];
         setColorPalette(new ColorPalette());
 
         this.imageCache = new ImageCache(font);
@@ -289,15 +288,39 @@ public class Screen {
 
     /** Draws all of the screen's tiles onto the canvas. */
     public void draw() {
-        // Draw components on screen.
-        if (components.size() > 0) {
-            componentsLock.readLock().lock();
+        final int screenHeight = tiles.getHeight();
+        final int screenWidth = tiles.getWidth();
 
-            for (final Component component : components) {
-                component.getTiles().copyOnto(tiles);
+        // Copy current hashes to previous hashes:
+        for (int x = 0 ; x < screenWidth ; x++) {
+            if (screenHeight >= 0) {
+                System.arraycopy(positionHashes_current[x], 0, positionHashes_previous[x], 0, screenHeight);
             }
+        }
 
-            componentsLock.readLock().unlock();
+        // Reset current hashes:
+        for (int x = 0 ; x < screenWidth ; x++) {
+            Arrays.fill(positionHashes_current[x], 0);
+        }
+
+        // Update current hashes:
+        for (int x = 0 ; x < screenWidth ; x++) {
+            for (int y = 0 ; y < screenHeight ; y++) {
+                positionHashes_current[x][y] = tiles.getPositionHash(x, y);
+
+                // Add the hashes of all component tiles that overlap the current position.
+                componentsLock.readLock().lock();
+
+                for (final Component component : components) {
+                    final TileGrid tileGrid = component.getTiles();
+                    final int tempX = x - tileGrid.getXPosition();
+                    final int tempY = y - tileGrid.getYPosition();
+
+                    positionHashes_current[x][y] += tileGrid.getPositionHash(tempX, tempY);
+                }
+
+                componentsLock.readLock().unlock();
+            }
         }
 
         // Draw screen on canvas.
@@ -310,34 +333,62 @@ public class Screen {
                 try {
                     gc = (Graphics2D) bs.getDrawGraphics();
 
+                    // Whether to bias algorithm choices more for speed or quality when evaluating tradeoffs.
                     gc.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+
+                    // Controls how closely to approximate a color when storing into a destination with limited
+                    // color resolution.
                     gc.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+
+                    // Controls the accuracy of approximation and conversion when storing colors into a
+                    // destination image or surface.
                     gc.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+
+                    // Controls how image pixels are filtered or resampled during an image rendering operation.
                     gc.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
                     // Font characters are pre-rendered images, so no need for AA.
+                    //
+                    // Controls whether or not the geometry rendering methods of a Graphics2D object will
+                    // attempt to reduce aliasing artifacts along the edges of shapes.
                     gc.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 
-                    // No-need for text rendering related options.
+                    // Everything is done VIA images, so there's no need for text rendering options.
                     gc.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
                     gc.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 
-                    // If alpha is used in the character images, we want computations related to drawing them to be fast.
+                    // It's possible that users will be using a large amount of transparent layers, so we want
+                    // to ensure that rendering is as quick as we can get it.
+                    //
+                    // A general hint that provides a high level recommendation as to whether to bias alpha
+                    // blending algorithm choices more for speed or quality when evaluating tradeoffs.
                     gc.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
 
-                    // Draw every tile, whose hash has changed, onto the canvas.
-                    for (int y = 0; y < tiles.getHeight(); y++) {
-                        final int yPosition = tiles.getYPosition() + y;
+                    // Draw every position, whose hash has changed, onto the canvas.
+                    for (int x = 0; x < tiles.getWidth(); x++) {
+                        final int xPosition = tiles.getXPosition() + x;
 
-                        for (int x = 0; x < tiles.getWidth(); x++) {
-                            final int xPosition = tiles.getXPosition() + x;
+                        for (int y = 0; y < tiles.getHeight(); y++) {
+                            final int yPosition = tiles.getYPosition() + y;
 
-                            final Tile tile = tiles.getTileAt(x, y);
+                            final boolean hashChanged = (positionHashes_previous[x][y] != positionHashes_current[x][y]);
+                            final boolean notYetRendered = (positionHashes_previous[x][y] == 0);
 
-                            // Determine if hash has changed.
-                            if (tileHashes[y][x] == 0 || tileHashes[y][x] != tile.getCacheHash()) {
-                                tileHashes[y][x] = tile.getCacheHash();
+                            if (notYetRendered || hashChanged) {
                                 tiles.getTileAt(x, y).draw(gc, imageCache, xPosition, yPosition);
+
+                                // Draw all of component tiles that overlap the current position.
+                                componentsLock.readLock().lock();
+
+                                for (final Component component : components) {
+                                    final TileGrid tileGrid = component.getTiles();
+                                    final int tempX = x - tileGrid.getXPosition();
+                                    final int tempY = y - tileGrid.getYPosition();
+
+                                    tileGrid.drawTile(gc, imageCache, tempX, tempY, x, y);
+                                }
+
+                                componentsLock.readLock().unlock();
                             }
                         }
                     }
@@ -352,12 +403,15 @@ public class Screen {
                             canvas.createBufferStrategy(2);
                         }
 
+                        // Screen needs to be redrawn if the Buffer Strategy changes, so we have to reset the
+                        // hashes to ensure the whole screen is redrawn.
+                        for (int x = 0 ; x < screenWidth ; x++) {
+                            Arrays.fill(positionHashes_current[x], 0);
+                        }
+
                         draw();
                         return;
                     }
-
-                    final Logger logger = LogManager.getLogger();
-                    logger.error(e);
                 }
             } while (bs.contentsRestored()); // Repeat render if drawing buffer contents were restored.
 
