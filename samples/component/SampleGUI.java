@@ -1,6 +1,7 @@
 package component;
 
 import com.valkryst.VTerminal.Screen;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.builder.*;
 import com.valkryst.VTerminal.component.Layer;
 import com.valkryst.VTerminal.component.ProgressBar;
@@ -12,8 +13,7 @@ import com.valkryst.VTerminal.printer.RectanglePrinter;
 import com.valkryst.VTerminal.printer.RectangleType;
 
 import javax.swing.Timer;
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 import java.io.IOException;
 
 public class SampleGUI {
@@ -59,6 +59,10 @@ public class SampleGUI {
         printer.setHeight(18);
         printer.setTitle("Field Text Area");
         printer.print(layer.getTiles(), new Point(22, 7));
+
+        printer.setHeight(15);
+        printer.setTitle("Alpha Layers");
+        printer.print(layer.getTiles(), new Point(22, 9));
 
 
 
@@ -157,6 +161,24 @@ public class SampleGUI {
         textAreaBuilder.setPosition(23, 8);
         layer.addComponent(textAreaBuilder.build());
 
+
+        // Populate the Alpha Layers Section
+        final Layer redLayer = new Layer(new Dimension(21, 3), new Point(23, 10));
+        for (int i = 0 ; i < redLayer.getTiles().getHeight() ; i++) {
+            for (final Tile tile : redLayer.getTiles().getRow(0)) {
+                tile.setBackgroundColor(new Color(255, 0, 0, 100));
+            }
+        }
+
+        final Layer blueLayer = new Layer(new Dimension(21, 3), new Point(23, 15));
+        for (int i = 0 ; i < redLayer.getTiles().getHeight() ; i++) {
+            for (final Tile tile : blueLayer.getTiles().getRow(0)) {
+                tile.setBackgroundColor(new Color(0, 0, 255, 100));
+            }
+        }
+
+        layer.addComponent(redLayer);
+        layer.addComponent(blueLayer);
 
 
         // Create a Layer with Components on it.
