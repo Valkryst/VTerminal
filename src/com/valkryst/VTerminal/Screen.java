@@ -207,6 +207,21 @@ public class Screen {
         frame.setForeground(colorPalette.getDefaultForeground());
         frame.setVisible(true);
 
+        /*
+         * There are two rare, hard to reproduce, issues that this sleep fixes.
+         *
+         * It's assumed that the reason for these issues is that the Swing components aren't fully initialized
+         * when the first draw occurs, so we need to give Swing some time before we draw to the Canvas.
+         *
+         *      1) Nothing is drawn to the Canvas on first draw, it remains completely white/blank.
+         *
+         *      2) A random number of tiles, at random positions, are either rendered incorrectly or aren't
+         *         rendered.
+         */
+        try {
+            Thread.sleep(200);
+        } catch (final InterruptedException ignored) {}
+
         draw();
 
         return frame;
@@ -264,6 +279,21 @@ public class Screen {
 
         device.setFullScreenWindow(frame);
         isInFullScreenExclusiveMode = true;
+
+        /*
+         * There are two rare, hard to reproduce, issues that this sleep fixes.
+         *
+         * It's assumed that the reason for these issues is that the Swing components aren't fully initialized
+         * when the first draw occurs, so we need to give Swing some time before we draw to the Canvas.
+         *
+         *      1) Nothing is drawn to the Canvas on first draw, it remains completely white/blank.
+         *
+         *      2) A random number of tiles, at random positions, are either rendered incorrectly or aren't
+         *         rendered.
+         */
+        try {
+            Thread.sleep(200);
+        } catch (final InterruptedException ignored) {}
 
         draw();
 
