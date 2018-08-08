@@ -99,7 +99,7 @@ public class Layer extends Component {
 
         if (component instanceof Layer) {
             ((Layer) component).setRootScreen(rootScreen);
-            addLayerComponent((Layer) component, new Point(getBoundingBoxOffset()));
+            addLayerComponent((Layer) component, new Point(0, 0));
         }
 
         // Add the component
