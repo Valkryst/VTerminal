@@ -189,12 +189,12 @@ public class SampleGUI {
         buttonBuilder.setOnClickFunction(() -> {
             final Layer tmp = new Layer(new Dimension(5, 5), new Point(0, 1));
 
-            final ButtonBuilder bb = new ButtonBuilder();
-            bb.setText("Click");
-            bb.setPosition(0, 0);
-            bb.setOnClickFunction(() -> System.out.println("Yee"));
+            buttonBuilder.reset();
+            buttonBuilder.setText("Click");
+            buttonBuilder.setPosition(0, 0);
+            buttonBuilder.setOnClickFunction(() -> System.out.println("Yee"));
 
-            tmp.addComponent(bb.build());
+            tmp.addComponent(buttonBuilder.build());
             buttonLayer.addComponent(tmp);
         });
         buttonLayer.addComponent(buttonBuilder.build());
