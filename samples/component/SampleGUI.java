@@ -165,14 +165,14 @@ public class SampleGUI {
         // Populate the Alpha Layers Section
         final Layer redLayer = new Layer(new Dimension(21, 3), new Point(23, 10));
         for (int i = 0 ; i < redLayer.getTiles().getHeight() ; i++) {
-            for (final Tile tile : redLayer.getTiles().getRow(0)) {
+            for (final Tile tile : redLayer.getTiles().getRow(i)) {
                 tile.setBackgroundColor(new Color(255, 0, 0, 100));
             }
         }
 
         final Layer blueLayer = new Layer(new Dimension(21, 3), new Point(23, 15));
         for (int i = 0 ; i < redLayer.getTiles().getHeight() ; i++) {
-            for (final Tile tile : blueLayer.getTiles().getRow(0)) {
+            for (final Tile tile : blueLayer.getTiles().getRow(i)) {
                 tile.setBackgroundColor(new Color(0, 0, 255, 100));
             }
         }
