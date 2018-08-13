@@ -170,7 +170,7 @@ public class SampleGUI {
             }
         }
 
-        final Layer blueLayer = new Layer(new Dimension(21, 3), new Point(23, 15));
+        final Layer blueLayer = new Layer(new Dimension(21, 3), new Point(23, 12));
         for (int i = 0 ; i < redLayer.getTiles().getHeight() ; i++) {
             for (final Tile tile : blueLayer.getTiles().getRow(i)) {
                 tile.setBackgroundColor(new Color(0, 0, 255, 100));
