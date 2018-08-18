@@ -6,6 +6,7 @@ The project is currently in it's Soft release phase. During this phase, there *m
 ## Links
 
 * [JavaDoc Documentation](https://valkryst.github.io/VTerminal/)
+* [Roguelike Development Tutorial with VTerminal](https://github.com/Valkryst/VTerminal_Tutorial/wiki)
 * [Usage Guide](https://github.com/Valkryst/VTerminal/wiki)
     * [More Examples](https://github.com/Valkryst/VTerminal/tree/master/samples)
 * [Resolving Compatibility & Render Issues](https://github.com/Valkryst/VTerminal/wiki/Resolving-Compatibility-&-Render-Issues)
