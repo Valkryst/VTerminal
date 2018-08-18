@@ -373,11 +373,8 @@ public final class TileGrid {
         childLock.readLock().lock();
 
         for (final TileGrid childGrid : childGrids) {
-            final int childXPos = childGrid.getXPosition();
-            final int childYPos = childGrid.getYPosition();
-
-            final int tempX = tileX - (childXPos == position.x ? 0 : childXPos);
-            final int tempY = tileY - (childYPos == position.y ? 0 : childYPos);
+            final int tempX = tileX - childGrid.getXPosition();
+            final int tempY = tileY - childGrid.getYPosition();
 
             hash += childGrid.getPositionHash(tempX, tempY);
         }
