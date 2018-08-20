@@ -168,6 +168,22 @@ public class Layer extends Component {
         for (final EventListener listener : component.getEventListeners()) {
             super.eventListeners.remove(listener);
         }
+
+        // Reset all of the tiles where the component used to be.
+        final int startX = component.getTiles().getXPosition();
+        final int startY = component.getTiles().getYPosition();
+
+        final int endX = startX + component.getTiles().getWidth();
+        final int endY = startY + component.getTiles().getHeight();
+
+        for (int y = startY ; y < endY ; y++) {
+            for (int x = startX ; x < endX ; x++) {
+                final Tile tile = tiles.getTileAt(x, y);
+                tile.reset();
+                tile.setBackgroundColor(rootScreen.getColorPalette().getDefaultBackground());
+                tile.setForegroundColor(rootScreen.getColorPalette().getDefaultForeground());
+            }
+        }
     }
 
     /** Removes all components from the layer. */
