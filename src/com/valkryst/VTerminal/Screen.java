@@ -43,7 +43,7 @@ public class Screen {
     private final Point mousePosition = new Point(0, 0);
 
     /** The color palette of the Screen. Does not apply to child components. */
-    private ColorPalette colorPalette;
+    @Getter private ColorPalette colorPalette;
 
     private boolean isInFullScreenExclusiveMode = false;
 
