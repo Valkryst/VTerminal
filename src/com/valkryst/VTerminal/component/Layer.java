@@ -99,7 +99,10 @@ public class Layer extends Component {
 
         if (component instanceof Layer) {
             ((Layer) component).setRootScreen(rootScreen);
-            addLayerComponent((Layer) component, new Point(0, 0));
+
+            final int x = component.getTiles().getXPosition();
+            final int y = component.getTiles().getYPosition();
+            addLayerComponent((Layer) component, new Point(x, y));
         }
 
         // Add the component
@@ -124,8 +127,8 @@ public class Layer extends Component {
                 addLayerComponent((Layer) component, tmp);
             } else {
                 // Set the component to use the offset of this Layer
-                final int x = this.getTiles().getXPosition() + boundingBoxOffset.x + component.getTiles().getXPosition() + layer.getTiles().getXPosition();
-                final int y = this.getTiles().getYPosition() + boundingBoxOffset.y + component.getTiles().getYPosition() + layer.getTiles().getYPosition();
+                final int x = this.getTiles().getXPosition() + boundingBoxOffset.x + component.getTiles().getXPosition();
+                final int y = this.getTiles().getYPosition() + boundingBoxOffset.y + component.getTiles().getYPosition();
                 component.setBoundingBoxOffset(new Point(x, y));
 
                 if (rootScreen != null) {
