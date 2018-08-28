@@ -448,8 +448,8 @@ public class Screen {
         }
 
         if (component instanceof Layer) {
-            ((Layer) component).setRootScreen(this);
-            addLayerComponent((Layer) component, new Point(0, 0));
+            addChildComponentsOfLayer((Layer) component);
+            updateChildBoundingBoxesOfLayer((Layer) component);
         }
 
         // Add the component
@@ -460,38 +460,48 @@ public class Screen {
         // Set the component's redraw function
         component.setRedrawFunction(this::draw);
 
-        // Create the component's event listeners
+        // Create and add the component's event listeners
         component.createEventListeners(this);
 
-        // Add the component's event listeners
         for (final EventListener listener : component.getEventListeners()) {
             addListener(listener);
         }
     }
 
     /**
-     * Adds the components of a layer to the screen.
+     * Recursively adds a layer, all of it's child components, and all of the child components of any layer that
+     * is a child to the screen.
      *
      * @param layer
      *          The layer.
-     *
-     * @param boundingBoxOffset
-     *          The offset to apply to each of the layer's components, so their intersection functions work
-     *          correctly.
      */
-    private void addLayerComponent(final Layer layer, final Point boundingBoxOffset) {
-        for (final Component component : layer.getComponents()) {
-            if (component instanceof Layer) {
-                final int x = boundingBoxOffset.x + component.getTiles().getXPosition();
-                final int y = boundingBoxOffset.y + component.getTiles().getYPosition();
-                final Point tmp = new Point(x, y);
+    private void addChildComponentsOfLayer(final Layer layer) {
+        layer.setRootScreen(this);
 
-                component.setBoundingBoxOffset(tmp);
-                ((Layer) component).setRootScreen(this);
-                addLayerComponent((Layer) component, tmp);
-            } else {
-                component.setBoundingBoxOffset(boundingBoxOffset);
-                addComponent(component);
+        for (final Component component : layer.getComponents()) {
+            addComponent(component);
+
+            if (component instanceof Layer) {
+                addChildComponentsOfLayer((Layer) component);
+            }
+        }
+    }
+
+    /**
+     * Recursively updates the bounding box origin points of a layer, all of it's child components, and all of
+     * the child components of any layer that is a child to the screen.
+     *
+     * @param layer
+     *          The layer.
+     */
+    private void updateChildBoundingBoxesOfLayer(final Layer layer) {
+        for (final Component component : layer.getComponents()) {
+            final int x = layer.getTiles().getXPosition() + component.getBoundingBoxOrigin().x;
+            final int y = layer.getTiles().getYPosition() + component.getBoundingBoxOrigin().y;
+            component.setBoundingBoxOrigin(x, y);
+
+            if (component instanceof Layer) {
+                updateChildBoundingBoxesOfLayer((Layer) component);
             }
         }
     }
