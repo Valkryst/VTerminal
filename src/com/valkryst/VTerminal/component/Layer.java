@@ -97,14 +97,15 @@ public class Layer extends Component {
 
         // todo Recursive check to ensure layer isn't a child of the layer being added.
 
-        final int x = this.getTiles().getXPosition() + component.getTiles().getXPosition();
-        final int y = this.getTiles().getYPosition() + component.getTiles().getYPosition();
-
-        final Point tmp = new Point(x, y);
-        component.setBoundingBoxOffset(tmp);
-
         if (component instanceof Layer) {
             ((Layer) component).setRootScreen(rootScreen);
+
+            final int x = this.getTiles().getXPosition() + component.getTiles().getXPosition();
+            final int y = this.getTiles().getYPosition() + component.getTiles().getYPosition();
+
+            final Point tmp = new Point(x, y);
+            component.setBoundingBoxOffset(tmp);
+
             addLayerComponent((Layer) component, tmp);
         }
 
