@@ -99,10 +99,7 @@ public class Layer extends Component {
 
         if (component instanceof Layer) {
             ((Layer) component).setRootScreen(rootScreen);
-
-            final int x = component.getTiles().getXPosition();
-            final int y = component.getTiles().getYPosition();
-            addLayerComponent((Layer) component, new Point(x, y));
+            addLayerComponent((Layer) component, new Point(0, 0));
         }
 
         // Add the component
