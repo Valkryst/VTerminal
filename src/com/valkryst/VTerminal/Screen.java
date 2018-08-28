@@ -448,7 +448,7 @@ public class Screen {
         }
 
         if (component instanceof Layer) {
-            addChildComponentsOfLayer((Layer) component);
+            setupChildComponentsOfLayer((Layer) component);
             updateChildBoundingBoxesOfLayer((Layer) component);
         }
 
@@ -469,20 +469,28 @@ public class Screen {
     }
 
     /**
-     * Recursively adds a layer, all of it's child components, and all of the child components of any layer that
-     * is a child to the screen.
+     * Recursively sets up a layer, all of it's child components, and all of the child components of any layer
+     * that is a child to the screen.
      *
      * @param layer
      *          The layer.
      */
-    private void addChildComponentsOfLayer(final Layer layer) {
+    private void setupChildComponentsOfLayer(final Layer layer) {
         layer.setRootScreen(this);
 
         for (final Component component : layer.getComponents()) {
-            addComponent(component);
+            // Set the component's redraw function
+            component.setRedrawFunction(this::draw);
+
+            // Create and add the component's event listeners
+            component.createEventListeners(this);
+
+            for (final EventListener listener : component.getEventListeners()) {
+                addListener(listener);
+            }
 
             if (component instanceof Layer) {
-                addChildComponentsOfLayer((Layer) component);
+                setupChildComponentsOfLayer((Layer) component);
             }
         }
     }
@@ -496,8 +504,8 @@ public class Screen {
      */
     private void updateChildBoundingBoxesOfLayer(final Layer layer) {
         for (final Component component : layer.getComponents()) {
-            final int x = layer.getTiles().getXPosition() + component.getBoundingBoxOrigin().x;
-            final int y = layer.getTiles().getYPosition() + component.getBoundingBoxOrigin().y;
+            final int x = layer.getTiles().getXPosition() + component.getTiles().getXPosition();
+            final int y = layer.getTiles().getYPosition() + component.getTiles().getYPosition();
             component.setBoundingBoxOrigin(x, y);
 
             if (component instanceof Layer) {
@@ -519,10 +527,6 @@ public class Screen {
 
         if (component instanceof Layer) {
             ((Layer) component).setRootScreen(null);
-
-            for (final Component layerComponent : ((Layer) component).getComponents()) {
-                removeComponent(layerComponent);
-            }
         }
 
         // Remove the component
