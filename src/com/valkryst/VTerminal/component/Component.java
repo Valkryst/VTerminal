@@ -18,7 +18,7 @@ public class Component {
     /** The tiles. */
     @Getter protected final TileGrid tiles;
 
-    // todo Java Doc
+    /** The origin point of the bounding box. */
     @Getter private final Point boundingBoxOrigin;
 
     /** The event listeners. */
