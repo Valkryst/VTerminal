@@ -131,4 +131,14 @@ public class Component {
     public void setBoundingBoxOrigin(final int x, final int y) {
         boundingBoxOrigin.setLocation(x, y);
     }
+
+    /**
+     * Changes the bounding box origin.
+     *
+     * @param point
+     *          The new origin point.
+     */
+    public void setBoundingBoxOrigin(final Point point) {
+        boundingBoxOrigin.setLocation(point);
+    }
 }
