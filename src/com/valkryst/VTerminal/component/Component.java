@@ -19,7 +19,7 @@ public class Component {
     @Getter protected final TileGrid tiles;
 
     // todo Java Doc
-    @Getter @Setter private Point boundingBoxOffset = new Point(0, 0);
+    @Getter private final Point boundingBoxOrigin;
 
     /** The event listeners. */
     protected final List<EventListener> eventListeners = new LinkedList<>();
@@ -43,6 +43,7 @@ public class Component {
      */
     public Component(final @NonNull Dimension dimensions, final @NonNull Point position) {
         tiles = new TileGrid(dimensions, position);
+        boundingBoxOrigin = new Point(tiles.getXPosition(), tiles.getYPosition());
     }
 
     /**
@@ -70,10 +71,10 @@ public class Component {
             return false;
         }
 
-        boolean intersects = point.x >= (tiles.getXPosition() + boundingBoxOffset.x);
-        intersects &= point.x < (tiles.getWidth() + tiles.getXPosition() + boundingBoxOffset.x);
-        intersects &= point.y >= (tiles.getYPosition() + boundingBoxOffset.y);
-        intersects &= point.y < (tiles.getHeight() + tiles.getYPosition() + boundingBoxOffset.y);
+        boolean intersects = (point.x >= boundingBoxOrigin.x);
+        intersects &= (point.x < (tiles.getWidth() + boundingBoxOrigin.x));
+        intersects &= (point.y >= boundingBoxOrigin.y);
+        intersects &= (point.y < (tiles.getHeight() + boundingBoxOrigin.y));
         return intersects;
     }
 
@@ -116,5 +117,18 @@ public class Component {
      */
     public Tile getTileAt(final Point position) {
         return tiles.getTileAt(position);
+    }
+
+    /**
+     * Changes the bounding box origin.
+     *
+     * @param x
+     *          The x-axis coordinate of the origin.
+     *
+     * @param y
+     *          The y-axis coordinate of the origin..
+     */
+    public void setBoundingBoxOrigin(final int x, final int y) {
+        boundingBoxOrigin.setLocation(x, y);
     }
 }
