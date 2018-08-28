@@ -611,6 +611,20 @@ public final class TileGrid {
     }
 
     /**
+     * Retrieves the total number of child grids.
+     *
+     * @return
+     *          The total number of child grids.
+     */
+    public int getTotalChildren() {
+        childLock.readLock().lock();
+        final int total = childGrids.size();
+        childLock.readLock().unlock();
+
+        return total;
+    }
+
+    /**
      * Retrieves the x-axis coordinate of the grid within it's parent.
      *
      * @return
