@@ -102,13 +102,19 @@ public class Layer extends Component {
 
             final int x = this.getTiles().getXPosition() + component.getTiles().getXPosition();
             final int y = this.getTiles().getYPosition() + component.getTiles().getYPosition();
-            addLayerComponent((Layer) component, new Point(x, y));
+
+            final Point tmp = new Point(x, y);
+            component.setBoundingBoxOffset(tmp);
+
+            addLayerComponent((Layer) component, tmp);
         }
 
         // Add the component
         componentsLock.writeLock().lock();
+
         super.tiles.addChild(component.getTiles());
         components.add(component);
+
         componentsLock.writeLock().unlock();
 
         // Add the component's event listeners
