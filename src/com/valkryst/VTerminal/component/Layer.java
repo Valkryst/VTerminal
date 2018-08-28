@@ -120,16 +120,13 @@ public class Layer extends Component {
             final int x = boundingBoxOffset.x + component.getTiles().getXPosition();
             final int y = boundingBoxOffset.y + component.getTiles().getYPosition();
 
-            if (component instanceof Layer) {
-                final Point tmp = new Point(x, y);
+            final Point tmp = new Point(x, y);
+            component.setBoundingBoxOffset(tmp);
 
-                component.setBoundingBoxOffset(tmp);
+            if (component instanceof Layer) {
                 ((Layer) component).setRootScreen(rootScreen);
                 addLayerComponent((Layer) component, tmp);
             } else {
-                // Set the component to use the offset of this Layer
-                component.setBoundingBoxOffset(new Point(x, y));
-
                 if (rootScreen != null) {
                     // Set the component's redraw function
                     component.setRedrawFunction(() -> rootScreen.draw());
