@@ -128,9 +128,12 @@ public class Layer extends Component {
             if (component instanceof Layer) {
                 addChildComponentsOfLayer((Layer) component);
             } else {
-                // This code is only relevant when adding components to a Layer that's already on a Screen.
-                // When a Layer is first added to a Screen, the redraw function and event listeners are
-                // set up in the addComponent function of the Screen class.
+                /*
+                 * This code is only relevant when adding components to a Layer that's already on a Screen.
+                 *
+                 * When a Layer is first added to a Screen, the redraw function and event listeners are set up
+                 * in the addComponent function of the Screen class.
+                 */
                 if (rootScreen != null) {
                     // Set the component's redraw function
                     component.setRedrawFunction(() -> rootScreen.draw());
