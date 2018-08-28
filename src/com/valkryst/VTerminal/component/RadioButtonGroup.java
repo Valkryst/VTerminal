@@ -57,20 +57,4 @@ public class RadioButtonGroup {
     public void removeRadioButton(final @NonNull RadioButton button) {
         buttons.remove(button);
     }
-
-    /**
-     * Retrieves the selected button.
-     *
-     * @return
-     *          The selected button, or null if no button is selected.
-     */
-    public RadioButton getSelectedButton() {
-        for (final RadioButton button : buttons) {
-            if (button.isChecked()) {
-                return button;
-            }
-        }
-
-        return null;
-    }
 }
