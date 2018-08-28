@@ -100,8 +100,8 @@ public class Layer extends Component {
         if (component instanceof Layer) {
             ((Layer) component).setRootScreen(rootScreen);
 
-            final int x = component.getTiles().getXPosition();
-            final int y = component.getTiles().getYPosition();
+            final int x = this.getTiles().getXPosition() + component.getTiles().getXPosition();
+            final int y = this.getTiles().getYPosition() + component.getTiles().getYPosition();
             addLayerComponent((Layer) component, new Point(x, y));
         }
 
@@ -117,9 +117,10 @@ public class Layer extends Component {
 
     private void addLayerComponent(final Layer layer, final Point boundingBoxOffset) {
         for (final Component component : layer.getComponents()) {
+            final int x = boundingBoxOffset.x + component.getTiles().getXPosition();
+            final int y = boundingBoxOffset.y + component.getTiles().getYPosition();
+
             if (component instanceof Layer) {
-                final int x = boundingBoxOffset.x + component.getTiles().getXPosition();
-                final int y = boundingBoxOffset.y + component.getTiles().getYPosition();
                 final Point tmp = new Point(x, y);
 
                 component.setBoundingBoxOffset(tmp);
@@ -127,8 +128,6 @@ public class Layer extends Component {
                 addLayerComponent((Layer) component, tmp);
             } else {
                 // Set the component to use the offset of this Layer
-                final int x = this.getTiles().getXPosition() + boundingBoxOffset.x + component.getTiles().getXPosition();
-                final int y = this.getTiles().getYPosition() + boundingBoxOffset.y + component.getTiles().getYPosition();
                 component.setBoundingBoxOffset(new Point(x, y));
 
                 if (rootScreen != null) {
