@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.function.Consumer;
 
 public class Screen {
     /** The canvas on which the screen is drawn. */
@@ -538,8 +539,12 @@ public class Screen {
         component.setRedrawFunction(() -> {});
 
         // Remove the component's event listeners
-        for (final EventListener listener : component.getEventListeners()) {
-            removeListener(listener);
+        if (component instanceof Layer) {
+            removeLayerListeners((Layer) component);
+        } else {
+            for (final EventListener listener : component.getEventListeners()) {
+                removeListener(listener);
+            }
         }
 
         // Reset all of the tiles where the component used to be.
@@ -654,6 +659,32 @@ public class Screen {
         }
 
         throw new IllegalArgumentException("The " + eventListener.getClass().getSimpleName() + " is not supported.");
+    }
+
+    /**
+     * Removes all event listeners, that belong to a layer and it's sub components, from the screen.
+     *
+     * @param layer
+     *          The layer.
+     */
+    public void removeLayerListeners(final Layer layer) {
+        if (layer == null) {
+            return;
+        }
+
+        for (final EventListener listener : layer.getEventListeners()) {
+            removeListener(listener);
+        }
+
+        for (final Component component : layer.getComponents()) {
+            if (component instanceof Layer) {
+                removeLayerListeners((Layer) component);
+            } else {
+                for (final EventListener listener : component.getEventListeners()) {
+                    removeListener(listener);
+                }
+            }
+        }
     }
 
     /**
