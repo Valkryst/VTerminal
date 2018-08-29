@@ -90,10 +90,11 @@ public class CheckBox extends Button {
             public void mousePressed(final MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     if (intersects(parentScreen.getMousePosition())) {
+                        CheckBox.super.getOnClickFunction().run();
+
                         if (isChecked) {
                             setChecked(false);
                         } else {
-                            CheckBox.super.getOnClickFunction().run();
                             setChecked(true);
                         }
                     }

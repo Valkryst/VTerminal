@@ -114,9 +114,7 @@ public class Button extends Component {
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    if (isInPressedState) {
-                        onClickFunction.run();
-                    }
+                    onClickFunction.run();
 
                     if (intersects(parentScreen.getMousePosition())) {
                         setStateHovered();
