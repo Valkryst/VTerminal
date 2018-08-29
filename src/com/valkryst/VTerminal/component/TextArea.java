@@ -145,11 +145,18 @@ public class TextArea extends Component {
         final MouseListener mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(final MouseEvent e) {
-                if (editable == false || isFocused() == false) {
+                if (editable == false) {
                     return;
                 }
 
                 if (e.getButton() != MouseEvent.BUTTON1) {
+                    return;
+                }
+
+                if (intersects(parentScreen.getMousePosition())) {
+                    setFocused(true);
+                } else {
+                    setFocused(false);
                     return;
                 }
 
