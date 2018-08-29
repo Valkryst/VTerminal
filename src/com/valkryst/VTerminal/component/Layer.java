@@ -200,9 +200,12 @@ public class Layer extends Component {
         component.setRedrawFunction(() -> {});
 
         // Remove the component's event listeners
-        for (final EventListener listener : component.getEventListeners()) {
-            super.eventListeners.remove(listener);
-            rootScreen.removeListener(listener);
+        if (component instanceof Layer) {
+            removeLayerListeners((Layer) component);
+        } else {
+            for (final EventListener listener : component.getEventListeners()) {
+                removeListener(listener);
+            }
         }
 
         // Reset all of the tiles where the component used to be.
@@ -238,6 +241,44 @@ public class Layer extends Component {
         }
 
         componentsLock.writeLock().unlock();
+    }
+
+    /**
+     * Removes an event listener from the root screen.
+     *
+     * @param listener
+     *          The listener.
+     */
+    private void removeListener(final EventListener listener) {
+        if (rootScreen != null) {
+            rootScreen.removeListener(listener);
+        }
+    }
+
+    /**
+     * Removes all event listeners, that belong to a layer and it's sub components, from the screen.
+     *
+     * @param layer
+     *          The layer.
+     */
+    private void removeLayerListeners(final Layer layer) {
+        if (layer == null) {
+            return;
+        }
+
+        for (final EventListener listener : layer.getEventListeners()) {
+            removeListener(listener);
+        }
+
+        for (final Component component : layer.getComponents()) {
+            if (component instanceof Layer) {
+                removeLayerListeners((Layer) component);
+            } else {
+                for (final EventListener listener : component.getEventListeners()) {
+                    removeListener(listener);
+                }
+            }
+        }
     }
 
     /**
