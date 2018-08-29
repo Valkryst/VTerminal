@@ -95,7 +95,12 @@ public class Layer extends Component {
             return;
         }
 
+        final int x = this.getTiles().getXPosition() + component.getTiles().getXPosition();
+        final int y = this.getTiles().getYPosition() + component.getTiles().getYPosition();
+        component.setBoundingBoxOrigin(x, y);
+
         if (component instanceof Layer) {
+            System.out.println(component.getBoundingBoxOrigin());
             addChildComponentsOfLayer((Layer) component);
             updateChildBoundingBoxesOfLayer((Layer) component);
         }
@@ -108,8 +113,17 @@ public class Layer extends Component {
 
         componentsLock.writeLock().unlock();
 
-        // Add the component's event listeners
-        super.eventListeners.addAll(component.getEventListeners());
+        /*
+         * This line is relevant only when adding components to a Layer that's already on a Screen.
+         *
+         * Before a Layer is first added to a Screen, none of the sub-components will have had their listeners
+         * initialized. The initialization is done when the Layer is being added to the Screen.
+         */
+        if (rootScreen != null) {
+            for (final EventListener listener : component.getEventListeners()) {
+                rootScreen.addListener(listener);
+            }
+        }
     }
 
     /**
@@ -123,8 +137,6 @@ public class Layer extends Component {
         layer.setRootScreen(rootScreen);
 
         for (final Component component : layer.getComponents()) {
-            addComponent(component);
-
             if (component instanceof Layer) {
                 addChildComponentsOfLayer((Layer) component);
             } else {
@@ -158,8 +170,8 @@ public class Layer extends Component {
      */
     private void updateChildBoundingBoxesOfLayer(final Layer layer) {
         for (final Component component : layer.getComponents()) {
-            final int x = layer.getTiles().getXPosition() + component.getBoundingBoxOrigin().x;
-            final int y = layer.getTiles().getYPosition() + component.getBoundingBoxOrigin().y;
+            final int x = layer.getBoundingBoxOrigin().x + component.getTiles().getXPosition();
+            final int y = layer.getBoundingBoxOrigin().y + component.getTiles().getYPosition();
             component.setBoundingBoxOrigin(x, y);
 
             if (component instanceof Layer) {
@@ -191,6 +203,7 @@ public class Layer extends Component {
         // Remove the component's event listeners
         for (final EventListener listener : component.getEventListeners()) {
             super.eventListeners.remove(listener);
+            rootScreen.removeListener(listener);
         }
 
         // Reset all of the tiles where the component used to be.
