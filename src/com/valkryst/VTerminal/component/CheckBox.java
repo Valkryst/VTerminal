@@ -130,4 +130,25 @@ public class CheckBox extends Button {
 
         super.redrawFunction.run();
     }
+
+    @Override
+    public void setText(String text) {
+        if (text == null) {
+            text = "";
+        }
+
+        for (int x = 0 ; x < tiles.getWidth() ; x++) {
+            if (x == 0 || x == 1) {
+                continue;
+            }
+
+            if (x <= text.length()) {
+                // Because we skip the first two tiles (checkbox & space after it), we have to use -2 to
+                // compensate.
+                tiles.getTileAt(x, 0).setCharacter(text.charAt(x - 2));
+            } else {
+                tiles.getTileAt(x, 0).setCharacter(' ');
+            }
+        }
+    }
 }
