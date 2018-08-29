@@ -208,6 +208,65 @@ public class Screen {
         frame.setForeground(colorPalette.getDefaultForeground());
         frame.setVisible(true);
 
+        frame.addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(final ComponentEvent e) {
+                draw();
+            }
+
+            @Override
+            public void componentMoved(final ComponentEvent e) {
+                draw();
+            }
+
+            @Override
+            public void componentShown(final ComponentEvent e) {
+                draw();
+            }
+
+            @Override
+            public void componentHidden(final ComponentEvent e) {}
+        });
+
+        frame.addWindowFocusListener(new WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(final WindowEvent e) {
+                draw();
+            }
+
+            @Override
+            public void windowLostFocus(final WindowEvent e) {}
+        });
+
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(final WindowEvent e) {
+                draw();
+            }
+
+            @Override
+            public void windowClosing(final WindowEvent e) {}
+
+            @Override
+            public void windowClosed(final WindowEvent e) {}
+
+            @Override
+            public void windowIconified(final WindowEvent e) {}
+
+            @Override
+            public void windowDeiconified(final WindowEvent e) {
+                draw();
+            }
+
+            @Override
+            public void windowActivated(final WindowEvent e) {
+                draw();
+            }
+
+            @Override
+            public void windowDeactivated(final WindowEvent e) {}
+        });
+
         /*
          * There are two rare, hard to reproduce, issues that this sleep fixes.
          *
@@ -277,6 +336,67 @@ public class Screen {
         frame.setResizable(false);
         frame.setIgnoreRepaint(true);
         frame.setVisible(true);
+
+
+
+        frame.addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(final ComponentEvent e) {
+                draw();
+            }
+
+            @Override
+            public void componentMoved(final ComponentEvent e) {
+                draw();
+            }
+
+            @Override
+            public void componentShown(final ComponentEvent e) {
+                draw();
+            }
+
+            @Override
+            public void componentHidden(final ComponentEvent e) {}
+        });
+
+        frame.addWindowFocusListener(new WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(final WindowEvent e) {
+                draw();
+            }
+
+            @Override
+            public void windowLostFocus(final WindowEvent e) {}
+        });
+
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(final WindowEvent e) {
+                draw();
+            }
+
+            @Override
+            public void windowClosing(final WindowEvent e) {}
+
+            @Override
+            public void windowClosed(final WindowEvent e) {}
+
+            @Override
+            public void windowIconified(final WindowEvent e) {}
+
+            @Override
+            public void windowDeiconified(final WindowEvent e) {
+                draw();
+            }
+
+            @Override
+            public void windowActivated(final WindowEvent e) {
+                draw();
+            }
+
+            @Override
+            public void windowDeactivated(final WindowEvent e) {}
+        });
 
         device.setFullScreenWindow(frame);
         isInFullScreenExclusiveMode = true;
