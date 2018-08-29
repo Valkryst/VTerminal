@@ -100,7 +100,6 @@ public class Layer extends Component {
         component.setBoundingBoxOrigin(x, y);
 
         if (component instanceof Layer) {
-            System.out.println(component.getBoundingBoxOrigin());
             addChildComponentsOfLayer((Layer) component);
             updateChildBoundingBoxesOfLayer((Layer) component);
         }
