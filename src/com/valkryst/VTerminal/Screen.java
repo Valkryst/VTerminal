@@ -597,8 +597,14 @@ public class Screen {
         // Unset the component's redraw function
         component.setRedrawFunction(() -> {});
 
-        // Clear Listeners & Re-initialize Them
-        reinitializeListeners();
+        // Remove the component's event listeners
+        if (component instanceof Layer) {
+            removeLayerListeners((Layer) component);
+        } else {
+            for (final EventListener listener : component.getEventListeners()) {
+                removeListener(listener);
+            }
+        }
 
         // Reset all of the tiles where the component used to be.
         final int startX = component.getTiles().getXPosition();
@@ -626,7 +632,13 @@ public class Screen {
         while(iterator.hasNext()) {
             final Component component = iterator.next();
 
+            // Remove the component
             iterator.remove();
+
+            // Remove the component's event listeners
+            for (final EventListener listener : component.getEventListeners()) {
+                removeListener(listener);
+            }
         }
 
         componentsLock.writeLock().unlock();
@@ -670,43 +682,66 @@ public class Screen {
         throw new IllegalArgumentException("The " + eventListener.getClass().getSimpleName() + " is not supported.");
     }
 
-    private void reinitializeListeners() {
-        for (final KeyListener listener : canvas.getListeners(KeyListener.class)) {
-            canvas.removeKeyListener(listener);
+    /**
+     * Removes an event listener from the canvas.
+     *
+     * @param eventListener
+     *        The event listener.
+     *
+     * @throws IllegalArgumentException
+     *        If the event listener isn't supported by this function.
+     */
+    public void removeListener(final EventListener eventListener) {
+        if (eventListener == null) {
+            return;
         }
 
-        for (final MouseInputListener listener : canvas.getListeners(MouseInputListener.class)) {
-            canvas.removeMouseListener(listener);
-            canvas.removeMouseMotionListener(listener);
+        if (eventListener instanceof KeyListener) {
+            canvas.removeKeyListener((KeyListener) eventListener);
+            return;
         }
 
-        for (final MouseListener listener : canvas.getListeners(MouseListener.class)) {
-            canvas.removeMouseListener(listener);
+        if (eventListener instanceof MouseInputListener) {
+            canvas.removeMouseListener((MouseListener) eventListener);
+            canvas.removeMouseMotionListener((MouseMotionListener) eventListener);
+            return;
         }
 
-        for (final MouseMotionListener listener : canvas.getListeners(MouseMotionListener.class)) {
-            canvas.removeMouseMotionListener(listener);
+        if (eventListener instanceof MouseListener) {
+            canvas.removeMouseListener((MouseListener) eventListener);
+            return;
         }
 
-        for (final Component component : components) {
-            for (final EventListener listener : component.getEventListeners()) {
-                addListener(listener);
-            }
-
-            if (component instanceof Layer) {
-                temp((Layer) component);
-            }
+        if (eventListener instanceof MouseMotionListener) {
+            canvas.removeMouseMotionListener((MouseMotionListener) eventListener);
+            return;
         }
+
+        throw new IllegalArgumentException("The " + eventListener.getClass().getSimpleName() + " is not supported.");
     }
 
-    private void temp (final Layer layer) {
-        for (final Component component : layer.getComponents()) {
-            for (final EventListener listener : component.getEventListeners()) {
-                addListener(listener);
-            }
+    /**
+     * Removes all event listeners, that belong to a layer and it's sub components, from the screen.
+     *
+     * @param layer
+     *          The layer.
+     */
+    public void removeLayerListeners(final Layer layer) {
+        if (layer == null) {
+            return;
+        }
 
+        for (final EventListener listener : layer.getEventListeners()) {
+            removeListener(listener);
+        }
+
+        for (final Component component : layer.getComponents()) {
             if (component instanceof Layer) {
-                setupChildComponentsOfLayer((Layer) component);
+                removeLayerListeners((Layer) component);
+            } else {
+                for (final EventListener listener : component.getEventListeners()) {
+                    removeListener(listener);
+                }
             }
         }
     }
