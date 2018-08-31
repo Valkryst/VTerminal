@@ -238,7 +238,7 @@ public class Layer extends Component {
 
             // Remove the component's event listeners
             for (final EventListener listener : component.getEventListeners()) {
-                super.eventListeners.remove(listener);
+                removeListener(listener);
             }
         }
 
