@@ -8,9 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EventListener;
+import java.util.*;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -229,10 +227,14 @@ public class Layer extends Component {
     public void removeAllComponents() {
         componentsLock.writeLock().lock();
 
-        for (final Component component : components) {
+        final ListIterator<Component> iterator = components.listIterator();
+
+        while (iterator.hasNext()) {
+            final Component component = iterator.next();
+
             // Remove the component
             super.tiles.removeChild(component.getTiles());
-            components.remove(component);
+            iterator.remove();
 
             // Remove the component's event listeners
             for (final EventListener listener : component.getEventListeners()) {

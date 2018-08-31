@@ -633,6 +633,7 @@ public class Screen {
             final Component component = iterator.next();
 
             // Remove the component
+            tiles.removeChild(component.getTiles());
             iterator.remove();
 
             // Remove the component's event listeners
