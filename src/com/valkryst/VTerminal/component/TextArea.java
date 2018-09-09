@@ -44,12 +44,10 @@ public class TextArea extends Component {
     /** The text entered by the user. */
     @Getter private char[][] enteredText;
 
+    /** Whether the text area is in-focus. */
     private boolean isFocused;
 
-    /**
-     * The pattern used to determine which typed characters can be entered into
-     * the field.
-     */
+    /** The pattern used to determine which typed characters can be entered into the field. */
     @Getter @Setter private Pattern allowedCharacterPattern;
 
     /** Whether the special listener code for the Enter key is enabled. */
@@ -490,6 +488,15 @@ public class TextArea extends Component {
         enteredText[caretPosition.y][caretPosition.x] = ' ';
     }
 
+    /**
+     * Moves the caret to a new position.
+     *
+     * @param x
+     *          The x-axis coordinate of the new position.
+     *
+     * @param y
+     *          The y-axis coordinate of the new position.
+     */
     private void changeCaretPosition(final int x, final int y) {
         // Reset current position.
         Tile tile = super.tiles.getTileAt(caretPosition.x, caretPosition.y);
