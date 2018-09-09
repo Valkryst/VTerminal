@@ -27,8 +27,6 @@ public class Component {
     /** The function used to redraw the parent of the component. */
     @Setter @NonNull protected Runnable redrawFunction = () -> {};
 
-    @Getter @Setter private boolean isFocused = false;
-
     /**
      * Constructs a new Component.
      *
