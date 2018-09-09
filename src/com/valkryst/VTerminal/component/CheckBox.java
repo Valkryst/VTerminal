@@ -10,6 +10,7 @@ import lombok.NonNull;
 import lombok.ToString;
 
 import javax.swing.event.MouseInputListener;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 
 @ToString
@@ -111,6 +112,49 @@ public class CheckBox extends Button {
         };
 
         super.eventListeners.add(mouseListener);
+    }
+
+    @Override
+    public void setColorPalette(final ColorPalette colorPalette, final boolean redraw) {
+        if (colorPalette == null) {
+            return;
+        }
+
+        // Set the instance variables.
+        this.colorPalette = colorPalette;
+
+        this.backgroundColor_normal = colorPalette.getCheckBox_defaultBackground();
+        this.foregroundColor_normal = colorPalette.getCheckBox_defaultForeground();
+
+        this.backgroundColor_pressed = colorPalette.getCheckBox_checkedBackground();
+        this.foregroundColor_pressed = colorPalette.getCheckBox_checkedForeground();
+
+        this.backgroundColor_hover = colorPalette.getCheckBox_hoverBackground();
+        this.foregroundColor_hover = colorPalette.getCheckBox_hoverForeground();
+
+        // Determine the colors to color the tiles with.
+        final Color backgroundColor;
+        final Color foregroundColor;
+
+        if (isChecked) {
+            backgroundColor = backgroundColor_pressed;
+            foregroundColor = foregroundColor_pressed;
+        } else {
+            backgroundColor = backgroundColor_normal;
+            foregroundColor = foregroundColor_normal;
+        }
+
+        for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
+            for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
+                final Tile tile = super.tiles.getTileAt(x, y);
+                tile.setBackgroundColor(backgroundColor);
+                tile.setForegroundColor(foregroundColor);
+            }
+        }
+
+        if (redraw) {
+            redrawFunction.run();
+        }
     }
 
     /**
