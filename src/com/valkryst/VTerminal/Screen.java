@@ -833,7 +833,7 @@ public class Screen {
 
         componentsLock.readLock().unlock();
 
-        // Redraw is necessary
+        // Redraw if necessary
         if (redraw) {
             draw();
         }
