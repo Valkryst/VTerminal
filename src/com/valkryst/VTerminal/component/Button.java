@@ -1,8 +1,7 @@
 package com.valkryst.VTerminal.component;
 
-import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.Screen;
-import com.valkryst.VTerminal.TileGrid;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.builder.ButtonBuilder;
 import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.Getter;
@@ -11,7 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.swing.event.MouseInputListener;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 
 @ToString
@@ -134,6 +133,52 @@ public class Button extends Component {
         };
 
         super.eventListeners.add(mouseListener);
+    }
+
+    @Override
+    public void setColorPalette(final ColorPalette colorPalette, final boolean redraw) {
+        if (colorPalette == null) {
+            return;
+        }
+
+        // Set the instance variables.
+        this.colorPalette = colorPalette;
+
+        this.backgroundColor_normal = colorPalette.getButton_defaultBackground();
+        this.foregroundColor_normal = colorPalette.getButton_defaultForeground();
+
+        this.backgroundColor_pressed = colorPalette.getButton_pressedBackground();
+        this.foregroundColor_pressed = colorPalette.getButton_pressedForeground();
+
+        this.backgroundColor_hover = colorPalette.getButton_hoverBackground();
+        this.foregroundColor_hover = colorPalette.getButton_hoverForeground();
+
+        // Determine the colors to color the tiles with.
+        final Color backgroundColor;
+        final Color foregroundColor;
+
+        if (isInPressedState) {
+            backgroundColor = backgroundColor_pressed;
+            foregroundColor = foregroundColor_pressed;
+        } else if (isInHoveredState) {
+            backgroundColor = backgroundColor_hover;
+            foregroundColor = foregroundColor_hover;
+        } else {
+            backgroundColor = backgroundColor_normal;
+            foregroundColor = foregroundColor_normal;
+        }
+
+        for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
+            for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
+                final Tile tile = super.tiles.getTileAt(x, y);
+                tile.setBackgroundColor(backgroundColor);
+                tile.setForegroundColor(foregroundColor);
+            }
+        }
+
+        if (redraw) {
+            redrawFunction.run();
+        }
     }
 
     /**
