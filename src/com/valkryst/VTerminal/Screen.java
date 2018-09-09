@@ -800,11 +800,7 @@ public class Screen {
     }
 
     /**
-     * Sets the fore/background color of every tile on the screen to the
-     * default fore/background colors of a ColorPalette.
-     *
-     * This does not affect child components and this is not permanent.
-     * These color changes may be overwritten during a draw call.
+     * Changes the color palette of the screen and all of it's components.
      *
      * @param colorPalette
      *          The color palette.
@@ -827,9 +823,11 @@ public class Screen {
         componentsLock.readLock().lock();
 
         for (final Component component : components) {
-            component.setColorPalette(colorPalette);
+            component.setColorPalette(colorPalette, false);
         }
 
         componentsLock.readLock().unlock();
+
+        draw();
     }
 }
