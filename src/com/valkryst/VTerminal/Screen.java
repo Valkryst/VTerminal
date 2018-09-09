@@ -809,7 +809,7 @@ public class Screen {
      * @param colorPalette
      *          The color palette.
      */
-    public void setColorPalette(final @NonNull ColorPalette colorPalette) {
+    public void setColorPalette(final ColorPalette colorPalette) {
         if (colorPalette == null) {
             return;
         }
@@ -823,5 +823,13 @@ public class Screen {
                 tile.setBackgroundColor(colorPalette.getDefaultBackground());
             }
         }
+
+        componentsLock.readLock().lock();
+
+        for (final Component component : components) {
+            component.setColorPalette(colorPalette);
+        }
+
+        componentsLock.readLock().unlock();
     }
 }
