@@ -402,6 +402,7 @@ public class TextArea extends Component {
             return;
         }
 
+        // Set the instance variables.
         this.colorPalette = colorPalette;
         this.caretBackgroundColor = colorPalette.getTextArea_caretBackground();
         this.caretForegroundColor = colorPalette.getTextArea_caretForeground();
@@ -409,7 +410,6 @@ public class TextArea extends Component {
         this.foregroundColor = colorPalette.getTextArea_defaultForeground();
 
         // Color All Tiles
-
         for (int y = 0 ; y < tiles.getHeight() ; y++) {
             for (int x = 0 ; x < tiles.getWidth() ; x++) {
                 final Tile tile = tiles.getTileAt(x, y);
