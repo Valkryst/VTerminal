@@ -39,7 +39,7 @@ public class Component {
      *          The position of the component within it's parent.
      *
      * @throws NullPointerException
-     *         If the dimensions or point is null.
+     *          If the dimensions or point is null.
      */
     public Component(final @NonNull Dimension dimensions, final @NonNull Point position) {
         tiles = new TileGrid(dimensions, position);
@@ -53,7 +53,7 @@ public class Component {
      *          The parent screen.
      *
      * @throws NullPointerException
-     *         If the screen is null.
+     *          If the screen is null.
      */
     public void createEventListeners(final @NonNull Screen parentScreen) {}
 
@@ -89,34 +89,19 @@ public class Component {
     }
 
     /**
-     * Retrieves a tile from the screen.
+     * Retrieves a tile from the component's TileGrid.
      *
      * @param x
-     *          The x-axis coordinate of the tile to retrieve.
+     *          The x-axis coordinate of the tile.
      *
      * @param y
-     *          The y-axis coordinate of the tile to retrieve.
+     *          The y-axis coordinate of the tile.
      *
      * @return
-     *          The tile, or null if the coordinates are outside the bounds
-     *          of the component.
+     *          The tile, or null if the coordinates are outside the bounds of the component.
      */
     public Tile getTileAt(final int x, final int y) {
         return tiles.getTileAt(x, y);
-    }
-
-    /**
-     * Retrieves a tile from the screen.
-     *
-     * @param position
-     *          The x/y-axis coordinates of the tile to retrieve.
-     *
-     * @return
-     *          The tile, or null if the coordinates are outside the bounds
-     *          of the component.
-     */
-    public Tile getTileAt(final Point position) {
-        return tiles.getTileAt(position);
     }
 
     /**
@@ -130,15 +115,5 @@ public class Component {
      */
     public void setBoundingBoxOrigin(final int x, final int y) {
         boundingBoxOrigin.setLocation(x, y);
-    }
-
-    /**
-     * Changes the bounding box origin.
-     *
-     * @param point
-     *          The new origin point.
-     */
-    public void setBoundingBoxOrigin(final Point point) {
-        boundingBoxOrigin.setLocation(point);
     }
 }
