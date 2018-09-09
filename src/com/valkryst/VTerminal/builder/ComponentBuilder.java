@@ -122,10 +122,6 @@ public class ComponentBuilder<C extends Component> implements VJSONParser {
                 this.colorPalette = new P24PhosphorColorPalette();
                 break;
             }
-            case "P26Phosphor": {
-                this.colorPalette = new P26PhosphorColorPalette();
-                break;
-            }
             default: {
                 this.colorPalette = new ColorPalette();
             }
