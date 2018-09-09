@@ -119,7 +119,7 @@ public class Screen {
         tiles = new TileGrid(dimensions, new Point(0, 0));
         positionHashes_previous = new long[dimensions.width][dimensions.height];
         positionHashes_current = new long[dimensions.width][dimensions.height];
-        setColorPalette(new ColorPalette());
+        setColorPalette(new ColorPalette(), false);
 
         this.imageCache = new ImageCache(font);
 
@@ -804,8 +804,11 @@ public class Screen {
      *
      * @param colorPalette
      *          The color palette.
+     *
+     * @param redraw
+     *          Whether to call the redraw function after changing the color palette.
      */
-    public void setColorPalette(final ColorPalette colorPalette) {
+    public void setColorPalette(final ColorPalette colorPalette, final boolean redraw) {
         if (colorPalette == null) {
             return;
         }
@@ -828,6 +831,8 @@ public class Screen {
 
         componentsLock.readLock().unlock();
 
-        draw();
+        if (redraw) {
+            draw();
+        }
     }
 }
