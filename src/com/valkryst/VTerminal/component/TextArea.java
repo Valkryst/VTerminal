@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.commons.lang.WordUtils;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -404,10 +405,12 @@ public class TextArea extends Component {
         }
 
         this.colorPalette = colorPalette;
+        this.caretBackgroundColor = colorPalette.getTextArea_caretBackground();
+        this.caretForegroundColor = colorPalette.getTextArea_caretForeground();
+        this.backgroundColor = colorPalette.getTextArea_defaultBackground();
+        this.foregroundColor = colorPalette.getTextArea_defaultForeground();
 
         // Color All Tiles
-        final Color backgroundColor = colorPalette.getTextArea_defaultBackground();
-        final Color foregroundColor = colorPalette.getTextArea_defaultForeground();
 
         for (int y = 0 ; y < tiles.getHeight() ; y++) {
             for (int x = 0 ; x < tiles.getWidth() ; x++) {
@@ -419,8 +422,8 @@ public class TextArea extends Component {
 
         // Color Caret
         final Tile tile = tiles.getTileAt(caretPosition.x, caretPosition.y);
-        tile.setBackgroundColor(colorPalette.getTextArea_caretBackground());
-        tile.setForegroundColor(colorPalette.getTextArea_caretForeground());
+        tile.setBackgroundColor(caretBackgroundColor);
+        tile.setForegroundColor(caretForegroundColor);
 
         redrawFunction.run();
     }
@@ -512,15 +515,58 @@ public class TextArea extends Component {
     }
 
     /**
-     * Appends text to the first empty row of the area.
+     * Appends a string to the first empty row of the text area.
      *
-     * If there are no empty rows, then the first row is discarded and all rows
-     * are moved up, then the new text is appended to the bottom row.
+     * If the string is too long to be displayed on a single line of the area, then it is split and displayed on
+     * multiple lines.
+     *
+     * Newline '\n' characters result in a new line being appended.
+     * Tab '\t' characters are converted to two space ' ' characters.
      *
      * @param text
-     *        The new text.
+     *          The text to append.
      */
-    public void appendText(final @NonNull Tile[] text) {
+    public void appendText(String text) {
+        if (text == null) {
+            text = "";
+        }
+
+        // Convert Special Characters
+        text = text.replace("\t", "  ");
+
+        // Split the text into separate lines if required.
+        final int width = super.getTiles().getWidth();
+
+        text = WordUtils.wrap(text, width, "\n", true);
+        final String[] textLines = text.split("\n");
+
+        // Convert Text Lines to Tile Lines and append them to the area.
+        for (final String textLine : textLines) {
+            System.out.println(textLine);
+            final Tile[] tileLine = new Tile[textLine.length()];
+
+            for (int i = 0 ; i < textLine.length() ; i++) {
+                final Tile tile = new Tile(textLine.charAt(i));
+                tile.setBackgroundColor(backgroundColor);
+                tile.setForegroundColor(foregroundColor);
+
+                tileLine[i] = tile;
+            }
+
+            appendText(tileLine);
+        }
+    }
+
+    /**
+     * Appends a string of tiles to the first empty row of the text area.
+     *
+     * If there are no empty rows, then the first row is discarded and all rows are moved up by one row. The
+     * text is then appended to the bottom row.
+     *
+     * @param text
+     *          The new text.
+     */
+    public void appendText(final Tile[] text) {
         // Find first empty row and append text:
         for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
             boolean rowIsEmpty = true;
@@ -555,16 +601,15 @@ public class TextArea extends Component {
      *
      * @param text
      *        The text.
-     *
-     * @throws NullPointerException
-     *        If the text is null.
      */
-    public void setText(final int rowIndex, @NonNull Tile[] text) {
+    public void setText(final int rowIndex, final Tile[] text) {
         clearText(rowIndex);
 
-        for (int x = 0 ; x < Math.min(super.tiles.getWidth(), text.length) ; x++) {
-            super.tiles.getTileAt(x, rowIndex).copy(text[x]);
-            enteredText[rowIndex][x] = text[x].getCharacter();
+        if (text != null) {
+            for (int x = 0; x < Math.min(super.tiles.getWidth(), text.length); x++) {
+                super.tiles.getTileAt(x, rowIndex).copy(text[x]);
+                enteredText[rowIndex][x] = text[x].getCharacter();
+            }
         }
 
         updateDisplayedCharacters();
@@ -582,7 +627,6 @@ public class TextArea extends Component {
         }
 
         Arrays.fill(enteredText[rowIndex], ' ');
-
 
         for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
             final Tile tile = super.tiles.getTileAt(x, rowIndex);
