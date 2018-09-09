@@ -2,6 +2,7 @@ package com.valkryst.VTerminal;
 
 import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.component.Layer;
+import com.valkryst.VTerminal.component.TextArea;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.misc.ImageCache;
@@ -143,45 +144,6 @@ public class Screen {
 
                 mousePosition.setLocation(mouseX, mouseY);
             }
-        });
-
-        // Add mouse click listener, used to determine which Component(s)
-        // are focused.
-        addListener(new MouseInputListener() {
-            @Override
-            public void mouseClicked(final MouseEvent e) {}
-
-            @Override
-            public void mousePressed(final MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    final int mouseX = e.getX() / font.getWidth();
-                    final int mouseY = e.getY() / font.getHeight();
-                    final Point mousePosition = new Point(mouseX, mouseY);
-
-                    componentsLock.readLock().lock();
-
-                    for (final Component component : components) {
-                        component.setFocused(component.intersects(mousePosition));
-                    }
-
-                    componentsLock.readLock().unlock();
-                }
-            }
-
-            @Override
-            public void mouseReleased(final MouseEvent e) {}
-
-            @Override
-            public void mouseEntered(final MouseEvent e) {}
-
-            @Override
-            public void mouseExited(final MouseEvent e) {}
-
-            @Override
-            public void mouseDragged(final MouseEvent e) {}
-
-            @Override
-            public void mouseMoved(final MouseEvent e) {}
         });
     }
 
