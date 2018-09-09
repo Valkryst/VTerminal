@@ -35,7 +35,7 @@ public class Label extends Component {
      *          The new text.
      */
     public void setText(final String text) {
-        final char[] chars = text.toCharArray();
+        final char[] chars = (text == null ? new char[0] : text.toCharArray());
 
         for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
             if (x < chars.length) {
