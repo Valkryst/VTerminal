@@ -23,7 +23,7 @@ public class Component {
     @Getter private final Point boundingBoxOrigin;
 
     /** The color palette. */
-    @Getter ColorPalette colorPalette;
+    @Getter protected ColorPalette colorPalette;
 
     /** The event listeners. */
     final List<EventListener> eventListeners = new LinkedList<>();
