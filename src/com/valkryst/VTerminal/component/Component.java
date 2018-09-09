@@ -22,7 +22,7 @@ public class Component {
     @Getter private final Point boundingBoxOrigin;
 
     /** The event listeners. */
-    protected final List<EventListener> eventListeners = new LinkedList<>();
+    final List<EventListener> eventListeners = new LinkedList<>();
 
     /** The function used to redraw the parent of the component. */
     @Setter @NonNull protected Runnable redrawFunction = () -> {};
