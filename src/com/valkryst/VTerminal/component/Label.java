@@ -57,9 +57,9 @@ public class Label extends Component {
         final Color backgroundColor = colorPalette.getLabel_defaultBackground();
         final Color foregroundColor = colorPalette.getLabel_defaultForeground();
 
-        for (int y = 0 ; y < tiles.getHeight() ; y++) {
-            for (int x = 0 ; x < tiles.getWidth() ; x++) {
-                final Tile tile = tiles.getTileAt(x, y);
+        for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
+            for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
+                final Tile tile = super.tiles.getTileAt(x, y);
                 tile.setBackgroundColor(backgroundColor);
                 tile.setForegroundColor(foregroundColor);
             }
