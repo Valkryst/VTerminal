@@ -2,14 +2,13 @@ package com.valkryst.VTerminal;
 
 import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.component.Layer;
-import com.valkryst.VTerminal.component.TextArea;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.misc.ImageCache;
 import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.Getter;
 import lombok.NonNull;
-import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 
 import javax.swing.event.MouseInputListener;
@@ -20,7 +19,6 @@ import java.io.IOException;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-import java.util.function.Consumer;
 
 public class Screen {
     /** The canvas on which the screen is drawn. */
