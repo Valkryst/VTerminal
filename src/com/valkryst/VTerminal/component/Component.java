@@ -3,13 +3,14 @@ package com.valkryst.VTerminal.component;
 import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.Screen;
 import com.valkryst.VTerminal.TileGrid;
+import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class Component {
     /** The ID of the component. Not guaranteed to be unique. */
@@ -20,6 +21,9 @@ public class Component {
 
     /** The origin point of the bounding box. */
     @Getter private final Point boundingBoxOrigin;
+
+    /** The color palette. */
+    @Getter private ColorPalette colorPalette;
 
     /** The event listeners. */
     final List<EventListener> eventListeners = new LinkedList<>();
@@ -113,5 +117,32 @@ public class Component {
      */
     public void setBoundingBoxOrigin(final int x, final int y) {
         boundingBoxOrigin.setLocation(x, y);
+    }
+
+    /**
+     * Changes the color palette of the component.
+     *
+     * @param colorPalette
+     *          The new palette.
+     */
+    public void setColorPalette(final ColorPalette colorPalette) {
+        if (colorPalette == null) {
+            return;
+        }
+
+        this.colorPalette = colorPalette;
+
+        final Color backgroundColor = colorPalette.getDefaultBackground();
+        final Color foregroundColor = colorPalette.getDefaultForeground();
+
+        for (int y = 0 ; y < tiles.getHeight() ; y++) {
+            for (int x = 0 ; x < tiles.getWidth() ; x++) {
+                final Tile tile = tiles.getTileAt(x, y);
+                tile.setBackgroundColor(backgroundColor);
+                tile.setForegroundColor(foregroundColor);
+            }
+        }
+
+        redrawFunction.run();
     }
 }
