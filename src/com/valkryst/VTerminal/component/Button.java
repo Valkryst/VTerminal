@@ -37,9 +37,6 @@ public class Button extends Component {
     /** The foreground color for when the button is in the pressed state. */
     protected Color foregroundColor_pressed;
 
-    /** The color palette. */
-    @Getter @Setter @NonNull private ColorPalette colorPalette;
-
     /** The function to run when the button is clicked. */
     @Getter @Setter @NonNull private Runnable onClickFunction;
 
