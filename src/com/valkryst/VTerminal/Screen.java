@@ -815,6 +815,7 @@ public class Screen {
 
         this.colorPalette = colorPalette;
 
+        // Change the color of the screen's tiles.
         for (int y = 0 ; y < tiles.getHeight() ; y++) {
             for (int x = 0 ; x < tiles.getWidth() ; x++) {
                 final Tile tile = tiles.getTileAt(x, y);
@@ -823,6 +824,7 @@ public class Screen {
             }
         }
 
+        // Change child component color palettes.
         componentsLock.readLock().lock();
 
         for (final Component component : components) {
@@ -831,6 +833,7 @@ public class Screen {
 
         componentsLock.readLock().unlock();
 
+        // Redraw is necessary
         if (redraw) {
             draw();
         }
