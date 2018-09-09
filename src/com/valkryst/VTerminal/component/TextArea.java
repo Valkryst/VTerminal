@@ -43,6 +43,8 @@ public class TextArea extends Component {
     /** The text entered by the user. */
     @Getter private char[][] enteredText;
 
+    private boolean isFocused;
+
     /**
      * The pattern used to determine which typed characters can be entered into
      * the field.
@@ -153,10 +155,7 @@ public class TextArea extends Component {
                     return;
                 }
 
-                if (intersects(parentScreen.getMousePosition())) {
-                    setFocused(true);
-                } else {
-                    setFocused(false);
+                if (intersects(parentScreen.getMousePosition()) == false) {
                     return;
                 }
 
@@ -191,7 +190,9 @@ public class TextArea extends Component {
             }
 
             @Override
-            public void mousePressed(final MouseEvent e) {}
+            public void mousePressed(final MouseEvent e) {
+                isFocused = intersects(parentScreen.getMousePosition());
+            }
 
             @Override
             public void mouseReleased(final MouseEvent e) {}
@@ -206,7 +207,7 @@ public class TextArea extends Component {
         final KeyListener keyListener = new KeyListener() {
             @Override
             public void keyTyped(final KeyEvent e) {
-                if (editable == false || isFocused() == false) {
+                if (editable == false || isFocused == false) {
                     return;
                 }
 
@@ -234,22 +235,18 @@ public class TextArea extends Component {
 
             @Override
             public void keyPressed(final KeyEvent e) {
-                if (editable == false || isFocused() == false) {
+                if (editable == false || isFocused == false) {
                     return;
                 }
 
-                int keyCode = e.getKeyCode();
-
-                switch (keyCode) {
+                switch (e.getKeyCode()) {
                     // Move the caret to the first position of the next row:
                     case KeyEvent.VK_ENTER: {
                         if (isEnterKeyEnabled == false) {
                             return;
                         }
 
-                        boolean canWork = caretPosition.y < tiles.getHeight() - 1;
-
-                        if (canWork) {
+                        if (caretPosition.y < tiles.getHeight() - 1) {
                             moveCaretDown();
                             moveCaretToStartOfLine();
                             updateDisplayedCharacters();
@@ -290,7 +287,7 @@ public class TextArea extends Component {
 
             @Override
             public void keyReleased(final KeyEvent e) {
-                if (editable == false || isFocused() == false) {
+                if (editable == false || isFocused == false) {
                     return;
                 }
 
@@ -398,6 +395,34 @@ public class TextArea extends Component {
 
         super.eventListeners.add(keyListener);
         super.eventListeners.add(mouseListener);
+    }
+
+    @Override
+    public void setColorPalette(final ColorPalette colorPalette) {
+        if (colorPalette == null) {
+            return;
+        }
+
+        this.colorPalette = colorPalette;
+
+        // Color All Tiles
+        final Color backgroundColor = colorPalette.getTextArea_defaultBackground();
+        final Color foregroundColor = colorPalette.getTextArea_defaultForeground();
+
+        for (int y = 0 ; y < tiles.getHeight() ; y++) {
+            for (int x = 0 ; x < tiles.getWidth() ; x++) {
+                final Tile tile = tiles.getTileAt(x, y);
+                tile.setBackgroundColor(backgroundColor);
+                tile.setForegroundColor(foregroundColor);
+            }
+        }
+
+        // Color Caret
+        final Tile tile = tiles.getTileAt(caretPosition.x, caretPosition.y);
+        tile.setBackgroundColor(colorPalette.getTextArea_caretBackground());
+        tile.setForegroundColor(colorPalette.getTextArea_caretForeground());
+
+        redrawFunction.run();
     }
 
     /** Moves the caret one cell up. */
