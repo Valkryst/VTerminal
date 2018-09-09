@@ -124,8 +124,11 @@ public class Component {
      *
      * @param colorPalette
      *          The new palette.
+     *
+     * @param redraw
+     *          Whether to call the redraw function after changing the color palette.
      */
-    public void setColorPalette(final ColorPalette colorPalette) {
+    public void setColorPalette(final ColorPalette colorPalette, final boolean redraw) {
         if (colorPalette == null) {
             return;
         }
@@ -143,6 +146,8 @@ public class Component {
             }
         }
 
-        redrawFunction.run();
+        if (redraw) {
+            redrawFunction.run();
+        }
     }
 }

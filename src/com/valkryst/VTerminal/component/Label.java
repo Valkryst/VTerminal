@@ -23,7 +23,7 @@ public class Label extends Component {
         super(builder.getDimensions(), builder.getPosition());
 
         setText(builder.getText());
-        setColorPalette(builder.getColorPalette());
+        setColorPalette(builder.getColorPalette(), true);
     }
 
     /**
@@ -47,7 +47,7 @@ public class Label extends Component {
     }
 
     @Override
-    public void setColorPalette(final ColorPalette colorPalette) {
+    public void setColorPalette(final ColorPalette colorPalette, final boolean redraw) {
         if (colorPalette == null) {
             return;
         }
@@ -65,6 +65,8 @@ public class Label extends Component {
             }
         }
 
-        redrawFunction.run();
+        if (redraw) {
+            redrawFunction.run();
+        }
     }
 }

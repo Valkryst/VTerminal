@@ -399,7 +399,7 @@ public class TextArea extends Component {
     }
 
     @Override
-    public void setColorPalette(final ColorPalette colorPalette) {
+    public void setColorPalette(final ColorPalette colorPalette, final boolean redraw) {
         if (colorPalette == null) {
             return;
         }
@@ -425,7 +425,9 @@ public class TextArea extends Component {
         tile.setBackgroundColor(caretBackgroundColor);
         tile.setForegroundColor(caretForegroundColor);
 
-        redrawFunction.run();
+        if (redraw) {
+            redrawFunction.run();
+        }
     }
 
     /** Moves the caret one cell up. */
