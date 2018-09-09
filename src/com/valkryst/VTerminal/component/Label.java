@@ -22,16 +22,27 @@ public class Label extends Component {
     public Label(final @NonNull LabelBuilder builder) {
         super(builder.getDimensions(), builder.getPosition());
 
-        final ColorPalette colorPalette = builder.getColorPalette();
+        setText(builder.getText());
+        setColorPalette(builder.getColorPalette());
+    }
 
-        final char[] text = builder.getText().toCharArray();
-        final Tile[] tiles = super.tiles.getRow(0);
+    /**
+     * Changes the text displayed on the label.
+     *
+     * The label will not change in size, so it will not show more text than it can currently display.
+     *
+     * @param text
+     *          The new text.
+     */
+    public void setText(final String text) {
+        final char[] chars = text.toCharArray();
 
-        for (int x = 0 ; x < tiles.length ; x++) {
-            tiles[x].setCharacter(text[x]);
-
-            tiles[x].setBackgroundColor(colorPalette.getLabel_defaultBackground());
-            tiles[x].setForegroundColor(colorPalette.getLabel_defaultForeground());
+        for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
+            if (x < chars.length) {
+                super.tiles.getTileAt(x, 0).setCharacter(chars[x]);
+            } else {
+                super.tiles.getTileAt(x, 0).setCharacter(' ');
+            }
         }
     }
 
