@@ -78,6 +78,41 @@ public class Layer extends Component {
         }
     }
 
+    @Override
+    public void setColorPalette(final ColorPalette colorPalette, final boolean redraw) {
+        if (colorPalette == null) {
+            return;
+        }
+
+        this.colorPalette = colorPalette;
+
+        // Change the color of the layer's tiles.
+        final Color backgroundColor = colorPalette.getLayer_defaultBackground();
+        final Color foregroundColor = colorPalette.getLayer_defaultForeground();
+
+        for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
+            for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
+                final Tile tile = super.tiles.getTileAt(x, y);
+                tile.setBackgroundColor(backgroundColor);
+                tile.setForegroundColor(foregroundColor);
+            }
+        }
+
+        // Change child component color palettes.
+        componentsLock.readLock().lock();
+
+        for (final Component component : components) {
+            component.setColorPalette(colorPalette, false);
+        }
+
+        componentsLock.readLock().unlock();
+
+        // Redraw if necessary
+        if (redraw) {
+            redrawFunction.run();
+        }
+    }
+
     /**
      * Adds a component to the layer.
      *
