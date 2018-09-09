@@ -5,8 +5,9 @@ import com.valkryst.VTerminal.builder.ProgressBarBuilder;
 import com.valkryst.VTerminal.palette.ColorPalette;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 import lombok.ToString;
+
+import java.awt.*;
 
 @ToString
 public class ProgressBar extends Component {
@@ -17,9 +18,6 @@ public class ProgressBar extends Component {
     @Getter private char incompleteCharacter;
     /** The character that represents a complete cell. */
     @Getter private char completeCharacter;
-
-    /** The color palette. */
-    @Getter @Setter @NonNull private ColorPalette colorPalette;
 
     /**
      * Constructs a new LoadingBar.
@@ -43,6 +41,41 @@ public class ProgressBar extends Component {
             tile.setCharacter(incompleteCharacter);
             tile.setBackgroundColor(colorPalette.getProgressBar_incompleteBackground());
             tile.setForegroundColor(colorPalette.getProgressBar_incompleteForeground());
+        }
+    }
+
+    @Override
+    public void setColorPalette(final ColorPalette colorPalette, final boolean redraw) {
+        if (colorPalette == null) {
+            return;
+        }
+
+        this.colorPalette = colorPalette;
+
+        // Determine the colors to color the tiles with.
+        final Color backgroundColor;
+        final Color foregroundColor;
+
+        if (percentComplete < 100) {
+            backgroundColor = colorPalette.getProgressBar_incompleteBackground();
+            foregroundColor = colorPalette.getProgressBar_incompleteForeground();
+        } else {
+            backgroundColor = colorPalette.getProgressBar_completeBackground();
+            foregroundColor = colorPalette.getProgressBar_completeForeground();
+        }
+
+
+        // Color All Tiles
+        for (int y = 0 ; y < tiles.getHeight() ; y++) {
+            for (int x = 0 ; x < tiles.getWidth() ; x++) {
+                final Tile tile = tiles.getTileAt(x, y);
+                tile.setBackgroundColor(backgroundColor);
+                tile.setForegroundColor(foregroundColor);
+            }
+        }
+
+        if (redraw) {
+            redrawFunction.run();
         }
     }
 
