@@ -9,10 +9,11 @@ import com.valkryst.VTerminal.component.RadioButton;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
+import com.valkryst.VTerminal.palette.SolarizedColorPalette;
 import com.valkryst.VTerminal.printer.RectanglePrinter;
 import com.valkryst.VTerminal.printer.RectangleType;
 
-import javax.swing.Timer;
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
@@ -164,18 +165,7 @@ public class SampleGUI {
 
         // Populate the Alpha Layers Section
         final Layer redLayer = new Layer(new Dimension(21, 3), new Point(23, 10));
-        for (int i = 0 ; i < redLayer.getTiles().getHeight() ; i++) {
-            for (final Tile tile : redLayer.getTiles().getRow(i)) {
-                tile.setBackgroundColor(new Color(255, 0, 0, 100));
-            }
-        }
-
         final Layer blueLayer = new Layer(new Dimension(21, 3), new Point(23, 12));
-        for (int i = 0 ; i < redLayer.getTiles().getHeight() ; i++) {
-            for (final Tile tile : blueLayer.getTiles().getRow(i)) {
-                tile.setBackgroundColor(new Color(0, 0, 255, 100));
-            }
-        }
 
         layer.addComponent(redLayer);
         layer.addComponent(blueLayer);
@@ -208,6 +198,22 @@ public class SampleGUI {
         screen.addComponent(layer);
 
         screen.addCanvasToFrame();
+
+        screen.setColorPalette(new SolarizedColorPalette(), true);
         //screen.addCanvasToFullScreenFrame(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice());
+
+
+        // Recolor the Alpha Layers Section
+        for (int i = 0 ; i < redLayer.getTiles().getHeight() ; i++) {
+            for (final Tile tile : redLayer.getTiles().getRow(i)) {
+                tile.setBackgroundColor(new Color(255, 0, 0, 100));
+            }
+        }
+
+        for (int i = 0 ; i < redLayer.getTiles().getHeight() ; i++) {
+            for (final Tile tile : blueLayer.getTiles().getRow(i)) {
+                tile.setBackgroundColor(new Color(0, 0, 255, 100));
+            }
+        }
     }
 }
