@@ -3,18 +3,12 @@ package com.valkryst.VTerminal.builder;
 import com.valkryst.VJSON.VJSONParser;
 import com.valkryst.VTerminal.component.CheckBox;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import org.json.simple.JSONObject;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper=true)
 public class CheckBoxBuilder extends ButtonBuilder implements VJSONParser {
-    /** The text of the label to display to the right of the check box. */
-    @NonNull private String text;
-
     /** The character to display when the check box is not checked. */
     private char emptyBoxChar;
     /** The character to display when the check box is checked. */
@@ -27,9 +21,9 @@ public class CheckBoxBuilder extends ButtonBuilder implements VJSONParser {
     public CheckBox build() {
         checkState();
 
-        super.setDimensions(text.length() + 2, 1);
+        super.setDimensions(super.getText().length() + 2, 1);
 
-        text = emptyBoxChar + " " + text;
+        super.setText(emptyBoxChar + " " + super.getText());
 
         return new CheckBox(this);
     }
@@ -37,8 +31,6 @@ public class CheckBoxBuilder extends ButtonBuilder implements VJSONParser {
     @Override
     public void reset() {
         super.reset();
-
-        text = "";
 
         emptyBoxChar = '☐';
         checkedBoxChar = '☑';
@@ -54,16 +46,9 @@ public class CheckBoxBuilder extends ButtonBuilder implements VJSONParser {
 
         super.parse(jsonObject);
 
-        final String text = getString(jsonObject, "text");
         final Character emptyBoxChar = getChar(jsonObject, "emptyBoxChar");
         final Character checkedBoxChar = getChar(jsonObject, "checkedBoxChar");
         // todo Add isChecked
-
-        if (text == null) {
-            throw new NullPointerException("The 'text' value was not found.");
-        } else {
-            this.text = text;
-        }
 
         if (emptyBoxChar == null) {
             throw new NullPointerException("The 'emptyBoxChar' value was not found.");
