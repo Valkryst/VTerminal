@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
 public class TextAreaBuilder extends ComponentBuilder<TextArea> {
+    private final static Pattern DEFAULT_ALLOWED_CHARACTER_PATTERN = Pattern.compile("^[a-zA-z0-9$-/:-?{-~!\"^_`\\[\\]@# ]$");
+
     /** Whether or not the TextArea can be edited. */
     private boolean editable;
 
@@ -60,7 +62,7 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
         super.checkState();
 
         if (allowedCharacterPattern == null) {
-            allowedCharacterPattern = Pattern.compile("^[a-zA-z0-9$-/:-?{-~!\"^_`\\[\\]@# ]$");
+            allowedCharacterPattern = DEFAULT_ALLOWED_CHARACTER_PATTERN;
         }
     }
 
@@ -72,7 +74,7 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
 
         editable = true;
 
-        allowedCharacterPattern = Pattern.compile("^[a-zA-z0-9$-/:-?{-~!\"^_`\\[\\]@# ]$");
+        allowedCharacterPattern = DEFAULT_ALLOWED_CHARACTER_PATTERN;
 
         isEnterKeyEnabled = true;
         isBackspaceKeyEnabled = true;
