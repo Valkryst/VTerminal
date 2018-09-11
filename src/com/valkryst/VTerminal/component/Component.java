@@ -53,11 +53,8 @@ public class Component {
      *
      * @param parentScreen
      *          The parent screen.
-     *
-     * @throws NullPointerException
-     *          If the screen is null.
      */
-    public void createEventListeners(final @NonNull Screen parentScreen) {}
+    public void createEventListeners(final Screen parentScreen) {}
 
     /**
      * Determines whether or not a point intersects this component.

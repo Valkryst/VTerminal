@@ -62,8 +62,8 @@ public class CheckBox extends Button {
     }
 
     @Override
-    public void createEventListeners(final @NonNull Screen parentScreen) {
-        if (super.eventListeners.size() > 0) {
+    public void createEventListeners(final Screen parentScreen) {
+        if (parentScreen == null || super.eventListeners.size() > 0) {
             return;
         }
 
