@@ -265,19 +265,19 @@ public class Button extends Component {
     /**
      * Sets the text displayed on the button.
      *
+     * The button will not change in size, so it will not show more text than it can currently display.
+     *
      * @param text
      *          The new text.
      */
-    public void setText(String text) {
-        if (text == null) {
-            text = "";
-        }
+    public void setText(final String text) {
+        final char[] chars = (text == null ? new char[0] : text.toCharArray());
 
-        for (int x = 0 ; x < tiles.getWidth() ; x++) {
-            if (x <= text.length()) {
-                tiles.getTileAt(x, 0).setCharacter(text.charAt(x));
+        for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
+            if (x < chars.length) {
+                super.tiles.getTileAt(x, 0).setCharacter(chars[x]);
             } else {
-                tiles.getTileAt(x, 0).setCharacter(' ');
+                super.tiles.getTileAt(x, 0).setCharacter(' ');
             }
         }
     }
