@@ -148,7 +148,18 @@ public class RadioButton extends Button {
         }
 
         if (redraw) {
-            redrawFunction.run();
+            try {
+                redrawFunction.run();
+            } catch (final IllegalStateException ignored) {
+                /*
+                 * If we set the color palette before the screen is displayed, then it'll throw...
+                 *
+                 *      IllegalStateException: Component must have a valid peer
+                 *
+                 * We can just ignore it in this case, because the screen will be drawn when it is displayed for
+                 * the first time.
+                 */
+            }
         }
     }
 
