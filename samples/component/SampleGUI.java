@@ -197,11 +197,8 @@ public class SampleGUI {
         // listeners of the components to itself.
         screen.addComponent(layer);
 
-        screen.addCanvasToFrame();
-
+        // Set the color palette before showing the screen.
         screen.setColorPalette(new SolarizedColorPalette(), true);
-        //screen.addCanvasToFullScreenFrame(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice());
-
 
         // Recolor the Alpha Layers Section
         for (int i = 0 ; i < redLayer.getTiles().getHeight() ; i++) {
@@ -215,5 +212,11 @@ public class SampleGUI {
                 tile.setBackgroundColor(new Color(0, 0, 255, 100));
             }
         }
+
+        screen.addCanvasToFrame();
+
+        //screen.addCanvasToFullScreenFrame(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice());
+
+
     }
 }
