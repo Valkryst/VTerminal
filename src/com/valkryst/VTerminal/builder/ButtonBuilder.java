@@ -3,11 +3,13 @@ package com.valkryst.VTerminal.builder;
 import com.valkryst.VJSON.VJSONParser;
 import com.valkryst.VTerminal.component.Button;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.json.simple.JSONObject;
 
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=true)
 public class ButtonBuilder extends ComponentBuilder<Button> implements VJSONParser {
     /** The text to display on the button. */
     private String text;
