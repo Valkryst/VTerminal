@@ -6,7 +6,6 @@ import com.valkryst.VTerminal.component.RadioButtonGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import org.json.simple.JSONObject;
 
 @Data
@@ -19,7 +18,7 @@ public class RadioButtonBuilder extends ButtonBuilder implements VJSONParser {
     private char checkedButtonChar;
 
     /** The radio button group that the radio button will belong to. */
-    @NonNull private RadioButtonGroup group;
+    private RadioButtonGroup group;
 
     @Override
     public RadioButton build() {
