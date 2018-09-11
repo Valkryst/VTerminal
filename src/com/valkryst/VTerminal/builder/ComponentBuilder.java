@@ -13,13 +13,13 @@ import java.awt.Point;
 
 public class ComponentBuilder<C extends Component> implements VJSONParser {
     /** The position of the component within it's parent. */
-    @NonNull private Point position = new Point(0, 0);
+    private Point position = new Point(0, 0);
 
     /** The dimensions of the component. */
-    @NonNull private Dimension dimensions = new Dimension(1, 1);
+    private Dimension dimensions = new Dimension(1, 1);
 
     /** The color palette to color the label with. */
-    @Getter @Setter @NonNull private ColorPalette colorPalette;
+    @Getter @Setter private ColorPalette colorPalette;
 
     /** Constructs a new ComponentBuilder. */
     public ComponentBuilder() {
@@ -31,31 +31,24 @@ public class ComponentBuilder<C extends Component> implements VJSONParser {
      *
      * @return
      *         The new component.
-     *
-     * @throws IllegalStateException
-     *          If something is wrong with the builder's state.
      */
     public C build() {
         checkState();
         return null;
     }
 
-    /**
-     * Checks the current state of the builder.
-     *
-     * @throws IllegalArgumentException
-     *          If the column or row indices are less than zero.
-     *
-     * @throws NullPointerException
-     *          If the panel is null.
-     */
-    protected void checkState() throws NullPointerException {
+    /** Checks the current state of the builder. */
+    protected void checkState() {
         if (dimensions.width < 1) {
-            throw new IllegalArgumentException("You must specify a width of 1 or greater.");
+            dimensions.width = 1;
         }
 
         if (dimensions.height < 1) {
-            throw new IllegalArgumentException("You must specify a height of 1 or greater.");
+            dimensions.height = 1;
+        }
+
+        if (colorPalette == null) {
+            colorPalette = new ColorPalette();
         }
     }
 
