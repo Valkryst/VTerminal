@@ -192,22 +192,15 @@ public class RadioButton extends Button {
     }
 
     @Override
-    public void setText(String text) {
-        if (text == null) {
-            text = "";
-        }
+    public void setText(final String text) {
+        final char[] chars = (text == null ? new char[0] : text.toCharArray());
 
-        for (int x = 0 ; x < tiles.getWidth() ; x++) {
-            if (x == 0 || x == 1) {
-                continue;
-            }
-
-            if (x <= text.length()) {
-                // Because we skip the first two tiles (checkbox & space after it), we have to use -2 to
-                // compensate.
-                tiles.getTileAt(x, 0).setCharacter(text.charAt(x - 2));
+        // The first two characters are the checked circle and a space, so we start after them.
+        for (int x = 2 ; x < super.tiles.getWidth() ; x++) {
+            if ((x - 2) < chars.length) {
+                super.tiles.getTileAt(x, 0).setCharacter(chars[x - 2]);
             } else {
-                tiles.getTileAt(x, 0).setCharacter(' ');
+                super.tiles.getTileAt(x, 0).setCharacter(' ');
             }
         }
     }
