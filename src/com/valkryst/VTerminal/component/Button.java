@@ -251,14 +251,16 @@ public class Button extends Component {
      *
      * @param foregroundColor
      *         The new foreground color.
-     *
-     * @throws NullPointerException
-     *         If the background or foreground color is null.
      */
-    private void setColors(final @NonNull Color backgroundColor, final @NonNull Color foregroundColor) {
+    private void setColors(final Color backgroundColor, final Color foregroundColor) {
         for (final Tile tile : super.tiles.getRow(0)) {
-            tile.setBackgroundColor(backgroundColor);
-            tile.setForegroundColor(foregroundColor);
+            if (backgroundColor != null) {
+                tile.setBackgroundColor(backgroundColor);
+            }
+
+            if (foregroundColor != null) {
+                tile.setForegroundColor(foregroundColor);
+            }
         }
     }
 
