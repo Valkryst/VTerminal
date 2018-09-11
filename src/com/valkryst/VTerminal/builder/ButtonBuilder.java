@@ -3,17 +3,14 @@ package com.valkryst.VTerminal.builder;
 import com.valkryst.VJSON.VJSONParser;
 import com.valkryst.VTerminal.component.Button;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import org.json.simple.JSONObject;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper=true)
 public class ButtonBuilder extends ComponentBuilder<Button> implements VJSONParser {
     /** The text to display on the button. */
-    @NonNull private String text;
+    private String text;
 
     /** The function to run when the button is clicked. */
     private Runnable onClickFunction;
@@ -28,6 +25,19 @@ public class ButtonBuilder extends ComponentBuilder<Button> implements VJSONPars
     }
 
     @Override
+    protected void checkState() {
+        super.checkState();
+
+        if (text == null) {
+            text = "";
+        }
+
+        if (onClickFunction == null) {
+            onClickFunction = () -> {};
+        }
+    }
+
+    @Override
     public void reset() {
         super.reset();
 
@@ -37,7 +47,11 @@ public class ButtonBuilder extends ComponentBuilder<Button> implements VJSONPars
     }
 
     @Override
-    public void parse(final @NonNull JSONObject jsonObject) {
+    public void parse(final JSONObject jsonObject) {
+        if (jsonObject == null) {
+            return;
+        }
+
         super.parse(jsonObject);
 
         final String text = getString(jsonObject, "text");
