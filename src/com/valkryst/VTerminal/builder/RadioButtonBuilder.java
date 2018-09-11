@@ -35,7 +35,7 @@ public class RadioButtonBuilder extends ButtonBuilder implements VJSONParser {
         return radioButton;
     }
 
-    /** Checks the current state of the builder. */
+    @Override
     protected void checkState() throws NullPointerException {
         super.checkState();
 
