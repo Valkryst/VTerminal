@@ -4,12 +4,10 @@ import com.valkryst.VJSON.VJSONParser;
 import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.palette.*;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import org.json.simple.JSONObject;
 
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 
 public class ComponentBuilder<C extends Component> implements VJSONParser {
     /** The position of the component within it's parent. */
@@ -60,7 +58,11 @@ public class ComponentBuilder<C extends Component> implements VJSONParser {
     }
 
     @Override
-    public void parse(final @NonNull JSONObject jsonObject) {
+    public void parse(final JSONObject jsonObject) {
+        if (jsonObject == null) {
+            return;
+        }
+
         reset();
 
         final Integer xPosition = getInteger(jsonObject, "x");
