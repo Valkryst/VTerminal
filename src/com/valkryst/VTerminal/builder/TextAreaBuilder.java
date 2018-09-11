@@ -82,7 +82,11 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
     }
 
     @Override
-    public void parse(final  @NonNull JSONObject jsonObject) {
+    public void parse(final JSONObject jsonObject) {
+        if (jsonObject == null) {
+            return;
+        }
+
         reset();
         super.parse(jsonObject);
 

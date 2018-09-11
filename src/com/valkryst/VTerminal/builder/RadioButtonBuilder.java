@@ -53,7 +53,11 @@ public class RadioButtonBuilder extends ButtonBuilder implements VJSONParser {
     }
 
     @Override
-    public void parse(final @NonNull JSONObject jsonObject) {
+    public void parse(final JSONObject jsonObject) {
+        if (jsonObject == null) {
+            return;
+        }
+
         super.parse(jsonObject);
 
         final String text = getString(jsonObject, "text");

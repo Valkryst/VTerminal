@@ -5,7 +5,6 @@ import com.valkryst.VTerminal.component.ProgressBar;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import org.json.simple.JSONObject;
 
 @Data
@@ -34,7 +33,11 @@ public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> implements
     }
 
     @Override
-    public void parse(final @NonNull JSONObject jsonObject) {
+    public void parse(final JSONObject jsonObject) {
+        if (jsonObject == null) {
+            return;
+        }
+
         super.parse(jsonObject);
 
         final Character incompleteCharacter = getChar(jsonObject, "incompleteCharacter");
