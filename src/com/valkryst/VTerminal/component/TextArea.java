@@ -467,18 +467,12 @@ public class TextArea extends Component {
         }
     }
 
-    /**
-     * Moves the caret to the first line. Does not change the x-axis position of
-     * the caret.
-     */
+    /** Moves the caret to the first line. Does not change the x-axis position of the caret. */
     private void moveCaretToFirstLine() {
         changeCaretPosition(caretPosition.x, 0);
     }
 
-    /**
-     * Moves the caret to the last line. Does not change the x-axis position of
-     * the caret.
-     */
+    /** Moves the caret to the last line. Does not change the x-axis position of the caret. */
     private void moveCaretToLastLine() {
         changeCaretPosition(caretPosition.x, super.tiles.getHeight() - 1);
     }
@@ -524,6 +518,7 @@ public class TextArea extends Component {
         }
     }
 
+    /** Copies the entered text onto the tiles, so the user's input is displayed. */
     private void updateDisplayedCharacters() {
         for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
             for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
