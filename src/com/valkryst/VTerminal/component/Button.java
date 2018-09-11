@@ -189,10 +189,7 @@ public class Button extends Component {
         }
     }
 
-    /**
-     * Sets the button state to normal if the current state allows for the normal
-     * state to be set.
-     */
+    /** Sets the button state to normal if the current state allows for the normal state to be set. */
     protected void setStateNormal() {
         boolean canSetState = isInNormalState == false;
         canSetState &= isInHoveredState || isInPressedState;
@@ -207,10 +204,7 @@ public class Button extends Component {
         }
     }
 
-    /**
-     * Sets the button state to hovered if the current state allows for the normal
-     * state to be set.
-     */
+    /** Sets the button state to hovered if the current state allows for the normal state to be set. */
     protected void setStateHovered() {
         boolean canSetState = isInNormalState || isInPressedState;
         canSetState &= isInHoveredState == false;
@@ -225,10 +219,7 @@ public class Button extends Component {
         }
     }
 
-    /**
-     * Sets the button state to pressed if the current state allows for the normal
-     * state to be set.
-     */
+    /** Sets the button state to pressed if the current state allows for the normal state to be set. */
     protected void setStatePressed() {
         boolean canSetState = isInNormalState || isInHoveredState;
         canSetState &= isInPressedState == false;
