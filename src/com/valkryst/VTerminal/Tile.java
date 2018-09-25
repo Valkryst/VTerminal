@@ -57,13 +57,15 @@ public class Tile {
      *
      * @param otherTile
      *          The tile.
-     *
-     * @throws NullPointerException
-     *          If the otherTile is null.
      */
-    public Tile(final @NonNull Tile otherTile) {
+    public Tile(final Tile otherTile) {
         reset();
-        copy(otherTile);
+
+        if (otherTile == null) {
+            this.character = ' ';
+        } else {
+            copy(otherTile);
+        }
     }
 
     /** Resets the tile to it's default state. */
