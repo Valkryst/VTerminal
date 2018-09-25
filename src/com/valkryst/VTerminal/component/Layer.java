@@ -248,7 +248,7 @@ public class Layer extends Component {
             removeLayerListeners((Layer) component);
         } else {
             for (final EventListener listener : component.getEventListeners()) {
-                removeListener(listener);
+                rootScreen.removeListener(listener);
             }
         }
 
@@ -284,23 +284,11 @@ public class Layer extends Component {
 
             // Remove the component's event listeners
             for (final EventListener listener : component.getEventListeners()) {
-                removeListener(listener);
+                rootScreen.removeListener(listener);
             }
         }
 
         componentsLock.writeLock().unlock();
-    }
-
-    /**
-     * Removes an event listener from the root screen.
-     *
-     * @param listener
-     *          The listener.
-     */
-    private void removeListener(final EventListener listener) {
-        if (rootScreen != null) {
-            rootScreen.removeListener(listener);
-        }
     }
 
     /**
@@ -315,7 +303,7 @@ public class Layer extends Component {
         }
 
         for (final EventListener listener : layer.getEventListeners()) {
-            removeListener(listener);
+            rootScreen.removeListener(listener);
         }
 
         for (final Component component : layer.getComponents()) {
@@ -323,7 +311,7 @@ public class Layer extends Component {
                 removeLayerListeners((Layer) component);
             } else {
                 for (final EventListener listener : component.getEventListeners()) {
-                    removeListener(listener);
+                    rootScreen.removeListener(listener);
                 }
             }
         }
