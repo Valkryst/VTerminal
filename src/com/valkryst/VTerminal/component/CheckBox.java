@@ -9,9 +9,10 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
-import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 @ToString
 public class CheckBox extends Button {
@@ -67,23 +68,7 @@ public class CheckBox extends Button {
             return;
         }
 
-        final MouseInputListener mouseListener = new MouseInputListener() {
-            @Override
-            public void mouseDragged(final MouseEvent e) {}
-
-            @Override
-            public void mouseMoved(final MouseEvent e) {
-                if (intersects(parentScreen.getMousePosition())) {
-                    setStateHovered();
-                } else {
-                    if (isChecked) {
-                        setStatePressed();
-                    } else {
-                        setStateNormal();
-                    }
-                }
-            }
-
+        final MouseListener mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(final MouseEvent e) {}
 
@@ -111,7 +96,26 @@ public class CheckBox extends Button {
             public void mouseExited(final MouseEvent e) {}
         };
 
+        final MouseMotionListener mouseMotionListener = new MouseMotionListener() {
+            @Override
+            public void mouseDragged(final MouseEvent e) {}
+
+            @Override
+            public void mouseMoved(final MouseEvent e) {
+                if (intersects(parentScreen.getMousePosition())) {
+                    setStateHovered();
+                } else {
+                    if (isChecked) {
+                        setStatePressed();
+                    } else {
+                        setStateNormal();
+                    }
+                }
+            }
+        };
+
         super.eventListeners.add(mouseListener);
+        super.eventListeners.add(mouseMotionListener);
     }
 
     @Override

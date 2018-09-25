@@ -9,9 +9,10 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 @ToString
 public class Button extends Component {
@@ -82,21 +83,9 @@ public class Button extends Component {
             return;
         }
 
-        final MouseInputListener mouseListener = new MouseInputListener() {
+        final MouseListener mouseListener = new MouseListener() {
             @Override
-            public void mouseDragged(final MouseEvent e) {}
-
-            @Override
-            public void mouseMoved(final MouseEvent e) {
-                if (intersects(parentScreen.getMousePosition())) {
-                    setStateHovered();
-                } else {
-                    setStateNormal();
-                }
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {}
+            public void mouseClicked(final MouseEvent e) {}
 
             @Override
             public void mousePressed(MouseEvent e) {
@@ -123,13 +112,28 @@ public class Button extends Component {
             }
 
             @Override
-            public void mouseEntered(MouseEvent e) {}
+            public void mouseEntered(final MouseEvent e) {}
 
             @Override
-            public void mouseExited(MouseEvent e) {}
+            public void mouseExited(final MouseEvent e) {}
+        };
+
+        final MouseMotionListener mouseMotionListener = new MouseMotionListener() {
+            @Override
+            public void mouseDragged(final MouseEvent e) {}
+
+            @Override
+            public void mouseMoved(final MouseEvent e) {
+                if (intersects(parentScreen.getMousePosition())) {
+                    setStateHovered();
+                } else {
+                    setStateNormal();
+                }
+            }
         };
 
         super.eventListeners.add(mouseListener);
+        super.eventListeners.add(mouseMotionListener);
     }
 
     @Override
