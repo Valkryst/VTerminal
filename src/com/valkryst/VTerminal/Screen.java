@@ -605,67 +605,71 @@ public class Screen {
     }
 
     /**
-     * Adds an event listener to the canvas.
+     * Adds one or more event listeners to the canvas.
      *
-     * @param eventListener
-     *        The event listener.
+     * @param eventListeners
+     *          The event listeners.
      *
      * @throws IllegalArgumentException
-     *        If the event listener isn't supported by this function.
+     *          If an event listener isn't supported by this function.
      */
-    public void addListener(final EventListener eventListener) {
-        if (eventListener == null) {
-            return;
-        }
+    public void addListener(final EventListener ... eventListeners) {
+        for (final EventListener listener : eventListeners) {
+            if (listener == null) {
+                continue;
+            }
 
-        if (eventListener instanceof KeyListener) {
-            canvas.addKeyListener((KeyListener) eventListener);
-            return;
-        }
+            if (listener instanceof KeyListener) {
+                canvas.addKeyListener((KeyListener) listener);
+                continue;
+            }
 
-        if (eventListener instanceof MouseListener) {
-            canvas.addMouseListener((MouseListener) eventListener);
-            return;
-        }
+            if (listener instanceof MouseListener) {
+                canvas.addMouseListener((MouseListener) listener);
+                continue;
+            }
 
-        if (eventListener instanceof MouseMotionListener) {
-            canvas.addMouseMotionListener((MouseMotionListener) eventListener);
-            return;
-        }
+            if (listener instanceof MouseMotionListener) {
+                canvas.addMouseMotionListener((MouseMotionListener) listener);
+                continue;
+            }
 
-        throw new IllegalArgumentException("The " + eventListener.getClass().getSimpleName() + " is not supported.");
+            throw new IllegalArgumentException("The " + listener.getClass().getSimpleName() + " is not supported.");
+        }
     }
 
     /**
-     * Removes an event listener from the canvas.
+     * Removes one or more event listeners from the canvas.
      *
-     * @param eventListener
-     *        The event listener.
+     * @param eventListeners
+     *          The event listeners.
      *
      * @throws IllegalArgumentException
-     *        If the event listener isn't supported by this function.
+     *          If an event listener isn't supported by this function.
      */
-    public void removeListener(final EventListener eventListener) {
-        if (eventListener == null) {
-            return;
-        }
+    public void removeListener(final EventListener ... eventListeners) {
+        for (final EventListener listener : eventListeners) {
+            if (listener == null) {
+                continue;
+            }
 
-        if (eventListener instanceof KeyListener) {
-            canvas.removeKeyListener((KeyListener) eventListener);
-            return;
-        }
+            if (listener instanceof KeyListener) {
+                canvas.removeKeyListener((KeyListener) listener);
+                continue;
+            }
 
-        if (eventListener instanceof MouseListener) {
-            canvas.removeMouseListener((MouseListener) eventListener);
-            return;
-        }
+            if (listener instanceof MouseListener) {
+                canvas.removeMouseListener((MouseListener) listener);
+                continue;
+            }
 
-        if (eventListener instanceof MouseMotionListener) {
-            canvas.removeMouseMotionListener((MouseMotionListener) eventListener);
-            return;
-        }
+            if (listener instanceof MouseMotionListener) {
+                canvas.removeMouseMotionListener((MouseMotionListener) listener);
+                continue;
+            }
 
-        throw new IllegalArgumentException("The " + eventListener.getClass().getSimpleName() + " is not supported.");
+            throw new IllegalArgumentException("The " + listener.getClass().getSimpleName() + " is not supported.");
+        }
     }
 
     /**
