@@ -11,7 +11,6 @@ import lombok.NonNull;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 
-import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferStrategy;
@@ -624,12 +623,6 @@ public class Screen {
             return;
         }
 
-        if (eventListener instanceof MouseInputListener) {
-            canvas.addMouseListener((MouseListener) eventListener);
-            canvas.addMouseMotionListener((MouseMotionListener) eventListener);
-            return;
-        }
-
         if (eventListener instanceof MouseListener) {
             canvas.addMouseListener((MouseListener) eventListener);
             return;
@@ -659,12 +652,6 @@ public class Screen {
 
         if (eventListener instanceof KeyListener) {
             canvas.removeKeyListener((KeyListener) eventListener);
-            return;
-        }
-
-        if (eventListener instanceof MouseInputListener) {
-            canvas.removeMouseListener((MouseListener) eventListener);
-            canvas.removeMouseMotionListener((MouseMotionListener) eventListener);
             return;
         }
 
