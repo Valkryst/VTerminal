@@ -88,11 +88,12 @@ public class Tile {
      *
      * @param otherTile
      *          The other tile.
-     *
-     * @throws NullPointerException
-     *         If the otherTile is null.
      */
-    public void copy(final @NonNull Tile otherTile) {
+    public void copy(final Tile otherTile) {
+        if (otherTile == null) {
+            return;
+        }
+
         for (final Shader shader : otherTile.getShaders()) {
             shaders.add(shader.copy());
         }
