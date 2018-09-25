@@ -453,51 +453,30 @@ public class Screen {
     }
 
     /**
-     * Adds a component to the screen.
+     * Adds one or more components to the screen.
      *
      * This function should never be called when the parameter is a layer within a layer. It will throw-off
      * the algorithm that adjusts the bounding box offsets for all of the components.
      *
-     * @param component
-     *          The component.
+     * @param components
+     *          The components.
      */
-    public void addComponent(final Component component) {
-        if (component == null) {
-            return;
-        }
+    public void addComponent(final Component ... components) {
+        for (final Component component : components) {
+            if (component == null) {
+                return;
+            }
 
-        if (component instanceof Layer) {
-            setupChildComponentsOfLayer((Layer) component);
-            updateChildBoundingBoxesOfLayer((Layer) component);
-        }
+            if (component instanceof Layer) {
+                setupChildComponentsOfLayer((Layer) component);
+                updateChildBoundingBoxesOfLayer((Layer) component);
+            }
 
-        // Add the component
-        componentsLock.writeLock().lock();
-        components.add(component);
-        componentsLock.writeLock().unlock();
+            // Add the component
+            componentsLock.writeLock().lock();
+            this.components.add(component);
+            componentsLock.writeLock().unlock();
 
-        // Set the component's redraw function
-        component.setRedrawFunction(this::draw);
-
-        // Create and add the component's event listeners
-        component.createEventListeners(this);
-
-        for (final EventListener listener : component.getEventListeners()) {
-            addListener(listener);
-        }
-    }
-
-    /**
-     * Recursively sets up a layer, all of it's child components, and all of the child components of any layer
-     * that is a child to the screen.
-     *
-     * @param layer
-     *          The layer.
-     */
-    private void setupChildComponentsOfLayer(final Layer layer) {
-        layer.setRootScreen(this);
-
-        for (final Component component : layer.getComponents()) {
             // Set the component's redraw function
             component.setRedrawFunction(this::draw);
 
@@ -507,77 +486,57 @@ public class Screen {
             for (final EventListener listener : component.getEventListeners()) {
                 addListener(listener);
             }
-
-            if (component instanceof Layer) {
-                setupChildComponentsOfLayer((Layer) component);
-            }
         }
     }
 
     /**
-     * Recursively updates the bounding box origin points of a layer, all of it's child components, and all of
-     * the child components of any layer that is a child to the screen.
+     * Removes one or more components from the screen.
      *
-     * @param layer
-     *          The layer.
+     * @param components
+     *          The components.
      */
-    private void updateChildBoundingBoxesOfLayer(final Layer layer) {
-        for (final Component component : layer.getComponents()) {
-            final int x = layer.getTiles().getXPosition() + component.getTiles().getXPosition();
-            final int y = layer.getTiles().getYPosition() + component.getTiles().getYPosition();
-            component.setBoundingBoxOrigin(x, y);
+    public void removeComponent(final Component ... components) {
+        for (final Component component : components) {
+            if (component == null) {
+                return;
+            }
 
             if (component instanceof Layer) {
-                updateChildBoundingBoxesOfLayer((Layer) component);
+                ((Layer) component).setRootScreen(null);
             }
-        }
-    }
 
-    /**
-     * Removes a component from the screen.
-     *
-     * @param component
-     *          The component.
-     */
-    public void removeComponent(final Component component) {
-        if (component == null) {
-            return;
-        }
+            // Remove the component
+            componentsLock.writeLock().lock();
+            this.components.remove(component);
+            componentsLock.writeLock().unlock();
 
-        if (component instanceof Layer) {
-            ((Layer) component).setRootScreen(null);
-        }
+            // Unset the component's redraw function
+            component.setRedrawFunction(() -> {
+            });
 
-        // Remove the component
-        componentsLock.writeLock().lock();
-        components.remove(component);
-        componentsLock.writeLock().unlock();
-
-        // Unset the component's redraw function
-        component.setRedrawFunction(() -> {});
-
-        // Remove the component's event listeners
-        if (component instanceof Layer) {
-            removeLayerListeners((Layer) component);
-        } else {
-            for (final EventListener listener : component.getEventListeners()) {
-                removeListener(listener);
+            // Remove the component's event listeners
+            if (component instanceof Layer) {
+                removeLayerListeners((Layer) component);
+            } else {
+                for (final EventListener listener : component.getEventListeners()) {
+                    removeListener(listener);
+                }
             }
-        }
 
-        // Reset all of the tiles where the component used to be.
-        final int startX = component.getTiles().getXPosition();
-        final int startY = component.getTiles().getYPosition();
+            // Reset all of the tiles where the component used to be.
+            final int startX = component.getTiles().getXPosition();
+            final int startY = component.getTiles().getYPosition();
 
-        final int endX = startX + component.getTiles().getWidth();
-        final int endY = startY + component.getTiles().getHeight();
+            final int endX = startX + component.getTiles().getWidth();
+            final int endY = startY + component.getTiles().getHeight();
 
-        for (int y = startY ; y < endY ; y++) {
-            for (int x = startX ; x < endX ; x++) {
-                final Tile tile = tiles.getTileAt(x, y);
-                tile.reset();
-                tile.setBackgroundColor(colorPalette.getDefaultBackground());
-                tile.setForegroundColor(colorPalette.getDefaultForeground());
+            for (int y = startY; y < endY; y++) {
+                for (int x = startX; x < endX; x++) {
+                    final Tile tile = tiles.getTileAt(x, y);
+                    tile.reset();
+                    tile.setBackgroundColor(colorPalette.getDefaultBackground());
+                    tile.setForegroundColor(colorPalette.getDefaultForeground());
+                }
             }
         }
     }
@@ -694,6 +653,52 @@ public class Screen {
                 for (final EventListener listener : component.getEventListeners()) {
                     removeListener(listener);
                 }
+            }
+        }
+    }
+
+    /**
+     * Recursively sets up a layer, all of it's child components, and all of the child components of any layer
+     * that is a child to the screen.
+     *
+     * @param layer
+     *          The layer.
+     */
+    private void setupChildComponentsOfLayer(final Layer layer) {
+        layer.setRootScreen(this);
+
+        for (final Component component : layer.getComponents()) {
+            // Set the component's redraw function
+            component.setRedrawFunction(this::draw);
+
+            // Create and add the component's event listeners
+            component.createEventListeners(this);
+
+            for (final EventListener listener : component.getEventListeners()) {
+                addListener(listener);
+            }
+
+            if (component instanceof Layer) {
+                setupChildComponentsOfLayer((Layer) component);
+            }
+        }
+    }
+
+    /**
+     * Recursively updates the bounding box origin points of a layer, all of it's child components, and all of
+     * the child components of any layer that is a child to the screen.
+     *
+     * @param layer
+     *          The layer.
+     */
+    private void updateChildBoundingBoxesOfLayer(final Layer layer) {
+        for (final Component component : layer.getComponents()) {
+            final int x = layer.getTiles().getXPosition() + component.getTiles().getXPosition();
+            final int y = layer.getTiles().getYPosition() + component.getTiles().getYPosition();
+            component.setBoundingBoxOrigin(x, y);
+
+            if (component instanceof Layer) {
+                updateChildBoundingBoxesOfLayer((Layer) component);
             }
         }
     }
