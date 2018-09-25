@@ -125,46 +125,145 @@ public class Layer extends Component {
     }
 
     /**
-     * Adds a component to the layer.
+     * Adds one or more components to the layer.
      *
-     * @param component
-     *          The component.
+     * @param components
+     *          The components.
      */
-    public void addComponent(final Component component) {
-        if (component == null) {
-            return;
+    public void addComponent(final Component ... components) {
+        for (final Component component : components) {
+            if (component == null) {
+                return;
+            }
+
+            if (component.equals(this)) {
+                return;
+            }
+
+            final int x = this.getTiles().getXPosition() + component.getTiles().getXPosition();
+            final int y = this.getTiles().getYPosition() + component.getTiles().getYPosition();
+            component.setBoundingBoxOrigin(x, y);
+
+            if (component instanceof Layer) {
+                addChildComponentsOfLayer((Layer) component);
+                updateChildBoundingBoxesOfLayer((Layer) component);
+            }
+
+            // Add the component
+            componentsLock.writeLock().lock();
+
+            super.tiles.addChild(component.getTiles());
+            this.components.add(component);
+
+            componentsLock.writeLock().unlock();
+
+            /*
+             * This line is relevant only when adding components to a Layer that's already on a Screen.
+             *
+             * Before a Layer is first added to a Screen, none of the sub-components will have had their listeners
+             * initialized. The initialization is done when the Layer is being added to the Screen.
+             */
+            if (rootScreen != null) {
+                for (final EventListener listener : component.getEventListeners()) {
+                    rootScreen.addListener(listener);
+                }
+            }
         }
+    }
 
-        if (component.equals(this)) {
-            return;
+    /**
+     * Removes one or more components from the layer.
+     *
+     * @param components
+     *          The components.
+     */
+    public void removeComponent(final Component ... components) {
+        for (final Component component : components) {
+            if (component == null) {
+                return;
+            }
+
+            // Remove the component
+            componentsLock.writeLock().lock();
+            super.tiles.removeChild(component.getTiles());
+            this.components.remove(component);
+            componentsLock.writeLock().unlock();
+
+            // Unset the component's redraw function
+            component.setRedrawFunction(() -> {
+            });
+
+            // Remove the component's event listeners
+            if (component instanceof Layer) {
+                removeLayerListeners((Layer) component);
+            } else {
+                for (final EventListener listener : component.getEventListeners()) {
+                    rootScreen.removeListener(listener);
+                }
+            }
+
+            // Reset all of the tiles where the component used to be.
+            final int startX = component.getTiles().getXPosition();
+            final int startY = component.getTiles().getYPosition();
+
+            final int endX = startX + component.getTiles().getWidth();
+            final int endY = startY + component.getTiles().getHeight();
+
+            for (int y = startY; y < endY; y++) {
+                for (int x = startX; x < endX; x++) {
+                    final Tile tile = tiles.getTileAt(x, y);
+                    tile.reset();
+                    tile.setBackgroundColor(rootScreen.getColorPalette().getDefaultBackground());
+                    tile.setForegroundColor(rootScreen.getColorPalette().getDefaultForeground());
+                }
+            }
         }
+    }
 
-        final int x = this.getTiles().getXPosition() + component.getTiles().getXPosition();
-        final int y = this.getTiles().getYPosition() + component.getTiles().getYPosition();
-        component.setBoundingBoxOrigin(x, y);
-
-        if (component instanceof Layer) {
-            addChildComponentsOfLayer((Layer) component);
-            updateChildBoundingBoxesOfLayer((Layer) component);
-        }
-
-        // Add the component
+    /** Removes all components from the layer. */
+    public void removeAllComponents() {
         componentsLock.writeLock().lock();
 
-        super.tiles.addChild(component.getTiles());
-        components.add(component);
+        final ListIterator<Component> iterator = components.listIterator();
+
+        while (iterator.hasNext()) {
+            final Component component = iterator.next();
+
+            // Remove the component
+            super.tiles.removeChild(component.getTiles());
+            iterator.remove();
+
+            // Remove the component's event listeners
+            for (final EventListener listener : component.getEventListeners()) {
+                rootScreen.removeListener(listener);
+            }
+        }
 
         componentsLock.writeLock().unlock();
+    }
 
-        /*
-         * This line is relevant only when adding components to a Layer that's already on a Screen.
-         *
-         * Before a Layer is first added to a Screen, none of the sub-components will have had their listeners
-         * initialized. The initialization is done when the Layer is being added to the Screen.
-         */
-        if (rootScreen != null) {
-            for (final EventListener listener : component.getEventListeners()) {
-                rootScreen.addListener(listener);
+    /**
+     * Removes all event listeners, that belong to a layer and it's sub components, from the screen.
+     *
+     * @param layer
+     *          The layer.
+     */
+    private void removeLayerListeners(final Layer layer) {
+        if (layer == null) {
+            return;
+        }
+
+        for (final EventListener listener : layer.getEventListeners()) {
+            rootScreen.removeListener(listener);
+        }
+
+        for (final Component component : layer.getComponents()) {
+            if (component instanceof Layer) {
+                removeLayerListeners((Layer) component);
+            } else {
+                for (final EventListener listener : component.getEventListeners()) {
+                    rootScreen.removeListener(listener);
+                }
             }
         }
     }
@@ -219,100 +318,6 @@ public class Layer extends Component {
 
             if (component instanceof Layer) {
                 updateChildBoundingBoxesOfLayer((Layer) component);
-            }
-        }
-    }
-
-    /**
-     * Removes a component from the layer.
-     *
-     * @param component
-     *          The component.
-     */
-    public void removeComponent(final Component component) {
-        if (component == null) {
-            return;
-        }
-
-        // Remove the component
-        componentsLock.writeLock().lock();
-        super.tiles.removeChild(component.getTiles());
-        components.remove(component);
-        componentsLock.writeLock().unlock();
-
-        // Unset the component's redraw function
-        component.setRedrawFunction(() -> {});
-
-        // Remove the component's event listeners
-        if (component instanceof Layer) {
-            removeLayerListeners((Layer) component);
-        } else {
-            for (final EventListener listener : component.getEventListeners()) {
-                rootScreen.removeListener(listener);
-            }
-        }
-
-        // Reset all of the tiles where the component used to be.
-        final int startX = component.getTiles().getXPosition();
-        final int startY = component.getTiles().getYPosition();
-
-        final int endX = startX + component.getTiles().getWidth();
-        final int endY = startY + component.getTiles().getHeight();
-
-        for (int y = startY ; y < endY ; y++) {
-            for (int x = startX ; x < endX ; x++) {
-                final Tile tile = tiles.getTileAt(x, y);
-                tile.reset();
-                tile.setBackgroundColor(rootScreen.getColorPalette().getDefaultBackground());
-                tile.setForegroundColor(rootScreen.getColorPalette().getDefaultForeground());
-            }
-        }
-    }
-
-    /** Removes all components from the layer. */
-    public void removeAllComponents() {
-        componentsLock.writeLock().lock();
-
-        final ListIterator<Component> iterator = components.listIterator();
-
-        while (iterator.hasNext()) {
-            final Component component = iterator.next();
-
-            // Remove the component
-            super.tiles.removeChild(component.getTiles());
-            iterator.remove();
-
-            // Remove the component's event listeners
-            for (final EventListener listener : component.getEventListeners()) {
-                rootScreen.removeListener(listener);
-            }
-        }
-
-        componentsLock.writeLock().unlock();
-    }
-
-    /**
-     * Removes all event listeners, that belong to a layer and it's sub components, from the screen.
-     *
-     * @param layer
-     *          The layer.
-     */
-    private void removeLayerListeners(final Layer layer) {
-        if (layer == null) {
-            return;
-        }
-
-        for (final EventListener listener : layer.getEventListeners()) {
-            rootScreen.removeListener(listener);
-        }
-
-        for (final Component component : layer.getComponents()) {
-            if (component instanceof Layer) {
-                removeLayerListeners((Layer) component);
-            } else {
-                for (final EventListener listener : component.getEventListeners()) {
-                    rootScreen.removeListener(listener);
-                }
             }
         }
     }
