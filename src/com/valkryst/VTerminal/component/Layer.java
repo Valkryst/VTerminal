@@ -190,8 +190,7 @@ public class Layer extends Component {
             componentsLock.writeLock().unlock();
 
             // Unset the component's redraw function
-            component.setRedrawFunction(() -> {
-            });
+            component.setRedrawFunction(() -> {});
 
             // Remove the component's event listeners
             if (component instanceof Layer) {
