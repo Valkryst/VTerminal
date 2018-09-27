@@ -507,12 +507,12 @@ public class Screen {
 
             // Remove the component
             componentsLock.writeLock().lock();
+            tiles.removeChild(component.getTiles());
             this.components.remove(component);
             componentsLock.writeLock().unlock();
 
             // Unset the component's redraw function
-            component.setRedrawFunction(() -> {
-            });
+            component.setRedrawFunction(() -> {});
 
             // Remove the component's event listeners
             if (component instanceof Layer) {
