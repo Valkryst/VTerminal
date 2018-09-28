@@ -558,16 +558,8 @@ public class Screen {
         final ListIterator<Component> iterator = components.listIterator();
 
         while(iterator.hasNext()) {
-            final Component component = iterator.next();
-
-            // Remove the component
-            tiles.removeChild(component.getTiles());
+            removeComponent(iterator.next());
             iterator.remove();
-
-            // Remove the component's event listeners
-            for (final EventListener listener : component.getEventListeners()) {
-                removeListener(listener);
-            }
         }
 
         componentsLock.writeLock().unlock();

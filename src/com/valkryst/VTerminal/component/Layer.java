@@ -235,17 +235,9 @@ public class Layer extends Component {
 
         final ListIterator<Component> iterator = components.listIterator();
 
-        while (iterator.hasNext()) {
-            final Component component = iterator.next();
-
-            // Remove the component
-            super.tiles.removeChild(component.getTiles());
+        while(iterator.hasNext()) {
+            removeComponent(iterator.next());
             iterator.remove();
-
-            // Remove the component's event listeners
-            for (final EventListener listener : component.getEventListeners()) {
-                rootScreen.removeListener(listener);
-            }
         }
 
         componentsLock.writeLock().unlock();
