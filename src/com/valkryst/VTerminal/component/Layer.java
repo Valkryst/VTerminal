@@ -10,6 +10,7 @@ import lombok.ToString;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @ToString
@@ -145,8 +146,29 @@ public class Layer extends Component {
             component.setBoundingBoxOrigin(x, y);
 
             if (component instanceof Layer) {
-                addChildComponentsOfLayer((Layer) component);
-                updateChildBoundingBoxesOfLayer((Layer) component);
+                final Queue<Component> subComponents = new ConcurrentLinkedQueue<>();
+                subComponents.add(component);
+
+                while(subComponents.size() > 0) {
+                    final Component temp = subComponents.remove();
+
+                    if (rootScreen != null) {
+                        // Set the component's redraw function
+                        temp.setRedrawFunction(rootScreen::draw);
+
+                        // Create and add component event listeners to Canvas
+                        temp.createEventListeners(rootScreen);
+                        temp.getEventListeners().forEach(rootScreen::addListener);
+                    }
+
+                    // If the component's a layer, then we need to deal with it's sub-components.
+                    if (temp instanceof Layer) {
+                        ((Layer) temp).setRootScreen(rootScreen);
+                        subComponents.addAll(((Layer) temp).getComponents());
+
+                        updateChildBoundingBoxesOfLayer((Layer) temp);
+                    }
+                }
             }
 
             // Add the component
@@ -193,12 +215,11 @@ public class Layer extends Component {
             component.setRedrawFunction(() -> {});
 
             // Remove the event listeners of the component and all of it's sub-components.
-            final List<Component> subComponents = new ArrayList<>();
+            final Queue<Component> subComponents = new ConcurrentLinkedQueue<>();
             subComponents.add(component);
 
-            final ListIterator<Component> iterator = subComponents.listIterator();
-            while(iterator.hasNext()) {
-                final Component temp = iterator.next();
+            while(subComponents.size() > 0) {
+                final Component temp = subComponents.remove();
 
                 if (temp instanceof Layer) {
                     subComponents.addAll(((Layer) temp).getComponents());
@@ -207,8 +228,6 @@ public class Layer extends Component {
                 for (final EventListener listener : temp.getEventListeners()) {
                     rootScreen.removeListener(listener);
                 }
-
-                iterator.remove();
             }
 
             // Reset all of the tiles where the component used to be.

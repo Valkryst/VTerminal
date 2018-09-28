@@ -17,6 +17,8 @@ import java.awt.image.BufferStrategy;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class Screen {
@@ -468,8 +470,27 @@ public class Screen {
             }
 
             if (component instanceof Layer) {
-                setupChildComponentsOfLayer((Layer) component);
-                updateChildBoundingBoxesOfLayer((Layer) component);
+                final Queue<Component> subComponents = new ConcurrentLinkedQueue<>();
+                subComponents.add(component);
+
+                while(subComponents.size() > 0) {
+                    final Component temp = subComponents.remove();
+
+                    // Set the component's redraw function
+                    temp.setRedrawFunction(this::draw);
+
+                    // Create and add component event listeners to Canvas
+                    temp.createEventListeners(this);
+                    temp.getEventListeners().forEach(this::addListener);
+
+                    // If the component's a layer, then we need to deal with it's sub-components.
+                    if (temp instanceof Layer) {
+                        ((Layer) temp).setRootScreen(this);
+                        subComponents.addAll(((Layer) temp).getComponents());
+
+                        updateChildBoundingBoxesOfLayer((Layer) temp);
+                    }
+                }
             }
 
             // Add the component
@@ -515,12 +536,11 @@ public class Screen {
             component.setRedrawFunction(() -> {});
 
             // Remove the event listeners of the component and all of it's sub-components.
-            final List<Component> subComponents = new ArrayList<>();
+            final Queue<Component> subComponents = new ConcurrentLinkedQueue<>();
             subComponents.add(component);
 
-            final ListIterator<Component> iterator = subComponents.listIterator();
-            while(iterator.hasNext()) {
-                final Component temp = iterator.next();
+            while(subComponents.size() > 0) {
+                final Component temp = subComponents.remove();
 
                 if (temp instanceof Layer) {
                     subComponents.addAll(((Layer) temp).getComponents());
@@ -529,8 +549,6 @@ public class Screen {
                 for (final EventListener listener : temp.getEventListeners()) {
                     removeListener(listener);
                 }
-
-                iterator.remove();
             }
 
             // Reset all of the tiles where the component used to be.
@@ -630,33 +648,6 @@ public class Screen {
             }
 
             throw new IllegalArgumentException("The " + listener.getClass().getSimpleName() + " is not supported.");
-        }
-    }
-
-    /**
-     * Recursively sets up a layer, all of it's child components, and all of the child components of any layer
-     * that is a child to the screen.
-     *
-     * @param layer
-     *          The layer.
-     */
-    private void setupChildComponentsOfLayer(final Layer layer) {
-        layer.setRootScreen(this);
-
-        for (final Component component : layer.getComponents()) {
-            // Set the component's redraw function
-            component.setRedrawFunction(this::draw);
-
-            // Create and add the component's event listeners
-            component.createEventListeners(this);
-
-            for (final EventListener listener : component.getEventListeners()) {
-                addListener(listener);
-            }
-
-            if (component instanceof Layer) {
-                setupChildComponentsOfLayer((Layer) component);
-            }
         }
     }
 
