@@ -15,11 +15,6 @@ public class ConstructorTest {
         }
     }
 
-    @Test(expected=NullPointerException.class)
-    public void withNullAsciiTile() {
-        new Tile(null);
-    }
-
     @Test
     public void withValidAsciiTile() {
         final GraphicTile tile = new GraphicTile('a');
