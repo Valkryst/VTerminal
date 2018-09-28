@@ -514,13 +514,23 @@ public class Screen {
             // Unset the component's redraw function
             component.setRedrawFunction(() -> {});
 
-            // Remove the component's event listeners
-            if (component instanceof Layer) {
-                removeLayerListeners((Layer) component);
-            } else {
-                for (final EventListener listener : component.getEventListeners()) {
+            // Remove the event listeners of the component and all of it's sub-components.
+            final List<Component> subComponents = new ArrayList<>();
+            subComponents.add(component);
+
+            final ListIterator<Component> iterator = subComponents.listIterator();
+            while(iterator.hasNext()) {
+                final Component temp = iterator.next();
+
+                if (temp instanceof Layer) {
+                    subComponents.addAll(((Layer) temp).getComponents());
+                }
+
+                for (final EventListener listener : temp.getEventListeners()) {
                     removeListener(listener);
                 }
+
+                iterator.remove();
             }
 
             // Reset all of the tiles where the component used to be.
@@ -628,32 +638,6 @@ public class Screen {
             }
 
             throw new IllegalArgumentException("The " + listener.getClass().getSimpleName() + " is not supported.");
-        }
-    }
-
-    /**
-     * Removes all event listeners, that belong to a layer and it's sub components, from the screen.
-     *
-     * @param layer
-     *          The layer.
-     */
-    public void removeLayerListeners(final Layer layer) {
-        if (layer == null) {
-            return;
-        }
-
-        for (final EventListener listener : layer.getEventListeners()) {
-            removeListener(listener);
-        }
-
-        for (final Component component : layer.getComponents()) {
-            if (component instanceof Layer) {
-                removeLayerListeners((Layer) component);
-            } else {
-                for (final EventListener listener : component.getEventListeners()) {
-                    removeListener(listener);
-                }
-            }
         }
     }
 
