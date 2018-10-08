@@ -225,6 +225,11 @@ public class Layer extends Component {
                 }
             }
 
+            // Remove all of the component's listeners from the root screen:
+            for (final EventListener listener : component.getEventListeners()) {
+                rootScreen.removeListener(listener);
+            }
+
             // Reset all of the tiles where the component used to be.
             final int startX = component.getTiles().getXPosition();
             final int startY = component.getTiles().getYPosition();
