@@ -132,6 +132,10 @@ public class Layer extends Component {
      *          The components.
      */
     public void addComponent(final Component ... components) {
+        if (components == null) {
+            return;
+        }
+
         for (final Component component : components) {
             if (component == null) {
                 return;
@@ -194,6 +198,10 @@ public class Layer extends Component {
      *          The components.
      */
     public void removeComponent(final Component ... components) {
+        if (components == null) {
+            return;
+        }
+
         for (final Component component : components) {
             if (component == null) {
                 return;
