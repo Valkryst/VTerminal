@@ -88,7 +88,7 @@ public class Button extends Component {
             public void mouseClicked(final MouseEvent e) {}
 
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mousePressed(final MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     if (intersects(parentScreen.getMousePosition())) {
                         setStatePressed();
@@ -97,7 +97,7 @@ public class Button extends Component {
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
+            public void mouseReleased(final MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     if (isInPressedState) {
                         onClickFunction.run();
