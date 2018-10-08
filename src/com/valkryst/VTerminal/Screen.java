@@ -473,7 +473,7 @@ public class Screen {
                 final Queue<Component> subComponents = new ConcurrentLinkedQueue<>();
                 subComponents.add(component);
 
-                while(subComponents.size() > 0) {
+                while (subComponents.size() > 0) {
                     final Component temp = subComponents.remove();
 
                     // Set the component's redraw function
