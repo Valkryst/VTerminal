@@ -152,15 +152,6 @@ public class Layer extends Component {
                 while(subComponents.size() > 0) {
                     final Component temp = subComponents.remove();
 
-                    if (rootScreen != null) {
-                        // Set the component's redraw function
-                        temp.setRedrawFunction(rootScreen::draw);
-
-                        // Create and add component event listeners to Canvas
-                        temp.createEventListeners(rootScreen);
-                        temp.getEventListeners().forEach(rootScreen::addListener);
-                    }
-
                     // If the component's a layer, then we need to deal with it's sub-components.
                     if (temp instanceof Layer) {
                         ((Layer) temp).setRootScreen(rootScreen);
@@ -186,6 +177,9 @@ public class Layer extends Component {
              * initialized. The initialization is done when the Layer is being added to the Screen.
              */
             if (rootScreen != null) {
+                // Set the component's redraw function
+                component.setRedrawFunction(rootScreen::draw);
+
                 for (final EventListener listener : component.getEventListeners()) {
                     rootScreen.addListener(listener);
                 }
