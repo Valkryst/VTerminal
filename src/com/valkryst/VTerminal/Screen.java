@@ -542,10 +542,13 @@ public class Screen {
                 final Component temp = subComponents.remove();
 
                 if (temp instanceof Layer) {
+                    System.out.println("Removing Layer from Screen: " + temp.hashCode());
                     ((Layer) temp).setRootScreen(null);
+                    System.out.println("Adding # Comps to Remove " + ((Layer) temp).getComponents().size());
                     subComponents.addAll(((Layer) temp).getComponents());
                 }
 
+                System.out.println("Removing # listeners: " + temp.getEventListeners().size());
                 for (final EventListener listener : temp.getEventListeners()) {
                     removeListener(listener);
                 }
