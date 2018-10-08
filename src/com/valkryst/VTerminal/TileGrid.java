@@ -355,6 +355,9 @@ public final class TileGrid {
      *
      * @param tileY
      *          The y-axis position of the tile, on this grid, to calculate the hash for.
+     *
+     * @return
+     *          The hash.
      */
     public long getPositionHash(final int tileX, final int tileY) {
         // Return nothing if the tile doesn't exist on this grid.
