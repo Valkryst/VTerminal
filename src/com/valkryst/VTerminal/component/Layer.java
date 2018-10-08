@@ -271,45 +271,6 @@ public class Layer extends Component {
     }
 
     /**
-     * Recursively adds a layer, all of it's child components, and all of the child components of any layer that
-     * is a child to the screen.
-     *
-     * @param layer
-     *          The layer.
-     */
-    private void addChildComponentsOfLayer(final Layer layer) {
-        if (layer == null) {
-            return;
-        }
-
-        layer.setRootScreen(rootScreen);
-
-        for (final Component component : layer.getComponents()) {
-            if (component instanceof Layer) {
-                addChildComponentsOfLayer((Layer) component);
-            } else {
-                /*
-                 * This code is only relevant when adding components to a Layer that's already on a Screen.
-                 *
-                 * When a Layer is first added to a Screen, the redraw function and event listeners are set up
-                 * in the addComponent function of the Screen class.
-                 */
-                if (rootScreen != null) {
-                    // Set the component's redraw function
-                    component.setRedrawFunction(() -> rootScreen.draw());
-
-                    // Create and add the component's event listeners
-                    component.createEventListeners(rootScreen);
-
-                    for (final EventListener listener : component.getEventListeners()) {
-                        rootScreen.addListener(listener);
-                    }
-                }
-            }
-        }
-    }
-
-    /**
      * Recursively updates the bounding box origin points of a layer, all of it's child components, and all of
      * the child components of any layer that is a child to the screen.
      *
