@@ -598,19 +598,19 @@ public class Screen {
                 continue;
             }
 
-            if (listener instanceof KeyListener) {
+            if (listener instanceof KeyListener && Arrays.asList(canvas.getKeyListeners()).contains(listener) == false) {
                 canvas.addKeyListener((KeyListener) listener);
                 System.out.println("Added KeyListener (Screen): " + listener.hashCode());
                 continue;
             }
 
-            if (listener instanceof MouseListener) {
+            if (listener instanceof MouseListener && Arrays.asList(canvas.getMouseListeners()).contains(listener) == false) {
                 canvas.addMouseListener((MouseListener) listener);
                 System.out.println("Added MouseListener (Screen): " + listener.hashCode());
                 continue;
             }
 
-            if (listener instanceof MouseMotionListener) {
+            if (listener instanceof MouseMotionListener && Arrays.asList(canvas.getMouseMotionListeners()).contains(listener) == false) {
                 canvas.addMouseMotionListener((MouseMotionListener) listener);
                 System.out.println("Added MouseMotionListener (Screen): " + listener.hashCode());
                 continue;
