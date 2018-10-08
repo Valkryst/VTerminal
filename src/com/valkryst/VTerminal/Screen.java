@@ -600,16 +600,19 @@ public class Screen {
 
             if (listener instanceof KeyListener) {
                 canvas.addKeyListener((KeyListener) listener);
+                System.out.println("Added KeyListener (Screen): " + listener.hashCode());
                 continue;
             }
 
             if (listener instanceof MouseListener) {
                 canvas.addMouseListener((MouseListener) listener);
+                System.out.println("Added MouseListener (Screen): " + listener.hashCode());
                 continue;
             }
 
             if (listener instanceof MouseMotionListener) {
                 canvas.addMouseMotionListener((MouseMotionListener) listener);
+                System.out.println("Added MouseMotionListener (Screen): " + listener.hashCode());
                 continue;
             }
 
@@ -634,16 +637,19 @@ public class Screen {
 
             if (listener instanceof KeyListener) {
                 canvas.removeKeyListener((KeyListener) listener);
+                System.out.println("Removed KeyListener (Screen): " + listener.hashCode());
                 continue;
             }
 
             if (listener instanceof MouseListener) {
                 canvas.removeMouseListener((MouseListener) listener);
+                System.out.println("Removed MouseListener (Screen): " + listener.hashCode());
                 continue;
             }
 
             if (listener instanceof MouseMotionListener) {
                 canvas.removeMouseMotionListener((MouseMotionListener) listener);
+                System.out.println("Removed MouseMotionListener (Screen): " + listener.hashCode());
                 continue;
             }
 
