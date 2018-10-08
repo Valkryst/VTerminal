@@ -528,7 +528,6 @@ public class Screen {
 
             // Remove the component
             componentsLock.writeLock().lock();
-            tiles.removeChild(component.getTiles());
             this.components.remove(component);
             componentsLock.writeLock().unlock();
 
