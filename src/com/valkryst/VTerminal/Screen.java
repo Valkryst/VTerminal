@@ -599,15 +599,15 @@ public class Screen {
             }
 
             // Ensure the listener hasn't already been added to the canvas:
-            if (Arrays.asList(canvas.getKeyListeners()).contains(listener) == false) {
+            if (Arrays.asList(canvas.getKeyListeners()).contains(listener)) {
                 continue;
             }
 
-            if (Arrays.asList(canvas.getMouseListeners()).contains(listener) == false) {
+            if (Arrays.asList(canvas.getMouseListeners()).contains(listener)) {
                 continue;
             }
 
-            if (Arrays.asList(canvas.getMouseMotionListeners()).contains(listener) == false) {
+            if (Arrays.asList(canvas.getMouseMotionListeners()).contains(listener)) {
                 continue;
             }
 
