@@ -574,8 +574,7 @@ public class Screen {
 
     /** Removes all components from the screen. */
     public void removeAllComponents() {
-        final Queue<Component> subComponents = new ConcurrentLinkedQueue<>();
-        subComponents.addAll(components);
+        final Queue<Component> subComponents = new ConcurrentLinkedQueue<>(components);
 
         while (subComponents.size() > 0) {
             removeComponent(subComponents.remove());
