@@ -574,16 +574,12 @@ public class Screen {
 
     /** Removes all components from the screen. */
     public void removeAllComponents() {
-        componentsLock.writeLock().lock();
+        final Queue<Component> subComponents = new ConcurrentLinkedQueue<>();
+        subComponents.addAll(components);
 
-        final ListIterator<Component> iterator = components.listIterator();
-
-        while(iterator.hasNext()) {
-            removeComponent(iterator.next());
-            iterator.remove();
+        while (subComponents.size() > 0) {
+            removeComponent(subComponents.remove());
         }
-
-        componentsLock.writeLock().unlock();
     }
 
     /**
