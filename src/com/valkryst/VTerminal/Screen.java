@@ -598,19 +598,33 @@ public class Screen {
                 continue;
             }
 
-            if (listener instanceof KeyListener && Arrays.asList(canvas.getKeyListeners()).contains(listener) == false) {
+            // Ensure the listener hasn't already been added to the canvas:
+            if (Arrays.asList(canvas.getKeyListeners()).contains(listener) == false) {
+                continue;
+            }
+
+            if (Arrays.asList(canvas.getMouseListeners()).contains(listener) == false) {
+                continue;
+            }
+
+            if (Arrays.asList(canvas.getMouseMotionListeners()).contains(listener) == false) {
+                continue;
+            }
+
+            // Add the listener to the canvas:
+            if (listener instanceof KeyListener) {
                 canvas.addKeyListener((KeyListener) listener);
                 System.out.println("Added KeyListener (Screen): " + listener.hashCode());
                 continue;
             }
 
-            if (listener instanceof MouseListener && Arrays.asList(canvas.getMouseListeners()).contains(listener) == false) {
+            if (listener instanceof MouseListener) {
                 canvas.addMouseListener((MouseListener) listener);
                 System.out.println("Added MouseListener (Screen): " + listener.hashCode());
                 continue;
             }
 
-            if (listener instanceof MouseMotionListener && Arrays.asList(canvas.getMouseMotionListeners()).contains(listener) == false) {
+            if (listener instanceof MouseMotionListener) {
                 canvas.addMouseMotionListener((MouseMotionListener) listener);
                 System.out.println("Added MouseMotionListener (Screen): " + listener.hashCode());
                 continue;
