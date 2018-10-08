@@ -25,7 +25,7 @@ public interface Shader {
      * Returns a copy of the shader.
      *
      * @return
-     *
+     *          A copy of the shader.
      */
     Shader copy();
 
