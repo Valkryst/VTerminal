@@ -156,6 +156,18 @@ public class Layer extends Component {
                 while(subComponents.size() > 0) {
                     final Component temp = subComponents.remove();
 
+                    if (rootScreen != null) {
+                        // Set the component's redraw function
+                        temp.setRedrawFunction(rootScreen::draw);
+
+                        // Create and add the component's listeners
+                        temp.createEventListeners(rootScreen);
+
+                        for (final EventListener listener : temp.getEventListeners()) {
+                            rootScreen.addListener(listener);
+                        }
+                    }
+
                     // If the component's a layer, then we need to deal with it's sub-components.
                     if (temp instanceof Layer) {
                         ((Layer) temp).setRootScreen(rootScreen);
