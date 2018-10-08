@@ -685,6 +685,10 @@ public class Screen {
      *          The layer.
      */
     private void updateChildBoundingBoxesOfLayer(final Layer layer) {
+        if (layer == null) {
+            return;
+        }
+
         for (final Component component : layer.getComponents()) {
             final int x = layer.getTiles().getXPosition() + component.getTiles().getXPosition();
             final int y = layer.getTiles().getYPosition() + component.getTiles().getYPosition();

@@ -278,6 +278,10 @@ public class Layer extends Component {
      *          The layer.
      */
     private void addChildComponentsOfLayer(final Layer layer) {
+        if (layer == null) {
+            return;
+        }
+
         layer.setRootScreen(rootScreen);
 
         for (final Component component : layer.getComponents()) {
@@ -313,6 +317,10 @@ public class Layer extends Component {
      *          The layer.
      */
     private void updateChildBoundingBoxesOfLayer(final Layer layer) {
+        if (layer == null) {
+            return;
+        }
+
         for (final Component component : layer.getComponents()) {
             final int x = layer.getBoundingBoxOrigin().x + component.getTiles().getXPosition();
             final int y = layer.getBoundingBoxOrigin().y + component.getTiles().getYPosition();
