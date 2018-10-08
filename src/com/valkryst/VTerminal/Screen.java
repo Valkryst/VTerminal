@@ -546,7 +546,6 @@ public class Screen {
                 final Component temp = subComponents.remove();
 
                 if (temp instanceof Layer) {
-                    ((Layer) temp).setRootScreen(null);
                     subComponents.addAll(((Layer) temp).getComponents());
                 }
 
