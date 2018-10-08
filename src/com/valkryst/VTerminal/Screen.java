@@ -522,10 +522,6 @@ public class Screen {
                 return;
             }
 
-            if (component instanceof Layer) {
-                ((Layer) component).setRootScreen(null);
-            }
-
             // Remove the component
             componentsLock.writeLock().lock();
             this.components.remove(component);
