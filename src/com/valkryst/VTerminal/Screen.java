@@ -542,13 +542,10 @@ public class Screen {
                 final Component temp = subComponents.remove();
 
                 if (temp instanceof Layer) {
-                    System.out.println("Removing Layer from Screen: " + temp.hashCode());
                     ((Layer) temp).setRootScreen(null);
-                    System.out.println("Adding # Comps to Remove " + ((Layer) temp).getComponents().size());
                     subComponents.addAll(((Layer) temp).getComponents());
                 }
 
-                System.out.println("Removing # listeners: " + temp.getEventListeners().size());
                 for (final EventListener listener : temp.getEventListeners()) {
                     removeListener(listener);
                 }
@@ -603,19 +600,16 @@ public class Screen {
 
             if (listener instanceof KeyListener) {
                 canvas.addKeyListener((KeyListener) listener);
-                System.out.println("Added KeyListener (Screen): " + listener.hashCode());
                 continue;
             }
 
             if (listener instanceof MouseListener) {
                 canvas.addMouseListener((MouseListener) listener);
-                System.out.println("Added MouseListener (Screen): " + listener.hashCode());
                 continue;
             }
 
             if (listener instanceof MouseMotionListener) {
                 canvas.addMouseMotionListener((MouseMotionListener) listener);
-                System.out.println("Added MouseMotionListener (Screen): " + listener.hashCode());
                 continue;
             }
 
@@ -640,19 +634,16 @@ public class Screen {
 
             if (listener instanceof KeyListener) {
                 canvas.removeKeyListener((KeyListener) listener);
-                System.out.println("Removed KeyListener (Screen): " + listener.hashCode());
                 continue;
             }
 
             if (listener instanceof MouseListener) {
                 canvas.removeMouseListener((MouseListener) listener);
-                System.out.println("Removed MouseListener (Screen): " + listener.hashCode());
                 continue;
             }
 
             if (listener instanceof MouseMotionListener) {
                 canvas.removeMouseMotionListener((MouseMotionListener) listener);
-                System.out.println("Removed MouseMotionListener (Screen): " + listener.hashCode());
                 continue;
             }
 
