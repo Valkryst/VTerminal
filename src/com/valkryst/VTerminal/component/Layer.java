@@ -262,6 +262,7 @@ public class Layer extends Component {
 
                     if (tile != null) {
                         tile.reset();
+                        System.out.println(tile + " " + rootScreen + " " + rootScreen.getColorPalette());
                         tile.setBackgroundColor(rootScreen.getColorPalette().getDefaultBackground());
                         tile.setForegroundColor(rootScreen.getColorPalette().getDefaultForeground());
                     }
