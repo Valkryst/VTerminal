@@ -259,9 +259,12 @@ public class Layer extends Component {
             for (int y = startY; y < endY; y++) {
                 for (int x = startX; x < endX; x++) {
                     final Tile tile = tiles.getTileAt(x, y);
-                    tile.reset();
-                    tile.setBackgroundColor(rootScreen.getColorPalette().getDefaultBackground());
-                    tile.setForegroundColor(rootScreen.getColorPalette().getDefaultForeground());
+
+                    if (tile != null) {
+                        tile.reset();
+                        tile.setBackgroundColor(rootScreen.getColorPalette().getDefaultBackground());
+                        tile.setForegroundColor(rootScreen.getColorPalette().getDefaultForeground());
+                    }
                 }
             }
         }

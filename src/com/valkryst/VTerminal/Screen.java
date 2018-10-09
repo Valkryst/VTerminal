@@ -564,9 +564,12 @@ public class Screen {
             for (int y = startY; y < endY; y++) {
                 for (int x = startX; x < endX; x++) {
                     final Tile tile = tiles.getTileAt(x, y);
-                    tile.reset();
-                    tile.setBackgroundColor(colorPalette.getDefaultBackground());
-                    tile.setForegroundColor(colorPalette.getDefaultForeground());
+
+                    if (tile != null) {
+                        tile.reset();
+                        tile.setBackgroundColor(colorPalette.getDefaultBackground());
+                        tile.setForegroundColor(colorPalette.getDefaultForeground());
+                    }
                 }
             }
         }
