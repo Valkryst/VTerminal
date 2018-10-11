@@ -251,8 +251,6 @@ public class Layer extends Component {
             final int endX = startX + component.getTiles().getWidth();
             final int endY = startY + component.getTiles().getHeight();
 
-            final Screen rootScreen = this.rootScreen;
-
             for (int y = startY; y < endY; y++) {
                 for (int x = startX; x < endX; x++) {
                     final Tile tile = tiles.getTileAt(x, y);
