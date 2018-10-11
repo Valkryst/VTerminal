@@ -557,7 +557,6 @@ public class TextArea extends Component {
 
         // Convert Text Lines to Tile Lines and append them to the area.
         for (final String textLine : textLines) {
-            System.out.println(textLine);
             final Tile[] tileLine = new Tile[textLine.length()];
 
             for (int i = 0 ; i < textLine.length() ; i++) {
