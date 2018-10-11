@@ -232,7 +232,7 @@ public class Layer extends Component {
             final Queue<Component> subComponents = new ConcurrentLinkedQueue<>();
             subComponents.add(component);
 
-            while(subComponents.size() > 0) {
+            while (subComponents.size() > 0) {
                 final Component temp = subComponents.remove();
 
                 if (temp instanceof Layer) {
@@ -242,11 +242,6 @@ public class Layer extends Component {
                 for (final EventListener listener : temp.getEventListeners()) {
                     rootScreen.removeListener(listener);
                 }
-            }
-
-            // Remove all of the component's listeners from the root screen:
-            for (final EventListener listener : component.getEventListeners()) {
-                rootScreen.removeListener(listener);
             }
 
             // Reset all of the tiles where the component used to be.
@@ -262,9 +257,11 @@ public class Layer extends Component {
 
                     if (tile != null) {
                         tile.reset();
-                        System.out.println(tile + " " + rootScreen + " " + rootScreen.getColorPalette());
-                        tile.setBackgroundColor(rootScreen.getColorPalette().getDefaultBackground());
-                        tile.setForegroundColor(rootScreen.getColorPalette().getDefaultForeground());
+
+                        if (rootScreen != null) {
+                            tile.setBackgroundColor(rootScreen.getColorPalette().getDefaultBackground());
+                            tile.setForegroundColor(rootScreen.getColorPalette().getDefaultForeground());
+                        }
                     }
                 }
             }
