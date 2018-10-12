@@ -82,21 +82,6 @@
         </resources>
         <testSourceDirectory>test</testSourceDirectory>
         <plugins>
-            <!--- Creates a JAR of the source files in the target directory during build. -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <!--- Generates JavaDoc files during build. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
