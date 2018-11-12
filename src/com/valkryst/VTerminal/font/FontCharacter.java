@@ -1,12 +1,14 @@
 package com.valkryst.VTerminal.font;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
+@ToString
 class FontCharacter {
     /** The character. */
     @Getter private final char character;
@@ -54,5 +56,25 @@ class FontCharacter {
         final AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
 
         image = op.filter(image, null);
+    }
+
+    /**
+     * Retrieves the width of the character's image.
+     *
+     * @return
+     *          The width of the character's image.
+     */
+    public int getWidth() {
+        return image.getWidth();
+    }
+
+    /**
+     * Retrieves the height of the character's image.
+     *
+     * @return
+     *          The height of the character's image.
+     */
+    public int getHeight() {
+        return image.getHeight();
     }
 }
