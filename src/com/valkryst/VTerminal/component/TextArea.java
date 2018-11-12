@@ -42,7 +42,7 @@ public class TextArea extends Component {
     @Getter private Point caretPosition = new Point(0, 0);
 
     /** The text entered by the user. */
-    @Getter private char[][] enteredText;
+    @Getter private int[][] enteredText;
 
     /** Whether the text area is in-focus. */
     private boolean isFocused;
@@ -104,7 +104,7 @@ public class TextArea extends Component {
 
         editable = builder.isEditable();
 
-        enteredText = new char[builder.getHeight()][builder.getWidth()];
+        enteredText = new int[builder.getHeight()][builder.getWidth()];
 
         allowedCharacterPattern = builder.getAllowedCharacterPattern();
 
@@ -586,7 +586,7 @@ public class TextArea extends Component {
             boolean rowIsEmpty = true;
 
             for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
-                final char character = super.tiles.getTileAt(x, y).getCharacter();
+                final int character = super.tiles.getTileAt(x, y).getCharacter();
                 rowIsEmpty &= Character.isSpaceChar(character);
             }
 
@@ -654,7 +654,7 @@ public class TextArea extends Component {
 
     /** Clears all text from the field. */
     public void clearText() {
-        for (final char[] line : enteredText) {
+        for (final int[] line : enteredText) {
             Arrays.fill(line, ' ');
         }
 

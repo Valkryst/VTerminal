@@ -16,7 +16,7 @@ public class RectanglePrinter {
     @Getter private final Dimension dimensions = new Dimension(2, 2);
 
     /** The character to fill the rectangle with, if a filled rectangle is drawn. */
-    @Getter @Setter private char fillChar = '█';
+    @Getter @Setter private int fillChar = '█';
 
     /** The title string. */
     @Getter @Setter private String title;
@@ -102,7 +102,7 @@ public class RectanglePrinter {
         setConnectors(grid, position);
     }
 
-    public void printCharacter(final @NonNull TileGrid grid, final @NonNull Point position, final char character) {
+    public void printCharacter(final @NonNull TileGrid grid, final @NonNull Point position, final int character) {
         final Tile tile = grid.getTileAt(position);
 
         if (tile != null) {
@@ -175,7 +175,7 @@ public class RectanglePrinter {
         final boolean validRight = hasValidRightNeighbour(grid, new Point(position));
 
         final boolean[] neighbourPattern = new boolean[]{validRight, validTop, validLeft, validBottom};
-        final Optional<Character> optChar = rectangleType.getCharacterByNeighbourPattern(neighbourPattern);
+        final Optional<Integer> optChar = rectangleType.getCharacterByNeighbourPattern(neighbourPattern);
 
         optChar.ifPresent(character -> grid.getTileAt(position).setCharacter(character));
     }

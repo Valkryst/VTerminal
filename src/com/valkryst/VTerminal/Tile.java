@@ -25,7 +25,7 @@ public class Tile {
     @Getter private final List<Shader> shaders = new LinkedList<>();
 
     /** The character. */
-	@Getter private char character = ' ';
+	@Getter private int character = ' ';
 	/** Whether or not the foreground should be drawn using the background color. */
 	@Getter @Setter private boolean isHidden;
     /** The background color. Defaults to black. */
@@ -47,7 +47,7 @@ public class Tile {
      * @param character
      *          The character.
      */
-	public Tile(final char character) {
+	public Tile(final int character) {
 	    reset();
 	    this.character = character;
     }
@@ -172,7 +172,7 @@ public class Tile {
      * @param character
      *        The new character.
      */
-    public void setCharacter(final char character) {
+    public void setCharacter(final int character) {
         if (this.character != character) {
             this.character = character;
 

@@ -127,8 +127,7 @@ public final class FontLoader {
     }
 
     /**
-     * Processes a font sprite sheet and character data into a usable HashMap of
-     * character sprites.
+     * Processes a font sprite sheet and character data into a usable HashMap of character images.
      *
      * @param spriteSheet
      *         The sprite sheet.
@@ -142,13 +141,13 @@ public final class FontLoader {
      * @throws NullPointerException
      *         If the sprite sheet or character data is null.
      */
-    private static HashMap<Character, FontCharacter> processFontData(final @NonNull BufferedImage spriteSheet, final @NonNull List<String> characterData) {
-        final HashMap<Character, FontCharacter> hashMap = new HashMap<>(characterData.size());
+    private static HashMap<Integer, FontCharacter> processFontData(final @NonNull BufferedImage spriteSheet, final @NonNull List<String> characterData) {
+        final HashMap<Integer, FontCharacter> hashMap = new HashMap<>(characterData.size());
 
         for (final String string : characterData) {
             if (string.isEmpty() == false) {
                 final Scanner scanner = new Scanner(string);
-                final char character = (char) scanner.nextInt();
+                final int character = scanner.nextInt();
 
                 final int x = scanner.nextInt();
                 final int y = scanner.nextInt();

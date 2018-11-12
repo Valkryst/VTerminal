@@ -7,50 +7,50 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum RectangleType {
-    NONE(new char[]{'█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█'}),
-    SIMPLE(new char[]{'+', '+', '+', '+', '|', '-', '+', '+', '+', '+', '+'}),
-    THIN(new char[]{'┌', '┐', '└', '┘', '│', '─', '┼', '┤', '├', '┬', '┴'}),
-    HEAVY(new char[]{'╔', '╗', '╚', '╝', '║', '═', '╬', '╣', '╠', '╦', '╩'}),
-    MIXED_HEAVY_HORIZONTAL(new char[]{'╒', '╕', '╘', '╛', '│', '═', '╪', '╡', '╞', '╤', '╧'}),
-    MIXED_HEAVY_VERTICAL(new char[]{'╓', '╖', '╙', '╜', '║', '─', '╫', '╢', '╟', '╥', '╨'});
+    NONE(new int[]{'█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█'}),
+    SIMPLE(new int[]{'+', '+', '+', '+', '|', '-', '+', '+', '+', '+', '+'}),
+    THIN(new int[]{'┌', '┐', '└', '┘', '│', '─', '┼', '┤', '├', '┬', '┴'}),
+    HEAVY(new int[]{'╔', '╗', '╚', '╝', '║', '═', '╬', '╣', '╠', '╦', '╩'}),
+    MIXED_HEAVY_HORIZONTAL(new int[]{'╒', '╕', '╘', '╛', '│', '═', '╪', '╡', '╞', '╤', '╧'}),
+    MIXED_HEAVY_VERTICAL(new int[]{'╓', '╖', '╙', '╜', '║', '─', '╫', '╢', '╟', '╥', '╨'});
 
     /** The top left character of a rectangle. */
-    @Getter private final char topLeft;
+    @Getter private final int topLeft;
     /** The top right character of a rectangle. */
-    @Getter private final char topRight;
+    @Getter private final int topRight;
     /** The bottom left character of a rectangle. */
-    @Getter private final char bottomLeft;
+    @Getter private final int bottomLeft;
     /** The bottom right character of a rectangle. */
-    @Getter private final char bottomRight;
+    @Getter private final int bottomRight;
     /** The vertical character of a rectangle. */
-    @Getter private final char vertical;
+    @Getter private final int vertical;
     /** The horizontal character of a rectangle. */
-    @Getter private final char horizontal;
+    @Getter private final int horizontal;
     /** The cross connector character of a rectangle. */
-    @Getter private final char connectorCross;
+    @Getter private final int connectorCross;
     /** The left connector character of a rectangle. */
-    @Getter private final char connectorLeft;
+    @Getter private final int connectorLeft;
     /** The right connector character of a rectangle. */
-    @Getter private final char connectorRight;
+    @Getter private final int connectorRight;
     /** The downwards connector character of a rectangle. */
-    @Getter private final char connectorDown;
+    @Getter private final int connectorDown;
     /** The upwards connector character of a rectangle. */
-    @Getter private final char connectorUp;
+    @Getter private final int connectorUp;
 
     /** The set of characters that can appear above a RectangleType character. */
-    @Getter private final char[] validTopCharacters;
+    @Getter private final int[] validTopCharacters;
     /** The set of characters that can appear below a RectangleType character. */
-    @Getter private final char[] validBottomCharacters;
+    @Getter private final int[] validBottomCharacters;
     /**
      * The set of characters that can appear to the left of a RectangleType
      * character.
      */
-    @Getter private final char[] validLeftCharacters;
+    @Getter private final int[] validLeftCharacters;
     /**
      * The set of characters that can appear to the right of a RectangleType
      * character.
      */
-    @Getter private final char[] validRightCharacters;
+    @Getter private final int[] validRightCharacters;
 
     /**
      * Constructs a new RectangleType.
@@ -58,7 +58,7 @@ public enum RectangleType {
      * @param boxCharacters
      *         The characters of a rectangle.
      */
-    RectangleType(char[] boxCharacters) {
+    RectangleType(int[] boxCharacters) {
         if (boxCharacters.length != 11) {
             throw new IllegalArgumentException("A RectangleType requires exactly 11 characters.");
         }
@@ -75,17 +75,10 @@ public enum RectangleType {
         connectorDown = boxCharacters[9];
         connectorUp = boxCharacters[10];
 
-        validTopCharacters = new char[]{vertical, connectorCross, connectorLeft, connectorRight, connectorDown,
-                                        topLeft, topRight};
-
-        validBottomCharacters = new char[]{vertical, connectorCross, connectorLeft, connectorRight, connectorUp,
-                                           bottomLeft, bottomRight};
-
-        validLeftCharacters = new char[]{horizontal, connectorCross, connectorRight, connectorDown, connectorUp,
-                                         topLeft, bottomLeft};
-
-        validRightCharacters = new char[]{horizontal, connectorCross, connectorLeft, connectorDown, connectorUp,
-                                          topRight, bottomRight};
+        validTopCharacters = new int[]{vertical, connectorCross, connectorLeft, connectorRight, connectorDown, topLeft, topRight};
+        validBottomCharacters = new int[]{vertical, connectorCross, connectorLeft, connectorRight, connectorUp, bottomLeft, bottomRight};
+        validLeftCharacters = new int[]{horizontal, connectorCross, connectorRight, connectorDown, connectorUp, topLeft, bottomLeft};
+        validRightCharacters = new int[]{horizontal, connectorCross, connectorLeft, connectorDown, connectorUp, topRight, bottomRight};
     }
 
     /**
@@ -160,8 +153,8 @@ public enum RectangleType {
      * @return
      *        If the character is in the set.
      */
-    private boolean isValidCharacter(final char character, final char[] validCharacters) {
-        for (final char validCharacter : validCharacters) {
+    private boolean isValidCharacter(final int character, final int[] validCharacters) {
+        for (final int validCharacter : validCharacters) {
             if (character == validCharacter) {
                 return true;
             }
@@ -179,7 +172,7 @@ public enum RectangleType {
      * @return
      *        The character.
      */
-    public Optional<Character> getCharacterByNeighbourPattern(final boolean[] pattern) {
+    public Optional<Integer> getCharacterByNeighbourPattern(final boolean[] pattern) {
         if (Arrays.equals(pattern, new boolean[]{false, false, true, true})) {
             return Optional.of(topRight);
         }
