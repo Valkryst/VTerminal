@@ -82,8 +82,6 @@ public class Font {
             }
         }
 
-        System.out.println(width + " " + height);
-
         // Create base dimensions.
         baseDimensions = new Dimension(width, height);
 
