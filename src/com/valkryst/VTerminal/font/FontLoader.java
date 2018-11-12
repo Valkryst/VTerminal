@@ -142,8 +142,8 @@ public final class FontLoader {
      * @throws NullPointerException
      *         If the sprite sheet or character data is null.
      */
-    private static HashMap<Character, BufferedImage> processFontData(final @NonNull BufferedImage spriteSheet, final @NonNull List<String> characterData) {
-        final HashMap<Character, BufferedImage> hashMap = new HashMap<>(characterData.size());
+    private static HashMap<Character, FontCharacter> processFontData(final @NonNull BufferedImage spriteSheet, final @NonNull List<String> characterData) {
+        final HashMap<Character, FontCharacter> hashMap = new HashMap<>(characterData.size());
 
         for (final String string : characterData) {
             if (string.isEmpty() == false) {
@@ -152,11 +152,11 @@ public final class FontLoader {
 
                 final int x = scanner.nextInt();
                 final int y = scanner.nextInt();
-                final int width = scanner.nextInt();
-                final int height = scanner.nextInt();
+                final int width = scanner.nextByte();
+                final int height = scanner.nextByte();
                 final BufferedImage image = spriteSheet.getSubimage(x, y, width, height);
 
-                hashMap.put(character, image);
+                hashMap.put(character, new FontCharacter(character, image));
             }
         }
 
