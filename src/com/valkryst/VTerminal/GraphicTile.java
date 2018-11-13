@@ -6,9 +6,7 @@ import com.valkryst.VTerminal.shader.character.CharShader;
 import lombok.NonNull;
 import lombok.ToString;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.util.Objects;
+import java.awt.*;
 
 @ToString
 public class GraphicTile extends Tile {
@@ -46,7 +44,7 @@ public class GraphicTile extends Tile {
         super.setUnderlined(tile.isUnderlined());
         super.setUnderlineThickness(tile.getUnderlineThickness());
 
-        cacheHash = Objects.hash(super.getCharacter(), super.getBackgroundColor(), super.getForegroundColor(), super.getShaders());
+        cacheHash = super.hash();
     }
 
     /**
@@ -95,7 +93,7 @@ public class GraphicTile extends Tile {
                 }
             }
 
-            cacheHash = Objects.hash(super.getCharacter(), super.getBackgroundColor(), super.getForegroundColor(), shaders);
+            cacheHash = super.hash();
         }
     }
 }
