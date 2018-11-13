@@ -34,7 +34,7 @@ Dependency:
     <dependency>
         <groupId>com.github.Valkryst</groupId>
         <artifactId>VTerminal</artifactId>
-        <version>3.5.5</version>
+        <version>3.6.0</version>
     </dependency>
 
 **There is currently an issue with JitPack, preventing VTerminal from successfully building. Please use 'c17854b' as the version in your pom file.**
