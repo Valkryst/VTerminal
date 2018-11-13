@@ -48,6 +48,8 @@ public class Screen {
 
     private boolean isInFullScreenExclusiveMode = false;
 
+    private boolean hasFirstRenderCompleted = false;
+
     /**
      * Constructs a new 80x40 Screen with the 18pt DejaVu Sans Mono font.
      *
@@ -172,17 +174,23 @@ public class Screen {
         frame.addComponentListener(new ComponentListener() {
             @Override
             public void componentResized(final ComponentEvent e) {
-                draw();
+                if (hasFirstRenderCompleted) {
+                    draw();
+                }
             }
 
             @Override
             public void componentMoved(final ComponentEvent e) {
-                draw();
+                if (hasFirstRenderCompleted) {
+                    draw();
+                }
             }
 
             @Override
             public void componentShown(final ComponentEvent e) {
-                draw();
+                if (hasFirstRenderCompleted) {
+                    draw();
+                }
             }
 
             @Override
@@ -192,7 +200,9 @@ public class Screen {
         frame.addWindowFocusListener(new WindowFocusListener() {
             @Override
             public void windowGainedFocus(final WindowEvent e) {
-                draw();
+                if (hasFirstRenderCompleted) {
+                    draw();
+                }
             }
 
             @Override
@@ -202,7 +212,9 @@ public class Screen {
         frame.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(final WindowEvent e) {
-                draw();
+                if (hasFirstRenderCompleted) {
+                    draw();
+                }
             }
 
             @Override
@@ -216,12 +228,16 @@ public class Screen {
 
             @Override
             public void windowDeiconified(final WindowEvent e) {
-                draw();
+                if (hasFirstRenderCompleted) {
+                    draw();
+                }
             }
 
             @Override
             public void windowActivated(final WindowEvent e) {
-                draw();
+                if (hasFirstRenderCompleted) {
+                    draw();
+                }
             }
 
             @Override
@@ -409,7 +425,7 @@ public class Screen {
                             final boolean hashChanged = (positionHashes_previous[x][y] != positionHashes_current[x][y]);
                             final boolean notYetRendered = (positionHashes_previous[x][y] == 0);
 
-                            if (notYetRendered || hashChanged) {
+                            if (hasFirstRenderCompleted == false || notYetRendered || hashChanged) {
                                 tiles.getTileAt(x, y).draw(gc, imageCache, xPosition, yPosition);
 
                                 // Draw all of component tiles that overlap the current position.
@@ -452,6 +468,8 @@ public class Screen {
 
             bs.show();
         } while (bs.contentsLost()); // Repeat render if drawing buffer was lost.
+
+        hasFirstRenderCompleted = true;
     }
 
     /**
