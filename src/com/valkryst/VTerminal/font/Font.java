@@ -102,6 +102,15 @@ public class Font {
         resize(scale, scale);
     }
 
+    /**
+     * Resizes the images of all characters by some scale percentages.
+     *
+     * @param scaleWidth
+     *          The amount to scale the width by.
+     *
+     * @param scaleHeight
+     *          The amount to scale the height by.
+     */
     public void resize(final double scaleWidth, final double scaleHeight) {
         for (final Map.Entry<Integer, FontCharacter> entry : fontCharacters.entrySet()) {
             entry.getValue().resizeImage(scaleWidth, scaleHeight);
