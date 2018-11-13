@@ -13,8 +13,8 @@ public class Font {
     /** The characters provided by the font. */
     private final HashMap<Integer, FontCharacter> fontCharacters;
 
-    /** The dimensions of the most-common character size supplied by the font. */
-    private final Dimension baseDimensions;
+    /** The dimensions of the minimum character size supplied by the font. */
+    private final Dimension minDimensions;
 
     /**
      * Constructs a new Font.
@@ -82,8 +82,7 @@ public class Font {
             }
         }
 
-        // Create base dimensions.
-        baseDimensions = new Dimension(width, height);
+        minDimensions = new Dimension(width, height);
 
         /*
          * Search for any characters which have dimensions that are not divisible by the most common width
@@ -142,7 +141,7 @@ public class Font {
      *         The minimum width of a character cell.
      */
     public int getWidth() {
-        return baseDimensions.width;
+        return minDimensions.width;
     }
 
     /**
@@ -152,6 +151,6 @@ public class Font {
      *         The minimum height of a character cell.
      */
     public int getHeight() {
-        return baseDimensions.height;
+        return minDimensions.height;
     }
 }
