@@ -214,7 +214,7 @@ public final class ImageCache {
     public static BufferedImage cloneImage(final @NonNull BufferedImage image) {
         final ColorModel colorModel = image.getColorModel();
         final boolean isAlphaPremultiplied = colorModel.isAlphaPremultiplied();
-        final WritableRaster writableRaster = image.copyData(null);
+        final WritableRaster writableRaster = image.copyData(image.getRaster().createCompatibleWritableRaster());
         return new BufferedImage(colorModel, writableRaster, isAlphaPremultiplied, null);
     }
 
