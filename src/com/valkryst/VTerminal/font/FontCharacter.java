@@ -39,7 +39,7 @@ class FontCharacter {
     }
 
     /**
-     * Resizes the character's image.
+     * Resizes the character's image by some scale percentages.
      *
      * @param scaleWidth
      *          The amount to scale the width by.
@@ -58,6 +58,15 @@ class FontCharacter {
         image = op.filter(image, null);
     }
 
+    /**
+     * Resizes the character's image to a specific width and height.
+     *
+     * @param width
+     *          The new width.
+     *
+     * @param height
+     *          The new height.
+     */
     void resizeImage(final int width, final int height) {
         if (width <= 0 || height <= 0) {
             return;
