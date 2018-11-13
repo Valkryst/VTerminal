@@ -219,18 +219,16 @@ public final class FontLoader {
         final InputStreamReader isr = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
         final BufferedReader br = new BufferedReader(isr);
         final List<String> lines = br.lines().collect(Collectors.toList());
-
-        // Remove Kerning Data
-        final Pattern kerningPattern = Pattern.compile("kerning.*\\n");
-        lines.replaceAll(string -> kerningPattern.matcher(string).replaceAll(""));
-        lines.removeIf(String::isEmpty);
+        inputStream.close();
 
         // Remove Unnecessary Data
         final Pattern miscPattern = Pattern.compile("info.*|common.*|page.*|chars.*|char id=\\d\\d\\d\\d\\d\\d.*|char id=[7-9]\\d\\d\\d\\d.*|char id=6[6-9]\\d\\d\\d.*|char id=65[6-9]\\d\\d.*|char id=655[4-9]\\d.*|char id=6553[6-9].*| xoff.*|char id=|x=|y=|width=|height=");
         lines.replaceAll(string -> miscPattern.matcher(string).replaceAll(""));
         lines.removeIf(String::isEmpty);
 
-        inputStream.close();
+        // Remove Kerning Data
+        lines.removeIf(s -> s.subSequence(0, 7).equals("kerning"));
+
         return lines;
     }
 }
