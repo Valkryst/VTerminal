@@ -220,9 +220,14 @@ public final class FontLoader {
         final BufferedReader br = new BufferedReader(isr);
         final List<String> lines = br.lines().collect(Collectors.toList());
 
-        // Remove unnecessary data:
-        final Pattern pattern = Pattern.compile("info.*|common.*|page.*|chars.*|char id=\\d\\d\\d\\d\\d\\d.*|char id=[7-9]\\d\\d\\d\\d.*|char id=6[6-9]\\d\\d\\d.*|char id=65[6-9]\\d\\d.*|char id=655[4-9]\\d.*|char id=6553[6-9].*| xoff.*|char id=|x=|y=|width=|height=");
-        lines.replaceAll(string -> pattern.matcher(string).replaceAll(""));
+        // Remove Kerning Data
+        final Pattern kerningPattern = Pattern.compile("kerning.*\\n");
+        lines.replaceAll(string -> kerningPattern.matcher(string).replaceAll(""));
+        lines.removeIf(String::isEmpty);
+
+        // Remove Unnecessary Data
+        final Pattern miscPattern = Pattern.compile("info.*|common.*|page.*|chars.*|char id=\\d\\d\\d\\d\\d\\d.*|char id=[7-9]\\d\\d\\d\\d.*|char id=6[6-9]\\d\\d\\d.*|char id=65[6-9]\\d\\d.*|char id=655[4-9]\\d.*|char id=6553[6-9].*| xoff.*|char id=|x=|y=|width=|height=");
+        lines.replaceAll(string -> miscPattern.matcher(string).replaceAll(""));
         lines.removeIf(String::isEmpty);
 
         inputStream.close();
