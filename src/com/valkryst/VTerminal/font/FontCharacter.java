@@ -48,7 +48,7 @@ class FontCharacter {
      *          The amount to scale the height by.
      */
     void resizeImage(final double scaleWidth, final double scaleHeight) {
-        if (scaleWidth <= 0 || scaleHeight <= 0) {
+        if (scaleWidth <= 0 || scaleHeight <= 0 || (scaleWidth == 1 && scaleHeight == 1)) {
             return;
         }
 
