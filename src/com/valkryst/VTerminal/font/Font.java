@@ -109,7 +109,7 @@ public class Font {
      *          The amount to scale the height by.
      */
     public void resize(final double scaleWidth, final double scaleHeight) {
-        if (scaleWidth == 1 || scaleWidth == 0 || scaleHeight == 1 || scaleHeight == 0) {
+        if (scaleWidth == 0 || scaleHeight == 0 || (scaleWidth == 1 && scaleHeight == 1)) {
             return;
         }
 
