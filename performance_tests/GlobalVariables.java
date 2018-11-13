@@ -8,9 +8,9 @@ class GlobalVariables {
     static final boolean RUN_TESTS_WINDOWED = true;
 
     /** The number of rows to display. */
-    static final int ROWS = 42;
+    static final int ROWS = 40;
     /** The number of columns to display. */
-    static final int COLUMNS = 160;
+    static final int COLUMNS = 150;
     /** The total number of cells displayed. */
     static final int TOTAL_CELLS = ROWS * COLUMNS;
     /** The font to use. */
