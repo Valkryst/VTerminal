@@ -68,7 +68,7 @@ class FontCharacter {
      *          The new height.
      */
     void resizeImage(final int width, final int height) {
-        if (width <= 0 || height <= 0) {
+        if (width <= 0 || height <= 0 || (width == 1 && height == 1)) {
             return;
         }
 
