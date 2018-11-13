@@ -13,8 +13,8 @@ public class Font {
     /** The characters provided by the font. */
     private final HashMap<Integer, FontCharacter> fontCharacters;
 
-    /** The dimensions of the minimum character size supplied by the font. */
-    private final Dimension minDimensions;
+    /** The dimensions of the maximum character size supplied by the font. */
+    private final Dimension maxDimensions;
 
     /**
      * Constructs a new Font.
@@ -48,9 +48,9 @@ public class Font {
             heightCounts.put(fcHeight, heightCount);
         }
 
-        // Determine the minimum width.
+        // Determine the maximum width.
         Map.Entry<Integer, Integer> widthEntry = null;
-        int width = Integer.MAX_VALUE;
+        int width = Integer.MIN_VALUE;
 
         for (final Map.Entry<Integer, Integer> entry : widthCounts.entrySet()) {
             if (widthEntry == null) {
@@ -59,15 +59,15 @@ public class Font {
                 continue;
             }
 
-            if (widthEntry.getValue() > entry.getValue()) {
+            if (widthEntry.getValue() < entry.getValue()) {
                 widthEntry = entry;
                 width = entry.getKey();
             }
         }
 
-        // Determine the minimum height.
+        // Determine the maximum height.
         Map.Entry<Integer, Integer> heightEntry = null;
-        int height = Integer.MAX_VALUE;
+        int height = Integer.MIN_VALUE;
 
         for (final Map.Entry<Integer, Integer> entry : heightCounts.entrySet()) {
             if (heightEntry == null) {
@@ -76,15 +76,15 @@ public class Font {
                 continue;
             }
 
-            if (heightEntry.getValue() > entry.getValue()) {
+            if (heightEntry.getValue() < entry.getValue()) {
                 heightEntry = entry;
                 height = entry.getKey();
             }
         }
 
-        minDimensions = new Dimension(width, height);
+        maxDimensions = new Dimension(width, height);
 
-        // Find any characters that are not equal to the min width/height, then resize them.
+        // Find any characters that are not equal to the max width/height, then resize them.
         for (final Map.Entry<Integer, FontCharacter> entry : fontCharacters.entrySet()) {
             final FontCharacter fontCharacter = entry.getValue();
             final int fcWidth = fontCharacter.getWidth();
@@ -145,22 +145,22 @@ public class Font {
     }
 
     /**
-     * Retrieves the minimum width of a character cell.
+     * Retrieves the maximum width of a character cell.
      *
      * @return
-     *         The minimum width of a character cell.
+     *         The maximum width of a character cell.
      */
     public int getWidth() {
-        return minDimensions.width;
+        return maxDimensions.width;
     }
 
     /**
-     * Retrieves the minimum height of a character cell.
+     * Retrieves the maximum height of a character cell.
      *
      * @return
-     *         The minimum height of a character cell.
+     *         The maximum height of a character cell.
      */
     public int getHeight() {
-        return minDimensions.height;
+        return maxDimensions.height;
     }
 }
