@@ -84,10 +84,7 @@ public class Font {
 
         minDimensions = new Dimension(width, height);
 
-        /*
-         * Search for any characters which have dimensions that are not divisible by the most common width
-         * and height.
-         */
+        // Find any characters that are not equal to the min width/height, then resize them.
         for (final Map.Entry<Integer, FontCharacter> entry : fontCharacters.entrySet()) {
             final FontCharacter fontCharacter = entry.getValue();
             final int fcWidth = fontCharacter.getWidth();
@@ -98,7 +95,7 @@ public class Font {
             }
         }
 
-        // Resize font images
+        // Resize all font images if required.
         resize(scale, scale);
     }
 
@@ -112,6 +109,10 @@ public class Font {
      *          The amount to scale the height by.
      */
     public void resize(final double scaleWidth, final double scaleHeight) {
+        if (scaleWidth == 1 || scaleWidth == 0 || scaleHeight == 1 || scaleHeight == 0) {
+            return;
+        }
+
         for (final Map.Entry<Integer, FontCharacter> entry : fontCharacters.entrySet()) {
             entry.getValue().resizeImage(scaleWidth, scaleHeight);
         }
