@@ -24,7 +24,7 @@ class GlobalVariables {
 
     static {
         try {
-            font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1);
+            font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/", 1);
         } catch (final IOException e) {
             e.printStackTrace();
         }
