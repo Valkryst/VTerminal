@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class SampleTileSheet {
     public static void main(final String[] args) throws IOException {
-        final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/bitmap.png", "Fonts/DejaVu Sans Mono/18pt/data.fnt", 1);
+        final Font font = FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/18pt/", 1);
 
         final Screen screen = new Screen(100, 33, font);
 

@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class SampleGraphicTileSheet {
     public static void main(final String[] args) throws IOException {
-        final Font font = FontLoader.loadFontFromJar("Tiles/Nevanda Nethack/bitmap.png", "Tiles/Nevanda Nethack/data.fnt", 1);
+        final Font font = FontLoader.loadFontFromJar("Tiles/Nevanda Nethack/", 1);
 
         final Screen screen = new Screen(50, 22, font);
 
