@@ -56,6 +56,150 @@ public final class FontLoader {
     /**
      * Loads a font from the file system.
      *
+     * @param folderPath
+     *          The path to the folder to load the PNG/FNT files from.
+     *
+     * @param scale
+     *          The amount to scale the font by.
+     *
+     * @return
+     *          The font.
+     *
+     * @throws NullPointerException
+     *          If the PNG or FNT paths are null.
+     *
+     * @throws IllegalArgumentException
+     *          If the folder path is empty.
+     *          If the folder points to a non-existent file.
+     *          If the folder doesn't point to a directory.
+     *
+     * @throws IllegalStateException
+     *          If there's an error finding the PNG/FNT files.
+     *          If there is more, or less, than one PNG file in the folder.
+     *          If there is more, or less, than one FNT file in the folder.
+     *
+     * @throws IOException
+     *          If an IOException occurs while loading the PNG image.
+     *          If an IOException occurs while loading the FNT file lines.
+     */
+    public static Font loadFont(@NonNull String folderPath, final double scale) throws IOException {
+        if (folderPath.isEmpty()) {
+            throw new IllegalArgumentException("The folder path cannot be empty.");
+        }
+
+        return loadFont(new File(folderPath), scale);
+    }
+
+    /**
+     * Loads a font from the file system.
+     *
+     * @param folder
+     *          The folder to load the PNG/FNT files from.
+     *
+     * @param scale
+     *          The amount to scale the font by.
+     *
+     * @return
+     *          The font.
+     *
+     * @throws NullPointerException
+     *          If the PNG or FNT paths are null.
+     *
+     * @throws IllegalArgumentException
+     *          If the folder points to a non-existent file.
+     *          If the folder doesn't point to a directory.
+     *
+     * @throws IllegalStateException
+     *          If there's an error finding the PNG/FNT files.
+     *          If there is more, or less, than one PNG file in the folder.
+     *          If there is more, or less, than one FNT file in the folder.
+     *
+     * @throws IOException
+     *          If an IOException occurs while loading the PNG image.
+     *          If an IOException occurs while loading the FNT file lines.
+     */
+    public static Font loadFont(final @NonNull File folder, final double scale) throws IOException {
+        if (folder.exists() == false) {
+            throw new IllegalArgumentException("The path '" + folder.getAbsolutePath() + "' points to a non-existent file.");
+        }
+
+        if (folder.isDirectory() == false) {
+            throw new IllegalArgumentException("The path '" + folder.getAbsolutePath() + "' does not point to a directory.");
+        }
+
+        // Retrieve a list of PNG files
+        final File[] pngFiles = folder.listFiles((dir, name) -> {
+            boolean matches = name.endsWith(".png");
+            matches |= name.endsWith(".Png");
+            matches |= name.endsWith(".pNg");
+            matches |= name.endsWith(".pnG");
+            matches |= name.endsWith(".PNg");
+            matches |= name.endsWith(".PnG");
+            matches |= name.endsWith(".pNG");
+            matches |= name.endsWith(".PNG");
+            return matches;
+        });
+
+        if (pngFiles == null) {
+            throw new IllegalStateException("The pngFiles value is null.");
+        }
+
+        if (pngFiles.length != 1) {
+            throw new IllegalStateException("There should only be one PNG file in '" + folder.getAbsolutePath() + "'. Found " + pngFiles.length + ".");
+        }
+
+        if (pngFiles[0] == null) {
+            throw new IllegalStateException("The pngFiles[0] value is null.");
+        }
+
+        if (pngFiles[0].exists() == false) {
+            throw new IllegalStateException("The path '" + pngFiles[0].getAbsolutePath() + "' points to a non-existent file.");
+        }
+
+        if (pngFiles[0].isDirectory()) {
+            throw new IllegalStateException("The path '" + pngFiles[0].getAbsolutePath() + "' points to a directory.");
+        }
+
+        // Retrieve a list of FNT files
+        final File[] fntFiles = folder.listFiles((dir, name) -> {
+            boolean matches = name.endsWith(".fnt");
+            matches |= name.endsWith(".Fnt");
+            matches |= name.endsWith(".fNt");
+            matches |= name.endsWith(".fnT");
+            matches |= name.endsWith(".FNt");
+            matches |= name.endsWith(".FnT");
+            matches |= name.endsWith(".fNT");
+            matches |= name.endsWith(".FNT");
+            return matches;
+        });
+
+        if (fntFiles == null) {
+            throw new IllegalStateException("The pngFiles value is null.");
+        }
+
+        if (fntFiles.length != 1) {
+            throw new IllegalStateException("There should only be one FNT file in '" + folder.getAbsolutePath() + "'. Found " + fntFiles.length + ".");
+        }
+
+        if (fntFiles[0] == null) {
+            throw new IllegalStateException("The fntFiles[0] value is null.");
+        }
+
+        if (fntFiles[0].exists() == false) {
+            throw new IllegalStateException("The path '" + fntFiles[0].getAbsolutePath() + "' points to a non-existent file.");
+        }
+
+        if (fntFiles[0].isDirectory()) {
+            throw new IllegalStateException("The path '" + fntFiles[0].getAbsolutePath() + "' points to a directory.");
+        }
+
+        // Load the font
+        return loadFont(pngFiles[0].getPath(), fntFiles[0].getPath(), scale);
+    }
+
+    /**
+     * Loads a font from the file system.
+     *
      * @param pngFilePath
      *          The path to the PNG file.
      *
