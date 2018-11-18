@@ -82,7 +82,7 @@ public final class FontLoader {
      *          If an IOException occurs while loading the PNG image.
      *          If an IOException occurs while loading the FNT file lines.
      */
-    public static Font loadFont(@NonNull String folderPath, final double scale) throws IOException {
+    public static Font loadFont(@NonNull final String folderPath, final double scale) throws IOException {
         if (folderPath.isEmpty()) {
             throw new IllegalArgumentException("The folder path cannot be empty.");
         }
