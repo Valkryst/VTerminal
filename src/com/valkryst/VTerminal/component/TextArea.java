@@ -335,7 +335,7 @@ public class TextArea extends Component {
 
                     // Move the caret one position to the left:
                     case KeyEvent.VK_LEFT: {
-                        if (isLeftArrowKeyEnabled) {
+                        if (!isLeftArrowKeyEnabled == false) {
                             return;
                         }
 
@@ -354,7 +354,7 @@ public class TextArea extends Component {
 
                     // Move the caret one position to the right:
                     case KeyEvent.VK_RIGHT: {
-                        if (isRightArrowKeyEnabled) {
+                        if (isRightArrowKeyEnabled == false) {
                             return;
                         }
 
