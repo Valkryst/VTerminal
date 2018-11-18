@@ -18,78 +18,116 @@ public final class FontLoader {
     private FontLoader() {}
 
     /**
-     * Loads a font from the file system.
+     * Loads a font from within the Jar.
      *
-     * @param spriteSheetPath
-     *         The path to the sprite sheet.
-     *
-     * @param characterDataPath
-     *         The path to the character data.
+     * @param folderPath
+     *          The path to the folder containing the PNG and FNT files.
      *
      * @param scale
-     *         The amount to scale the font by.
+     *          The amount to scale the font by.
      *
      * @return
-     *         The font.
+     *          The font.
      *
      * @throws NullPointerException
-     *         If the sprite sheet or character data paths are null.
+     *          If the font folder path, PNG path, or FNT path is null.
      *
      * @throws IllegalArgumentException
-     *         If the sprite sheet or character data paths are empty.
+     *          If the font folder path is empty.
+     *          If the PNG or FNT paths are empty.
      *
      * @throws IOException
-     *         If an IOException occurs while loading the font.
+     *          If an IOException occurs while loading the PNG image.
+     *          If an IOException occurs while loading the FNT file lines.
      */
-    public static Font loadFont(final @NonNull String spriteSheetPath, final @NonNull String characterDataPath, final double scale) throws IOException {
-        if (spriteSheetPath.isEmpty()) {
-            throw new IllegalArgumentException("The sprite sheet path cannot be empty.");
+    public static Font loadFontFromJar(@NonNull String folderPath, final double scale) throws IOException {
+        if (folderPath.isEmpty()) {
+            throw new IllegalArgumentException("The folder path cannot be empty.");
         }
 
-        if (characterDataPath.isEmpty()) {
-            throw new IllegalArgumentException("The character data path cannot be empty.");
+        if (folderPath.endsWith("/") == false && folderPath.endsWith("\\") == false) {
+            folderPath += "/";
         }
 
-        return loadFont(new FileInputStream(spriteSheetPath), new FileInputStream(characterDataPath), scale);
+        // Load the font
+        return loadFontFromJar(folderPath + "bitmap.png", folderPath + "data.fnt", scale);
+    }
+
+    /**
+     * Loads a font from the file system.
+     *
+     * @param pngFilePath
+     *          The path to the PNG file.
+     *
+     * @param fntFilePath
+     *          The path to the FNT file.
+     *
+     * @param scale
+     *          The amount to scale the font by.
+     *
+     * @return
+     *          The font.
+     *
+     * @throws NullPointerException
+     *          If the PNG or FNT paths are null.
+     *
+     * @throws IllegalArgumentException
+     *          If the PNG or FNT paths are empty.
+     *
+     * @throws IOException
+     *          If an IOException occurs while loading the PNG image.
+     *          If an IOException occurs while loading the FNT file lines.
+     */
+    public static Font loadFont(final @NonNull String pngFilePath, final @NonNull String fntFilePath, final double scale) throws IOException {
+        if (pngFilePath.isEmpty()) {
+            throw new IllegalArgumentException("The PNG path cannot be empty.");
+        }
+
+        if (fntFilePath.isEmpty()) {
+            throw new IllegalArgumentException("The FNT path cannot be empty.");
+        }
+
+        return loadFont(new FileInputStream(pngFilePath), new FileInputStream(fntFilePath), scale);
     }
 
     /**
      * Loads a font from within the Jar.
      *
-     * @param spriteSheetPath
-     *         The path to the sprite sheet.
+     * @param pngFilePath
+     *          The path to the PNG file.
      *
-     * @param characterDataPath
-     *         The path to the character data.
+     * @param fntFilePath
+     *          The path to the FNT file.
      *
      * @param scale
-     *         The amount to scale the font by.
+     *          The amount to scale the font by.
      *
      * @return
-     *         The font.
+     *          The font.
      *
      * @throws NullPointerException
-     *         If the sprite sheet or character data paths are null.
+     *          If the PNG or FNT paths are null.
      *
      * @throws IllegalArgumentException
-     *         If the sprite sheet or character data paths are empty.
+     *          If the PNG or FNT paths are empty.
      *
      * @throws IOException
-     *         If an IOException occurs while loading the font.
+     *          If an IOException occurs while loading the PNG image.
+     *          If an IOException occurs while loading the FNT file lines.
      */
-    public static Font loadFontFromJar(final @NonNull String spriteSheetPath, final @NonNull String characterDataPath, final double scale) throws IOException {
-        if (spriteSheetPath.isEmpty()) {
-            throw new IllegalArgumentException("The sprite sheet path cannot be empty.");
+    public static Font loadFontFromJar(final @NonNull String pngFilePath, final @NonNull String fntFilePath, final double scale) throws IOException {
+        if (pngFilePath.isEmpty()) {
+            throw new IllegalArgumentException("The PNG path cannot be empty.");
         }
 
-        if (characterDataPath.isEmpty()) {
-            throw new IllegalArgumentException("The character data path cannot be empty.");
+        if (fntFilePath.isEmpty()) {
+            throw new IllegalArgumentException("The FNT path cannot be empty.");
         }
 
         final ClassLoader classLoader = FontLoader.class.getClassLoader();
 
-        final InputStream spriteSheetStream = classLoader.getResourceAsStream(spriteSheetPath);
-        final InputStream characterDataStream = classLoader.getResourceAsStream(characterDataPath);
+        final InputStream spriteSheetStream = classLoader.getResourceAsStream(pngFilePath);
+        final InputStream characterDataStream = classLoader.getResourceAsStream(fntFilePath);
 
         return loadFont(spriteSheetStream, characterDataStream, scale);
     }
@@ -97,31 +135,32 @@ public final class FontLoader {
     /**
      * Loads a font from the file system.
      *
-     * @param spriteSheet
-     *         The input stream to the sprite sheet.
+     * @param pngStream
+     *          The input stream of the PNG file.
      *
-     * @param characterData
-     *         The input stream to the character data.
+     * @param fntStream
+     *          The input stream of the FNT file.
      *
      * @param scale
-     *         The amount to scale the font by.
+     *          The amount to scale the font by.
      *
      * @return
-     *         The font.
+     *          The font.
      *
      * @throws NullPointerException
-     *         If the sprite sheet or character data streams are null.
+     *          If the PNG or FNT streams are null.
      *
      * @throws IOException
-     *         If an IOException occurs while loading the font.
+     *          If an IOException occurs while loading the PNG image.
+     *          If an IOException occurs while loading the FNT file lines.
      */
-    public static Font loadFont(final @NonNull InputStream spriteSheet, final @NonNull InputStream characterData, double scale) throws IOException {
+    public static Font loadFont(final @NonNull InputStream pngStream, final @NonNull InputStream fntStream, double scale) throws IOException {
         if (scale <= 0) {
             scale = 1;
         }
 
-        final BufferedImage image = loadSpriteSheet(spriteSheet);
-        final List<String> data = loadCharacterData(characterData);
+        final BufferedImage image = loadSpriteSheet(pngStream);
+        final List<String> data = loadCharacterData(fntStream);
 
         return new Font(processFontData(image, data), scale);
     }
@@ -129,22 +168,22 @@ public final class FontLoader {
     /**
      * Processes a font sprite sheet and character data into a usable HashMap of character images.
      *
-     * @param spriteSheet
-     *         The sprite sheet.
+     * @param pngImage
+     *          The PNG image.
      *
-     * @param characterData
-     *         The character data.
+     * @param fntFileLines
+     *          The lines of the FNT file.
      *
      * @return
-     *         The HashMap of character sprites.
+     *          The HashMap of character sprites.
      *
      * @throws NullPointerException
-     *         If the sprite sheet or character data is null.
+     *          If the PNG image or FNT file lines are null.
      */
-    private static HashMap<Integer, FontCharacter> processFontData(final @NonNull BufferedImage spriteSheet, final @NonNull List<String> characterData) {
-        final HashMap<Integer, FontCharacter> hashMap = new HashMap<>(characterData.size());
+    private static HashMap<Integer, FontCharacter> processFontData(final @NonNull BufferedImage pngImage, final @NonNull List<String> fntFileLines) {
+        final HashMap<Integer, FontCharacter> hashMap = new HashMap<>(fntFileLines.size());
 
-        for (final String string : characterData) {
+        for (final String string : fntFileLines) {
             if (string.isEmpty() == false) {
                 final Scanner scanner = new Scanner(string);
                 final int character = scanner.nextInt();
@@ -153,7 +192,7 @@ public final class FontLoader {
                 final int y = scanner.nextInt();
                 final int width = scanner.nextByte();
                 final int height = scanner.nextByte();
-                final BufferedImage image = spriteSheet.getSubimage(x, y, width, height);
+                final BufferedImage image = pngImage.getSubimage(x, y, width, height);
 
                 hashMap.put(character, new FontCharacter(character, image));
             }
@@ -165,21 +204,21 @@ public final class FontLoader {
     /**
      * Loads sprite sheet from an input stream.
      *
-     * @param inputStream
-     *         The input stream.
+     * @param pngStream
+     *          The input stream of the PNG file.
      *
      * @return
-     *         The sprite sheet.
+     *          The PNG image.
      *
      * @throws NullPointerException
-     *         If the input stream is null.
+     *          If the input stream is null.
      *
      * @throws IOException
-     *         If an IOException occurs while loading the sprite sheet.
+     *          If an IOException occurs while loading the PNG image.
      */
-    private static BufferedImage loadSpriteSheet(final @NonNull InputStream inputStream) throws IOException {
-        final BufferedImage loadedImage = ImageIO.read(inputStream);
-        inputStream.close();
+    private static BufferedImage loadSpriteSheet(final @NonNull InputStream pngStream) throws IOException {
+        final BufferedImage loadedImage = ImageIO.read(pngStream);
+        pngStream.close();
 
         try {
             final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -202,24 +241,24 @@ public final class FontLoader {
     /**
      * Loads character data from a path.
      *
-     * @param inputStream
-     *         The input stream.
+     * @param fntStream
+     *          The input stream of the FNT file.
      *
      * @return
-     *         The character data.
+     *          The FNT file lines.
      *
      * @throws NullPointerException
-     *         If the input stream is null.
+     *          If the input stream is null.
      *
      * @throws IOException
-     *         If an IOException occurs while loading the character data.
+     *          If an IOException occurs while loading the FNT file lines.
      */
-    private static List<String> loadCharacterData(final @NonNull InputStream inputStream) throws IOException {
+    private static List<String> loadCharacterData(final @NonNull InputStream fntStream) throws IOException {
         // Load lines
-        final InputStreamReader isr = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+        final InputStreamReader isr = new InputStreamReader(fntStream, StandardCharsets.UTF_8);
         final BufferedReader br = new BufferedReader(isr);
         final List<String> lines = br.lines().collect(Collectors.toList());
-        inputStream.close();
+        fntStream.close();
 
         // Remove Unnecessary Data
         final Pattern miscPattern = Pattern.compile("info.*|common.*|page.*|chars.*|char id=\\d\\d\\d\\d\\d\\d.*|char id=[7-9]\\d\\d\\d\\d.*|char id=6[6-9]\\d\\d\\d.*|char id=65[6-9]\\d\\d.*|char id=655[4-9]\\d.*|char id=6553[6-9].*| xoff.*|char id=|x=|y=|width=|height=");
