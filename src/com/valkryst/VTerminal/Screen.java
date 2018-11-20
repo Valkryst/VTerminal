@@ -19,6 +19,7 @@ import java.util.*;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class Screen {
@@ -39,6 +40,9 @@ public class Screen {
 
     /** The lock used to control access to the components. */
     private final ReentrantReadWriteLock componentsLock = new ReentrantReadWriteLock();
+
+    /** The lock used to prevent calls to the draw function. */
+    private final ReentrantLock drawLock = new ReentrantLock();
 
     /** The last known tile-based position of the mouse. */
     private final Point mousePosition = new Point(0, 0);
@@ -339,6 +343,8 @@ public class Screen {
 
     /** Draws all of the screen's tiles onto the canvas. */
     public void draw() {
+        drawLock.lock();
+
         final int screenHeight = tiles.getHeight();
         final int screenWidth = tiles.getWidth();
 
@@ -461,6 +467,8 @@ public class Screen {
                         }
 
                         draw();
+
+                        drawLock.unlock();
                         return;
                     }
                 }
@@ -470,6 +478,7 @@ public class Screen {
         } while (bs.contentsLost()); // Repeat render if drawing buffer was lost.
 
         hasFirstRenderCompleted = true;
+        drawLock.unlock();
     }
 
     /**
@@ -486,8 +495,11 @@ public class Screen {
             return;
         }
 
+        drawLock.lock();
+
         for (final Component component : components) {
             if (component == null) {
+                drawLock.unlock();
                 return;
             }
 
@@ -530,6 +542,8 @@ public class Screen {
                 addListener(listener);
             }
         }
+
+        drawLock.unlock();
     }
 
     /**
@@ -543,8 +557,11 @@ public class Screen {
             return;
         }
 
+        drawLock.lock();
+
         for (final Component component : components) {
             if (component == null) {
+                drawLock.unlock();
                 return;
             }
 
@@ -591,6 +608,8 @@ public class Screen {
                 }
             }
         }
+
+        drawLock.unlock();
     }
 
     /** Removes all components from the screen. */
@@ -821,6 +840,8 @@ public class Screen {
             return;
         }
 
+        drawLock.lock();
+
         this.colorPalette = colorPalette;
 
         // Change the color of the screen's tiles.
@@ -856,5 +877,7 @@ public class Screen {
                  */
             }
         }
+
+        drawLock.unlock();
     }
 }
