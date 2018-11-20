@@ -36,24 +36,24 @@ public final class ImageCache {
      *         If the font is null.
      */
     public ImageCache(final @NonNull Font font) {
-        this(font, 3);
+        this(font, 3, 10_000);
     }
 
     /**
      * Constructs a new ImageCache.
      *
      * @param font
-     *         The font.
+     *          The font.
      *
      * @param duration
-     *        The number of minutes, after the most recent access, that a cached
-     *        image will be removed from the cache.
+     *          The number of minutes, after the most recent access, that a cached image will be removed from
+     *          the cache.
      *
      * @throws NullPointerException
-     *         If the font is null.
+     *          If the font is null.
      *
      * @throws IllegalArgumentException
-     *        If the duration is below 1.
+     *          If the duration is below 1.
      */
     public ImageCache(final @NonNull Font font, final int duration) {
         if (duration < 1) {
@@ -65,6 +65,42 @@ public final class ImageCache {
                               .initialCapacity(5_000)
                               .expireAfterAccess(duration, TimeUnit.MINUTES)
                               .build();
+    }
+
+    /**
+     * Constructs a new ImageCache.
+     *
+     * @param font
+     *          The font.
+     *
+     * @param duration
+     *          The number of minutes, after the most recent access, that a cached image will be removed from
+     *          the cache.
+     *
+     * @param maximumCapacity
+     *          The maximum number of images that can be contained within the cache.
+     *
+     * @throws NullPointerException
+     *          If the font is null.
+     *
+     * @throws IllegalArgumentException
+     *          If the duration is below 1.
+     */
+    public ImageCache(final @NonNull Font font, final int duration, int maximumCapacity) {
+        if (duration < 1) {
+            throw new IllegalArgumentException("The duration cannot be below 1.");
+        }
+
+        if (maximumCapacity < 500) {
+            maximumCapacity = 500;
+        }
+
+        this.font = font;
+        cachedImages = Caffeine.newBuilder()
+                                   .initialCapacity(500)
+                                   .maximumSize(maximumCapacity)
+                                   .expireAfterAccess(duration, TimeUnit.MINUTES)
+                                   .build();
     }
 
     /**
