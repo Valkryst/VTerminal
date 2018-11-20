@@ -22,6 +22,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import static java.awt.Frame.ICONIFIED;
+
 public class Screen {
     /** The canvas on which the screen is drawn. */
     @Getter private final Canvas canvas = new Canvas();
@@ -343,6 +345,15 @@ public class Screen {
 
     /** Draws all of the screen's tiles onto the canvas. */
     public void draw() {
+        // Don't bother drawing if there's nothing displayed on the screen.
+        if (canvas.getParent() instanceof Frame) {
+            final Frame parent = (Frame) canvas.getParent();
+
+            if (parent == null || parent.getState() == ICONIFIED) {
+                return;
+            }
+        }
+
         drawLock.lock();
 
         final int screenHeight = tiles.getHeight();
@@ -455,9 +466,19 @@ public class Screen {
                     if (bs == null) {
                         // Create Canvas BufferStrategy
                         if (isInFullScreenExclusiveMode && SystemUtils.IS_OS_WINDOWS) {
-                            canvas.createBufferStrategy(1);
+                            try {
+                                canvas.createBufferStrategy(1);
+                            } catch (final IllegalStateException ex) {
+                                drawLock.unlock();
+                                return;
+                            }
                         } else {
-                            canvas.createBufferStrategy(2);
+                            try {
+                                canvas.createBufferStrategy(2);
+                            } catch (final IllegalStateException ex) {
+                                drawLock.unlock();
+                                return;
+                            }
                         }
 
                         // Screen needs to be redrawn if the Buffer Strategy changes, so we have to reset the
@@ -466,9 +487,8 @@ public class Screen {
                             Arrays.fill(positionHashes_current[x], 0);
                         }
 
-                        draw();
-
                         drawLock.unlock();
+                        draw();
                         return;
                     }
                 }
@@ -478,6 +498,7 @@ public class Screen {
         } while (bs.contentsLost()); // Repeat render if drawing buffer was lost.
 
         hasFirstRenderCompleted = true;
+
         drawLock.unlock();
     }
 
@@ -864,20 +885,10 @@ public class Screen {
 
         // Redraw if necessary
         if (redraw) {
-            try {
-                draw();
-            } catch (final IllegalStateException ignored) {
-                /*
-                 * If we set the color palette before the screen is displayed, then it'll throw...
-                 *
-                 *      IllegalStateException: Component must have a valid peer
-                 *
-                 * We can just ignore it in this case, because the screen will be drawn when it is displayed for
-                 * the first time.
-                 */
-            }
+            drawLock.unlock();
+            draw();
+        } else {
+            drawLock.unlock();
         }
-
-        drawLock.unlock();
     }
 }
