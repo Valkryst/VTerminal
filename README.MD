@@ -11,6 +11,8 @@ The project is currently in it's Soft release phase. During this phase, there *m
     * [JavaDoc Documentation](https://valkryst.github.io/VTerminal/)
     * [Usage Guide](https://github.com/Valkryst/VTerminal/wiki)
         * [More Examples](https://github.com/Valkryst/VTerminal/tree/master/samples) 
+* [Performance Tips](https://github.com/Valkryst/VTerminal/wiki/Performance-Tips)
+    * I highly recommend reading this page.
 * [Resolving Compatibility & Render Issues](https://github.com/Valkryst/VTerminal/wiki/Resolving-Compatibility-&-Render-Issues)
 
 
