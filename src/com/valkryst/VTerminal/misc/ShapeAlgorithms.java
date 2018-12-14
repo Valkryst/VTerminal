@@ -251,8 +251,8 @@ public final class ShapeAlgorithms {
      */
     public static List<Point> recursiveFill(final List<Point> points, final Point position) {
         boolean pointExists = false;
-        int x = position.x;
-        int y = position.y;
+        final int x = position.x;
+        final int y = position.y;
 
         for (final Point point : points) {
             if (point.x == x && point.y == y) {
