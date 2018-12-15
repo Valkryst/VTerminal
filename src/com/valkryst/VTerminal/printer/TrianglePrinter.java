@@ -25,7 +25,7 @@ public class TrianglePrinter {
      * The algorithm requires exactly three points. If there are more than three
      * points, the extra points are ignored.
      *
-     * Does nothing if the grid or points array are null or if the points array doesn't have 3 elements.
+     * Does nothing if the grid or points array are null or if the points array has less than 3 elements.
      *
      * @param grid
      *          The grid.
