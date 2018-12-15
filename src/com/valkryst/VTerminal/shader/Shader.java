@@ -59,9 +59,7 @@ public interface Shader {
 
         for (int y = 0; y < result.getHeight(); y++) {
             for (int x = 0; x < result.getWidth(); x++) {
-                int pixel = result.getRGB(x, y);
-
-                if (pixel == oldRGB) {
+                if (result.getRGB(x, y) == oldRGB) {
                     result.setRGB(x, y, newRGB);
                 }
             }
