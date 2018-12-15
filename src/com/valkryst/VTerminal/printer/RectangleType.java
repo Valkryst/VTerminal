@@ -56,9 +56,9 @@ public enum RectangleType {
      * Constructs a new RectangleType.
      *
      * @param boxCharacters
-     *         The characters of a rectangle.
+     *          The characters of a rectangle.
      */
-    RectangleType(int[] boxCharacters) {
+    RectangleType(final int[] boxCharacters) {
         if (boxCharacters.length != 11) {
             throw new IllegalArgumentException("A RectangleType requires exactly 11 characters.");
         }
