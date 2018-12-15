@@ -9,7 +9,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.Optional;
 
-@EqualsAndHashCode
 @ToString
 public class RectanglePrinter {
     /** The width/height of the rectangle to print. */
@@ -18,7 +17,7 @@ public class RectanglePrinter {
     /** The character to fill the rectangle with, if a filled rectangle is drawn. */
     @Getter @Setter private int fillChar = '█';
 
-    /** The title string. */
+    /** The title. */
     @Getter @Setter private String title;
 
     /** The type of rectangle to print. */
@@ -27,19 +26,22 @@ public class RectanglePrinter {
     /**
      * Prints a rectangle on a grid.
      *
-     * If the function is set to perform connections, then it will attempt to
-     * connect the new rectangle with existing similar rectangles in the draw area.
+     * If the function is set to perform connections, then it will attempt to connect the new rectangle with
+     * existing similar rectangles in the draw area.
+     *
+     * Does nothing if the grid or position are null.
      *
      * @param grid
-     *         The grid.
+     *          The grid.
      *
      * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
-     *
-     * @throws NullPointerException
-     *         If the grid or position are null.
+     *          The x/y-axis (column/row) coordinates of the top-left character.
      */
-    public void print(final @NonNull TileGrid grid, final @NonNull Point position) {
+    public void print(final TileGrid grid, final Point position) {
+        if (grid == null || position == null) {
+            return;
+        }
+
         final int width = dimensions.width;
         final int height = dimensions.height;
         final int x = position.x;
@@ -102,7 +104,12 @@ public class RectanglePrinter {
         setConnectors(grid, position);
     }
 
-    public void printCharacter(final @NonNull TileGrid grid, final @NonNull Point position, final int character) {
+    // todo Document this function.
+    public void printCharacter(final TileGrid grid, final Point position, final int character) {
+        if (grid == null || position == null) {
+            return;
+        }
+
         final Tile tile = grid.getTileAt(position);
 
         if (tile != null) {
@@ -111,21 +118,24 @@ public class RectanglePrinter {
     }
 
     /**
-     * Prints a rectangle on a grid.
+     * Prints a filled rectangle on a grid.
      *
-     * If the function is set to perform connections, then it will attempt to
-     * connect the new rectangle with existing similar rectangles in the draw area.
+     * If the function is set to perform connections, then it will attempt to connect the new rectangle with
+     * existing similar rectangles in the draw area.
+     *
+     * Does nothing if the grid or position are null.
      *
      * @param grid
-     *         The grid.
+     *          The grid.
      *
      * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
-     *
-     * @throws NullPointerException
-     *         If the screen is null.
+     *          The x/y-axis (column/row) coordinates of the top-left character.
      */
-    public void printFilled(final @NonNull TileGrid grid, final Point position) {
+    public void printFilled(final TileGrid grid, final Point position) {
+        if (grid == null || position == null) {
+            return;
+        }
+
         print(grid, position);
 
         final Dimension dimension = new Dimension(this.dimensions.width - 2, this.dimensions.height - 2);
@@ -137,38 +147,43 @@ public class RectanglePrinter {
     }
 
     /**
-     * Checks for, and sets, all positions of the printed rectangle where a
-     * connector character is required.
+     * Checks for, and sets, all positions of the printed rectangle where a connector character is required.
+     *
+     * Does nothing if the grid or position are null.
      *
      * @param grid
-     *         The grid.
+     *          The grid.
      *
      * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
-     *
-     * @throws NullPointerException
-     *         If the screen is null.
+     *          The x/y-axis (column/row) coordinates of the top-left character.
      */
-    private void setConnectors(final @NonNull TileGrid grid, final Point position) {
+    private void setConnectors(final TileGrid grid, final Point position) {
+        if (grid == null || position == null) {
+            return;
+        }
+
         for (final Point point : ShapeAlgorithms.getRectangle(position, dimensions)) {
             setConnector(grid, point);
         }
     }
 
     /**
-     * Checks if a character should be a connector and changes it to the
-     * appropriate connector character if it should be.
+     * Checks if a character should be a connector and changes it to the appropriate connector character if it
+     * should be.
+     *
+     * Does nothing if the grid or position are null.
      *
      * @param grid
-     *         The grid.
+     *          The grid.
      *
      * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
-     *
-     * @throws NullPointerException
-     *         If the screen is null.
+     *          The x/y-axis (column/row) coordinates of the top-left character.
      */
-    private void setConnector(final @NonNull TileGrid grid, final Point position) {
+    private void setConnector(final TileGrid grid, final Point position) {
+        if (grid == null || position == null) {
+            return;
+        }
+
         final boolean validTop = hasValidTopNeighbour(grid, new Point(position));
         final boolean validBottom = hasValidBottomNeighbour(grid, new Point(position));
         final boolean validLeft = hasValidLeftNeighbour(grid, new Point(position));
@@ -181,20 +196,22 @@ public class RectanglePrinter {
     }
 
     /**
-     * Determines if the top-neighbour of a cell is both of the correct
-     * RectangleType and that the character of the top-neighbour can be
-     * connected to.
+     * Determines if the top-neighbour of a cell is both of the correct RectangleType and that the character of
+     * the top-neighbour can be connected to.
      *
      * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
+     *          The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @return
-     *        If the top-neighbour is valid.
+     *          True if the top-neighbour is valid, false otherwise.
+     *          False if the grid or position are null.
      *
-     * @throws NullPointerException
-     *         If the screen is null.
      */
-    private boolean hasValidTopNeighbour(final @NonNull TileGrid grid, final Point position) {
+    private boolean hasValidTopNeighbour(final TileGrid grid, final Point position) {
+        if (grid == null || position == null) {
+            return false;
+        }
+
         try {
             position.setLocation(position.x, position.y - 1);
             return rectangleType.isValidTopCharacter(grid.getTileAt(position));
@@ -204,20 +221,21 @@ public class RectanglePrinter {
     }
 
     /**
-     * Determines if the bottom-neighbour of a cell is both of the correct
-     * RectangleType and that the character of the bottom-neighbour can be
-     * connected to.
+     * Determines if the bottom-neighbour of a cell is both of the correct RectangleType and that the character
+     * of the bottom-neighbour can be connected to.
      *
      * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
+     *          The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @return
-     *        If the bottom-neighbour is valid.
-     *
-     * @throws NullPointerException
-     *         If the screen is null.
+     *          If the bottom-neighbour is valid, false otherwise.
+     *          False if the grid or position are null.
      */
-    private boolean hasValidBottomNeighbour(final @NonNull TileGrid grid, final Point position) {
+    private boolean hasValidBottomNeighbour(final TileGrid grid, final Point position) {
+        if (grid == null || position == null) {
+            return false;
+        }
+
         try {
             position.setLocation(position.x, position.y + 1);
             return rectangleType.isValidBottomCharacter(grid.getTileAt(position));
@@ -227,20 +245,21 @@ public class RectanglePrinter {
     }
 
     /**
-     * Determines if the left-neighbour of a cell is both of the correct
-     * RectangleType and that the character of the left-neighbour can be
-     * connected to.
+     * Determines if the left-neighbour of a cell is both of the correct RectangleType and that the character
+     * of the left-neighbour can be connected to.
      *
      * @param position
-     *         The x/y-axis (column/row) coordinates of the cell.
+     *          The x/y-axis (column/row) coordinates of the cell.
      *
      * @return
-     *        If the left-neighbour is valid.
-     *
-     * @throws NullPointerException
-     *         If the screen is null.
+     *          If the left-neighbour is valid, false otherwise.
+     *          False if the grid or position are null.
      */
-    private boolean hasValidLeftNeighbour(final @NonNull TileGrid grid, final Point position) {
+    private boolean hasValidLeftNeighbour(final TileGrid grid, final Point position) {
+        if (grid == null || position == null) {
+            return false;
+        }
+
         try {
             position.setLocation(position.x - 1, position.y);
             return rectangleType.isValidLeftCharacter(grid.getTileAt(position));
@@ -250,20 +269,21 @@ public class RectanglePrinter {
     }
 
     /**
-     * Determines if the right-neighbour of a cell is both of the correct
-     * RectangleType and that the character of the right-neighbour can be
-     * connected to.
+     * Determines if the right-neighbour of a cell is both of the correct RectangleType and that the character
+     * of the right-neighbour can be connected to.
      *
      * @param position
-     *         The x/y-axis (column/row) coordinates of the cell.
+     *          The x/y-axis (column/row) coordinates of the cell.
      *
      * @return
-     *        If the right-neighbour is valid.
-     *
-     * @throws NullPointerException
-     *         If the screen is null.
+     *          If the right-neighbour is valid, false otherwise.
+     *          False if the grid or position are null.
      */
-    private boolean hasValidRightNeighbour(final @NonNull TileGrid grid, final Point position) {
+    private boolean hasValidRightNeighbour(final TileGrid grid, final Point position) {
+        if (grid == null || position == null) {
+            return false;
+        }
+
         try {
             position.setLocation(position.x + 1, position.y);
             return rectangleType.isValidRightCharacter(grid.getTileAt(position));
@@ -273,13 +293,13 @@ public class RectanglePrinter {
     }
 
     /**
-     * Sets the width.
+     * Sets the width of the rectangle to print.
      *
      * @param width
-     *         The new width.
+     *          The new width.
      *
      * @return
-     *         This.
+     *          This.
      */
     public RectanglePrinter setWidth(final int width) {
         if (width > 0) {
@@ -290,13 +310,13 @@ public class RectanglePrinter {
     }
 
     /**
-     * Sets the height.
+     * Sets the height of the rectangle to print.
      *
      * @param height
-     *         The new height.
+     *          The new height.
      *
      * @return
-     *         This.
+     *          This.
      */
     public RectanglePrinter setHeight(final int height) {
         if (height > 0) {
