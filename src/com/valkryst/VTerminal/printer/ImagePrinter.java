@@ -110,13 +110,13 @@ public class ImagePrinter {
         for (int imageY = 0 ; imageY < temp.getHeight() ; imageY += 2) {
             for (int imageX = 0 ; imageX < temp.getWidth() ; imageX += 2) {
                 // Retrieve pixel values for this 4x4 chunk of the image.
-                int rgb_topLeft = temp.getRGB(imageX, imageY);
-                int rgb_topRight = temp.getRGB(imageX + 1 , imageY);
-                int rgb_botLeft = temp.getRGB(imageX, imageY + 1);
-                int rgb_botRight = temp.getRGB(imageX + 1, imageY + 1);
+                final int rgb_topLeft = temp.getRGB(imageX, imageY);
+                final int rgb_topRight = temp.getRGB(imageX + 1 , imageY);
+                final int rgb_botLeft = temp.getRGB(imageX, imageY + 1);
+                final int rgb_botRight = temp.getRGB(imageX + 1, imageY + 1);
 
-                int rgb_firstUniqueColor = rgb_topLeft;
-                int rgb_secondUniqueColor;
+                final int rgb_firstUniqueColor = rgb_topLeft;
+                final int rgb_secondUniqueColor;
 
                 /*
                  * Ensure there are only two RGB values in this 2x2 chunk
@@ -188,7 +188,7 @@ public class ImagePrinter {
                 }
 
                 // Determine the character to use, based on the chunkValue.
-                char printChar;
+                final char printChar;
 
                 switch (chunkValue) {
                     case 1: {
