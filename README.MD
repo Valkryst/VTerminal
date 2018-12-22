@@ -39,8 +39,6 @@ Dependency:
         <version>3.5.5</version>
     </dependency>
 
-**There is currently an issue with JitPack, preventing VTerminal from successfully building. Please use 'c17854b' as the version in your pom file.**
-
 ### Jar
 
 Jar files can be found on the [releases](https://github.com/Valkryst/VTerminal/releases) page.
