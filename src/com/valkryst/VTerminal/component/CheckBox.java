@@ -59,6 +59,11 @@ public class CheckBox extends Button {
                 tile.setBackgroundColor(backgroundColor_pressed);
                 tile.setForegroundColor(foregroundColor_pressed);
             }
+        } else {
+            for (final Tile tile : super.tiles.getRow(0)) {
+                tile.setBackgroundColor(backgroundColor_normal);
+                tile.setForegroundColor(foregroundColor_normal);
+            }
         }
     }
 
