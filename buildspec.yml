@@ -1,8 +1,5 @@
 version: 0.2
 
-jdk:
-  - openjdk11
-
 phases:
   install:
     commands:
