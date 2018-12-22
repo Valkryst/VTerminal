@@ -54,6 +54,19 @@ public class RadioButton extends Button {
 
         super.backgroundColor_pressed = colorPalette.getRadioButton_pressedBackground();
         super.foregroundColor_pressed = colorPalette.getRadioButton_pressedForeground();
+
+        // Set the radio button's colors:
+        if (isChecked) {
+            for (final Tile tile : super.tiles.getRow(0)) {
+                tile.setBackgroundColor(backgroundColor_pressed);
+                tile.setForegroundColor(foregroundColor_pressed);
+            }
+        } else {
+            for (final Tile tile : super.tiles.getRow(0)) {
+                tile.setBackgroundColor(backgroundColor_normal);
+                tile.setForegroundColor(foregroundColor_normal);
+            }
+        }
     }
 
     @Override
