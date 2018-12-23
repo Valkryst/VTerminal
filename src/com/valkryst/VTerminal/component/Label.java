@@ -60,8 +60,11 @@ public class Label extends Component {
         for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
             for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
                 final Tile tile = super.getTileAt(x, y);
-                tile.setBackgroundColor(backgroundColor);
-                tile.setForegroundColor(foregroundColor);
+
+                if (tile != null) {
+                    tile.setBackgroundColor(backgroundColor);
+                    tile.setForegroundColor(foregroundColor);
+                }
             }
         }
 
