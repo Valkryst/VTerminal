@@ -250,8 +250,7 @@ public final class TileGrid {
             return;
         }
 
-        int indexOfExisting = childGrids.indexOf(existingChild);
-        childGrids.add(indexOfExisting + 1, newChild);
+        childGrids.add(childGrids.indexOf(existingChild) + 1, newChild);
 
         childLock.writeLock().unlock();
     }
@@ -284,8 +283,7 @@ public final class TileGrid {
             return;
         }
 
-        int indexOfExisting = childGrids.indexOf(existingChild);
-        childGrids.add(indexOfExisting, newChild);
+        childGrids.add(childGrids.indexOf(existingChild), newChild);
 
         childLock.writeLock().unlock();
     }
@@ -481,7 +479,7 @@ public final class TileGrid {
             return EMPTY_ARRAY;
         }
 
-        int endColumn = columnIndex + length;
+        final int endColumn = columnIndex + length;
 
         if (endColumn > tiles[0].length) {
             return Arrays.copyOfRange(getRow(rowIndex), columnIndex, tiles[0].length);
@@ -534,7 +532,7 @@ public final class TileGrid {
             return EMPTY_ARRAY;
         }
 
-        int endRow = (rowIndex + length) >= tiles.length ? tiles.length : (rowIndex + length);
+        final int endRow = (rowIndex + length) >= tiles.length ? tiles.length : (rowIndex + length);
 
         final Tile[] columnTiles = getColumn(columnIndex);
         final Tile[] resultTiles = new Tile[endRow];
