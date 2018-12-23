@@ -73,8 +73,11 @@ public class Layer extends Component {
         for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
             for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
                 final Tile tile = super.getTileAt(x, y);
-                tile.setBackgroundColor(colorPalette.getLayer_defaultBackground());
-                tile.setForegroundColor(colorPalette.getLayer_defaultForeground());
+
+                if (tile == null) {
+                    tile.setBackgroundColor(colorPalette.getLayer_defaultBackground());
+                    tile.setForegroundColor(colorPalette.getLayer_defaultForeground());
+                }
             }
         }
     }
