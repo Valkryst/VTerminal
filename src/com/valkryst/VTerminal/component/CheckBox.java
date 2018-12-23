@@ -54,7 +54,13 @@ public class CheckBox extends Button {
 
         // Set the check box's colors:
         if (isChecked) {
-            super.tiles.getTileAt(0, 0).setCharacter(checkedBoxChar);
+            final Tile firstTile = super.getTileAt(0, 0);
+            
+            if (firstTile == null) {
+                return;
+            }
+
+            firstTile.setCharacter(checkedBoxChar);
 
             for (final Tile tile : super.tiles.getRow(0)) {
                 tile.setBackgroundColor(backgroundColor_pressed);
@@ -156,9 +162,12 @@ public class CheckBox extends Button {
 
         for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
             for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
-                final Tile tile = super.tiles.getTileAt(x, y);
-                tile.setBackgroundColor(backgroundColor);
-                tile.setForegroundColor(foregroundColor);
+                final Tile tile = super.getTileAt(x, y);
+                
+                if (tile != null) {
+                    tile.setBackgroundColor(backgroundColor);
+                    tile.setForegroundColor(foregroundColor);
+                }
             }
         }
 
@@ -186,11 +195,17 @@ public class CheckBox extends Button {
      */
     public void setChecked(final boolean isChecked) {
         this.isChecked = isChecked;
+        
+        final Tile tile = super.getTileAt(0, 0);
+        
+        if (tile == null) {
+            return;
+        }
 
         if (isChecked) {
-            super.tiles.getTileAt(0, 0).setCharacter(checkedBoxChar);
+            tile.setCharacter(checkedBoxChar);
         } else {
-            super.tiles.getTileAt(0, 0).setCharacter(emptyBoxChar);
+            tile.setCharacter(emptyBoxChar);
         }
 
         super.redrawFunction.run();
@@ -203,9 +218,9 @@ public class CheckBox extends Button {
         // The first two characters are the checked box and a space, so we start after them.
         for (int x = 2 ; x < super.tiles.getWidth() ; x++) {
             if ((x - 2) < chars.length) {
-                super.tiles.getTileAt(x, 0).setCharacter(chars[x - 2]);
+                super.getTileAt(x, 0).setCharacter(chars[x - 2]);
             } else {
-                super.tiles.getTileAt(x, 0).setCharacter(' ');
+                super.getTileAt(x, 0).setCharacter(' ');
             }
         }
     }

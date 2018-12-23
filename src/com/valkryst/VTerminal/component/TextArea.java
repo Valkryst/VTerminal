@@ -504,7 +504,7 @@ public class TextArea extends Component {
      */
     private void changeCaretPosition(final int x, final int y) {
         // Reset current position.
-        Tile tile = super.tiles.getTileAt(caretPosition.x, caretPosition.y);
+        Tile tile = super.getTileAt(caretPosition.x, caretPosition.y);
         tile.setBackgroundColor(backgroundColor);
         tile.setForegroundColor(foregroundColor);
 
@@ -512,7 +512,7 @@ public class TextArea extends Component {
         caretPosition.setLocation(x, y);
 
         if (editable) {
-            tile = super.tiles.getTileAt(caretPosition.x, caretPosition.y);
+            tile = super.getTileAt(caretPosition.x, caretPosition.y);
             tile.setBackgroundColor(caretBackgroundColor);
             tile.setForegroundColor(caretForegroundColor);
         }
@@ -522,7 +522,7 @@ public class TextArea extends Component {
     private void updateDisplayedCharacters() {
         for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
             for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
-                super.tiles.getTileAt(x, y).setCharacter(enteredText[y][x]);
+                super.getTileAt(x, y).setCharacter(enteredText[y][x]);
             }
         }
 
@@ -586,7 +586,7 @@ public class TextArea extends Component {
             boolean rowIsEmpty = true;
 
             for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
-                final int character = super.tiles.getTileAt(x, y).getCharacter();
+                final int character = super.getTileAt(x, y).getCharacter();
                 rowIsEmpty &= Character.isSpaceChar(character);
             }
 
@@ -621,7 +621,7 @@ public class TextArea extends Component {
 
         if (text != null) {
             for (int x = 0; x < Math.min(super.tiles.getWidth(), text.length); x++) {
-                super.tiles.getTileAt(x, rowIndex).copy(text[x]);
+                super.getTileAt(x, rowIndex).copy(text[x]);
                 enteredText[rowIndex][x] = text[x].getCharacter();
             }
         }
@@ -643,7 +643,7 @@ public class TextArea extends Component {
         Arrays.fill(enteredText[rowIndex], ' ');
 
         for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
-            final Tile tile = super.tiles.getTileAt(x, rowIndex);
+            final Tile tile = super.getTileAt(x, rowIndex);
             tile.reset();
             tile.setBackgroundColor(backgroundColor);
             tile.setForegroundColor(foregroundColor);
@@ -660,7 +660,7 @@ public class TextArea extends Component {
 
         for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
             for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
-                super.tiles.getTileAt(x, y).setCharacter(' ');
+                super.getTileAt(x, y).setCharacter(' ');
             }
         }
 

@@ -39,9 +39,9 @@ public class Label extends Component {
 
         for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
             if (x < chars.length) {
-                super.tiles.getTileAt(x, 0).setCharacter(chars[x]);
+                super.getTileAt(x, 0).setCharacter(chars[x]);
             } else {
-                super.tiles.getTileAt(x, 0).setCharacter(' ');
+                super.getTileAt(x, 0).setCharacter(' ');
             }
         }
     }
@@ -59,7 +59,7 @@ public class Label extends Component {
 
         for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
             for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
-                final Tile tile = super.tiles.getTileAt(x, y);
+                final Tile tile = super.getTileAt(x, y);
                 tile.setBackgroundColor(backgroundColor);
                 tile.setForegroundColor(foregroundColor);
             }
