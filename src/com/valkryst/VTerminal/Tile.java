@@ -4,13 +4,10 @@ import com.valkryst.VTerminal.misc.ImageCache;
 import com.valkryst.VTerminal.shader.Shader;
 import com.valkryst.VTerminal.shader.misc.FlipShader;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.*;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -133,11 +130,12 @@ public class Tile {
      *
      * @param rowIndex
      *         The y-axis (row) coordinate where the tile is to be drawn.
-     *
-     * @throws NullPointerException
-     *         If the gc or image cache are null.
      */
-    public void draw(final @NonNull Graphics2D gc, final @NonNull ImageCache imageCache, int columnIndex, int rowIndex) {
+    public void draw(final Graphics2D gc, final ImageCache imageCache, int columnIndex, int rowIndex) {
+        if (gc == null || imageCache == null) {
+            return;
+        }
+
         final int fontWidth = imageCache.getFont().getWidth();
         final int fontHeight = imageCache.getFont().getHeight();
 
