@@ -159,8 +159,11 @@ public class RadioButton extends Button {
         for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
             for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
                 final Tile tile = super.tiles.getTileAt(x, y);
-                tile.setBackgroundColor(backgroundColor);
-                tile.setForegroundColor(foregroundColor);
+
+                if (tile != null) {
+                    tile.setBackgroundColor(backgroundColor);
+                    tile.setForegroundColor(foregroundColor);
+                }
             }
         }
 
@@ -188,16 +191,22 @@ public class RadioButton extends Button {
      */
     public void setChecked(final boolean isChecked) {
         this.isChecked = isChecked;
+        
+        final Tile firstTile = super.getTileAt(0, 0);
+
+        if (firstTile == null) {
+            return;
+        }
 
         if (isChecked) {
-            super.getTiles().getTileAt(0, 0).setCharacter(checkedButtonChar);
+            firstTile.setCharacter(checkedButtonChar);
 
             for (final Tile tile : super.tiles.getRow(0)) {
                 tile.setBackgroundColor(backgroundColor_pressed);
                 tile.setForegroundColor(foregroundColor_pressed);
             }
         } else {
-            super.getTiles().getTileAt(0, 0).setCharacter(emptyButtonChar);
+            firstTile.setCharacter(emptyButtonChar);
 
             for (final Tile tile : super.tiles.getRow(0)) {
                 tile.setBackgroundColor(backgroundColor_normal);
@@ -214,10 +223,16 @@ public class RadioButton extends Button {
 
         // The first two characters are the checked circle and a space, so we start after them.
         for (int x = 2 ; x < super.tiles.getWidth() ; x++) {
+            final Tile tile = super.getTileAt(x, 0);
+
+            if (tile == null) {
+                continue;
+            }
+
             if ((x - 2) < chars.length) {
-                super.tiles.getTileAt(x, 0).setCharacter(chars[x - 2]);
+                tile.setCharacter(chars[x - 2]);
             } else {
-                super.tiles.getTileAt(x, 0).setCharacter(' ');
+                tile.setCharacter(' ');
             }
         }
     }

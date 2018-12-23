@@ -69,8 +69,11 @@ public class ProgressBar extends Component {
         for (int y = 0 ; y < tiles.getHeight() ; y++) {
             for (int x = 0 ; x < tiles.getWidth() ; x++) {
                 final Tile tile = tiles.getTileAt(x, y);
-                tile.setBackgroundColor(backgroundColor);
-                tile.setForegroundColor(foregroundColor);
+
+                if (tile != null) {
+                    tile.setBackgroundColor(backgroundColor);
+                    tile.setForegroundColor(foregroundColor);
+                }
             }
         }
 

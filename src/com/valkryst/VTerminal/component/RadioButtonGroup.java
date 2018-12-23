@@ -19,11 +19,11 @@ public class RadioButtonGroup {
      *         If the button is null.
      */
     public void setCheckedButton(final @NonNull RadioButton button) {
-        for (int i = 0 ; i < buttons.size() ; i++) {
-            if (buttons.get(i).equals(button)) {
-                buttons.get(i).setChecked(true);
+        for (final RadioButton b : buttons) {
+            if (b.equals(button)) {
+                b.setChecked(true);
             } else {
-                buttons.get(i).setChecked(false);
+                b.setChecked(false);
             }
         }
     }
