@@ -172,8 +172,11 @@ public class Button extends Component {
         for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
             for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
                 final Tile tile = super.tiles.getTileAt(x, y);
-                tile.setBackgroundColor(backgroundColor);
-                tile.setForegroundColor(foregroundColor);
+
+                if (tile != null) {
+                    tile.setBackgroundColor(backgroundColor);
+                    tile.setForegroundColor(foregroundColor);
+                }
             }
         }
 
@@ -271,10 +274,16 @@ public class Button extends Component {
         final char[] chars = (text == null ? new char[0] : text.toCharArray());
 
         for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
+            final Tile tile = super.tiles.getTileAt(x, 0);
+
+            if (tile == null) {
+                continue;
+            }
+
             if (x < chars.length) {
-                super.tiles.getTileAt(x, 0).setCharacter(chars[x]);
+                tile.setCharacter(chars[x]);
             } else {
-                super.tiles.getTileAt(x, 0).setCharacter(' ');
+                tile.setCharacter(' ');
             }
         }
     }
