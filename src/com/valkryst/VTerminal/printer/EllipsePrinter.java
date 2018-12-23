@@ -19,7 +19,7 @@ public class EllipsePrinter {
     /**
      * Prints an ellipse on a tile grid.
      *
-     * Does nothing if the grid or points array are null.
+     * Does nothing if the grid or point are null.
      *
      * @param grid
      *          The grid.
@@ -44,7 +44,7 @@ public class EllipsePrinter {
     /**
      * Prints a filled ellipse on a tile grid.
      *
-     * Does nothing if the grid or points array are null.
+     * Does nothing if the grid or point are null.
      *
      * @param grid
      *          The grid.
