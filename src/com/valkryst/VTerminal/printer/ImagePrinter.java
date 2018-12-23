@@ -10,7 +10,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
-@EqualsAndHashCode
 @ToString
 public class ImagePrinter {
     /** The image to print. */
@@ -33,10 +32,10 @@ public class ImagePrinter {
      * Constructs a new ImagePrinter.
      *
      * @param image
-     *         The image to print.
+     *          The image to print.
      *
      * @throws NullPointerException
-     *         If the image is null.
+     *          If the image is null.
      */
     public ImagePrinter(final @NonNull BufferedImage image) {
         this.image = image;
@@ -45,16 +44,19 @@ public class ImagePrinter {
     /**
      * Prints an image on a grid.
      *
+     * Does nothing if the grid or point are null.
+     *
      * @param grid
-     *         The grid.
+     *          The grid.
      *
      * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
-     *
-     * @throws NullPointerException
-     *         If the screen or position is null.
+     *          The x/y-axis (column/row) coordinates of the top-left character.
      */
-    public void print(final @NonNull TileGrid grid, final @NonNull Point position) {
+    public void print(final TileGrid grid, final Point position) {
+        if (grid == null || position == null) {
+            return;
+        }
+
         final BufferedImage temp = applyTransformations();
 
         for (int y = 0 ; y < temp.getHeight() && y < grid.getHeight() ; y++) {
@@ -69,34 +71,38 @@ public class ImagePrinter {
                 final int charY = y + position.y;
 
                 final Tile character = grid.getTileAt(charX, charY);
-                character.setCharacter(printChar);
-                character.setForegroundColor(new Color(red, green, blue, alpha));
+
+                if (character != null) {
+                    character.setCharacter(printChar);
+                    character.setForegroundColor(new Color(red, green, blue, alpha));
+                }
             }
         }
     }
 
     /**
-     * Prints an image on a grid using special characters in order to display
-     * 2x2 pixels per tile.
+     * Prints an image on a grid using special characters in order to display 2x2 pixels per tile.
+     *
+     * Does nothing if the grid or point are null.
      *
      * @param grid
-     *         The grid.
+     *          The grid.
      *
      * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
-     *
-     * @throws NullPointerException
-     *         If the screen or position is null.
+     *          The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @throws IllegalArgumentException
-     *          If the image'ss width/height isn't divisible by 2. This check
-     *          is performed after any transformations/scaling.
+     *          If the image'ss width/height isn't divisible by 2.
+     *          This check is performed after any transformations/scaling.
      *
      * @throws IllegalStateException
-     *          If a 2x2 chunk of the image contains more than 2 unique
-     *          colors.
+     *          If a 2x2 chunk of the image contains more than 2 unique colors.
      */
-    public void printDetailed(final @NonNull TileGrid grid, final @NonNull Point position) {
+    public void printDetailed(final TileGrid grid, final Point position) {
+        if (grid == null || position == null) {
+            return;
+        }
+
         final BufferedImage temp = applyTransformations();
 
         if (temp.getWidth() % 2 != 0) {
@@ -304,12 +310,24 @@ public class ImagePrinter {
         return op.filter(image, null);
     }
 
+    /**
+     * Sets the amount to scale the image by, horizontally, when printing.
+     *
+     * @param scaleX
+     *          The new x-axis scale.
+     */
     public void setScaleX(final double scaleX) {
         if (scaleX > 0) {
             this.scaleX = scaleX;
         }
     }
 
+    /**
+     * Sets the amount to scale the image by, vertically, when printing.
+     *
+     * @param scaleY
+     *          The new y-axis scale.
+     */
     public void setScaleY(final double scaleY) {
         if (scaleY > 0) {
             this.scaleY = scaleY;
