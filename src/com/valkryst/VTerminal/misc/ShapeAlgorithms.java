@@ -10,17 +10,16 @@ public final class ShapeAlgorithms {
     private ShapeAlgorithms() {}
 
     /**
-     * Constructs a list, containing the outline, of an ellipse's points by using
-     * the Bresenham algorithm,
+     * Constructs a list, containing the outline, of an ellipse's points by using the Bresenham algorithm,
      *
      * @param position
-     *        The x/y-axis (column/row) coordinates of the top-left character.
+     *          The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @param dimension
-     *        The width/height.
+     *          The width/height.
      *
      * @return
-     *        The list of points.
+     *          The list of points.
      */
     public static List<Point> getEllipse(final Point position, final Dimension dimension) {
         final List<Point> points = new LinkedList<>();
@@ -81,13 +80,13 @@ public final class ShapeAlgorithms {
      * Constructs a list, containing the outline and fill, of an ellipse's points.
      *
      * @param position
-     *        The x/y-axis (column/row) coordinates of the top-left character.
+     *          The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @param dimension
-     *        The width/height.
+     *          The width/height.
      *
      * @return
-     *        The list of points.
+     *          The list of points.
      */
     public static List<Point> getFilledEllipse(final Point position, final Dimension dimension) {
         final List<Point> points = getEllipse(position, dimension);
@@ -100,23 +99,22 @@ public final class ShapeAlgorithms {
     }
 
     /**
-     * Constructs a list, containing the path, of a line's points by using the
-     * Bresenham algorithm,
+     * Constructs a list, containing the path, of a line's points by using the Bresenham algorithm,
      *
      * @param fromX
-     *         The x-axis (column) coordinate of the start point of the line.
+     *          The x-axis (column) coordinate of the start point of the line.
      *
      * @param fromY
-     *         The y-axis (row) coordinate of the start point of the line.
+     *          The y-axis (row) coordinate of the start point of the line.
      *
      * @param toX
-     *         The x-axis (column) coordinate of the end point of the line.
+     *          The x-axis (column) coordinate of the end point of the line.
      *
      * @param toY
-     *         The y-axis (row) coordinate of the end point of the line.
+     *          The y-axis (row) coordinate of the end point of the line.
      *
      * @return
-     *        The list of points.
+     *          The list of points.
      */
     public static List<Point> getLine(int fromX, int fromY, final int toX, final int toY) {
         final List<Point> points = new LinkedList<>();
@@ -173,13 +171,13 @@ public final class ShapeAlgorithms {
      * Constructs a list, containing the outline, of a rectangle's points.
      *
      * @param position
-     *        The x/y-axis (column/row) coordinates of the top-left character.
+     *          The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @param dimension
-     *        The width/height.
+     *          The width/height.
      *
      * @return
-     *        The list of points.
+     *          The list of points.
      */
     public static List<Point> getRectangle(final Point position, final Dimension dimension) {
         final List<Point> points = new LinkedList<>();
@@ -217,13 +215,13 @@ public final class ShapeAlgorithms {
      * Constructs a list containing all of rectangle's points.
      *
      * @param position
-     *        The x/y-axis (column/row) coordinates of the top-left character.
+     *          The x/y-axis (column/row) coordinates of the top-left character.
      *
      * @param dimension
-     *        The width/height.
+     *          The width/height.
      *
      * @return
-     *        The list of points.
+     *          The list of points.
      */
     public static List<Point> getFilledRectangle(final Point position, final Dimension dimension) {
         final List<Point> points = new LinkedList<>();
@@ -241,13 +239,13 @@ public final class ShapeAlgorithms {
      * Recursively fills an area on the screen bounded by the set of input points.
      *
      * @param points
-     *        The border points.
+     *          The border points.
      *
      * @param position
-     *         The x/y-axis (column/row) coordinates of the current point.
+     *          The x/y-axis (column/row) coordinates of the current point.
      *
      * @return
-     *        The list of filled points.
+     *          The list of filled points.
      */
     public static List<Point> recursiveFill(final List<Point> points, final Point position) {
         boolean pointExists = false;
