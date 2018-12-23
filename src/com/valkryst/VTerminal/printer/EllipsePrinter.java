@@ -8,7 +8,6 @@ import lombok.*;
 import java.awt.Dimension;
 import java.awt.Point;
 
-@EqualsAndHashCode
 @ToString
 public class EllipsePrinter {
     /** The width/height of the ellipse to print. */
@@ -20,16 +19,19 @@ public class EllipsePrinter {
     /**
      * Prints an ellipse on a tile grid.
      *
+     * Does nothing if the grid or points array are null.
+     *
      * @param grid
-     *         The grid.
+     *          The grid.
      *
      * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
-     *
-     * @throws NullPointerException
-     *         If the component or position is null.
+     *          The x/y-axis (column/row) coordinates of the top-left character.
      */
-    public void print(final @NonNull TileGrid grid, final @NonNull Point position) {
+    public void print(final TileGrid grid, final Point position) {
+        if (grid == null || position == null) {
+            return;
+        }
+
         for (final Point point : ShapeAlgorithms.getEllipse(position, dimensions)) {
             final Tile tile = grid.getTileAt(point);
 
@@ -42,16 +44,19 @@ public class EllipsePrinter {
     /**
      * Prints a filled ellipse on a tile grid.
      *
+     * Does nothing if the grid or points array are null.
+     *
      * @param grid
-     *         The grid.
+     *          The grid.
      *
      * @param position
-     *         The x/y-axis (column/row) coordinates of the top-left character.
-     *
-     * @throws NullPointerException
-     *         If the grid or position is null.
+     *          The x/y-axis (column/row) coordinates of the top-left character.
      */
-    public void printFilled(final @NonNull TileGrid grid, final @NonNull Point position) {
+    public void printFilled(final TileGrid grid, final Point position) {
+        if (grid == null || position == null) {
+            return;
+        }
+
         for (final Point point : ShapeAlgorithms.getFilledEllipse(position, dimensions)) {
             final Tile tile = grid.getTileAt(point);
 
