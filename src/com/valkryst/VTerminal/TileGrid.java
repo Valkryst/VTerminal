@@ -114,6 +114,10 @@ public final class TileGrid {
      *          The y-axis position, on the screen, to draw the tile at.
      */
     public void drawTile(final Graphics2D gc, final ImageCache imageCache, final int tileX, final int tileY, final int drawX, final int drawY) {
+        if (gc == null || imageCache == null) {
+            return;
+        }
+
         // Draw the tile if it exists on this grid:
         if (tileX < 0 || tileX >= tiles[0].length) {
             return;
