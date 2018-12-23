@@ -34,7 +34,9 @@ public class Screen {
     /** The tiles. */
     @Getter private final TileGrid tiles;
 
+    /** The previous hash values of each tile position. */
     private long[][] positionHashes_previous;
+    /** The current hash va;ies pf each tile position. */
     private long[][] positionHashes_current;
 
     /** The components on the screen. */
@@ -56,6 +58,9 @@ public class Screen {
 
     private boolean hasFirstRenderCompleted = false;
 
+    /** The monitor on which the frame/canvas are currently displayed. */
+    private GraphicsDevice currentMonitor;
+
     /**
      * Constructs a new 80x40 Screen with the 18pt DejaVu Sans Mono font.
      *
@@ -64,7 +69,7 @@ public class Screen {
      *
      */
     public Screen() throws IOException {
-        this(FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1));
+        this(FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/", 1));
     }
 
     /**
@@ -80,7 +85,7 @@ public class Screen {
      *          If an IOException occurs while loading the font.
      */
     public Screen(final int width, final int height) throws IOException {
-        this(width, height, FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/bitmap.png", "Fonts/DejaVu Sans Mono/20pt/data.fnt", 1));
+        this(width, height, FontLoader.loadFontFromJar("Fonts/DejaVu Sans Mono/20pt/", 1));
     }
 
     /**
@@ -188,6 +193,20 @@ public class Screen {
             @Override
             public void componentMoved(final ComponentEvent e) {
                 if (hasFirstRenderCompleted) {
+                    drawLock.lock();
+                    final GraphicsDevice newMonitor = frame.getGraphicsConfiguration().getDevice();
+
+                    if (currentMonitor != newMonitor) {
+                        currentMonitor = newMonitor;
+
+                        // Screen needs to be redrawn if the monitor changes, so we have to reset the
+                        // hashes to ensure the whole screen is redrawn.
+                        for (final long[] hashes : positionHashes_current) {
+                            Arrays.fill(hashes, 0);
+                        }
+                    }
+                    drawLock.unlock();
+
                     draw();
                 }
             }
@@ -250,20 +269,7 @@ public class Screen {
             public void windowDeactivated(final WindowEvent e) {}
         });
 
-        /*
-         * There are two rare, hard to reproduce, issues that this sleep fixes.
-         *
-         * It's assumed that the reason for these issues is that the Swing components aren't fully initialized
-         * when the first draw occurs, so we need to give Swing some time before we draw to the Canvas.
-         *
-         *      1) Nothing is drawn to the Canvas on first draw, it remains completely white/blank.
-         *
-         *      2) A random number of tiles, at random positions, are either rendered incorrectly or aren't
-         *         rendered.
-         */
-        try {
-            Thread.sleep(200);
-        } catch (final InterruptedException ignored) {}
+        currentMonitor = frame.getGraphicsConfiguration().getDevice();
 
         draw();
 
@@ -280,21 +286,23 @@ public class Screen {
      *
      * @return
      *          A full-screened frame with the canvas on it.
-     *
-     * @throws NullPointerException
-     *          If the device is null.
      */
-    public Frame addCanvasToFullScreenFrame(final @NonNull GraphicsDevice device) {
-        if (! device.isFullScreenSupported()) {
-            LogManager.getLogger().error("Full screen is not supported for the device '" + device.getIDstring() + "'.");
-            addCanvasToFrame();
+    public Frame addCanvasToFullScreenFrame(final GraphicsDevice device) {
+        if (device == null) {
+            LogManager.getLogger().error("No device was specified when calling 'addCanvasToFullScreenFrame'.");
+            return addCanvasToFrame();
         }
 
-        // Resize the font, so that it fills the screen properly.
-        final DisplayMode displayMode = device.getDisplayMode();
+        if (device.isFullScreenSupported() == false) {
+            LogManager.getLogger().error("Full screen is not supported for the device '" + device.getIDstring() + "'.");
+            return addCanvasToFrame();
+        }
 
-        final double scaleX = displayMode.getWidth() / canvas.getPreferredSize().getWidth();
-        final double scaleY = displayMode.getHeight() / canvas.getPreferredSize().getHeight();
+        currentMonitor = device;
+
+        // Resize the font, so that it fills the screen properly.
+        final double scaleX = device.getDisplayMode().getWidth() / canvas.getPreferredSize().getWidth();
+        final double scaleY = device.getDisplayMode().getHeight() / canvas.getPreferredSize().getHeight();
         imageCache.getFont().resize(scaleX, scaleY);
 
         // Resize the canvas, so that it has enough room to fit the resized font.
@@ -322,21 +330,6 @@ public class Screen {
 
         device.setFullScreenWindow(frame);
         isInFullScreenExclusiveMode = true;
-
-        /*
-         * There are two rare, hard to reproduce, issues that this sleep fixes.
-         *
-         * It's assumed that the reason for these issues is that the Swing components aren't fully initialized
-         * when the first draw occurs, so we need to give Swing some time before we draw to the Canvas.
-         *
-         *      1) Nothing is drawn to the Canvas on first draw, it remains completely white/blank.
-         *
-         *      2) A random number of tiles, at random positions, are either rendered incorrectly or aren't
-         *         rendered.
-         */
-        try {
-            Thread.sleep(200);
-        } catch (final InterruptedException ignored) {}
 
         draw();
 
@@ -443,7 +436,13 @@ public class Screen {
                             final boolean notYetRendered = (positionHashes_previous[x][y] == 0);
 
                             if (hasFirstRenderCompleted == false || notYetRendered || hashChanged) {
-                                tiles.getTileAt(x, y).draw(gc, imageCache, xPosition, yPosition);
+                                final Tile tile = getTileAt(x, y);
+
+                                if (tile == null) {
+                                    continue;
+                                }
+
+                                tile.draw(gc, imageCache, xPosition, yPosition);
 
                                 // Draw all of component tiles that overlap the current position.
                                 componentsLock.readLock().lock();
@@ -483,8 +482,8 @@ public class Screen {
 
                         // Screen needs to be redrawn if the Buffer Strategy changes, so we have to reset the
                         // hashes to ensure the whole screen is redrawn.
-                        for (int x = 0 ; x < screenWidth ; x++) {
-                            Arrays.fill(positionHashes_current[x], 0);
+                        for (final long[] hashes : positionHashes_current) {
+                            Arrays.fill(hashes, 0);
                         }
 
                         drawLock.unlock();
