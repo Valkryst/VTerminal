@@ -27,20 +27,6 @@ public class DrawIT {
         character.setForegroundColor(Color.WHITE);
     }
 
-    @Test(expected=NullPointerException.class)
-    public void testWithNullGC() {
-        character.draw(null, new ImageCache(font), 0, 0);
-    }
-
-    @Test(expected=NullPointerException.class)
-    public void testWithNullImageCache() {
-        final int width = font.getWidth();
-        final int height = font.getHeight();
-        final BufferedImage temp = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
-        character.draw((Graphics2D) temp.getGraphics(), null, 0, 0);
-    }
-
     @Test
     public void testWithValidInputs_withDefaultSettings() {
         final int width = font.getWidth();
