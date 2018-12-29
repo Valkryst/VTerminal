@@ -11,6 +11,7 @@ import lombok.NonNull;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferStrategy;
@@ -323,6 +324,23 @@ public class Screen {
                 frame.dispose();
                 System.exit(0);
             }
+        });
+        frame.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(final KeyEvent keyEvent) {}
+
+            @Override
+            public void keyPressed(final KeyEvent keyEvent) {
+                final KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, java.awt.event.InputEvent.ALT_DOWN_MASK);
+                if(keyStroke != null && keyEvent.getKeyCode() == KeyEvent.VK_F4){
+                    device.setFullScreenWindow(null);
+                    frame.dispose();
+                    System.exit(0);
+                }
+            }
+
+            @Override
+            public void keyReleased(final KeyEvent keyEvent) {}
         });
         frame.setBackground(colorPalette.getDefaultBackground());
         frame.setForeground(colorPalette.getDefaultForeground());
