@@ -116,6 +116,8 @@ public class Font {
         for (final Map.Entry<Integer, FontCharacter> entry : fontCharacters.entrySet()) {
             entry.getValue().resizeImage(scaleWidth, scaleHeight);
         }
+
+        maxDimensions.setSize(maxDimensions.getWidth() * scaleWidth, maxDimensions.getHeight() * scaleHeight);
     }
 
     /**
