@@ -25,7 +25,7 @@ public class EllipsePrinter {
      *          The grid.
      *
      * @param position
-     *          The x/y-axis (column/row) coordinates of the top-left character.
+     *          The x/y-axis (column/row) coordinates of the center character.
      */
     public void print(final TileGrid grid, final Point position) {
         if (grid == null || position == null) {
@@ -50,7 +50,7 @@ public class EllipsePrinter {
      *          The grid.
      *
      * @param position
-     *          The x/y-axis (column/row) coordinates of the top-left character.
+     *          The x/y-axis (column/row) coordinates of the center character.
      */
     public void printFilled(final TileGrid grid, final Point position) {
         if (grid == null || position == null) {
