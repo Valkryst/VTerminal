@@ -19,6 +19,38 @@ public class EllipsePrinter {
     /**
      * Prints an ellipse on a tile grid.
      *
+     * @param grid
+     *          The grid.
+     *
+     * @param x
+     *          The x-axis (column) coordinate of the top-left character.
+     *
+     * @param y
+     *          The y-axis (row) coordinate of the top-left character.
+     */
+    public void print(final TileGrid grid, final int x, final int y) {
+        print(grid, new Point(x, y));
+    }
+
+    /**
+     * Prints a filled ellipse on a tile grid.
+     *
+     * @param grid
+     *          The grid.
+     *
+     * @param x
+     *          The x-axis (column) coordinate of the top-left character.
+     *
+     * @param y
+     *          The y-axis (row) coordinate of the top-left character.
+     */
+    public void printFilled(final TileGrid grid, final int x, final int y) {
+        printFilled(grid, new Point(x, y));
+    }
+
+    /**
+     * Prints an ellipse on a tile grid.
+     *
      * Does nothing if the grid or point are null.
      *
      * @param grid
