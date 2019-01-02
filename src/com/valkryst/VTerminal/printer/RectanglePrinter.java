@@ -105,7 +105,7 @@ public class RectanglePrinter {
     }
 
     // todo Document this function.
-    public void printCharacter(final TileGrid grid, final Point position, final int character) {
+    private void printCharacter(final TileGrid grid, final Point position, final int character) {
         if (grid == null || position == null) {
             return;
         }
