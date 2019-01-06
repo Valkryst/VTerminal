@@ -11,9 +11,8 @@ The project is currently in it's Soft release phase. During this phase, there *m
     * [JavaDoc Documentation](https://valkryst.github.io/VTerminal/)
     * [Usage Guide](https://github.com/Valkryst/VTerminal/wiki)
         * [More Examples](https://github.com/Valkryst/VTerminal/tree/master/samples) 
-* [Performance Tips](https://valkryst.com/Sections/VTerminal/Articles/Resolving%20Compatibility%20&%20Render%20Issues/index.html)
-    * I highly recommend reading this page.
-* [Resolving Compatibility & Render Issues](https://valkryst.com/Sections/VTerminal/Articles/Performance%20Tips/index.html)
+* [Performance Tips](https://valkryst.com/Sections/VTerminal/Articles/Performance%20Tips/index.html)
+* [Resolving Compatibility & Render Issues](https://valkryst.com/Sections/VTerminal/Articles/Resolving%20Compatibility%20&%20Render%20Issues/index.html)
 
 
 ## Jar Files & Maven
@@ -44,5 +43,3 @@ Dependency:
 Jar files can be found on the [releases](https://github.com/Valkryst/VTerminal/releases) page.
 
 Ensure that you use the Jar labelled "jar-with-dependencies" as it includes all of the required dependencies that VTerminal relies on.
-
-If you run into any issues, please open an issue or message me on the Discord. It's entirely possible that my build setup may be misconfigured.
