@@ -1,0 +1,10 @@
+{
+    "Id": "Radio Button #1",
+    "Type": "Radio Button",
+    "X": 0,
+    "Y": 0,
+    "Color Palette": "Color Palettes/PaleNight.json",
+    "Text": "Sample text.",
+    "Empty Button Character": "○",
+    "Checked Button Character": "◉"
+}

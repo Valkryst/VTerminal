@@ -9,7 +9,7 @@ import com.valkryst.VTerminal.component.RadioButton;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
-import com.valkryst.VTerminal.palette.PaleNightColorPalette;
+import com.valkryst.VTerminal.palette.ColorPalette;
 import com.valkryst.VTerminal.printer.RectanglePrinter;
 import com.valkryst.VTerminal.printer.RectangleType;
 
@@ -198,7 +198,7 @@ public class SampleGUI {
         screen.addComponent(layer);
 
         // Set the color palette before showing the screen.
-        screen.setColorPalette(new PaleNightColorPalette(), true);
+        screen.setColorPalette(new ColorPalette("Color Palettes/PaleNight.json"), true);
 
         // Recolor the Alpha Layers Section
         for (int i = 0 ; i < redLayer.getTiles().getHeight() ; i++) {

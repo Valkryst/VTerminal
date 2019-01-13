@@ -3,7 +3,7 @@ package com.valkryst.VTerminal.component;
 import com.valkryst.VTerminal.Screen;
 import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.builder.ButtonBuilder;
-import com.valkryst.VTerminal.palette.ColorPalette;
+import com.valkryst.VTerminal.palette.java2d.Java2DPalette;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -53,16 +53,7 @@ public class Button extends Component {
     public Button(final @NonNull ButtonBuilder builder) {
         super(builder.getDimensions(), builder.getPosition());
 
-        colorPalette = builder.getColorPalette();
-
-        backgroundColor_normal = colorPalette.getButton_defaultBackground();
-        foregroundColor_normal = colorPalette.getButton_defaultForeground();
-
-        backgroundColor_hover = colorPalette.getButton_hoverBackground();
-        foregroundColor_hover = colorPalette.getButton_hoverForeground();
-
-        backgroundColor_pressed = colorPalette.getButton_pressedBackground();
-        foregroundColor_pressed = colorPalette.getButton_pressedForeground();
+        setPalette(builder.getPalette(), false);
 
         this.onClickFunction = builder.getOnClickFunction();
 
@@ -137,22 +128,22 @@ public class Button extends Component {
     }
 
     @Override
-    public void setColorPalette(final ColorPalette colorPalette, final boolean redraw) {
-        if (colorPalette == null) {
+    public void setPalette(final Java2DPalette palette, final boolean redraw) {
+        if (palette == null) {
             return;
         }
 
         // Set the instance variables.
-        this.colorPalette = colorPalette;
+        this.palette = palette;
 
-        this.backgroundColor_normal = colorPalette.getButton_defaultBackground();
-        this.foregroundColor_normal = colorPalette.getButton_defaultForeground();
+        this.backgroundColor_normal = palette.getButtonPalette().getBackground();
+        this.foregroundColor_normal = palette.getButtonPalette().getForeground();
 
-        this.backgroundColor_pressed = colorPalette.getButton_pressedBackground();
-        this.foregroundColor_pressed = colorPalette.getButton_pressedForeground();
+        this.backgroundColor_pressed = palette.getButtonPalette().getBackgroundPressed();
+        this.foregroundColor_pressed = palette.getButtonPalette().getForegroundPressed();
 
-        this.backgroundColor_hover = colorPalette.getButton_hoverBackground();
-        this.foregroundColor_hover = colorPalette.getButton_hoverForeground();
+        this.backgroundColor_hover = palette.getButtonPalette().getBackgroundHover();
+        this.foregroundColor_hover = palette.getButtonPalette().getForegroundHover();
 
         // Determine the colors to color the tiles with.
         final Color backgroundColor;

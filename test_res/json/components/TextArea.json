@@ -1,0 +1,22 @@
+{
+    "Id": "Text Area #1",
+    "Type": "Text Area",
+    "X": 0,
+    "Y": 0,
+    "Width": 10,
+    "Height": 10,
+    "Color Palette": "Color Palettes/PaleNight.json",
+    "Text": "Sample text.",
+    "Editable": "True",
+    "Enter Key Enabled": "True",
+    "Backspace Key Enabled": "True",
+    "Delete Key Enabled": "True",
+    "Home Key Enabled": "True",
+    "End Key Enabled": "True",
+    "Page Up Key Enabled": "True",
+    "Page Down Key Enabled": "True",
+    "Up Arrow Key Enabled": "True",
+    "Down Arrow Key Enabled": "True",
+    "Left Arrow Key Enabled": "True",
+    "Right Arrow Key Enabled": "True"
+}

@@ -6,15 +6,14 @@ import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.TileGrid;
 import com.valkryst.VTerminal.builder.TextAreaBuilder;
 import com.valkryst.VTerminal.font.Font;
-import com.valkryst.VTerminal.palette.ColorPalette;
+import com.valkryst.VTerminal.palette.java2d.Java2DPalette;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 import org.apache.commons.lang.WordUtils;
 
-import java.awt.Color;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -95,12 +94,7 @@ public class TextArea extends Component {
     public TextArea(final @NonNull TextAreaBuilder builder) {
         super(builder.getDimensions(), builder.getPosition());
 
-        final ColorPalette colorPalette = builder.getColorPalette();
-        caretForegroundColor = colorPalette.getTextArea_caretForeground();
-        caretBackgroundColor = colorPalette.getTextArea_caretBackground();
-
-        foregroundColor = colorPalette.getTextArea_defaultForeground();
-        backgroundColor = colorPalette.getTextArea_defaultBackground();
+        setPalette(builder.getPalette(), false);
 
         editable = builder.isEditable();
 
@@ -344,7 +338,7 @@ public class TextArea extends Component {
 
                     // Move the caret one position to the left:
                     case KeyEvent.VK_LEFT: {
-                        if (!isLeftArrowKeyEnabled == false) {
+                        if (isLeftArrowKeyEnabled == false) {
                             return;
                         }
 
@@ -406,17 +400,17 @@ public class TextArea extends Component {
     }
 
     @Override
-    public void setColorPalette(final ColorPalette colorPalette, final boolean redraw) {
-        if (colorPalette == null) {
+    public void setPalette(final Java2DPalette palette, final boolean redraw) {
+        if (palette == null) {
             return;
         }
 
         // Set the instance variables.
-        this.colorPalette = colorPalette;
-        this.caretBackgroundColor = colorPalette.getTextArea_caretBackground();
-        this.caretForegroundColor = colorPalette.getTextArea_caretForeground();
-        this.backgroundColor = colorPalette.getTextArea_defaultBackground();
-        this.foregroundColor = colorPalette.getTextArea_defaultForeground();
+        this.palette = palette;
+        this.caretBackgroundColor = palette.getTextAreaPalette().getBackgroundCaret();
+        this.caretForegroundColor = palette.getTextAreaPalette().getForegroundCaret();
+        this.backgroundColor = palette.getTextAreaPalette().getBackground();
+        this.foregroundColor = palette.getTextAreaPalette().getForeground();
 
         // Color All Tiles
         for (int y = 0 ; y < tiles.getHeight() ; y++) {

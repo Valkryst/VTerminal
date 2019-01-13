@@ -1,15 +1,21 @@
 package com.valkryst.VTerminal.builder;
 
-import com.valkryst.VJSON.VJSONParser;
+import com.valkryst.VJSON.VJSON;
 import com.valkryst.VTerminal.component.Component;
-import com.valkryst.VTerminal.palette.*;
+import com.valkryst.VTerminal.palette.java2d.Java2DPalette;
 import lombok.Getter;
 import lombok.Setter;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
 import java.awt.*;
+import java.io.IOException;
+import java.util.UUID;
 
-public class ComponentBuilder<C extends Component> implements VJSONParser {
+public abstract class ComponentBuilder<C extends Component> {
+    /** The ID of the component. Not guaranteed to be unique. */
+    private String id;
+
     /** The position of the component within it's parent. */
     private Point position = new Point(0, 0);
 
@@ -17,11 +23,52 @@ public class ComponentBuilder<C extends Component> implements VJSONParser {
     private Dimension dimensions = new Dimension(1, 1);
 
     /** The color palette to color the label with. */
-    @Getter @Setter private ColorPalette colorPalette;
+    @Getter @Setter private Java2DPalette palette;
 
     /** Constructs a new ComponentBuilder. */
     public ComponentBuilder() {
         reset();
+    }
+
+    /**
+     * Constructs a new ComponentBuilder and initializes it using the JSON representation of a component.
+     *
+     * @param json
+     *          The JSON representation of a component.
+     */
+    public ComponentBuilder(final JSONObject json) {
+        if (json == null) {
+            return;
+        }
+
+        final String id = VJSON.getString(json, "Id");
+        final Integer x = VJSON.getInt(json, "X");
+        final Integer y = VJSON.getInt(json, "Y");
+        final Integer width = VJSON.getInt(json, "Width");
+        final Integer height = VJSON.getInt(json, "Height");
+        final String colorPalette = VJSON.getString(json, "Color Palette");
+
+        this.id = (id == null || id.isEmpty() ? UUID.randomUUID().toString() : id);
+        this.position.setLocation((x == null ? 0 : x), (y == null ? 0 : y));
+        this.dimensions.setSize((width == null ? 0 : width), (height == null ? 0 : height));
+
+        if (colorPalette == null) {
+            try {
+                this.palette = new Java2DPalette();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                this.palette = new Java2DPalette(colorPalette);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -37,6 +84,8 @@ public class ComponentBuilder<C extends Component> implements VJSONParser {
 
     /** Checks the current state of the builder. */
     protected void checkState() {
+        id = UUID.randomUUID().toString();
+
         if (dimensions.width < 1) {
             dimensions.width = 1;
         }
@@ -45,8 +94,14 @@ public class ComponentBuilder<C extends Component> implements VJSONParser {
             dimensions.height = 1;
         }
 
-        if (colorPalette == null) {
-            colorPalette = new ColorPalette();
+        if (palette == null) {
+            try {
+                palette = new Java2DPalette();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -54,72 +109,12 @@ public class ComponentBuilder<C extends Component> implements VJSONParser {
     public void reset() {
         position.setLocation(0, 0);
         dimensions.setSize(1, 1);
-        colorPalette = new ColorPalette();
-    }
-
-    @Override
-    public void parse(final JSONObject jsonObject) {
-        if (jsonObject == null) {
-            return;
-        }
-
-        reset();
-
-        final Integer xPosition = getInteger(jsonObject, "x");
-        final Integer yPosition = getInteger(jsonObject, "y");
-        final Integer width = getInteger(jsonObject, "width");
-        final Integer height = getInteger(jsonObject, "height");
-        final String colorPalette = getString(jsonObject, "palette");
-
-        if (xPosition == null) {
-            throw new NullPointerException("The 'x' value was not found.");
-        } else {
-            position.x = xPosition;
-        }
-
-        if (yPosition == null) {
-            throw new NullPointerException("The 'y' value was not found.");
-        } else {
-            position.y = yPosition;
-        }
-
-        if (width == null) {
-            throw new NullPointerException("The 'width' value was not found.");
-        } else {
-            dimensions.width = width;
-        }
-
-        if (height == null) {
-            throw new NullPointerException("The 'height' value was not found.");
-        } else {
-            dimensions.height = height;
-        }
-
-        // todo Support custom themes or maybe some generic way of writing the theme, rather than hardcoding them like this.
-        switch (colorPalette) {
-            case "P1Phosphor": {
-                this.colorPalette = new P1PhosphorColorPalette();
-                break;
-            }
-            case "P3Phosphor": {
-                this.colorPalette = new P3PhosphorColorPalette();
-                break;
-            }
-            case "P12Phosphor": {
-                this.colorPalette = new P12PhosphorColorPalette();
-                break;
-            }
-            case "P21Phosphor": {
-                this.colorPalette = new P21PhosphorColorPalette();
-                break;
-            }
-            case "P24Phosphor": {
-                this.colorPalette = new P24PhosphorColorPalette();
-                break;
-            }
-            default: {
-                this.colorPalette = new ColorPalette();
-            }
+        try {
+            palette = new Java2DPalette();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 

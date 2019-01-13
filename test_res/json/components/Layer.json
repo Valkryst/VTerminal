@@ -1,0 +1,10 @@
+{
+    "Id": "Layer #1",
+    "Type": "Layer",
+    "X": 0,
+    "Y": 0,
+    "Width": 10,
+    "Height": 10,
+    "Color Palette": "Color Palettes/PaleNight.json",
+    "Components": []
+}

@@ -1,9 +1,0 @@
-{
-  "type": "radio button",
-  "id": "Test",
-  "column": 0,
-  "row": 0,
-  "text": "1234",
-  "emptyButtonChar": "/",
-  "checkedButtonChar": "?"
-}

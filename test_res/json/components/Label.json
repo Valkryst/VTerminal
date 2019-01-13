@@ -1,0 +1,8 @@
+{
+    "Id": "Label #1",
+    "Type": "Label",
+    "X": 0,
+    "Y": 0,
+    "Color Palette": "Color Palettes/PaleNight.json",
+    "Text": "Sample text."
+}

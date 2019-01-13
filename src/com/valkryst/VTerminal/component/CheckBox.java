@@ -4,7 +4,7 @@ package com.valkryst.VTerminal.component;
 import com.valkryst.VTerminal.Screen;
 import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.builder.CheckBoxBuilder;
-import com.valkryst.VTerminal.palette.ColorPalette;
+import com.valkryst.VTerminal.palette.java2d.Java2DPalette;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -41,16 +41,7 @@ public class CheckBox extends Button {
 
         this.isChecked = builder.isChecked();
 
-        final ColorPalette colorPalette = builder.getColorPalette();
-
-        super.backgroundColor_normal = colorPalette.getCheckBox_defaultBackground();
-        super.foregroundColor_normal = colorPalette.getCheckBox_defaultForeground();
-
-        super.backgroundColor_hover = colorPalette.getCheckBox_hoverBackground();
-        super.foregroundColor_hover = colorPalette.getCheckBox_hoverForeground();
-
-        super.backgroundColor_pressed = colorPalette.getCheckBox_checkedBackground();
-        super.foregroundColor_pressed = colorPalette.getCheckBox_checkedForeground();
+        setPalette(builder.getPalette(), false);
 
         // Set the check box's colors:
         if (isChecked) {
@@ -131,22 +122,22 @@ public class CheckBox extends Button {
     }
 
     @Override
-    public void setColorPalette(final ColorPalette colorPalette, final boolean redraw) {
-        if (colorPalette == null) {
+    public void setPalette(final Java2DPalette palette, final boolean redraw) {
+        if (palette == null) {
             return;
         }
 
         // Set the instance variables.
-        this.colorPalette = colorPalette;
+        this.palette = palette;
 
-        this.backgroundColor_normal = colorPalette.getCheckBox_defaultBackground();
-        this.foregroundColor_normal = colorPalette.getCheckBox_defaultForeground();
+        this.backgroundColor_normal = palette.getCheckBoxPalette().getBackground();
+        this.foregroundColor_normal = palette.getCheckBoxPalette().getForeground();
 
-        this.backgroundColor_pressed = colorPalette.getCheckBox_checkedBackground();
-        this.foregroundColor_pressed = colorPalette.getCheckBox_checkedForeground();
+        this.backgroundColor_pressed = palette.getCheckBoxPalette().getBackgroundPressed();
+        this.foregroundColor_pressed = palette.getCheckBoxPalette().getForegroundPressed();
 
-        this.backgroundColor_hover = colorPalette.getCheckBox_hoverBackground();
-        this.foregroundColor_hover = colorPalette.getCheckBox_hoverForeground();
+        this.backgroundColor_hover = palette.getCheckBoxPalette().getBackgroundHover();
+        this.foregroundColor_hover = palette.getCheckBoxPalette().getForegroundHover();
 
         // Determine the colors to color the tiles with.
         final Color backgroundColor;

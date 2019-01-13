@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.builder;
 
-import com.valkryst.VJSON.VJSONParser;
+import com.valkryst.VJSON.VJSON;
 import com.valkryst.VTerminal.component.ProgressBar;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,11 +10,32 @@ import org.json.simple.JSONObject;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> implements VJSONParser {
+public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> {
     /** The character that represents an incomplete cell. */
     private char incompleteCharacter;
     /** The character that represents a complete cell. */
     private char completeCharacter;
+
+    /**
+     * Constructs a new ProgressBarBuilder and initializes it using the JSON representation of a progress bar
+     * component.
+     *
+     * @param json
+     *          The JSON representation of a progress bar component.
+     */
+    public ProgressBarBuilder(final JSONObject json) {
+        super(json);
+
+        if (json == null) {
+            return;
+        }
+
+        final Character incompleteCharacter = VJSON.getChar(json, "Incomplete Character");
+        final Character completeCharacter = VJSON.getChar(json, "Complete Character");
+
+        this.incompleteCharacter = (incompleteCharacter == null ? '█' : incompleteCharacter);
+        this.completeCharacter = (completeCharacter == null ? '█' : completeCharacter);
+    }
 
     @Override
     public ProgressBar build() {
@@ -30,29 +51,5 @@ public class ProgressBarBuilder extends ComponentBuilder<ProgressBar> implements
 
         incompleteCharacter = '█';
         completeCharacter = '█';
-    }
-
-    @Override
-    public void parse(final JSONObject jsonObject) {
-        if (jsonObject == null) {
-            return;
-        }
-
-        super.parse(jsonObject);
-
-        final Character incompleteCharacter = getChar(jsonObject, "incompleteCharacter");
-        final Character completeCharacter = getChar(jsonObject, "completeCharacter");
-
-        if (incompleteCharacter == null) {
-            throw new NullPointerException("The 'incompleteCharacter' value was not found.");
-        } else {
-            this.incompleteCharacter = incompleteCharacter;
-        }
-
-        if (completeCharacter == null) {
-            throw new NullPointerException("The 'completeCharacter' value was not found.");
-        } else {
-            this.completeCharacter = completeCharacter;
-        }
     }
 }

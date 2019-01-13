@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.builder;
 
-import com.valkryst.VJSON.VJSONParser;
+import com.valkryst.VJSON.VJSON;
 import com.valkryst.VTerminal.component.Button;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,12 +10,29 @@ import org.json.simple.JSONObject;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-public class ButtonBuilder extends ComponentBuilder<Button> implements VJSONParser {
+public class ButtonBuilder extends ComponentBuilder<Button> {
     /** The text to display on the button. */
     private String text;
 
     /** The function to run when the button is clicked. */
     private Runnable onClickFunction;
+
+    /**
+     * Constructs a new ButtonBuilder and initializes it using the JSON representation of a button component.
+     *
+     * @param json
+     *          The JSON representation of a button component.
+     */
+    public ButtonBuilder(final JSONObject json) {
+        super(json);
+
+        if (json == null) {
+            return;
+        }
+
+        final String text = VJSON.getString(json, "Text");
+        this.text = (text == null ? "" : text);
+    }
 
     @Override
     public Button build() {
@@ -46,23 +63,6 @@ public class ButtonBuilder extends ComponentBuilder<Button> implements VJSONPars
         text = "";
 
         onClickFunction = () -> {};
-    }
-
-    @Override
-    public void parse(final JSONObject jsonObject) {
-        if (jsonObject == null) {
-            return;
-        }
-
-        super.parse(jsonObject);
-
-        final String text = getString(jsonObject, "text");
-
-        if (text == null) {
-            throw new NullPointerException("The 'text' value was not found.");
-        } else {
-            this.text = text;
-        }
     }
 
     /**

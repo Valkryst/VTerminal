@@ -1,9 +1,9 @@
 package com.valkryst.VTerminal.component;
 
-import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.Screen;
+import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.TileGrid;
-import com.valkryst.VTerminal.palette.ColorPalette;
+import com.valkryst.VTerminal.palette.java2d.Java2DPalette;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -23,7 +23,7 @@ public class Component {
     @Getter private final Point boundingBoxOrigin;
 
     /** The color palette. */
-    @Getter protected ColorPalette colorPalette;
+    @Getter protected Java2DPalette palette;
 
     /** The event listeners. */
     final List<EventListener> eventListeners = new LinkedList<>();
@@ -119,21 +119,21 @@ public class Component {
     /**
      * Changes the color palette of the component.
      *
-     * @param colorPalette
+     * @param palette
      *          The new palette.
      *
      * @param redraw
      *          Whether to call the redraw function after changing the color palette.
      */
-    public void setColorPalette(final ColorPalette colorPalette, final boolean redraw) {
-        if (colorPalette == null) {
+    public void setPalette(final Java2DPalette palette, final boolean redraw) {
+        if (palette == null) {
             return;
         }
 
-        this.colorPalette = colorPalette;
+        this.palette = palette;
 
-        final Color backgroundColor = colorPalette.getDefaultBackground();
-        final Color foregroundColor = colorPalette.getDefaultForeground();
+        final Color backgroundColor = palette.getDefaultBackground();
+        final Color foregroundColor = palette.getDefaultForeground();
 
         for (int y = 0 ; y < tiles.getHeight() ; y++) {
             for (int x = 0 ; x < tiles.getWidth() ; x++) {

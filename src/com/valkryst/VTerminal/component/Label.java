@@ -2,7 +2,7 @@ package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.builder.LabelBuilder;
-import com.valkryst.VTerminal.palette.ColorPalette;
+import com.valkryst.VTerminal.palette.java2d.Java2DPalette;
 import lombok.NonNull;
 import lombok.ToString;
 
@@ -23,7 +23,7 @@ public class Label extends Component {
         super(builder.getDimensions(), builder.getPosition());
 
         setText(builder.getText());
-        setColorPalette(builder.getColorPalette(), true);
+        setPalette(builder.getPalette(), true);
     }
 
     /**
@@ -47,15 +47,15 @@ public class Label extends Component {
     }
 
     @Override
-    public void setColorPalette(final ColorPalette colorPalette, final boolean redraw) {
-        if (colorPalette == null) {
+    public void setPalette(final Java2DPalette palette, final boolean redraw) {
+        if (palette == null) {
             return;
         }
 
-        this.colorPalette = colorPalette;
+        this.palette = palette;
 
-        final Color backgroundColor = colorPalette.getLabel_defaultBackground();
-        final Color foregroundColor = colorPalette.getLabel_defaultForeground();
+        final Color backgroundColor = palette.getLabelPalette().getBackground();
+        final Color foregroundColor = palette.getLabelPalette().getForeground();
 
         for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
             for (int x = 0 ; x < super.tiles.getWidth() ; x++) {

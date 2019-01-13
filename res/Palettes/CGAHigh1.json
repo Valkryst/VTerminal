@@ -1,0 +1,156 @@
+{
+  "Default": {
+    "Background": {
+      "RGBA": [0, 0, 0, 255]
+    },
+    "Foreground": {
+      "Hex": "FF55FF"
+    }
+  },
+
+  "Button": {
+    "Default": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255]
+      },
+      "Foreground": {
+        "Hex": "55FFFF"
+      }
+    },
+    "Hover": {
+      "Background": {
+        "Hex": "55FFFF"
+      },
+      "Foreground": {
+        "RGBA": [0, 0, 0, 255]
+      }
+    },
+    "Pressed": {
+      "Background": {
+        "Hex": "55FFFF",
+        "Shade": 0.35
+      },
+      "Foreground": {
+        "RGBA": [0, 0, 0, 255]
+      }
+    }
+  },
+
+  "Radio Button": {
+    "Default": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255]
+      },
+      "Foreground": {
+        "Hex": "55FFFF"
+      }
+    },
+    "Hover": {
+      "Background": {
+        "Hex": "55FFFF"
+      },
+      "Foreground": {
+        "RGBA": [0, 0, 0, 255]
+      }
+    },
+    "Pressed": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255]
+      },
+      "Foreground": {
+        "Hex": "FFFFFF"
+      }
+    }
+  },
+
+  "Check Box": {
+    "Default": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255]
+      },
+      "Foreground": {
+        "Hex": "55FFFF"
+      }
+    },
+    "Hover": {
+      "Background": {
+        "Hex": "55FFFF"
+      },
+      "Foreground": {
+        "RGBA": [0, 0, 0, 255]
+      }
+    },
+    "Pressed": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255]
+      },
+      "Foreground": {
+        "Hex": "FFFFFF"
+      }
+    }
+  },
+
+  "Label": {
+    "Default": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255]
+      },
+      "Foreground": {
+        "Hex": "55FFFF"
+      }
+    }
+  },
+
+  "Layer": {
+    "Default": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255]
+      },
+      "Foreground": {
+        "Hex": "FF55FF"
+      }
+    }
+  },
+
+  "Progress Bar": {
+    "Incomplete": {
+      "Background": {
+        "Hex": "FFFFFF"
+      },
+      "Foreground": {
+        "RGBA": [0, 0, 0, 255],
+        "Tint": 0.1
+      }
+    },
+    "Complete": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255],
+        "Tint": 0.1
+      },
+      "Foreground": {
+        "Hex": "FFFFFF"
+      }
+    }
+  },
+
+  "Text Area": {
+    "Default": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255],
+        "Tint": 0.1
+      },
+      "Foreground": {
+        "Hex": "55FFFF"
+      }
+    },
+    "Caret": {
+      "Background": {
+        "Hex": "55FFFF"
+      },
+      "Foreground": {
+        "RGBA": [0, 0, 0, 255],
+        "Tint": 0.1
+      }
+    }
+  }
+}

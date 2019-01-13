@@ -1,0 +1,11 @@
+{
+    "Id": "Progress Bar #1",
+    "Type": "Progress Bar",
+    "X": 0,
+    "Y": 0,
+    "Width": 10,
+    "Height": 1,
+    "Color Palette": "Color Palettes/PaleNight.json",
+    "Incomplete Character": "█",
+    "Complete Character": "█"
+}

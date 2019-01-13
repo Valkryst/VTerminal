@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal.builder;
 
+import com.valkryst.VJSON.VJSON;
 import com.valkryst.VTerminal.component.TextArea;
 import lombok.*;
 import org.json.simple.JSONObject;
@@ -51,6 +52,47 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
     /** Whether the special listener code for the Right Arrow key is enabled. */
     private boolean isRightArrowKeyEnabled = true;
 
+    /**
+     * Constructs a new TextAreaBuilder and initializes it using the JSON representation of a text area
+     * component.
+     *
+     * @param json
+     *          The JSON representation of a text area component.
+     */
+    public TextAreaBuilder(final JSONObject json) {
+        super(json);
+
+        if (json == null) {
+            return;
+        }
+
+        final Boolean editable = VJSON.getBoolean(json, "Editable");
+        final Boolean isEnterKeyEnabled = VJSON.getBoolean(json, "Enter Key Enabled");
+        final Boolean isBackspaceKeyEnabled = VJSON.getBoolean(json, "Backspace Key Enabled");
+        final Boolean isDeleteKeyEnabled = VJSON.getBoolean(json, "Delete Key Enabled");
+        final Boolean isHomeKeyEnabled = VJSON.getBoolean(json, "Home Key Enabled");
+        final Boolean isEndKeyEnabled = VJSON.getBoolean(json, "End Key Enabled");
+        final Boolean isPageUpKeyEnabled = VJSON.getBoolean(json, "Page Up Key Enabled");
+        final Boolean isPageDownKeyEnabled = VJSON.getBoolean(json, "Page Down Key Enabled");
+        final Boolean isUpArrowKeyEnabled = VJSON.getBoolean(json, "Up Arrow Key Enabled");
+        final Boolean isDownArrowKeyEnabled = VJSON.getBoolean(json, "Down Arrow Key Enabled");
+        final Boolean isLeftArrowKeyEnabled = VJSON.getBoolean(json, "Left Arrow Key Enabled");
+        final Boolean isRightArrowKeyEnabled = VJSON.getBoolean(json, "Right Arrow Key Enabled");
+
+        this.editable = (editable == null ? true : editable);
+        this.isEnterKeyEnabled = (isEnterKeyEnabled == null ? true : isEnterKeyEnabled);
+        this.isBackspaceKeyEnabled = (isBackspaceKeyEnabled == null ? true : isBackspaceKeyEnabled);
+        this.isDeleteKeyEnabled = (isDeleteKeyEnabled == null ? true : isDeleteKeyEnabled);
+        this.isHomeKeyEnabled = (isHomeKeyEnabled == null ? true : isHomeKeyEnabled);
+        this.isEndKeyEnabled = (isEndKeyEnabled == null ? true : isEndKeyEnabled);
+        this.isPageUpKeyEnabled = (isPageUpKeyEnabled == null ? true : isPageUpKeyEnabled);
+        this.isPageDownKeyEnabled = (isPageDownKeyEnabled == null ? true : isPageDownKeyEnabled);
+        this.isUpArrowKeyEnabled = (isUpArrowKeyEnabled == null ? true : isUpArrowKeyEnabled);
+        this.isDownArrowKeyEnabled = (isDownArrowKeyEnabled == null ? true : isDownArrowKeyEnabled);
+        this.isLeftArrowKeyEnabled = (isLeftArrowKeyEnabled == null ? true : isLeftArrowKeyEnabled);
+        this.isRightArrowKeyEnabled = (isRightArrowKeyEnabled == null ? true : isRightArrowKeyEnabled);
+    }
+
     @Override
     public TextArea build() {
         checkState();
@@ -87,29 +129,5 @@ public class TextAreaBuilder extends ComponentBuilder<TextArea> {
         isDownArrowKeyEnabled = true;
         isLeftArrowKeyEnabled = true;
         isRightArrowKeyEnabled = true;
-    }
-
-    @Override
-    public void parse(final JSONObject jsonObject) {
-        if (jsonObject == null) {
-            return;
-        }
-
-        reset();
-        super.parse(jsonObject);
-
-        final Boolean editable = (Boolean) jsonObject.get("editable");
-
-        final String allowedCharacterPattern = (String) jsonObject.get("allowedCharacterPattern");
-
-
-        if (editable != null) {
-            this.editable = editable;
-        }
-
-
-        if (allowedCharacterPattern != null) {
-            this.allowedCharacterPattern = Pattern.compile(allowedCharacterPattern);
-        }
     }
 }

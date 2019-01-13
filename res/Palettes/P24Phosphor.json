@@ -1,0 +1,159 @@
+{
+  "Default": {
+    "Background": {
+      "RGBA": [0, 0, 0, 255]
+    },
+    "Foreground": {
+      "RGBA": [255, 156, 0, 255]
+    }
+  },
+
+  "Button": {
+    "Default": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255]
+      },
+      "Foreground": {
+        "RGBA": [255, 156, 0, 255]
+      }
+    },
+    "Hover": {
+      "Background": {
+        "RGBA": [255, 156, 0, 255]
+      },
+      "Foreground": {
+        "RGBA": [255, 156, 0, 255],
+        "Shade": 0.5
+      }
+    },
+    "Pressed": {
+      "Background": {
+        "RGBA": [255, 156, 0, 255],
+        "Shade": 0.25
+      },
+      "Foreground": {
+        "RGBA": [255, 156, 0, 255],
+        "Shade": 0.75
+      }
+    }
+  },
+
+  "Radio Button": {
+    "Default": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255]
+      },
+      "Foreground": {
+        "RGBA": [255, 156, 0, 255]
+      }
+    },
+    "Hover": {
+      "Background": {
+        "RGBA": [255, 156, 0, 255]
+      },
+      "Foreground": {
+        "RGBA": [255, 156, 0, 255],
+        "Shade": 0.5
+      }
+    },
+    "Pressed": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255]
+      },
+      "Foreground": {
+        "RGBA": [255, 156, 0, 255]
+      }
+    }
+  },
+
+  "Check Box": {
+    "Default": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255]
+      },
+      "Foreground": {
+        "RGBA": [255, 156, 0, 255]
+      }
+    },
+    "Hover": {
+      "Background": {
+        "RGBA": [255, 156, 0, 255]
+      },
+      "Foreground": {
+        "RGBA": [255, 156, 0, 255],
+        "Shade": 0.5
+      }
+    },
+    "Pressed": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255]
+      },
+      "Foreground": {
+        "RGBA": [255, 156, 0, 255]
+      }
+    }
+  },
+
+  "Label": {
+    "Default": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255]
+      },
+      "Foreground": {
+        "RGBA": [255, 156, 0, 255]
+      }
+    }
+  },
+
+  "Layer": {
+    "Default": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255]
+      },
+      "Foreground": {
+        "RGBA": [255, 156, 0, 255]
+      }
+    }
+  },
+
+  "Progress Bar": {
+    "Incomplete": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255]
+      },
+      "Foreground": {
+        "RGBA": [255, 156, 0, 255],
+        "Shade": 0.5
+      }
+    },
+    "Complete": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255]
+      },
+      "Foreground": {
+        "RGBA": [255, 156, 0, 255]
+      }
+    }
+  },
+
+  "Text Area": {
+    "Default": {
+      "Background": {
+        "RGBA": [0, 0, 0, 255],
+        "Tint": 0.15
+      },
+      "Foreground": {
+        "RGBA": [255, 156, 0, 255]
+      }
+    },
+    "Caret": {
+      "Background": {
+        "RGBA": [255, 156, 0, 255]
+      },
+      "Foreground": {
+        "RGBA": [0, 0, 0, 255],
+        "Tint": 0.15
+      }
+    }
+  }
+}

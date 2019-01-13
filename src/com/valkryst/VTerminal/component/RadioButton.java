@@ -3,7 +3,7 @@ package com.valkryst.VTerminal.component;
 import com.valkryst.VTerminal.Screen;
 import com.valkryst.VTerminal.Tile;
 import com.valkryst.VTerminal.builder.RadioButtonBuilder;
-import com.valkryst.VTerminal.palette.ColorPalette;
+import com.valkryst.VTerminal.palette.java2d.Java2DPalette;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -44,16 +44,7 @@ public class RadioButton extends Button {
 
         this.group = builder.getGroup();
 
-        final ColorPalette colorPalette = builder.getColorPalette();
-
-        super.backgroundColor_normal = colorPalette.getRadioButton_defaultBackground();
-        super.foregroundColor_normal = colorPalette.getRadioButton_defaultForeground();
-
-        super.backgroundColor_hover = colorPalette.getRadioButton_hoverBackground();
-        super.foregroundColor_hover = colorPalette.getRadioButton_hoverForeground();
-
-        super.backgroundColor_pressed = colorPalette.getRadioButton_pressedBackground();
-        super.foregroundColor_pressed = colorPalette.getRadioButton_pressedForeground();
+        setPalette(builder.getPalette(), false);
 
         // Set the radio button's colors:
         if (isChecked) {
@@ -127,22 +118,22 @@ public class RadioButton extends Button {
     }
 
     @Override
-    public void setColorPalette(final ColorPalette colorPalette, final boolean redraw) {
-        if (colorPalette == null) {
+    public void setPalette(final Java2DPalette palette, final boolean redraw) {
+        if (palette == null) {
             return;
         }
 
         // Set the instance variables.
-        this.colorPalette = colorPalette;
+        this.palette = palette;
 
-        this.backgroundColor_normal = colorPalette.getRadioButton_defaultBackground();
-        this.foregroundColor_normal = colorPalette.getRadioButton_defaultForeground();
+        this.backgroundColor_normal = palette.getRadioButtonPalette().getBackground();
+        this.foregroundColor_normal = palette.getRadioButtonPalette().getForeground();
 
-        this.backgroundColor_pressed = colorPalette.getRadioButton_pressedBackground();
-        this.foregroundColor_pressed = colorPalette.getRadioButton_pressedForeground();
+        this.backgroundColor_pressed = palette.getRadioButtonPalette().getBackgroundPressed();
+        this.foregroundColor_pressed = palette.getRadioButtonPalette().getForegroundPressed();
 
-        this.backgroundColor_hover = colorPalette.getRadioButton_hoverBackground();
-        this.foregroundColor_hover = colorPalette.getRadioButton_hoverForeground();
+        this.backgroundColor_hover = palette.getRadioButtonPalette().getBackgroundHover();
+        this.foregroundColor_hover = palette.getRadioButtonPalette().getForegroundHover();
 
         // Determine the colors to color the tiles with.
         final Color backgroundColor;

@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.builder;
 
-import com.valkryst.VJSON.VJSONParser;
+import com.valkryst.VJSON.VJSON;
 import com.valkryst.VTerminal.component.RadioButton;
 import com.valkryst.VTerminal.component.RadioButtonGroup;
 import lombok.Data;
@@ -11,7 +11,7 @@ import org.json.simple.JSONObject;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-public class RadioButtonBuilder extends ButtonBuilder implements VJSONParser {
+public class RadioButtonBuilder extends ButtonBuilder {
     /** The character to display when the radio button is not checked. */
     private char emptyButtonChar;
     /** The character to display when the radio button is checked. */
@@ -19,6 +19,27 @@ public class RadioButtonBuilder extends ButtonBuilder implements VJSONParser {
 
     /** The radio button group that the radio button will belong to. */
     private RadioButtonGroup group;
+
+    /**
+     * Constructs a new RadioButtonBuilder and initializes it using the JSON representation of a radio button
+     * component.
+     *
+     * @param json
+     *          The JSON representation of a radio button component.
+     */
+    public RadioButtonBuilder(final JSONObject json) {
+        super(json);
+
+        if (json == null) {
+            return;
+        }
+
+        final Character emptyButtonChar = VJSON.getChar(json, "Empty Box Character");
+        final Character checkedButtonChar = VJSON.getChar(json, "Checked Box Character");
+
+        this.emptyButtonChar = (emptyButtonChar == null ? '○' : emptyButtonChar);
+        this.checkedButtonChar = (checkedButtonChar == null ? '◉' : checkedButtonChar);
+    }
 
     @Override
     public RadioButton build() {
@@ -40,31 +61,6 @@ public class RadioButtonBuilder extends ButtonBuilder implements VJSONParser {
 
         if (group == null) {
             group = new RadioButtonGroup();
-        }
-    }
-
-    @Override
-    public void parse(final JSONObject jsonObject) {
-        if (jsonObject == null) {
-            return;
-        }
-
-        super.parse(jsonObject);
-
-        final Character emptyButtonChar = getChar(jsonObject, "emptyButtonChar");
-        final Character checkedButtonChar = getChar(jsonObject, "checkedButtonChar");
-        // todo Add isChecked
-
-        if (emptyButtonChar == null) {
-            throw new NullPointerException("The 'emptyButtonChar' value was not found.");
-        } else {
-            this.emptyButtonChar = emptyButtonChar;
-        }
-
-        if (checkedButtonChar == null) {
-            throw new NullPointerException("The 'checkedButtonChar' value was not found.");
-        } else {
-            this.checkedButtonChar = checkedButtonChar;
         }
     }
 

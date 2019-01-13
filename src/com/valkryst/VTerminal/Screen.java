@@ -1,15 +1,20 @@
 package com.valkryst.VTerminal;
 
+import com.valkryst.VJSON.VJSON;
+import com.valkryst.VTerminal.builder.*;
 import com.valkryst.VTerminal.component.Component;
 import com.valkryst.VTerminal.component.Layer;
 import com.valkryst.VTerminal.font.Font;
 import com.valkryst.VTerminal.font.FontLoader;
 import com.valkryst.VTerminal.misc.ImageCache;
-import com.valkryst.VTerminal.palette.ColorPalette;
+import com.valkryst.VTerminal.palette.java2d.Java2DPalette;
 import lombok.Getter;
 import lombok.NonNull;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.logging.log4j.LogManager;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,7 +58,7 @@ public class Screen {
     private final Point mousePosition = new Point(0, 0);
 
     /** The color palette of the Screen. Does not apply to child components. */
-    @Getter private ColorPalette colorPalette;
+    @Getter private Java2DPalette palette;
 
     private boolean isInFullScreenExclusiveMode = false;
 
@@ -134,7 +139,13 @@ public class Screen {
         tiles = new TileGrid(dimensions, new Point(0, 0));
         positionHashes_previous = new long[dimensions.width][dimensions.height];
         positionHashes_current = new long[dimensions.width][dimensions.height];
-        setColorPalette(new ColorPalette(), false);
+        try {
+            setPalette(new Java2DPalette(), false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         this.imageCache = new ImageCache(font);
 
@@ -179,8 +190,8 @@ public class Screen {
                 System.exit(0);
             }
         });
-        frame.setBackground(colorPalette.getDefaultBackground());
-        frame.setForeground(colorPalette.getDefaultForeground());
+        frame.setBackground(palette.getDefaultBackground());
+        frame.setForeground(palette.getDefaultForeground());
         frame.setVisible(true);
 
         frame.addComponentListener(new ComponentListener() {
@@ -342,8 +353,8 @@ public class Screen {
             @Override
             public void keyReleased(final KeyEvent keyEvent) {}
         });
-        frame.setBackground(colorPalette.getDefaultBackground());
-        frame.setForeground(colorPalette.getDefaultForeground());
+        frame.setBackground(palette.getDefaultBackground());
+        frame.setForeground(palette.getDefaultForeground());
         frame.setVisible(true);
 
         device.setFullScreenWindow(frame);
@@ -511,12 +522,125 @@ public class Screen {
                 }
             } while (bs.contentsRestored()); // Repeat render if drawing buffer contents were restored.
 
-            bs.show();
+            try {
+                bs.show();
+            } catch (final IllegalStateException ignored) {
+                // Occurs when the program is closed while the screen is rendering.
+            }
         } while (bs.contentsLost()); // Repeat render if drawing buffer was lost.
 
         hasFirstRenderCompleted = true;
 
         drawLock.unlock();
+    }
+
+    /**
+     * Loads a component from a JSON file.
+     *
+     * @param filePath
+     *          The file path.
+     *
+     * @return
+     *          The component.
+     *
+     * @throws IOException
+     *          If an IO error occurs when opening, reading, or closing the file.
+     *
+     * @throws ParseException
+     *          If there's an error when parsing the JSON.
+     */
+    public Component loadComponent(final String filePath) throws IOException, ParseException {
+        if (filePath == null || filePath.isEmpty()) {
+            return null;
+        }
+
+        return loadComponent(VJSON.loadJson(filePath));
+    }
+
+    /**
+     * Loads a component from a JSON object.
+     *
+     * @param json
+     *          The JSON object.
+     *
+     * @return
+     *          The component.
+     */
+    public Component loadComponent(final JSONObject json) {
+        final String type = VJSON.getString(json, "Type");
+
+        if (type == null || type.isEmpty()) {
+            return null;
+        }
+
+        switch (type) {
+            case "Button": {
+                final ButtonBuilder builder = new ButtonBuilder(json);
+                return builder.build();
+            }
+            case "Check Box": {
+                final CheckBoxBuilder builder = new CheckBoxBuilder(json);
+                return builder.build();
+            }
+            case "Label": {
+                final LabelBuilder builder = new LabelBuilder(json);
+                return builder.build();
+            }
+            case "Layer": {
+                final Integer x = VJSON.getInt(json, "X");
+                final Integer y = VJSON.getInt(json, "Y");
+                final Integer width = VJSON.getInt(json, "Width");
+                final Integer height = VJSON.getInt(json, "Height");
+                final String colorPalette = VJSON.getString(json, "Color Palette");
+                final JSONArray components = (JSONArray) json.get("Components");
+
+                final Point point = new Point((x == null ? 0 : x), (y == null ? 0 : y));
+                final Dimension dimension = new Dimension((width == null ? 1 : tiles.getWidth()), (height == null ? 1 : tiles.getHeight()));
+
+                final Layer layer;
+                try {
+                    layer = new Layer(dimension, point, new Java2DPalette(colorPalette));
+
+                    if (components != null) {
+                        for (final Object componentJson : components) {
+                            final Component newComponent = loadComponent((JSONObject) componentJson);
+
+                            for (final Component existingComponent : layer.getComponents()) {
+                                if (newComponent.getId().equals(existingComponent.getId())) {
+                                    newComponent.setId(UUID.randomUUID().toString());
+                                    // todo Display debug info, saying that there was anaming conflict.
+                                }
+                            }
+
+                            layer.addComponent(loadComponent((JSONObject) componentJson));
+                        }
+                    }
+
+                    return layer;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                return null; // todo Don't do this.
+            }
+            case "Progress Bar": {
+                final ProgressBarBuilder builder = new ProgressBarBuilder(json);
+                return builder.build();
+            }
+            case "Radio Button": {
+                final RadioButtonBuilder builder = new RadioButtonBuilder(json);
+                return builder.build();
+            }
+            case "Text Area": {
+                final TextAreaBuilder builder = new TextAreaBuilder(json);
+                return builder.build();
+            }
+            default: {
+                return null;
+            }
+        }
     }
 
     /**
@@ -640,8 +764,8 @@ public class Screen {
 
                     if (tile != null) {
                         tile.reset();
-                        tile.setBackgroundColor(colorPalette.getDefaultBackground());
-                        tile.setForegroundColor(colorPalette.getDefaultForeground());
+                        tile.setBackgroundColor(palette.getDefaultBackground());
+                        tile.setForegroundColor(palette.getDefaultForeground());
                     }
                 }
             }
@@ -773,7 +897,7 @@ public class Screen {
     }
 
     /**
-     * Retrieves all components which use a specific ID.
+     * Retrieves the component which use a specific ID.
      *
      * @param id
      *          The ID to search for.
@@ -781,20 +905,18 @@ public class Screen {
      * @return
      *          All components using the ID.
      */
-    public List<Component> getComponentsByID(final String id) {
+    public Component getComponentById(final String id) {
         if (id == null || id.isEmpty() || components.size() == 0) {
-            return new ArrayList<>(0);
+            return null;
         }
-
-        final List<Component> results = new ArrayList<>(1);
 
         for (final Component component : components) {
             if (component.getId().equals(id)) {
-                results.add(component);
+                return component;
             }
         }
 
-        return results;
+        return null;
     }
 
     /**
@@ -867,20 +989,20 @@ public class Screen {
     /**
      * Changes the color palette of the screen and all of it's components.
      *
-     * @param colorPalette
+     * @param palette
      *          The color palette.
      *
      * @param redraw
      *          Whether to call the redraw function after changing the color palette.
      */
-    public void setColorPalette(final ColorPalette colorPalette, final boolean redraw) {
-        if (colorPalette == null) {
+    public void setPalette(final Java2DPalette palette, final boolean redraw) {
+        if (palette == null) {
             return;
         }
 
         drawLock.lock();
 
-        this.colorPalette = colorPalette;
+        this.palette = palette;
 
         // Change the color of the screen's tiles.
         for (int y = 0 ; y < tiles.getHeight() ; y++) {
@@ -888,8 +1010,8 @@ public class Screen {
                 final Tile tile = tiles.getTileAt(x, y);
 
                 if (tile != null) {
-                    tile.setForegroundColor(colorPalette.getDefaultForeground());
-                    tile.setBackgroundColor(colorPalette.getDefaultBackground());
+                    tile.setForegroundColor(palette.getDefaultBackground());
+                    tile.setBackgroundColor(palette.getDefaultForeground());
                 }
             }
         }
@@ -898,7 +1020,7 @@ public class Screen {
         componentsLock.readLock().lock();
 
         for (final Component component : components) {
-            component.setColorPalette(colorPalette, false);
+            component.setPalette(palette, false);
         }
 
         componentsLock.readLock().unlock();

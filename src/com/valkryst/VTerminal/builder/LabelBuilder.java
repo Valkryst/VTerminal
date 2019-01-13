@@ -1,6 +1,6 @@
 package com.valkryst.VTerminal.builder;
 
-import com.valkryst.VJSON.VJSONParser;
+import com.valkryst.VJSON.VJSON;
 import com.valkryst.VTerminal.component.Label;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,9 +11,26 @@ import org.json.simple.JSONObject;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-public class LabelBuilder extends ComponentBuilder<Label> implements VJSONParser {
+public class LabelBuilder extends ComponentBuilder<Label> {
     /** The text to display on the label. */
     @NonNull private String text;
+
+    /**
+     * Constructs a new LabelBuilder and initializes it using the JSON representation of a label component.
+     *
+     * @param json
+     *          The JSON representation of a label component.
+     */
+    public LabelBuilder(final JSONObject json) {
+        super(json);
+
+        if (json == null) {
+            return;
+        }
+
+        final String text = VJSON.getString(json, "Text");
+        this.text = (text == null ? "" : text);
+    }
 
     @Override
     public Label build() {
@@ -29,23 +46,6 @@ public class LabelBuilder extends ComponentBuilder<Label> implements VJSONParser
         super.reset();
 
         text = "";
-    }
-
-    @Override
-    public void parse(final JSONObject jsonObject) {
-        if (jsonObject == null) {
-            return;
-        }
-
-        super.parse(jsonObject);
-
-        final String text = getString(jsonObject, "text");
-
-        if (text == null) {
-            throw new NullPointerException("The 'text' value was not found.");
-        } else {
-            this.text = text;
-        }
     }
 
     /**

@@ -2,14 +2,19 @@ package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.Screen;
 import com.valkryst.VTerminal.Tile;
-import com.valkryst.VTerminal.palette.ColorPalette;
+import com.valkryst.VTerminal.palette.AbstractPaletteFactory;
+import com.valkryst.VTerminal.palette.RendererType;
+import com.valkryst.VTerminal.palette.java2d.Java2DPalette;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
+import org.json.simple.parser.ParseException;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -58,16 +63,22 @@ public class Layer extends Component {
      *
      *          If null, then the position (0, 0) is used.
      *
-     * @param colorPalette
+     * @param palette
      *          The color palette to color the layer with.
      *
      *          If null, then the default color palette is used.
      */
-    public Layer(final @NonNull Dimension dimensions, final Point position, ColorPalette colorPalette) {
+    public Layer(final @NonNull Dimension dimensions, final Point position, Java2DPalette palette) {
         super(dimensions, (position == null ? new Point(0, 0) : position));
 
-        if (colorPalette == null) {
-            colorPalette = new ColorPalette();
+        if (palette == null) {
+            try {
+                palette = (Java2DPalette) AbstractPaletteFactory.getInstance().createPalette(RendererType.JAVA2D);
+            } catch (final IOException e) {
+                e.printStackTrace();
+            } catch (final ParseException e) {
+                e.printStackTrace();
+            }
         }
 
         for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
@@ -75,24 +86,24 @@ public class Layer extends Component {
                 final Tile tile = super.getTileAt(x, y);
 
                 if (tile != null) {
-                    tile.setBackgroundColor(colorPalette.getLayer_defaultBackground());
-                    tile.setForegroundColor(colorPalette.getLayer_defaultForeground());
+                    tile.setBackgroundColor(palette.getLayerPalette().getBackground());
+                    tile.setForegroundColor(palette.getLayerPalette().getForeground());
                 }
             }
         }
     }
 
     @Override
-    public void setColorPalette(final ColorPalette colorPalette, final boolean redraw) {
-        if (colorPalette == null) {
+    public void setPalette(final Java2DPalette palette, final boolean redraw) {
+        if (palette == null) {
             return;
         }
 
-        this.colorPalette = colorPalette;
+        this.palette = palette;
 
         // Change the color of the layer's tiles.
-        final Color backgroundColor = colorPalette.getLayer_defaultBackground();
-        final Color foregroundColor = colorPalette.getLayer_defaultForeground();
+        final Color backgroundColor = palette.getLayerPalette().getBackground();
+        final Color foregroundColor = palette.getLayerPalette().getForeground();
 
         for (int y = 0 ; y < super.tiles.getHeight() ; y++) {
             for (int x = 0 ; x < super.tiles.getWidth() ; x++) {
@@ -109,7 +120,7 @@ public class Layer extends Component {
         componentsLock.readLock().lock();
 
         for (final Component component : components) {
-            component.setColorPalette(colorPalette, false);
+            component.setPalette(palette, false);
         }
 
         componentsLock.readLock().unlock();
@@ -263,8 +274,8 @@ public class Layer extends Component {
 
                     if (tile != null) {
                         tile.reset();
-                        tile.setBackgroundColor(rootScreen.getColorPalette().getDefaultBackground());
-                        tile.setForegroundColor(rootScreen.getColorPalette().getDefaultForeground());
+                        tile.setBackgroundColor(rootScreen.getPalette().getDefaultBackground());
+                        tile.setForegroundColor(rootScreen.getPalette().getDefaultForeground());
                     }
                 }
             }
