@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
-import org.apache.commons.lang.WordUtils;
+import org.apache.commons.text.WordUtils;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

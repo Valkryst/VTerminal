@@ -10,8 +10,7 @@ import com.valkryst.VTerminal.misc.ImageCache;
 import com.valkryst.VTerminal.palette.java2d.Java2DPalette;
 import lombok.Getter;
 import lombok.NonNull;
-import org.apache.commons.lang.SystemUtils;
-import org.apache.logging.log4j.LogManager;
+import org.apache.commons.lang3.SystemUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -21,9 +20,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
-import java.util.*;
 import java.util.List;
 import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -301,12 +300,12 @@ public class Screen {
      */
     public Frame addCanvasToFullScreenFrame(final GraphicsDevice device) {
         if (device == null) {
-            LogManager.getLogger().error("No device was specified when calling 'addCanvasToFullScreenFrame'.");
+            System.err.println("No device was specified when calling 'addCanvasToFullScreenFrame'.");
             return addCanvasToFrame();
         }
 
         if (device.isFullScreenSupported() == false) {
-            LogManager.getLogger().error("Full screen is not supported for the device '" + device.getIDstring() + "'.");
+            System.err.println("Full screen is not supported for the device '" + device.getIDstring() + "'.");
             return addCanvasToFrame();
         }
 

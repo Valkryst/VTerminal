@@ -1,5 +1,6 @@
 package com.valkryst.VTerminal.misc;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -43,7 +44,7 @@ public class ColorFunctionsTest {
 
         final Color color = new Color(255, 255, 255);
         final Color shadedColor = ColorFunctions.shade(color, randVal);
-        Assert.assertNotEquals(color, shadedColor);
+        Assert.assertThat(color, CoreMatchers.is(CoreMatchers.not(shadedColor)));
     }
 
     @Test
@@ -89,7 +90,7 @@ public class ColorFunctionsTest {
 
         final Color color = new Color(0, 0, 0);
         final Color tintedColor = ColorFunctions.tint(color, randVal);
-        Assert.assertNotEquals(color, tintedColor);
+        Assert.assertThat(color, CoreMatchers.is(CoreMatchers.not(tintedColor)));
     }
 
     @Test
