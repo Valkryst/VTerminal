@@ -312,7 +312,7 @@ public final class TileGrid {
 
         for (int y = startY ; y < endY ; y++) {
             for (int x = startX ; x < endX ; x++) {
-                if (y < tiles.length && x < tiles[0].length) {
+                if (x < tiles[0].length) {
                     tiles[y][x].reset();
                 }
             }
