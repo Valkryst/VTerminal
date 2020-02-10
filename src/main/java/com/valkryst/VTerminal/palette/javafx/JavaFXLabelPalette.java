@@ -6,8 +6,10 @@ import org.json.JSONObject;
 
 public final class JavaFXLabelPalette extends LabelPalette<Color> {
     /**
-     * Constructs a JavaFXLabelPalette using the JSON representation of a color palette. If the given JSON
-     * object is null, then the default color palette is used.
+     * Constructs a JavaFXLabelPalette using the JSON representation of a color
+     * palette.
+     * 
+     * @see LabelPalette#LabelPalette(JSONObject)
      *
      * @param json
      *          The JSON.

@@ -3,8 +3,6 @@ package com.valkryst.VTerminal.palette.base;
 import lombok.Getter;
 import org.json.JSONObject;
 
-import java.awt.*;
-
 public abstract class TextAreaPalette<COLOR> extends ComponentPalette {
     /** Background color of the text. */
     @Getter protected COLOR background;
@@ -24,40 +22,22 @@ public abstract class TextAreaPalette<COLOR> extends ComponentPalette {
      */
     public TextAreaPalette(JSONObject json) {
         if (json == null) {
-            json = new JSONObject("Palettes/Default.json");
+            json = new JSONObject(Palette.DEFAULT_PALETTE_FILE_PATH);
         }
 
-        final JSONObject labelJson = (JSONObject) json.get("Text Area");
-        if (labelJson == null) {
-            setBackground(Color.MAGENTA.getRGB());
-            setForeground(Color.MAGENTA.getRGB());
-            setBackgroundCaret(Color.MAGENTA.getRGB());
-            setForegroundCaret(Color.MAGENTA.getRGB());
-            return;
-        }
+        json = json.getJSONObject("Text Area");
 
-        // Load Default Colors
-        JSONObject stateJson = (JSONObject) labelJson.get("Default");
+        var sectionJson = json.getJSONObject("Default");
+        var backgroundJson = sectionJson.getJSONObject("Background");
+        var foregroundJson = sectionJson.getJSONObject("Foreground");
+        setBackground(super.getColor(backgroundJson));
+        setForeground(super.getColor(foregroundJson));
 
-        if (stateJson != null) {
-            setBackground(super.getColor((JSONObject) stateJson.get("Background")));
-            setForeground(super.getColor((JSONObject) stateJson.get("Foreground")));
-        } else {
-            setBackground(Color.MAGENTA.getRGB());
-            setForeground(Color.MAGENTA.getRGB());
-            return;
-        }
-
-        // Load Caret Colors
-        stateJson = (JSONObject) labelJson.get("Caret");
-
-        if (stateJson != null) {
-            setBackgroundCaret(super.getColor((JSONObject) stateJson.get("Background")));
-            setForegroundCaret(super.getColor((JSONObject) stateJson.get("Foreground")));
-        } else {
-            setBackgroundCaret(Color.MAGENTA.getRGB());
-            setForegroundCaret(Color.MAGENTA.getRGB());
-        }
+        sectionJson = json.getJSONObject("Caret");
+        backgroundJson = sectionJson.getJSONObject("Background");
+        foregroundJson = sectionJson.getJSONObject("Foreground");
+        setBackgroundCaret(super.getColor(backgroundJson));
+        setForegroundCaret(super.getColor(foregroundJson));
     }
 
     /**

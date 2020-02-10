@@ -7,8 +7,10 @@ import java.awt.*;
 
 public final class Java2DTextAreaPalette extends TextAreaPalette<Color> {
     /**
-     * Constructs a Java2DTextAreaPalette using the JSON representation of a color palette. If the given JSON
-     * object is null, then the default color palette is used.
+     * Constructs a Java2DTextAreaPalette using the JSON representation of a
+     * color palette.
+     * 
+     * @see TextAreaPalette#TextAreaPalette(JSONObject) 
      *
      * @param json
      *          The JSON.

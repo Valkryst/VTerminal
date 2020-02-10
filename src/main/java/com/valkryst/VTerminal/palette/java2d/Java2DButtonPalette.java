@@ -4,13 +4,13 @@ import com.valkryst.VTerminal.palette.base.ButtonPalette;
 import org.json.JSONObject;
 
 import java.awt.*;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public final class Java2DButtonPalette extends ButtonPalette<Color> {
     /**
-     * Constructs a Java2DButtonPalette using the JSON representation of a color palette. If the given JSON
-     * object is null, then the default color palette is used.
+     * Constructs a Java2DButtonPalette using the JSON representation of a color
+     * palette.
+     * 
+     * @see ButtonPalette#ButtonPalette(JSONObject)
      *
      * @param json
      *          The JSON.

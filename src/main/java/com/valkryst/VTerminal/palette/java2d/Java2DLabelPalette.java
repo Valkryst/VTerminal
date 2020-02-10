@@ -7,8 +7,10 @@ import java.awt.*;
 
 public final class Java2DLabelPalette extends LabelPalette<Color> {
     /**
-     * Constructs a Java2DLabelPalette using the JSON representation of a color palette. If the given JSON
-     * object is null, then the default color palette is used.
+     * Constructs a Java2DLabelPalette using the JSON representation of a color
+     * palette.
+     * 
+     * @see LabelPalette#LabelPalette(JSONObject)
      *
      * @param json
      *          The JSON.

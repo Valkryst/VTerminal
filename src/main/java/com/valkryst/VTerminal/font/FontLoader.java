@@ -45,7 +45,7 @@ public final class FontLoader {
             throw new IllegalArgumentException("The folder path cannot be empty.");
         }
 
-        if (folderPath.endsWith("/") == false && folderPath.endsWith("\\") == false) {
+        if (!folderPath.endsWith("/") && !folderPath.endsWith("\\")) {
             folderPath += "/";
         }
 
@@ -119,11 +119,11 @@ public final class FontLoader {
      *          If an IOException occurs while loading the FNT file lines.
      */
     public static Font loadFont(final @NonNull File folder, final double scale) throws IOException {
-        if (folder.exists() == false) {
+        if (!folder.exists()) {
             throw new IllegalArgumentException("The path '" + folder.getAbsolutePath() + "' points to a non-existent file.");
         }
 
-        if (folder.isDirectory() == false) {
+        if (!folder.isDirectory()) {
             throw new IllegalArgumentException("The path '" + folder.getAbsolutePath() + "' does not point to a directory.");
         }
 
@@ -152,7 +152,7 @@ public final class FontLoader {
             throw new IllegalStateException("The pngFiles[0] value is null.");
         }
 
-        if (pngFiles[0].exists() == false) {
+        if (!pngFiles[0].exists()) {
             throw new IllegalStateException("The path '" + pngFiles[0].getAbsolutePath() + "' points to a non-existent file.");
         }
 
@@ -162,7 +162,7 @@ public final class FontLoader {
 
         // Retrieve a list of FNT files
         final File[] fntFiles = folder.listFiles((dir, name) -> {
-            boolean matches = name.endsWith(".fnt");
+            var matches = name.endsWith(".fnt");
             matches |= name.endsWith(".Fnt");
             matches |= name.endsWith(".fNt");
             matches |= name.endsWith(".fnT");
@@ -185,7 +185,7 @@ public final class FontLoader {
             throw new IllegalStateException("The fntFiles[0] value is null.");
         }
 
-        if (fntFiles[0].exists() == false) {
+        if (!fntFiles[0].exists()) {
             throw new IllegalStateException("The path '" + fntFiles[0].getAbsolutePath() + "' points to a non-existent file.");
         }
 
@@ -268,10 +268,10 @@ public final class FontLoader {
             throw new IllegalArgumentException("The FNT path cannot be empty.");
         }
 
-        final ClassLoader classLoader = FontLoader.class.getClassLoader();
+        final var classLoader = FontLoader.class.getClassLoader();
 
-        final InputStream spriteSheetStream = classLoader.getResourceAsStream(pngFilePath);
-        final InputStream characterDataStream = classLoader.getResourceAsStream(fntFilePath);
+        final var spriteSheetStream = classLoader.getResourceAsStream(pngFilePath);
+        final var characterDataStream = classLoader.getResourceAsStream(fntFilePath);
 
         return loadFont(spriteSheetStream, characterDataStream, scale);
     }
@@ -303,8 +303,8 @@ public final class FontLoader {
             scale = 1;
         }
 
-        final BufferedImage image = loadSpriteSheet(pngStream);
-        final List<String> data = loadCharacterData(fntStream);
+        final var image = loadSpriteSheet(pngStream);
+        final var data = loadCharacterData(fntStream);
 
         return new Font(processFontData(image, data), scale);
     }
@@ -329,7 +329,7 @@ public final class FontLoader {
 
         for (final String string : fntFileLines) {
             if (string.isEmpty() == false) {
-                final Scanner scanner = new Scanner(string);
+                final var scanner = new Scanner(string);
                 final int character = scanner.nextInt();
 
                 final int x = scanner.nextInt();
@@ -361,23 +361,21 @@ public final class FontLoader {
      *          If an IOException occurs while loading the PNG image.
      */
     private static BufferedImage loadSpriteSheet(final @NonNull InputStream pngStream) throws IOException {
-        final BufferedImage loadedImage = ImageIO.read(pngStream);
+        final var loadedImage = ImageIO.read(pngStream);
         pngStream.close();
 
         try {
-            final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            final GraphicsDevice gd = ge.getDefaultScreenDevice();
-            final GraphicsConfiguration gc = gd.getDefaultConfiguration();
+            final var ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            final var gd = ge.getDefaultScreenDevice();
+            final var gc = gd.getDefaultConfiguration();
 
-            final BufferedImage convertedImage = gc.createCompatibleImage(loadedImage.getWidth(), loadedImage.getHeight(), loadedImage.getTransparency());
+            final var convertedImage = gc.createCompatibleImage(loadedImage.getWidth(), loadedImage.getHeight(), loadedImage.getTransparency());
 
-            final Graphics2D g2d = convertedImage.createGraphics();
+            final var g2d = convertedImage.createGraphics();
             g2d.drawImage(loadedImage, 0, 0, null);
             g2d.dispose();
             return convertedImage;
         } catch(final HeadlessException e) {
-            // Occurs when running FontLoader unit tests on Travis CI.
-            // Probably because there's no screen/graphics device.
             return loadedImage;
         }
     }
@@ -399,13 +397,13 @@ public final class FontLoader {
      */
     private static List<String> loadCharacterData(final @NonNull InputStream fntStream) throws IOException {
         // Load lines
-        final InputStreamReader isr = new InputStreamReader(fntStream, StandardCharsets.UTF_8);
-        final BufferedReader br = new BufferedReader(isr);
-        final List<String> lines = br.lines().collect(Collectors.toList());
+        final var isr = new InputStreamReader(fntStream, StandardCharsets.UTF_8);
+        final var br = new BufferedReader(isr);
+        final var lines = br.lines().collect(Collectors.toList());
         fntStream.close();
 
         // Remove Unnecessary Data
-        final Pattern miscPattern = Pattern.compile("info.*|common.*|page.*|chars.*|char id=\\d\\d\\d\\d\\d\\d.*|char id=[7-9]\\d\\d\\d\\d.*|char id=6[6-9]\\d\\d\\d.*|char id=65[6-9]\\d\\d.*|char id=655[4-9]\\d.*|char id=6553[6-9].*| xoff.*|char id=|x=|y=|width=|height=");
+        final var miscPattern = Pattern.compile("info.*|common.*|page.*|chars.*|char id=\\d\\d\\d\\d\\d\\d.*|char id=[7-9]\\d\\d\\d\\d.*|char id=6[6-9]\\d\\d\\d.*|char id=65[6-9]\\d\\d.*|char id=655[4-9]\\d.*|char id=6553[6-9].*| xoff.*|char id=|x=|y=|width=|height=");
         lines.replaceAll(string -> miscPattern.matcher(string).replaceAll(""));
         lines.removeIf(String::isEmpty);
 

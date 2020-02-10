@@ -6,8 +6,10 @@ import org.json.JSONObject;
 
 public class JavaFXButtonPalette extends ButtonPalette<Color> {
     /**
-     * Constructs a JavaFXButtonPalette using the JSON representation of a color palette. If the given JSON
-     * object is null, then the default color palette is used.
+     * Constructs a JavaFXButtonPalette using the JSON representation of a color
+     * palette.
+     *
+     * @see ButtonPalette#ButtonPalette(JSONObject) 
      *
      * @param json
      *          The JSON.

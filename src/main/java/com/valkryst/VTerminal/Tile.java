@@ -213,7 +213,7 @@ public class Tile {
      */
     public void setForegroundColor(final Color color) {
         if (color != null) {
-            if (foregroundColor.equals(color) == false) {
+            if (!foregroundColor.equals(color)) {
                 foregroundColor = color;
                 foregroundAndBackgroundColorEqual = foregroundColor.equals(backgroundColor);
 

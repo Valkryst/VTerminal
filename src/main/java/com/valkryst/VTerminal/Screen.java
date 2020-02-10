@@ -10,13 +10,11 @@ import com.valkryst.VTerminal.palette.java2d.Java2DPalette;
 import lombok.Getter;
 import lombok.NonNull;
 import org.apache.commons.lang3.SystemUtils;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferStrategy;
 import java.io.IOException;
 import java.util.List;
 import java.util.Queue;
@@ -141,8 +139,8 @@ public class Screen {
         this.imageCache = new ImageCache(font);
 
         // Initialize canvas.
-        final int pixelWidth = dimensions.width * imageCache.getFont().getWidth();
-        final int pixelHeight = dimensions.height * imageCache.getFont().getHeight();
+        final var pixelWidth = dimensions.width * imageCache.getFont().getWidth();
+        final var pixelHeight = dimensions.height * imageCache.getFont().getHeight();
 
         canvas.setPreferredSize(new Dimension(pixelWidth, pixelHeight));
         canvas.setIgnoreRepaint(true);
@@ -154,8 +152,8 @@ public class Screen {
 
             @Override
             public void mouseMoved(final MouseEvent e) {
-                final int mouseX = e.getX() / font.getWidth();
-                final int mouseY = e.getY() / font.getHeight();
+                final var mouseX = e.getX() / font.getWidth();
+                final var mouseY = e.getY() / font.getHeight();
 
                 mousePosition.setLocation(mouseX, mouseY);
             }
@@ -169,7 +167,7 @@ public class Screen {
      *          A frame with the canvas on it.
      */
     public Frame addCanvasToFrame() {
-        final Frame frame = new Frame();
+        final var frame = new Frame();
         frame.add(canvas);
         frame.setResizable(false);
         frame.pack();
@@ -197,7 +195,7 @@ public class Screen {
             public void componentMoved(final ComponentEvent e) {
                 if (hasFirstRenderCompleted) {
                     drawLock.lock();
-                    final GraphicsDevice newMonitor = frame.getGraphicsConfiguration().getDevice();
+                    final var newMonitor = frame.getGraphicsConfiguration().getDevice();
 
                     if (currentMonitor != newMonitor) {
                         currentMonitor = newMonitor;
@@ -296,7 +294,7 @@ public class Screen {
             return addCanvasToFrame();
         }
 
-        if (device.isFullScreenSupported() == false) {
+        if (!device.isFullScreenSupported()) {
             System.err.println("Full screen is not supported for the device '" + device.getIDstring() + "'.");
             return addCanvasToFrame();
         }
@@ -304,18 +302,18 @@ public class Screen {
         currentMonitor = device;
 
         // Resize the font, so that it fills the screen properly.
-        final double scaleX = device.getDisplayMode().getWidth() / canvas.getPreferredSize().getWidth();
-        final double scaleY = device.getDisplayMode().getHeight() / canvas.getPreferredSize().getHeight();
+        final var scaleX = device.getDisplayMode().getWidth() / canvas.getPreferredSize().getWidth();
+        final var scaleY = device.getDisplayMode().getHeight() / canvas.getPreferredSize().getHeight();
         imageCache.getFont().resize(scaleX, scaleY);
 
         // Resize the canvas, so that it has enough room to fit the resized font.
-        final int pixelWidth = tiles.getWidth() * imageCache.getFont().getWidth();
-        final int pixelHeight = tiles.getHeight() * imageCache.getFont().getHeight();
+        final var pixelWidth = tiles.getWidth() * imageCache.getFont().getWidth();
+        final var pixelHeight = tiles.getHeight() * imageCache.getFont().getHeight();
 
         canvas.setPreferredSize(new Dimension(pixelWidth, pixelHeight));
 
         // Create the frame.
-        final Frame frame = new Frame();
+        final var frame = new Frame();
         frame.add(canvas);
         frame.setResizable(false);
         frame.setUndecorated(true);
@@ -333,7 +331,7 @@ public class Screen {
 
             @Override
             public void keyPressed(final KeyEvent keyEvent) {
-                final KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, java.awt.event.InputEvent.ALT_DOWN_MASK);
+                final var keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, java.awt.event.InputEvent.ALT_DOWN_MASK);
                 if(keyStroke != null && keyEvent.getKeyCode() == KeyEvent.VK_F4){
                     device.setFullScreenWindow(null);
                     frame.dispose();
@@ -360,7 +358,7 @@ public class Screen {
     public void draw() {
         // Don't bother drawing if there's nothing displayed on the screen.
         if (canvas.getParent() instanceof Frame) {
-            final Frame parent = (Frame) canvas.getParent();
+            final var parent = (Frame) canvas.getParent();
 
             if (parent == null || parent.getState() == ICONIFIED) {
                 return;
@@ -405,7 +403,7 @@ public class Screen {
         }
 
         // Draw screen on canvas.
-        final BufferStrategy bs = canvas.getBufferStrategy();
+        final var bs = canvas.getBufferStrategy();
 
         do {
             do {
@@ -447,16 +445,16 @@ public class Screen {
 
                     // Draw every position, whose hash has changed, onto the canvas.
                     for (int x = 0; x < tiles.getWidth(); x++) {
-                        final int xPosition = tiles.getXPosition() + x;
+                        final var xPosition = tiles.getXPosition() + x;
 
                         for (int y = 0; y < tiles.getHeight(); y++) {
-                            final int yPosition = tiles.getYPosition() + y;
+                            final var yPosition = tiles.getYPosition() + y;
 
-                            final boolean hashChanged = (positionHashes_previous[x][y] != positionHashes_current[x][y]);
-                            final boolean notYetRendered = (positionHashes_previous[x][y] == 0);
+                            final var hashChanged = (positionHashes_previous[x][y] != positionHashes_current[x][y]);
+                            final var notYetRendered = (positionHashes_previous[x][y] == 0);
 
-                            if (hasFirstRenderCompleted == false || notYetRendered || hashChanged) {
-                                final Tile tile = getTileAt(x, y);
+                            if (!hasFirstRenderCompleted || notYetRendered || hashChanged) {
+                                final var tile = getTileAt(x, y);
 
                                 if (tile == null) {
                                     continue;
@@ -468,9 +466,9 @@ public class Screen {
                                 componentsLock.readLock().lock();
 
                                 for (final Component component : components) {
-                                    final TileGrid tileGrid = component.getTiles();
-                                    final int tempX = x - tileGrid.getXPosition();
-                                    final int tempY = y - tileGrid.getYPosition();
+                                    final var tileGrid = component.getTiles();
+                                    final var tempX = x - tileGrid.getXPosition();
+                                    final var tempY = y - tileGrid.getYPosition();
 
                                     tileGrid.drawTile(gc, imageCache, tempX, tempY, x, y);
                                 }
@@ -552,7 +550,7 @@ public class Screen {
      *          The component.
      */
     public Component loadComponent(final JSONObject json) throws IOException {
-        final String type = json.getString("Type");
+        final var type = json.getString("Type");
 
         if (type == null || type.isEmpty()) {
             return null;
@@ -560,36 +558,32 @@ public class Screen {
 
         switch (type) {
             case "Button": {
-                final ButtonBuilder builder = new ButtonBuilder(json);
-                return builder.build();
+                return new ButtonBuilder(json).build();
             }
             case "Check Box": {
-                final CheckBoxBuilder builder = new CheckBoxBuilder(json);
-                return builder.build();
+                return new CheckBoxBuilder(json).build();
             }
             case "Label": {
-                final LabelBuilder builder = new LabelBuilder(json);
-                return builder.build();
+                return new LabelBuilder(json).build();
             }
             case "Layer": {
-                final Integer x = json.getInt("X");
-                final Integer y = json.getInt("Y");
-                final Integer width = json.getInt("Width");
-                final Integer height = json.getInt("Height");
-                final String colorPalette = json.getString("Color Palette");
-                final JSONArray components = json.getJSONArray("Components");
+                final var x = json.getInt("X");
+                final var y = json.getInt("Y");
+                final var width = json.getInt("Width");
+                final var height = json.getInt("Height");
+                final var colorPalette = json.getString("Color Palette");
+                final var components = json.getJSONArray("Components");
 
-                final Point point = new Point((x == null ? 0 : x), (y == null ? 0 : y));
-                final Dimension dimension = new Dimension((width == null ? 1 : tiles.getWidth()), (height == null ? 1 : tiles.getHeight()));
+                final var point = new Point(x, y);
+                final var dimension = new Dimension(width, height);
 
-                final Layer layer;
-                layer = new Layer(dimension, point, new Java2DPalette(colorPalette));
+                final var layer = new Layer(dimension, point, new Java2DPalette(colorPalette));
 
                 if (components != null) {
-                    for (final Object componentJson : components) {
-                        final Component newComponent = loadComponent((JSONObject) componentJson);
+                    for (final var componentJson : components) {
+                        final var newComponent = loadComponent((JSONObject) componentJson);
 
-                        for (final Component existingComponent : layer.getComponents()) {
+                        for (final var existingComponent : layer.getComponents()) {
                             if (newComponent.getId().equals(existingComponent.getId())) {
                                 newComponent.setId(UUID.randomUUID().toString());
                                 // todo Display debug info, saying that there was anaming conflict.
@@ -603,16 +597,13 @@ public class Screen {
                 return layer;
             }
             case "Progress Bar": {
-                final ProgressBarBuilder builder = new ProgressBarBuilder(json);
-                return builder.build();
+                return new ProgressBarBuilder(json).build();
             }
             case "Radio Button": {
-                final RadioButtonBuilder builder = new RadioButtonBuilder(json);
-                return builder.build();
+                return new RadioButtonBuilder(json).build();
             }
             case "Text Area": {
-                final TextAreaBuilder builder = new TextAreaBuilder(json);
-                return builder.build();
+                return new TextAreaBuilder(json).build();
             }
             default: {
                 return null;
@@ -636,7 +627,7 @@ public class Screen {
 
         drawLock.lock();
 
-        for (final Component component : components) {
+        for (final var component : components) {
             if (component == null) {
                 drawLock.unlock();
                 return;
@@ -647,7 +638,7 @@ public class Screen {
                 subComponents.add(component);
 
                 while (subComponents.size() > 0) {
-                    final Component temp = subComponents.remove();
+                    final var temp = subComponents.remove();
 
                     // Set the component's redraw function
                     temp.setRedrawFunction(this::draw);
@@ -698,7 +689,7 @@ public class Screen {
 
         drawLock.lock();
 
-        for (final Component component : components) {
+        for (final var component : components) {
             if (component == null) {
                 drawLock.unlock();
                 return;
@@ -863,8 +854,8 @@ public class Screen {
         }
 
         for (final Component component : layer.getComponents()) {
-            final int x = layer.getTiles().getXPosition() + component.getTiles().getXPosition();
-            final int y = layer.getTiles().getYPosition() + component.getTiles().getYPosition();
+            final var x = layer.getTiles().getXPosition() + component.getTiles().getXPosition();
+            final var y = layer.getTiles().getYPosition() + component.getTiles().getYPosition();
             component.setBoundingBoxOrigin(x, y);
 
             if (component instanceof Layer) {
@@ -887,7 +878,7 @@ public class Screen {
             return null;
         }
 
-        for (final Component component : components) {
+        for (final var component : components) {
             if (component.getId().equals(id)) {
                 return component;
             }
@@ -982,9 +973,9 @@ public class Screen {
         this.palette = palette;
 
         // Change the color of the screen's tiles.
-        for (int y = 0 ; y < tiles.getHeight() ; y++) {
-            for (int x = 0 ; x < tiles.getWidth() ; x++) {
-                final Tile tile = tiles.getTileAt(x, y);
+        for (var y = 0 ; y < tiles.getHeight() ; y++) {
+            for (var x = 0 ; x < tiles.getWidth() ; x++) {
+                final var tile = tiles.getTileAt(x, y);
 
                 if (tile != null) {
                     tile.setForegroundColor(palette.getDefaultBackground());
@@ -996,7 +987,7 @@ public class Screen {
         // Change child component color palettes.
         componentsLock.readLock().lock();
 
-        for (final Component component : components) {
+        for (final var component : components) {
             component.setPalette(palette, false);
         }
 

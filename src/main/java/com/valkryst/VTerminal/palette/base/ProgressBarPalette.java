@@ -1,12 +1,7 @@
 package com.valkryst.VTerminal.palette.base;
 
 import lombok.Getter;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.awt.*;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public abstract class ProgressBarPalette<COLOR> extends ComponentPalette {
     /** Background color, for the complete state. */
@@ -19,55 +14,32 @@ public abstract class ProgressBarPalette<COLOR> extends ComponentPalette {
     @Getter protected COLOR foregroundIncomplete;
 
     /**
-     * Constructs a ProgressBarPalette using the JSON representation of a color palette. If the given JSON
-     * object is null, then the default color palette is used.
+     * Constructs a ProgressBarPalette using the JSON representation of a color
+     * palette.
+     *
+     * If the given JSON object is null, then the default color palette is used.
      *
      * @param json
      *          The JSON.
      */
     public ProgressBarPalette(JSONObject json) {
         if (json == null) {
-            json = new JSONObject("Palettes/Default.json");
+            json = new JSONObject(Palette.DEFAULT_PALETTE_FILE_PATH);
         }
 
-        final JSONObject buttonJson = json.getJSONObject("Progress Bar");
-        if (buttonJson == null) {
-            setBackground(Color.MAGENTA.getRGB());
-            setForeground(Color.MAGENTA.getRGB());
-            setBackgroundIncomplete(Color.MAGENTA.getRGB());
-            setForegroundIncomplete(Color.MAGENTA.getRGB());
-            return;
-        }
+        json = json.getJSONObject("Progress Bar");
 
-        // Load Normal Colors
-        JSONObject stateJson;
+        var sectionJson = json.getJSONObject(json.has("Complete") ? "Complete" : "Default");
+        var backgroundJson = sectionJson.getJSONObject("Background");
+        var foregroundJson = sectionJson.getJSONObject("Foreground");
+        setBackground(super.getColor(backgroundJson));
+        setForeground(super.getColor(foregroundJson));
 
-        try {
-            stateJson = buttonJson.getJSONObject("Default");
-            setBackground(super.getColor(stateJson.getJSONObject("Background")));
-            setForeground(super.getColor(stateJson.getJSONObject("Foreground")));
-        } catch (final JSONException e) {
-            stateJson = buttonJson.getJSONObject("Complete");
-
-            if (stateJson != null) {
-                setBackground(super.getColor(stateJson.getJSONObject("Background")));
-                setForeground(super.getColor(stateJson.getJSONObject("Foreground")));
-            } else {
-                setBackground(Color.MAGENTA.getRGB());
-                setForeground(Color.MAGENTA.getRGB());
-            }
-        }
-
-        // Load Incomplete Colors
-        stateJson = (JSONObject) buttonJson.get("Incomplete");
-
-        if (stateJson != null) {
-            setBackgroundIncomplete(super.getColor((JSONObject) stateJson.get("Background")));
-            setForegroundIncomplete(super.getColor((JSONObject) stateJson.get("Foreground")));
-        } else {
-            setBackgroundIncomplete(Color.MAGENTA.getRGB());
-            setForegroundIncomplete(Color.MAGENTA.getRGB());
-        }
+        sectionJson = json.getJSONObject("Incomplete");
+        backgroundJson = sectionJson.getJSONObject("Background");
+        foregroundJson = sectionJson.getJSONObject("Foreground");
+        setBackgroundIncomplete(super.getColor(backgroundJson));
+        setForegroundIncomplete(super.getColor(foregroundJson));
     }
 
     public abstract void setBackgroundIncomplete(final int rgba);

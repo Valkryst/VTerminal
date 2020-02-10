@@ -3,8 +3,6 @@ package com.valkryst.VTerminal.palette.base;
 import lombok.Getter;
 import org.json.JSONObject;
 
-import java.awt.*;
-
 public abstract class RadioButtonPalette<COLOR> extends ComponentPalette {
     /** Background color, for the normal state. */
     @Getter protected COLOR background;
@@ -28,52 +26,28 @@ public abstract class RadioButtonPalette<COLOR> extends ComponentPalette {
      */
     public RadioButtonPalette(JSONObject json) {
         if (json == null) {
-            json = new JSONObject("Palettes/Default.json");
+            json = new JSONObject(Palette.DEFAULT_PALETTE_FILE_PATH);
         }
 
-        final JSONObject buttonJson = (JSONObject) json.get("Radio Button");
-        if (buttonJson == null) {
-            setBackground(Color.MAGENTA.getRGB());
-            setForeground(Color.MAGENTA.getRGB());
-            setBackgroundHover(Color.MAGENTA.getRGB());
-            setForegroundHover(Color.MAGENTA.getRGB());
-            setBackgroundPressed(Color.MAGENTA.getRGB());
-            setForegroundPressed(Color.MAGENTA.getRGB());
-            return;
-        }
+        json = json.getJSONObject("Radio Button");
 
-        // Load Default Colors
-        JSONObject stateJson = (JSONObject) buttonJson.get("Default");
+        var sectionJson = json.getJSONObject("Default");
+        var backgroundJson = sectionJson.getJSONObject("Background");
+        var foregroundJson = sectionJson.getJSONObject("Foreground");
+        setBackground(super.getColor(backgroundJson));
+        setForeground(super.getColor(foregroundJson));
 
-        if (stateJson != null) {
-            setBackground(super.getColor((JSONObject) stateJson.get("Background")));
-            setForeground(super.getColor((JSONObject) stateJson.get("Foreground")));
-        } else {
-            setBackground(Color.MAGENTA.getRGB());
-            setForeground(Color.MAGENTA.getRGB());
-        }
+        sectionJson = json.getJSONObject("Hover");
+        backgroundJson = sectionJson.getJSONObject("Background");
+        foregroundJson = sectionJson.getJSONObject("Foreground");
+        setBackgroundHover(super.getColor(backgroundJson));
+        setForegroundHover(super.getColor(foregroundJson));
 
-        // Load Hover Colors
-        stateJson = (JSONObject) buttonJson.get("Hover");
-
-        if (stateJson != null) {
-            setBackgroundHover(super.getColor((JSONObject) stateJson.get("Background")));
-            setForegroundHover(super.getColor((JSONObject) stateJson.get("Foreground")));
-        } else {
-            setBackgroundHover(Color.MAGENTA.getRGB());
-            setForegroundHover(Color.MAGENTA.getRGB());
-        }
-
-        // Load Pressed Colors
-        stateJson = (JSONObject) buttonJson.get("Pressed");
-
-        if (stateJson != null) {
-            setBackgroundPressed(super.getColor((JSONObject) stateJson.get("Background")));
-            setForegroundPressed(super.getColor((JSONObject) stateJson.get("Foreground")));
-        } else {
-            setBackgroundPressed(Color.MAGENTA.getRGB());
-            setForegroundPressed(Color.MAGENTA.getRGB());
-        }
+        sectionJson = json.getJSONObject("Pressed");
+        backgroundJson = sectionJson.getJSONObject("Background");
+        foregroundJson = sectionJson.getJSONObject("Foreground");
+        setBackgroundPressed(super.getColor(backgroundJson));
+        setForegroundPressed(super.getColor(foregroundJson));
     }
 
     /**

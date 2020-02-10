@@ -76,17 +76,8 @@ public final class TileGrid {
             return;
         }
 
-        if (position.x < 0) {
-            this.position.x = 0;
-        } else {
-            this.position.x = position.x;
-        }
-
-        if (position.y < 0) {
-            this.position.y = 0;
-        } else {
-            this.position.y = position.y;
-        }
+        this.position.x = Math.max(position.x, 0);
+        this.position.y = Math.max(position.y, 0);
     }
 
     /**
@@ -164,7 +155,7 @@ public final class TileGrid {
     public void convertToGraphicTileGrid() {
         for (int y = 0 ; y < tiles.length ; y++) {
             for (int x = 0 ; x < tiles[0].length ; x++) {
-                if (tiles[y][x] instanceof GraphicTile == false) {
+                if (!(tiles[y][x] instanceof GraphicTile)) {
                     tiles[y][x] = new GraphicTile(tiles[y][x]);
                 }
             }
@@ -532,7 +523,7 @@ public final class TileGrid {
             return EMPTY_ARRAY;
         }
 
-        final int endRow = (rowIndex + length) >= tiles.length ? tiles.length : (rowIndex + length);
+        final int endRow = Math.min((rowIndex + length), tiles.length);
 
         final Tile[] columnTiles = getColumn(columnIndex);
         final Tile[] resultTiles = new Tile[endRow];

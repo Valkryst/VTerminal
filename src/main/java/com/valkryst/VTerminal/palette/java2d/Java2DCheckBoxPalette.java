@@ -7,8 +7,10 @@ import java.awt.*;
 
 public final class Java2DCheckBoxPalette extends CheckBoxPalette<Color> {
     /**
-     * Constructs a Java2DCheckBoxPalette using the JSON representation of a color palette. If the given JSON
-     * object is null, then the default color palette is used.
+     * Constructs a Java2DCheckBoxPalette using the JSON representation of a
+     * color palette.
+     * 
+     * @see CheckBoxPalette#CheckBoxPalette(JSONObject)
      *
      * @param json
      *          The JSON.

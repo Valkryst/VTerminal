@@ -34,7 +34,7 @@ Dependency:
     <dependency>
         <groupId>com.github.Valkryst</groupId>
         <artifactId>VTerminal</artifactId>
-        <version>2020.02.09-break-alpha</version>
+        <version>2020.02.10-break</version>
     </dependency>
 
 ### Jar

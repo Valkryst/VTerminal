@@ -19,8 +19,8 @@ public class JavaFXPalette extends Palette<Color> {
     }
 
     /**
-     * Constructs a JavaFXPalette using the JSON representation of a palette loaded from a JSON file either
-     * within the JAR or on the local filesystem.
+     * Constructs a JavaFXPalette using the JSON representation of a palette
+     * loaded from a JSON file either within the JAR or on the local filesystem.
      *
      * @param filePath
      *          The path of the JSON file.
@@ -46,15 +46,9 @@ public class JavaFXPalette extends Palette<Color> {
         super.progressBarPalette = new JavaFXProgressBarPalette(colorPaletteJson);
         super.textAreaPalette = new JavaFXTextAreaPalette(colorPaletteJson);
 
-        final JSONObject defaultJson = (JSONObject) colorPaletteJson.get("Default");
-        if (defaultJson != null) {
-            setDefaultBackground(super.getColor((JSONObject) defaultJson.get("Background")));
-            setDefaultForeground(super.getColor((JSONObject) defaultJson.get("Foreground")));
-        } else {
-
-            setDefaultBackground(java.awt.Color.MAGENTA.getRGB());
-            setDefaultForeground(java.awt.Color.MAGENTA.getRGB());
-        }
+        final JSONObject defaultJson = colorPaletteJson.getJSONObject("Default");
+        setDefaultBackground(super.getColor(defaultJson.getJSONObject("Background")));
+        setDefaultForeground(super.getColor(defaultJson.getJSONObject("Foreground")));
     }
 
     /**
