@@ -7,8 +7,10 @@ import java.awt.*;
 
 public final class Java2DProgressBarPalette extends ProgressBarPalette<Color> {
     /**
-     * Constructs a Java2DProgressBarPalette using the JSON representation of a color palette. If the given
-     * JSON object is null, then the default color palette is used.
+     * Constructs a Java2DProgressBarPalette using the JSON representation of a
+     * color palette.
+     * 
+     * @see ProgressBarPalette#ProgressBarPalette(JSONObject)
      *
      * @param json
      *          The JSON.

@@ -7,8 +7,10 @@ import java.awt.*;
 
 public final class Java2DLayerPalette extends LayerPalette<Color> {
     /**
-     * Constructs a Java2DLayerPalette using the JSON representation of a color palette. If the given JSON
-     * object is null, then the default color palette is used.
+     * Constructs a Java2DLayerPalette using the JSON representation of a color
+     * palette.
+     *
+     * @see LayerPalette#LayerPalette(JSONObject)
      *
      * @param json
      *          The JSON.

@@ -22,8 +22,8 @@ public final class Java2DPalette extends Palette<Color> {
     }
 
     /**
-     * Constructs a Java2DPalette using the JSON representation of a palette loaded from a JSON file either
-     * within the JAR or on the local filesystem.
+     * Constructs a Java2DPalette using the JSON representation of a palette
+     * loaded from a JSON file either within the JAR or on the local filesystem.
      *
      * @param filePath
      *          The path of the JSON file.
@@ -46,14 +46,9 @@ public final class Java2DPalette extends Palette<Color> {
         super.progressBarPalette = new Java2DProgressBarPalette(colorPaletteJson);
         super.textAreaPalette = new Java2DTextAreaPalette(colorPaletteJson);
 
-        final JSONObject defaultJson = (JSONObject) colorPaletteJson.get("Default");
-        if (defaultJson != null) {
-            setDefaultBackground(super.getColor((JSONObject) defaultJson.get("Background")));
-            setDefaultForeground(super.getColor((JSONObject) defaultJson.get("Foreground")));
-        } else {
-            setDefaultBackground(Color.MAGENTA.getRGB());
-            setDefaultForeground(Color.MAGENTA.getRGB());
-        }
+        final JSONObject defaultJson = colorPaletteJson.getJSONObject("Default");
+        setDefaultBackground(super.getColor(defaultJson.getJSONObject("Background")));
+        setDefaultForeground(super.getColor(defaultJson.getJSONObject("Foreground")));
     }
 
     @Override

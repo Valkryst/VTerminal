@@ -2,8 +2,6 @@ package com.valkryst.VTerminal.palette.base;
 
 import com.valkryst.VTerminal.misc.ColorFunctions;
 import lombok.Getter;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.awt.*;
@@ -47,30 +45,33 @@ public abstract class Palette<COLOR> {
             return Color.MAGENTA.getRGB();
         }
 
-        // Load either an RGBA or Hex color:
+        // Load the color.
         Color color;
-        try {
-            color = readRGBAColor(json.getJSONArray("RGBA"));
-        } catch (final JSONException e) {
-            color = Color.decode("#" + json.getString("Hex"));
+        if (json.has("RGBA")) {
+            final var array = json.getJSONArray("RGBA");
+            final var red = array.getInt(0);
+            final var green = array.getInt(1);
+            final var blue = array.getInt(2);
+            final var alpha = array.getInt(3);
+            color = new Color(red, green, blue, alpha);
+        } else if (json.has("Hex")) {
+            final var hex = json.getString("Hex");
+            color = Color.decode(hex);
+        } else {
+            // todo Display an error in the console.
+            color = Color.MAGENTA;
         }
 
-        // Apply Tint/Shade:
-        try {
-            final Double tint = json.getDouble("Tint");
-            color = ColorFunctions.tint(color, tint);
-        } catch (final JSONException e) {}
+        // Load the tint/shade.
+        if (json.has("Tint")) {
+            color = ColorFunctions.tint(color, json.getDouble("Tint"));
+        }
 
-        try {
-            final Double shade = json.getDouble("Shade");
-            color = ColorFunctions.shade(color, shade);
-        } catch (final JSONException e) {}
+        if (json.has("Shade")) {
+            color = ColorFunctions.shade(color, json.getDouble("Shade"));
+        }
 
         return color.getRGB();
-    }
-
-    private Color readRGBAColor(final JSONArray json) {
-        return new Color(json.getInt(0), json.getInt(1), json.getInt(2), json.getInt(3));
     }
 
     /** Checks if each palette has been loaded. */

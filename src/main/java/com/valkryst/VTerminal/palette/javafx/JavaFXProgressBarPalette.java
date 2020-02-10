@@ -6,8 +6,10 @@ import org.json.JSONObject;
 
 public final class JavaFXProgressBarPalette extends ProgressBarPalette<Color> {
     /**
-     * Constructs a JavaFXProgressBarPalette using the JSON representation of a color palette. If the given
-     * JSON object is null, then the default color palette is used.
+     * Constructs a JavaFXProgressBarPalette using the JSON representation of a
+     * color palette.
+     *
+     * @see ProgressBarPalette#ProgressBarPalette(JSONObject)
      *
      * @param json
      *          The JSON.

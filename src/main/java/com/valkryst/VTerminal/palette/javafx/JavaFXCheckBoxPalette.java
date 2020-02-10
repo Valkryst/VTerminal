@@ -6,8 +6,10 @@ import org.json.JSONObject;
 
 public class JavaFXCheckBoxPalette extends CheckBoxPalette<Color> {
     /**
-     * Constructs a JavaFXCheckBoxPalette using the JSON representation of a color palette. If the given JSON
-     * object is null, then the default color palette is used.
+     * Constructs a JavaFXCheckBoxPalette using the JSON representation of a
+     * color palette.
+     *
+     * @see CheckBoxPalette#CheckBoxPalette(JSONObject)
      *
      * @param json
      *          The JSON.

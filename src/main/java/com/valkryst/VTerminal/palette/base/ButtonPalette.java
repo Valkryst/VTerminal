@@ -3,9 +3,6 @@ package com.valkryst.VTerminal.palette.base;
 import lombok.Getter;
 import org.json.JSONObject;
 
-import java.awt.*;
-import java.io.FileNotFoundException;
-
 public abstract class ButtonPalette<COLOR> extends ComponentPalette {
     /** Background color, for the normal state. */
     @Getter protected COLOR background;
@@ -21,63 +18,38 @@ public abstract class ButtonPalette<COLOR> extends ComponentPalette {
     @Getter protected COLOR foregroundPressed;
 
     /**
-     * Constructs a ButtonPalette using the JSON representation of a color palette. If the given JSON
-     * object is null, then the default color palette is used.
+     * Constructs a ButtonPalette using the JSON representation of a color
+     * palette.
+     *
+     * If the given JSON object is null, then the default color palette is used.
      *
      * @param json
      *          The JSON.
-     *
-     * @throws FileNotFoundException
-     *          If the default color palette file cannot be found within the Jar or on the filesystem.
      */
     public ButtonPalette(JSONObject json) {
         if (json == null) {
-            json = new JSONObject("Palettes/Default.json");
+            json = new JSONObject(Palette.DEFAULT_PALETTE_FILE_PATH);
         }
 
-        final JSONObject buttonJson = (JSONObject) json.get("Button");
-        if (buttonJson == null) {
-            setBackground(Color.MAGENTA.getRGB());
-            setForeground(Color.MAGENTA.getRGB());
-            setBackgroundHover(Color.MAGENTA.getRGB());
-            setForegroundHover(Color.MAGENTA.getRGB());
-            setBackgroundPressed(Color.MAGENTA.getRGB());
-            setForegroundPressed(Color.MAGENTA.getRGB());
-            return;
-        }
+        json = json.getJSONObject("Button");
 
-        // Load Normal Colors
-        JSONObject stateJson = (JSONObject) buttonJson.get("Default");
+        var sectionJson = json.getJSONObject(json.has("Normal") ? "Normal" : "Default");
+        var backgroundJson = sectionJson.getJSONObject("Background");
+        var foregroundJson = sectionJson.getJSONObject("Foreground");
+        setBackground(super.getColor(backgroundJson));
+        setForeground(super.getColor(foregroundJson));
 
-        if (stateJson != null) {
-            setBackground(super.getColor(stateJson.getJSONObject("Background")));
-            setForeground(super.getColor(stateJson.getJSONObject("Foreground")));
-        } else {
-            setBackground(Color.MAGENTA.getRGB());
-            setForeground(Color.MAGENTA.getRGB());
-        }
+        sectionJson = json.getJSONObject("Hover");
+        backgroundJson = sectionJson.getJSONObject("Background");
+        foregroundJson = sectionJson.getJSONObject("Foreground");
+        setBackgroundHover(super.getColor(backgroundJson));
+        setForegroundHover(super.getColor(foregroundJson));
 
-        // Load Hover Colors
-        stateJson = (JSONObject) buttonJson.get("Hover");
-
-        if (stateJson != null) {
-            setBackgroundHover(super.getColor((JSONObject) stateJson.get("Background")));
-            setForegroundHover(super.getColor((JSONObject) stateJson.get("Foreground")));
-        } else {
-            setBackgroundHover(Color.MAGENTA.getRGB());
-            setForegroundHover(Color.MAGENTA.getRGB());
-        }
-
-        // Load Pressed Colors
-        stateJson = (JSONObject) buttonJson.get("Pressed");
-
-        if (stateJson != null) {
-            setBackgroundPressed(super.getColor((JSONObject) stateJson.get("Background")));
-            setForegroundPressed(super.getColor((JSONObject) stateJson.get("Foreground")));
-        } else {
-            setBackgroundPressed(Color.MAGENTA.getRGB());
-            setForegroundPressed(Color.MAGENTA.getRGB());
-        }
+        sectionJson = json.getJSONObject("Pressed");
+        backgroundJson = sectionJson.getJSONObject("Background");
+        foregroundJson = sectionJson.getJSONObject("Foreground");
+        setBackgroundPressed(super.getColor(backgroundJson));
+        setForegroundPressed(super.getColor(foregroundJson));
     }
 
     /**

@@ -3,8 +3,6 @@ package com.valkryst.VTerminal.palette.base;
 import lombok.Getter;
 import org.json.JSONObject;
 
-import java.awt.*;
-
 public abstract class LayerPalette<COLOR> extends ComponentPalette {
     /** Background color. */
     @Getter protected COLOR background;
@@ -12,32 +10,25 @@ public abstract class LayerPalette<COLOR> extends ComponentPalette {
     @Getter protected COLOR foreground;
 
     /**
-     * Constructs a LayerPalette using the JSON representation of a color palette. If the given JSON
-     * object is null, then the default color palette is used.
+     * Constructs a LayerPalette using the JSON representation of a color
+     * palette.
+     *
+     * If the given JSON object is null, then the default color palette is used.
      *
      * @param json
      *          The JSON.
      */
     public LayerPalette(JSONObject json) {
         if (json == null) {
-            json = new JSONObject("Palettes/Default.json");
+            json = new JSONObject(Palette.DEFAULT_PALETTE_FILE_PATH);
         }
 
-        final JSONObject labelJson = (JSONObject) json.get("Layer");
-        if (labelJson == null) {
-            setBackground(Color.MAGENTA.getRGB());
-            setForeground(Color.MAGENTA.getRGB());
-            return;
-        }
+        json = json.getJSONObject("Label");
 
-        final JSONObject stateJson = (JSONObject) labelJson.get("Default");
-        if (stateJson == null) {
-            setBackground(Color.MAGENTA.getRGB());
-            setForeground(Color.MAGENTA.getRGB());
-            return;
-        }
-
-        setBackground(super.getColor((JSONObject) stateJson.get("Background")));
-        setForeground(super.getColor((JSONObject) stateJson.get("Foreground")));
+        var sectionJson = json.getJSONObject("Default");
+        var backgroundJson = sectionJson.getJSONObject("Background");
+        var foregroundJson = sectionJson.getJSONObject("Foreground");
+        setBackground(super.getColor(backgroundJson));
+        setForeground(super.getColor(foregroundJson));
     }
 }
