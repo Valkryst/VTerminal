@@ -1,4 +1,7 @@
-![](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiUXp5M3NYSlJRQlpUQ0hCdFkvUXdka0YrYnhMNzRlMWoySlVSOGM1RndVdFNHSGdQdTZiMFdjcHk5Ti9xa3daV2xLSkkwMDdxZStWMDNoN3RVc1dxN29zPSIsIml2UGFyYW1ldGVyU3BlYyI6Ik1ZK0pnK3pxcGE1d21JbFYiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master) [![Release](https://jitpack.io/v/Valkryst/VTerminal.svg)](https://jitpack.io/#Valkryst/VTerminal)[![Total alerts](https://img.shields.io/lgtm/alerts/g/Valkryst/VTerminal.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Valkryst/VTerminal/alerts/)[![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/Valkryst/VTerminal.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Valkryst/VTerminal/context:java)
+[![CircleCI](https://circleci.com/gh/Valkryst/VTerminal/tree/master.svg?style=svg)](https://circleci.com/gh/Valkryst/VTerminal/tree/master)
+[![Release](https://jitpack.io/v/Valkryst/VTerminal.svg)](https://jitpack.io/#Valkryst/VTerminal)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/Valkryst/VTerminal.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Valkryst/VTerminal/alerts/)
+[![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/Valkryst/VTerminal.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Valkryst/VTerminal/context:java)
 
 
 The project is currently in it's Soft release phase. During this phase, there *may* be code breaking changes if required.
