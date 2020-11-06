@@ -13,8 +13,8 @@ The project is currently in it's Soft release phase. During this phase, there *m
     * [Roguelike Development Tutorial with VTerminal](https://github.com/Valkryst/VTerminal_Tutorial/wiki)
     * [JavaDoc Documentation](https://jitpack.io/com/github/Valkryst/VTerminal/latest/javadoc/)
     * [Usage Guide](https://github.com/Valkryst/VTerminal/wiki)
-* [Performance Tips](https://valkryst.com/Sections/VTerminal/Articles/Performance%20Tips/index.html)
-* [Resolving Compatibility & Render Issues](https://valkryst.com/Sections/VTerminal/Articles/Resolving%20Compatibility%20&%20Render%20Issues/index.html)
+* [Performance Tips](https://valkryst.com/posts/13)
+* [Resolving Compatibility & Render Issues](https://valkryst.com/posts/10)
 
 
 ## Jar Files & Maven
