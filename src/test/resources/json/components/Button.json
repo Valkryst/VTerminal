@@ -1,8 +1,0 @@
-{
-    "Id": "Button #1",
-    "Type": "Button",
-    "X": 0,
-    "Y": 0,
-    "Color Palette": "Color Palettes/PaleNight.json",
-    "Text": "Sample text."
-}
