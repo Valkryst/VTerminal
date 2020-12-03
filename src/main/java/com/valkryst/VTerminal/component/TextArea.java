@@ -449,50 +449,50 @@ public class TextArea extends Component {
     }
 
     /** Moves the caret one cell up. */
-    private void moveCaretUp() {
+    public void moveCaretUp() {
         if (caretPosition.y > 0) {
             changeCaretPosition(caretPosition.x, caretPosition.y - 1);
         }
     }
 
     /** Moves the caret one cell down. */
-    private void moveCaretDown() {
+    public void moveCaretDown() {
         if (caretPosition.y < super.tiles.getHeight() - 1) {
             changeCaretPosition(caretPosition.x, caretPosition.y + 1);
         }
     }
 
     /** Moves the caret one cell left. */
-    private void moveCaretLeft() {
+    public void moveCaretLeft() {
         if (caretPosition.x > 0) {
             changeCaretPosition(caretPosition.x - 1, caretPosition.y);
         }
     }
 
     /** Moves the caret one cell right. */
-    private void moveCaretRight() {
+    public void moveCaretRight() {
         if (caretPosition.x < super.tiles.getWidth() - 1) {
             changeCaretPosition(caretPosition.x + 1, caretPosition.y);
         }
     }
 
     /** Moves the caret to the first line. Does not change the x-axis position of the caret. */
-    private void moveCaretToFirstLine() {
+    public void moveCaretToFirstLine() {
         changeCaretPosition(caretPosition.x, 0);
     }
 
     /** Moves the caret to the last line. Does not change the x-axis position of the caret. */
-    private void moveCaretToLastLine() {
+    public void moveCaretToLastLine() {
         changeCaretPosition(caretPosition.x, super.tiles.getHeight() - 1);
     }
 
     /** Moves the caret to the beginning of the current line. */
-    private void moveCaretToStartOfLine() {
+    public void moveCaretToStartOfLine() {
         changeCaretPosition(0, caretPosition.y);
     }
 
     /** Moves the caret to the end of the current line. */
-    private void moveCaretToEndOfLine() {
+    public void moveCaretToEndOfLine() {
         changeCaretPosition(super.tiles.getWidth() - 1, caretPosition.y);
     }
 
@@ -511,7 +511,7 @@ public class TextArea extends Component {
      * @param y
      *          The y-axis coordinate of the new position.
      */
-    private void changeCaretPosition(final int x, final int y) {
+    public void changeCaretPosition(final int x, final int y) {
         // Reset current position.
         Tile tile = super.getTileAt(caretPosition.x, caretPosition.y);
 
@@ -623,6 +623,24 @@ public class TextArea extends Component {
         setText(super.tiles.getHeight() - 1, text);
 
         updateDisplayedCharacters();
+    }
+
+    /**
+     * Retrieves the text contained within this text area.
+     *
+     * @return
+     *      The text.
+     */
+    public String getText() {
+        final StringBuilder sb = new StringBuilder();
+
+        for (final int[] row : enteredText) {
+            for (final int character : row) {
+                sb.appendCodePoint(character);
+            }
+        }
+
+        return sb.toString();
     }
 
 
