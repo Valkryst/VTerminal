@@ -44,7 +44,7 @@ public class TextArea extends Component {
     @Getter private int[][] enteredText;
 
     /** Whether the text area is in-focus. */
-    private boolean isFocused;
+    @Getter private boolean isFocused;
 
     /** The pattern used to determine which typed characters can be entered into the field. */
     @Getter @Setter private Pattern allowedCharacterPattern;
