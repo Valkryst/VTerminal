@@ -30,9 +30,9 @@ public class TextArea extends Component {
     @Getter @Setter private Color caretBackgroundColor;
 
     /** The foreground color of non-caret characters. */
-    @Getter @Setter private Color foregroundColor;
+    @Getter private Color foregroundColor;
     /** The background color of non-caret characters. */
-    @Getter @Setter private Color backgroundColor;
+    @Getter private Color backgroundColor;
 
     /** Whether or not the TextArea can be edited. */
     @Getter @Setter private boolean editable;
@@ -398,6 +398,57 @@ public class TextArea extends Component {
         super.eventListeners.add(keyListener);
         super.eventListeners.add(mouseListener);
     }
+
+    public void setBackgroundColor(final @NonNull Color color) {
+    	setColor(color, true);
+	}
+
+	public void setForegroundColor(final @NonNull Color color) {
+		setColor(color, false);
+	}
+
+	private void setColor(final Color color, final boolean isBackgroundColor) {
+    	if (isBackgroundColor) {
+    		backgroundColor = color;
+    		caretForegroundColor = color;
+		} else {
+    		foregroundColor = color;
+    		caretBackgroundColor = color;
+		}
+
+		// Color All Tiles
+		for (int y = 0 ; y < tiles.getHeight() ; y++) {
+			for (int x = 0 ; x < tiles.getWidth() ; x++) {
+				final Tile tile = tiles.getTileAt(x, y);
+
+				if (tile != null) {
+					tile.setBackgroundColor(backgroundColor);
+					tile.setForegroundColor(foregroundColor);
+				}
+			}
+		}
+
+		// Color Caret
+		final Tile tile = tiles.getTileAt(caretPosition.x, caretPosition.y);
+
+		if (tile != null) {
+			tile.setBackgroundColor(caretBackgroundColor);
+			tile.setForegroundColor(caretForegroundColor);
+		}
+
+		try {
+			redrawFunction.run();
+		} catch (final IllegalStateException ignored) {
+			/*
+			 * If we set the color before the screen is displayed, then it'll throw...
+			 *
+			 *      IllegalStateException: Component must have a valid peer
+			 *
+			 * We can just ignore it in this case, because the screen will be drawn when it is displayed for
+			 * the first time.
+			 */
+		}
+	}
 
     @Override
     public void setPalette(final Java2DPalette palette, final boolean redraw) {
