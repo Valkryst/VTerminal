@@ -4,10 +4,9 @@ import com.valkryst.VTerminal.palette.base.Palette;
 import org.json.JSONObject;
 
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public final class Java2DPalette extends Palette<Color> {
     /**
@@ -23,7 +22,7 @@ public final class Java2DPalette extends Palette<Color> {
 
     /**
      * Constructs a Java2DPalette using the JSON representation of a palette
-     * loaded from a JSON file either within the JAR or on the local filesystem.
+     * loaded from a JSON file either within the JAR.
      *
      * @param filePath
      *          The path of the JSON file.
@@ -32,12 +31,22 @@ public final class Java2DPalette extends Palette<Color> {
      *          If the file path is empty.
      *          If the file path does not end with ".json".
      */
-    public Java2DPalette(String filePath) throws IOException {
+	public Java2DPalette(String filePath) throws IOException {
         if (filePath == null || filePath.isEmpty()) {
             filePath = DEFAULT_PALETTE_FILE_PATH;
         }
 
-        final JSONObject colorPaletteJson = new JSONObject(Files.readString(Paths.get(filePath), StandardCharsets.UTF_8));
+        final var file = Java2DPalette.class.getClassLoader().getResource(filePath).getFile();
+        final var sb = new StringBuilder();
+
+        try (final var br = new BufferedReader(new FileReader(file))) {
+			String line;
+        	while ((line = br.readLine()) != null) {
+        		sb.append(line);
+			}
+		}
+
+        final JSONObject colorPaletteJson = new JSONObject(sb.toString());
         super.buttonPalette = new Java2DButtonPalette(colorPaletteJson);
         super.radioButtonPalette = new Java2DRadioButtonPalette(colorPaletteJson);
         super.checkBoxPalette = new Java2DCheckBoxPalette(colorPaletteJson);
