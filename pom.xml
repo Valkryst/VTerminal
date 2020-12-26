@@ -99,7 +99,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.1.1</version>
-                <!-- Unable to find javadoc command - maven
+                <!-- Solution to problem:
+                     MavenReportException: Error while creating archive: Unable to find
+                     javadoc command: The environment variable JAVA_HOME is not correctly set.
+
+                     Unable to find javadoc command - maven
                      Reference: https://stackoverflow.com/a/54323506 -->
                 <configuration>
                     <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
