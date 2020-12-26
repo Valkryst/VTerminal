@@ -68,6 +68,13 @@
             <artifactId>javafx-graphics</artifactId>
             <version>11</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M5</version>
+            <type>maven-plugin</type>
+        </dependency>
     </dependencies>
 
     <build>
@@ -102,17 +109,10 @@
                 </executions>
             </plugin>
 
-            <!--- Used, during the test phase of the build, to run the unit tests -->
-            <plugin>
-                <groupId>org.apache.maven.surefire</groupId>
-                <artifactId>surefire</artifactId>
-                <version>3.0.0-M4</version>
-            </plugin>
-
             <!-- Used to include all of the dependencies in the packaged Jar file -->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.3.0</version>
                 <configuration>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
