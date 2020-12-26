@@ -7,6 +7,8 @@
     <groupId>com.github.Valkryst</groupId>
     <artifactId>VTerminal</artifactId>
     <version>2020.12.10</version>
+    <packaging>jar</packaging>
+    <name>VTerminal</name>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -68,6 +70,13 @@
             <artifactId>javafx-graphics</artifactId>
             <version>11</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M5</version>
+            <type>maven-plugin</type>
+        </dependency>
     </dependencies>
 
     <build>
@@ -92,6 +101,15 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.1.1</version>
+                <!-- Solution to problem:
+                     MavenReportException: Error while creating archive: Unable to find
+                     javadoc command: The environment variable JAVA_HOME is not correctly set.
+
+                     Unable to find javadoc command - maven
+                     Reference: https://stackoverflow.com/a/54323506 -->
+                <configuration>
+                    <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -102,21 +120,19 @@
                 </executions>
             </plugin>
 
-            <!--- Used, during the test phase of the build, to run the unit tests -->
-            <plugin>
-                <groupId>org.apache.maven.surefire</groupId>
-                <artifactId>surefire</artifactId>
-                <version>3.0.0-M4</version>
-            </plugin>
-
             <!-- Used to include all of the dependencies in the packaged Jar file -->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.3.0</version>
                 <configuration>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <!-- Is important that the name specified in the project
+                         name is the same in finalName tag, with it avoid the
+                         error: Cannot include project artifact [...] it
+                         doesn't have an associated file or directory. -->
+                    <finalName>VTerminal</finalName>
                 </configuration>
                 <executions>
                     <execution>
