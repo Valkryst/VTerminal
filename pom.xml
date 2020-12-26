@@ -7,6 +7,8 @@
     <groupId>com.github.Valkryst</groupId>
     <artifactId>VTerminal</artifactId>
     <version>2020.12.10</version>
+    <packaging>jar</packaging>
+    <name>VTerminal</name>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -126,6 +128,11 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <!-- Is important that the name specified in the project
+                         name is the same in finalName tag, with it avoid the
+                         error: Cannot include project artifact [...] it
+                         doesn't have an associated file or directory. -->
+                    <finalName>VTerminal</finalName>
                 </configuration>
                 <executions>
                     <execution>
