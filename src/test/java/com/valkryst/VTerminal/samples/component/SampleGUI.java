@@ -198,7 +198,7 @@ public class SampleGUI {
         screen.addComponent(layer);
 
         // Set the color palette before showing the screen.
-        screen.setPalette(new Java2DPalette("src/main/resources/Palettes/PaleNight.json"), true);
+        screen.setPalette(new Java2DPalette("Palettes/PaleNight.json"), true);
 
         // Recolor the Alpha Layers Section
         for (int i = 0 ; i < redLayer.getTiles().getHeight() ; i++) {
