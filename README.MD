@@ -1,3 +1,5 @@
+![Java CI with Maven](https://github.com/Valkryst/VTerminal/workflows/Java%20CI%20with%20Maven/badge.svg)
+
 This project is currently under a full rewrite. Support is still available for
 the version that is currently on the `master` branch.
 
