@@ -5,8 +5,8 @@ import org.json.JSONObject;
 
 import java.awt.*;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public final class Java2DPalette extends Palette<Color> {
     /**
@@ -36,12 +36,14 @@ public final class Java2DPalette extends Palette<Color> {
             filePath = DEFAULT_PALETTE_FILE_PATH;
         }
 
-        final var file = Java2DPalette.class.getClassLoader().getResource(filePath).getFile();
-        final var sb = new StringBuilder();
-
-        try (final var br = new BufferedReader(new FileReader(file))) {
-			String line;
-        	while ((line = br.readLine()) != null) {
+		final var sb = new StringBuilder();
+        try (
+			final var inputStream = Java2DPalette.class.getResourceAsStream(filePath);
+			final var inputStreamReader = new InputStreamReader(inputStream);
+			final var bufferedReader = new BufferedReader(inputStreamReader);
+		) {
+        	String line;
+        	while ((line = bufferedReader.readLine()) != null) {
         		sb.append(line);
 			}
 		}

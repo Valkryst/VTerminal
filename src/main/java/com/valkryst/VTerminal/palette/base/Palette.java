@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public abstract class Palette<COLOR> {
     /** Path to the default palette. */
-    protected static final String DEFAULT_PALETTE_FILE_PATH = "Palettes/Default.json";
+    protected static final String DEFAULT_PALETTE_FILE_PATH = "/Palettes/Default.json";
 
     /** The default background color. */
     @Getter protected COLOR defaultBackground;
