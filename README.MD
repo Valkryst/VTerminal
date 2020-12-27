@@ -3,6 +3,15 @@
 This project is currently under a full rewrite. Support is still available for
 the version that is currently on the `master` branch.
 
+## Table of Contents
+
+* [Links](https://github.com/Valkryst/VTerminal#links)
+* [Importing the Library](https://github.com/Valkryst/VTerminal#importing-the-library)
+	* [Gradle](https://github.com/Valkryst/VTerminal#gradle)
+	* [Maven](https://github.com/Valkryst/VTerminal#maven)
+	* [Jar](https://github.com/Valkryst/VTerminal#jar)
+
+
 ## Links
 
 * [Discord Channel](https://discord.gg/TwgPHSW)
@@ -13,31 +22,56 @@ the version that is currently on the `master` branch.
 * [Performance Tips](https://valkryst.com/posts/13)
 * [Resolving Compatibility & Render Issues](https://valkryst.com/posts/10)
 
-## Jar Files & Maven
 
-The Maven dependency is hosted off of JitPack, so you will need to add JitPack as a repository before you add VTerminal as a dependency.
+## Importing the Library
+
+VTerminal is hosted on the [JitPack package repository](https://jitpack.io/#Valkryst/VTerminal)
+which supports both Gradle and Maven.
+
+### Gradle
+
+Add JitPack to your `build.gradle` at the end of repositories.
+
+```
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
+}
+```
+
+Add VTerminal as a dependency.
+
+```
+dependencies {
+	implementation 'com.github.Valkryst:VTerminal:2020.12.10'
+}
+```
 
 ### Maven
 
-JitPack ([Example](https://github.com/Valkryst/VTerminal/blob/master/pom.xml)):
+Add JitPack as a repository.
 
-    <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-    </repositories>
+``` xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+```
+Add VTerminal as a dependency.
 
-Dependency:
-
-    <dependency>
-        <groupId>com.github.Valkryst</groupId>
-        <artifactId>VTerminal</artifactId>
-        <version>2020.12.10</version>
-    </dependency>
+```xml
+<dependency>
+    <groupId>com.github.Valkryst</groupId>
+    <artifactId>VTerminal</artifactId>
+    <version>2020.12.10</version>
+</dependency>
+```
 
 ### Jar
 
-Jar files can be found on the [releases](https://github.com/Valkryst/VTerminal/releases) page.
-
-Ensure that you use the Jar labelled "jar-with-dependencies" as it includes all of the required dependencies that VTerminal relies on.
+You can find the Jar file on the  [releases](https://github.com/Valkryst/VTerminal/releases)
+page. Please ensure to use the `jar-with-dependencies` Jar.
