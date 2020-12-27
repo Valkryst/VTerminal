@@ -1,0 +1,33 @@
+name: Java CI with Maven
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup XVFB
+        run: sudo apt-get -qq update; sudo apt-get -qq install xvfb
+
+      # https://github.com/marketplace/actions/setup-java-jdk
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+          java-package: jdk
+          architecture: x64
+
+      - name: Cache Maven Packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build with Maven
+        env:
+          DISPLAY: :1
+        run: xvfb-run --server-args="-screen 0 1920x1080x24" mvn --batch-mode --update-snapshots verify --file pom.xml
