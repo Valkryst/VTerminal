@@ -1,10 +1,5 @@
-[![CircleCI](https://circleci.com/gh/Valkryst/VTerminal/tree/master.svg?style=svg)](https://circleci.com/gh/Valkryst/VTerminal/tree/master)
-[![Release](https://jitpack.io/v/Valkryst/VTerminal.svg)](https://jitpack.io/#Valkryst/VTerminal)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/Valkryst/VTerminal.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Valkryst/VTerminal/alerts/)
-[![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/Valkryst/VTerminal.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Valkryst/VTerminal/context:java)
-
-
-The project is currently in it's Soft release phase. During this phase, there *may* be code breaking changes if required.
+This project is currently under a full rewrite. Support is still available for
+the version that is currently on the `master` branch.
 
 ## Links
 
@@ -15,7 +10,6 @@ The project is currently in it's Soft release phase. During this phase, there *m
     * [Usage Guide](https://github.com/Valkryst/VTerminal/wiki)
 * [Performance Tips](https://valkryst.com/posts/13)
 * [Resolving Compatibility & Render Issues](https://valkryst.com/posts/10)
-
 
 ## Jar Files & Maven
 
