@@ -4,7 +4,6 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.valkryst.VTerminal.palette.base.Palette;
 import com.valkryst.VTerminal.palette.java2d.Java2DPalette;
-import com.valkryst.VTerminal.palette.javafx.JavaFXPalette;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -72,10 +71,6 @@ public class AbstractPaletteFactory {
         switch (rendererType) {
             case JAVA2D: {
                 palette = new Java2DPalette(filePath);
-                break;
-            }
-            case JAVAFX: {
-                palette = new JavaFXPalette(filePath);
                 break;
             }
             default: {
