@@ -45,7 +45,7 @@ Add VTerminal as a dependency.
 
 ```
 dependencies {
-	implementation 'com.github.Valkryst:VTerminal:2020.12.10'
+	implementation 'com.github.Valkryst:VTerminal:2020.12.27-break'
 }
 ```
 
@@ -67,7 +67,7 @@ Add VTerminal as a dependency.
 <dependency>
     <groupId>com.github.Valkryst</groupId>
     <artifactId>VTerminal</artifactId>
-    <version>2020.12.10</version>
+    <version>2020.12.27-break</version>
 </dependency>
 ```
 
