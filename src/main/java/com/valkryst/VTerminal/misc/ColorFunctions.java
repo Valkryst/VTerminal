@@ -2,7 +2,7 @@ package com.valkryst.VTerminal.misc;
 
 import lombok.NonNull;
 
-import java.awt.Color;
+import java.awt.*;
 
 public final class ColorFunctions {
     // Prevent users from creating an instance.
@@ -36,15 +36,15 @@ public final class ColorFunctions {
         }
 
         final int a = color.getAlpha();
-        int r = color.getRed();
-        int g = color.getGreen();
-        int b = color.getBlue();
+        double r = color.getRed();
+		double g = color.getGreen();
+		double b = color.getBlue();
 
-        r *= (int) (1 - shadeFactor);
-        g *= (int) (1 - shadeFactor);
-        b *= (int) (1 - shadeFactor);
+        r *= (1.0 - shadeFactor);
+        g *= (1.0 - shadeFactor);
+        b *= (1.0 - shadeFactor);
 
-        return new Color(r, g, b, a);
+        return new Color((int) r, (int) g, (int) b, a);
     }
 
     /**
@@ -75,15 +75,15 @@ public final class ColorFunctions {
         }
 
         final int a = color.getAlpha();
-        int r = color.getRed();
-        int g = color.getGreen();
-        int b = color.getBlue();
+		double r = color.getRed();
+		double g = color.getGreen();
+		double b = color.getBlue();
 
-        r += (int) ((255 - r) * tintFactor);
-        g += (int) ((255 - g) * tintFactor);
-        b += (int) ((255 - b) * tintFactor);
+        r += ((255.0 - r) * tintFactor);
+        g += ((255.0 - g) * tintFactor);
+        b += ((255.0 - b) * tintFactor);
 
-        return new Color(r, g, b, a);
+        return new Color((int) r, (int) g, (int) b, a);
     }
 
     /**
@@ -118,10 +118,6 @@ public final class ColorFunctions {
      *         The blended RGBA value.
      */
     public static int alphaBlend(final int sourceRGBA, final int destinationRGBA) {
-        if (sourceRGBA < 0) {
-            throw new IllegalArgumentException("The source color value cannot be negative.");
-        }
-
         final int destinationA = (destinationRGBA >> 24) & 0xFF;
         final int destinationR = (destinationRGBA >> 16) & 0xFF;
         final int destinationG = (destinationRGBA >> 8) & 0xFF;
