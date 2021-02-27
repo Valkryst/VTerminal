@@ -10,6 +10,12 @@ public class VFrame extends JFrame {
 	/** Content pane of the frame. */
 	@Getter private final VPanel contentPane;
 
+	/** The preferred size of the frame, when it's not in full screen mode. */
+	private Dimension preferredSize;
+
+	/** Whether the frame is in full screen mode. */
+	@Getter private boolean isFullScreen = false;
+
 	/**
 	 * Constructs a new instance of {@code VFrame}.
 	 *
@@ -108,14 +114,26 @@ public class VFrame extends JFrame {
 		}
 
 		if (fullScreen) {
-			super.pack();
+			super.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
+			super.revalidate();
 		} else {
+			super.setPreferredSize(preferredSize);
 			super.setVisible(true);
 			super.pack();
 			super.setLocationRelativeTo(null);
 		}
 
+		isFullScreen = fullScreen;
 		super.requestFocus();
+	}
+
+	@Override
+	public void setPreferredSize(final @NonNull Dimension preferredSize) {
+		this.preferredSize = preferredSize;
+
+		if (!isFullScreen) {
+			super.setPreferredSize(preferredSize);
+		}
 	}
 
 	@Override

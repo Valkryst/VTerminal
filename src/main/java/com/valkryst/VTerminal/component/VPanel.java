@@ -18,8 +18,7 @@ public class VPanel extends JPanel implements Scrollable {
 	private final SequentialOp[][] sequentialImageOps;
 
 	/**
-	 * Constructs a new instance of {@code VPanel}, without support for tile
-	 * image operations.
+	 * Constructs a new instance of {@code VPanel}.
 	 *
 	 * @param widthInTiles Width of the panel, in tiles.
 	 * @param heightInTiles Height of the panel, in tiles.

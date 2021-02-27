@@ -58,8 +58,4 @@ public class Display {
     public void setLayout(final LayoutManager layout) {
     	frame.setLayout(layout);
 	}
-
-	public void setTitleSuffix(final String suffix) {
-		frame.setTitle("VTerminal Palette Editor" + suffix);
-	}
 }

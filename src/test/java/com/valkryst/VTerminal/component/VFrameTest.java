@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.awt.*;
+
 public class VFrameTest {
 	@Test
 	public void canCreateFrame() {
@@ -70,15 +72,22 @@ public class VFrameTest {
 		final var frame = new VFrame(10, 10);
 		if (frame.isFullScreenSupported()) {
 			frame.setFullScreen(true);
+			Assertions.assertEquals(Toolkit.getDefaultToolkit().getScreenSize(), frame.getPreferredSize());
 		}
 	}
 
 	@Test
 	public void canDisableFullScreenMode() {
 		final var frame = new VFrame(10, 10);
+
 		if (frame.isFullScreenSupported()) {
+			final var screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
 			frame.setFullScreen(true);
+			Assertions.assertEquals(screenSize, frame.getPreferredSize());
+
 			frame.setFullScreen(false);
+			Assertions.assertNotEquals(screenSize, frame.getPreferredSize());
 		}
 	}
 
@@ -142,6 +151,43 @@ public class VFrameTest {
 		final var displayModes = frame.getDisplayModes();
 		Assertions.assertThrows(UnsupportedOperationException.class, () -> {
 			frame.setFullScreen(true, displayModes[0]);
+		});
+	}
+
+	@Test
+	public void canSetPreferredSize() throws NoSuchFieldException, IllegalAccessException {
+		final var frame = new VFrame(10, 10);
+
+		var preferredSize = new Dimension(12, 34);
+		frame.setPreferredSize(preferredSize);
+		Assertions.assertEquals(preferredSize, frame.getPreferredSize());
+
+		final var field = frame.getClass().getDeclaredField("preferredSize");
+		field.setAccessible(true);
+		Assertions.assertEquals(preferredSize, field.get(frame));
+	}
+
+	@Test
+	public void canSetPreferredSizeWhileInFullScreenMode() throws NoSuchFieldException, IllegalAccessException {
+		final var frame = new VFrame(10, 10);
+		frame.setFullScreen(true);
+
+		final var preferredSize = new Dimension(12, 34);
+		frame.setPreferredSize(preferredSize);
+		Assertions.assertNotEquals(preferredSize, frame.getPreferredSize());
+
+		final var field = frame.getClass().getDeclaredField("preferredSize");
+		field.setAccessible(true);
+		Assertions.assertEquals(preferredSize, field.get(frame));
+
+		frame.setFullScreen(false);
+		Assertions.assertEquals(preferredSize, frame.getPreferredSize());
+	}
+
+	@Test
+	public void cannotSetPreferredSizeWithNullDimension() {
+		Assertions.assertThrows(NullPointerException.class, () -> {
+			new VFrame(10, 10).setPreferredSize(null);
 		});
 	}
 
