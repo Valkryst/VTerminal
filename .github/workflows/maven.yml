@@ -16,7 +16,7 @@ jobs:
       - name: Setup JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 11
+          java-version: 15
           java-package: jdk
           architecture: x64
 
@@ -30,4 +30,4 @@ jobs:
       - name: Build with Maven
         env:
           DISPLAY: :1
-        run: xvfb-run --server-args="-screen 0 1920x1080x24" mvn --batch-mode --update-snapshots verify --file pom.xml
+        run: xvfb-run --server-args="-screen 0 1920x1080x24" mvn --batch-mode --update-snapshots -Dmaven.javadoc.skip=true verify --file pom.xml
