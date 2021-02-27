@@ -45,7 +45,7 @@ Add VTerminal as a dependency.
 
 ```
 dependencies {
-	implementation 'com.github.Valkryst:VTerminal:2021.02.26-break'
+	implementation 'com.github.Valkryst:VTerminal:2021.02.26-hotfix'
 }
 ```
 
@@ -67,7 +67,7 @@ Add VTerminal as a dependency.
 <dependency>
     <groupId>com.github.Valkryst</groupId>
     <artifactId>VTerminal</artifactId>
-    <version>2021.02.26-break</version>
+    <version>2021.02.26-hotfix</version>
 </dependency>
 ```
 
@@ -82,7 +82,7 @@ resolvers += "jitpack" at "https://jitpack.io"
 Add VTerminal as a dependency.
 
 ```
-libraryDependencies += "com.github.Valkryst" % "VTerminal" % "2021.02.26-break"
+libraryDependencies += "com.github.Valkryst" % "VTerminal" % "2021.02.26-hotfix"
 ```
 
 ## Supported Components
