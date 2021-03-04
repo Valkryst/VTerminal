@@ -48,21 +48,6 @@ public class VPanel extends JPanel implements Scrollable {
 		}
 	}
 
-	/**
-	 * Adds a tile to the set of dirty regions in the {@code RepaintManager}.
-	 *
-	 * @param x X-Axis coordinate of the tile.
-	 * @param y Y-Axis coordinate of the tile.
-	 */
-	private void markAsDirty(final int x, final int y) {
-		final var laf = VTerminalLookAndFeel.getInstance();
-		final int tileWidth = laf.getTileWidth();
-		final int tileHeight = laf.getTileHeight();
-
-		final var repaintManager = RepaintManager.currentManager(this);
-		repaintManager.addDirtyRegion(this, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
-	}
-
 	private void applyRenderingHints(final Graphics2D graphics) {
 		graphics.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
@@ -206,7 +191,7 @@ public class VPanel extends JPanel implements Scrollable {
 	}
 
 	@Override
-	public void setBackground(final Color color) {
+	public void setBackground(Color color) {
 		super.setBackground(color);
 		if (backgroundColors == null) {
 			return;
@@ -234,7 +219,6 @@ public class VPanel extends JPanel implements Scrollable {
 	public void setBackgroundAt(final int x, final int y, final Color color) {
 		if (!backgroundColors[y][x].equals(color)) {
 			backgroundColors[y][x] = new VColor(color);
-			markAsDirty(x, y);
 		}
 	}
 
@@ -248,7 +232,6 @@ public class VPanel extends JPanel implements Scrollable {
 	public void setCodePointAt(final int x, final int y, final int codePoint) {
 		if (codePoints[y][x] != codePoint) {
 			codePoints[y][x] = codePoint;
-			markAsDirty(x, y);
 		}
 	}
 
@@ -281,7 +264,6 @@ public class VPanel extends JPanel implements Scrollable {
 	public void setForegroundAt(final int x, final int y, final Color color) {
 		if (!foregroundColors[y][x].equals(color)) {
 			foregroundColors[y][x] = new VColor(color);
-			markAsDirty(x, y);
 		}
 	}
 
@@ -297,6 +279,5 @@ public class VPanel extends JPanel implements Scrollable {
 	 */
 	public void setSequentialImageOpAt(final int x, final int y, final SequentialOp sequentialOp) {
 		sequentialImageOps[y][x] = sequentialOp;
-		markAsDirty(x, y);
 	}
 }
