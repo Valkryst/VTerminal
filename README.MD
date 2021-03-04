@@ -18,7 +18,6 @@
 
 * [Discord Channel](https://discord.gg/TwgPHSW)
 * Documentation
-	* [JavaDoc Documentation](https://jitpack.io/com/github/Valkryst/VTerminal/latest/javadoc/)
 	* [Usage Guide](https://github.com/Valkryst/VTerminal/wiki)
 * [Performance Tips](https://valkryst.com/posts/13)
 * [Resolving Compatibility & Render Issues](https://valkryst.com/posts/10)
