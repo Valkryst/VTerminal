@@ -192,6 +192,11 @@ public class VPanel extends JPanel implements Scrollable {
 
 	@Override
 	public void setBackground(Color color) {
+		if (color == null) {
+			color = UIManager.getColor("Panel.background");
+		}
+
+
 		super.setBackground(color);
 		if (backgroundColors == null) {
 			return;
@@ -216,7 +221,11 @@ public class VPanel extends JPanel implements Scrollable {
 	 * @param y Y-Axis coordinate of the tile.
 	 * @param color A new color.
 	 */
-	public void setBackgroundAt(final int x, final int y, final Color color) {
+	public void setBackgroundAt(final int x, final int y, Color color) {
+		if (color == null) {
+			color = UIManager.getColor("Panel.background");
+		}
+
 		if (!backgroundColors[y][x].equals(color)) {
 			backgroundColors[y][x] = new VColor(color);
 		}
@@ -236,7 +245,11 @@ public class VPanel extends JPanel implements Scrollable {
 	}
 
 	@Override
-	public void setForeground(final Color color) {
+	public void setForeground(Color color) {
+		if (color == null) {
+			color = UIManager.getColor("Panel.foreground");
+		}
+
 		super.setForeground(color);
 		if (foregroundColors == null) {
 			return;
@@ -261,7 +274,11 @@ public class VPanel extends JPanel implements Scrollable {
 	 * @param y Y-Axis coordinate of the tile.
 	 * @param color A new color.
 	 */
-	public void setForegroundAt(final int x, final int y, final Color color) {
+	public void setForegroundAt(final int x, final int y, Color color) {
+		if (color == null) {
+			color = UIManager.getColor("Panel.foreground");
+		}
+
 		if (!foregroundColors[y][x].equals(color)) {
 			foregroundColors[y][x] = new VColor(color);
 		}
