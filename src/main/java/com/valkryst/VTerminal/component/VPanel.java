@@ -138,6 +138,58 @@ public class VPanel extends JPanel implements Scrollable {
 	}
 
 	/**
+	 * Calling this method is equivalent to calling
+	 * {@link VPanel#resetBackgroundColors()}, {@link VPanel#resetCodePoints()},
+	 * {@link VPanel#resetForegroundColors()}, and
+	 * {@link VPanel#resetSequentialImageOps()}.
+	 */
+	public void reset() {
+		resetBackgroundColors();
+		resetForegroundColors();
+
+		for (int y = 0 ; y < getHeightInTiles() ; y++) {
+			for (int x = 0 ; x < getWidthInTiles() ; x++) {
+				codePoints[y][x] = ' ';
+				sequentialImageOps[y][x] = null;
+			}
+		}
+	}
+
+	/**
+	 * Sets the background color of the panel and each tile to
+	 * {@code UIManager.getColor("Panel.background")}.
+	 */
+	public void resetBackgroundColors() {
+		setBackground(UIManager.getColor("Panel.background"));
+	}
+
+	/** Sets the code point of each tile to the space character (code point 32).  */
+	public void resetCodePoints() {
+		for (int y = 0 ; y < getHeightInTiles() ; y++) {
+			for (int x = 0 ; x < getWidthInTiles() ; x++) {
+				codePoints[y][x] = ' ';
+			}
+		}
+	}
+
+	/**
+	 * Sets the foreground color of the panel and each tile to
+	 * {@code UIManager.getColor("Panel.foreground")}.
+	 */
+	public void resetForegroundColors() {
+		setForeground(UIManager.getColor("Panel.foreground"));
+	}
+
+	/** Sets the sequential image op of each tile to null. */
+	public void resetSequentialImageOps() {
+		for (int y = 0 ; y < getHeightInTiles() ; y++) {
+			for (int x = 0 ; x < getWidthInTiles() ; x++) {
+				sequentialImageOps[y][x] = null;
+			}
+		}
+	}
+
+	/**
 	 * Retrieves the panel's height, in tiles.
 	 *
 	 * @return The panel's height, in tiles.

@@ -87,6 +87,134 @@ public class VPanelTest {
 	}
 
 	@Test
+	public void canReset() throws NoSuchFieldException, IllegalAccessException {
+		final var panel = new VPanel(2, 2);
+		for (int y = 0 ; y < panel.getHeightInTiles() ; y++) {
+			for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+				panel.setBackgroundAt(x, y, Color.MAGENTA);
+				panel.setCodePointAt(x, y, '~');
+				panel.setForegroundAt(x, y, Color.GREEN);
+				panel.setSequentialImageOpAt(x, y, new SequentialOp());
+			}
+		}
+
+		final var backgroundColorsField = panel.getClass().getDeclaredField("backgroundColors");
+		backgroundColorsField.setAccessible(true);
+		final var backgroundColors = (Color[][]) backgroundColorsField.get(panel);
+
+		final var codePointsField = panel.getClass().getDeclaredField("codePoints");
+		codePointsField.setAccessible(true);
+		final var codePoints = (int[][]) codePointsField.get(panel);
+
+		final var foregroundColorsField = panel.getClass().getDeclaredField("foregroundColors");
+		foregroundColorsField.setAccessible(true);
+		final var foregroundColors = (Color[][]) foregroundColorsField.get(panel);
+
+		final var sequentialImageOpsField = panel.getClass().getDeclaredField("sequentialImageOps");
+		sequentialImageOpsField.setAccessible(true);
+		final var sequentialImageOps = (SequentialOp[][]) sequentialImageOpsField.get(panel);
+
+
+		panel.reset();
+		for (int y = 0 ; y < panel.getHeightInTiles() ; y++) {
+			for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+				Assertions.assertNotEquals(Color.MAGENTA, backgroundColors[y][x]);
+				Assertions.assertNotEquals('~', codePoints[y][x]);
+				Assertions.assertNotEquals(Color.GREEN, foregroundColors[y][x]);
+				Assertions.assertNull(sequentialImageOps[y][x]);
+			}
+		}
+	}
+
+	@Test
+	public void canResetBackgroundColors() throws NoSuchFieldException, IllegalAccessException {
+		final var panel = new VPanel(2, 2);
+		for (int y = 0 ; y < panel.getHeightInTiles() ; y++) {
+			for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+				panel.setBackgroundAt(x, y, Color.MAGENTA);
+			}
+		}
+
+		final var backgroundColorsField = panel.getClass().getDeclaredField("backgroundColors");
+		backgroundColorsField.setAccessible(true);
+		final var backgroundColors = (Color[][]) backgroundColorsField.get(panel);
+
+
+		panel.resetBackgroundColors();
+		for (int y = 0 ; y < panel.getHeightInTiles() ; y++) {
+			for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+				Assertions.assertNotEquals(Color.MAGENTA, backgroundColors[y][x]);
+			}
+		}
+	}
+
+	@Test
+	public void canResetCodePoints() throws NoSuchFieldException, IllegalAccessException {
+		final var panel = new VPanel(2, 2);
+		for (int y = 0 ; y < panel.getHeightInTiles() ; y++) {
+			for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+				panel.setCodePointAt(x, y, '~');
+			}
+		}
+
+		final var codePointsField = panel.getClass().getDeclaredField("codePoints");
+		codePointsField.setAccessible(true);
+		final var codePoints = (int[][]) codePointsField.get(panel);
+
+
+		panel.resetCodePoints();
+		for (int y = 0 ; y < panel.getHeightInTiles() ; y++) {
+			for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+				Assertions.assertNotEquals('~', codePoints[y][x]);
+			}
+		}
+	}
+
+	@Test
+	public void canResetForegroundColors() throws NoSuchFieldException, IllegalAccessException {
+		final var panel = new VPanel(2, 2);
+		for (int y = 0 ; y < panel.getHeightInTiles() ; y++) {
+			for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+				panel.setForegroundAt(x, y, Color.MAGENTA);
+			}
+		}
+
+		final var foregroundColorsField = panel.getClass().getDeclaredField("foregroundColors");
+		foregroundColorsField.setAccessible(true);
+		final var foregroundColors = (Color[][]) foregroundColorsField.get(panel);
+
+
+		panel.resetForegroundColors();
+		for (int y = 0 ; y < panel.getHeightInTiles() ; y++) {
+			for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+				Assertions.assertNotEquals(Color.MAGENTA, foregroundColors[y][x]);
+			}
+		}
+	}
+
+	@Test
+	public void canResetSequentialImageOps() throws NoSuchFieldException, IllegalAccessException {
+		final var panel = new VPanel(2, 2);
+		for (int y = 0 ; y < panel.getHeightInTiles() ; y++) {
+			for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+				panel.setSequentialImageOpAt(x, y, new SequentialOp());
+			}
+		}
+
+		final var sequentialImageOpsField = panel.getClass().getDeclaredField("sequentialImageOps");
+		sequentialImageOpsField.setAccessible(true);
+		final var sequentialImageOps = (SequentialOp[][]) sequentialImageOpsField.get(panel);
+
+
+		panel.resetSequentialImageOps();
+		for (int y = 0 ; y < panel.getHeightInTiles() ; y++) {
+			for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+				Assertions.assertNull(sequentialImageOps[y][x]);
+			}
+		}
+	}
+
+	@Test
 	public void canSetBackgroundColorWithNullColor() throws NoSuchFieldException, IllegalAccessException {
 		final var panel = new VPanel(2, 2);
 		panel.setBackground(Color.MAGENTA);
