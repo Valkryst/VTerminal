@@ -4,6 +4,7 @@ import com.valkryst.VTerminal.image.SequentialOp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class VPanelTest {
@@ -57,20 +58,20 @@ public class VPanelTest {
 	@Test
 	public void cannotCreatePanelWithNonPositiveWidth() {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
-			new VPanel(0, 10);
+			new VPanel(0, 1);
 		});
 	}
 
 	@Test
 	public void cannotCreatePanelWithNonPositiveHeight() {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
-			new VPanel(10, 0);
+			new VPanel(1, 0);
 		});
 	}
 
 	@Test
 	public void canSetBackgroundColor() throws NoSuchFieldException, IllegalAccessException {
-		final var panel = new VPanel(10, 10);
+		final var panel = new VPanel(2, 2);
 		panel.setBackground(Color.MAGENTA);
 
 		final var backgroundColorsField = panel.getClass().getDeclaredField("backgroundColors");
@@ -86,8 +87,78 @@ public class VPanelTest {
 	}
 
 	@Test
+	public void canSetBackgroundColorWithNullColor() throws NoSuchFieldException, IllegalAccessException {
+		final var panel = new VPanel(2, 2);
+		panel.setBackground(Color.MAGENTA);
+
+		final var backgroundColorsField = panel.getClass().getDeclaredField("backgroundColors");
+		backgroundColorsField.setAccessible(true);
+		final var backgroundColors = (Color[][]) backgroundColorsField.get(panel);
+
+		panel.setBackground(null);
+		final var defaultColor = UIManager.getColor("Panel.background");
+		for (int y = 0 ; y < panel.getHeightInTiles() ; y ++) {
+			for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+				Assertions.assertEquals(defaultColor, backgroundColors[y][x]);
+
+			}
+		}
+	}
+
+	@Test
+	public void canSetBackgroundColorAtLocation() throws NoSuchFieldException, IllegalAccessException {
+		final var panel = new VPanel(1, 1);
+		panel.setBackgroundAt(0, 0, Color.MAGENTA);
+
+		final var backgroundColorsField = panel.getClass().getDeclaredField("backgroundColors");
+		backgroundColorsField.setAccessible(true);
+		final var backgroundColors = (Color[][]) backgroundColorsField.get(panel);
+
+		Assertions.assertEquals(Color.MAGENTA, backgroundColors[0][0]);
+	}
+
+	@Test
+	public void canSetBackgroundColorAtLocationWithNullColor() throws NoSuchFieldException, IllegalAccessException {
+		final var panel = new VPanel(1, 1);
+		panel.setBackgroundAt(0, 0, Color.MAGENTA);
+
+		final var backgroundColorsField = panel.getClass().getDeclaredField("backgroundColors");
+		backgroundColorsField.setAccessible(true);
+		final var backgroundColors = (Color[][]) backgroundColorsField.get(panel);
+
+		panel.setBackgroundAt(0, 0, null);
+		Assertions.assertEquals(UIManager.getColor("Panel.background"), backgroundColors[0][0]);
+	}
+
+	@Test
+	public void canSetBackgroundColorAtLocationWithOutOfBoundsLocation() {
+		Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+			new VPanel(1, 1).setBackgroundAt(-1, -1, Color.MAGENTA);
+		});
+	}
+
+	@Test
+	public void canSetCodePointAtLocation() throws NoSuchFieldException, IllegalAccessException {
+		final var panel = new VPanel(1, 1);
+		panel.setCodePointAt(0, 0, '~');
+
+		final var codePointsField = panel.getClass().getDeclaredField("codePoints");
+		codePointsField.setAccessible(true);
+		final var codePoints = (int[][]) codePointsField.get(panel);
+
+		Assertions.assertEquals('~', codePoints[0][0]);
+	}
+
+	@Test
+	public void canSetCodePointAtOutOfBoundsLocation() {
+		Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+			new VPanel(1, 1).setCodePointAt(-1, -1, '~');
+		});
+	}
+
+	@Test
 	public void canSetForegroundColor() throws NoSuchFieldException, IllegalAccessException {
-		final var panel = new VPanel(10, 10);
+		final var panel = new VPanel(2, 2);
 		panel.setForeground(Color.MAGENTA);
 
 		final var foregroundColorsField = panel.getClass().getDeclaredField("foregroundColors");
@@ -99,5 +170,56 @@ public class VPanelTest {
 				Assertions.assertEquals(Color.MAGENTA, foregroundColors[y][x]);
 			}
 		}
+	}
+
+	@Test
+	public void canSetForegroundColorWithNullColor() throws NoSuchFieldException, IllegalAccessException {
+		final var panel = new VPanel(2, 2);
+		panel.setForeground(Color.MAGENTA);
+
+		final var foregroundColorsField = panel.getClass().getDeclaredField("foregroundColors");
+		foregroundColorsField.setAccessible(true);
+		final var foregroundColors = (Color[][]) foregroundColorsField.get(panel);
+
+		panel.setForeground(null);
+		final var defaultColor = UIManager.getColor("Panel.foreground");
+		for (int y = 0 ; y < panel.getHeightInTiles() ; y ++) {
+			for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+				Assertions.assertEquals(defaultColor, foregroundColors[y][x]);
+
+			}
+		}
+	}
+
+	@Test
+	public void canSetForegroundColorAtLocation() throws NoSuchFieldException, IllegalAccessException {
+		final var panel = new VPanel(1, 1);
+		panel.setForegroundAt(0, 0, Color.MAGENTA);
+
+		final var foregroundColorsField = panel.getClass().getDeclaredField("foregroundColors");
+		foregroundColorsField.setAccessible(true);
+		final var foregroundColors = (Color[][]) foregroundColorsField.get(panel);
+
+		Assertions.assertEquals(Color.MAGENTA, foregroundColors[0][0]);
+	}
+
+	@Test
+	public void canSetForegroundColorAtLocationWithNullColor() throws NoSuchFieldException, IllegalAccessException {
+		final var panel = new VPanel(1, 1);
+		panel.setForegroundAt(0, 0, Color.MAGENTA);
+
+		final var foregroundColorsField = panel.getClass().getDeclaredField("foregroundColors");
+		foregroundColorsField.setAccessible(true);
+		final var foregroundColors = (Color[][]) foregroundColorsField.get(panel);
+
+		panel.setForegroundAt(0, 0, null);
+		Assertions.assertEquals(UIManager.getColor("Panel.foreground"), foregroundColors[0][0]);
+	}
+
+	@Test
+	public void canSetForegroundColorAtLocationWithOutOfBoundsLocation() {
+		Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+			new VPanel(1, 1).setForegroundAt(-1, -1, Color.MAGENTA);
+		});
 	}
 }
