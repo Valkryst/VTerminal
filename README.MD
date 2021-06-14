@@ -20,8 +20,8 @@
 * [Discord Channel](https://discord.gg/TwgPHSW)
 * Documentation
 	* [Usage Guide](https://github.com/Valkryst/VTerminal/wiki)
-* [Performance Tips](https://valkryst.com/posts/13)
-* [Resolving Compatibility & Render Issues](https://valkryst.com/posts/10)
+* [Performance Tips](https://www.valkryst.com/posts/13)
+* [Resolving Compatibility & Render Issues](https://www.valkryst.com/posts/10)
 
 ## Installation
 
