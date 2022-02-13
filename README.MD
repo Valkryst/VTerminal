@@ -17,7 +17,7 @@
 
 ## Links
 
-* [Discord Channel](https://discord.gg/TwgPHSW)
+* [Discussions/Forum](https://github.com/Valkryst/VTerminal/discussions)
 * Documentation
 	* [Usage Guide](https://github.com/Valkryst/VTerminal/wiki)
 * [Performance Tips](https://www.valkryst.com/posts/13)
