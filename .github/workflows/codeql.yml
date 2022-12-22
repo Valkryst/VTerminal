@@ -43,7 +43,7 @@ jobs:
     
     - uses: actions/setup-java@v1
       with:
-        java-version: 15
+        java-version: 18
         java-package: jdk
         architecture: x64
         
