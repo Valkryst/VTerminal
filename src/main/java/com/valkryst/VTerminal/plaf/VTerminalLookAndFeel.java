@@ -12,6 +12,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.Objects;
 
 public class VTerminalLookAndFeel extends BasicLookAndFeel {
 	/** The singleton instance. */
@@ -165,13 +166,15 @@ public class VTerminalLookAndFeel extends BasicLookAndFeel {
 	 */
 	public static VTerminalLookAndFeel getInstance(final @NonNull InputStream fontInputStream, int pointSize) throws IOException, FontFormatException {
 		if (instance != null) {
-			if (fontInputStream != null) {
-				System.err.println("The VTerminalLookAndFeel has already been initialized with a font. The specified font will not be applied.");
-			}
+			System.err.println("The VTerminalLookAndFeel has already been initialized with a font. The specified font will not be applied.");
 			return instance;
 		} else {
 			try {
-				Palette.loadAndRegisterProperties(VTerminalLookAndFeel.class.getResourceAsStream("/Palettes/Dracula.properties"));
+				Palette.loadAndRegisterProperties(
+					Objects.requireNonNull(
+						VTerminalLookAndFeel.class.getResourceAsStream("/Palettes/Dracula.properties")
+					)
+				);
 			} catch (final IOException ignored) {}
 		}
 
@@ -240,9 +243,7 @@ public class VTerminalLookAndFeel extends BasicLookAndFeel {
 	 * @param component A component.
 	 */
 	public void setComponentFont(final @NonNull JComponent component) {
-		if (component != null) {
-			component.setFont(vFont.getFont());
-		}
+		component.setFont(vFont.getFont());
 	}
 
 	@Override

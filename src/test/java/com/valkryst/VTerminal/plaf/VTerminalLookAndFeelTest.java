@@ -92,7 +92,7 @@ public class VTerminalLookAndFeelTest {
 		 * The dimension object will internally alter the width/height given to
 		 * it by calling Math.ceil. As we want to test the case where the lower
 		 * and higher multiples are at equal distances from the given height,
-		 * we need to mock the the object.
+		 * we need to mock the object.
 		 */
 		final double height = tileHeight + (tileHeight / 2.0);
 		var dimension = Mockito.mock(Dimension.class);
@@ -158,7 +158,7 @@ public class VTerminalLookAndFeelTest {
 		 * The dimension object will internally alter the width/height given to
 		 * it by calling Math.ceil. As we want to test the case where the lower
 		 * and higher multiples are at equal distances from the given height,
-		 * we need to mock the the object.
+		 * we need to mock the object.
 		 */
 		final double width = tileWidth + (tileWidth / 2.0);
 		var dimension = Mockito.mock(Dimension.class);

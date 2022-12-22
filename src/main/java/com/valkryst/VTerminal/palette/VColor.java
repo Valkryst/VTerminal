@@ -105,9 +105,9 @@ public class VColor extends Color {
 	 * @param alpha The alpha component.
 	 * @throws IllegalArgumentException
 	 * 		If any of the {@code components}, including the {@code alpha}
-	 * 		component, are outside of the range 0.0 to 1.0.
+	 * 		component, are outside the range 0.0 to 1.0.
 	 */
-	public VColor(final @NonNull ColorSpace colorSpace, final @NonNull float[] components, final float alpha) {
+	public VColor(final @NonNull ColorSpace colorSpace, final float[] components, final float alpha) {
 		super(colorSpace, components, alpha);
 	}
 

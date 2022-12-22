@@ -13,18 +13,18 @@ public class EditorPaneView extends View {
 		component.setContentType("text/html");
 		component.setEditable(true);
 		component.setText("""
-    			<html>
-    				<head>
-    					<style type="text/css">
-    						i {
-    							color: red;
+				<html>
+					<head>
+						<style type="text/css">
+							i {
+								color: red;
 							}
-    					</style>
-    				</head>
-    				<body>
-    					<p>This <i>VEditorPane</i> is editable and <b>enabled</b>.</p>
-    				</body>
-    			</html>
+						</style>
+					</head>
+					<body>
+						<p>This <i>VEditorPane</i> is editable and <b>enabled</b>.</p>
+					</body>
+				</html>
 				""");
 		this.add(component, BorderLayout.NORTH);
 
@@ -33,18 +33,18 @@ public class EditorPaneView extends View {
 		component.setEditable(true);
 		component.setEnabled(false);
 		component.setText("""
-    			<html>
-    				<head>
-    					<style type="text/css">
-    						i {
-    							color: red;
+				<html>
+					<head>
+						<style type="text/css">
+							i {
+								color: red;
 							}
-    					</style>
-    				</head>
-    				<body>
-    					<p>This <i>VEditorPane</i> is editable and <b>disabled</b>.</p>
-    				</body>
-    			</html>
+						</style>
+					</head>
+					<body>
+						<p>This <i>VEditorPane</i> is editable and <b>disabled</b>.</p>
+					</body>
+				</html>
 				""");
 		this.add(component, BorderLayout.SOUTH);
 	}

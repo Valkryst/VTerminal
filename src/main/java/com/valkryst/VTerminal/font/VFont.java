@@ -115,7 +115,7 @@ public class VFont {
 		 * most likely increase performance.
 		 *
 		 * Doing this will also cause graphical issues when dragging a J/VFrame
-		 * between monitors. All of the tiles will render as black rectangles
+		 * between monitors. All the tiles will render as black rectangles
 		 * because the VolatileImages are generated to be displayed on the
 		 * GraphicsDevice that the frame is initially displayed on.
 		 *

@@ -12,6 +12,7 @@ import java.awt.image.BufferedImageOp;
 import java.awt.image.ColorModel;
 import java.awt.image.ImagingOpException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -27,11 +28,7 @@ public class SequentialOp implements BufferedImageOp {
 	 * @param ops One or more operations to add to the sequence.
 	 */
 	public SequentialOp(final @NonNull BufferedImageOp ... ops) {
-		for (final var op : ops) {
-			if (op != null) {
-				bufferedImageOps.add(op);
-			}
-		}
+		bufferedImageOps.addAll(Arrays.asList(ops));
 
 		filteredImageCache = Caffeine.newBuilder()
 								 	 .initialCapacity(0)

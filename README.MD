@@ -42,7 +42,7 @@ Add VTerminal as a dependency.
 
 ```
 dependencies {
-	implementation 'com.github.Valkryst:VTerminal:2021.03.04'
+	implementation 'com.github.Valkryst:VTerminal:2022.12.22'
 }
 ```
 
@@ -64,7 +64,7 @@ Add VTerminal as a dependency.
 <dependency>
     <groupId>com.github.Valkryst</groupId>
     <artifactId>VTerminal</artifactId>
-    <version>2021.03.04</version>
+    <version>2022.12.22</version>
 </dependency>
 ```
 
@@ -79,7 +79,7 @@ resolvers += "jitpack" at "https://jitpack.io"
 Add VTerminal as a dependency.
 
 ```
-libraryDependencies += "com.github.Valkryst" % "VTerminal" % "2021.03.04"
+libraryDependencies += "com.github.Valkryst" % "VTerminal" % "2022.12.22"
 ```
 
 ## Media
@@ -104,7 +104,7 @@ libraryDependencies += "com.github.Valkryst" % "VTerminal" % "2021.03.04"
 ### Videos
 
 * [Click-through of the example GUI](https://youtu.be/dH1yRMyEL0s) used for
-  testing VTerminal. This covers most, if not all of the supported components.
+  testing VTerminal. This covers most, if not all the supported components.
 
 ## Supported Components
 

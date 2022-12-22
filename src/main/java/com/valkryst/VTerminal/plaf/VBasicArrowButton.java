@@ -66,7 +66,7 @@ public class VBasicArrowButton extends BasicArrowButton {
 		paintTriangle(graphics, (width - size) / 2, (height - size) / 2,
 				size, direction, super.isEnabled());
 
-		// Reset the Graphics back to it's original settings
+		// Reset the Graphics back to its original settings
 		if (isPressed) {
 			graphics.translate(-1, -1);
 		}

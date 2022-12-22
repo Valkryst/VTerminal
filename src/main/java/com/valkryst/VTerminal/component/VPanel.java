@@ -75,7 +75,7 @@ public class VPanel extends JPanel implements Scrollable {
 		 * operations.
 		 *
 		 * The clip bounds, of the graphics object, represent a region of the
-		 * panel that must be repainted. Rather than repainting all of the tiles
+		 * panel that must be repainted. Rather than repainting all the tiles
 		 * on every paint, it is performant to redraw only those tiles that
 		 * will appear within the bounds.
 		 */
