@@ -6,7 +6,7 @@
 
     <groupId>com.github.Valkryst</groupId>
     <artifactId>VTerminal</artifactId>
-    <version>2022.12.23</version>
+    <version>2023.9.21</version>
     <packaging>jar</packaging>
     <name>VTerminal</name>
 
