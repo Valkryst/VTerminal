@@ -86,6 +86,8 @@ libraryDependencies += "com.github.Valkryst" % "VTerminal" % "2023.9.21"
 
 ## Media
 
+Please note that all screenshots and videos _will_ look worse than if you were to run the example GUI yourself. This is primarily due to compression.
+
 ### Screenshots
 
 * [JButton](https://i.imgur.com/cPxSsMt.png)
