@@ -64,12 +64,6 @@
             <version>1.3.0</version>
             <scope>test</scope>
         </dependency>
-        <dependency> <!-- Data Generation -->
-            <groupId>com.github.javafaker</groupId>
-            <artifactId>javafaker</artifactId>
-            <version>1.0.2</version>
-            <scope>test</scope>
-        </dependency>
         <dependency> <!-- BufferedImageOps for visually testing the VPanel -->
             <groupId>com.jhlabs</groupId>
             <artifactId>filters</artifactId>
