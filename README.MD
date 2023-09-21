@@ -1,5 +1,7 @@
 ![Java CI with Maven](https://github.com/Valkryst/VTerminal/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
 
+This project does not require frequent updates as it is a look and feel for Swing, which is a stable framework. You can assume it works unless otherwise stated.
+
 ## Table of Contents
 
 * [Links](https://github.com/Valkryst/VTerminal#links)
