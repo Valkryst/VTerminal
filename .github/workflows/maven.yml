@@ -16,7 +16,7 @@ jobs:
       - name: Setup JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 18
+          java-version: 21
           java-package: jdk
           architecture: x64
 
