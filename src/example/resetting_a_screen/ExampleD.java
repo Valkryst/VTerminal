@@ -44,13 +44,13 @@ public class ExampleD {
 
 	private static Color getRandomColor() {
 		switch (ThreadLocalRandom.current().nextInt(0, 6)) {
-			case 0 -> { return Color.MAGENTA; }
-			case 1 -> { return Color.GREEN; }
-			case 2 -> { return Color.YELLOW; }
-			case 3 -> { return Color.BLUE; }
-			case 4 -> { return Color.RED; }
-			case 5 -> { return Color.ORANGE; }
-			default -> { return Color.WHITE; }
+			case 0: { return Color.MAGENTA; }
+			case 1: { return Color.GREEN; }
+			case 2: { return Color.YELLOW; }
+			case 3: { return Color.BLUE; }
+			case 4: { return Color.RED; }
+			case 5: { return Color.ORANGE; }
+			default: { return Color.WHITE; }
 		}
 	}
 }

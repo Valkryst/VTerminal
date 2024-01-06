@@ -25,9 +25,11 @@ public class VCheckBoxUI extends BasicCheckBoxUI {
 			}
 
 			switch (e.getKeyCode()) {
-				case KeyEvent.VK_ENTER, KeyEvent.VK_SPACE -> {
+				case KeyEvent.VK_ENTER:
+				case KeyEvent.VK_SPACE: {
 					final var checkBox = (JCheckBox) component;
 					checkBox.setSelected(!checkBox.isSelected());
+					break;
 				}
 			}
 			}
