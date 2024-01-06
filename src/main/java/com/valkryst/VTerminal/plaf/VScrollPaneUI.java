@@ -31,11 +31,15 @@ public class VScrollPaneUI extends BasicScrollPaneUI {
 			}
 
 			switch (e.getKeyCode()) {
-				case KeyEvent.VK_LEFT, KeyEvent.VK_HOME -> {
+				case KeyEvent.VK_LEFT:
+				case KeyEvent.VK_HOME: {
 					horizontalScrollBar.setValue(horizontalScrollBar.getValue() - horizontalScrollBar.getUnitIncrement());
+					break;
 				}
-				case KeyEvent.VK_RIGHT, KeyEvent.VK_END -> {
+				case KeyEvent.VK_RIGHT:
+				case KeyEvent.VK_END: {
 					horizontalScrollBar.setValue(horizontalScrollBar.getValue() + horizontalScrollBar.getUnitIncrement());
+					break;
 				}
 			}
 			}

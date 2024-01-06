@@ -26,7 +26,8 @@ public class VButtonUI extends BasicButtonUI {
 				}
 
 				switch (e.getKeyCode()) {
-					case KeyEvent.VK_ENTER, KeyEvent.VK_SPACE -> {
+					case KeyEvent.VK_ENTER:
+					case KeyEvent.VK_SPACE: {
 						((JButton) component).doClick();
 					}
 				}

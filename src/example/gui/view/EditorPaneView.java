@@ -12,40 +12,36 @@ public class EditorPaneView extends View {
 		var component = new VEditorPane();
 		component.setContentType("text/html");
 		component.setEditable(true);
-		component.setText("""
-				<html>
-					<head>
-						<style type="text/css">
-							i {
-								color: red;
-							}
-						</style>
-					</head>
-					<body>
-						<p>This <i>VEditorPane</i> is editable and <b>enabled</b>.</p>
-					</body>
-				</html>
-				""");
+		component.setText("<html>\n" +
+                          "	<head>\n" +
+                          "		<style type=\"text/css\">\n" +
+                          "			i {\n" +
+                          "				color: red;\n" +
+                          "			}\n" +
+                          "		</style>\n" +
+                          "	</head>\n" +
+                          "	<body>\n" +
+                          "		<p>This <i>VEditorPane</i> is editable and <b>enabled</b>.</p>\n" +
+                          "	</body>\n" +
+                          "</html>\n");
 		this.add(component, BorderLayout.NORTH);
 
 		component = new VEditorPane();
 		component.setContentType("text/html");
 		component.setEditable(true);
 		component.setEnabled(false);
-		component.setText("""
-				<html>
-					<head>
-						<style type="text/css">
-							i {
-								color: red;
-							}
-						</style>
-					</head>
-					<body>
-						<p>This <i>VEditorPane</i> is editable and <b>disabled</b>.</p>
-					</body>
-				</html>
-				""");
+		component.setText("<html>\n" +
+                          "	<head>\n" +
+                          "		<style type=\"text/css\">\n" +
+                          "			i {\n" +
+                          "				color: red;\n" +
+                          "			}\n" +
+                          "		</style>\n" +
+                          "	</head>\n" +
+                          "	<body>\n" +
+                          "		<p>This <i>VEditorPane</i> is editable and <b>disabled</b>.</p>\n" +
+                          "	</body>\n" +
+                          "</html>\n");
 		this.add(component, BorderLayout.SOUTH);
 	}
 

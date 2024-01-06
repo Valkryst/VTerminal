@@ -25,9 +25,11 @@ public class VRadioButtonUI extends BasicRadioButtonUI {
 			}
 
 			switch (e.getKeyCode()) {
-				case KeyEvent.VK_ENTER, KeyEvent.VK_SPACE -> {
+				case KeyEvent.VK_ENTER:
+				case KeyEvent.VK_SPACE: {
 					final var checkBox = (JRadioButton) component;
 					checkBox.setSelected(!checkBox.isSelected());
+					break;
 				}
 			}
 			}

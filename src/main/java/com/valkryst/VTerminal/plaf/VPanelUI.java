@@ -39,7 +39,8 @@ public class VPanelUI extends BasicPanelUI {
 
 	@Override
 	public Dimension getPreferredSize(final JComponent component) {
-		if (component instanceof final VPanel panel) {
+		if (component instanceof VPanel) {
+			final var panel = (VPanel) component;
 			final var laf = VTerminalLookAndFeel.getInstance();
 			final var height = laf.getTileHeight() * panel.getHeightInTiles();
 			final var width = laf.getTileWidth() * panel.getWidthInTiles();

@@ -23,31 +23,35 @@ public class VBasicArrowButton extends BasicArrowButton {
 
 		graphics.setColor(isPressed ? super.getForeground() : super.getBackground());
 		switch (super.getDirection()) {
-			case SwingConstants.NORTH -> {
+			case SwingConstants.NORTH: {
 				graphics.fillRect(0, 0, width, height - 2);
 				graphics.setColor(super.getForeground());
 				graphics.drawLine(0, 0, 0, height);
 				graphics.drawLine(1, height - 2, width - 1, height - 2);
+				break;
 			}
-			case SwingConstants.SOUTH -> {
+			case SwingConstants.SOUTH: {
 				graphics.fillRect(0, 2, width, height - 2);
 				graphics.setColor(super.getForeground());
 				graphics.drawLine(0, 0, 0, height);
 				graphics.drawLine(1, 1, width - 1, 1);
 				graphics.drawLine(1, height - 1, width - 1, height - 1);
+				break;
 			}
-			case SwingConstants.WEST -> {
+			case SwingConstants.WEST: {
 				graphics.fillRect(0, 0, width - 2, height);
 				graphics.setColor(super.getForeground());
 				graphics.drawLine(0, 0, width, 0);
 				graphics.drawLine(width - 2, 0, width - 2, height - 1);
+				break;
 			}
-			case SwingConstants.EAST -> {
+			case SwingConstants.EAST: {
 				graphics.fillRect(2, 0, width, height);
 				graphics.setColor(super.getForeground());
 				graphics.drawLine(0, 0, width, 0);
 				graphics.drawLine(1, 0, 1, height - 1);
 				graphics.drawLine(width - 1, 0, width - 1, height - 1);
+				break;
 			}
 		}
 
@@ -87,10 +91,11 @@ public class VBasicArrowButton extends BasicArrowButton {
 		final var laf = VTerminalLookAndFeel.getInstance();
 
 		switch (super.getDirection()) {
-			case SwingConstants.EAST, SwingConstants.WEST -> {
+			case SwingConstants.EAST:
+			case SwingConstants.WEST: {
 				return new Dimension(laf.getTileWidth() * 2, laf.getTileHeight());
 			}
-			default -> {
+			default: {
 				return new Dimension(laf.getTileWidth(), laf.getTileHeight());
 			}
 		}
