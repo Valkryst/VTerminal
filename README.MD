@@ -46,7 +46,7 @@ Add VTerminal as a dependency.
 
 ```
 dependencies {
-	implementation 'com.github.Valkryst:VTerminal:2023.9.21'
+	implementation 'com.github.Valkryst:VTerminal:2024.1.6'
 }
 ```
 
@@ -68,7 +68,7 @@ Add VTerminal as a dependency.
 <dependency>
     <groupId>com.github.Valkryst</groupId>
     <artifactId>VTerminal</artifactId>
-    <version>2023.9.21</version>
+    <version>2024.1.6</version>
 </dependency>
 ```
 
@@ -83,7 +83,7 @@ resolvers += "jitpack" at "https://jitpack.io"
 Add VTerminal as a dependency.
 
 ```
-libraryDependencies += "com.github.Valkryst" % "VTerminal" % "2023.9.21"
+libraryDependencies += "com.github.Valkryst" % "VTerminal" % "2024.1.6"
 ```
 
 ## Media
