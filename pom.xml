@@ -8,11 +8,9 @@
     <artifactId>VTerminal</artifactId>
     <version>2024.1.6</version>
     <packaging>jar</packaging>
-    <name>VTerminal</name>
+    <name>${artifactId}</name>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.release>11</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -26,6 +24,7 @@
     </repositories>
 
     <dependencies>
+        <!-- Compile Dependencies -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -39,7 +38,7 @@
             <version>3.1.8</version>
         </dependency>
 
-        <!-- Testing -->
+        <!-- Test Dependencies -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -86,15 +85,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.8.0</version>
-                <!--
-                Solution to problem:
-                MavenReportException: Error while creating archive: Unable to
-                find javadoc command: The environment variable JAVA_HOME is not
-                correctly set.
-
-                Unable to find javadoc command - maven
-                Reference: https://stackoverflow.com/a/54323506
-                -->
                 <configuration>
                     <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
                 </configuration>
