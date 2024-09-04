@@ -8,7 +8,7 @@
     <artifactId>VTerminal</artifactId>
     <version>2024.1.6</version>
     <packaging>jar</packaging>
-    <name>${artifactId}</name>
+    <name>${project.artifactId}</name>
 
     <properties>
         <maven.compiler.release>11</maven.compiler.release>
