@@ -6,13 +6,7 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 
 public class VScrollBarUI extends BasicScrollBarUI {
-	/**
-	 * Returns a new instance of {@code VScrollBarUI}.
-	 *
-	 * @param component A component.
-	 *
-	 * @return A new instance of {@code VScrollBarUI}
-	 */
+	/** See {@link BasicScrollBarUI#createUI(JComponent)}. */
 	public static ComponentUI createUI(final JComponent component) {
 		component.setBorder(BorderFactory.createEmptyBorder());
 		component.setInputMap(JComponent.WHEN_FOCUSED, (InputMap) UIManager.get("ScrollBar.ancestorInputMap"));
