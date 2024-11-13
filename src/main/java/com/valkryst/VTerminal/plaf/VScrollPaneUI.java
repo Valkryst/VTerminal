@@ -8,13 +8,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class VScrollPaneUI extends BasicScrollPaneUI {
-	/**
-	 * Returns a new instance of {@code VScrollPaneUI}.
-	 *
-	 * @param component A component.
-	 *
-	 * @return A new instance of {@code VScrollPaneUI}
-	 */
+	/** See {@link BasicScrollPaneUI#createUI(JComponent)}. */
 	public static ComponentUI createUI(final JComponent component) {
 		final var scrollPane = (JScrollPane) component;
 		final var horizontalScrollBar = scrollPane.getHorizontalScrollBar();
