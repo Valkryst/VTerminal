@@ -37,11 +37,11 @@ public class SequentialOp implements BufferedImageOp {
 	/**
 	 * Constructs a new {@link SequentialOp}.
 	 *
-	 * @param ops One or more {@link BufferedImageOp} operations to add to the {@link #bufferedImageOps} sequence.
+	 * @param operations One or more {@link BufferedImageOp} operations to add to the {@link #bufferedImageOps} sequence.
 	 */
-	public SequentialOp(final @NonNull BufferedImageOp ... ops) {
+	public SequentialOp(final @NonNull BufferedImageOp ... operations) {
 		this();
-		addOperations(ops);
+		addOperations(operations);
 	}
 
 	/**
