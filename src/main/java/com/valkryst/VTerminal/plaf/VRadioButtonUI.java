@@ -9,13 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class VRadioButtonUI extends BasicRadioButtonUI {
-	/**
-	 * Returns a new instance of {@code VRadioButtonUI}.
-	 *
-	 * @param component A component.
-	 *
-	 * @return A new instance of {@code VRadioButtonUI}
-	 */
+	/** See {@link BasicRadioButtonUI#createUI(JComponent)}. */
 	public static ComponentUI createUI(final JComponent component) {
 		component.addKeyListener(new KeyAdapter() {
 			@Override
