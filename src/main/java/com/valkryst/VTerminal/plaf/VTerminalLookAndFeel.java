@@ -81,12 +81,31 @@ public class VTerminalLookAndFeel extends BasicLookAndFeel {
 			return new Dimension(tileWidth, tileHeight);
 		}
 
-		// This will fail to clamp to a higher multiple, if the width/height is near Integer.MAX_VALUE. This is an edge
-		// case and is not a concern, until someone encounters it.
-		return new Dimension(
-			(int) Math.round(dimension.getWidth() / tileWidth) * tileWidth,
-			(int) Math.round(dimension.getHeight() / tileHeight) * tileHeight
-		);
+		// Calculate Width
+		double current = dimension.getWidth();
+		double min =  current < tileWidth ? tileWidth : current - (current % tileWidth);
+
+		double width;
+		if (Integer.MAX_VALUE - min < tileWidth) {
+			width = (int) min;
+		} else {
+			double max = min + tileWidth;
+			width = (int) (((max - current) <= (current - min)) ? max : min);
+		}
+
+		// Calculate Height
+		current = dimension.getHeight();
+		min = current < tileHeight ? tileHeight : current - (current % tileHeight);
+
+		double height;
+		if (Integer.MAX_VALUE - min < tileHeight) {
+			height = (int) min;
+		} else {
+			double max = min + tileHeight;
+			height = (int) (((max - current) <= (current - min)) ? max : min);
+		}
+
+		return new Dimension((int) width, (int) height);
 	}
 
 	public Image generateImage(final int codePoint, final Color color, final SequentialOp sequentialOp) {
