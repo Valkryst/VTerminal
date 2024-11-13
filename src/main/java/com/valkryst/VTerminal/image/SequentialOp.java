@@ -15,12 +15,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
 /** A class for applying multiple {@link BufferedImageOp} operations, in sequence, to a {@link BufferedImage}. */
 public class SequentialOp implements BufferedImageOp {
 	/** A list of {@link BufferedImageOp} operations to apply to the image, in the order they should be applied. */
-	private final List<BufferedImageOp> operations = new ArrayList<>();
+	private final List<BufferedImageOp> operations = new CopyOnWriteArrayList<>();
 
 	/** A cache of {@link BufferedImage}s that have recently been filtered. */
 	private final Cache<Integer, BufferedImage> cache;
