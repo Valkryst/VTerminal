@@ -25,19 +25,23 @@ public class SequentialOp implements BufferedImageOp {
 	/** A cache of {@link BufferedImage}s that have recently been filtered. */
 	private final Cache<Integer, BufferedImage> filteredImageCache;
 
+	/** Constructs a new {@link SequentialOp}. */
+	public SequentialOp() {
+		filteredImageCache = Caffeine.newBuilder()
+								 	 .initialCapacity(0)
+									 .maximumSize(2_500)
+									 .expireAfterAccess(5, TimeUnit.MINUTES)
+									 .build();
+	}
+
 	/**
 	 * Constructs a new {@link SequentialOp}.
 	 *
 	 * @param ops One or more {@link BufferedImageOp} operations to add to the {@link #bufferedImageOps} sequence.
 	 */
 	public SequentialOp(final @NonNull BufferedImageOp ... ops) {
+		this();
 		addOperations(ops);
-
-		filteredImageCache = Caffeine.newBuilder()
-								 	 .initialCapacity(0)
-									 .maximumSize(2_500)
-									 .expireAfterAccess(5, TimeUnit.MINUTES)
-									 .build();
 	}
 
 	/**
