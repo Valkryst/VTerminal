@@ -6,13 +6,7 @@ import javax.swing.plaf.basic.BasicPasswordFieldUI;
 import java.awt.*;
 
 public class VPasswordFieldUI extends BasicPasswordFieldUI {
-	/**
-	 * Returns a new instance of {@code VPasswordFieldUI}.
-	 *
-	 * @param component A component.
-	 *
-	 * @return A new instance of {@code VPasswordFieldUI}
-	 */
+	/** See {@link BasicPasswordFieldUI#createUI(JComponent)}. */
 	public static ComponentUI createUI(final JComponent component) {
 		VTerminalLookAndFeel.getInstance().setComponentFont(component);
 		component.setInputMap(JComponent.WHEN_FOCUSED, (InputMap) UIManager.get("FormattedTextField.focusInputMap"));
