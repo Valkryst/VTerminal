@@ -6,13 +6,7 @@ import javax.swing.plaf.basic.BasicEditorPaneUI;
 import java.awt.*;
 
 public class VEditorPaneUI extends BasicEditorPaneUI {
-	/**
-	 * Returns a new instance of {@code VEditorPaneUI}.
-	 *
-	 * @param component A component.
-	 *
-	 * @return A new instance of {@code VEditorPaneUI}
-	 */
+	/** See {@link BasicEditorPaneUI#createUI(JComponent)}. */
 	public static ComponentUI createUI(final JComponent component) {
 		VTerminalLookAndFeel.getInstance().setComponentFont(component);
 		component.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
