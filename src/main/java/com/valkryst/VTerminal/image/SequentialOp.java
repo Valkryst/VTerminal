@@ -17,15 +17,18 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+/** A class for applying multiple {@link BufferedImageOp} operations, in sequence, to a {@link BufferedImage}. */
 public class SequentialOp implements BufferedImageOp {
+	/** A list of {@link BufferedImageOp} operations to apply to the image, in the order they should be applied. */
 	private final List<BufferedImageOp> bufferedImageOps = new ArrayList<>();
 
+	/** A cache of {@link BufferedImage}s that have recently been filtered. */
 	private final Cache<Integer, BufferedImage> filteredImageCache;
 
 	/**
-	 * Constructs a new instance of {@code SequentialOp}.
+	 * Constructs a new {@link SequentialOp}.
 	 *
-	 * @param ops One or more operations to add to the sequence.
+	 * @param ops One or more {@link BufferedImageOp} operations to add to the {@link #bufferedImageOps} sequence.
 	 */
 	public SequentialOp(final @NonNull BufferedImageOp ... ops) {
 		bufferedImageOps.addAll(Arrays.asList(ops));
