@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 /** A class for applying multiple {@link BufferedImageOp} operations, in sequence, to a {@link BufferedImage}. */
 public class SequentialOp implements BufferedImageOp {
 	/** A list of {@link BufferedImageOp} operations to apply to the image, in the order they should be applied. */
-	private final List<BufferedImageOp> bufferedImageOps = new ArrayList<>();
+	private final List<BufferedImageOp> operations = new ArrayList<>();
 
 	/** A cache of {@link BufferedImage}s that have recently been filtered. */
 	private final Cache<Integer, BufferedImage> filteredImageCache;
@@ -37,7 +37,7 @@ public class SequentialOp implements BufferedImageOp {
 	/**
 	 * Constructs a new {@link SequentialOp}.
 	 *
-	 * @param operations One or more {@link BufferedImageOp} operations to add to the {@link #bufferedImageOps} sequence.
+	 * @param operations One or more {@link BufferedImageOp} operations to add to the {@link #operations} sequence.
 	 */
 	public SequentialOp(final @NonNull BufferedImageOp ... operations) {
 		this();
@@ -47,10 +47,10 @@ public class SequentialOp implements BufferedImageOp {
 	/**
 	 * Adds a {@link BufferedImageOp} to the sequence of operations.
 	 *
-	 * @param operations One or more {@link BufferedImageOp} operations to add to the {@link #bufferedImageOps} sequence.
+	 * @param operations One or more {@link BufferedImageOp} operations to add to the {@link #operations} sequence.
 	 */
 	public void addOperations(final @NonNull BufferedImageOp ... operations) {
-		bufferedImageOps.addAll(Arrays.asList(operations));
+		this.operations.addAll(Arrays.asList(operations));
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class SequentialOp implements BufferedImageOp {
 			return destination;
 		}
 
-		for (final BufferedImageOp imageOp : bufferedImageOps) {
+		for (final BufferedImageOp imageOp : operations) {
 			var temp = createCompatibleDestImage(destination, null);
 			temp = imageOp.filter(destination, temp);
 
