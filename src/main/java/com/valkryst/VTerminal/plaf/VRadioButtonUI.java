@@ -14,18 +14,18 @@ public class VRadioButtonUI extends BasicRadioButtonUI {
 		component.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(final KeyEvent e) {
-			if (!component.hasFocus()) {
-				return;
-			}
-
-			switch (e.getKeyCode()) {
-				case KeyEvent.VK_ENTER:
-				case KeyEvent.VK_SPACE: {
-					final var checkBox = (JRadioButton) component;
-					checkBox.setSelected(!checkBox.isSelected());
-					break;
+				if (!component.hasFocus()) {
+					return;
 				}
-			}
+
+				switch (e.getKeyCode()) {
+					case KeyEvent.VK_ENTER:
+					case KeyEvent.VK_SPACE: {
+						final var checkBox = (JRadioButton) component;
+						checkBox.setSelected(!checkBox.isSelected());
+						break;
+					}
+				}
 			}
 		});
 		return new VRadioButtonUI();
