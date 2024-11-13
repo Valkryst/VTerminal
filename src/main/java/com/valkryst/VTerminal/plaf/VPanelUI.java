@@ -8,13 +8,7 @@ import javax.swing.plaf.basic.BasicPanelUI;
 import java.awt.*;
 
 public class VPanelUI extends BasicPanelUI {
-	/**
-	 * Returns a new instance of {@code VPanelUI}.
-	 *
-	 * @param component A component.
-	 *
-	 * @return A new instance of {@code VPanelUI}
-	 */
+	/** See {@link BasicPanelUI#createUI(JComponent)}. */
 	public static ComponentUI createUI(final JComponent component) {
 		return new VPanelUI();
 	}
