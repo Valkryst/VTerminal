@@ -6,13 +6,7 @@ import javax.swing.plaf.basic.BasicToolTipUI;
 import java.awt.*;
 
 public class VToolTipUI extends BasicToolTipUI {
-	/**
-	 * Returns a new instance of {@code VToolTipUI}.
-	 *
-	 * @param component A component.
-	 *
-	 * @return A new instance of {@code VToolTipUI}
-	 */
+	/** See {@link BasicToolTipUI#createUI(JComponent)}. */
 	public static ComponentUI createUI(final JComponent component) {
 		VTerminalLookAndFeel.getInstance().setComponentFont(component);
 		return new VToolTipUI();
