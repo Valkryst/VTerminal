@@ -119,6 +119,17 @@ public class VTerminalLookAndFeelTest {
 	}
 
 	@Test
+	public void canClampDimensionWidthToHigherMultipleWhenWidthIsNearMaxInt() {
+		final var laf = VTerminalLookAndFeel.getInstance();
+
+		var dimension = new Dimension(Integer.MAX_VALUE, tileHeight);
+		dimension = laf.clampDimensionToTileMultiples(dimension);
+
+		Assertions.assertEquals(tileHeight, dimension.height);
+		Assertions.assertEquals(2147483640, dimension.width);
+	}
+
+	@Test
 	public void canClampDimensionWidthToLowerMultiple() {
 		final var laf = VTerminalLookAndFeel.getInstance();
 
