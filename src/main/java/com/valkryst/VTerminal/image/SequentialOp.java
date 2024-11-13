@@ -68,13 +68,14 @@ public class SequentialOp implements BufferedImageOp {
 
 	@Override
 	public BufferedImage filter(final @NonNull BufferedImage source, BufferedImage destination) {
-		destination = cache.getIfPresent(Objects.hash(cache));
+		final int hashCode = this.getBufferedImageHashCode(source);
 
-		if (destination == null) {
-			destination = createCompatibleDestImage(source, null);
-		} else {
+		destination = cache.getIfPresent(hashCode);
+		if (destination != null) {
 			return destination;
 		}
+
+		destination = createCompatibleDestImage(source, null);
 
 		for (final BufferedImageOp imageOp : operations) {
 			var temp = createCompatibleDestImage(destination, null);
@@ -89,6 +90,7 @@ public class SequentialOp implements BufferedImageOp {
 			destination = temp;
 		}
 
+		cache.put(hashCode, destination);
 		return destination;
 	}
 
