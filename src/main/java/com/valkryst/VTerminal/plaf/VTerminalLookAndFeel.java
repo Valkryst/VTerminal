@@ -67,12 +67,11 @@ public class VTerminalLookAndFeel extends BasicLookAndFeel {
 	}
 
 	/**
-	 * Takes the given dimension and clamps its width and height to the nearest
-	 * multiples of the tile width and height.
+	 * Clamps the given {@link Dimension}'s width and height to the nearest multiples of the tile width and height.
 	 *
-	 * @param dimension A dimension.
+	 * @param dimension {@link Dimension} to clamp.
 	 *
-	 * @return A new dimension with the clamped width and height.
+	 * @return A new {@link Dimension} with the clamped width and height.
 	 */
 	public Dimension clampDimensionToTileMultiples(final Dimension dimension) {
 		final int tileWidth = getTileWidth();
@@ -82,31 +81,12 @@ public class VTerminalLookAndFeel extends BasicLookAndFeel {
 			return new Dimension(tileWidth, tileHeight);
 		}
 
-		// Calculate Width
-		double current = dimension.getWidth();
-		double min =  current < tileWidth ? tileWidth : current - (current % tileWidth);
-
-		double width;
-		if (Integer.MAX_VALUE - min < tileWidth) {
-			width = (int) min;
-		} else {
-			double max = min + tileWidth;
-			width = (int) (((max - current) <= (current - min)) ? max : min);
-		}
-
-		// Calculate Height
-		current = dimension.getHeight();
-		min = current < tileHeight ? tileHeight : current - (current % tileHeight);
-
-		double height;
-		if (Integer.MAX_VALUE - min < tileHeight) {
-			height = (int) min;
-		} else {
-			double max = min + tileHeight;
-			height = (int) (((max - current) <= (current - min)) ? max : min);
-		}
-
-		return new Dimension((int) width, (int) height);
+		// This will fail to clamp to a higher multiple, if the width is near Integer.MAX_VALUE. This is an edge case
+		// and is not a concern, until someone encounters it.
+		return new Dimension(
+			(int) Math.round(dimension.getWidth() / tileWidth) * tileWidth,
+			(int) Math.round(dimension.getHeight() / tileHeight) * tileHeight
+		);
 	}
 
 	public Image generateImage(final int codePoint, final Color color, final SequentialOp sequentialOp) {
