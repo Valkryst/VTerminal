@@ -20,22 +20,22 @@ public class VScrollPaneUI extends BasicScrollPaneUI {
 		scrollPane.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(final KeyEvent e) {
-			if (!scrollPane.hasFocus()) {
-				return;
-			}
+				if (!scrollPane.hasFocus()) {
+					return;
+				}
 
-			switch (e.getKeyCode()) {
-				case KeyEvent.VK_LEFT:
-				case KeyEvent.VK_HOME: {
-					horizontalScrollBar.setValue(horizontalScrollBar.getValue() - horizontalScrollBar.getUnitIncrement());
-					break;
+				switch (e.getKeyCode()) {
+					case KeyEvent.VK_LEFT:
+					case KeyEvent.VK_HOME: {
+						horizontalScrollBar.setValue(horizontalScrollBar.getValue() - horizontalScrollBar.getUnitIncrement());
+						break;
+					}
+					case KeyEvent.VK_RIGHT:
+					case KeyEvent.VK_END: {
+						horizontalScrollBar.setValue(horizontalScrollBar.getValue() + horizontalScrollBar.getUnitIncrement());
+						break;
+					}
 				}
-				case KeyEvent.VK_RIGHT:
-				case KeyEvent.VK_END: {
-					horizontalScrollBar.setValue(horizontalScrollBar.getValue() + horizontalScrollBar.getUnitIncrement());
-					break;
-				}
-			}
 			}
 		});
 
