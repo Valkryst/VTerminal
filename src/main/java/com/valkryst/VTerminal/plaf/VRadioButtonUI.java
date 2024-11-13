@@ -67,7 +67,7 @@ public class VRadioButtonUI extends BasicRadioButtonUI {
 		}
 
 		// Draw Text
-		if (text != null && !text.isEmpty() && !text.isBlank()) {
+		if (text != null && !text.isBlank()) {
 			for (int i = 0; i < text.length(); i++) {
 				final var image = laf.generateImage(text.charAt(i), foregroundColor, null);
 
