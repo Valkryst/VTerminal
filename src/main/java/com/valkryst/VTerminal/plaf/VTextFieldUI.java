@@ -6,13 +6,7 @@ import javax.swing.plaf.basic.BasicTextFieldUI;
 import java.awt.*;
 
 public class VTextFieldUI extends BasicTextFieldUI {
-	/**
-	 * Returns a new instance of {@code VTextFieldUI}.
-	 *
-	 * @param component A component.
-	 *
-	 * @return A new instance of {@code VTextFieldUI}
-	 */
+	/** See {@link BasicTextFieldUI#createUI(JComponent)}. */
 	public static ComponentUI createUI(final JComponent component) {
 		VTerminalLookAndFeel.getInstance().setComponentFont(component);
 		component.setInputMap(JComponent.WHEN_FOCUSED, (InputMap) UIManager.get("FormattedTextField.focusInputMap"));
