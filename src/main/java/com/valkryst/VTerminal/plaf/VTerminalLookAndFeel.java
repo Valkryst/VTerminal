@@ -210,12 +210,14 @@ public class VTerminalLookAndFeel extends BasicLookAndFeel {
 	}
 
 	/**
-	 * Sets the given {@code Graphics} context to use high quality
-	 * {@code RenderingHints}.
+	 * Applies a set of {@link RenderingHints}, which have been deemed to be of high quality, to a {@link Graphics}
+	 * context.
 	 *
-	 * @param graphics A graphics context.
+	 * @param graphics A {@link Graphics} context to apply the {@link RenderingHints} to.
 	 *
-	 * @return A graphics context with high quality {@code RenderingHints}.
+	 * @return
+	 * 		The {@link Graphics} context, cast to a {@link Graphics2D} context, with the high quality
+	 * 		{@link RenderingHints} applied.
 	 */
 	public static Graphics2D setRenderingHints(final @NonNull Graphics graphics) {
 		final var graphics2D = (Graphics2D) graphics;
