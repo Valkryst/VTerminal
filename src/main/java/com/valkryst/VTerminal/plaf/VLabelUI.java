@@ -20,7 +20,7 @@ public class VLabelUI extends BasicLabelUI {
 		graphics.setColor(label.getBackground());
 		graphics.fillRect(0, 0, label.getWidth(), label.getHeight());
 
-		if (text != null && !text.isEmpty() && !text.isBlank()) {
+		if (text != null && !text.isBlank()) {
 			final var foregroundColor = label.isEnabled() ? label.getForeground() : UIManager.getColor("Label.disabledForeground");
 
 			final var tileWidth = laf.getTileWidth();
