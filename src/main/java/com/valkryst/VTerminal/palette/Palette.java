@@ -9,26 +9,26 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Palette {
-	// Prevent users from instantiating the class.
+	/** Private constructor, to prevent instantiation of this class. */
 	private Palette() {}
 
 	/**
-	 * Loads a collection of color properties from an input stream and applies
-	 * them as UIManager defaults.
+	 * Loads a set of colour {@link Properties} from an {@link InputStream} and registers them as {@link UIManager}
+	 * defaults.
 	 *
-	 * @param inputStream An input stream.
-	 * @throws IOException If an error occurred while reading from the input stream.
+	 * @param inputStream {@link InputStream} to read from.
+	 * @throws IOException If an error occurs while reading from the {@link InputStream}.
 	 */
 	public static void loadAndRegisterProperties(final @NonNull InputStream inputStream) throws IOException {
 		registerProperties(loadProperties(inputStream));
 	}
 
 	/**
-	 * Load the input stream as a properties file.
+	 * Loads a {@link Properties} object from an {@link InputStream}.
 	 *
-	 * @param inputStream An input stream.
-	 * @return The properties.
-	 * @throws IOException If an error occurred when reading from the input stream.
+	 * @param inputStream {@link InputStream} to read from.
+	 * @return Loaded {@link Properties} object.
+	 * @throws IOException If an error occurs while reading from the {@link InputStream}.
 	 */
 	public static Properties loadProperties(final @NonNull InputStream inputStream) throws IOException {
 		final var properties = new Properties();
@@ -37,15 +37,16 @@ public class Palette {
 	}
 
 	/**
-	 * Register a set of color properties as UIManager defaults.
+	 * Register a set of colour {@link Properties} as {@link UIManager} defaults.
 	 *
-	 * @param properties A set of properties.
+	 * @param properties {@link Properties} containing colour values.
 	 */
 	public static void registerProperties(final @NonNull Properties properties) {
 		for (final var entry : properties.entrySet()) {
-			final var key = (String) entry.getKey();
-			final var value = Color.decode((String) entry.getValue());
-			UIManager.put(key, value);
+			UIManager.put(
+				entry.getKey(),
+				Color.decode((String) entry.getValue())
+			);
 		}
 	}
 }
