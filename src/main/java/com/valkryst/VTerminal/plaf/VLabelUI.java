@@ -6,13 +6,7 @@ import javax.swing.plaf.basic.BasicLabelUI;
 import java.awt.*;
 
 public class VLabelUI extends BasicLabelUI {
-	/**
-	 * Returns a new instance of {@code VLabelUI}.
-	 *
-	 * @param component A component.
-	 *
-	 * @return A new instance of {@code VLabelUI}
-	 */
+	/** See {@link BasicLabelUI#createUI(JComponent)}. */
 	public static ComponentUI createUI(final JComponent component) {
 		return new VLabelUI();
 	}
