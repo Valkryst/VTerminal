@@ -55,7 +55,7 @@ public class VButtonUI extends BasicButtonUI {
 		graphics.setColor(backgroundColor);
 		graphics.fillRect(0, 0, button.getWidth(), button.getHeight());
 
-		if (text != null && !text.isEmpty() && !text.isBlank()) {
+		if (text != null && !text.isBlank()) {
 			final var tileWidth = laf.getTileWidth();
 
 			for (int i = 0; i < text.length(); i++) {
