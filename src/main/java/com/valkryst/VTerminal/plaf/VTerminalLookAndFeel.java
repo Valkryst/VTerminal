@@ -81,8 +81,8 @@ public class VTerminalLookAndFeel extends BasicLookAndFeel {
 			return new Dimension(tileWidth, tileHeight);
 		}
 
-		// This will fail to clamp to a higher multiple, if the width is near Integer.MAX_VALUE. This is an edge case
-		// and is not a concern, until someone encounters it.
+		// This will fail to clamp to a higher multiple, if the width/height is near Integer.MAX_VALUE. This is an edge
+		// case and is not a concern, until someone encounters it.
 		return new Dimension(
 			(int) Math.round(dimension.getWidth() / tileWidth) * tileWidth,
 			(int) Math.round(dimension.getHeight() / tileHeight) * tileHeight
