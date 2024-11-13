@@ -129,7 +129,7 @@ public class VTerminalLookAndFeel extends BasicLookAndFeel {
 	 * @return The singleton instance.
 	 */
 	@SneakyThrows
-	public static VTerminalLookAndFeel getInstance() {
+	public static synchronized VTerminalLookAndFeel getInstance() {
 		return instance == null ? getInstance(16) : instance;
 	}
 
@@ -143,7 +143,7 @@ public class VTerminalLookAndFeel extends BasicLookAndFeel {
 	 * @return The singleton instance.
 	 */
 	@SneakyThrows
-	public static VTerminalLookAndFeel getInstance(final int pointSize) {
+	public static synchronized VTerminalLookAndFeel getInstance(final int pointSize) {
 		if (instance == null) {
 			return getInstance(VTerminalLookAndFeel.class.getResourceAsStream("/Fonts/DejaVuSansMono.ttf"), pointSize);
 		}
@@ -164,7 +164,7 @@ public class VTerminalLookAndFeel extends BasicLookAndFeel {
 	 * @throws IOException If an I/O error occurs when loading the font file.
 	 * @throws FontFormatException If there is an error with the font file.
 	 */
-	public static VTerminalLookAndFeel getInstance(final @NonNull InputStream fontInputStream, int pointSize) throws IOException, FontFormatException {
+	public static synchronized VTerminalLookAndFeel getInstance(final @NonNull InputStream fontInputStream, int pointSize) throws IOException, FontFormatException {
 		if (instance != null) {
 			System.err.println("The VTerminalLookAndFeel has already been initialized with a font. The specified font will not be applied.");
 			return instance;
