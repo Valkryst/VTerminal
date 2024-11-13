@@ -6,13 +6,7 @@ import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.*;
 
 public class VProgressBarUI extends BasicProgressBarUI {
-	/**
-	 * Returns a new instance of {@code VProgressBarUI}.
-	 *
-	 * @param component A component.
-	 *
-	 * @return A new instance of {@code VProgressBarUI}
-	 */
+	/** See {@link BasicProgressBarUI#createUI(JComponent)}. */
 	public static ComponentUI createUI(final JComponent component) {
 		final var color = UIManager.getColor("ProgressBar.foreground");
 		if (color != null) {
