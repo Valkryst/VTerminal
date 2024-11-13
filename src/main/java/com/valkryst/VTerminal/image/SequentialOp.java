@@ -23,15 +23,15 @@ public class SequentialOp implements BufferedImageOp {
 	private final List<BufferedImageOp> operations = new ArrayList<>();
 
 	/** A cache of {@link BufferedImage}s that have recently been filtered. */
-	private final Cache<Integer, BufferedImage> filteredImageCache;
+	private final Cache<Integer, BufferedImage> cache;
 
 	/** Constructs a new {@link SequentialOp}. */
 	public SequentialOp() {
-		filteredImageCache = Caffeine.newBuilder()
-								 	 .initialCapacity(0)
-									 .maximumSize(2_500)
-									 .expireAfterAccess(5, TimeUnit.MINUTES)
-									 .build();
+		cache = Caffeine.newBuilder()
+						.initialCapacity(0)
+						.maximumSize(2_500)
+						.expireAfterAccess(5, TimeUnit.MINUTES)
+						.build();
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class SequentialOp implements BufferedImageOp {
 
 	@Override
 	public BufferedImage filter(final @NonNull BufferedImage source, BufferedImage destination) {
-		destination = filteredImageCache.getIfPresent(Objects.hash(filteredImageCache));
+		destination = cache.getIfPresent(Objects.hash(cache));
 
 		if (destination == null) {
 			destination = createCompatibleDestImage(source, null);
