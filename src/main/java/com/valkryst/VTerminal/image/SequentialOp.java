@@ -45,12 +45,15 @@ public class SequentialOp implements BufferedImageOp {
 	}
 
 	/**
-	 * Adds a {@link BufferedImageOp} to the sequence of operations.
+	 * <p>Adds a {@link BufferedImageOp} to the sequence of operations.</p>
+	 *
+	 * <p>This will invalidate the cache.</p>
 	 *
 	 * @param operations One or more {@link BufferedImageOp} operations to add to the {@link #operations} sequence.
 	 */
 	public void addOperations(final @NonNull BufferedImageOp ... operations) {
 		this.operations.addAll(Arrays.asList(operations));
+		cache.invalidateAll();
 	}
 
 	@Override
