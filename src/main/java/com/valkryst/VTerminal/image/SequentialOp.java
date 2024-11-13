@@ -92,6 +92,22 @@ public class SequentialOp implements BufferedImageOp {
 		return destination;
 	}
 
+	/**
+	 * Calculates the hash code of a {@link BufferedImage}.
+	 *
+	 * @param image {@link BufferedImage} to calculate the hash code of.
+	 * @return Calculated hash code of the {@link BufferedImage}.
+	 */
+	private int getBufferedImageHashCode(final @NonNull BufferedImage image) {
+		return Objects.hash(
+			Arrays.hashCode(
+				image.getRGB(0, 0, image.getWidth(), image.getHeight(), null, 0, image.getWidth())
+			),
+			image.getColorModel(),
+			image.isAlphaPremultiplied()
+		);
+	}
+
 	@Override
 	public Rectangle2D getBounds2D(final @NonNull BufferedImage source) {
 		return new Rectangle(0, 0, source.getWidth(), source.getHeight());
