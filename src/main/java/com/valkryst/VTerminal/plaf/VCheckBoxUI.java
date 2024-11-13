@@ -9,13 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class VCheckBoxUI extends BasicCheckBoxUI {
-	/**
-	 * Returns a new instance of {@code VCheckBoxUI}.
-	 *
-	 * @param component A component.
-	 *
-	 * @return A new instance of {@code VCheckBoxUI}
-	 */
+	/** See {@link BasicCheckBoxUI#createUI(JComponent)}. */
 	public static ComponentUI createUI(final JComponent component) {
 		component.addKeyListener(new KeyAdapter() {
 			@Override
