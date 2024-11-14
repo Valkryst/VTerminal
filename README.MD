@@ -20,6 +20,7 @@ This project does not require frequent updates as it is a look and feel for Swin
 * Documentation
 	* [Usage Guide](https://github.com/Valkryst/VTerminal/wiki)
 * Related Projects
+    * [VTerminalPaletteEditor](https://github.com/Valkryst/VTerminalPaletteEditor), which can be used to create or edit custom palettes for use with VTerminal. 
     * [VTerminalTestGUI](https://github.com/Valkryst/VTerminalTestGUI), which I use to visually test VTerminal.
     *  Chris Reuter's [demo](https://codeberg.org/suetanvil/vterm-demo-jruby), showing how VTerminal can be used with JRuby.
 * [Performance Tips](https://www.valkryst.com/posts/13)
