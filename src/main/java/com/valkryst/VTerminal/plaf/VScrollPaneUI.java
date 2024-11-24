@@ -50,22 +50,4 @@ public class VScrollPaneUI extends BasicScrollPaneUI {
 
 		return new VScrollPaneUI();
 	}
-
-	@Override
-	public Dimension getMaximumSize(final JComponent component) {
-		final var laf = VTerminalLookAndFeel.getInstance();
-		return laf.clampDimensionToTileMultiples(super.getMaximumSize(component));
-	}
-
-	@Override
-	public Dimension getMinimumSize(final JComponent component) {
-		final var laf = VTerminalLookAndFeel.getInstance();
-		return laf.clampDimensionToTileMultiples(super.getMinimumSize(component));
-	}
-
-	@Override
-	public Dimension getPreferredSize(final JComponent component) {
-		final var laf = VTerminalLookAndFeel.getInstance();
-		return laf.clampDimensionToTileMultiples(super.getPreferredSize(component));
-	}
 }
