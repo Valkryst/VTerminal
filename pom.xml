@@ -6,12 +6,12 @@
 
     <groupId>com.github.Valkryst</groupId>
     <artifactId>VTerminal</artifactId>
-    <version>2025.6.3</version>
+    <version>2025.10.1</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
 
     <properties>
-        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
