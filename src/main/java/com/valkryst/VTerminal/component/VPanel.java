@@ -63,7 +63,7 @@ public class VPanel extends JPanel implements Scrollable {
 		super.paintComponent(graphics);
 
 		final var graphics2D = (Graphics2D) graphics.create();
-		applyRenderingHints(graphics2D);
+        this.applyRenderingHints(graphics2D);
 
 		final var laf = VTerminalLookAndFeel.getInstance();
 		final var tileWidth = laf.getTileWidth();
@@ -144,11 +144,11 @@ public class VPanel extends JPanel implements Scrollable {
 	 * {@link VPanel#resetSequentialImageOps()}.
 	 */
 	public void reset() {
-		resetBackgroundColors();
-		resetForegroundColors();
+        this.resetBackgroundColors();
+        this.resetForegroundColors();
 
-		for (int y = 0 ; y < getHeightInTiles() ; y++) {
-			for (int x = 0 ; x < getWidthInTiles() ; x++) {
+		for (int y = 0 ; y < this.getHeightInTiles() ; y++) {
+			for (int x = 0 ; x < this.getWidthInTiles() ; x++) {
 				codePoints[y][x] = ' ';
 				sequentialImageOps[y][x] = null;
 			}
@@ -160,13 +160,13 @@ public class VPanel extends JPanel implements Scrollable {
 	 * {@code UIManager.getColor("Panel.background")}.
 	 */
 	public void resetBackgroundColors() {
-		setBackground(UIManager.getColor("Panel.background"));
+        this.setBackground(UIManager.getColor("Panel.background"));
 	}
 
 	/** Sets the code point of each tile to the space character (code point 32).  */
 	public void resetCodePoints() {
-		for (int y = 0 ; y < getHeightInTiles() ; y++) {
-			for (int x = 0 ; x < getWidthInTiles() ; x++) {
+		for (int y = 0 ; y < this.getHeightInTiles() ; y++) {
+			for (int x = 0 ; x < this.getWidthInTiles() ; x++) {
 				codePoints[y][x] = ' ';
 			}
 		}
@@ -177,13 +177,13 @@ public class VPanel extends JPanel implements Scrollable {
 	 * {@code UIManager.getColor("Panel.foreground")}.
 	 */
 	public void resetForegroundColors() {
-		setForeground(UIManager.getColor("Panel.foreground"));
+        this.setForeground(UIManager.getColor("Panel.foreground"));
 	}
 
 	/** Sets the sequential image op of each tile to null. */
 	public void resetSequentialImageOps() {
-		for (int y = 0 ; y < getHeightInTiles() ; y++) {
-			for (int x = 0 ; x < getWidthInTiles() ; x++) {
+		for (int y = 0 ; y < this.getHeightInTiles() ; y++) {
+			for (int x = 0 ; x < this.getWidthInTiles() ; x++) {
 				sequentialImageOps[y][x] = null;
 			}
 		}
@@ -220,7 +220,7 @@ public class VPanel extends JPanel implements Scrollable {
 
 	@Override
 	public int getScrollableBlockIncrement(final Rectangle visibleRect, final int orientation, final int direction) {
-		return getScrollableUnitIncrement(visibleRect, orientation, direction);
+		return this.getScrollableUnitIncrement(visibleRect, orientation, direction);
 	}
 
 	@Override
@@ -261,7 +261,7 @@ public class VPanel extends JPanel implements Scrollable {
 
 		for (int y = 0; y < backgroundColors.length; y++) {
 			for (int x = 0; x < backgroundColors[0].length; x++) {
-				setBackgroundAt(x, y, new VColor(red, green, blue, alpha));
+                this.setBackgroundAt(x, y, new VColor(red, green, blue, alpha));
 			}
 		}
 	}
@@ -314,7 +314,7 @@ public class VPanel extends JPanel implements Scrollable {
 
 		for (int y = 0; y < foregroundColors.length; y++) {
 			for (int x = 0; x < foregroundColors[0].length; x++) {
-				setForegroundAt(x, y, new VColor(red, green, blue, alpha));
+                this.setForegroundAt(x, y, new VColor(red, green, blue, alpha));
 			}
 		}
 	}
