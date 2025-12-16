@@ -86,7 +86,7 @@ public class VFont {
 		var image = new BufferedImage(imageWidth, maxTileHeight, Transparency.TRANSLUCENT);
 
 		final var graphics = image.createGraphics();
-		applyRenderingHints(graphics, codePoint);
+        this.applyRenderingHints(graphics, codePoint);
 		graphics.setFont(font);
 
 		graphics.setColor(new Color(0, 0, 0, 0));
@@ -155,7 +155,7 @@ public class VFont {
 	private FontMetrics getFontMetrics() {
 		final var image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 		final var graphics = image.createGraphics();
-		applyRenderingHints(graphics, 0);
+        this.applyRenderingHints(graphics, 0);
 		graphics.setFont(font);
 
 		return graphics.getFontMetrics();
