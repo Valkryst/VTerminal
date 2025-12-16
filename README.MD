@@ -134,7 +134,7 @@ experiencing any issues with the supported components, then please feel free to
 * [JTextPane](https://docs.oracle.com/en/java/javase/15/docs/api/java.desktop/javax/swing/JTextPane.html)
 * [JToolTip](https://docs.oracle.com/en/java/javase/15/docs/api/java.desktop/javax/swing/JToolTip.html)
 * [VFrame](https://github.com/Valkryst/VTerminal/tree/master/src/main/java/com/valkryst/VTerminal/component/VFrame.java)
-	* A subclass of _JFrame_ which allows for easier en/disabling of full screen
+	* A subclass of _JFrame_ which allows for easier en/disabling of full-screen
 	  mode and which has a number of convenience methods.
 * [VPanel](https://github.com/Valkryst/VTerminal/tree/master/src/main/java/com/valkryst/VTerminal/component/VPanel.java)
 	* A subclass of _JPanel_ which allows for displaying a 2D grid of characters

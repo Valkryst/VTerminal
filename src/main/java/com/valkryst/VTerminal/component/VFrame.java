@@ -10,10 +10,10 @@ public class VFrame extends JFrame {
 	/** Content pane of the frame. */
 	@Getter private final VPanel contentPane;
 
-	/** The preferred size of the frame, when it's not in full screen mode. */
+	/** The preferred size of the frame, when it's not in full-screen mode. */
 	private Dimension preferredSize;
 
-	/** Whether the frame is in full screen mode. */
+	/** Whether the frame is in full-screen mode. */
 	@Getter private boolean isFullScreen = false;
 
 	/**
@@ -57,9 +57,9 @@ public class VFrame extends JFrame {
 	}
 
 	/**
-	 * Determines whether full screen mode is supported.,
+	 * Determines whether full-screen mode is supported.,
 	 *
-	 * @return Whether full screen mode is supported.
+	 * @return Whether full-screen mode is supported.
 	 */
 	public boolean isFullScreenSupported() {
 		return getGraphicsDevice().isFullScreenSupported();
@@ -75,29 +75,29 @@ public class VFrame extends JFrame {
 	}
 
 	/**
-	 * En/disables full screen mode.
+	 * En/disables full-screen mode.
 	 *
-	 * @param fullScreen Whether to en/disable full screen mode.
+	 * @param fullScreen Whether to en/disable full-screen mode.
 	 */
 	public void setFullScreen(final boolean fullScreen) {
 		setFullScreen(fullScreen, null);
 	}
 
 	/**
-	 * En/disables full screen mode and changes the display mode if one is
+	 * En/disables full-screen mode and changes the display mode if one is
 	 * given.
 	 *
-	 * @param fullScreen Whether to en/disable full screen mode.
+	 * @param fullScreen Whether to en/disable full-screen mode.
 	 * @param displayMode A display mode.
 	 */
 	public void setFullScreen(final boolean fullScreen, final DisplayMode displayMode) {
 		if (!isFullScreenSupported()) {
-			throw new UnsupportedOperationException("The current graphics device does not support full screen mode.");
+			throw new UnsupportedOperationException("The current graphics device does not support full-screen mode.");
 		}
 
 		if (displayMode != null) {
 			if (!fullScreen) {
-				throw new IllegalArgumentException("The display mode can only be changed when enabling to full screen mode.");
+				throw new IllegalArgumentException("The display mode can only be changed when enabling to full-screen mode.");
 			}
 
 			if (!isDisplayChangeSupported()) {
