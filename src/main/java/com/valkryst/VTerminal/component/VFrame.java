@@ -53,7 +53,7 @@ public class VFrame extends JFrame {
 	 * @return All supported display modes.
 	 */
 	public DisplayMode[] getDisplayModes() {
-		return getGraphicsDevice().getDisplayModes();
+		return this.getGraphicsDevice().getDisplayModes();
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class VFrame extends JFrame {
 	 * @return Whether full-screen mode is supported.
 	 */
 	public boolean isFullScreenSupported() {
-		return getGraphicsDevice().isFullScreenSupported();
+		return this.getGraphicsDevice().isFullScreenSupported();
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class VFrame extends JFrame {
 	 * @return Whether changing the display mode is supported.
 	 */
 	public boolean isDisplayChangeSupported() {
-		return getGraphicsDevice().isDisplayChangeSupported();
+		return this.getGraphicsDevice().isDisplayChangeSupported();
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class VFrame extends JFrame {
 	 * @param fullScreen Whether to en/disable full-screen mode.
 	 */
 	public void setFullScreen(final boolean fullScreen) {
-		setFullScreen(fullScreen, null);
+        this.setFullScreen(fullScreen, null);
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class VFrame extends JFrame {
 	 * @param displayMode A display mode.
 	 */
 	public void setFullScreen(final boolean fullScreen, final DisplayMode displayMode) {
-		if (!isFullScreenSupported()) {
+		if (!this.isFullScreenSupported()) {
 			throw new UnsupportedOperationException("The current graphics device does not support full-screen mode.");
 		}
 
@@ -100,17 +100,17 @@ public class VFrame extends JFrame {
 				throw new IllegalArgumentException("The display mode can only be changed when enabling to full-screen mode.");
 			}
 
-			if (!isDisplayChangeSupported()) {
+			if (!this.isDisplayChangeSupported()) {
 				throw new UnsupportedOperationException("The current graphics device does not support changing the display mode.");
 			}
 		}
 
 		super.dispose();
 		super.setUndecorated(fullScreen);
-		getGraphicsDevice().setFullScreenWindow(fullScreen ? this : null);
+        this.getGraphicsDevice().setFullScreenWindow(fullScreen ? this : null);
 
 		if (displayMode != null) {
-			getGraphicsDevice().setDisplayMode(displayMode);
+            this.getGraphicsDevice().setDisplayMode(displayMode);
 		}
 
 		if (fullScreen) {
