@@ -1,6 +1,7 @@
 package com.valkryst.VTerminal.component;
 
 import com.valkryst.VTerminal.image.SequentialOp;
+import com.valkryst.VTerminal.plaf.VTerminalLookAndFeel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -8,6 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class VPanelTest {
+	public VPanelTest() throws UnsupportedLookAndFeelException {
+		UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance());
+	}
 	@Test
 	public void canCreatePanel() throws NoSuchFieldException, IllegalAccessException {
 		final int panelWidth = 10;
@@ -349,5 +353,62 @@ public class VPanelTest {
 		Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
 			new VPanel(1, 1).setForegroundAt(-1, -1, Color.MAGENTA);
 		});
+	}
+
+	@Test
+	public void canGetWidthInTiles() {
+		final var panel = new VPanel(7, 3);
+		Assertions.assertEquals(7, panel.getWidthInTiles());
+	}
+
+	@Test
+	public void canGetHeightInTiles() {
+		final var panel = new VPanel(7, 3);
+		Assertions.assertEquals(3, panel.getHeightInTiles());
+	}
+
+	@Test
+	public void canGetPreferredScrollableViewportSize() {
+		final var panel = new VPanel(5, 4);
+		final var laf = VTerminalLookAndFeel.getInstance();
+		final var expected = new Dimension(5 * laf.getTileWidth(), 4 * laf.getTileHeight());
+		Assertions.assertEquals(expected, panel.getPreferredScrollableViewportSize());
+	}
+
+	@Test
+	public void canGetScrollableUnitIncrementHorizontal() {
+		final var panel = new VPanel(2, 2);
+		final var laf = VTerminalLookAndFeel.getInstance();
+		Assertions.assertEquals(laf.getTileWidth(), panel.getScrollableUnitIncrement(new Rectangle(), SwingConstants.HORIZONTAL, 1));
+	}
+
+	@Test
+	public void canGetScrollableUnitIncrementVertical() {
+		final var panel = new VPanel(2, 2);
+		final var laf = VTerminalLookAndFeel.getInstance();
+		Assertions.assertEquals(laf.getTileHeight(), panel.getScrollableUnitIncrement(new Rectangle(), SwingConstants.VERTICAL, 1));
+	}
+
+	@Test
+	public void canGetScrollableUnitIncrementWithUnknownOrientation() {
+		final var panel = new VPanel(2, 2);
+		Assertions.assertEquals(0, panel.getScrollableUnitIncrement(new Rectangle(), -1, 1));
+	}
+
+	@Test
+	public void canGetScrollableBlockIncrement() {
+		final var panel = new VPanel(2, 2);
+		final var laf = VTerminalLookAndFeel.getInstance();
+		Assertions.assertEquals(laf.getTileWidth(), panel.getScrollableBlockIncrement(new Rectangle(), SwingConstants.HORIZONTAL, 1));
+	}
+
+	@Test
+	public void doesNotTrackViewportWidth() {
+		Assertions.assertFalse(new VPanel(2, 2).getScrollableTracksViewportWidth());
+	}
+
+	@Test
+	public void doesNotTrackViewportHeight() {
+		Assertions.assertFalse(new VPanel(2, 2).getScrollableTracksViewportHeight());
 	}
 }

@@ -94,7 +94,7 @@ public class VFrameTest {
 	@Test
 	public void canEnableFullScreenModeWithDisplayMode() {
 		final var frame = new VFrame(10, 10);
-		if (frame.isFullScreenSupported()) {
+		if (frame.isFullScreenSupported() && frame.isDisplayChangeSupported()) {
 			final var displayModes = frame.getDisplayModes();
 			frame.setFullScreen(true, displayModes[0]);
 		}
