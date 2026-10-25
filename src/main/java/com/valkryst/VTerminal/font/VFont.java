@@ -67,10 +67,12 @@ public class VFont {
 		final var hash = Objects.hash(codePoint, color, sequentialOp);
 		final var cachedImage = imageCache.getIfPresent(hash);
 		if (cachedImage != null) {
-			if (cachedImage instanceof VolatileImage) {
-				if (!((VolatileImage) cachedImage).contentsLost()) {
+			if (cachedImage instanceof VolatileImage volatileImage) {
+                if (!volatileImage.contentsLost()) {
 					return cachedImage;
 				}
+				// Contents lost, remove from cache so we recreate it
+				imageCache.invalidate(hash);
 			} else {
 				return cachedImage;
 			}
@@ -110,30 +112,35 @@ public class VFont {
 		}
 
 		/*
-		 * We could manually convert the BufferedImage into a VolatileImage
-		 * using GraphicsConfiguration#createCompatibleVolatileImage. This would
-		 * most likely increase performance.
+		 * Convert BufferedImage to VolatileImage for better performance.
+		 * VolatileImage provides hardware acceleration when available.
 		 *
-		 * Doing this will also cause graphical issues when dragging a J/VFrame
-		 * between monitors. All the tiles will render as black rectangles
-		 * because the VolatileImages are generated to be displayed on the
-		 * GraphicsDevice that the frame is initially displayed on.
-		 *
-		 * Workarounds for this black rectangle issue aren't incredibly
-		 * difficult, but it isn't currently worth the effort and additional
-		 * code complexity.
-		 *
-		 * ---
-		 *
-		 * It may not be necessary to perform this manual conversion as the
-		 * runtime engine will automatically convert BufferedImages to
-		 * VolatileImages when it detects that it will provide a speed
-		 * advantage.
-		 *
-		 * Source: https://kitfox.com/projects/javaOne2007/javaOne-notes.pdf
+		 * When using multiple monitors, if the JFrame is dragged between them, the VolatileImages may appear black. To
+		 * resolve this issue, we check if the contents are lost and re-create them if necessary.
 		 */
-		imageCache.put(hash, image);
-		return image;
+		try {
+			final var graphicsConfig = GraphicsEnvironment
+				.getLocalGraphicsEnvironment()
+				.getDefaultScreenDevice()
+				.getDefaultConfiguration();
+
+			final var volatileImage = graphicsConfig.createCompatibleVolatileImage(
+				image.getWidth(),
+				image.getHeight(),
+				Transparency.TRANSLUCENT
+			);
+
+			final var volatileGraphics = volatileImage.getGraphics();
+			volatileGraphics.drawImage(image, 0, 0, null);
+			volatileGraphics.dispose();
+
+			imageCache.put(hash, volatileImage);
+			return volatileImage;
+		} catch (final Exception e) {
+			// Fallback to BufferedImage if VolatileImage creation fails
+			imageCache.put(hash, image);
+			return image;
+		}
 	}
 
 	private void applyRenderingHints(Graphics2D graphics, final int codePoint) {
