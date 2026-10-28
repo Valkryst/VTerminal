@@ -130,7 +130,8 @@ public class VFont {
 				Transparency.TRANSLUCENT
 			);
 
-			final var volatileGraphics = volatileImage.getGraphics();
+			final var volatileGraphics = volatileImage.createGraphics();
+			volatileGraphics.setComposite(AlphaComposite.Src);
 			volatileGraphics.drawImage(image, 0, 0, null);
 			volatileGraphics.dispose();
 
