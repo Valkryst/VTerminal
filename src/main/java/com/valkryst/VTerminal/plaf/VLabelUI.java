@@ -12,11 +12,12 @@ public class VLabelUI extends BasicLabelUI {
 	}
 
 	@Override
-	public void paint(final Graphics graphics, final JComponent component) {
+	public void paint(Graphics graphics, final JComponent component) {
 		final var laf = VTerminalLookAndFeel.getInstance();
 		final var label = (JLabel) component;
 		final var text = label.getText();
 
+		graphics = VTerminalLookAndFeel.resolveGraphics(graphics, component);
 		graphics.setColor(label.getBackground());
 		graphics.fillRect(0, 0, label.getWidth(), label.getHeight());
 

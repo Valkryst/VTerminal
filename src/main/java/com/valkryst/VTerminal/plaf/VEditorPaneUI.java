@@ -15,6 +15,12 @@ public class VEditorPaneUI extends BasicEditorPaneUI {
 	}
 
 	@Override
+	public void update(Graphics g, final JComponent c) {
+		g = VTerminalLookAndFeel.resolveGraphics(g, c);
+		super.update(g, c);
+	}
+
+	@Override
 	public Dimension getMaximumSize(final JComponent component) {
 		final var laf = VTerminalLookAndFeel.getInstance();
 		return laf.clampDimensionToTileMultiples(super.getMaximumSize(component));

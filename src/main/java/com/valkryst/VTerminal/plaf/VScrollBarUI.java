@@ -14,6 +14,12 @@ public class VScrollBarUI extends BasicScrollBarUI {
 	}
 
 	@Override
+	public void paint(Graphics g, final JComponent c) {
+		g = VTerminalLookAndFeel.resolveGraphics(g, c);
+		super.paint(g, c);
+	}
+
+	@Override
 	protected void paintThumb(final Graphics graphics, final JComponent component, final Rectangle thumbBounds) {
 		if (thumbBounds.isEmpty() || !component.isEnabled()) {
 			return;

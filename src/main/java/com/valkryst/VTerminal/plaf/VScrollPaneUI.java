@@ -3,7 +3,7 @@ package com.valkryst.VTerminal.plaf;
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicScrollPaneUI;
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -49,5 +49,11 @@ public class VScrollPaneUI extends BasicScrollPaneUI {
 		verticalScrollBar.setUnitIncrement(laf.getTileHeight());
 
 		return new VScrollPaneUI();
+	}
+
+	@Override
+	public void paint(Graphics g, final JComponent c) {
+		g = VTerminalLookAndFeel.resolveGraphics(g, c);
+		super.paint(g, c);
 	}
 }

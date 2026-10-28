@@ -13,6 +13,12 @@ public class VToolTipUI extends BasicToolTipUI {
 	}
 
 	@Override
+	public void paint(Graphics g, final JComponent c) {
+		g = VTerminalLookAndFeel.resolveGraphics(g, c);
+		super.paint(g, c);
+	}
+
+	@Override
 	public Dimension getMaximumSize(final JComponent component) {
 		final var laf = VTerminalLookAndFeel.getInstance();
 		return laf.clampDimensionToTileMultiples(super.getMaximumSize(component));

@@ -32,7 +32,7 @@ public class VRadioButtonUI extends BasicRadioButtonUI {
 	}
 
 	@Override
-	public synchronized void paint(final Graphics graphics, final JComponent component) {
+	public synchronized void paint(Graphics graphics, final JComponent component) {
 		final var laf = VTerminalLookAndFeel.getInstance();
 		final var button = (JRadioButton) component;
 		final var model = button.getModel();
@@ -47,6 +47,7 @@ public class VRadioButtonUI extends BasicRadioButtonUI {
 			backgroundColor = temp;
 		}
 
+		graphics = VTerminalLookAndFeel.resolveGraphics(graphics, component);
 		graphics.setColor(backgroundColor);
 		graphics.fillRect(0, 0, button.getWidth(), button.getHeight());
 

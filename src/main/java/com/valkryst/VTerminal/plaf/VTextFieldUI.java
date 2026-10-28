@@ -20,6 +20,12 @@ public class VTextFieldUI extends BasicTextFieldUI {
 	}
 
 	@Override
+	public void update(Graphics g, final JComponent c) {
+		g = VTerminalLookAndFeel.resolveGraphics(g, c);
+		super.update(g, c);
+	}
+
+	@Override
 	public Dimension getMaximumSize(final JComponent component) {
 		final var laf = VTerminalLookAndFeel.getInstance();
 		final var size = new Dimension(Integer.MAX_VALUE, laf.getTileHeight());

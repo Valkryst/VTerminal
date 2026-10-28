@@ -37,7 +37,7 @@ public class VButtonUI extends BasicButtonUI {
 	}
 
 	@Override
-	public void paint(final Graphics graphics, final JComponent component) {
+	public void paint(Graphics graphics, final JComponent component) {
 		final var laf = VTerminalLookAndFeel.getInstance();
 		final var button = (JButton) component;
 		final var model = button.getModel();
@@ -52,6 +52,7 @@ public class VButtonUI extends BasicButtonUI {
 			backgroundColor = temp;
 		}
 
+		graphics = VTerminalLookAndFeel.resolveGraphics(graphics, component);
 		graphics.setColor(backgroundColor);
 		graphics.fillRect(0, 0, button.getWidth(), button.getHeight());
 

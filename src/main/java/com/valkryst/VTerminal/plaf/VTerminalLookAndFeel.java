@@ -15,6 +15,25 @@ import java.util.Map;
 import java.util.Objects;
 
 public class VTerminalLookAndFeel extends BasicLookAndFeel {
+	/**
+	 * Client property key for per-component high-quality rendering toggle.
+	 *
+	 * <p>Set {@code Boolean.TRUE} or {@code Boolean.FALSE} on any {@link JComponent} to override the
+	 * {@linkplain #isHighQualityRenderingEnabled() global default} for that instance. Clear the property
+	 * (pass {@code null}) to revert to the global default.</p>
+	 *
+	 * <pre>
+	 * component.putClientProperty(VTerminalLookAndFeel.HIGH_QUALITY_RENDERING_KEY, Boolean.FALSE);
+	 * component.putClientProperty(VTerminalLookAndFeel.HIGH_QUALITY_RENDERING_KEY, null); // revert
+	 * </pre>
+	 *
+	 * @see #resolveGraphics(Graphics, JComponent)
+	 */
+	public static final String HIGH_QUALITY_RENDERING_KEY = "VTerminal.highQualityRendering";
+
+	/** Global default for high-quality rendering. {@code true} unless changed via {@link #enableHighQualityRendering(boolean)}. */
+	private static boolean highQualityRenderingDefault = true;
+
 	/** The singleton instance. */
 	private static VTerminalLookAndFeel instance;
 
@@ -206,6 +225,58 @@ public class VTerminalLookAndFeel extends BasicLookAndFeel {
 	 */
 	public int getTileWidth() {
 		return vFont.getMaxTileWidth();
+	}
+
+	/**
+	 * Returns whether high-quality rendering hints are applied by default to all components.
+	 *
+	 * @return {@code true} if high-quality rendering is enabled by default.
+	 *
+	 * @see #HIGH_QUALITY_RENDERING_KEY
+	 * @see #enableHighQualityRendering(boolean)
+	 */
+	public static boolean isHighQualityRenderingEnabled() {
+		return highQualityRenderingDefault;
+	}
+
+	/**
+	 * Sets the global default for high-quality rendering hints.
+	 *
+	 * <p>Individual components can still override this via
+	 * {@link JComponent#putClientProperty(Object, Object)} with key {@link #HIGH_QUALITY_RENDERING_KEY}.</p>
+	 *
+	 * @param enabled {@code true} to enable high-quality rendering by default.
+	 *
+	 * @see #HIGH_QUALITY_RENDERING_KEY
+	 * @see #isHighQualityRenderingEnabled()
+	 */
+	public static void enableHighQualityRendering(final boolean enabled) {
+		highQualityRenderingDefault = enabled;
+	}
+
+	/**
+	 * Resolves a {@link Graphics2D} context for painting, applying high-quality {@link RenderingHints} when
+	 * appropriate.
+	 *
+	 * <p>Resolution order:</p>
+	 * <ol>
+	 *   <li>If {@code component} has a {@link Boolean} client property under {@link #HIGH_QUALITY_RENDERING_KEY},
+	 *       that value is used.</li>
+	 *   <li>Otherwise the {@linkplain #isHighQualityRenderingEnabled() global default} is used.</li>
+	 * </ol>
+	 *
+	 * @param graphics A {@link Graphics} context.
+	 * @param component Component being painted.
+	 *
+	 * @return A {@link Graphics2D} context, with high-quality hints applied when enabled.
+	 *
+	 * @see #HIGH_QUALITY_RENDERING_KEY
+	 * @see #setRenderingHints(Graphics)
+	 */
+	public static Graphics2D resolveGraphics(@NonNull final Graphics graphics, @NonNull final JComponent component) {
+		final var prop = (Boolean) component.getClientProperty(HIGH_QUALITY_RENDERING_KEY);
+		final boolean hq = prop != null ? prop : highQualityRenderingDefault;
+		return hq ? setRenderingHints(graphics) : (Graphics2D) graphics;
 	}
 
 	/**
