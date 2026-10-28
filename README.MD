@@ -143,24 +143,46 @@ experiencing any issues with the supported components, then please feel free to
 	  
 ## Enhanced Components
 
-Unless otherwise specified, the following components have an overridden
-`paintComponent` method which ensures the component is rendered at a higher
-quality than its default counterpart.
+Every component rendered by the VTerminal LAF automatically applies a set of
+high-quality [RenderingHints](https://docs.oracle.com/en/java/javase/15/docs/api/java.desktop/java/awt/RenderingHints.html)
+(antialiasing, bicubic interpolation, etc.) to its `Graphics2D` context before
+painting. No special subclasses are required — standard Swing components work
+as-is once the LAF is installed.
 
-The following image shows a `JEditorPane` and a `VEditorPane` side-by-side.
+The following image shows a `JEditorPane` rendered with and without high-quality
+hints side-by-side.
 
 ![](https://i.imgur.com/6XfbVar.png)
 
-Unfortunately, I was unable to find a fool-proof way of ensuring that all
-components render with high-quality [RenderingHints](https://docs.oracle.com/en/java/javase/15/docs/api/java.desktop/java/awt/RenderingHints.html).
-If a method is ever discovered, then these classes _may_ be depreciated and/or
-removed from this repository.
+### Controlling rendering quality
 
-* [VEditorPane](https://github.com/Valkryst/VTerminal/tree/master/src/main/java/com/valkryst/VTerminal/component/VEditorPane.java)
-* [VPasswordField](https://github.com/Valkryst/VTerminal/tree/master/src/main/java/com/valkryst/VTerminal/component/VPasswordField.java)
-* [VTextArea](https://github.com/Valkryst/VTerminal/tree/master/src/main/java/com/valkryst/VTerminal/component/VTextArea.java)
-* [VTextField](https://github.com/Valkryst/VTerminal/tree/master/src/main/java/com/valkryst/VTerminal/component/VTextField.java)
-* [VTextPane](https://github.com/Valkryst/VTerminal/tree/master/src/main/java/com/valkryst/VTerminal/component/VTextPane.java)
+There are three control levels, applied in order of precedence:
+
+**1. Global default** — enabled by default; applies to every component.
+
+```java
+// Disable high-quality rendering for all components.
+VTerminalLookAndFeel.enableHighQualityRendering(false);
+
+// Re-enable it.
+VTerminalLookAndFeel.enableHighQualityRendering(true);
+```
+
+**2. Per-component override** — overrides the global default for a single component.
+
+```java
+// Force high-quality rendering for this component regardless of the global default.
+component.putClientProperty(VTerminalLookAndFeel.HIGH_QUALITY_RENDERING_KEY, Boolean.TRUE);
+
+// Force low-quality rendering for this component regardless of the global default.
+component.putClientProperty(VTerminalLookAndFeel.HIGH_QUALITY_RENDERING_KEY, Boolean.FALSE);
+```
+
+**3. Clear the override** — removes the per-component override and reverts to the global default.
+
+```java
+component.putClientProperty(VTerminalLookAndFeel.HIGH_QUALITY_RENDERING_KEY, null);
+```
 	  
 ## Credits & Inspiration
 
