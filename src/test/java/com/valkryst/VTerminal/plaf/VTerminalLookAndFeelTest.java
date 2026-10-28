@@ -30,6 +30,10 @@ public class VTerminalLookAndFeelTest {
 		final var singletonField = VTerminalLookAndFeel.class.getDeclaredField("instance");
 		singletonField.setAccessible(true);
 		singletonField.set(laf, null);
+
+		final var hqField = VTerminalLookAndFeel.class.getDeclaredField("highQualityRenderingDefault");
+		hqField.setAccessible(true);
+		hqField.set(null, true);
 	}
 
 	@Test
@@ -298,5 +302,100 @@ public class VTerminalLookAndFeelTest {
 	public void reportsAsSupportedLookAndFeel() {
 		final var laf = VTerminalLookAndFeel.getInstance();
 		Assertions.assertTrue(laf.isSupportedLookAndFeel());
+	}
+
+	@Test
+	public void highQualityRenderingKeyIsNotNull() {
+		Assertions.assertNotNull(VTerminalLookAndFeel.HIGH_QUALITY_RENDERING_KEY);
+	}
+
+	@Test
+	public void highQualityRenderingDefaultIsTrueByDefault() {
+		Assertions.assertTrue(VTerminalLookAndFeel.isHighQualityRenderingEnabled());
+	}
+
+	@Test
+	public void canDisableHighQualityRenderingDefault() {
+		VTerminalLookAndFeel.enableHighQualityRendering(false);
+		Assertions.assertFalse(VTerminalLookAndFeel.isHighQualityRenderingEnabled());
+	}
+
+	@Test
+	public void canEnableHighQualityRenderingDefault() {
+		VTerminalLookAndFeel.enableHighQualityRendering(false);
+		VTerminalLookAndFeel.enableHighQualityRendering(true);
+		Assertions.assertTrue(VTerminalLookAndFeel.isHighQualityRenderingEnabled());
+	}
+
+	@Test
+	public void resolveGraphicsAppliesHintsWhenDefaultIsTrue() {
+		final var button = new JButton("Test");
+		final var image = new java.awt.image.BufferedImage(10, 10, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+		final var g = image.getGraphics();
+
+		VTerminalLookAndFeel.enableHighQualityRendering(true);
+		final var g2d = VTerminalLookAndFeel.resolveGraphics(g, button);
+		Assertions.assertNotNull(g2d);
+		Assertions.assertEquals(
+			java.awt.RenderingHints.VALUE_ANTIALIAS_ON,
+			g2d.getRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING)
+		);
+	}
+
+	@Test
+	public void resolveGraphicsSkipsHintsWhenDefaultIsFalse() {
+		final var button = new JButton("Test");
+		final var image = new java.awt.image.BufferedImage(10, 10, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+		final var g = image.getGraphics();
+
+		VTerminalLookAndFeel.enableHighQualityRendering(false);
+		final var g2d = VTerminalLookAndFeel.resolveGraphics(g, button);
+		Assertions.assertNotNull(g2d);
+		Assertions.assertNull(g2d.getRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING));
+	}
+
+	@Test
+	public void resolveGraphicsUsesPerComponentPropertyOverGlobalDefault() {
+		final var button = new JButton("Test");
+		button.putClientProperty(VTerminalLookAndFeel.HIGH_QUALITY_RENDERING_KEY, Boolean.FALSE);
+		final var image = new java.awt.image.BufferedImage(10, 10, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+		final var g = image.getGraphics();
+
+		VTerminalLookAndFeel.enableHighQualityRendering(true);
+		final var g2d = VTerminalLookAndFeel.resolveGraphics(g, button);
+		Assertions.assertNull(g2d.getRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING));
+	}
+
+	@Test
+	public void resolveGraphicsRevertsToClobalDefaultWhenPropertyIsCleared() {
+		final var button = new JButton("Test");
+		button.putClientProperty(VTerminalLookAndFeel.HIGH_QUALITY_RENDERING_KEY, Boolean.FALSE);
+		button.putClientProperty(VTerminalLookAndFeel.HIGH_QUALITY_RENDERING_KEY, null);
+		final var image = new java.awt.image.BufferedImage(10, 10, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+		final var g = image.getGraphics();
+
+		VTerminalLookAndFeel.enableHighQualityRendering(true);
+		final var g2d = VTerminalLookAndFeel.resolveGraphics(g, button);
+		Assertions.assertEquals(
+			java.awt.RenderingHints.VALUE_ANTIALIAS_ON,
+			g2d.getRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING)
+		);
+	}
+
+	@Test
+	public void cannotResolveGraphicsIfGraphicsIsNull() {
+		final var button = new JButton("Test");
+		Assertions.assertThrows(NullPointerException.class, () -> {
+			VTerminalLookAndFeel.resolveGraphics(null, button);
+		});
+	}
+
+	@Test
+	public void cannotResolveGraphicsIfComponentIsNull() {
+		final var image = new java.awt.image.BufferedImage(10, 10, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+		final var g = image.getGraphics();
+		Assertions.assertThrows(NullPointerException.class, () -> {
+			VTerminalLookAndFeel.resolveGraphics(g, null);
+		});
 	}
 }

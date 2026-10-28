@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import javax.swing.*;
 import java.awt.*;
 
-public class VPasswordFieldUITest {
-	public VPasswordFieldUITest() throws UnsupportedLookAndFeelException {
+public class JPasswordFieldUITest {
+	public JPasswordFieldUITest() throws UnsupportedLookAndFeelException {
 		final var laf = VTerminalLookAndFeel.getInstance();
 		UIManager.setLookAndFeel(laf);
 	}

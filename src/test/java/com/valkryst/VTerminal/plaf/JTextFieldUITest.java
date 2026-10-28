@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import javax.swing.*;
 import java.awt.*;
 
-public class VTextFieldUITest {
-	public VTextFieldUITest() throws UnsupportedLookAndFeelException {
+public class JTextFieldUITest {
+	public JTextFieldUITest() throws UnsupportedLookAndFeelException {
 		final var laf = VTerminalLookAndFeel.getInstance();
 		UIManager.setLookAndFeel(laf);
 	}

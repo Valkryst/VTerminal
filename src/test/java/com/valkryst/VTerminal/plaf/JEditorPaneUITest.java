@@ -1,19 +1,18 @@
 package com.valkryst.VTerminal.plaf;
 
-import com.valkryst.VTerminal.component.VEditorPane;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 
-public class VEditorPaneUITest {
-	public VEditorPaneUITest() throws UnsupportedLookAndFeelException {
+public class JEditorPaneUITest {
+	public JEditorPaneUITest() throws UnsupportedLookAndFeelException {
 		UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance());
 	}
 
 	@Test
 	public void canGetMaximumSize() {
-		final var component = new VEditorPane("text/plain", "Hello");
+		final var component = new JEditorPane("text/plain", "Hello");
 
 		final var laf = VTerminalLookAndFeel.getInstance();
 		final var size = component.getMaximumSize();
@@ -23,7 +22,7 @@ public class VEditorPaneUITest {
 
 	@Test
 	public void canGetMinimumSize() {
-		final var component = new VEditorPane("text/plain", "Hello");
+		final var component = new JEditorPane("text/plain", "Hello");
 
 		final var laf = VTerminalLookAndFeel.getInstance();
 		final var size = component.getMinimumSize();
@@ -33,7 +32,7 @@ public class VEditorPaneUITest {
 
 	@Test
 	public void canGetPreferredSize() {
-		final var component = new VEditorPane("text/plain", "Hello");
+		final var component = new JEditorPane("text/plain", "Hello");
 
 		final var laf = VTerminalLookAndFeel.getInstance();
 		final var size = component.getPreferredSize();
