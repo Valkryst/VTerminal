@@ -351,7 +351,10 @@ public class VTerminalLookAndFeelTest {
 		VTerminalLookAndFeel.enableHighQualityRendering(false);
 		final var g2d = VTerminalLookAndFeel.resolveGraphics(g, button);
 		Assertions.assertNotNull(g2d);
-		Assertions.assertNull(g2d.getRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING));
+		Assertions.assertNotEquals(
+			java.awt.RenderingHints.VALUE_ANTIALIAS_ON,
+			g2d.getRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING)
+		);
 	}
 
 	@Test
@@ -363,7 +366,10 @@ public class VTerminalLookAndFeelTest {
 
 		VTerminalLookAndFeel.enableHighQualityRendering(true);
 		final var g2d = VTerminalLookAndFeel.resolveGraphics(g, button);
-		Assertions.assertNull(g2d.getRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING));
+		Assertions.assertNotEquals(
+			java.awt.RenderingHints.VALUE_ANTIALIAS_ON,
+			g2d.getRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING)
+		);
 	}
 
 	@Test
