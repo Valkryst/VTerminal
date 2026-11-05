@@ -36,6 +36,30 @@ public class VFrame extends JFrame {
 		super.setContentPane(contentPane);
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+		enableMacOsNativeFullScreen(this);
+	}
+
+	/**
+	 * Opts the given {@link Window} into macOS's native full-screen mode so the system-provided green title-bar button
+	 * and {@code Ctrl-Cmd-F} shortcut work. Uses reflection to avoid a hard dependency on {@code com.apple.eawt}; on
+	 * non-macOS JVMs, or when the class is unavailable, this is a silent no-op.
+	 *
+	 * @param window Window to opt in; typically the {@link VFrame} itself.
+	 */
+	private static void enableMacOsNativeFullScreen(final Window window) {
+		final var osName = System.getProperty("os.name", "").toLowerCase();
+		if (!osName.contains("mac")) {
+			return;
+		}
+
+		try {
+			final var clazz = Class.forName("com.apple.eawt.FullScreenUtilities");
+			final var method = clazz.getMethod("setWindowCanFullScreen", Window.class, boolean.class);
+			method.invoke(null, window, true);
+		} catch (final ReflectiveOperationException ignored) {
+			// macOS without com.apple.eawt (or a JDK that removed it); native full-screen simply won't be offered.
+		}
 	}
 
 	/**
@@ -114,7 +138,7 @@ public class VFrame extends JFrame {
 		}
 
 		if (fullScreen) {
-			super.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
+			super.setPreferredSize(this.getGraphicsConfiguration().getBounds().getSize());
 			super.revalidate();
 		} else {
 			super.setPreferredSize(preferredSize);
