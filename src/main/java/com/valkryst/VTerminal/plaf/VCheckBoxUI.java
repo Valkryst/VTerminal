@@ -32,7 +32,7 @@ public class VCheckBoxUI extends BasicCheckBoxUI {
 	}
 
 	@Override
-	public synchronized void paint(Graphics graphics, final JComponent component) {
+	public void paint(Graphics graphics, final JComponent component) {
 		final var laf = VTerminalLookAndFeel.getInstance();
 		final var button = (JCheckBox) component;
 		final var model = button.getModel();

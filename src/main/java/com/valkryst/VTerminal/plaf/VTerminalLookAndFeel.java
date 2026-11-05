@@ -32,7 +32,7 @@ public class VTerminalLookAndFeel extends BasicLookAndFeel {
 	public static final String HIGH_QUALITY_RENDERING_KEY = "VTerminal.highQualityRendering";
 
 	/** Global default for high-quality rendering. {@code true} unless changed via {@link #enableHighQualityRendering(boolean)}. */
-	private static boolean highQualityRenderingDefault = true;
+	private static volatile boolean highQualityRenderingDefault = true;
 
 	/** The singleton instance. */
 	private static VTerminalLookAndFeel instance;
