@@ -70,7 +70,7 @@ public class VCheckBoxUI extends BasicCheckBoxUI {
 		// Draw Text
 		if (text != null && !text.isBlank()) {
 			for (int i = 0; i < text.length(); i++) {
-				final var image = laf.generateImage(text.charAt(i), foregroundColor, null);
+				final var image = laf.generateImage(text.charAt(i), foregroundColor, null, component);
 
 				// Account for the custom selection character by adding to x.
 				graphics.drawImage(image, (i + 1) * tileWidth, 0, null);

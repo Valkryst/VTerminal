@@ -14,16 +14,42 @@ import java.awt.image.BufferedImage;
 import java.awt.image.VolatileImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class VFont {
 	@Getter private final Font font;
-	private final Cache<Integer, Image> imageCache;
+	private final Cache<GlyphKey, GlyphEntry> imageCache;
 
 	@Getter private final int maxTileWidth;
 	@Getter private final int maxTileHeight;
 	private final int fontAscent;
+
+	/**
+	 * Cache key identifying a rendered glyph.
+	 *
+	 * @param codePoint Unicode code point.
+	 * @param color Foreground color.
+	 * @param sequentialOp Optional post-render image operation, may be {@code null}.
+	 */
+	private record GlyphKey(int codePoint, Color color, SequentialOp sequentialOp) {}
+
+	/**
+	 * Cached glyph image pair: the authoritative {@link BufferedImage} source and an optional hardware-accelerated
+	 * {@link VolatileImage} tied to a specific {@link GraphicsConfiguration}.
+	 *
+	 * <p>The {@code source} is immutable and reusable across displays. The {@code accelerated} image is tied to a
+	 * single GC and may be invalidated by display changes, lost contents, or incompatible configurations; when that
+	 * happens it is recreated from {@code source}.</p>
+	 */
+	private static final class GlyphEntry {
+		final BufferedImage source;
+		volatile VolatileImage accelerated;
+		volatile GraphicsConfiguration acceleratedGc;
+
+		GlyphEntry(final BufferedImage source) {
+			this.source = source;
+		}
+	}
 
 	public VFont(final @NonNull InputStream inputStream, final int pointSize) throws IOException, FontFormatException {
 		font = Font.createFont(Font.TRUETYPE_FONT, inputStream)
@@ -59,36 +85,74 @@ public class VFont {
 		});
 	}
 
+	/**
+	 * Generates (or retrieves from cache) a rendered glyph image for the default screen's graphics configuration.
+	 *
+	 * <p>Prefer {@link #generateImage(int, Color, SequentialOp, GraphicsConfiguration)} when a target
+	 * {@link GraphicsConfiguration} is available — passing the caller's GC yields correct HiDPI rendering and avoids
+	 * {@link VolatileImage#IMAGE_INCOMPATIBLE} invalidations when a window spans multiple displays.</p>
+	 *
+	 * @param codePoint Unicode code point to render.
+	 * @param color Foreground color.
+	 * @param sequentialOp Optional post-render image operation, may be {@code null}.
+	 *
+	 * @return A glyph image, or {@code null} if the code point is whitespace or unrenderable by the font.
+	 */
 	public Image generateImage(final int codePoint, final @NonNull Color color, final SequentialOp sequentialOp) {
+		return generateImage(codePoint, color, sequentialOp, defaultGraphicsConfiguration());
+	}
+
+	/**
+	 * Generates (or retrieves from cache) a rendered glyph image targeted at the given {@link GraphicsConfiguration}.
+	 *
+	 * <p>The returned image may be a hardware-accelerated {@link VolatileImage} matched to {@code gc}. If a previously
+	 * cached {@link VolatileImage} was created for a different GC, has lost its contents, or has become incompatible
+	 * (e.g. the window moved to a different display), it is transparently recreated or restored from the authoritative
+	 * {@link BufferedImage} source.</p>
+	 *
+	 * @param codePoint Unicode code point to render.
+	 * @param color Foreground color.
+	 * @param sequentialOp Optional post-render image operation, may be {@code null}.
+	 * @param gc Target {@link GraphicsConfiguration}; {@code null} falls back to the default screen configuration.
+	 *
+	 * @return A glyph image, or {@code null} if the code point is whitespace or unrenderable by the font.
+	 *
+	 * @throws IllegalArgumentException If {@code codePoint} is not a valid Unicode code point.
+	 */
+	public Image generateImage(final int codePoint, final @NonNull Color color, final SequentialOp sequentialOp, GraphicsConfiguration gc) {
 		if (!Character.isValidCodePoint(codePoint)) {
 			throw new IllegalArgumentException(codePoint + " is not a valid code point.");
 		}
 
-		final var hash = Objects.hash(codePoint, color, sequentialOp);
-		final var cachedImage = imageCache.getIfPresent(hash);
-		if (cachedImage != null) {
-			if (cachedImage instanceof VolatileImage volatileImage) {
-                if (!volatileImage.contentsLost()) {
-					return cachedImage;
-				}
-				// Contents lost, remove from cache so we recreate it
-				imageCache.invalidate(hash);
-			} else {
-				return cachedImage;
+		if (gc == null) {
+			gc = defaultGraphicsConfiguration();
+		}
+
+		final var key = new GlyphKey(codePoint, color, sequentialOp);
+		var entry = imageCache.getIfPresent(key);
+		if (entry == null) {
+			if (!font.canDisplay(codePoint) || Character.isWhitespace(codePoint)) {
+				return null;
 			}
+			entry = new GlyphEntry(renderSource(codePoint, color, sequentialOp));
+			imageCache.put(key, entry);
 		}
 
-		if (!font.canDisplay(codePoint) || Character.isWhitespace(codePoint)) {
-			return null;
-		}
+		return acquireAccelerated(entry, gc);
+	}
 
+	/**
+	 * Renders the authoritative {@link BufferedImage} for a glyph. The result is cached once per key and is reused to
+	 * (re)seed {@link VolatileImage} copies as they are created or restored.
+	 */
+	private BufferedImage renderSource(final int codePoint, final Color color, final SequentialOp sequentialOp) {
 		final var fontMetrics = getFontMetrics();
 		final var charWidth = fontMetrics.charWidth(codePoint);
 		final var imageWidth = Math.max(charWidth, maxTileWidth);
 		var image = new BufferedImage(imageWidth, maxTileHeight, Transparency.TRANSLUCENT);
 
 		final var graphics = image.createGraphics();
-        this.applyRenderingHints(graphics, codePoint);
+		this.applyRenderingHints(graphics, codePoint);
 		graphics.setFont(font);
 
 		graphics.setColor(new Color(0, 0, 0, 0));
@@ -111,36 +175,86 @@ public class VFont {
 			image = sequentialOp.filter(image, null);
 		}
 
-		/*
-		 * Convert BufferedImage to VolatileImage for better performance.
-		 * VolatileImage provides hardware acceleration when available.
-		 *
-		 * When using multiple monitors, if the JFrame is dragged between them, the VolatileImages may appear black. To
-		 * resolve this issue, we check if the contents are lost and re-create them if necessary.
-		 */
+		return image;
+	}
+
+	/**
+	 * Returns a usable image for {@code entry}, preferring a {@link VolatileImage} matched to {@code gc}.
+	 *
+	 * <p>Handles the full VolatileImage lifecycle: creates one when missing, recreates it on {@link VolatileImage#IMAGE_INCOMPATIBLE}
+	 * or when the cached accelerated image was built for a different {@link GraphicsConfiguration}, and redraws it
+	 * from the source on {@link VolatileImage#IMAGE_RESTORED} or when contents are lost. If hardware acceleration is
+	 * unavailable, falls back to the {@link BufferedImage} source.</p>
+	 */
+	private Image acquireAccelerated(final GlyphEntry entry, final GraphicsConfiguration gc) {
 		try {
-			final var graphicsConfig = GraphicsEnvironment
+			var accelerated = entry.accelerated;
+			final var acceleratedGc = entry.acceleratedGc;
+
+			if (accelerated == null || acceleratedGc != gc) {
+				accelerated = createAccelerated(entry.source, gc);
+				entry.accelerated = accelerated;
+				entry.acceleratedGc = gc;
+				return accelerated;
+			}
+
+			final int status = accelerated.validate(gc);
+			if (status == VolatileImage.IMAGE_INCOMPATIBLE) {
+				accelerated = createAccelerated(entry.source, gc);
+				entry.accelerated = accelerated;
+				entry.acceleratedGc = gc;
+				return accelerated;
+			}
+
+			if (status == VolatileImage.IMAGE_RESTORED || accelerated.contentsLost()) {
+				redrawAccelerated(accelerated, entry.source);
+			}
+
+			return accelerated;
+		} catch (final Exception ignored) {
+			return entry.source;
+		}
+	}
+
+	/**
+	 * Creates a new {@link VolatileImage} sized to {@code source} and compatible with {@code gc}, then copies
+	 * {@code source} into it. The copy uses {@link AlphaComposite#Src} so transparent pixels do not accumulate from
+	 * whatever the accelerated backing buffer happened to contain.
+	 */
+	private VolatileImage createAccelerated(final BufferedImage source, final GraphicsConfiguration gc) {
+		final var volatileImage = gc.createCompatibleVolatileImage(
+			source.getWidth(),
+			source.getHeight(),
+			Transparency.TRANSLUCENT
+		);
+		redrawAccelerated(volatileImage, source);
+		return volatileImage;
+	}
+
+	/** Blits {@code source} onto {@code target} using {@link AlphaComposite#Src}. */
+	private void redrawAccelerated(final VolatileImage target, final BufferedImage source) {
+		final var graphics = target.createGraphics();
+		try {
+			graphics.setComposite(AlphaComposite.Src);
+			graphics.drawImage(source, 0, 0, null);
+		} finally {
+			graphics.dispose();
+		}
+	}
+
+	/**
+	 * Returns the default screen's {@link GraphicsConfiguration}, used when callers do not supply one.
+	 *
+	 * @return The default screen configuration, or {@code null} in headless environments.
+	 */
+	private GraphicsConfiguration defaultGraphicsConfiguration() {
+		try {
+			return GraphicsEnvironment
 				.getLocalGraphicsEnvironment()
 				.getDefaultScreenDevice()
 				.getDefaultConfiguration();
-
-			final var volatileImage = graphicsConfig.createCompatibleVolatileImage(
-				image.getWidth(),
-				image.getHeight(),
-				Transparency.TRANSLUCENT
-			);
-
-			final var volatileGraphics = volatileImage.createGraphics();
-			volatileGraphics.setComposite(AlphaComposite.Src);
-			volatileGraphics.drawImage(image, 0, 0, null);
-			volatileGraphics.dispose();
-
-			imageCache.put(hash, volatileImage);
-			return volatileImage;
-		} catch (final Exception e) {
-			// Fallback to BufferedImage if VolatileImage creation fails
-			imageCache.put(hash, image);
-			return image;
+		} catch (final Exception ignored) {
+			return null;
 		}
 	}
 
@@ -163,7 +277,7 @@ public class VFont {
 	private FontMetrics getFontMetrics() {
 		final var image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 		final var graphics = image.createGraphics();
-        this.applyRenderingHints(graphics, 0);
+		this.applyRenderingHints(graphics, 0);
 		graphics.setFont(font);
 
 		return graphics.getFontMetrics();

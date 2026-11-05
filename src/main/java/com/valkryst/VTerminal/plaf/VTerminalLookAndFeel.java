@@ -131,6 +131,27 @@ public class VTerminalLookAndFeel extends BasicLookAndFeel {
 		return vFont.generateImage(codePoint, color, sequentialOp);
 	}
 
+	/**
+	 * Generates a glyph image targeted at {@code component}'s current {@link GraphicsConfiguration}.
+	 *
+	 * <p>Supplying the painting component lets the font cache produce a {@link java.awt.image.VolatileImage} matched
+	 * to the display the component is being rendered on. This matters for HiDPI correctness and for avoiding
+	 * {@link java.awt.image.VolatileImage#IMAGE_INCOMPATIBLE} invalidations when a window is dragged between monitors
+	 * with different scales or color models.</p>
+	 *
+	 * @param codePoint Unicode code point to render.
+	 * @param color Foreground color.
+	 * @param sequentialOp Optional post-render image operation, may be {@code null}.
+	 * @param component Painting component whose {@link GraphicsConfiguration} the image should match. If {@code null}
+	 * 		or detached (not yet added to a container), the default-screen configuration is used.
+	 *
+	 * @return A glyph image, or {@code null} if the code point is whitespace or unrenderable by the font.
+	 */
+	public Image generateImage(final int codePoint, final Color color, final SequentialOp sequentialOp, final Component component) {
+		final var gc = component != null ? component.getGraphicsConfiguration() : null;
+		return vFont.generateImage(codePoint, color, sequentialOp, gc);
+	}
+
 	@Override
 	public String getDescription() {
 		return "The VTerminal look and feel.";

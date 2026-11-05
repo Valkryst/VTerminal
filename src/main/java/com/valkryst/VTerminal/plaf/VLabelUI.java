@@ -27,7 +27,7 @@ public class VLabelUI extends BasicLabelUI {
 			final var tileWidth = laf.getTileWidth();
 
 			for (int i = 0; i < text.length(); i++) {
-				final var image = laf.generateImage(text.charAt(i), foregroundColor, null);
+				final var image = laf.generateImage(text.charAt(i), foregroundColor, null, component);
 				graphics.drawImage(image, i * tileWidth, 0, null);
 			}
 		}

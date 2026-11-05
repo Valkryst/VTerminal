@@ -121,7 +121,7 @@ public class VPanel extends JPanel implements Scrollable {
 					final int codePoint = codePoints[tilesY][tilesX];
 					final var sequentialOp = sequentialImageOps[tilesY][tilesX];
 
-					final var image = laf.generateImage(codePoint, foregroundColor, sequentialOp);
+					final var image = laf.generateImage(codePoint, foregroundColor, sequentialOp, this);
 					if (image != null) {
 						graphics2D.drawImage(image, xPosition, yPosition, null);
 					}
