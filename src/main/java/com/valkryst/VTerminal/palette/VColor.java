@@ -88,12 +88,6 @@ public class VColor extends Color {
 	}
 
 	/**
-	 * Creates a tinted copy of this {@link VColor}, where a higher amount results in a lighter color.
-	 *
-	 * @param amount An amount to tint by.
-	 * @return A new {@link VColor}, with the specified amount of tinting applied.
-	 */
-	/**
 	 * Returns an opaque (alpha = 255) variant of this color, with the RGB components preserved. The result is memoized,
 	 * so repeated calls from rendering loops do not re-allocate.
 	 *
@@ -109,6 +103,12 @@ public class VColor extends Color {
 		return cached;
 	}
 
+	/**
+	 * Creates a tinted copy of this {@link VColor}, where a higher amount results in a lighter color.
+	 *
+	 * @param amount An amount to tint by.
+	 * @return A new {@link VColor}, with the specified amount of tinting applied.
+	 */
 	public VColor tint(final double amount) {
 		if (amount <= 0.0) {
 			return new VColor(this);

@@ -43,10 +43,18 @@ public class VFont {
 	 * happens it is recreated from {@code source}.</p>
 	 */
 	private static final class GlyphEntry {
+		/** Authoritative glyph pixels, used to (re)seed accelerated copies. */
 		final BufferedImage source;
+		/** Optional hardware-accelerated copy of {@link #source}; may be {@code null}, lost, or incompatible. */
 		volatile VolatileImage accelerated;
+		/** {@link GraphicsConfiguration} {@link #accelerated} was created for; used to detect display changes. */
 		volatile GraphicsConfiguration acceleratedGc;
 
+		/**
+		 * Constructs a new entry wrapping an authoritative glyph image.
+		 *
+		 * @param source Rendered glyph pixels; retained as the source of truth for recreating accelerated copies.
+		 */
 		GlyphEntry(final BufferedImage source) {
 			this.source = source;
 		}
@@ -145,6 +153,12 @@ public class VFont {
 	/**
 	 * Renders the authoritative {@link BufferedImage} for a glyph. The result is cached once per key and is reused to
 	 * (re)seed {@link VolatileImage} copies as they are created or restored.
+	 *
+	 * @param codePoint Unicode code point to render.
+	 * @param color Foreground color.
+	 * @param sequentialOp Optional post-render image operation, may be {@code null}.
+	 *
+	 * @return A newly rendered glyph image sized to {@link #maxTileWidth} x {@link #maxTileHeight}.
 	 */
 	private BufferedImage renderSource(final int codePoint, final Color color, final SequentialOp sequentialOp) {
 		final var charWidth = fontMetrics.charWidth(codePoint);
@@ -185,6 +199,11 @@ public class VFont {
 	 * or when the cached accelerated image was built for a different {@link GraphicsConfiguration}, and redraws it
 	 * from the source on {@link VolatileImage#IMAGE_RESTORED} or when contents are lost. If hardware acceleration is
 	 * unavailable, falls back to the {@link BufferedImage} source.</p>
+	 *
+	 * @param entry Cache entry whose accelerated copy should be returned or (re)built.
+	 * @param gc Target {@link GraphicsConfiguration} the image must be compatible with.
+	 *
+	 * @return A {@link VolatileImage} matched to {@code gc}, or {@code entry.source} if acceleration fails.
 	 */
 	private Image acquireAccelerated(final GlyphEntry entry, final GraphicsConfiguration gc) {
 		try {
@@ -220,6 +239,11 @@ public class VFont {
 	 * Creates a new {@link VolatileImage} sized to {@code source} and compatible with {@code gc}, then copies
 	 * {@code source} into it. The copy uses {@link AlphaComposite#Src} so transparent pixels do not accumulate from
 	 * whatever the accelerated backing buffer happened to contain.
+	 *
+	 * @param source Glyph pixels to copy into the accelerated image.
+	 * @param gc Target {@link GraphicsConfiguration} the new image must be compatible with.
+	 *
+	 * @return A newly created {@link VolatileImage} seeded with {@code source}.
 	 */
 	private VolatileImage createAccelerated(final BufferedImage source, final GraphicsConfiguration gc) {
 		final var volatileImage = gc.createCompatibleVolatileImage(
@@ -231,7 +255,12 @@ public class VFont {
 		return volatileImage;
 	}
 
-	/** Blits {@code source} onto {@code target} using {@link AlphaComposite#Src}. */
+	/**
+	 * Blits {@code source} onto {@code target} using {@link AlphaComposite#Src}.
+	 *
+	 * @param target {@link VolatileImage} to redraw into.
+	 * @param source Glyph pixels to copy onto {@code target}.
+	 */
 	private void redrawAccelerated(final VolatileImage target, final BufferedImage source) {
 		final var graphics = target.createGraphics();
 		try {
