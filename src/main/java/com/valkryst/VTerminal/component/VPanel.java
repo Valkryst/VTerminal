@@ -103,13 +103,8 @@ public class VPanel extends JPanel implements Scrollable {
 				var foregroundColor = foregroundColors[tilesY][tilesX];
 
 				if (super.isOpaque()) {
-					if (backgroundColor.getAlpha() != 255) {
-						backgroundColor = new Color(backgroundColor.getRGB(), false);
-					}
-
-					if (foregroundColor.getAlpha() != 255) {
-						foregroundColor = new Color(foregroundColor.getRGB(), false);
-					}
+					backgroundColor = ((VColor) backgroundColor).opaque();
+					foregroundColor = ((VColor) foregroundColor).opaque();
 				}
 
 				if (backgroundColor.getAlpha() > 0) {

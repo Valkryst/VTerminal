@@ -23,6 +23,7 @@ public class VFont {
 	@Getter private final int maxTileWidth;
 	@Getter private final int maxTileHeight;
 	private final int fontAscent;
+	private final FontMetrics fontMetrics;
 
 	/**
 	 * Cache key identifying a rendered glyph.
@@ -61,7 +62,7 @@ public class VFont {
 							 .expireAfterAccess(5, TimeUnit.MINUTES)
 							 .build();
 
-		final var fontMetrics = getFontMetrics();
+		fontMetrics = computeFontMetrics();
 		maxTileWidth = fontMetrics.charWidth('A');
 		maxTileHeight = fontMetrics.getHeight();
 		fontAscent = fontMetrics.getAscent();
@@ -146,7 +147,6 @@ public class VFont {
 	 * (re)seed {@link VolatileImage} copies as they are created or restored.
 	 */
 	private BufferedImage renderSource(final int codePoint, final Color color, final SequentialOp sequentialOp) {
-		final var fontMetrics = getFontMetrics();
 		final var charWidth = fontMetrics.charWidth(codePoint);
 		final var imageWidth = Math.max(charWidth, maxTileWidth);
 		var image = new BufferedImage(imageWidth, maxTileHeight, Transparency.TRANSLUCENT);
@@ -274,12 +274,20 @@ public class VFont {
 				(unicodeBlock == Character.UnicodeBlock.GEOMETRIC_SHAPES_EXTENDED);
 	}
 
-	private FontMetrics getFontMetrics() {
+	/**
+	 * Computes the {@link FontMetrics} for {@link #font} using a transient 1x1 off-screen {@link Graphics2D}. Called
+	 * once from the constructor; the result is cached in {@link #fontMetrics} for reuse on every glyph render.
+	 *
+	 * @return {@link FontMetrics} for {@link #font} under the project's standard rendering hints.
+	 */
+	private FontMetrics computeFontMetrics() {
 		final var image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 		final var graphics = image.createGraphics();
 		this.applyRenderingHints(graphics, 0);
 		graphics.setFont(font);
 
-		return graphics.getFontMetrics();
+		final var metrics = graphics.getFontMetrics();
+		graphics.dispose();
+		return metrics;
 	}
 }

@@ -8,6 +8,13 @@ import java.awt.color.ColorSpace;
 /** An extension of the {@link Color} class, which provides additional functionality. */
 public class VColor extends Color {
 	/**
+	 * Lazily initialized opaque (alpha = 255) variant of this color, cached to avoid per-paint {@link Color} allocations
+	 * in rendering hot paths. {@code null} until {@link #opaque()} is first called; a reference to {@code this} when the
+	 * color is already opaque.
+	 */
+	private transient volatile VColor opaque;
+
+	/**
 	 * Constructs a new {@link VColor}, copying the RGBA components of a given {@link Color}.
 	 *
 	 * @param color {@link Color} to copy the RGBA components from.
@@ -86,6 +93,22 @@ public class VColor extends Color {
 	 * @param amount An amount to tint by.
 	 * @return A new {@link VColor}, with the specified amount of tinting applied.
 	 */
+	/**
+	 * Returns an opaque (alpha = 255) variant of this color, with the RGB components preserved. The result is memoized,
+	 * so repeated calls from rendering loops do not re-allocate.
+	 *
+	 * @return {@code this} when this color is already opaque; otherwise a cached {@link VColor} with alpha forced to 255.
+	 */
+	public VColor opaque() {
+		var cached = opaque;
+		if (cached != null) {
+			return cached;
+		}
+		cached = (super.getAlpha() == 255) ? this : new VColor(super.getRed(), super.getGreen(), super.getBlue());
+		opaque = cached;
+		return cached;
+	}
+
 	public VColor tint(final double amount) {
 		if (amount <= 0.0) {
 			return new VColor(this);
