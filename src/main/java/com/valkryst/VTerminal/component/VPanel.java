@@ -79,27 +79,34 @@ public class VPanel extends JPanel implements Scrollable {
 		 * on every paint, it is performant to redraw only those tiles that
 		 * will appear within the bounds.
 		 */
-		final var clipBounds = graphics2D.getClip().getBounds2D();
+		final var clipBounds = graphics2D.getClipBounds();
+		final int clipX = clipBounds.x;
+		final int clipY = clipBounds.y;
+		final int clipWidth = clipBounds.width;
+		final int clipHeight = clipBounds.height;
 
-		final int tilesStartX = (int) (clipBounds.getX() / tileWidth);
-		final int tilesStartY = (int) (clipBounds.getY() / tileHeight);
-		int tilesEndX = (int) Math.ceil((clipBounds.getX() + clipBounds.getWidth()) / (double) tileWidth);
-		tilesEndX = Math.min(codePoints[0].length, tilesEndX);
-		int tilesEndY = (int) Math.ceil((clipBounds.getY() + clipBounds.getHeight()) / (double) tileHeight);
-		tilesEndY = Math.min(codePoints.length, tilesEndY);
+		final int tilesStartX = clipX / tileWidth;
+		final int tilesStartY = clipY / tileHeight;
+		final int tilesEndX = Math.min(codePoints[0].length, (clipX + clipWidth + tileWidth - 1) / tileWidth);
+		final int tilesEndY = Math.min(codePoints.length, (clipY + clipHeight + tileHeight - 1) / tileHeight);
 
 		/*
 		 * To ensure the clip region is fully repainted and that no visual
 		 * artifacts remain after the paint, we must round down to the
 		 * coordinates of the nearest tile and start painting from there.
 		 */
-		final int initialXPosition = (int) (clipBounds.getX() - (clipBounds.getX() % tileWidth));
+		final int initialXPosition = clipX - (clipX % tileWidth);
 		int xPosition = initialXPosition;
-		int yPosition = (int) (clipBounds.getY() - (clipBounds.getY() % tileHeight));
+		int yPosition = clipY - (clipY % tileHeight);
 
 		final boolean opaque = super.isOpaque();
 
 		for (int tilesY = tilesStartY ; tilesY < tilesEndY ; tilesY++) {
+			final int[] codePointRow = codePoints[tilesY];
+			final Color[] backgroundRow = backgroundColors[tilesY];
+			final Color[] foregroundRow = foregroundColors[tilesY];
+			final SequentialOp[] sequentialOpRow = sequentialImageOps[tilesY];
+
 			/*
 			 * Pass 1: fill backgrounds, coalescing consecutive tiles that share the same color into a single
 			 * fillRect call. Each fillRect under the X11 XRender pipeline is an individual server round-trip,
@@ -112,7 +119,7 @@ public class VPanel extends JPanel implements Scrollable {
 			xPosition = initialXPosition;
 
 			for (int tilesX = tilesStartX ; tilesX < tilesEndX ; tilesX++) {
-				var backgroundColor = backgroundColors[tilesY][tilesX];
+				var backgroundColor = backgroundRow[tilesX];
 				if (opaque) {
 					backgroundColor = ((VColor) backgroundColor).opaque();
 				}
@@ -152,14 +159,14 @@ public class VPanel extends JPanel implements Scrollable {
 			 */
 			xPosition = initialXPosition;
 			for (int tilesX = tilesStartX ; tilesX < tilesEndX ; tilesX++) {
-				var foregroundColor = foregroundColors[tilesY][tilesX];
+				var foregroundColor = foregroundRow[tilesX];
 				if (opaque) {
 					foregroundColor = ((VColor) foregroundColor).opaque();
 				}
 
 				if (foregroundColor.getAlpha() > 0) {
-					final int codePoint = codePoints[tilesY][tilesX];
-					final var sequentialOp = sequentialImageOps[tilesY][tilesX];
+					final int codePoint = codePointRow[tilesX];
+					final var sequentialOp = sequentialOpRow[tilesX];
 
 					final var image = laf.generateImage(codePoint, foregroundColor, sequentialOp, this);
 					if (image != null) {
