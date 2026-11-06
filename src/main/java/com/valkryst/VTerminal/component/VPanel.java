@@ -322,7 +322,7 @@ public class VPanel extends JPanel implements Scrollable {
 		}
 
 		if (!backgroundColors[y][x].equals(color)) {
-			backgroundColors[y][x] = new VColor(color);
+			backgroundColors[y][x] = (color instanceof VColor vc) ? vc : new VColor(color);
             this.repaintTile(x, y);
 		}
 	}
@@ -383,7 +383,7 @@ public class VPanel extends JPanel implements Scrollable {
 		}
 
 		if (!foregroundColors[y][x].equals(color)) {
-			foregroundColors[y][x] = new VColor(color);
+			foregroundColors[y][x] = (color instanceof VColor vc) ? vc : new VColor(color);
             this.repaintTile(x, y);
 		}
 	}
