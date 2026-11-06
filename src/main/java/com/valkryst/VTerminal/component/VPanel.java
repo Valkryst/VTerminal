@@ -97,19 +97,64 @@ public class VPanel extends JPanel implements Scrollable {
 		int xPosition = initialXPosition;
 		int yPosition = (int) (clipBounds.getY() - (clipBounds.getY() % tileHeight));
 
+		final boolean opaque = super.isOpaque();
+
 		for (int tilesY = tilesStartY ; tilesY < tilesEndY ; tilesY++) {
+			/*
+			 * Pass 1: fill backgrounds, coalescing consecutive tiles that share the same color into a single
+			 * fillRect call. Each fillRect under the X11 XRender pipeline is an individual server round-trip,
+			 * so merging runs sharply reduces the per-frame call count when neighboring tiles share a color
+			 * (which is the common case for empty regions, backdrops, and uniformly-colored UI panels).
+			 */
+			Color runColor = null;
+			int runStartPixelX = 0;
+			int runTileCount = 0;
+			xPosition = initialXPosition;
+
 			for (int tilesX = tilesStartX ; tilesX < tilesEndX ; tilesX++) {
 				var backgroundColor = backgroundColors[tilesY][tilesX];
-				var foregroundColor = foregroundColors[tilesY][tilesX];
-
-				if (super.isOpaque()) {
+				if (opaque) {
 					backgroundColor = ((VColor) backgroundColor).opaque();
-					foregroundColor = ((VColor) foregroundColor).opaque();
 				}
 
 				if (backgroundColor.getAlpha() > 0) {
-					graphics2D.setColor(backgroundColor);
-					graphics2D.fillRect(xPosition, yPosition, tileWidth, tileHeight);
+					if (runColor == null) {
+						runColor = backgroundColor;
+						runStartPixelX = xPosition;
+						runTileCount = 1;
+					} else if (runColor.equals(backgroundColor)) {
+						runTileCount++;
+					} else {
+						graphics2D.setColor(runColor);
+						graphics2D.fillRect(runStartPixelX, yPosition, runTileCount * tileWidth, tileHeight);
+						runColor = backgroundColor;
+						runStartPixelX = xPosition;
+						runTileCount = 1;
+					}
+				} else if (runColor != null) {
+					graphics2D.setColor(runColor);
+					graphics2D.fillRect(runStartPixelX, yPosition, runTileCount * tileWidth, tileHeight);
+					runColor = null;
+					runTileCount = 0;
+				}
+
+				xPosition += tileWidth;
+			}
+
+			if (runColor != null) {
+				graphics2D.setColor(runColor);
+				graphics2D.fillRect(runStartPixelX, yPosition, runTileCount * tileWidth, tileHeight);
+			}
+
+			/*
+			 * Pass 2: draw glyph foregrounds on top of the filled backgrounds. Kept separate from pass 1 so
+			 * that a batched background fill never overwrites glyphs drawn earlier in the same row.
+			 */
+			xPosition = initialXPosition;
+			for (int tilesX = tilesStartX ; tilesX < tilesEndX ; tilesX++) {
+				var foregroundColor = foregroundColors[tilesY][tilesX];
+				if (opaque) {
+					foregroundColor = ((VColor) foregroundColor).opaque();
 				}
 
 				if (foregroundColor.getAlpha() > 0) {
