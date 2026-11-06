@@ -70,6 +70,13 @@ public class VPanel extends JPanel implements Scrollable {
 		final var tileHeight = laf.getTileHeight();
 
 		/*
+		 * Resolve the GraphicsConfiguration once per paint instead of on every per-tile generateImage call.
+		 * Component.getGraphicsConfiguration() walks up to the heavyweight peer to answer, so hoisting it out
+		 * of the inner tile loop removes that walk from the hot path.
+		 */
+		final var graphicsConfiguration = this.getGraphicsConfiguration();
+
+		/*
 		 * For the VPanel to remain performant in a variety of situations, it is
 		 * important that this paint method performs a minimal number of
 		 * operations.
@@ -168,7 +175,7 @@ public class VPanel extends JPanel implements Scrollable {
 					final int codePoint = codePointRow[tilesX];
 					final var sequentialOp = sequentialOpRow[tilesX];
 
-					final var image = laf.generateImage(codePoint, foregroundColor, sequentialOp, this);
+					final var image = laf.generateImage(codePoint, foregroundColor, sequentialOp, graphicsConfiguration);
 					if (image != null) {
 						graphics2D.drawImage(image, xPosition, yPosition, null);
 					}
