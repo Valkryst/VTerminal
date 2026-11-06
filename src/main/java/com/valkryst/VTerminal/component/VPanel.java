@@ -264,6 +264,9 @@ public class VPanel extends JPanel implements Scrollable {
 	/**
 	 * Changes the background color of a given tile.
 	 *
+	 * <p>If the new color differs from the tile's current background, the tile region is marked dirty via
+	 * {@link #repaint(int, int, int, int)} so that only changed tiles are re-rendered on the next paint.</p>
+	 *
 	 * @param x X-Axis coordinate of the tile.
 	 * @param y Y-Axis coordinate of the tile.
 	 * @param color A new color.
@@ -275,11 +278,15 @@ public class VPanel extends JPanel implements Scrollable {
 
 		if (!backgroundColors[y][x].equals(color)) {
 			backgroundColors[y][x] = new VColor(color);
+            this.repaintTile(x, y);
 		}
 	}
 
 	/**
 	 * Changes the code point (Unicode character) of a given tile.
+	 *
+	 * <p>If the new code point differs from the tile's current one, the tile region is marked dirty via
+	 * {@link #repaint(int, int, int, int)} so that only changed tiles are re-rendered on the next paint.</p>
 	 *
 	 * @param x X-Axis coordinate of the tile.
 	 * @param y Y-Axis coordinate of the tile.
@@ -288,6 +295,7 @@ public class VPanel extends JPanel implements Scrollable {
 	public void setCodePointAt(final int x, final int y, final int codePoint) {
 		if (codePoints[y][x] != codePoint) {
 			codePoints[y][x] = codePoint;
+            this.repaintTile(x, y);
 		}
 	}
 
@@ -317,6 +325,9 @@ public class VPanel extends JPanel implements Scrollable {
 	/**
 	 * Changes the foreground color of a given tile.
 	 *
+	 * <p>If the new color differs from the tile's current foreground, the tile region is marked dirty via
+	 * {@link #repaint(int, int, int, int)} so that only changed tiles are re-rendered on the next paint.</p>
+	 *
 	 * @param x X-Axis coordinate of the tile.
 	 * @param y Y-Axis coordinate of the tile.
 	 * @param color A new color.
@@ -328,20 +339,42 @@ public class VPanel extends JPanel implements Scrollable {
 
 		if (!foregroundColors[y][x].equals(color)) {
 			foregroundColors[y][x] = new VColor(color);
+            this.repaintTile(x, y);
 		}
 	}
 
 	/**
 	 * Changes the sequential image operation of a given tile.
 	 *
-	 * If the sequential image operation is null, then no operations will be
-	 * performed on the tile.
+	 * <p>If the sequential image operation is null, then no operations will be performed on the tile.</p>
+	 *
+	 * <p>If the new operation is a different reference from the tile's current one, the tile region is marked dirty
+	 * via {@link #repaint(int, int, int, int)} so that only changed tiles are re-rendered on the next paint.</p>
 	 *
 	 * @param x X-Axis coordinate of the tile.
 	 * @param y Y-Axis coordinate of the tile.
 	 * @param sequentialOp A new sequential image operation, or null.
 	 */
 	public void setSequentialImageOpAt(final int x, final int y, final SequentialOp sequentialOp) {
-		sequentialImageOps[y][x] = sequentialOp;
+		if (sequentialImageOps[y][x] != sequentialOp) {
+			sequentialImageOps[y][x] = sequentialOp;
+            this.repaintTile(x, y);
+		}
+	}
+
+	/**
+	 * Marks a single tile's screen region as dirty, so that the next paint cycle only re-renders that tile.
+	 *
+	 * <p>Multiple calls are coalesced by Swing's {@link javax.swing.RepaintManager}, so flagging several tiles
+	 * in quick succession results in a single paint event with a clip covering the union of those tiles.</p>
+	 *
+	 * @param tileX X-Axis coordinate of the tile.
+	 * @param tileY Y-Axis coordinate of the tile.
+	 */
+	private void repaintTile(final int tileX, final int tileY) {
+		final var laf = VTerminalLookAndFeel.getInstance();
+		final int tileWidth = laf.getTileWidth();
+		final int tileHeight = laf.getTileHeight();
+        this.repaint(tileX * tileWidth, tileY * tileHeight, tileWidth, tileHeight);
 	}
 }
