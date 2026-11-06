@@ -14,6 +14,21 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
+import static java.awt.RenderingHints.KEY_ALPHA_INTERPOLATION;
+import static java.awt.RenderingHints.KEY_ANTIALIASING;
+import static java.awt.RenderingHints.KEY_DITHERING;
+import static java.awt.RenderingHints.KEY_INTERPOLATION;
+import static java.awt.RenderingHints.KEY_RENDERING;
+import static java.awt.RenderingHints.KEY_STROKE_CONTROL;
+import static java.awt.RenderingHints.KEY_TEXT_ANTIALIASING;
+import static java.awt.RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY;
+import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
+import static java.awt.RenderingHints.VALUE_DITHER_ENABLE;
+import static java.awt.RenderingHints.VALUE_INTERPOLATION_BICUBIC;
+import static java.awt.RenderingHints.VALUE_RENDER_QUALITY;
+import static java.awt.RenderingHints.VALUE_STROKE_PURE;
+import static java.awt.RenderingHints.VALUE_TEXT_ANTIALIAS_ON;
+
 public class VTerminalLookAndFeel extends BasicLookAndFeel {
 	/**
 	 * Client property key for per-component high-quality rendering toggle.
@@ -33,6 +48,22 @@ public class VTerminalLookAndFeel extends BasicLookAndFeel {
 
 	/** Global default for high-quality rendering. {@code true} unless changed via {@link #enableHighQualityRendering(boolean)}. */
 	private static volatile boolean highQualityRenderingDefault = true;
+
+	/**
+	 * Cached snapshot of the desktop font rendering hints (e.g. LCD subpixel settings) published by the AWT
+	 * {@link Toolkit} under the {@code awt.font.desktophints} property.
+	 *
+	 * <p>Fetched once at class initialization and refreshed by a {@link java.beans.PropertyChangeListener} on the
+	 * {@link Toolkit}, so that {@link #setRenderingHints(Graphics)} can apply them per paint without repeatedly
+	 * querying the toolkit or triggering an internal map copy inside {@link Graphics2D#setRenderingHints(Map)}.</p>
+	 */
+	private static volatile Map<?, ?> cachedDesktopHints;
+
+	static {
+		final var toolkit = Toolkit.getDefaultToolkit();
+		cachedDesktopHints = (Map<?, ?>) toolkit.getDesktopProperty("awt.font.desktophints");
+		toolkit.addPropertyChangeListener("awt.font.desktophints", evt -> cachedDesktopHints = (Map<?, ?>) evt.getNewValue());
+	}
 
 	/** The singleton instance. */
 	private static VTerminalLookAndFeel instance;
@@ -313,19 +344,25 @@ public class VTerminalLookAndFeel extends BasicLookAndFeel {
 	public static Graphics2D setRenderingHints(final @NonNull Graphics graphics) {
 		final var graphics2D = (Graphics2D) graphics;
 
-		// Automatically detect the best text rendering settings and apply them.
-		final var desktopHints = (Map<?, ?>) Toolkit.getDefaultToolkit().getDesktopProperty("awt.font.desktophints");
+		/*
+		 * Apply the desktop font hints entry-by-entry rather than via setRenderingHints(Map). The bulk form
+		 * internally copies the map (allocating a HashSet of entries per call), which becomes a per-paint
+		 * allocation on every UI delegate. Iterating the cached entry set avoids that copy entirely.
+		 */
+		final var desktopHints = cachedDesktopHints;
 		if (desktopHints != null) {
-			graphics2D.setRenderingHints(desktopHints);
+			for (final var entry : desktopHints.entrySet()) {
+				graphics2D.setRenderingHint((RenderingHints.Key) entry.getKey(), entry.getValue());
+			}
 		}
-		
-		graphics2D.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-		graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		graphics2D.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
-		graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-		graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-		graphics2D.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
-		graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+		graphics2D.setRenderingHint(KEY_ALPHA_INTERPOLATION, VALUE_ALPHA_INTERPOLATION_QUALITY);
+		graphics2D.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
+		graphics2D.setRenderingHint(KEY_DITHERING, VALUE_DITHER_ENABLE);
+		graphics2D.setRenderingHint(KEY_INTERPOLATION, VALUE_INTERPOLATION_BICUBIC);
+		graphics2D.setRenderingHint(KEY_RENDERING, VALUE_RENDER_QUALITY);
+		graphics2D.setRenderingHint(KEY_STROKE_CONTROL, VALUE_STROKE_PURE);
+		graphics2D.setRenderingHint(KEY_TEXT_ANTIALIASING, VALUE_TEXT_ANTIALIAS_ON);
 
 		return graphics2D;
 	}
