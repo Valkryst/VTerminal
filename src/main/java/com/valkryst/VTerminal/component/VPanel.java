@@ -11,9 +11,9 @@ public class VPanel extends JPanel implements Scrollable {
 	/** Code point of each tile. */
 	private final int[][] codePoints;
 	/** Background color of each tile. */
-	private final Color[][] backgroundColors;
+	private final VColor[][] backgroundColors;
 	/** Foreground color of each tile. */
-	private final Color[][] foregroundColors;
+	private final VColor[][] foregroundColors;
 	/** Sequential image operation of each tile. */
 	private final SequentialOp[][] sequentialImageOps;
 
@@ -33,8 +33,8 @@ public class VPanel extends JPanel implements Scrollable {
 		}
 
 		codePoints = new int[heightInTiles][widthInTiles];
-		backgroundColors = new Color[heightInTiles][widthInTiles];
-		foregroundColors = new Color[heightInTiles][widthInTiles];
+		backgroundColors = new VColor[heightInTiles][widthInTiles];
+		foregroundColors = new VColor[heightInTiles][widthInTiles];
 		sequentialImageOps = new SequentialOp[heightInTiles][widthInTiles];
 
 		final var backgroundColor = super.getBackground();
@@ -103,8 +103,8 @@ public class VPanel extends JPanel implements Scrollable {
 
 		for (int tilesY = tilesStartY ; tilesY < tilesEndY ; tilesY++) {
 			final int[] codePointRow = codePoints[tilesY];
-			final Color[] backgroundRow = backgroundColors[tilesY];
-			final Color[] foregroundRow = foregroundColors[tilesY];
+			final VColor[] backgroundRow = backgroundColors[tilesY];
+			final VColor[] foregroundRow = foregroundColors[tilesY];
 			final SequentialOp[] sequentialOpRow = sequentialImageOps[tilesY];
 
 			/*
@@ -113,15 +113,15 @@ public class VPanel extends JPanel implements Scrollable {
 			 * so merging runs sharply reduces the per-frame call count when neighboring tiles share a color
 			 * (which is the common case for empty regions, backdrops, and uniformly-colored UI panels).
 			 */
-			Color runColor = null;
+			VColor runColor = null;
 			int runStartPixelX = 0;
 			int runTileCount = 0;
 			xPosition = initialXPosition;
 
 			for (int tilesX = tilesStartX ; tilesX < tilesEndX ; tilesX++) {
-				var backgroundColor = backgroundRow[tilesX];
+				VColor backgroundColor = backgroundRow[tilesX];
 				if (opaque) {
-					backgroundColor = ((VColor) backgroundColor).opaque();
+					backgroundColor = backgroundColor.opaque();
 				}
 
 				if (backgroundColor.getAlpha() > 0) {
@@ -159,9 +159,9 @@ public class VPanel extends JPanel implements Scrollable {
 			 */
 			xPosition = initialXPosition;
 			for (int tilesX = tilesStartX ; tilesX < tilesEndX ; tilesX++) {
-				var foregroundColor = foregroundRow[tilesX];
+				VColor foregroundColor = foregroundRow[tilesX];
 				if (opaque) {
-					foregroundColor = ((VColor) foregroundColor).opaque();
+					foregroundColor = foregroundColor.opaque();
 				}
 
 				if (foregroundColor.getAlpha() > 0) {
